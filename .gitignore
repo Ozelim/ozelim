@@ -10,6 +10,8 @@ lerna-debug.log*
 pocketbase 
 pb_data
 
+node_modules
+
 dist
 dist-ssr
 *.local
