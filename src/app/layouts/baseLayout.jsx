@@ -1,8 +1,12 @@
 import { Layout } from "shared/ui";
+import { Footer } from "widgets/Footer";
+import { Header } from "widgets/Header";
+import { SubHeader } from "widgets/SubHeader";
 
 export const baseLayout = (
   <Layout
-    headerSlot={<div>Header</div>}
-    footerSlot={<div>Footer</div>}
+    subheaderSlot={<SubHeader/>}
+    headerSlot={<Header/>}
+    footerSlot={<Footer/>}
   />
 )

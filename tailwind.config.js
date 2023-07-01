@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
+import theme from 'tailwindcss/defaultTheme'
 import colors from 'tailwindcss/colors' 
 
 export default {
@@ -15,13 +16,19 @@ export default {
       },
       container: {
         center: true, 
-        padding: '0.75rem'
+        padding: '0.75rem',
+        screens: {
+          '2xl': theme.screens.xl
+        }
       },
       colors: {
         primary: colors.teal,
         secondary: colors.yellow,
         accent: colors.lime
       },
+      borderRadius: {
+        primary: theme.borderRadius['2xl']
+      }
     },
   },
   plugins: [],
