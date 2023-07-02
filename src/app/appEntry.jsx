@@ -9,7 +9,7 @@ import { appRouter } from './appRouter'
 
 const cache = createEmotionCache({
   key: 'mantine',
-  prepend: true
+  prepend: false
 })
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -18,6 +18,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       withGlobalStyles
       withCSSVariables
       emotionCache={cache}
+      theme={{
+        primaryColor: 'teal',
+        primaryShade: 5,
+        defaultRadius: 'md',
+      }}
     >
       <ModalsProvider>
         <RouterProvider router={appRouter}/>
