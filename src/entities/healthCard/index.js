@@ -1,0 +1,1 @@
+export { Card as HealthCard } from './ui/Card'

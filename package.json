@@ -45,7 +45,6 @@
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react-swc": "^3.0.0",
     "autoprefixer": "^10.4.14",
-    "clsx": "^1.2.1",
     "concurrently": "^8.2.0",
     "embla-carousel-autoplay": "^7.1.0",
     "eslint": "^8.38.0",
@@ -53,6 +52,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.3.4",
     "postcss": "^8.4.24",
+    "react-icons": "^4.10.1",
     "tailwindcss": "^3.3.2",
     "vite": "^4.3.9",
     "vite-jsconfig-paths": "^2.0.1"

@@ -20,7 +20,7 @@ const appRouter = createBrowserRouter([
     {path: '/resorts', element: <Resorts/>},
     {path: '/courses', element: <Courses/>},
     {path: '/about', element: <About/>},
-    {path: '/signup/:id', element: <Signup/>},
+    {path: '/signup', element: <Signup/>},
     {path: '*', element: <NotFound/>},
   ]}
 ])
