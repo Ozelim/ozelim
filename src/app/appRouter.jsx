@@ -1,7 +1,19 @@
-
 import { createBrowserRouter } from "react-router-dom";
-
-import { About, Bids, CharityFund, Courses, Health, Home, News, OurTeam, Partners, Profile, Program, Resort, Resorts, Price } from "pages";
+import { About, 
+  Bids, 
+  CharityFund, 
+  Courses, 
+  Health, 
+  Home, 
+  News,
+  OurTeam, 
+  Partners, 
+  Profile, 
+  Program, 
+  Resort, 
+  Resorts, 
+  Price 
+} from "pages";
 import { baseLayout } from "./layouts/baseLayout";
 
 const appRouter = createBrowserRouter([

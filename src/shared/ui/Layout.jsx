@@ -6,7 +6,7 @@ export const Layout = ({headerSlot, footerSlot}) => {
     <div className='grid grid-rows-[auto_1fr_auto] min-h-screen'>
       {headerSlot}
       <Outlet/>
-      {footerSlot}
+      {footerSlot}            
     </div>
   )
 }
