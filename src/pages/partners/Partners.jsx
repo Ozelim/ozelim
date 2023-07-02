@@ -1,7 +1,13 @@
 import { PartnersCard } from 'entities/partnerCard'
 import React from 'react'
+import { useSearchParams } from 'react-router-dom'
 
 export const Partners = () => {
+
+  let [searchParams, setSearchParams] = useSearchParams()
+
+  console.log(searchParams.get('id'));
+
   return (
     <div className='w-full'>
       <div className="container">

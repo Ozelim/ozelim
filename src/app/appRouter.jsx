@@ -1,7 +1,7 @@
 
 import { createBrowserRouter } from "react-router-dom";
 
-import { About, Bids, CharityFund, Courses, Health, Home, News, OurTeam, Partners, Profile, Program, Resort, Resorts, Price } from "pages";
+import { About, Bids, CharityFund, Courses, Health, Home, News, OurTeam, Partners, Profile, Program, Resort, Resorts, Price, Signup, NotFound } from "pages";
 import { baseLayout } from "./layouts/baseLayout";
 
 const appRouter = createBrowserRouter([
@@ -20,6 +20,8 @@ const appRouter = createBrowserRouter([
     {path: '/resorts', element: <Resorts/>},
     {path: '/courses', element: <Courses/>},
     {path: '/about', element: <About/>},
+    {path: '/signup/:id', element: <Signup/>},
+    {path: '*', element: <NotFound/>},
   ]}
 ])
 
