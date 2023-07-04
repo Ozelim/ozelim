@@ -3,3 +3,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+*{
+    font-family: 'Roboto', sans-serif;
+}
+    
+@layer components {
+    .heading {
+        @apply text-3xl md:text-5xl font-semibold font-head
+    }
+
+    .text {
+        @apply text-slate-500 tracking-wider
+    }
+}
+
