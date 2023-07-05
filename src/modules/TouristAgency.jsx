@@ -9,7 +9,7 @@ export const TouristAgency = () => {
           Откройте свое туристическое агентство «Поехали с нами»!
         </h1>
         <div className="flex max-w-sm mt-5">
-          <FcInfo className="w-20 h-20 mr-3" />
+          <FcInfo className="w-20 h-20 mr-3 flex-shrink-0" />
           <div>
             <h3 className="text-2xl text-[#2b3641]">Небольшие инвестиции</h3>
             <p className="mt-2">
@@ -19,7 +19,7 @@ export const TouristAgency = () => {
           </div>
         </div>
         <div className="flex  max-w-sm mt-5 ">
-          <FcInfo className="w-20 h-20 mr-3" />
+          <FcInfo className="w-20 h-20 mr-3 flex-shrink-0" />
           <div>
             <h3 className="text-2xl text-[#2b3641]">Успешный бизнес</h3>
             <p className="mt-2">
@@ -28,7 +28,7 @@ export const TouristAgency = () => {
           </div>
         </div>
         <div className="flex  max-w-sm mt-5">
-          <FcInfo className="w-20 h-20 mr-3" />
+          <FcInfo className="w-20 h-20 mr-3 flex-shrink-0" />
           <div>
             <h3 className="text-2xl text-[#2b3641]">Легкий старт</h3>
             <p className="mt-2">
