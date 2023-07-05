@@ -23,24 +23,25 @@ export const Home = () => {
 
   return (
     <div className='space-y-20'>
-      <Results/>
-      <NewFormat/>
-      <HaveQuestions/>
-      <OnlineCourseManager/>
-      <JobTeachPractice/>
-      <CourseUsefulFor/>
-      <WhyOurCourse/>
-      <CourseAbout/>
-      <TeachingProgram/>
-      <TeachPacks/>
-      <TeachComfort/>
-      <OurPartners/>
-      <CuratorCourse/>
-      <TourWeb/>
+      {/* <Results/> */}
+      {/* <NewFormat/> */}
+      {/* <HaveQuestions/> */}
+      {/* <OnlineCourseManager/> */}
+      {/* <JobTeachPractice/> */}
+      {/* <CourseUsefulFor/> */}
+      {/* <WhyOurCourse/> */}
+      {/* <CourseAbout/> */}
+      {/* <TeachingProgram/> */}
+      {/* <TeachPacks/> */}
+      {/* <TeachComfort/> */}
+      {/* <OurPartners/> */}
+      {/* <CuratorCourse/> */}
+      {/* <TourWeb/> */}
+
       <BuyFranchise/> 
       <Franchise/>
-      <TouristAgency/>
-      <TourOperators/>
+      {/* <TouristAgency/> */}
+      {/* <TourOperators/> */}
       <VacationPlan/>
     </div>
   )

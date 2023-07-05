@@ -13,7 +13,7 @@ export const NewFormat = () => {
           <p className='text mt-6'>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis ad neque nemo delectus commodi porro expedita distinctio vero aut placeat.
           </p>
-          <div className='grid grid-cols-3 gap-4 mt-8'>
+          <div className='grid grid-cols-1 md:grid-cols-3 gap-4 mt-8'>
             <div className='space-y-4'>
               <FcInfo className='text-5xl'/>
               <h3 className='text-xl font-semibold'>Lorem, ipsum.</h3>

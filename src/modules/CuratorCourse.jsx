@@ -5,18 +5,18 @@ export const CuratorCourse = () => {
   return (
     <div className='w-full'>
       <div className="container">
-        <div className="grid grid-cols-[35%_auto]">
+        <div className="grid lg:grid-cols-[35%_auto] bg-slate-100 p-4 rounded-primary">
           <div>
             <h1 className="heading">Lorem, ipsum.</h1>
-            <p className="text mt-4 text-lg">Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+            <p className="text mt-2 lg:mt-4 text-lg">Lorem ipsum dolor sit amet consectetur adipisicing.</p>
           </div>
-          <div className='shadow-md p-4 rounded-primary bg-primary-50 flex gap-8'>
-            <div className='aspect-square rounded-primary w-80 h-72 bg-primary-500'/>
+          <div className='mt-4 lg:mt-0 shadow-md p-4 rounded-primary flex flex-col sm:flex-row gap-4 lg:gap-8 bg-white'>
+            <div className='aspect-square rounded-primary sm:w-80 sm:h-72 bg-primary-500'/>
             <div>
               <h4 className='text-2xl font-head'>Lorem, ipsum.</h4>
               <p className='mt-2 text-lg'>Lorem, ipsum dolor.</p>
 
-              <p className="text mt-6">
+              <p className="text mt-4 sm:mt-6">
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Optio, dolorem.
               </p>
               <div className='space-y-2'>

@@ -6,7 +6,7 @@ export const Layout = ({subheaderSlot,  headerSlot, footerSlot}) => {
     <div className='grid grid-rows-[auto_1fr_auto] min-h-screen space-y-10'>
       <div>
         {subheaderSlot}
-        {headerSlot}
+        {/* {headerSlot} */}
       </div>
         <Outlet/>
       {footerSlot}

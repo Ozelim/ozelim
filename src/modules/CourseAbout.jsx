@@ -4,9 +4,9 @@ export const CourseAbout = () => {
   return (
     <div className='w-full'>
       <div className="container">
-        <div className='grid grid-cols-[30%_auto] gap-8 bg-primary-50 p-6 rounded-primary'>
+        <div className='grid lg:grid-cols-[30%_auto] gap-8 bg-primary-50 p-6 rounded-primary'>
           <h1 className="heading">Lorem ipsum dolor sit.</h1>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <ul className='space-y-4 marker:'>
               {Array(6).fill(1).map((_, i) => {
                 return (
