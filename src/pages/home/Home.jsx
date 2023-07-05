@@ -23,7 +23,7 @@ export const Home = () => {
 
   return (
     <div className='space-y-20'>
-      <Results/>
+      {/* <Results/>
       <NewFormat/>
       <HaveQuestions/>
       <OnlineCourseManager/>
@@ -36,13 +36,13 @@ export const Home = () => {
       <TeachComfort/>
       <OurPartners/>
       <CuratorCourse/>
-      <TourWeb/>
-
-      {/* <BuyFranchise/>
-      <Franchise/>
-      <TouristAgency/>
-      <TourOperators/>
-      <VacationPlan/> */}
+      <TourWeb/> */}
+{/* 
+      <BuyFranchise/> */}
+      {/* <Franchise/> */}
+      {/* <TouristAgency/> */}
+      {/* <TourOperators/> */}
+      {/* <VacationPlan/> */}
     </div>
   )
 }
