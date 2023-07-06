@@ -18,11 +18,14 @@ import { Franchise } from 'modules/Franchise'
 import { TouristAgency } from 'modules/TouristAgency'
 import { TourOperators } from 'modules/TourOperators'
 import { VacationPlan } from 'modules/VacationPlan'
+import { Currort } from 'modules/Currort'
+import { Quiz } from 'modules/Quiz'
+import { PriceList } from 'modules/PriceList'
+import { Regions } from 'modules/Regions'
 
 export const Home = () => {
-
   return (
-    <div className='space-y-20'>
+    <div className="space-y-20 container">
       {/* <Results/>
       <NewFormat/>
       <HaveQuestions/>
@@ -37,12 +40,16 @@ export const Home = () => {
       <OurPartners/>
       <CuratorCourse/>
       <TourWeb/> */}
-{/* 
+      {/* 
       <BuyFranchise/> */}
       {/* <Franchise/> */}
       {/* <TouristAgency/> */}
       {/* <TourOperators/> */}
       {/* <VacationPlan/> */}
+      <Currort />
+      {/* <Quiz /> */}
+      {/* <PriceList /> */}
+      {/* <Regions /> */}
     </div>
   )
 }
