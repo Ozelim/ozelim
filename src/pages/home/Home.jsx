@@ -25,8 +25,10 @@ import { Regions } from 'modules/Regions'
 
 export const Home = () => {
   return (
-    <div className="space-y-20 container">
+    <div className="space-y-20">
       {/* <Results/>
+    <div className='space-y-20'>
+      <Results/>
       <NewFormat/>
       <HaveQuestions/>
       <OnlineCourseManager/>
@@ -42,6 +44,9 @@ export const Home = () => {
       <TourWeb/> */}
       {/* 
       <BuyFranchise/> */}
+      <TourWeb/>
+
+      {/* <BuyFranchise/>  */}
       {/* <Franchise/> */}
       {/* <TouristAgency/> */}
       {/* <TourOperators/> */}

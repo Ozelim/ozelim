@@ -6,7 +6,7 @@ export const WhyOurCourse = () => {
       <div className="container">
         <div className="w-full">
           <h1 className='heading'>Lorem ipsum dolor sit amet:</h1>
-          <div className="grid grid-cols-3 gap-x-8 gap-y-6 mt-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-4 md:gap-y-6 mt-5 md:mt-10">
             {Array(6).fill(1).map((_, i) => {
               return (
                 <div key={i} className='p-6 rounded-primary shadow-md'>

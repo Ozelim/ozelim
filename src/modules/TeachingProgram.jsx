@@ -5,10 +5,11 @@ export const TeachingProgram = () => {
   return (
     <div className='w-full'>
       <div className="container">
-        <div className="w-full grid grid-cols-[30%_auto]">
+        <div className="w-full lg:grid grid-cols-[30%_auto]">
           <h1 className='heading'>Lorem, ipsum.</h1>
           <Accordion
             variant='separated'
+            className='mt-5 lg:mt-0'
           >
             {Array(6).fill(1).map((_, i) => {
               return (
