@@ -18,7 +18,7 @@ export const Header = () => {
   return (
     <div className="w-full border-b">
       <div className="container">
-        <div className="w-full relative flex justify-between items-center py-4">
+        <div className="w-full relative flex justify-between items-center">
           <Link to={'/'}>
             <div className="w-14 h-14 bg-slate-400 rounded-full" />
           </Link>

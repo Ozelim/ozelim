@@ -44,8 +44,7 @@ export const Home = () => {
       <TourWeb/> */}
       {/* 
       <BuyFranchise/> */}
-      <TourWeb/>
-
+      {/* <TourWeb/> */}
       {/* <BuyFranchise/>  */}
       {/* <Franchise/> */}
       {/* <TouristAgency/> */}
