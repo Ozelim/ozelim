@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom'
 
 export const Card = ({ card }) => {
   return (
-    <div className="bg-[#F7F7F5] shadow rounded-primary max-w-5xl mx-auto">
-      <div className="p-4 flex flex-col">
+    <div className="bg-white shadow rounded-primary max-w-5xl mx-auto">
+      <div className="p-10 flex flex-col">
         <div className="flex items-center">
           <Link to={'/'}>
             <img
@@ -22,12 +22,12 @@ export const Card = ({ card }) => {
             Заголовок новости
           </h1>
           <div className="flex -mt-12">
-            <AiFillCalendar fill="teal" />
-            <span className="ml-1   text-slate-600 text-sm">10.1.2023</span>
+            <AiFillCalendar fill="teal" size={20} />
+            <span className="ml-1 text-slate-600 ">10.1.2023</span>
           </div>
         </div>
         <img className="w-full max-h-[400px]  object-cover" src={img} />
-        <p className="flex-grow font-body my-4">
+        <p className="flex-grow font-body my-4 text">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem et
           cumque hic vero obcaecati distinctio! Asperiores tenetur cumque
           aliquid, error vitae sed accusantium deserunt ex quos! Animi
@@ -38,6 +38,8 @@ export const Card = ({ card }) => {
           doloremque repellendus, voluptatem eligendi recusandae obcaecati
           quisquam.
         </p>
+
+        <p className='text-zinc-400 text-sm uppercase'>ozelim.kz</p>
       </div>
     </div>
   )

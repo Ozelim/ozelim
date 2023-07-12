@@ -13,7 +13,7 @@ export const TeachingProgram = () => {
           >
             {Array(6).fill(1).map((_, i) => {
               return (
-                <Accordion.Item key={i} value={String(i)}>
+                <Accordion.Item key={i} value={String(i)} className='!bg-white rounded-primary shadow'>
                   <Accordion.Control>
                     <p className='text-lg font-semibold font-head'>
                       Lorem ipsum dolor sit amet consectetur.

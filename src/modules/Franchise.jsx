@@ -14,7 +14,7 @@ export const Franchise = () => {
                 <p className='mt-5 text-2xl text-[#424242] '>Lorem ipsum dolor sit amet.</p>
                 <Button className='mt-5'>Подробнее</Button>
             </div>
-            <img src={url} alt="" className='hidden md:block' />
+            <img src={url} alt="" className='hidden md:block rounded-primary' />
         </div>
       </div>
     </div>

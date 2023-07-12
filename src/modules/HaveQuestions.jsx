@@ -6,7 +6,7 @@ export const HaveQuestions = () => {
       <div className="container">
         <div className='w-full'>
           <h1 className='heading'>
-            Lorem ipsum dolor sit amet.
+            Have questions
           </h1>
         </div>
       </div>

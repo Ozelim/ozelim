@@ -24,13 +24,13 @@ export const Header = () => {
           </Link>
           <div>
             <nav className="space-x-6 font-head">
-              <Link className="hover:text-primary-500" to={'/about'}>
+              <Link className="hover:text-primary-500 text-lg" to={'/about'}>
                 О компании
               </Link>
-              <Link className="hover:text-primary-500" to={'/health'}>
+              <Link className="hover:text-primary-500 text-lg" to={'/health'}>
                 Твое здоровье
               </Link>
-              <Link className="hover:text-primary-500" to={'/courses'}>
+              <Link className="hover:text-primary-500 text-lg" to={'/courses'}>
                 Курсы по туризму
               </Link>
               <Popover
@@ -39,7 +39,7 @@ export const Header = () => {
                 }}
               >
                 <Popover.Target>
-                  <span className="hover:text-primary-500 cursor-pointer">
+                  <span className="hover:text-primary-500 text-lg cursor-pointer">
                     Наши курорты
                     <RiArrowDownSLine className="inline text-xl" />
                   </span>
@@ -59,7 +59,7 @@ export const Header = () => {
                   })}
                 </Popover.Dropdown>
               </Popover>
-              <Link className="hover:text-primary-500" to={'/partners'}>
+              <Link className="hover:text-primary-500 text-lg cursor-pointer" to={'/partners'}>
                 Бизнес партнеры
               </Link>
             </nav>

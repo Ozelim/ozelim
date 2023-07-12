@@ -34,7 +34,7 @@ export const Card = () => {
         })}
       </Carousel>
       <h2 className='text-center font-head text-2xl px-6'>Имя</h2>
-      <p className='px-6 font-body'>Lorem ipsum dolor sit amet, consectetur adipisicing elit.  praesentium, officiis facilis?</p>
+      <p className='px-6 text'>Lorem ipsum dolor sit amet, consectetur adipisicing elit.  praesentium, officiis facilis?</p>
       <div className='flex justify-center'>
         <button className='text-2xl'>
           {`>`}

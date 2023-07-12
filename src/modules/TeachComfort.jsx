@@ -12,7 +12,7 @@ export const TeachComfort = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-5 md:mt-10">
             {Array(6).fill(1).map((_, i) => {
               return (
-                <div key={i}>
+                <div key={i} className='bg-white p-4 rounded-primary shadow-md'>
                   <div className='border-b-4 pb-2'>
                     <FcInfo className='text-2xl'/>
                   </div>
