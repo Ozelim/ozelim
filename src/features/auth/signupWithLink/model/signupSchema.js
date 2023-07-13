@@ -2,7 +2,6 @@ import * as yup from 'yup'
 
 const signupSchema = yup.object({
   name: yup.string().required('Заполните данное поле'),
-  surname: yup.string().required('Заполните данное поле'),
   city: yup.string().required('Заполните данное поле'),
   birthday: yup.date().required('Заполните данное поле'),
   iin: yup.number().required('Заполните данное поле'),

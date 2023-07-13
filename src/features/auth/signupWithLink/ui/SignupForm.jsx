@@ -3,9 +3,11 @@ import { Controller, useForm } from 'react-hook-form'
 import { signupSchema } from '../model/signupSchema'
 
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Button, PasswordInput, Select, TextInput } from '@mantine/core'
+import { Button, NumberInput, PasswordInput, Select, TextInput } from '@mantine/core'
 import { cities } from 'shared/lib'
 import { useSearchParams } from 'react-router-dom'
+import { DatePickerInput, DateTimePicker } from '@mantine/dates'
+import { signupWithLink } from '../model/signup'
 
 export const SignupForm = () => {
 
@@ -13,19 +15,27 @@ export const SignupForm = () => {
 
   const { control, handleSubmit, formState: {errors, isSubmitting}, clearErrors } = useForm({
     values: {
+      name: '',
+      city: '',
+      birthday: '',
+      iin: '',
+      phone: '',
       email: '',
-      password: ''
+      password: '',
     },
     resolver: yupResolver(signupSchema) 
   })
 
   function onSubmit (data) {
-    console.log(data);
-    console.log(searchParams.get('id'));
+    signupWithLink({
+      ...data, 
+      sponsor: searchParams.get('id'),
+      passwordConfirm: data.password,
+    })
+    .then(res => {
+      console.log(res, 'succ');
+    })
   }
-
-  console.log(errors);
-
 
   return (
     <div
@@ -58,23 +68,9 @@ export const SignupForm = () => {
           render={({field}) => (
             <TextInput
               {...field}
-              placeholder='Ваше имя'
-              label='Имя'
+              placeholder='Ваше ФИО'
+              label='ФИО'
               error={errors.name?.message}
-              variant='filled'
-              disabled={isSubmitting}
-            />
-          )}
-        />
-        <Controller
-          name='surname'
-          control={control}
-          render={({field}) => (
-            <TextInput
-              {...field}
-              placeholder='Ваша фамилия'
-              label='Почта'
-              error={errors.surname?.message}
               variant='filled'
               disabled={isSubmitting}
             />
@@ -99,17 +95,31 @@ export const SignupForm = () => {
           name='iin'
           control={control}
           render={({field}) => (
-            <PasswordInput
+            <NumberInput
               {...field}
               placeholder='Ваш ИИН'
               label='ИИН'
+              variant='filled'
+              disabled={isSubmitting}
+              error={errors?.iin?.message}
+              hideControls
+            />
+          )}
+        />
+        <Controller
+          name='birthday'
+          control={control}
+          render={({field}) => (
+            <DateTimePicker
+              {...field}
+              placeholder='Ваша дата рождения'
+              label='Дата рождения'
               error={errors.iin?.message}
               variant='filled'
               disabled={isSubmitting}
             />
           )}
         />
-        
         <Controller
           name='phone'
           control={control}

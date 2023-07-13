@@ -7,6 +7,11 @@ import { Notifications } from '@mantine/notifications'
 import { RouterProvider } from 'react-router-dom'
 import { appRouter } from './appRouter'
 
+import 'dayjs/locale/ru'
+import dayjs from 'dayjs'
+
+dayjs.locale('ru')
+
 const cache = createEmotionCache({
   key: 'mantine',
   prepend: false
