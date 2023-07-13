@@ -1,1 +1,1 @@
-export { Form as SignupForm } from './ui/Form'
+export { SignupForm } from './ui/SignupForm'

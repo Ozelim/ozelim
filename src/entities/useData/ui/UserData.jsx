@@ -10,46 +10,67 @@ export const UserData = () => {
 
   const { pathname } = useLocation()
 
-  console.log(window.location.hostname);
-
   const { user } = useAuth()
+  
+  const [values, setValues] = React.useState({
+    fio: '',
+    city: '',
+    birthday: '',
+    iin: '',
+    email: '',
+  })
+
+  function handleValuesChange () {
+
+  }
 
   return (
     <div className='w-full'>
-      <div className="container">
-        <div>
-          <Avatar/>
-          {/* {false 
-            ? <img src="" alt="" /> 
-            : <div className='aspect-square h-full bg-slate-300 rounded-primary'></div> 
-          } */}
-          <div className="grid grid-cols-1 w-full gap-2 mt-5">
-            <TextInput
-              value={`${window.location.hostname}/3000/signup?id=${user?.id}`}
-              readOnly
-            />
-            <TextInput
-              label='ФИО'
-            />
-            <Select
-              data={cities}
-              label='Город'
-            />
-            <DateTimePicker
-              label='Дата рождения'
-            />
-            <PasswordInput
-              label='ИИН'
-            />
-            <TextInput
-              label='Почта'
-            />
-          </div>
-          <div className='mt-4 flex justify-end'>
-            <Button>
-              Сохранить
-            </Button>
-          </div>
+      <div>
+        <Avatar/>
+
+        <div className="grid grid-cols-1 w-full gap-2 mt-5">
+          <TextInput
+            value={`${window.location.hostname}:3000/login?id=${user?.id}`}
+            readOnly
+            variant='filled'
+          />
+          <TextInput
+            label='ФИО'
+            variant='filled'
+            value={values.fio}
+            onChange={handleValuesChange}
+          />
+          <Select
+            data={cities}
+            label='Город'
+            variant='filled'
+            // value={values.city}
+            onChange={handleValuesChange}
+          />
+          <DateTimePicker
+            label='Дата рождения'
+            variant='filled'
+            value={values?.birthday}
+            onChange={handleValuesChange}
+          />
+          <PasswordInput
+            label='ИИН'
+            variant='filled'
+            value={values?.iin}
+            onChange={handleValuesChange}
+          />
+          <TextInput
+            label='Почта'
+            variant='filled'
+            value={values?.email}
+            onChange={handleValuesChange}
+          />
+        </div>
+        <div className='mt-4 flex justify-end'>
+          <Button>
+            Сохранить
+          </Button>
         </div>
       </div>
     </div>

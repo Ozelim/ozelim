@@ -13,8 +13,8 @@ import { About,
   Resort, 
   Resorts, 
   Price,
-  Signup,
-  NotFound
+  NotFound,
+  Login
 } from "pages";
 import { baseLayout } from "./layouts/baseLayout";
 
@@ -34,7 +34,7 @@ const appRouter = createBrowserRouter([
     {path: '/resorts', element: <Resorts/>},
     {path: '/courses', element: <Courses/>},
     {path: '/about', element: <About/>},
-    {path: '/signup', element: <Signup/>},
+    {path: '/login', element: <Login/>},
     {path: '*', element: <NotFound/>},
   ]}
 ])
