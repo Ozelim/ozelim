@@ -1,0 +1,1 @@
+export { Card as ResortCard } from './ui/Card'

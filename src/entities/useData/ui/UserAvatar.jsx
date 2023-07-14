@@ -1,9 +1,9 @@
 import React from 'react'
 import { Button, FileButton, Popover } from '@mantine/core';
-import { pb } from 'shared/api';
 import { useAuth } from 'shared/hooks'
 import { getImageUrl } from 'shared/lib';
 import { userDataApi } from '../api/userDataApi';
+import { pb } from 'shared/api';
 
 export const UserAvatar = () => {
 

@@ -22,34 +22,44 @@ import { Currort } from 'modules/Currort'
 import { Quiz } from 'modules/Quiz'
 import { PriceList } from 'modules/PriceList'
 import { Regions } from 'modules/Regions'
+import { ResortCard } from 'entities/resort'
 
 export const Home = () => {
   return (
     <div className="space-y-20">
-      <Results/>
-      <NewFormat/>
-      <HaveQuestions/>
-      <OnlineCourseManager/>
-      <JobTeachPractice/>
-      <CourseUsefulFor/>
-      <WhyOurCourse/>
-      <CourseAbout/>
-      <TeachingProgram/>
-      <TeachPacks/>
-      <TeachComfort/>
-      <OurPartners/>
-      <CuratorCourse/>
-      
-      <BuyFranchise/>
-      <TourWeb/>
-      <Franchise/>
-      <TouristAgency/>
-      <TourOperators/>
-      <VacationPlan/>
+      <div className="container">
+        <div className="grid grid-cols-4 gap-6">
+          {Array(6).fill(1).map((_, i) => {
+            return (
+              <ResortCard key={i}/>
+            )
+          })}
+        </div>
+      </div>
+      {/* <Results/> */}
+      {/* <NewFormat/> */}
+      {/* <HaveQuestions/> */}
+      {/* <OnlineCourseManager/> */}
+      {/* <JobTeachPractice/> */}
+      {/* <CourseUsefulFor/> */}
+      {/* <WhyOurCourse/> */}
+      {/* <CourseAbout/> */}
+      {/* <TeachingProgram/> */}
+      {/* <TeachPacks/> */}
+      {/* <TeachComfort/> */}
+      {/* <OurPartners/> */}
+      {/* <CuratorCourse/> */}
+      {/*  */}
+      {/* <BuyFranchise/> */}
+      {/* <TourWeb/> */}
+      {/* <Franchise/> */}
+      {/* <TouristAgency/> */}
+      {/* <TourOperators/> */}
+      {/* <VacationPlan/> */}
       <Currort />
-      <Quiz />
-      <PriceList />
-      <Regions />
+      {/* <Quiz /> */}
+      {/* <PriceList /> */}
+      {/* <Regions /> */}
     </div>
   )
 }

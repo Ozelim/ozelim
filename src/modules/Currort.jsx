@@ -4,6 +4,7 @@ import Autoplay from 'embla-carousel-autoplay'
 import { FcInfo } from 'react-icons/fc'
 
 export const Currort = () => {
+  
   const [embla, setEmbla] = React.useState(null)
 
   const autoplay = React.useRef(Autoplay({ delay: 2000 }))
