@@ -31,7 +31,7 @@ export const UserData = () => {
         birthday: new Date(user.birthday)
       })
     }
-    pb.collection('users').subscribe(user.id, function({action, record}) {
+    pb.collection('users').subscribe(user?.id, function({action, record}) {
       setValues({
         ...record,
         birthday: new Date(user.birthday)

@@ -10,9 +10,9 @@ export const UserAvatar = () => {
   const { user } = useAuth()
 
   const [opened, setOpened] = React.useState(false)
+  const [showSave, setShowSave] = React.useState(false)
 
   const [avatar, setAvatar] = React.useState(null)
-
   const [image, setImage] = React.useState(null)
 
   React.useEffect(() => {
@@ -22,13 +22,16 @@ export const UserAvatar = () => {
   function handleAvatarChange (val) {
     setAvatar(val)
     setOpened(false)
+    setShowSave(true)
   }
 
   function removeAvatar () {
     if (avatar) {
       setAvatar(null)
+      setShowSave(false)
     } else {
       setImage(null)
+      setShowSave(true)
     }
     setOpened(false)
   }
@@ -36,7 +39,16 @@ export const UserAvatar = () => {
   async function changeAvatar () {
     if (avatar) {
       userDataApi.changeAvatar(user?.id, avatar)
+      .then(res => {
+        setShowSave(false)
+      })
     } 
+    if (!image) {
+      userDataApi.changeAvatar(user?.id, null)
+      .then(res => {
+        setShowSave(false)
+      })
+    }
   }
 
   return (
@@ -80,7 +92,7 @@ export const UserAvatar = () => {
                 variant='subtle'
                 onChange={handleAvatarChange}
               >
-                {(props) => <Button {...props}>Загрузить фото</Button>}
+                {(props) => <Button {...props}>Загрузить</Button>}
               </FileButton>
 
               <Button
@@ -88,13 +100,13 @@ export const UserAvatar = () => {
                 variant='subtle'
                 onClick={removeAvatar}
               >
-                Удалить фото
+                Удалить
               </Button>
             </Popover.Dropdown>
           </Popover>
         </div>
       </div>
-      {avatar && (
+      {showSave && (
         <div className='mt-2'>
           <Button
             compact
