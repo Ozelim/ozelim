@@ -23,9 +23,9 @@ export const Health = () => {
         
         <Heading title={'Lorem ipsum dolor sit.'}/>
         <div className="grid grid-cols-1 gap-6">
-          {array.map((val, i) => {
+          {/* {array.map((val, i) => {
             return <HealthCard card={val} key={i}/>
-          })}
+          })} */}
         </div>
       </div>
     </div>
