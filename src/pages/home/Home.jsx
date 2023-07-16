@@ -59,7 +59,7 @@ export const Home = () => {
       {/* <VacationPlan/> */}
       {/* <Resort/> */}
       {/* <Quiz /> */}
-      {/* <PriceList /> */}
+      {/* <Pr iceList /> */}
       {/* <Regions /> */}
     </div>
   )
