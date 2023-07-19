@@ -11,7 +11,6 @@ export const Profile = () => {
         <div className='w-full bg-white shadow-md rounded-primary p-4'>
           <div className="grid grid-cols-[25%_auto] gap-6">
             <UserData/>
-
             <div className='relative overflow-hidden'>
               <ReferalsList/>
             </div>

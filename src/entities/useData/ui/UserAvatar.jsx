@@ -83,7 +83,7 @@ export const UserAvatar = () => {
                 size='xs'
                 onClick={() => setOpened((q) => !q)}
               >
-                Редактировать  
+                Редактировать   
               </Button> 
             </Popover.Target>
             <Popover.Dropdown>

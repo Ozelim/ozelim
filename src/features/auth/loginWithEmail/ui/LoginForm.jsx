@@ -15,7 +15,6 @@ export const LoginForm = () => {
     resolver: yupResolver(loginSchema) 
   })
 
-
   const onSubmit = data => {
     loginWithEmail(data)
     .then(res => {
