@@ -23,11 +23,13 @@ import { Quiz } from 'modules/Quiz'
 import { PriceList } from 'modules/PriceList'
 import { Regions } from 'modules/Regions'
 import { ResortCard } from 'entities/resort'
+import { Resort } from 'pages'
 
 export const Home = () => {
+
   return (
     <div className="space-y-20">
-      <div className="container">
+      {/* <div className="container">
         <div className="grid grid-cols-4 gap-6">
           {Array(6).fill(1).map((_, i) => {
             return (
@@ -35,7 +37,7 @@ export const Home = () => {
             )
           })}
         </div>
-      </div>
+      </div> */}
       {/* <Results/> */}
       {/* <NewFormat/> */}
       {/* <HaveQuestions/> */}
@@ -49,16 +51,16 @@ export const Home = () => {
       {/* <TeachComfort/> */}
       {/* <OurPartners/> */}
       {/* <CuratorCourse/> */}
-      {/*  */}
-      {/* <BuyFranchise/> */}
       {/* <TourWeb/> */}
+      
+      {/* <BuyFranchise/> */}
       {/* <Franchise/> */}
       {/* <TouristAgency/> */}
       {/* <TourOperators/> */}
       {/* <VacationPlan/> */}
-      <Currort />
+      {/* <Resort/> */}
       {/* <Quiz /> */}
-      {/* <PriceList /> */}
+      {/* <Pr iceList /> */}
       {/* <Regions /> */}
     </div>
   )

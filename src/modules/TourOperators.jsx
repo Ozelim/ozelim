@@ -3,6 +3,7 @@ import { Carousel, useAnimationOffsetEffect } from '@mantine/carousel'
 import Autoplay from 'embla-carousel-autoplay'
 
 export const TourOperators = () => {
+
   const [embla, setEmbla] = React.useState(null)
 
   const autoplay = React.useRef(Autoplay({ delay: 2000 }))
@@ -10,8 +11,8 @@ export const TourOperators = () => {
   useAnimationOffsetEffect(embla, 200)
 
   return (
-    <div>
-      <h1 className="text-4xl text-center text-[#2b3641]">Туроператоры</h1>
+    <div className='max-w-full'>
+      <h1 className=" md:text-4xl text-center text-[#2b3641]">Туроператоры</h1>
       <div className="relative mt-6  space-y-2 shadow pb-4">
         <Carousel
           slideSize={'25%'}

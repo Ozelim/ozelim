@@ -51,6 +51,8 @@ export const UserAvatar = () => {
     }
   }
 
+  console.log(avatar, image);
+
   return (
     <div className='w-full h-full'>
       <div className='aspect-square h-full bg-slate-300 rounded-primary overflow-hidden relative'>
