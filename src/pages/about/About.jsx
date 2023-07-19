@@ -33,8 +33,8 @@ export const About = () => {
         <h1 className="text-center text-4xl font-bold text-[#2a2a2a]">
           Наша цель
         </h1>
-        <div className="grid grid-cols-3 gap-10">
-          <div className="text-center bg-[#f8f8ff] py-2">
+        <div className="grid grid-cols-3 gap-10 mt-3">
+          <div className="text-center bg-[#f8f8ff] py-2 hover:-translate-y-3 transition-transform">
             <img className="w-[350px]  m-auto" src={TravelIcon} alt="travel" />
             <h2 className="text-[#2a2a2a] text-xl mb-1 font-bold">
               Охват всех туристических зон
@@ -44,7 +44,7 @@ export const About = () => {
               санаторно-курортных комплексов Казахстана
             </p>
           </div>
-          <div className="text-center bg-[#f8f8ff] py-2">
+          <div className="text-center bg-[#f8f8ff] py-2 hover:-translate-y-3 transition-transform">
             <img className="w-80 m-auto" src={ConstructorIcon} alt="travel" />
             <h2 className="text-[#2a2a2a] text-xl mb-1 font-bold">
               Конструктор туров
@@ -54,7 +54,7 @@ export const About = () => {
               патологиям
             </p>
           </div>
-          <div className="text-center bg-[#f8f8ff] py-2">
+          <div className="text-center bg-[#f8f8ff] py-2 hover:-translate-y-3 transition-transform">
             <img className="w-80 m-auto" src={DoctorIcon} alt="travel" />
             <h2 className="text-[#2a2a2a] text-xl font-bold mb-1">
               Врач-консультант
