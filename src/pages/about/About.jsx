@@ -3,19 +3,28 @@ import TravelIcon from 'shared/assets/images/travel.png'
 import ConstructorIcon from 'shared/assets/images/constructor.png'
 import DoctorIcon from 'shared/assets/images/doctor.png'
 import SportIcon from 'shared/assets/icons/sport.svg'
-import Instagram from 'shared/assets/icons/Instagram.svg'
-import TikTok from 'shared/assets/icons/TikTok.svg'
-import YouTube from 'shared/assets/icons/YouTube.svg'
 import { Button } from '@mantine/core'
 import { Link } from 'react-router-dom'
 import { AiOutlineYoutube } from 'react-icons/ai'
 import { AiOutlineInstagram } from 'react-icons/ai'
 import { AiOutlineWhatsApp } from 'react-icons/ai'
+import { pb } from 'shared/api'
+
+async function getAbout () {
+  return await pb.collection('text').getFullList({filter: `page = 'about'`})
+}
 
 export const About = () => {
-  return (
-    <main className="max-w-6xl m-auto">
 
+  const [about, setAbout] = React.useState({})
+
+  React.useEffect(() => {
+    getAbout()
+    .then(res => setAbout(res[0]))
+  }, [])
+
+  return (
+    <main className="w-full">
       <section className='w-full'>
         <div className="container">
           <div className="w-full">
@@ -26,10 +35,11 @@ export const About = () => {
                 alt=""
               />
               <h1 className="text-3xl lg:text-4xl font-bold mt-1 text-[#2a2a2a]">
-                Мы cоциальный проект
+                {about?.headings?.main}
+                {/* Мы cоциальный проект */}
               </h1>
               <p className="text-[#888888] text">
-                по развитию внутреннего и оздоровительного туризма
+                {about?.text?.main}
               </p>
             </div>
 
@@ -77,15 +87,12 @@ export const About = () => {
         <div className="container">
           <div className="flex">
             <div>
-              <h1 className="text-4xl text-[#2a2a2a] font-bold">Наша задача</h1>
+              <h1 className="text-4xl text-[#2a2a2a] font-bold">
+                {about?.headings?.task}
+              </h1>
               <img className="block lg:hidden w-full mt-5" src={SportIcon} alt="sport" />
               <p className="mt-5 text-[#5a5959]">
-                Программа по подготовке и переподготовке кадров в сфере туризма
-                через Центр сертификации специалистов с организацией обучающих
-                информационных туров по курортным зонам Казахстана и международной
-                практики в курортных зонах за рубежом. А также последующее
-                трудоустройство специалистов и повышение квалификации действующих
-                работников в сфере туризма.
+                {about?.text?.task}
               </p>
               <Button className="mt-5" size="md">
                 Подробнее
@@ -100,13 +107,10 @@ export const About = () => {
         <div className="container">
           <div className='text-center'>
             <h1 className="text-4xl font-medium text-[#2a2a2a]">
-              Мы всегда на связи
+              {about?.headings?.bond}
             </h1>
             <p className="mt-5 text ">
-              В любое время вы можете обратиться к представителям нашей компании.
-              Свяжитесь с нами удобным для вас способом: через форму на сайте, по
-              телефону или социальную сеть. Ведь мы – передовая компания, которая
-              идет в ногу со временем. Facebook Instagram
+              {about?.text?.bond}
             </p>
             <div className="flex justify-center items-center gap-10 mt-10">
               <Link to="/" className="">
@@ -129,10 +133,12 @@ export const About = () => {
               </Link>
             </div>
             <h3 className="mt-5 font-medium text-[#2a2a2a] text-xl md:text-2xl">
-              Консультации по телефону
+              {about?.headings?.bond2}
             </h3>
-            <p className="text-primary-600 text-xl font-medium">+7(707)200-13-32</p>
-
+            <p className="text-primary-600 text-xl font-medium">
+              
+              {about?.text?.bond2}
+            </p>
           </div>
         </div>
       </section>
