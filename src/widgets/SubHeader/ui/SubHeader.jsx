@@ -1,6 +1,5 @@
 import React from 'react'
 import { CgPhone } from 'react-icons/cg'
-import { Link } from 'react-router-dom'
 import Telegram from 'shared/assets/icons/Telegram.svg'
 import WhatsApp from 'shared/assets/icons/WhatsApp.svg'
 import Instagram from 'shared/assets/icons/Instagram.svg'

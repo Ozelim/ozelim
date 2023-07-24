@@ -1,0 +1,62 @@
+import React from 'react'
+import curratorImg from 'shared/assets/images/curratorImg.jpg'
+import { BsWhatsapp } from 'react-icons/bs'
+import { MdOutlineMailOutline } from 'react-icons/md'
+import { CgPhone } from 'react-icons/cg'
+
+export const Currator = () => {
+  return (
+    <div className="w-full">
+      <div className="container">
+        <div className="flex bg-white mt-10 rounded-primary py-6 px-10 shadow-md">
+          <div className="w-2/5">
+            <h1 className="text-4xl text-[#424242] font-semibold">
+              Куратор курса
+            </h1>
+            <p className="text-lg text-[#888888] mt-2">
+              Задавайте любые интересующие вас вопросы нашему куратору
+            </p>
+          </div>
+
+          <div className="flex w-3/5 bg-[#f4f4f4] rounded-primary p-5">
+            <img
+              src={curratorImg}
+              className="max-h-80 rounded-primary"
+              alt="currator"
+            />
+            <div className="ml-8">
+              <h2 className="text-xl font-semibold text-[#424242]">
+                Ильясова Бахытжан Ильясовна
+              </h2>
+              <p>
+                Предприниматель, психолог, бизнес-советник, директор Центра
+                сертификации специалистов «САПА»
+              </p>
+              <p className=" text-[#888888] mt-2">
+                Задавайте любые интересующие вас вопросы нашему куратору
+              </p>
+              <div className='mt-5'>
+                <div className="flex items-center">
+                  <CgPhone className="text-primary-600 text-lg flex-shrink-0" />
+                  <p className="ml-2 text-primary-600">+7 747 094 05 98</p>
+                </div>
+                <div className="flex items-center">
+                  <BsWhatsapp className="text-primary-600 text-lg flex-shrink-0" />
+                  <p className="ml-2 text-primary-600">
+                    +7 747 811 8489 (WhatsApp)
+                  </p>
+                </div>
+                <div className="flex items-center">
+                  <MdOutlineMailOutline className="text-primary-600 text-xl flex-shrink-0" />
+                  <p className="ml-2 text-primary-600">
+                    lesia@poehalisnami.com
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}

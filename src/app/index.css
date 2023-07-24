@@ -17,5 +17,9 @@
     .text {
         @apply text-slate-500 tracking-wider
     }
+
+    .paragraph {
+        @apply text-sm text-[#545454] font-body tracking-wider
+    }
 }
 

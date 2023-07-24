@@ -3,12 +3,12 @@ import { Results } from 'modules/Results'
 import { HaveQuestions } from 'modules/HaveQuestions'
 import { OnlineCourseManager } from 'modules/OnlineCourseManager'
 import { JobTeachPractice } from 'modules/JobTeachPractice'
-import { CourseUsefulFor } from 'modules/CourseUsefulFor'
-import { WhyOurCourse } from 'modules/WhyOurCourse'
+import { CourseUsefulFor } from 'pages/courses/ui/CourseUsefulFor'
+import { WhyOurCourse } from 'pages/courses/ui/WhyOurCourse'
 import { CourseAbout } from 'modules/CourseAbout'
 import { TeachingProgram } from 'modules/TeachingProgram'
 import { TeachPacks } from 'modules/TeachPacks'
-import { TeachComfort } from 'modules/TeachComfort'
+import { TeachComfort } from 'pages/courses/ui/TeachComfort'
 import { OurPartners } from 'modules/OurPartners'
 import { CuratorCourse } from 'modules/CuratorCourse'
 import { TourWeb } from 'modules/TourWeb'
@@ -26,7 +26,6 @@ import { ResortCard } from 'entities/resort'
 import { Resort } from 'pages'
 
 export const Home = () => {
-
   return (
     <div className="space-y-20">
       {/* <div className="container">
@@ -38,30 +37,30 @@ export const Home = () => {
           })}
         </div>
       </div> */}
-      <Results/>
-      <NewFormat/>
-      <HaveQuestions/>
-      <OnlineCourseManager/>
-      <JobTeachPractice/>
-      <CourseUsefulFor/>
-      <WhyOurCourse/>
-      <CourseAbout/>
-      <TeachingProgram/>
-      <TeachPacks/>
-      <TeachComfort/>
-      <OurPartners/>
-      <CuratorCourse/>
-      <TourWeb/>
-      {/*  */}
-      <BuyFranchise/>
-      <Franchise/>
-      <TouristAgency/>
-      <TourOperators/>
-      <VacationPlan/>
-      <Resort/>
-      <Quiz />
-      <PriceList />
-      <Regions />
+      {/* <Results/> */}
+      {/* <NewFormat/> */}
+      {/* <HaveQuestions/> */}
+      {/* <OnlineCourseManager/> */}
+      {/* <JobTeachPractice/> */}
+      {/* <CourseUsefulFor/> */}
+      {/* <WhyOurCourse/> */}
+      {/* <CourseAbout/> */}
+      {/* <TeachingProgram/> */}
+      {/* <TeachPacks/> */}
+      {/* <TeachComfort/> */}
+      {/* <OurPartners/> */}
+      {/* <CuratorCourse/> */}
+      {/* <TourWeb/> */}
+
+      {/* <BuyFranchise/> */}
+      {/* <Franchise/> */}
+      {/* <TouristAgency/> */}
+      {/* <TourOperators/> */}
+      {/* <VacationPlan/> */}
+      {/* <Resort/> */}
+      {/* <Quiz /> */}
+      {/* <PriceList /> */}
+      {/* <Regions /> */}
     </div>
   )
 }

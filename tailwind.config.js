@@ -28,6 +28,11 @@ export default {
         primary: theme.borderRadius['2xl'],
       },
     },
+    listStyleType: {
+      none: 'none',
+      disc: 'disc',
+      decimal: 'decimal',
+    }
   },
   plugins: [],
 }
