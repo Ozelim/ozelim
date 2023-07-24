@@ -38,30 +38,30 @@ export const Home = () => {
           })}
         </div>
       </div> */}
-      {/* <Results/> */}
-      {/* <NewFormat/> */}
-      {/* <HaveQuestions/> */}
-      {/* <OnlineCourseManager/> */}
-      {/* <JobTeachPractice/> */}
-      {/* <CourseUsefulFor/> */}
-      {/* <WhyOurCourse/> */}
-      {/* <CourseAbout/> */}
-      {/* <TeachingProgram/> */}
-      {/* <TeachPacks/> */}
-      {/* <TeachComfort/> */}
-      {/* <OurPartners/> */}
-      {/* <CuratorCourse/> */}
-      {/* <TourWeb/> */}
-      
-      {/* <BuyFranchise/> */}
-      {/* <Franchise/> */}
-      {/* <TouristAgency/> */}
-      {/* <TourOperators/> */}
-      {/* <VacationPlan/> */}
-      {/* <Resort/> */}
-      {/* <Quiz /> */}
-      {/* <Pr iceList /> */}
-      {/* <Regions /> */}
+      <Results/>
+      <NewFormat/>
+      <HaveQuestions/>
+      <OnlineCourseManager/>
+      <JobTeachPractice/>
+      <CourseUsefulFor/>
+      <WhyOurCourse/>
+      <CourseAbout/>
+      <TeachingProgram/>
+      <TeachPacks/>
+      <TeachComfort/>
+      <OurPartners/>
+      <CuratorCourse/>
+      <TourWeb/>
+      {/*  */}
+      <BuyFranchise/>
+      <Franchise/>
+      <TouristAgency/>
+      <TourOperators/>
+      <VacationPlan/>
+      <Resort/>
+      <Quiz />
+      <PriceList />
+      <Regions />
     </div>
   )
 }
