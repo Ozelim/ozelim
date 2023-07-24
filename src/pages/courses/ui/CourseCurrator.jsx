@@ -1,10 +1,10 @@
 import React from 'react'
-import curratorImg from 'shared/assets/images/curratorImg.jpg'
+
 import { BsWhatsapp } from 'react-icons/bs'
 import { MdOutlineMailOutline } from 'react-icons/md'
 import { CgPhone } from 'react-icons/cg'
 
-export const Currator = () => {
+export const CourseCurrator = ({ name, desc, img }) => {
   return (
     <div className="w-full">
       <div className="container">
@@ -20,22 +20,17 @@ export const Currator = () => {
 
           <div className="flex w-3/5 bg-[#f4f4f4] rounded-primary p-5">
             <img
-              src={curratorImg}
-              className="max-h-80 rounded-primary"
+              src={img}
+              className="max-h-80 m-auto rounded-primary "
               alt="currator"
             />
             <div className="ml-8">
-              <h2 className="text-xl font-semibold text-[#424242]">
-                Ильясова Бахытжан Ильясовна
-              </h2>
-              <p>
-                Предприниматель, психолог, бизнес-советник, директор Центра
-                сертификации специалистов «САПА»
-              </p>
+              <h2 className="text-xl font-semibold text-[#424242]">{name}</h2>
+              <p className='mt-2'>{desc}</p>
               <p className=" text-[#888888] mt-2">
                 Задавайте любые интересующие вас вопросы нашему куратору
               </p>
-              <div className='mt-5'>
+              <div className="mt-5">
                 <div className="flex items-center">
                   <CgPhone className="text-primary-600 text-lg flex-shrink-0" />
                   <p className="ml-2 text-primary-600">+7 747 094 05 98</p>
