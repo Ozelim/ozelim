@@ -9,18 +9,29 @@ import { AiOutlineYoutube } from 'react-icons/ai'
 import { AiOutlineInstagram } from 'react-icons/ai'
 import { AiOutlineWhatsApp } from 'react-icons/ai'
 import { pb } from 'shared/api'
+import { getImageUrl } from 'shared/lib'
 
 async function getAbout () {
-  return await pb.collection('text').getFullList({filter: `page = 'about'`})
+  const text = await pb.collection('text').getFullList({filter: `page = 'about'`})
+  const images = await pb.collection('images').getFullList({filter: `page = 'about'`})
+  return {
+    text: text[0],
+    images: images[0]
+  }
 }
 
 export const About = () => {
 
   const [about, setAbout] = React.useState({})
+  
+  const headings = about?.text?.headings
+  const text = about?.text?.text
+
+  const images = about?.images?.images ?? []
 
   React.useEffect(() => {
     getAbout()
-    .then(res => setAbout(res[0]))
+    .then(res => setAbout(res))
   }, [])
 
   return (
@@ -35,11 +46,11 @@ export const About = () => {
                 alt=""
               />
               <h1 className="text-3xl lg:text-4xl font-bold mt-1 text-[#2a2a2a]">
-                {about?.headings?.main}
+                {headings?.main}
                 {/* Мы cоциальный проект */}
               </h1>
               <p className="text-[#888888] text">
-                {about?.text?.main}
+                {text?.main}
               </p>
             </div>
 
@@ -49,7 +60,11 @@ export const About = () => {
               </h1>
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mt-3">
                 <div className="text-center bg-[#f8f8ff] py-2 hover:-translate-y-3 transition-transform">
-                  <img className="w-[350px]  m-auto" src={TravelIcon} alt="travel" />
+                  <img 
+                    className="w-[350px]  m-auto" 
+                    src={getImageUrl(about?.images, images[0])}
+                    alt="travel" 
+                  />
                   <h2 className="text-[#2a2a2a] text-xl mb-1 font-bold">
                     Охват всех туристических зон
                   </h2>
@@ -59,7 +74,11 @@ export const About = () => {
                   </p>
                 </div>
                 <div className="text-center bg-[#f8f8ff] py-2 hover:-translate-y-3 transition-transform">
-                  <img className="w-80 m-auto" src={ConstructorIcon} alt="travel" />
+                  <img 
+                    className="w-80 m-auto" 
+                    src={getImageUrl(about?.images, images[1])}
+                    alt="travel" 
+                  />
                   <h2 className="text-[#2a2a2a] text-xl mb-1 font-bold">
                     Конструктор туров
                   </h2>
@@ -69,7 +88,11 @@ export const About = () => {
                   </p>
                 </div>
                 <div className="text-center bg-[#f8f8ff] py-2 hover:-translate-y-3 transition-transform">
-                  <img className="w-80 m-auto" src={DoctorIcon} alt="travel" />
+                  <img 
+                    className="w-80 m-auto"
+                    src={getImageUrl(about?.images, images[2])}
+                    alt="travel" 
+                  />
                   <h2 className="text-[#2a2a2a] text-xl font-bold mb-1">
                     Врач-консультант
                   </h2>
@@ -88,17 +111,17 @@ export const About = () => {
           <div className="flex">
             <div>
               <h1 className="text-4xl text-[#2a2a2a] font-bold">
-                {about?.headings?.task}
+                {headings?.task}
               </h1>
-              <img className="block lg:hidden w-full mt-5" src={SportIcon} alt="sport" />
+              <img className="block lg:hidden w-full mt-5" src={getImageUrl(about?.images, images[3])} alt="sport" />
               <p className="mt-5 text-[#5a5959]">
-                {about?.text?.task}
+                {text?.task}
               </p>
               <Button className="mt-5" size="md">
                 Подробнее
               </Button>
             </div>
-            <img className="hidden lg:block max-w-2xl w-full" src={SportIcon} alt="sport" />
+            <img className="hidden lg:block max-w-2xl w-full" src={getImageUrl(about?.images, images[3])} alt="sport" />
           </div>
         </div>
       </section>
@@ -107,10 +130,10 @@ export const About = () => {
         <div className="container">
           <div className='text-center'>
             <h1 className="text-4xl font-medium text-[#2a2a2a]">
-              {about?.headings?.bond}
+              {headings?.bond}
             </h1>
             <p className="mt-5 text ">
-              {about?.text?.bond}
+              {text?.bond}
             </p>
             <div className="flex justify-center items-center gap-10 mt-10">
               <Link to="/" className="">
@@ -133,11 +156,11 @@ export const About = () => {
               </Link>
             </div>
             <h3 className="mt-5 font-medium text-[#2a2a2a] text-xl md:text-2xl">
-              {about?.headings?.bond2}
+              {headings?.bond2}
             </h3>
             <p className="text-primary-600 text-xl font-medium">
               
-              {about?.text?.bond2}
+              {text?.bond2}
             </p>
           </div>
         </div>
