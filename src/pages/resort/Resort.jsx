@@ -1,6 +1,6 @@
 import React from 'react'
-import { ResortSlider } from './ui/mainSection/ResortSlider'
-import { ResortDetails } from './ui/mainSection/ResortDetails'
+import { ResortSlider } from './ui/ResortSlider'
+import { ResortDetails } from './ui/ResortDetails'
 
 export const Resort = () => {
   return (

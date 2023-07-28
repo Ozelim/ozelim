@@ -3,11 +3,12 @@ import { ContactInfo } from './ContactInfo'
 import { BurgerMenu } from './BurgerMenu'
 import { Link, useSearchParams } from 'react-router-dom'
 import { Popover, Tooltip } from '@mantine/core'
-import { cities } from 'shared/lib'
+import { cities, regions } from 'shared/lib'
 
 import { RiArrowDownSLine } from 'react-icons/ri'
 
 export const Header = () => {
+
   let [_, setSearchParams] = useSearchParams()
 
   // function handleRegionClick (val) {
@@ -45,14 +46,14 @@ export const Header = () => {
                   </span>
                 </Popover.Target>
                 <Popover.Dropdown>
-                  {cities.map((city, i) => {
+                  {regions.map((region, i) => {
                     return (
-                      <Link to={`/resorts?city=${city}`} key={i}>
+                      <Link to={`/resorts?city=${region}`} key={i}>
                         <span
                           className="hover:text-primary-500 text-sm cursor-pointer"
                           // onClick={() => handleRegionClick(city)}
                         >
-                          {city}
+                          {region}
                         </span>
                       </Link>
                     )
