@@ -9,6 +9,7 @@ import { appRouter } from './appRouter'
 
 import 'dayjs/locale/ru'
 import dayjs from 'dayjs'
+import { ImageModal } from 'shared/ui'
 
 dayjs.locale('ru')
 
@@ -29,7 +30,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         defaultRadius: 'md',
       }}
     >
-      <ModalsProvider>
+      <ModalsProvider 
+        modals={{image: ImageModal}}
+      >
         <RouterProvider router={appRouter}/>
         <Notifications/>
       </ModalsProvider>

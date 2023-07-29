@@ -1,11 +1,30 @@
 import React from 'react'
 import { Carousel } from '@mantine/carousel'
+import { getImageUrl } from 'shared/lib'
+import { useModals } from 'shared/hooks'
 
-const url = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6ASgww6U-3j7J9vAuSrrDJzQ47xMcGAEMRyvXCbzxJqTT3p_FaMhWVUstxMGfMTHmXzo&usqp=CAU'
-
-export const ResortSlider = () => {
+export const ResortSlider = ({resort}) => {
 
   // const autoplay = React.useRef(Autoplay({ delay: 2000 }))
+
+  const { openModal } = useModals()
+
+  function viewImage (url) {
+    openModal.image({
+      innerProps: {
+        record: resort, 
+        url: url,
+      },
+      size: '50%'
+    })
+  }
+
+  const images = Object.keys(resort)
+  .filter((key) => !isNaN(key))
+  .map(index => {
+    return resort[index]
+  })
+  .slice(1)
 
   return (
     <div className='w-full'>
@@ -18,26 +37,30 @@ export const ResortSlider = () => {
         // onMouseEnter={autoplay.current.stop}
         // onMouseLeave={autoplay.current.reset}
       >
-        {Array(10)
-          .fill(1)
-          .map((img, i) => {
-            return (
-              <Carousel.Slide key={i} className={`relative `}>
-                <div
-                  className={
-                    'flex justify-center items-center aspect-video object-cover w-full h-full text-3xl bg-slate-200'
-                  }
-                >
-                  {i + 1}
-                </div>
-              </Carousel.Slide>
-            )
-          })}
+        {images.map((image, i) => {
+          return (
+            <Carousel.Slide key={i} className={`relative `}>
+              <div className='bg-slate-200'>
+                <img 
+                  src={getImageUrl(resort, image)} 
+                  alt=""
+                  className=' aspect-video object-cover w-full h-full' 
+                  onClick={() => viewImage(image)}
+                />
+              </div>
+            </Carousel.Slide>
+          )
+        })}
       </Carousel>
       <div className='flex overflow-x-auto gap-1 mt-1'>
-        {Array(6).fill(1).map((_, i) => {
+        {images?.map(image => {
           return (
-            <img key={i} src={url} alt="" />
+            <img 
+              src={getImageUrl(resort, image)} 
+              alt=""
+              className=' aspect-video object-cover w-80 h-40' 
+              onClick={() => viewImage(image)}
+            />
           )
         })}
       </div>

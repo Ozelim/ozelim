@@ -1,7 +1,10 @@
+import { Button, Chip } from '@mantine/core'
 import React from 'react'
 import { FcInfo } from 'react-icons/fc'
+import { formatNumber } from 'shared/lib'
 
-export const ResortDetails = () => {
+export const ResortDetails = ({resort}) => {
+
   return (
     <div className="p-5">
       <h2 className="text-2xl font-bold mb-3">Информация о туре</h2>
@@ -34,10 +37,16 @@ export const ResortDetails = () => {
       </div>
       <hr className="mt-5" />
       <div className="mt-2 mb-1">Цена за 1 чел, в номере для двоих</div>
-      <span className="text-3xl font-bold">282 349 тг</span>
-      <button className="outline-none bg-orange-500 py-2 px-6 text-white block w-full mt-3">
-        Отправить заявку
-      </button>
+      <span className="text-3xl font-bold">{formatNumber(resort?.cost)} тг</span>
+      <div className='mt-2'>
+        <Button
+          fullWidth
+          size='md'
+        >
+          Отправить заявку
+        </Button>
+      </div>
+
       <hr className="mt-5" />
       <div>Уточнить детали тура</div>
       <div className="flex items-center mt-3">
@@ -46,12 +55,13 @@ export const ResortDetails = () => {
           <a href="#" className="text-orange-500">
             +7 (775)096-78-78
           </a>
-          <div>Алматы, Ул чайковского, 192</div>
+          <div>{resort?.adress}</div>
           <a href="#" className="text-orange-500">
             Подробнее
           </a>
         </div>
       </div>
+    
     </div>
   )
 }

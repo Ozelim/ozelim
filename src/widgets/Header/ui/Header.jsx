@@ -1,7 +1,7 @@
 import React from 'react'
 import { ContactInfo } from './ContactInfo'
 import { BurgerMenu } from './BurgerMenu'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { Popover, Tooltip } from '@mantine/core'
 import { cities, regions } from 'shared/lib'
 
@@ -15,7 +15,7 @@ export const Header = () => {
   //   console.log(val);
   //   setSearchParams({city: val})
   // }
-
+ 
   return (
     <div className="w-full border-b">
       <div className="container">
@@ -48,7 +48,7 @@ export const Header = () => {
                 <Popover.Dropdown>
                   {regions.map((region, i) => {
                     return (
-                      <Link to={`/resorts?city=${region}`} key={i}>
+                      <Link to={`/resorts?region=${region}&page=1`} key={i}>
                         <span
                           className="hover:text-primary-500 text-sm cursor-pointer"
                           // onClick={() => handleRegionClick(city)}

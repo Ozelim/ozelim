@@ -4,27 +4,26 @@ import { Link } from 'react-router-dom'
 
 import { LiaCalendarAlt, LiaConciergeBellSolid } from 'react-icons/lia'
 import { CiPlane } from 'react-icons/ci'
+import { formatNumber, getImageUrl } from 'shared/lib'
 
-const url = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6ASgww6U-3j7J9vAuSrrDJzQ47xMcGAEMRyvXCbzxJqTT3p_FaMhWVUstxMGfMTHmXzo&usqp=CAU'
-
-export const Card = () => {
+export const Card = ({resort}) => {
   return (
     <div className='flex flex-col shadow-md h-full rounded-primary overflow-hidden'>
       <img 
-        src={url} 
+        src={getImageUrl(resort, resort?.[1])} 
         alt=""
         className='object-cover h-48 aspect-video' 
       />
       <div className='p-4'>
         <Link 
-          to={'/'}
+          to={`/resort/${resort?.id}`}
         >
           <span className='text-lg font-head text-primary-600'>
-            Utopia World
+            {resort?.title}
           </span>
         </Link>
         <p className='mt-1'>
-          Павлодар
+          {resort?.region}
         </p>
         <ul className='mt-4'>
           <li className='flex items-center gap-2'>
@@ -41,7 +40,7 @@ export const Card = () => {
           </li>
         </ul>
         <div className='mt-4'>
-          <span className='text-xl text-primary-600'>212 000 ₸</span>
+          <span className='text-xl text-primary-600'>{formatNumber(resort?.cost)} ₸</span>
         </div>
         <div className='mt-4'>
           <Button 
