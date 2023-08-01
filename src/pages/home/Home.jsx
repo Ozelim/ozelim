@@ -25,6 +25,7 @@ import { Regions } from 'modules/Regions'
 import { ResortCard } from 'entities/resort'
 import { Resort } from 'pages'
 
+
 export const Home = () => {
   return (
     <div className="space-y-20">

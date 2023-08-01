@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom'
 import { Chip } from '@mantine/core'
 
 async function getResortById (id) {
+  if (!id) return {}
   return await pb.collection('resorts').getOne(id)
 }
 
