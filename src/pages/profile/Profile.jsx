@@ -30,11 +30,13 @@ export const Profile = () => {
     // ?.map((faggot, i) => {
     //   return <div>{stage} {faggot?.name}</div>
     // })
-  })?.map((stage, i) => {
-    return stage?.map(e => {
-      return binaryTree.insert(e)
-    })
   })
+  
+  // ?.map((stage, i) => {
+  //   return stage?.map(e => {
+  //     return binaryTree.insert(e)
+  //   })
+  // })
 
   console.log(binaryTree);
 
@@ -48,7 +50,7 @@ export const Profile = () => {
               <ReferalsList/>
               <div>
   
-                {/* <div className='overflow-scroll w-[9999px] h-screen'>
+                <div className='overflow-scroll w-[9999px] h-screen'>
                   {array.map((faggots, i) => {
                     return (
                       <div
@@ -73,7 +75,7 @@ export const Profile = () => {
                       </div>
                     )
                   })} 
-                </div> */}
+                </div>
               </div>
             </div>
           </div>
