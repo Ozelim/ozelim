@@ -1,5 +1,6 @@
-// Define the Node class to represent each node in the tree
-class Node {
+
+
+export class Node {
   constructor(value) {
     this.value = value;
     this.left = null;
@@ -7,68 +8,102 @@ class Node {
   }
 }
 
-// Define the BinaryTree class to represent the binary tree
+// Define the BinaryTree class
 export class BinaryTree {
   constructor() {
     this.root = null;
+    this.nodes = [];
   }
 
-  // Function to insert a value into the binary tree
+  // Insert a value into the binary tree
   insert(value) {
     const newNode = new Node(value);
+
     if (!this.root) {
       this.root = newNode;
+      this.nodes.push(newNode);
     } else {
-      this.insertNode(this.root, newNode);
+      const parent = this.nodes[0];
+      if (!parent.left) {
+        parent.left = newNode;
+      } else {
+        parent.right = newNode;
+        this.nodes.shift(); // Remove the parent after both children are added
+      }
+      this.nodes.push(newNode);
     }
   }
 
-  insertNode(node, newNode) {
-    if (newNode.value < node.value) {
-      if (!node.left) {
-        node.left = newNode;
-      } else {
-        this.insertNode(node.left, newNode);
-      }
+  // _insertNode(node, newNode) {
+  //   console.log(node, newNode, 'nodes');
+  //   if (newNode.value < node.value) {
+  //     if (!node.left) {
+  //       node.left = newNode;
+  //     } else {
+  //       this._insertNode(node.left, newNode);
+  //     }
+  //   } else {
+  //     if (!node.right) {
+  //       node.right = newNode;
+  //     } else {
+  //       this._insertNode(node.right, newNode);
+  //     }
+  //   }
+  // }
+
+  // Search for a value in the binary tree
+  search(value) {
+    return this._searchNode(this.root, value);
+  }
+
+  _searchNode(node, value) {
+    if (!node) return false;
+
+    if (node.value === value) {
+      return true;
+    } else if (value < node.value) {
+      return this._searchNode(node.left, value);
     } else {
-      if (!node.right) {
-        node.right = newNode;
-      } else {
-        this.insertNode(node.right, newNode);
-      }
+      return this._searchNode(node.right, value);
     }
   }
 
-  // Function to perform an inorder traversal of the binary tree
-  inorderTraversal(node = this.root, result = []) {
-    if (node) {
-      this.inorderTraversal(node.left, result);
-      result.push(node.value);
-      this.inorderTraversal(node.right, result);
-    }
-    return result;
+  // In-order traversal (Left, Root, Right)
+  inOrderTraversal(callback) {
+    this._inOrderTraversalNode(this.root, callback);
   }
 
-  // Function to perform a preorder traversal of the binary tree
-  preorderTraversal(node = this.root, result = []) {
+  _inOrderTraversalNode(node, callback) {
     if (node) {
-      result.push(node.value);
-      this.preorderTraversal(node.left, result);
-      this.preorderTraversal(node.right, result);
+      this._inOrderTraversalNode(node.left, callback);
+      callback(node.value);
+      this._inOrderTraversalNode(node.right, callback);
     }
-    return result;
   }
 
-  // Function to perform a postorder traversal of the binary tree
-  postorderTraversal(node = this.root, result = []) {
+  // Pre-order traversal (Root, Left, Right)
+  preOrderTraversal(callback) {
+    this._preOrderTraversalNode(this.root, callback);
+  }
+
+  _preOrderTraversalNode(node, callback) {
     if (node) {
-      this.postorderTraversal(node.left, result);
-      this.postorderTraversal(node.right, result);
-      result.push(node.value);
+      callback(node.value);
+      this._preOrderTraversalNode(node.left, callback);
+      this._preOrderTraversalNode(node.right, callback);
     }
-    return result;
+  }
+
+  // Post-order traversal (Left, Right, Root)
+  postOrderTraversal(callback) {
+    this._postOrderTraversalNode(this.root, callback);
+  }
+
+  _postOrderTraversalNode(node, callback) {
+    if (node) {
+      this._postOrderTraversalNode(node.left, callback);
+      this._postOrderTraversalNode(node.right, callback);
+      callback(node.value);
+    }
   }
 }
-
-// Example usage:
-
