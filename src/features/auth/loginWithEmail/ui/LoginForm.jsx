@@ -7,7 +7,10 @@ import { loginWithEmail } from '../model/login'
 
 export const LoginForm = () => {
 
-  const { control, handleSubmit, formState: {errors, isSubmitting} } = useForm({
+
+  const [loading, setLoading] = React.useState(false)
+
+  const { control, handleSubmit, formState: {errors, isSubmitting, isLoading} } = useForm({
     values: {
       email: '',
       password: ''
@@ -16,11 +19,16 @@ export const LoginForm = () => {
   })
 
   const onSubmit = data => {
+    setLoading(true)
     loginWithEmail(data)
     .then(res => {
       console.log(res);
     })
+    .finally(() => {
+      setLoading(false)
+    })
   }
+
 
   return (
     <div className='bg-white p-4 shadow-md rounded-primary'> 
@@ -62,7 +70,7 @@ export const LoginForm = () => {
             className='mt-4' 
             type='submit'
             fullWidth
-            loading={isSubmitting}
+            loading={loading}
           >
             Войти
           </Button>

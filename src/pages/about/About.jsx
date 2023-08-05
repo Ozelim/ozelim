@@ -27,11 +27,13 @@ export const About = () => {
   const headings = about?.text?.headings
   const text = about?.text?.text
 
-  const images = about?.images?.images ?? []
+  const images = about?.images ?? {}
 
   React.useEffect(() => {
     getAbout()
-    .then(res => setAbout(res))
+    .then(res => {
+      setAbout(res)
+    })
   }, [])
 
   return (
@@ -60,11 +62,16 @@ export const About = () => {
               </h1>
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mt-3">
                 <div className="text-center bg-[#f8f8ff] py-2 hover:-translate-y-3 transition-transform">
-                  <img 
-                    className="w-[350px]  m-auto" 
-                    src={getImageUrl(about?.images, images[0])}
-                    alt="travel" 
-                  />
+                  {getImageUrl(about?.images, images?.[1]) ? 
+                    <img 
+                      className="w-[350px]  m-auto" 
+                      src={getImageUrl(about?.images, images?.[1])}
+                      loading='lazy'
+                      alt="travel" 
+                    />
+                    : 
+                    <div className='w-[350px] m-auto bg-zinc-200'/>
+                  }
                   <h2 className="text-[#2a2a2a] text-xl mb-1 font-bold">
                     Охват всех туристических зон
                   </h2>
@@ -78,6 +85,7 @@ export const About = () => {
                     className="w-80 m-auto" 
                     src={getImageUrl(about?.images, images[1])}
                     alt="travel" 
+                    loading='lazy'
                   />
                   <h2 className="text-[#2a2a2a] text-xl mb-1 font-bold">
                     Конструктор туров
@@ -92,6 +100,7 @@ export const About = () => {
                     className="w-80 m-auto"
                     src={getImageUrl(about?.images, images[2])}
                     alt="travel" 
+                    loading='eager'
                   />
                   <h2 className="text-[#2a2a2a] text-xl font-bold mb-1">
                     Врач-консультант

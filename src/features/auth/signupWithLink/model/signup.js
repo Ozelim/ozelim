@@ -17,9 +17,11 @@ function generateRandomEmail() {
 async function signupWithLink (data) {
 
   try {
+
+    console.log(data);
     
     const pyramid = await pb.collection('pyramid').getOne('ozelimbinary123', {expand: 'sponsor'})
-    const sponsor = await pb.collection('users').getOne(data.sponsor)
+    const sponsor = await pb.collection('users').getOne(data?.sponsor)
 
     return await pb.collection('users').create({
       ...data, 
