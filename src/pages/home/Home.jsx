@@ -29,6 +29,7 @@ import { Resort } from 'pages'
 export const Home = () => {
   return (
     <div className="space-y-20">
+      <Quiz />
       {/* <div className="container">
         <div className="grid grid-cols-4 gap-6">
           {Array(6).fill(1).map((_, i) => {
@@ -59,7 +60,6 @@ export const Home = () => {
       <TourOperators/>
       <VacationPlan/>
       <Resort/>
-      <Quiz />
       <PriceList />
       <Regions />
     </div>

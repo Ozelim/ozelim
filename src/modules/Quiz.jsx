@@ -1,62 +1,100 @@
 import React from 'react'
-import { Carousel, useAnimationOffsetEffect } from '@mantine/carousel'
-import Autoplay from 'embla-carousel-autoplay'
-import { Button, Stepper, TextInput } from '@mantine/core'
+import { Button, Group, Stepper, TextInput } from '@mantine/core'
+import { pb } from 'shared/api'
+import { getRegionsAndDiseas } from 'shared/lib/getRegionsAndDiseases'
+
+async function getQuestions () {
+  return (await pb.collection('questions').getFullList())[0]
+}
 
 export const Quiz = () => {
-  const [embla, setEmbla] = React.useState(null)
 
-  const autoplay = React.useRef(Autoplay({ delay: 4000 }))
+  const [questions, setQuestions] = React.useState({})
 
-  useAnimationOffsetEffect(embla, 200)
+  React.useEffect(() => {
+    getQuestions()
+    .then(res => {
+      console.log(res, 'res');
+      setQuestions(res)
+    })
+    getRegionsAndDiseas()
+    .then(res => {
+      
+    })
+  }, [])
+
+  const [step, setStep] = React.useState(1)
+
+  const nextStep = () => setStep((current) => (current < 12 ? current + 1 : current));
+  const prevStep = () => setStep((current) => (current > 0 ? current - 1 : current));
+
+  const [answer, setAnswer] = React.useState({})
+
+  async function saveAnswers () {
+    await pb.collection('questions').create(answer)
+  }
+
+  function handleAnswerChange (e) {
+    const {value, name} = e.currentTarget
+    setAnswer({...answer, [name]: value})
+  }
 
   return (
     <div className="w-full bg-white">
       <div className="container">
-        <div className="max-w-2xl mx-auto relative overflow-hidden space-y-2 pb-4">
+        <div className="max-w-4xl mx-auto relative overflow-hidden space-y-2 pb-4">
+          <Stepper
+            active={step}
+            onStepClick={setStep}
+          >
+            {Object.keys(questions).map((key, i) => {
+              if (!isNaN(key)) {
+                if (key < 11) {
+                  return (
+                    <Stepper.Step>
+                      <div
+                        className={'flex rounded-primary border border-zinc-200 justify-center items-center w-full h-full'}
+                      >
+                        <div className='w-full p-4'>
+                          <p className='text-lg text-center text'>
+                            {questions?.[key]}
+                          </p>
+                          <TextInput
+                            variant='filled'
+                            className="mt-5 rounded-primary w-full max-w-[300px] mx-auto"
+                            name={key}
+                            value={answer?.[key] ?? ''}
+                            onChange={handleAnswerChange}
+                            label='Ваш ответ'
+                          />
+                        </div>
+                      </div>
+                    </Stepper.Step>
+                  )
+                }
+              } 
+            })}
+          </Stepper>
+          <Group position="center" mt="xl">
+            {step > 0 && (
+              <Button variant="default" onClick={prevStep}>Назад</Button>
+            )}
+            {step < 9 ? (
+              <Button onClick={nextStep}>Следуйщий вопрос</Button>
+            ) : (
+              <Button
+                onClick={saveAnswers}
+              >
+                Отправить
+              </Button>
+            )}
+          </Group>
           <h1 className="text-center text-4xl mb-2 text-primary-500">
             Бесплатная помощь специалиста
           </h1>
           <p className="text-center text">
             Впервые на сайте? Ответье на пару вопросов и ждите ответа специалиста
           </p>
-          <Carousel
-            slideSize={'100%'}
-            loop
-            align={'start'}
-            height={200}
-            slideGap={20}
-            w={'100%'}
-            getEmblaApi={setEmbla}
-            plugins={[autoplay.current]}
-            onMouseEnter={autoplay.current.stop}
-            onMouseLeave={autoplay.current.reset}
-          >
-            {Array(10)
-              .fill(1)
-              .map((img, i) => {
-                return (
-                  <Carousel.Slide key={i} className={`relative `}>
-                    <div
-                      className={'flex rounded-primary border border-zinc-200 justify-center items-center w-full h-full'}
-                    >
-                      <div className='w-full p-4'>
-                        <p className='text-lg text-center text'>1. Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet nemo enim, pariatur tempora fuga harum?хахахаах</p>
-                        <TextInput
-                          variant='filled'
-                          className="mt-5 rounded-primary w-full max-w-[300px] mx-auto"
-                        />
-                        <div className='flex justify-center mt-4'>
-                          <Button className="">
-                            Далее
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  </Carousel.Slide>
-                )
-              })}
-          </Carousel>
         </div>
       </div>
     </div>
