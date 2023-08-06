@@ -5,7 +5,7 @@ export const ProgramRules = () => {
   return (
     <div className="w-full">
       <div className="container">
-        <section className="bg-[#F7F7F5] mt-16 rounded-[20px] py-[50px] px-[30px]">
+        <section className="bg-[#F7F7F5] mt-16 rounded-[20px] ">
           <h2 className="text-[35px] text-heading font-bold">
             Стать нашим партнером - просто!
           </h2>

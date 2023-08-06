@@ -33,6 +33,32 @@ export class BinaryTree {
       this.nodes.push(newNode);
     }
   }
+  
+  findLevelById(id) {
+    return this.findLevelByIdNode(this.root, id, 0);
+  }
+
+  findLevelByIdNode(node, id, level) {
+    if (!node) {
+      return -1; // Node not found
+    }
+
+    if (node.value.id === id) {
+      return level; // Node found, return its level
+    }
+
+    const leftLevel = this.findLevelByIdNode(node.left, id, level + 1);
+    if (leftLevel !== -1) {
+      return leftLevel; // Node found in the left subtree, return its level
+    }
+
+    const rightLevel = this.findLevelByIdNode(node.right, id, level + 1);
+    if (rightLevel !== -1) {
+      return rightLevel; // Node found in the right subtree, return its level
+    }
+
+    return -1; // Node not found in the current node or its descendants
+  }
 
   // _insertNode(node, newNode) {
   //   console.log(node, newNode, 'nodes');

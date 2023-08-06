@@ -21,12 +21,18 @@ export const ReferalsList = () => {
   }, [])
 
   return (
-    <div className='flex gap-4 overflow-x-auto pb-2'>
-      {referals.map((referal, i) => {
-        return (
-          <Referal referal={referal} key={i}/>
-        )
-      })}
+    <div className='w-full'>
+      <div className='flex gap-1'>
+        <p className='text'>Партнеры:</p>
+        <p className=''>{referals.length}</p>
+      </div>
+      <div className='flex gap-4 overflow-x-auto pb-2 mt-1'>
+        {referals.map((referal, i) => {
+          return (
+            <Referal referal={referal} key={i}/>
+          )
+        })}
+      </div>
     </div>
   )
 }

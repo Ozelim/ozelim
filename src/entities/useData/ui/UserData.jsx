@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, PasswordInput, Select, TextInput } from '@mantine/core'
 import { DatePickerInput, DateTimePicker } from '@mantine/dates'
-import { cities } from 'shared/lib'
+import { cities, formatNumber } from 'shared/lib'
 import { useLocation } from 'react-router-dom'
 import { useAuth } from 'shared/hooks'
 import { UserAvatar } from './UserAvatar'
@@ -40,7 +40,7 @@ export const UserData = () => {
   }, [])
 
   function handleValuesChange () {
-
+    
   }
 
   return (
@@ -48,6 +48,27 @@ export const UserData = () => {
       <div>
         <UserAvatar/>
         <div className="grid grid-cols-1 w-full gap-2 mt-5">
+          <div className='border p-3  rounded-primary border-primary-500'>
+            <div className='flex gap-1 items-center'>
+              <p className='text text-lg'>Баланс:</p>
+              <p className='text-lg'>
+                {formatNumber(user?.balance)}
+              </p>
+            </div>
+            <div className='space-y-2 mt-2'>
+              <Button
+                fullWidth
+              >
+                Вывод
+              </Button>
+              <Button
+                fullWidth
+                variant='outline'
+              >
+                Перевод
+              </Button>
+            </div>
+          </div>
           <TextInput
             value={referal}
             readOnly
@@ -55,6 +76,15 @@ export const UserData = () => {
             label='Реферальная ссылка'
             rightSection={(
               <CopyBtn value={referal}/>
+            )}
+          />
+          <TextInput
+            label='ID'
+            variant='filled'
+            value={values.id ?? ''}
+            onChange={handleValuesChange}
+            rightSection={(
+              <CopyBtn value={values?.id}/>
             )}
           />
           <TextInput

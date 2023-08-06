@@ -1,4 +1,5 @@
 import { pb } from "shared/api"
+import { getId } from "shared/lib";
 
 function generateRandomEmail() {
   const validChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -18,13 +19,12 @@ async function signupWithLink (data) {
 
   try {
 
-    console.log(data);
-    
     const pyramid = await pb.collection('pyramid').getOne('ozelimbinary123', {expand: 'sponsor'})
     const sponsor = await pb.collection('users').getOne(data?.sponsor)
 
     return await pb.collection('users').create({
       ...data, 
+      id: getId(),
       email: generateRandomEmail(),
       name: generateRandomEmail(),
       city: 'Алматы', 
@@ -50,7 +50,11 @@ async function signupWithLink (data) {
             await pb.collection('pyramid').update(pyramid.id, {
               [`b${i}`]: [...pyramid?.[`b${i}`], sponsor.id]
             })
-            .then(res => {
+            .then(async res => {
+              console.log(sponsor);
+              await pb.collection('users').update(sponsor.id, {
+                bin: true
+              })
               console.log(res, 'write');
             })
             return
