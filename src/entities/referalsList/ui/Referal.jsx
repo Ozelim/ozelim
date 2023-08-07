@@ -22,7 +22,7 @@ export const Referal = ({referal}) => {
           {referal?.name}
         </p>
         <p className='mt-1 text-xs text'>
-          {dayjs(referal?.created).format('DD.MM.YYYY')}
+          {dayjs(referal?.created).format('DD.MM.YYYY, HH:mm')}
         </p>
       </div>
     </div>
