@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Group, Stepper, TextInput } from '@mantine/core'
+import { Button, Group, Select, Stepper, TextInput } from '@mantine/core'
 import { pb } from 'shared/api'
 import { getRegionsAndDiseas } from 'shared/lib/getRegionsAndDiseases'
 
@@ -11,6 +11,8 @@ export const Quiz = () => {
 
   const [questions, setQuestions] = React.useState({})
 
+  const [utils, setUtils] = React.useState({})
+
   React.useEffect(() => {
     getQuestions()
     .then(res => {
@@ -19,7 +21,7 @@ export const Quiz = () => {
     })
     getRegionsAndDiseas()
     .then(res => {
-      
+      setUtils(res)
     })
   }, [])
 
@@ -34,9 +36,13 @@ export const Quiz = () => {
     await pb.collection('questions').create(answer)
   }
 
-  function handleAnswerChange (e) {
-    const {value, name} = e.currentTarget
-    setAnswer({...answer, [name]: value})
+  function handleAnswerChange (e, name) {
+    if (e.currentTarget) {
+      const {value, name} = e.currentTarget
+      setAnswer({...answer, [name]: value})
+      return 
+    }
+    setAnswer({...answer, [name]: e})
   }
 
   return (
@@ -59,14 +65,38 @@ export const Quiz = () => {
                           <p className='text-lg text-center text'>
                             {questions?.[key]}
                           </p>
-                          <TextInput
-                            variant='filled'
-                            className="mt-5 rounded-primary w-full max-w-[300px] mx-auto"
-                            name={key}
-                            value={answer?.[key] ?? ''}
-                            onChange={handleAnswerChange}
-                            label='Ваш ответ'
-                          />
+                          {key == 1 && (
+                            <Select 
+                              variant='filled'
+                              data={utils?.diseases}
+                              className="mt-5 rounded-primary w-full max-w-[300px] mx-auto"
+                              name={key}
+                              value={answer?.[key] ?? ''}
+                              onChange={e => handleAnswerChange(e, key)}
+                              label='Ваш ответ'
+                            />
+                          )}
+                          {key == 2 && (
+                            <Select
+                              variant='filled'
+                              data={utils?.regions}
+                              className="mt-5 rounded-primary w-full max-w-[300px] mx-auto"
+                              name={key}
+                              value={answer?.[key] ?? ''}
+                              onChange={e => handleAnswerChange(e, key)}
+                              label='Ваш ответ'
+                            />
+                          )}
+                          {(key != 1 && key != 2) && (
+                            <TextInput
+                              variant='filled'
+                              className="mt-5 rounded-primary w-full max-w-[300px] mx-auto"
+                              name={key}
+                              value={answer?.[key] ?? ''}
+                              onChange={handleAnswerChange}
+                              label='Ваш ответ'
+                            />
+                          )}
                         </div>
                       </div>
                     </Stepper.Step>

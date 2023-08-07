@@ -60,22 +60,39 @@ export class BinaryTree {
     return -1; // Node not found in the current node or its descendants
   }
 
-  // _insertNode(node, newNode) {
-  //   console.log(node, newNode, 'nodes');
-  //   if (newNode.value < node.value) {
-  //     if (!node.left) {
-  //       node.left = newNode;
-  //     } else {
-  //       this._insertNode(node.left, newNode);
-  //     }
-  //   } else {
-  //     if (!node.right) {
-  //       node.right = newNode;
-  //     } else {
-  //       this._insertNode(node.right, newNode);
-  //     }
-  //   }
-  // }
+  findMaxLevel() {
+    return this.findMaxLevelNode(this.root);
+  }
+
+  findMaxLevelNode(node) {
+    if (!node) {
+      return 0; // If node is null, return 0 (empty tree has level 0)
+    }
+
+    // Perform a level-order traversal using a queue
+    const queue = [node];
+    let maxLevel = 0;
+
+    while (queue.length > 0) {
+      const levelSize = queue.length;
+
+      for (let i = 0; i < levelSize; i++) {
+        const currentNode = queue.shift();
+
+        if (currentNode.left) {
+          queue.push(currentNode.left);
+        }
+
+        if (currentNode.right) {
+          queue.push(currentNode.right);
+        }
+      }
+
+      maxLevel++; // Increment level after processing each level
+    }
+
+    return maxLevel - 1; // Since levels start from 0, we subtract 1 from maxLevel
+  }
 
   // Search for a value in the binary tree
   search(value) {

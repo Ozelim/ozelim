@@ -1,6 +1,6 @@
-const { pb } = require("shared/api");
+import { pb } from "shared/api"
 
-async function getRegionsAndDiseas (regions, ) {
+async function getRegionsAndDiseas () {
   return (await pb.collection('utils').getFullList())[0]
 }
 
