@@ -14,14 +14,13 @@ export const Quiz = () => {
   const [utils, setUtils] = React.useState({})
 
   React.useEffect(() => {
-    getQuestions()
-    .then(res => {
-      console.log(res, 'res');
-      setQuestions(res)
-    })
     getRegionsAndDiseas()
     .then(res => {
       setUtils(res)
+    })
+    getQuestions()
+    .then(res => {
+      setQuestions(res)
     })
   }, [])
 
@@ -53,11 +52,11 @@ export const Quiz = () => {
             active={step}
             onStepClick={setStep}
           >
-            {Object.keys(questions).map((key, i) => {
+            {Object.keys(questions)?.map((key, i) => {
               if (!isNaN(key)) {
                 if (key < 11) {
                   return (
-                    <Stepper.Step>
+                    <Stepper.Step key={key}>
                       <div
                         className={'flex rounded-primary border border-zinc-200 justify-center items-center w-full h-full'}
                       >
@@ -68,7 +67,7 @@ export const Quiz = () => {
                           {key == 1 && (
                             <Select 
                               variant='filled'
-                              data={utils?.diseases}
+                              data={utils?.diseases ?? []}
                               className="mt-5 rounded-primary w-full max-w-[300px] mx-auto"
                               name={key}
                               value={answer?.[key] ?? ''}
@@ -79,7 +78,7 @@ export const Quiz = () => {
                           {key == 2 && (
                             <Select
                               variant='filled'
-                              data={utils?.regions}
+                              data={utils?.regions ?? []}
                               className="mt-5 rounded-primary w-full max-w-[300px] mx-auto"
                               name={key}
                               value={answer?.[key] ?? ''}

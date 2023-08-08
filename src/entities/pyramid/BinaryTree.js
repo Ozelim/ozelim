@@ -10,14 +10,19 @@ export class Node {
 
 // Define the BinaryTree class
 export class BinaryTree {
-  constructor() {
+  constructor(maxLevels) {
     this.root = null;
     this.nodes = [];
+    this.maxLevels = maxLevels;
   }
 
   // Insert a value into the binary tree
-  insert(value) {
+  insert(value, level = 0) {
     const newNode = new Node(value);
+
+    if (level >= this.maxLevels) {
+      return; // Stop inserting if maximum levels are reached
+    }
 
     if (!this.root) {
       this.root = newNode;
@@ -26,8 +31,10 @@ export class BinaryTree {
       const parent = this.nodes[0];
       if (!parent.left) {
         parent.left = newNode;
+        level + 1
       } else {
         parent.right = newNode;
+        level + 1
         this.nodes.shift(); // Remove the parent after both children are added
       }
       this.nodes.push(newNode);
