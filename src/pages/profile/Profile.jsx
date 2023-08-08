@@ -6,10 +6,24 @@ import { pb } from 'shared/api'
 import { clsx } from '@mantine/core'
 import { BinaryTree } from 'entities/pyramid/BinaryTree'
 import { Avatar } from 'shared/ui'
+import { useAuth } from 'shared/hooks'
 
 
 async function getPyramid () {
   return (await pb.collection('pyramid').getFullList({expand: 'sponsor, b1, b2, b4, b5, b6, b7, b8, b9, b10, b11, b12'}))[0]
+}
+
+
+async function getPyramidByUser (userId) {
+  const pyramid = (await pb.collection('pyramid').getFullList({expand: 'sponsor, b1, b2, b4, b5, b6, b7, b8, b9, b10, b11, b12'}))[0]
+
+  for (const stage in pyramid) {
+    if (stage.includes('b')) {
+      const stageArrays = pyramid?.[stage]
+      // const foundUserStage = pyramid?.[stage]?.find(e => e == userId)
+      console.log(stageArrays?.find(e => e === userId), stage);
+    }
+  }
 }
 
 const Binary = ({ root }) => {
@@ -17,11 +31,12 @@ const Binary = ({ root }) => {
   return <Node node={root} />;
 };
 
-const Node = ({ node}) => {
+const Node = ({ node }) => {
   if (!node) return null;
 
   return (
     <div className='my-4 text-center'>
+      
       {node?.value?.email && (
         <div className={clsx('relative bg-zinc-300 p-4 text-center inline-flex flex-col items-center rounded-primary')}>
 
@@ -34,7 +49,7 @@ const Node = ({ node}) => {
             }}
           />
           <p className='text-sm mt-2'>
-            {node?.value?.email}
+            {node?.value?.id}
           </p>
         </div>
       )}
@@ -48,6 +63,8 @@ const Node = ({ node}) => {
 
 export const Profile = () => {
 
+  const {user} = useAuth()
+
   const binaryTree = new BinaryTree();
 
   const [pyramid, setPyramid] = React.useState([])
@@ -57,6 +74,10 @@ export const Profile = () => {
     .then(res => {
       setPyramid(res?.expand)
       // binaryTree.insert(res?.expand?.sponsor)
+    })
+    getPyramidByUser(user?.id)
+    .then(res => {
+      console.log(res, 'res');
     })
   }, [])
 
@@ -103,8 +124,11 @@ export const Profile = () => {
     setIsDragging(false);
   };
 
+
+
   return (
     <div className='w-full'>
+      {console.log(binaryTree.findLevelById(user?.id), 'id')}
       <div className="container">
         <div className='w-full bg-white shadow-md rounded-primary p-4'>
           <div className="grid grid-cols-[25%_auto] gap-6">
