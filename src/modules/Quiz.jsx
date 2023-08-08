@@ -20,6 +20,18 @@ export const Quiz = () => {
     getRegionsAndDiseas().then((res) => {
       setUtils(res)
     })
+    getQuestions()
+    .then(res => {
+      setQuestions(res)
+    })
+    getRegionsAndDiseas()
+    .then(res => {
+      setUtils(res)
+    })
+    getQuestions()
+    .then(res => {
+      setQuestions(res)
+    })
   }, [])
 
   const [step, setStep] = React.useState(1)
@@ -57,7 +69,7 @@ export const Quiz = () => {
               if (!isNaN(key)) {
                 if (key < 11) {
                   return (
-                    <Stepper.Step key={i}>
+                    <Stepper.Step key={key}>
                       <div
                         className={
                           'flex rounded-primary border border-zinc-200 justify-center items-center w-full h-full'
@@ -68,8 +80,8 @@ export const Quiz = () => {
                             {questions?.[key]}
                           </p>
                           {key == 1 && (
-                            <Select
-                              variant="filled"
+                            <Select 
+                              variant='filled'
                               data={utils?.diseases ?? []}
                               className="mt-5 rounded-primary w-full max-w-[300px] mx-auto"
                               name={key}
@@ -80,7 +92,7 @@ export const Quiz = () => {
                           )}
                           {key == 2 && (
                             <Select
-                              variant="filled"
+                              variant='filled'
                               data={utils?.regions ?? []}
                               className="mt-5 rounded-primary w-full max-w-[300px] mx-auto"
                               name={key}

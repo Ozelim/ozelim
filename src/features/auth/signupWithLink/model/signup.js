@@ -46,9 +46,9 @@ async function signupWithLink (data) {
         for (let i = 1; i <= 50; i++) {
           let multiple = Math.pow(2, i);
           
-          if (pyramid?.[`b${i}`]?.length < multiple) {
+          if (pyramid?.[`${i}`]?.length < multiple) {
             await pb.collection('pyramid').update(pyramid.id, {
-              [`b${i}`]: [...pyramid?.[`b${i}`], sponsor.id]
+              [`${i}`]: [...pyramid?.[`${i}`], sponsor.id]
             })
             .then(async res => {
               console.log(sponsor);
