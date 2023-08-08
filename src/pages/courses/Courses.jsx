@@ -6,7 +6,7 @@ import { WhyOurCourse } from './ui/WhyOurCourse'
 import { TeachComfort } from './ui/TeachComfort'
 import { CourseCurrator } from './ui/CourseCurrator'
 import curratorCourse from 'shared/assets/images/curratorCourse.jpg'
-
+import { HealthLink } from 'shared/ui/HealthLink'
 
 export const Courses = () => {
   return (
@@ -21,6 +21,7 @@ export const Courses = () => {
         img={curratorCourse}
         desc="Предприниматель, психолог, бизнес-советник, директор Центра сертификации специалистов «САПА»"
       />
+      <HealthLink />
     </main>
   )
 }

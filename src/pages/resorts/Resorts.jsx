@@ -1,6 +1,6 @@
 import { ResortCard } from 'entities/resort'
 import React from 'react'
-import { useLocation, useSearchParams } from 'react-router-dom'
+import {  useSearchParams } from 'react-router-dom'
 import { pb } from 'shared/api'
 
 async function getResortsByRegion (region, page) {

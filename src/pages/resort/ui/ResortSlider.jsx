@@ -3,31 +3,31 @@ import { Carousel } from '@mantine/carousel'
 import { getImageUrl } from 'shared/lib'
 import { useModals } from 'shared/hooks'
 
-export const ResortSlider = ({resort}) => {
-
+export const ResortSlider = ({ resort }) => {
   // const autoplay = React.useRef(Autoplay({ delay: 2000 }))
 
   const { openModal } = useModals()
 
-  function viewImage (url) {
+  function viewImage(url) {
     openModal.image({
       innerProps: {
-        record: resort, 
+        record: resort,
         url: url,
       },
-      size: '50%'
+      size: '50%',
     })
   }
 
   const images = Object.keys(resort)
-  .filter((key) => !isNaN(key))
-  .map(index => {
-    return resort[index]
-  })
-  .slice(1)
+    .filter((key) => !isNaN(key))
+    .map((index) => {
+      return resort[index]
+    })
+    .slice(1)
+  console.log(images)
 
   return (
-    <div className='w-full'>
+    <div className="w-full">
       <Carousel
         slideSize={'100%'}
         loop
@@ -40,11 +40,11 @@ export const ResortSlider = ({resort}) => {
         {images.map((image, i) => {
           return (
             <Carousel.Slide key={i} className={`relative `}>
-              <div className='bg-slate-200'>
-                <img 
-                  src={getImageUrl(resort, image)} 
+              <div className="bg-slate-200">
+                <img
+                  src={getImageUrl(resort, resort?.[2])}
                   alt=""
-                  className=' aspect-video object-cover w-full h-full' 
+                  className=" aspect-video object-cover w-full h-full"
                   onClick={() => viewImage(image)}
                 />
               </div>
@@ -52,13 +52,14 @@ export const ResortSlider = ({resort}) => {
           )
         })}
       </Carousel>
-      <div className='flex overflow-x-auto gap-1 mt-1'>
-        {images?.map(image => {
+      <div className="flex overflow-x-auto gap-1 mt-1">
+        {images?.map((image, i) => {
           return (
-            <img 
-              src={getImageUrl(resort, image)} 
+            <img
+              key={i}
+              src={getImageUrl(resort, image)}
               alt=""
-              className=' aspect-video object-cover w-80 h-40' 
+              className=" aspect-video object-cover w-80 h-40"
               onClick={() => viewImage(image)}
             />
           )

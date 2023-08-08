@@ -17,6 +17,7 @@ import { About,
   Login
 } from "pages";
 import { baseLayout } from "./layouts/baseLayout";
+import { Test } from "pages/test/Test";
 
 const appRouter = createBrowserRouter([
   {element: baseLayout, children: [
@@ -36,6 +37,7 @@ const appRouter = createBrowserRouter([
     {path: '/about', element: <About/>},
     {path: '/login', element: <Login/>},
     {path: '*', element: <NotFound/>},
+    {path: '/test', element: <Test/>},
   ]}
 ])
 
