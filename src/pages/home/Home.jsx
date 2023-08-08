@@ -56,7 +56,7 @@ export const Home = () => {
       <BuyFranchise/>
       <Franchise/>
       <TouristAgency/>
-      <TourOperators/>
+      {/* <TourOperators/> */}
       <VacationPlan/>
       <Resort/>
       <Quiz />
