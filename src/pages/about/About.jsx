@@ -1,8 +1,4 @@
 import React from 'react'
-import TravelIcon from 'shared/assets/images/travel.png'
-import ConstructorIcon from 'shared/assets/images/constructor.png'
-import DoctorIcon from 'shared/assets/images/doctor.png'
-import SportIcon from 'shared/assets/icons/sport.svg'
 import { Button } from '@mantine/core'
 import { Link } from 'react-router-dom'
 import { AiOutlineYoutube } from 'react-icons/ai'
