@@ -42,7 +42,7 @@ export const ResortSlider = ({ resort }) => {
             <Carousel.Slide key={i} className={`relative `}>
               <div className="bg-slate-200">
                 <img
-                  src={getImageUrl(resort, resort?.[2])}
+                  src={getImageUrl(resort, resort?.[i + 1])}
                   alt=""
                   className=" aspect-video object-cover w-full h-full"
                   onClick={() => viewImage(image)}
