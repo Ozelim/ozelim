@@ -78,7 +78,7 @@ const Node = ({ node }) => {
     <div className='my-4 text-center w-full'>
       
       {node?.value?.email && (
-        <div className={clsx('relative bg-zinc-300 p-4 text-center inline-flex flex-col items-center rounded-primary')}>
+        <div className={clsx('relative bg-zinc-300 p-2 text-center inline-flex flex-col items-center rounded-primary')}>
 
           {/* <div className='absolute -top-[190px] left-1/2 -translate-x-1/2 h-[200px] w-1 bg-zinc-300'/> */}
           <Avatar
@@ -105,7 +105,7 @@ export const Profile = () => {
 
   const {user} = useAuth()
 
-  const binaryTree = new BinaryTree(4);
+  const binaryTree = new BinaryTree(8);
 
   const [pyramid, setPyramid] = React.useState([])
 
@@ -117,7 +117,7 @@ export const Profile = () => {
     // })
     getPyramidByUser(user?.id)
     .then(res => {
-      setPyramid(res.result)
+      setPyramid(res?.result)
     })
   }, [])
 
@@ -170,46 +170,15 @@ export const Profile = () => {
                 // onMouseMove={handleMouseMove}
                 // onMouseUp={handleMouseUp}  
               >
-                <div className='w-full overflow-auto'>
+                {/* <div className='w-full overflow-auto'>
                   <Test treeData={tree} />
-                </div>
-                <div className='w-[2000px] h-full overflow-auto'>
-
-                  <Draggable
-                    handle='.handle'
-                  >
-                    <div className='handle'>
+                </div> */}
+                
+                <Test treeData={tree} />
+                <div className='overflow-auto'>
+                    <div className='h-full w-[3000px]'>
                       <Binary root={tree} />
                     </div>
-                  </Draggable>
-
-    
-                  {/* <div className='overflow-scroll w-[9999px] h-screen'>
-                    {array.map((faggots, i) => {
-                      return (
-                        <div
-                          className='min-w-full flex justify-center text-center gap-4 mt-4'
-                          // style={{
-                          //   display: 'grid',
-                          //   gridTemplateColumns: `repeat(${Math.pow(2, i + 1)}, minmax(0, 1fr))`,
-                          // }}
-                        >
-                          {faggots?.map((faggot, index) => {
-                            return (
-                              <div>
-                                <p>
-                                {i + 1}  {faggot?.email}
-                                </p>
-                                <p>
-                                  {faggot?.id}
-                                </p>
-                              </div>
-                            )
-                          })}
-                        </div>
-                      )
-                    })} 
-                  </div> */}
                 </div>
               </div>
             </div>
