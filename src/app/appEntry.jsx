@@ -19,23 +19,21 @@ const cache = createEmotionCache({
 })
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <MantineProvider
-      withGlobalStyles
-      withCSSVariables
-      emotionCache={cache}
-      theme={{
-        primaryColor: 'teal',
-        primaryShade: 5,
-        defaultRadius: 'md',
-      }}
+  <MantineProvider
+    withGlobalStyles
+    withCSSVariables
+    emotionCache={cache}
+    theme={{
+      primaryColor: 'teal',
+      primaryShade: 5,
+      defaultRadius: 'md',
+    }}
+  >
+    <ModalsProvider 
+      modals={{image: ImageModal}}
     >
-      <ModalsProvider 
-        modals={{image: ImageModal}}
-      >
-        <RouterProvider router={appRouter}/>
-        <Notifications/>
-      </ModalsProvider>
-    </MantineProvider>
-  </React.StrictMode>,
+      <RouterProvider router={appRouter}/>
+      <Notifications/>
+    </ModalsProvider>
+  </MantineProvider>
 )

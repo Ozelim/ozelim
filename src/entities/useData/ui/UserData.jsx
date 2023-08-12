@@ -39,8 +39,17 @@ export const UserData = () => {
     })
   }, [])
 
-  function handleValuesChange () {
-    
+  function handleValuesChange (e, name) {
+    if (e?.currentTarget) {
+      const { name, value } = e?.currentTarget
+      setValues({...values, [name]: value})
+      return
+    }
+    setValues({...values, [name]: e})
+  }
+
+  async function saveUser() {
+    await pb.collection('users').update(user?.id, values)
   }
 
   return (
@@ -83,6 +92,7 @@ export const UserData = () => {
             variant='filled'
             value={values.id ?? ''}
             onChange={handleValuesChange}
+            readOnly
             rightSection={(
               <CopyBtn value={values?.id}/>
             )}
@@ -91,12 +101,14 @@ export const UserData = () => {
             label='ФИО'
             variant='filled'
             value={values.name ?? ''}
+            name='name'
             onChange={handleValuesChange}
           />
           <TextInput
             label='Почта'
             variant='filled'
             value={values?.email ?? ''}
+            name='email'
             onChange={handleValuesChange}
           />
           <Select
@@ -122,7 +134,9 @@ export const UserData = () => {
 
         </div>
         <div className='mt-4 flex justify-end'>
-          <Button>
+          <Button
+            onClick={saveUser}
+          >
             Сохранить
           </Button>
         </div>

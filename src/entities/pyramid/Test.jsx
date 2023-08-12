@@ -96,8 +96,10 @@
 // export default BinaryTree;
 
 import React, { useRef, useEffect } from 'react';
+import { getImageUrl } from 'shared/lib';
 
 const BinaryTree = ({treeData}) => {
+
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -105,19 +107,20 @@ const BinaryTree = ({treeData}) => {
     const context = canvas.getContext('2d');
     
     // Определение параметров дерева
-    const nodeSize = 80;
-    const levelDistance = 400;
-    const verticalDistance = 120;
+    const nodeSize = 70;
+    const levelDistance = 800;
+    const verticalDistance = 220;
     const rootNodePosition = { x: canvas.width / 2, y: 40 };
 
+    
     // Рекурсивная функция для отрисовки узлов и связей дерева
     const drawNode = (node, x, y, level) => {
       // Отрисовка узла в форме квадрата
-      context.fillStyle = 'gray';
+      context.fillStyle = 'black';
       context.fillRect(x - nodeSize / 2, y - nodeSize / 2, nodeSize, nodeSize);
       context.strokeStyle = 'black';
       context.strokeRect(x - nodeSize / 2, y - nodeSize / 2, nodeSize, nodeSize);
-
+ 
       // Отрисовка значения узла
       context.font = '12px Arial';
       context.fillStyle = 'white';
@@ -156,7 +159,58 @@ const BinaryTree = ({treeData}) => {
     drawNode(treeData, rootNodePosition.x, rootNodePosition.y, 1);
   }, []);
 
-  return <canvas ref={canvasRef} width={800} height={600} />;
+
+  return (
+    <canvas 
+      ref={canvasRef} 
+      width={2000} 
+      height={1000} 
+    />
+
+  ) 
 };
 
 export default BinaryTree;
+
+// const [isDragging, setIsDragging] = React.useState(false);
+// const [startX, setStartX] = React.useState(0);
+// const [startY, setStartY] = React.useState(0);
+// const [offsetX, setOffsetX] = React.useState(0);
+// const [offsetY, setOffsetY] = React.useState(0);
+
+// const handleMouseDown = (e) => {
+//   setIsDragging(true);
+//   setStartX(e.clientX);
+//   setStartY(e.clientY);
+// };
+
+// const handleMouseUp = () => {
+//   setIsDragging(false);
+//   setOffsetX(offsetX + (startX - e.clientX));
+//   setOffsetY(offsetY + (startY - e.clientY));
+// };
+
+// const handleMouseMove = (e) => {
+//   if (!isDragging) return;
+//   const deltaX = startX - e.clientX;
+//   const deltaY = startY - e.clientY;
+//   setOffsetX(offsetX - deltaX);
+//   setOffsetY(offsetY - deltaY);
+//   setStartX(e.clientX);
+//   setStartY(e.clientY);
+// };
+
+// <div 
+//   className="w-[100vw] h-[100vh] overflow-hidden relative"
+//   onMouseDown={handleMouseDown}
+//   onMouseUp={handleMouseUp}
+//   onMouseMove={handleMouseMove}
+// >
+//   <canvas 
+//     className='w-[200%] h-[200%]'
+//     ref={canvasRef} 
+//     width={2500} 
+//     height={600} 
+//     style={{ transform: `translate(${offsetX}px, ${offsetY}px)` }}
+//   />
+// </div>

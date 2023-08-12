@@ -20,7 +20,7 @@ export class BinaryTree {
   insert(value, level = 0) {
     const newNode = new Node(value);
 
-    if (level >= this.maxLevels) {
+    if (level >= this.maxLevels) { 
       return; // Stop inserting if maximum levels are reached
     }
 
