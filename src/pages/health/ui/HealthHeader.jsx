@@ -1,6 +1,7 @@
 import React from 'react'
 import FitnessIcon from 'shared/assets/icons/fitness.svg'
 import { Button } from '@mantine/core'
+import { Link } from 'react-router-dom'
 
 export const HealthHeader = () => {
   return (
@@ -38,9 +39,11 @@ export const HealthHeader = () => {
               <li>• Восстановление и улучшение иммунной системы человека</li>
               <li>• Лечебная гимнастика и физкультура</li>
             </ul>
-            <Button className="mt-10" size="md">
-              Подробнее
-            </Button>
+            <Link to="/price">
+              <Button className="mt-10" size="md">
+                Узнать цены
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

@@ -7,13 +7,10 @@ export const HealthWhatGives = () => {
         <div className="flex">
           <div className="lg:w-1/2 lg:mr-5 text-[#1e1e1e] text-lg">
             <p className="text">
-              Туризм активного отдыха и оздоровления называют оздоровительным
-              или реабилитационным туризмом, так как предусмотрена лечение в
-              условиях санатория под наблюдением квалифицированных медицинских
-              работников и узких специалистов.
+             
             </p>
             <img
-              className="block lg:hidden mt-5 mx-auto"
+              className="block lg:hidden mt-5 mx-auto rounded-primary "
               src="https://images.unsplash.com/photo-1524863479829-916d8e77f114?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
               alt=""
             />
@@ -29,7 +26,7 @@ export const HealthWhatGives = () => {
             </p>
           </div>
           <img
-            className="hidden lg:block w-1/2"
+            className="hidden lg:block w-1/2 rounded-primary"
             src="https://images.unsplash.com/photo-1524863479829-916d8e77f114?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
             alt=""
           />

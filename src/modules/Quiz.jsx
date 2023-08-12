@@ -20,16 +20,13 @@ export const Quiz = () => {
     getRegionsAndDiseas().then((res) => {
       setUtils(res)
     })
-    getQuestions()
-    .then(res => {
+    getQuestions().then((res) => {
       setQuestions(res)
     })
-    getRegionsAndDiseas()
-    .then(res => {
+    getRegionsAndDiseas().then((res) => {
       setUtils(res)
     })
-    getQuestions()
-    .then(res => {
+    getQuestions().then((res) => {
       setQuestions(res)
     })
   }, [])
@@ -60,10 +57,24 @@ export const Quiz = () => {
     <div className="w-full bg-white">
       <div className="container">
         <div className="max-w-4xl mx-auto relative overflow-hidden space-y-2 pb-4">
+          <div className="mb-10">
+            <h1 className="text-center text-4xl mb-2 text-primary-500">
+              Бесплатная помощь специалиста
+            </h1>
+            <p className="text-center text">
+              Впервые на сайте? Ответье на пару вопросов и ждите ответа
+              специалиста
+            </p>
+          </div>
+
           <Stepper
             allowNextStepsSelect={false}
             active={step}
             onStepClick={setStep}
+            classNames={{
+              steps: 'md:!flex !hidden',
+              content: '-mt-16 md:mt-0',
+            }}
           >
             {Object.keys(questions)?.map((key, i) => {
               if (!isNaN(key)) {
@@ -80,8 +91,8 @@ export const Quiz = () => {
                             {questions?.[key]}
                           </p>
                           {key == 1 && (
-                            <Select 
-                              variant='filled'
+                            <Select
+                              variant="filled"
                               data={utils?.diseases ?? []}
                               className="mt-5 rounded-primary w-full max-w-[300px] mx-auto"
                               name={key}
@@ -92,7 +103,7 @@ export const Quiz = () => {
                           )}
                           {key == 2 && (
                             <Select
-                              variant='filled'
+                              variant="filled"
                               data={utils?.regions ?? []}
                               className="mt-5 rounded-primary w-full max-w-[300px] mx-auto"
                               name={key}
@@ -131,13 +142,6 @@ export const Quiz = () => {
               <Button onClick={saveAnswers}>Отправить</Button>
             )}
           </Group>
-          <h1 className="text-center text-4xl mb-2 text-primary-500">
-            Бесплатная помощь специалиста
-          </h1>
-          <p className="text-center text">
-            Впервые на сайте? Ответье на пару вопросов и ждите ответа
-            специалиста
-          </p>
         </div>
       </div>
     </div>

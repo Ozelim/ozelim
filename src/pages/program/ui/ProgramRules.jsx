@@ -31,7 +31,7 @@ export const ProgramRules = () => {
               </p>
               <Center>
                 <Button size="md" className="mt-5">
-                  Правила
+                  Договор офферты
                 </Button>
               </Center>
             </div>

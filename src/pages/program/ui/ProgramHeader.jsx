@@ -1,6 +1,7 @@
 import { Button } from '@mantine/core'
 import React from 'react'
 import { FcInfo } from 'react-icons/fc'
+import { Link } from 'react-scroll'
 
 export const ProgramHeader = () => {
   return (
@@ -16,11 +17,14 @@ export const ProgramHeader = () => {
               вниманию предлагаем социально-накопительную партнерскую программу
               оздоровительного туризма, которая при активной работе в построении
               структуры позволит любому пользователю получить наши услуги
-              <span className=" font-bold"> БЕСЛАТНО </span>
+              <span className=" font-bold"> БЕСПЛАТНО </span>
             </p>
-            <Button className="py-[15px] mb-[60px] px-[45px]" size='lg'>
-              Стать партнером
-            </Button>
+            <Link to="docs" spy={true} smooth={true}>
+              <Button className="py-[15px] mb-[60px] px-[45px]" size="lg">
+                Стать партнером
+              </Button>
+            </Link>
+
             <div className="flex gap-5">
               <div className="w-[150px] text-center">
                 <FcInfo className="m-auto" />

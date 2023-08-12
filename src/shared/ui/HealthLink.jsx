@@ -12,9 +12,6 @@ export const HealthLink = () => {
             Узнать цену
           </h1>
           <div className="flex justify-center gap-5">
-            <Link to="/price">
-              <Button size="md">Перейти</Button>
-            </Link>
             <Modal>Оставить заявку</Modal>
           </div>
         </div>

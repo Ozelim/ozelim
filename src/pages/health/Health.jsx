@@ -1,17 +1,48 @@
 import React from 'react'
 import { HealthPros } from './ui/HealthPros'
 import { HealthHeader } from './ui/HealthHeader'
-import { HealthWhatGives } from './ui/HealthWhatGives'
 import { CourseCurrator } from 'pages/courses/ui/CourseCurrator'
 import curratorHealth from 'shared/assets/images/curratorHealth.jpg'
 import { HealthLink } from '../../shared/ui/HealthLink'
+import { HealthCard } from 'entities/healthCard'
+
+const array = [
+  {
+    flow: 'left',
+    text: ` Туризм активного отдыха и оздоровления называют оздоровительным
+  или реабилитационным туризмом, так как предусмотрена лечение в
+  условиях санатория под наблюдением квалифицированных медицинских
+  работников и узких специалистов.`,
+  },
+  {
+    flow: 'right',
+    text: ` Благодаря лечебно-оздоровительному туризму можно получить
+  эффективное, практически полное, всестороннее обновление
+  организма, так как человеку предоставляется возможность временно
+  покинуть место постоянного жительства, работу, изменить привычную
+  обстановку и образ жизни.`,
+  },
+  {
+    flow: 'left',
+    text: `Если совместить отдых с лечением и восстановлением организма и превратить его в привычку, т.е. в ежегодное мероприятие, то можно снять симптомы физической и морально-психологической усталости на достаточно длительный срок.`,
+  },
+  {
+    flow: 'right',
+    text: `Казахстан – не только часть Евразии и Шёлкового пути, но и прекрасное место для лечебно-оздоровительного туризма. 
+    Курорты Казахстана располагают практически всеми известными в мире типами лечебных минеральных вод и лечебных грязей. Также практикуют кумысотерапия и пантолечение, которые способствуют серьезному усилению иммунитета и стимулированию функций всех систем организма. `,
+  },
+]
 
 export const Health = () => {
   return (
     <main className="w-full">
       <HealthHeader />
       <HealthPros />
-      <HealthWhatGives />
+      <div className="grid grid-cols-1 gap-6 mt-10">
+        {array.map((val, i) => {
+          return <HealthCard card={val} key={i} />
+        })}
+      </div>
       <CourseCurrator
         name="Байзакова Гульнара Сериковна"
         img={curratorHealth}

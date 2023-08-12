@@ -29,19 +29,19 @@ export const Home = () => {
 
   return (
     <div className="space-y-20">
-      <Franchise />
+      {/* <Franchise /> */}
       <Quiz />
       {/* <Resorts /> */}
-      <div className="grid grid-cols-4 ">
+      {/* <div className="grid grid-cols-4 ">
         {resorts
           .map((resort) => <ResortCard resort={resort} key={resort.id} />)
           .slice(0, sliced)}
-      </div>
-      {sliced === 4 && (
+      </div> */}
+      {/* {sliced === 4 && (
         <Button size="md" onClick={handleViewMode}>
           Еще
         </Button>
-      )}
+      )} */}
     </div>
   )
 }

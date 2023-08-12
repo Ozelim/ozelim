@@ -6,6 +6,7 @@ import { JobTeachPractice } from 'modules/JobTeachPractice'
 import { NewFormat } from 'modules/NewFormat'
 import { OnlineCourseManager } from 'modules/OnlineCourseManager'
 import { OurPartners } from 'modules/OurPartners'
+import { PriceList } from 'modules/PriceList'
 import { Regions } from 'modules/Regions'
 import { Results } from 'modules/Results'
 import { TeachPacks } from 'modules/TeachPacks'
@@ -23,6 +24,7 @@ export const Test = () => {
     <div>
       <Results />
       <NewFormat />
+      <PriceList />
       <HaveQuestions />
       <OnlineCourseManager />
       <JobTeachPractice />

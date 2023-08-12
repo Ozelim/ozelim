@@ -13,20 +13,19 @@ export const CourseCurrator = ({ name, desc, img }) => {
             <h1 className="text-4xl text-[#424242] font-semibold">
               Куратор курса
             </h1>
-            <p className="text-lg text-[#888888] mt-2">
+            <p className="text-lg text-[#888888] max-w-xs  mt-2">
               Задавайте любые интересующие вас вопросы нашему куратору
             </p>
-          </div>
-
-          <div className="flex w-3/5 bg-[#f4f4f4] rounded-primary p-5">
             <img
               src={img}
-              className="max-h-80 m-auto rounded-primary "
+              className="max-h-80  rounded-primary mt-5 "
               alt="currator"
             />
+          </div>
+          <div className="flex w-4/6 bg-[#f4f4f4]  rounded-primary p-5">
             <div className="ml-8">
               <h2 className="text-xl font-semibold text-[#424242]">{name}</h2>
-              <p className='mt-2'>{desc}</p>
+              <p className="mt-2">{desc}</p>
               <p className=" text-[#888888] mt-2">
                 Задавайте любые интересующие вас вопросы нашему куратору
               </p>
