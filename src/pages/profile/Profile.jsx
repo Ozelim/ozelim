@@ -103,7 +103,7 @@ const Node = ({ node }) => {
 
 export const Profile = () => {
 
-  const {user} = useAuth()
+  const {user} = useAuth() 
 
   const binaryTree = new BinaryTree(8);
 
@@ -121,13 +121,15 @@ export const Profile = () => {
     })
   }, [])
 
+  const [tree, setTree] = React.useState({})
 
-  const array = pyramid.flat(1)
+  React.useEffect(() => {
+  pyramid.flat(1)
   ?.map((stage, i) => {
       return binaryTree.insert(stage)
   })
-
-  const tree = binaryTree.root
+  setTree(binaryTree.root)
+  }, [pyramid])
 
   // const contentRef = React.useRef(null);
   // const [isDragging, setIsDragging] = React.useState(false);
@@ -170,16 +172,19 @@ export const Profile = () => {
                 // onMouseMove={handleMouseMove}
                 // onMouseUp={handleMouseUp}  
               >
-                {/* <div className='w-full overflow-auto'>
+                <div className='overflow-auto'>
+                  <Test treeData={tree} />
+                </div>
+{/* 
+                <div className='overflow-auto w-[10000px]'>
                   <Test treeData={tree} />
                 </div> */}
                 
-                <Test treeData={tree} />
-                <div className='overflow-auto'>
+                {/* <div className='overflow-auto'>
                     <div className='h-full w-[3000px]'>
                       <Binary root={tree} />
                     </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
