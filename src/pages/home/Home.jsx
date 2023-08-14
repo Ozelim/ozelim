@@ -30,18 +30,35 @@ export const Home = () => {
   return (
     <div className="space-y-20">
       {/* <Franchise /> */}
-      <Quiz />
-      {/* <Resorts /> */}
-      {/* <div className="grid grid-cols-4 ">
-        {resorts
-          .map((resort) => <ResortCard resort={resort} key={resort.id} />)
-          .slice(0, sliced)}
-      </div> */}
-      {/* {sliced === 4 && (
-        <Button size="md" onClick={handleViewMode}>
-          Еще
-        </Button>
-      )} */}
+      {/* <Quiz /> */}
+      <div className="w-full">
+        <div className="container">
+          <div className="w-full">
+            <div className="grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4">
+              {resorts
+                .map((resort) => {
+                  return (
+                    <div className='mx-auto'>
+                      <ResortCard resort={resort} key={resort.id} />
+                    </div>
+                  )
+                })
+                .slice(0, sliced)}
+            </div>
+          </div>
+          {sliced === 4 && (
+            <div className='flex justify-center mt-4'>
+              <Button 
+                onClick={handleViewMode}
+                compact
+                variant='subtle'
+              >
+                Еще
+              </Button>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   )
 }

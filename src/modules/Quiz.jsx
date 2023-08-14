@@ -73,7 +73,7 @@ export const Quiz = () => {
             onStepClick={setStep}
             classNames={{
               steps: 'md:!flex !hidden',
-              content: '-mt-16 md:mt-0',
+              content: '-mt-14 md:mt-0',
             }}
           >
             {Object.keys(questions)?.map((key, i) => {

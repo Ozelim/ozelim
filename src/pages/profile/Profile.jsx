@@ -164,7 +164,7 @@ export const Profile = () => {
           <div className="grid grid-cols-[25%_auto] gap-6">
             <UserData/>
             <div className='relative overflow-hidden'>
-              <ReferalsList/>
+              <ReferalsList/> 
               <div 
                 // className='overflow-scroll '
                 // ref={contentRef}
@@ -172,8 +172,15 @@ export const Profile = () => {
                 // onMouseMove={handleMouseMove}
                 // onMouseUp={handleMouseUp}  
               >
+
                 <div className='overflow-auto'>
-                  <Test treeData={tree} />
+                  <Draggable
+                    handle='.handle'
+                  >
+                    <div className='handle'>
+                      <Test  treeData={tree} />
+                    </div>
+                  </Draggable>
                 </div>
 {/* 
                 <div className='overflow-auto w-[10000px]'>

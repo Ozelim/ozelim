@@ -1,7 +1,7 @@
 import { Button } from '@mantine/core'
 import React from 'react'
 import { FcInfo } from 'react-icons/fc'
-import { Link } from 'react-scroll'
+import { Link } from 'react-router-dom'
 
 export const ProgramHeader = () => {
   return (

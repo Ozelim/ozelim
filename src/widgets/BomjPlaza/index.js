@@ -1,0 +1,1 @@
+export { BomjPlaza } from './ui/BomjPlaza'
