@@ -1,14 +1,10 @@
-
-
 export class Node {
   constructor(value) {
     this.value = value;
-    this.left = null;
-    this.right = null;
+    this.children = [];
   }
 }
 
-// Define the BinaryTree class
 export class BinaryTree {
   constructor(maxLevels) {
     this.root = null;
@@ -16,12 +12,11 @@ export class BinaryTree {
     this.maxLevels = maxLevels;
   }
 
-  // Insert a value into the binary tree
   insert(value, level = 0) {
     const newNode = new Node(value);
 
-    if (level >= this.maxLevels) { 
-      return; // Stop inserting if maximum levels are reached
+    if (level >= this.maxLevels) {
+      return;
     }
 
     if (!this.root) {
@@ -29,42 +24,39 @@ export class BinaryTree {
       this.nodes.push(newNode);
     } else {
       const parent = this.nodes[0];
-      if (!parent.left) {
-        parent.left = newNode;
-        level + 1
+      if (parent.children.length < 2) {
+        parent.children.push(newNode);
+        level + 1;
       } else {
-        parent.right = newNode;
-        level + 1
-        this.nodes.shift(); // Remove the parent after both children are added
+        parent.children[0].children.push(newNode);
+        level + 1;
+        this.nodes.shift();
       }
       this.nodes.push(newNode);
     }
   }
-  
+
   findLevelById(id) {
     return this.findLevelByIdNode(this.root, id, 0);
   }
 
   findLevelByIdNode(node, id, level) {
     if (!node) {
-      return -1; // Node not found
+      return -1;
     }
 
     if (node.value.id === id) {
-      return level; // Node found, return its level
+      return level;
     }
 
-    const leftLevel = this.findLevelByIdNode(node.left, id, level + 1);
-    if (leftLevel !== -1) {
-      return leftLevel; // Node found in the left subtree, return its level
+    for (const child of node.children) {
+      const childLevel = this.findLevelByIdNode(child, id, level + 1);
+      if (childLevel !== -1) {
+        return childLevel;
+      }
     }
 
-    const rightLevel = this.findLevelByIdNode(node.right, id, level + 1);
-    if (rightLevel !== -1) {
-      return rightLevel; // Node found in the right subtree, return its level
-    }
-
-    return -1; // Node not found in the current node or its descendants
+    return -1;
   }
 
   findMaxLevel() {
@@ -73,35 +65,19 @@ export class BinaryTree {
 
   findMaxLevelNode(node) {
     if (!node) {
-      return 0; // If node is null, return 0 (empty tree has level 0)
+      return 0;
     }
 
-    // Perform a level-order traversal using a queue
-    const queue = [node];
     let maxLevel = 0;
 
-    while (queue.length > 0) {
-      const levelSize = queue.length;
-
-      for (let i = 0; i < levelSize; i++) {
-        const currentNode = queue.shift();
-
-        if (currentNode.left) {
-          queue.push(currentNode.left);
-        }
-
-        if (currentNode.right) {
-          queue.push(currentNode.right);
-        }
-      }
-
-      maxLevel++; // Increment level after processing each level
+    for (const child of node.children) {
+      const childLevel = this.findMaxLevelNode(child);
+      maxLevel = Math.max(maxLevel, childLevel);
     }
 
-    return maxLevel - 1; // Since levels start from 0, we subtract 1 from maxLevel
+    return maxLevel + 1;
   }
 
-  // Search for a value in the binary tree
   search(value) {
     return this._searchNode(this.root, value);
   }
@@ -111,27 +87,29 @@ export class BinaryTree {
 
     if (node.value === value) {
       return true;
-    } else if (value < node.value) {
-      return this._searchNode(node.left, value);
     } else {
-      return this._searchNode(node.right, value);
+      for (const child of node.children) {
+        if (this._searchNode(child, value)) {
+          return true;
+        }
+      }
+      return false;
     }
   }
 
-  // In-order traversal (Left, Root, Right)
   inOrderTraversal(callback) {
     this._inOrderTraversalNode(this.root, callback);
   }
 
   _inOrderTraversalNode(node, callback) {
     if (node) {
-      this._inOrderTraversalNode(node.left, callback);
+      for (const child of node.children) {
+        this._inOrderTraversalNode(child, callback);
+      }
       callback(node.value);
-      this._inOrderTraversalNode(node.right, callback);
     }
   }
 
-  // Pre-order traversal (Root, Left, Right)
   preOrderTraversal(callback) {
     this._preOrderTraversalNode(this.root, callback);
   }
@@ -139,20 +117,21 @@ export class BinaryTree {
   _preOrderTraversalNode(node, callback) {
     if (node) {
       callback(node.value);
-      this._preOrderTraversalNode(node.left, callback);
-      this._preOrderTraversalNode(node.right, callback);
+      for (const child of node.children) {
+        this._preOrderTraversalNode(child, callback);
+      }
     }
   }
 
-  // Post-order traversal (Left, Right, Root)
   postOrderTraversal(callback) {
     this._postOrderTraversalNode(this.root, callback);
   }
 
   _postOrderTraversalNode(node, callback) {
     if (node) {
-      this._postOrderTraversalNode(node.left, callback);
-      this._postOrderTraversalNode(node.right, callback);
+      for (const child of node.children) {
+        this._postOrderTraversalNode(child, callback);
+      }
       callback(node.value);
     }
   }

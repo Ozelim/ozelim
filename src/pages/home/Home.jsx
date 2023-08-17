@@ -32,7 +32,6 @@ export const Home = () => {
     <div className="space-y-20">
       <Franchise />
       <Quiz />
-      <Resorts />
       <div className="grid lg:grid-cols-4 gap-4 md:grid-cols-3 grid-cols-2  ">
         {resorts
           .map((resort) => <ResortCard resort={resort} key={resort.id} />)

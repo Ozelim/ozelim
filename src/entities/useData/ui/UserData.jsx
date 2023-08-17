@@ -1,12 +1,5 @@
 import React from 'react'
-import {
-  Button,
-  Group,
-  Modal,
-  PasswordInput,
-  Select,
-  TextInput,
-} from '@mantine/core'
+import { Button, Group, Modal, PasswordInput, Select, TextInput } from '@mantine/core'
 import { DatePickerInput, DateTimePicker } from '@mantine/dates'
 import { cities, formatNumber } from 'shared/lib'
 import { useLocation } from 'react-router-dom'
@@ -14,12 +7,11 @@ import { useAuth } from 'shared/hooks'
 import { UserAvatar } from './UserAvatar'
 import { pb } from 'shared/api'
 import { CopyBtn } from 'shared/ui'
-import { useDisclosure } from '@mantine/hooks'
 import { Controller, useForm } from 'react-hook-form'
 import { Capthca } from 'shared/ui/Capthca'
 import { ConfirmModal } from 'shared/ui/ConfirmModal'
+import { useDisclosure } from '@mantine/hooks'
 import { Withdraw } from 'shared/ui/Withdraw'
-
 export const UserData = () => {
   const { pathname } = useLocation()
   const [opened, { open, close }] = useDisclosure(false)
@@ -48,6 +40,7 @@ export const UserData = () => {
 
   const [values, setValues] = React.useState({
     name: '',
+    surname: '',
     city: '',
     birthday: '',
     iin: '',
@@ -83,19 +76,22 @@ export const UserData = () => {
   }
 
   async function saveUser() {
-    await pb.collection('users').update(user?.id, values)
+    await pb
+      .collection('users')
+      .update(user?.id, values)
+      .then((res) => {
+        console.log(res, 'res')
+      })
   }
 
   return (
     <div className="w-full">
-      <div>
-        <UserAvatar />
-        <div className="grid grid-cols-1 w-full gap-2 mt-5">
-          <div className="border p-3  rounded-primary border-primary-500">
-            <div className="flex gap-1 items-center">
-              <p className="text text-lg">Баланс:</p>
-              <p className="text-lg">{formatNumber(user?.balance)}</p>
-            </div>
+      <UserAvatar />
+      <div className="grid grid-cols-1 w-full gap-2 mt-5">
+        <div className="border p-3 rounded-primary border-primary-500">
+          <div className="flex gap-1 items-center">
+            <p className="text text-lg">Баланс:</p>
+            <p className="text-lg">{formatNumber(user?.balance)}</p>
             <div className="space-y-2 mt-2">
               <Withdraw />
               <Modal centered opened={opened} onClose={close} title="Перевод">
@@ -164,10 +160,17 @@ export const UserData = () => {
             rightSection={<CopyBtn value={values?.id} />}
           />
           <TextInput
-            label="ФИО"
+            label="Имя"
             variant="filled"
             value={values.name ?? ''}
             name="name"
+            onChange={handleValuesChange}
+          />
+          <TextInput
+            label="Фамилия"
+            variant="filled"
+            value={values.surname ?? ''}
+            name="surname"
             onChange={handleValuesChange}
           />
           <TextInput
@@ -202,6 +205,7 @@ export const UserData = () => {
           <Button onClick={saveUser}>Сохранить</Button>
         </div>
       </div>
+      /
     </div>
   )
 }

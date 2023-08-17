@@ -10,9 +10,56 @@ import { useAuth } from 'shared/hooks'
 import Draggable from 'react-draggable'
 import Test from 'entities/pyramid/Test'
 
+
+import Tree from 'react-d3-tree'
 // async function getPyramid () {
 //   return (await pb.collection('pyramid').getFullList({expand: 'sponsor, b1, b2, b4, b5, b6, b7, b8, b9, b10, b11, b12'}))[0]
 // }
+
+function CustomNode({ nodeData, toggleNode }) {
+
+  const data = nodeData?.value
+
+  return (
+    <g stroke="grey" fill="grey" stroke-width="0.7">
+      <circle
+        r={10}
+        fill={nodeData.children ? 'Aquamarine' : '#ccc'}
+        onClick={toggleNode}
+      />
+
+      <text
+        stroke="green"
+        x={-60}
+        y={-18}
+        style={{ fontSize: '12px' }}
+        textAnchor="start"
+      >
+        {data?.name} {data?.surname}
+      </text>
+
+      <text
+        stroke="green"
+        x={-48}
+        y={25}
+        style={{ fontSize: '13px' }}
+        textAnchor="start"
+      >
+        ID: {data?.id}
+      </text>
+
+      <text
+        stroke="grey"
+        x={-48}
+        y={40}
+        style={{ fontSize: '12px' }}
+        textAnchor="start"
+      >
+        {dayjs(data?.created).format('YYYY-MM-DD hh:mm')}
+      </text>
+    </g>
+  )
+}
 
 async function getPyramidByUser (userId) {
 
@@ -124,11 +171,11 @@ export const Profile = () => {
   const [tree, setTree] = React.useState({})
 
   React.useEffect(() => {
-  pyramid.flat(1)
-  ?.map((stage, i) => {
-      return binaryTree.insert(stage)
-  })
-  setTree(binaryTree.root)
+    pyramid.flat(1)
+    ?.map((stage, i) => {
+        return binaryTree.insert(stage)
+    })
+    setTree(binaryTree.root)
   }, [pyramid])
 
   // const contentRef = React.useRef(null);
@@ -158,39 +205,37 @@ export const Profile = () => {
   // };
 
   return (
-    <div className='w-full'>
+    <div className="w-full">
       <div className="container">
-        <div className='w-full bg-white shadow-md rounded-primary p-4'>
+        <div className="w-full bg-white shadow-md rounded-primary p-4">
           <div className="grid grid-cols-[25%_auto] gap-6">
-            <UserData/>
-            <div className='relative overflow-hidden'>
-              <ReferalsList/>
-              <div 
-                // className='overflow-scroll '
-                // ref={contentRef}
-                // onMouseDown={handleMouseDown}
-                // onMouseMove={handleMouseMove}
-                // onMouseUp={handleMouseUp}  
-              >
-                <div className='overflow-auto'>
-                  <Test treeData={tree} />
+            <UserData />
+            <div className="relative overflow-hidden">
+              <ReferalsList />
+              <div className="mt-10 overflow-auto">
+                <div 
+                  className='h-[100vh] border-2 border-primary-400 p-4 '
+                >
+                  <Tree
+                    data={tree ?? {}}
+                    orientation="vertical"
+                    pathFunc="elbow"
+                    nodeSvgShape={{
+                      shape: 'circle',
+                      shapeProps: { r: 10, fill: 'green' },
+                    }}
+                    renderCustomNodeElement={({ nodeDatum, toggleNode }) => (
+                      <CustomNode
+                        nodeData={nodeDatum}
+                        toggleNode={toggleNode}
+                      />
+                    )}
+                  />
                 </div>
-{/* 
-                <div className='overflow-auto w-[10000px]'>
-                  <Test treeData={tree} />
-                </div> */}
-                
-                {/* <div className='overflow-auto'>
-                    <div className='h-full w-[3000px]'>
-                      <Binary root={tree} />
-                    </div>
-                </div> */}
               </div>
             </div>
           </div>
-          <div>
-            
-          </div>
+          <div></div>
         </div>
       </div>
     </div>
