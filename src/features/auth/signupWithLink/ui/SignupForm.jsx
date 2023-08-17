@@ -16,6 +16,7 @@ export const SignupForm = () => {
   const { control, handleSubmit, formState: {errors, isSubmitting}, clearErrors } = useForm({
     values: {
       name: '',
+      surname: '',
       city: '',
       birthday: '',
       iin: '',
@@ -69,8 +70,22 @@ export const SignupForm = () => {
             render={({field}) => (
               <TextInput
                 {...field}
-                placeholder='Ваше ФИО'
-                label='ФИО'
+                placeholder='Ваше имя'
+                label='Имя'
+                // error={errors.name?.message}
+                variant='filled'
+                // disabled={isSubmitting}
+              />
+            )}
+          />
+          <Controller
+            name='surname'
+            control={control}
+            render={({field}) => (
+              <TextInput
+                {...field}
+                placeholder='Ваша фамилия'
+                label='Фамилия'
                 // error={errors.name?.message}
                 variant='filled'
                 // disabled={isSubmitting}

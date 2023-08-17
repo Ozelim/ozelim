@@ -18,6 +18,7 @@ export const UserData = () => {
 
   const [values, setValues] = React.useState({
     name: '',
+    surname: '',
     city: '',
     birthday: '',
     iin: '',
@@ -50,30 +51,24 @@ export const UserData = () => {
 
   async function saveUser() {
     await pb.collection('users').update(user?.id, values)
+    .then((res) => {
+      console.log(res, 'res');
+    })
   }
 
   return (
-    <div className='w-full'>
+    <div className="w-full">
       <div>
-        <UserAvatar/>
+        <UserAvatar />
         <div className="grid grid-cols-1 w-full gap-2 mt-5">
-          <div className='border p-3  rounded-primary border-primary-500'>
-            <div className='flex gap-1 items-center'>
-              <p className='text text-lg'>Баланс:</p>
-              <p className='text-lg'>
-                {formatNumber(user?.balance)}
-              </p>
+          <div className="border p-3  rounded-primary border-primary-500">
+            <div className="flex gap-1 items-center">
+              <p className="text text-lg">Баланс:</p>
+              <p className="text-lg">{formatNumber(user?.balance)}</p>
             </div>
-            <div className='space-y-2 mt-2'>
-              <Button
-                fullWidth
-              >
-                Вывод
-              </Button>
-              <Button
-                fullWidth
-                variant='outline'
-              >
+            <div className="space-y-2 mt-2">
+              <Button fullWidth>Вывод</Button>
+              <Button fullWidth variant="outline">
                 Перевод
               </Button>
             </div>
@@ -81,64 +76,62 @@ export const UserData = () => {
           <TextInput
             value={referal}
             readOnly
-            variant='filled'
-            label='Реферальная ссылка'
-            rightSection={(
-              <CopyBtn value={referal}/>
-            )}
+            variant="filled"
+            label="Реферальная ссылка"
+            rightSection={<CopyBtn value={referal} />}
           />
           <TextInput
-            label='ID'
-            variant='filled'
+            label="ID"
+            variant="filled"
             value={values.id ?? ''}
             onChange={handleValuesChange}
             readOnly
-            rightSection={(
-              <CopyBtn value={values?.id}/>
-            )}
+            rightSection={<CopyBtn value={values?.id} />}
           />
           <TextInput
-            label='ФИО'
-            variant='filled'
+            label="Имя"
+            variant="filled"
             value={values.name ?? ''}
-            name='name'
+            name="name"
             onChange={handleValuesChange}
           />
           <TextInput
-            label='Почта'
-            variant='filled'
+            label="Фамилия"
+            variant="filled"
+            value={values.surname ?? ''}
+            name="surname"
+            onChange={handleValuesChange}
+          />
+          <TextInput
+            label="Почта"
+            variant="filled"
             value={values?.email ?? ''}
-            name='email'
+            name="email"
             onChange={handleValuesChange}
           />
           <Select
             data={cities}
-            label='Город'
-            variant='filled'
+            label="Город"
+            variant="filled"
             value={values.city ?? ''}
             onChange={handleValuesChange}
           />
           <DatePickerInput
-            label='Дата рождения'
-            variant='filled'
+            label="Дата рождения"
+            variant="filled"
             value={values?.birthday ?? ''}
             onChange={handleValuesChange}
-            locale='ru'
+            locale="ru"
           />
           <PasswordInput
-            label='ИИН'
-            variant='filled'
+            label="ИИН"
+            variant="filled"
             value={values?.iin ?? ''}
             onChange={handleValuesChange}
           />
-
         </div>
-        <div className='mt-4 flex justify-end'>
-          <Button
-            onClick={saveUser}
-          >
-            Сохранить
-          </Button>
+        <div className="mt-4 flex justify-end">
+          <Button onClick={saveUser}>Сохранить</Button>
         </div>
       </div>
     </div>
