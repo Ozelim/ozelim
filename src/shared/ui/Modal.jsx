@@ -3,14 +3,13 @@ import { Modal as ModalM, Button, Group, TextInput } from '@mantine/core'
 import { Controller, useForm } from 'react-hook-form'
 import { pb } from 'shared/api'
 
-export function Modal({ children }) {
+export function Modal({ children, onSubmit }) {
   const [opened, { open, close }] = useDisclosure(false)
 
   const {
     control,
     handleSubmit,
     formState: { errors, isSubmitting },
-    clearErrors,
   } = useForm({
     values: {
       name: '',
@@ -19,10 +18,6 @@ export function Modal({ children }) {
     },
     // resolver: yupResolver(signupSchema)
   })
-
-  const onSubmit = async (data) => {
-    await pb.collection('healthBids').create(data)
-  }
 
   return (
     <>
@@ -79,7 +74,9 @@ export function Modal({ children }) {
       </ModalM>
 
       <Group position="center">
-        <Button size='md' onClick={open}>{children}</Button>
+        <Button size="md" onClick={open}>
+          {children}
+        </Button>
       </Group>
     </>
   )

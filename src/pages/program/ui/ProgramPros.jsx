@@ -2,56 +2,42 @@ import { Button, Center } from '@mantine/core'
 import React from 'react'
 import { FcInfo } from 'react-icons/fc'
 
-export const ProgramPros = () => {
+export const ProgramPros = ({ headings, text }) => {
   return (
     <div className="bg-[#242424] w-full">
       <div className="container">
         <section className="text-white p-[50px] rounded-[20px] mt-16">
           <h1 className="text-[35px] font-bold mb-5 text-center">
-            Преимущества <br /> сотрудничества с нами
+            {headings?.list_head}
           </h1>
           <div className="grid grid-cols-2 gap-10">
             <div className="flex items-center ">
               <FcInfo className="text-5xl flex-shrink-0" />
-              <p className="text-[22px] ml-4 font-normal">
-                Единоразовая и доступная сумма входа
-              </p>
+              <p className="text-[22px] ml-4 font-normal">{text?.list1}</p>
             </div>
             <div className="flex items-center ">
               <FcInfo className="text-5xl flex-shrink-0" />
-              <p className="text-[22px] ml-4 font-normal">
-                100%-кэшбек с первого партнера, который зарегистрируется по
-                Вашей реферальной ссылке
-              </p>
+              <p className="text-[22px] ml-4 font-normal">{text?.list2}</p>
             </div>
             <div className="flex items-center ">
               <FcInfo className="text-5xl flex-shrink-0" />
-              <p className="text-[22px] ml-4 font-normal">
-                Переход в основной маркетинг за счет популяризации услуг туризма
-                и привлечения новых пользователей
-              </p>
+              <p className="text-[22px] ml-4 font-normal">{text?.list3}</p>
             </div>
             <div className="flex items-center ">
               <FcInfo className="text-5xl flex-shrink-0" />
-              <p className="text-[22px] ml-4 font-normal">
-                Реферальный бонус 50% от суммы входа
-              </p>
+              <p className="text-[22px] ml-4 font-normal">{text?.list4}</p>
             </div>
             <div className="flex items-center ">
               <FcInfo className="text-5xl flex-shrink-0" />
-              <p className="text-[22px] ml-4 font-normal">
-                Количество рефералов без ограничения
-              </p>
+              <p className="text-[22px] ml-4 font-normal">{text?.list5}</p>
             </div>
             <div className="flex items-center ">
               <FcInfo className="text-5xl flex-shrink-0" />
-              <p className="text-[22px] ml-4 font-normal">
-                Отсутствие дополнительных вложений.
-              </p>
+              <p className="text-[22px] ml-4 font-normal">{text?.list6}</p>
             </div>
           </div>
           <Center>
-            <Button size='lg' className="mt-10">
+            <Button size="lg" className="mt-10">
               Стать партнером
             </Button>
           </Center>

@@ -6,6 +6,7 @@ import { pb } from 'shared/api'
 import { Button } from '@mantine/core'
 import { Regions } from 'modules/Regions'
 import { Resort, Resorts } from 'pages'
+import { Capthca } from 'shared/ui/Capthca'
 
 async function getResorts() {
   return (
@@ -29,19 +30,19 @@ export const Home = () => {
 
   return (
     <div className="space-y-20">
-      {/* <Franchise /> */}
+      <Franchise />
       <Quiz />
-      {/* <Resorts /> */}
-      {/* <div className="grid grid-cols-4 ">
+      <Resorts />
+      <div className="grid lg:grid-cols-4 gap-4 md:grid-cols-3 grid-cols-2  ">
         {resorts
           .map((resort) => <ResortCard resort={resort} key={resort.id} />)
           .slice(0, sliced)}
-      </div> */}
-      {/* {sliced === 4 && (
+      </div>
+      {sliced === 4 && (
         <Button size="md" onClick={handleViewMode}>
           Еще
         </Button>
-      )} */}
+      )}
     </div>
   )
 }
