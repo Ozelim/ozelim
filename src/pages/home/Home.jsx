@@ -6,6 +6,7 @@ import { pb } from 'shared/api'
 import { Button } from '@mantine/core'
 import { Regions } from 'modules/Regions'
 import { Resort, Resorts } from 'pages'
+import { Capthca } from 'shared/ui/Capthca'
 
 async function getResorts() {
   return (

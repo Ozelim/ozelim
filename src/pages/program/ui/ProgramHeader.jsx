@@ -1,24 +1,19 @@
 import { Button } from '@mantine/core'
 import React from 'react'
 import { FcInfo } from 'react-icons/fc'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-scroll'
+import { getImageUrl } from 'shared/lib'
 
-export const ProgramHeader = () => {
+export const ProgramHeader = ({ headings, text, images, program }) => {
   return (
     <div className="w-full">
       <div className="container">
         <div className="flex">
           <div className="w-1/2">
             <h1 className="mb-[15px] text-6xl  text-heading font-bold">
-              Партнерство, которое работает
+              {headings?.main}
             </h1>
-            <p className="mb-[40px] text-[#27272D] mr-5">
-              В целях популяризации и развития внутреннего туризма Вашему
-              вниманию предлагаем социально-накопительную партнерскую программу
-              оздоровительного туризма, которая при активной работе в построении
-              структуры позволит любому пользователю получить наши услуги
-              <span className=" font-bold"> БЕСПЛАТНО </span>
-            </p>
+            <p className="mb-[40px] text-[#27272D] mr-5">{headings?.submain}</p>
             <Link to="docs" spy={true} smooth={true}>
               <Button className="py-[15px] mb-[60px] px-[45px]" size="lg">
                 Стать партнером
@@ -28,23 +23,28 @@ export const ProgramHeader = () => {
             <div className="flex gap-5">
               <div className="w-[150px] text-center">
                 <FcInfo className="m-auto" />
-                <p className="mt-3">Реферальный бонус 50% от суммы входа</p>
+                <p className="mt-3">{text?.card1}</p>
               </div>
               <div className="w-[150px] text-center">
                 <FcInfo className="m-auto" />
-                <p className="mt-3">Отсутствие дополнительных вложений.</p>
+                <p className="mt-3">{text?.card2}</p>
               </div>
               <div className="w-[150px] text-center">
                 <FcInfo className="m-auto" />
-                <p className="mt-3">Количество рефералов без ограничения</p>
+                <p className="mt-3">{text?.card3}</p>
               </div>
             </div>
           </div>
-          <img
-            className="w-1/2"
-            src="https://partner.promarketing.tech/wp-content/uploads/2023/05/main-img1-992x1024.png"
-            alt=""
-          />
+          {getImageUrl(program?.images, images?.[1]) ? (
+            <img
+              className="w-1/2"
+              src={getImageUrl(program?.images, images?.[1])}
+              loading="lazy"
+              alt="travel"
+            />
+          ) : (
+            <div className="w-[350px] m-auto bg-zinc-200" />
+          )}
         </div>
       </div>
     </div>

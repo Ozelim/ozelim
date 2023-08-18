@@ -1,69 +1,47 @@
 import React from 'react'
 
-export const WhyOurCourse = () => {
+export const WhyOurCourse = ({ headings, text }) => {
   return (
     <div className="w-full">
       <div className="container">
         <div className="w-full mt-20">
-          <h1 className="heading text-heading">
-            Почему вам стоит пройти именно наши курсы
-          </h1>
+          <h1 className="heading text-heading">{headings?.grid_main}</h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-4 md:gap-y-6 mt-5 md:mt-10">
             <div className="p-6 rounded-primary shadow-md bg-white">
               <h4 className="text-2xl font-semibold font-head">
-                Авторские курсы
+                {headings?.grid_head1}
               </h4>
-              <p className="paragraph mt-2">
-                от Центра сертификации специалистов «САПА».
-              </p>
+              <p className="paragraph mt-2">{text?.grid_p1}</p>
             </div>
             <div className="p-6 rounded-primary shadow-md bg-white">
               <h4 className="text-2xl font-semibold font-head">
-                Индивидуальный подход
+                {headings?.grid_head2}
               </h4>
-              <p className="paragraph mt-2">
-                Вы получите не только сухую теорию, но и возможность
-                индивидуально заниматься с профессионалами.
-              </p>
+              <p className="paragraph mt-2">{text?.grid_p2}</p>
             </div>
             <div className="p-6 rounded-primary shadow-md bg-white">
               <h4 className="text-2xl font-semibold font-head">
-                Правильное обучение
+                {headings?.grid_head3}
               </h4>
-              <p className="paragraph mt-2">
-                Наши преподаватели проводят живые онлайн-трансляции, в конце
-                каждого занятия готовы ответить на ваши вопросы. Учебные
-                материалы доступны для понимания каждому слушателю.
-              </p>
+              <p className="paragraph mt-2">{text?.grid_p3}</p>
             </div>
             <div className="p-6 rounded-primary shadow-md bg-white">
               <h4 className="text-2xl font-semibold font-head">
-                Трудоустройство
+                {headings?.grid_head4}
               </h4>
-              <p className="paragraph mt-2">
-                Лучшие студенты будут трудоустроены или привлечены к сезонным
-                работам в сфере туризма по договору.
-              </p>
+              <p className="paragraph mt-2">{text?.grid_p4}</p>
             </div>
             <div className="p-6 rounded-primary shadow-md bg-white">
               <h4 className="text-2xl font-semibold font-head">
-                С нуля до профи
+                {headings?.grid_head5}
               </h4>
-              <p className="paragraph mt-2">
-                У нас вы пройдете курс менеджер по туризму с нуля и овладеете
-                всеми необходимыми навыками для закрытия успешных сделок по
-                продаже туров.
-              </p>
+              <p className="paragraph mt-2">{text?.grid_p5}</p>
             </div>
             <div className="p-6 rounded-primary shadow-md bg-white">
               <h4 className="text-2xl font-semibold font-head">
-                Онлайн-библиотека
+                {headings?.grid_head6}
               </h4>
-              <p className="paragraph mt-2">
-                Уникальная возможность получить месячный доступ ко внутреннему
-                онлайн-обучению сети. Доступ к вебинарам по направлениям от
-                партнеров сети.
-              </p>
+              <p className="paragraph mt-2">{text?.grid_p6}</p>
             </div>
           </div>
         </div>
