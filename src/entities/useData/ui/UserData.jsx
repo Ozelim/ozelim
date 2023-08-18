@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, PasswordInput, Select, TextInput } from '@mantine/core'
+import { Button, Group, Modal, PasswordInput, Select, TextInput } from '@mantine/core'
 import { DatePickerInput, DateTimePicker } from '@mantine/dates'
 import { cities, formatNumber } from 'shared/lib'
 import { useLocation } from 'react-router-dom'
@@ -7,6 +7,10 @@ import { useAuth } from 'shared/hooks'
 import { UserAvatar } from './UserAvatar'
 import { pb } from 'shared/api'
 import { CopyBtn } from 'shared/ui'
+import { Withdraw } from 'shared/ui/withdraw'
+import { Capthca } from 'shared/ui/Captcha'
+import { Controller, useForm } from 'react-hook-form'
+import { useDisclosure } from '@mantine/hooks'
 
 export const UserData = () => {
 
@@ -15,6 +19,32 @@ export const UserData = () => {
   const { user } = useAuth()
 
   const referal = `${window.location.hostname}:3000/login?id=${user?.id}`
+
+  const [opened, { open, close }] = useDisclosure(false)
+
+  function myRandom(from, to) {
+    return Math.round(Math.random() * (to - from + 1) + from)
+  }
+
+  const [random1, setRandom1] = React.useState(myRandom(10, 50))
+  const [random2, setRandom2] = React.useState(myRandom(1, 7))
+  const [answer, setAnswer] = React.useState('?')
+  const equal = random1 + random2
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    values: {
+      id: '',
+      amount: '',
+    },
+  })
+
+  const onSubmit = async (data) => {
+    return await pb.collection('transfers').create(data)
+  }
 
   const [values, setValues] = React.useState({
     name: '',
@@ -67,10 +97,55 @@ export const UserData = () => {
               <p className="text-lg">{formatNumber(user?.balance)}</p>
             </div>
             <div className="space-y-2 mt-2">
-              <Button fullWidth>Вывод</Button>
-              <Button fullWidth variant="outline">
-                Перевод
-              </Button>
+              <Withdraw />
+              <Modal centered opened={opened} onClose={close} title="Перевод">
+                <form
+                  onSubmit={handleSubmit(onSubmit)}
+                  className="flex flex-col gap-2"
+                >
+                  <Controller
+                    name="id"
+                    control={control}
+                    render={({ field }) => (
+                      <TextInput
+                        {...field}
+                        placeholder="id"
+                        label="Id пользавателя"
+                        variant="filled"
+                      />
+                    )}
+                  />
+                  <Controller
+                    name="amount"
+                    control={control}
+                    render={({ field }) => (
+                      <TextInput
+                        {...field}
+                        placeholder="сумма перевода"
+                        label="Сумма"
+                        variant="filled"
+                      />
+                    )}
+                  />
+                  <Capthca
+                    random1={random1}
+                    random2={random2}
+                    answer={answer}
+                    setAnswer={setAnswer}
+                  />
+                  {/* <ConfirmModal
+                    onSubmit={onSubmit}
+                    equal={equal}
+                    answer={answer}
+                  /> */}
+                </form>
+              </Modal>
+
+              <Group position="center">
+                <Button fullWidth variant="outline" onClick={open}>
+                  Перевод
+                </Button>
+              </Group>
             </div>
           </div>
           <TextInput
