@@ -19,12 +19,11 @@ export const ResortSlider = ({ resort }) => {
   }
 
   const images = Object.keys(resort)
-    .filter((key) => !isNaN(key))
+    .filter((key) => (!isNaN(key) && resort?.[key]) )
     .map((index) => {
       return resort[index]
     })
     .slice(1)
-  console.log(images)
 
   return (
     <div className="w-full">
@@ -39,13 +38,13 @@ export const ResortSlider = ({ resort }) => {
       >
         {images.map((image, i) => {
           return (
-            <Carousel.Slide key={i} className={`relative `}>
+            <Carousel.Slide key={i + 10} className={`relative `}>
               <div className="bg-slate-200">
                 <img
                   src={getImageUrl(resort, resort?.[i + 1])}
                   alt=""
                   className=" aspect-video object-cover w-full h-full"
-                  onClick={() => viewImage(image)}
+                  // onClick={() => viewImage(image)}
                 />
               </div>
             </Carousel.Slide>
@@ -59,7 +58,7 @@ export const ResortSlider = ({ resort }) => {
               key={i}
               src={getImageUrl(resort, image)}
               alt=""
-              className=" aspect-video object-cover w-80 h-40"
+              className=" aspect-video object-cover max-w-xs h-40"
               onClick={() => viewImage(image)}
             />
           )

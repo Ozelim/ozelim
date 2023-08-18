@@ -26,15 +26,17 @@ export const Card = ({ resort }) => {
               <ul className="mt-4">
                 <li className="flex items-center gap-2">
                   <LiaCalendarAlt className="text-xl text-slate-400" />
-                  <span className="text">c 21.01 по 21.02</span>
+                  <span className="text">
+                    Длительность тура: {resort?.duration} д.
+                  </span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CiPlane className="text-xl text-slate-400" />
-                  <span className="text">Выезд с алматы</span>
+                  <span className="text">Выезд с: {resort?.from}</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <LiaConciergeBellSolid className="text-xl text-slate-400" />
-                  <span className="text">Все включено</span>
+                  <span className="text">Питание: {resort?.diet}</span>
                 </li>
               </ul>
               <div className="mt-4">
@@ -43,7 +45,9 @@ export const Card = ({ resort }) => {
                 </span>
               </div>
               <div className="mt-4 ">
-                <Button fullWidth>Подробнее</Button>
+                <Link to={`/resort/${resort?.id}`}>
+                  <Button fullWidth>Подробнее</Button>
+                </Link>
               </div>
             </div>
           </div>

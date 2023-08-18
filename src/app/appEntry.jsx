@@ -33,7 +33,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       modals={{image: ImageModal}}
     >
       <RouterProvider router={appRouter}/>
-      <Notifications/>
+      <Notifications position='top-right'/>
     </ModalsProvider>
   </MantineProvider>
 )

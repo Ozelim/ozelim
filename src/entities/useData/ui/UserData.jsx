@@ -9,6 +9,8 @@ import { pb } from 'shared/api'
 import { CopyBtn, Capthca, Withdraw } from 'shared/ui'
 import { Controller, useForm } from 'react-hook-form'
 import { useDisclosure } from '@mantine/hooks'
+import { openConfirmModal } from '@mantine/modals'
+import { showNotification } from '@mantine/notifications'
 
 export const UserData = () => {
 
@@ -84,6 +86,76 @@ export const UserData = () => {
     })
   }
 
+  const [transfer, setTransfer] = React.useState({
+    id: '',
+    sum: ''
+  })
+
+  function handleTransferChange (e) {
+    const { value, name } = e.currentTarget
+    setTransfer({ ...transfer, [name]: value })
+  }
+
+  const disabled =
+    transfer?.id?.length > 10 &&
+    (Number(transfer?.sum) >= 100 &&
+    Number(transfer?.sum) <= user?.balance) &&
+    (answer == (random1 + random2))
+
+    async function confirmTransfer() {
+
+      if (isNaN(transfer?.sum)) {
+        console.log('nan');
+        return
+      }
+
+      try {
+        const taker = await pb.collection('users').getOne(transfer?.id)
+        if (taker) {
+          await pb
+            .collection('users')
+            .update(taker?.id, {
+              balance: taker?.balance + Number(transfer?.sum),
+            })
+            .then(async (res) => {
+              await pb.collection('users').update(user?.id, {
+                balance: user?.balance - Number(transfer?.sum),
+              })
+              .then(async res => {
+                await pb
+                  .collection('transfers')
+                  .create({
+                    user: user?.id,
+                    taker: transfer?.id,
+                    sum: transfer?.sum
+                  })
+                  .then((res) => {
+                    showNotification({
+                      title: 'Уведомление',
+                      message: 'Перевод успешно совершен',
+                      color: 'green',
+                    })
+                    console.log(res, 'res')
+                  })
+              })
+            })
+          return
+        } 
+      } catch (err) { 
+        console.log('invalid taker');
+      }
+    }
+
+    const confirm = () => {
+      close()
+      openConfirmModal({
+        title: 'Подвердить действие',
+        centered: true,
+        labels: { confirm: 'Да', cancel: 'Нет' },
+        onConfirm: () => confirmTransfer(),
+      })
+    }
+
   return (
     <div className="w-full">
       <div>
@@ -97,33 +169,24 @@ export const UserData = () => {
             <div className="space-y-2 mt-2">
               <Withdraw />
               <Modal centered opened={opened} onClose={close} title="Перевод">
-                <form
-                  onSubmit={handleSubmit(onSubmit)}
+                <div
                   className="flex flex-col gap-2"
                 >
-                  <Controller
-                    name="id"
-                    control={control}
-                    render={({ field }) => (
-                      <TextInput
-                        {...field}
-                        placeholder="id"
-                        label="Id пользавателя"
-                        variant="filled"
-                      />
-                    )}
+                  <TextInput
+                    placeholder="111222333111222333"
+                    label="ID-получателя"
+                    variant="filled"
+                    name='id'
+                    value={transfer?.id}
+                    onChange={handleTransferChange}
                   />
-                  <Controller
-                    name="amount"
-                    control={control}
-                    render={({ field }) => (
-                      <TextInput
-                        {...field}
-                        placeholder="сумма перевода"
-                        label="Сумма"
-                        variant="filled"
-                      />
-                    )}
+                  <TextInput
+                    placeholder="сумма перевода"
+                    label="Сумма"
+                    variant="filled"
+                    name='sum'
+                    value={transfer?.sum}
+                    onChange={handleTransferChange}
                   />
                   <Capthca
                     random1={random1}
@@ -136,7 +199,15 @@ export const UserData = () => {
                     equal={equal}
                     answer={answer}
                   /> */}
-                </form>
+                  <Button
+                    // onClick={}
+                    disabled={!disabled}
+                    onClick={confirm}
+                    
+                  >
+                    Перевести
+                  </Button>
+                </div>
               </Modal>
 
               <Group position="center">

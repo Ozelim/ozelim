@@ -5,6 +5,7 @@ import { pb } from 'shared/api'
 import { useParams } from 'react-router-dom'
 import { Chip } from '@mantine/core'
 
+
 async function getResortById (id) {
   if (!id) return {}
   return await pb.collection('resorts').getOne(id)
@@ -24,35 +25,32 @@ export const Resort = () => {
   }, [])
 
   return (
-    <div className='w-full'>
+    <div className="w-full">
       <div className="container">
-        <div className='relative rounded-primary overflow-hidden space-y-2 pb-4'>
+        <div className="relative rounded-primary overflow-hidden space-y-2 pb-4">
           <h1 className=" text-4xl mb-2">{resort?.title}</h1>
           <p>{resort?.region}</p>
-          <div className='grid grid-cols-1 md:grid-cols-[60%_auto] border-gray-100 border-solid border-2 w-full rounded-primary'>
-            <ResortSlider 
-              resort={resort}
-
-            />
-            <ResortDetails
-              resort={resort}
-            />
+          <div className="grid grid-cols-1 lg:grid-cols-[60%_auto] gap-6 border-gray-100 border-solid border-2 w-full rounded-primary">
+            <ResortSlider resort={resort} />
+            <ResortDetails resort={resort} />
           </div>
         </div>
       </div>
-      <div className='w-full'>
+      <div className="w-full">
         <div className="container">
           <div className="w-full">
-            <div className="flex gap-2">
-              {resort?.tags?.map((tag, i) => {
-                return (
-                  <Chip checked>
-                    {tag}
-                  </Chip>
-                )
-              })}
+            <div className="grid grid-cols-[750px_auto] gap-2">
+              <div
+                className="default-styles"
+                dangerouslySetInnerHTML={{ __html: resort?.description }}
+              />
+              <div className='flex gap-2'>
+                {resort?.tags?.map((tag, i) => {
+                  return <Chip checked key={i}>{tag}</Chip>
+                })}
+              </div>
             </div>
-          </div> 
+          </div>
         </div>
       </div>
     </div>

@@ -2,36 +2,30 @@ import React from 'react'
 import { Button, Group, Select, Stepper, TextInput } from '@mantine/core'
 import { pb } from 'shared/api'
 import { getRegionsAndDiseas } from 'shared/lib/getRegionsAndDiseases'
+import { useUtils } from 'shared/hooks'
 
 async function getQuestions() {
-  return (await pb.collection('questions').getFullList())[0]
+  return (await pb.collection('questions').getFullList({
+    filter: `question = true`
+  }))[0]
 }
 
 export const Quiz = () => {
+
   const [questions, setQuestions] = React.useState({})
 
-  const [utils, setUtils] = React.useState({})
+  // const [number, setNumber] = React.useState(1)
+
+  const { regions, diseases } = useUtils()
 
   React.useEffect(() => {
     getQuestions().then((res) => {
-      console.log(res, 'res')
       setQuestions(res)
     })
-    getRegionsAndDiseas().then((res) => {
-      setUtils(res)
-    })
-    getQuestions().then((res) => {
-      setQuestions(res)
-    })
-    getRegionsAndDiseas().then((res) => {
-      setUtils(res)
-    })
-    getQuestions().then((res) => {
-      setQuestions(res)
-    })
+
   }, [])
 
-  const [step, setStep] = React.useState(1)
+  const [step, setStep] = React.useState(0)
 
   const nextStep = () =>
     setStep((current) => (current < questions.count ? current + 1 : current))
@@ -41,7 +35,8 @@ export const Quiz = () => {
   const [answer, setAnswer] = React.useState({})
 
   async function saveAnswers() {
-    await pb.collection('questions').create(answer)
+    checkAnswers()
+    // await pb.collection('questions').create(answer)
   }
 
   function handleAnswerChange(e, name) {
@@ -51,9 +46,18 @@ export const Quiz = () => {
       return
     }
     setAnswer({ ...answer, [name]: e })
+    // setNumber(name)
   }
 
-  const quiz = [...Object.keys(questions)].filter((e) => !isNaN(e))
+  function checkAnswers () {
+    for (let i = 1; i <= questions?.count; i++) {
+      console.log(answer);
+    }
+  }
+
+  console.log(step, 'step');
+
+  console.log(answer?.[step + 1]?.length, 'answer');
 
   return (
     <div className="w-full bg-white">
@@ -61,11 +65,10 @@ export const Quiz = () => {
         <div className="max-w-4xl mx-auto relative overflow-hidden space-y-2 pb-4">
           <div className="mb-10">
             <h1 className="text-center text-4xl mb-2 text-primary-500">
-              Бесплатная помощь специалиста
+              Бесплатная помощь специалиста!
             </h1>
             <p className="text-center text">
-              Впервые на сайте? Ответье на пару вопросов и ждите ответа
-              специалиста
+              Впервые на сайте? Ответьте на пару вопросов и ожидайте консультацию.
             </p>
           </div>
 
@@ -78,61 +81,9 @@ export const Quiz = () => {
               content: '-mt-14 md:mt-0',
             }}
           >
-            {/* {quiz.map((key, i) => {
-              if (Number(key) <= questions.count) {
-                console.log(key)
-                return (
-                  <Stepper.Step key={key}>
-                    <div
-                      className={
-                        'flex rounded-primary border border-zinc-200 justify-center items-center w-full h-full'
-                      }
-                    >
-                      <div className="w-full p-4">
-                        <p className="text-lg text-center text">
-                          {questions?.[key]}
-                        </p>
-                        {key == 3 && (
-                          <Select
-                            variant="filled"
-                            data={utils?.diseases ?? []}
-                            className="mt-5 rounded-primary w-full max-w-[300px] mx-auto"
-                            name={key}
-                            value={answer?.[key] ?? ''}
-                            onChange={(e) => handleAnswerChange(e, key)}
-                            label="Ваш ответ"
-                          />
-                        )}
-                        {key == 2 && (
-                          <Select
-                            variant="filled"
-                            data={utils?.regions ?? []}
-                            className="mt-5 rounded-primary w-full max-w-[300px] mx-auto"
-                            name={key}
-                            value={answer?.[key] ?? ''}
-                            onChange={(e) => handleAnswerChange(e, key)}
-                            label="Ваш ответ"
-                          />
-                        )}
-                        {key != 3 && key != 2 && (
-                          <TextInput
-                            variant="filled"
-                            className="mt-5 rounded-primary w-full max-w-[300px] mx-auto"
-                            name={key}
-                            value={answer?.[key] ?? ''}
-                            onChange={handleAnswerChange}
-                            label="Ваш ответ"
-                          />
-                        )}
-                      </div>
-                    </div>
-                  </Stepper.Step>
-                )
-              }
-            })} */}
             {Object.keys(questions)?.map((key, i) => {
               if (!isNaN(key)) {
-                if (key < 8) {
+                if (key <= questions?.count) {
                   return (
                     <Stepper.Step key={key}>
                       <div
@@ -147,7 +98,7 @@ export const Quiz = () => {
                           {key == 1 && (
                             <Select
                               variant="filled"
-                              data={utils?.diseases ?? []}
+                              data={diseases ?? []}
                               className="mt-5 rounded-primary w-full max-w-[300px] mx-auto"
                               name={key}
                               value={answer?.[key] ?? ''}
@@ -158,7 +109,7 @@ export const Quiz = () => {
                           {key == 2 && (
                             <Select
                               variant="filled"
-                              data={utils?.regions ?? []}
+                              data={regions ?? []}
                               className="mt-5 rounded-primary w-full max-w-[300px] mx-auto"
                               name={key}
                               value={answer?.[key] ?? ''}
@@ -166,7 +117,7 @@ export const Quiz = () => {
                               label="Ваш ответ"
                             />
                           )}
-                          {key != 1 && key != 2 && (
+                          {key >= 3 && (
                             <TextInput
                               variant="filled"
                               className="mt-5 rounded-primary w-full max-w-[300px] mx-auto"
@@ -190,10 +141,20 @@ export const Quiz = () => {
                 Назад
               </Button>
             )}
-            {step < questions.count ? (
-              <Button onClick={nextStep}>Следуйщий вопрос</Button>
+            {step < questions.count - 1 ? (
+              <Button
+                onClick={nextStep}
+                disabled={(answer?.[step + 1]?.length ?? 0) < 3}
+              >
+                Следуйщий вопрос
+              </Button>
             ) : (
-              <Button onClick={saveAnswers}>Отправить</Button>
+              <Button
+                onClick={saveAnswers}
+                disabled={(answer?.[step + 1]?.length ?? 0) < 3}
+              >
+                Отправить
+              </Button>
             )}
           </Group>
         </div>

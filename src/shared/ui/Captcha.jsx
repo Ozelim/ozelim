@@ -8,7 +8,7 @@ export const Capthca = ({ random1, random2, answer, setAnswer }) => {
       <p>{`${random1}+${random2} = ${answer}`}</p>
       <TextInput
         maxLength={2}
-        type="text"
+        type="number"
         value={answer}
         onChange={(e) => setAnswer(e.target.value)}
       />

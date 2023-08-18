@@ -21,7 +21,7 @@ function CustomNode({ nodeData, toggleNode }) {
   const data = nodeData?.value
 
   return (
-    <g stroke="grey" fill="grey" stroke-width="0.7">
+    <g stroke="grey" fill="grey" strokeWidth="0.7">
       <circle
         r={10}
         fill={nodeData.children ? 'Aquamarine' : '#ccc'}
