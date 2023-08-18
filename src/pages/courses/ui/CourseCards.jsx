@@ -3,7 +3,7 @@ import { FaRegHandshake } from 'react-icons/fa'
 import { HiMiniUserGroup } from 'react-icons/hi2'
 import { SiYourtraveldottv } from 'react-icons/si'
 
-export const CourseCards = () => {
+export const CourseCards = ({ headings, text }) => {
   return (
     <div className="w-full">
       <div className="container">
@@ -13,24 +13,23 @@ export const CourseCards = () => {
               <div className="bg-[#20c997] p-4 rounded-full">
                 <HiMiniUserGroup className="text-5xl text-heading flex-shrink-0" />
               </div>
-              <h2 className="text-3xl text-heading ml-3">Групповые туры</h2>
+              <h2 className="text-3xl text-heading ml-3">
+                {headings?.card_head1}
+              </h2>
             </div>
-            <p className="mt-3">
-              Обучающие групповые туры по курортным зонам Казахстана в целях
-              закрепления теоретических материалов
-            </p>
+            <p className="mt-3">{text?.card_p1}</p>
           </div>
           <div className="border-solid border-4 rounded-primary py-5 px-7 border-primary-500 w-1/3">
             <div className="flex items-center">
               <div className="bg-[#20c997] p-4 rounded-full">
                 <SiYourtraveldottv className="text-5xl text-heading flex-shrink-0" />
               </div>
-              <h2 className="text-3xl text-heading ml-3">Путевки</h2>
+              <h2 className="text-3xl text-heading ml-3">
+                {headings?.card_head2}
+              </h2>
             </div>
             <p className="mt-3">
-              Путевку в санаторно-курортную зону всё включено: проживание,
-              питание, лечебные процедуры, страхование, трансфер, дорожный
-              расход
+             {text?.card_p2}
             </p>
           </div>
           <div className="border-solid border-4 rounded-primary py-5 px-7 border-primary-500 w-1/3">
@@ -39,12 +38,11 @@ export const CourseCards = () => {
                 <FaRegHandshake className="text-5xl text-heading flex-shrink-0" />
               </div>
               <h2 className="text-3xl text-heading ml-3">
-                Международные практики
+                {headings?.card_head3}
               </h2>
             </div>
             <p className="mt-3">
-              Международную практику в сфере туризма, гостиничного и
-              ресторанного бизнеса за рубежом, всё включено.
+            {text?.card_p3}
             </p>
           </div>
         </section>

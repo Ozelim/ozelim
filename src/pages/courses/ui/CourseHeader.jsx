@@ -3,19 +3,19 @@ import { BiTimeFive } from 'react-icons/bi'
 import { AiOutlineCalendar } from 'react-icons/ai'
 import { AiOutlineUnorderedList } from 'react-icons/ai'
 import { Button } from '@mantine/core'
+import { getImageUrl } from 'shared/lib'
 
-export const CourseHeader = () => {
+export const CourseHeader = ({ headings, text, course, images }) => {
   return (
     <div className="w-full">
       <div className="container">
         <section className="flex">
           <div>
             <h1 className="text-4xl font-bold pt-16 pb-5 text-[#2a2a2a]">
-              Программа по подготовке и переподготовке кадров в сфере туризма
+              {headings?.main}
             </h1>
             <p className="text-heading text-xl font-medium">
-              Изучите основы профессии "Краеведческий гид-экскурсовод" ,
-              "Менеджер по внутреннему туризму", "Администратор курортной зоны"
+              {headings?.submain}
             </p>
             <div className="flex gap-6 mt-10">
               <div className="flex items-center">
@@ -24,9 +24,9 @@ export const CourseHeader = () => {
                 </div>
                 <div className="ml-2">
                   <h4 className="text-heading text-sm font-medium">
-                    Начало курса
+                    {headings?.start1}
                   </h4>
-                  <p className="text-[#005bab] font-medium">31 июля</p>
+                  <p className="text-[#005bab] font-medium">{text?.date1}</p>
                 </div>
               </div>
               <div className="flex items-center">
@@ -35,9 +35,9 @@ export const CourseHeader = () => {
                 </div>
                 <div className="ml-2">
                   <h4 className="text-heading text-sm  font-medium">
-                    Длительность
+                    {headings?.start2}
                   </h4>
-                  <p className="text-[#005bab] font-medium">16 лет</p>
+                  <p className="text-[#005bab] font-medium">{text?.date2}</p>
                 </div>
               </div>
               <div className="flex items-center">
@@ -46,9 +46,9 @@ export const CourseHeader = () => {
                 </div>
                 <div className="ml-2">
                   <h4 className="text-heading text-sm  font-medium">
-                    Количество уроков
+                    {headings?.start3}
                   </h4>
-                  <p className="text-[#005bab] font-medium">3 в год</p>
+                  <p className="text-[#005bab] font-medium">{text?.date3}</p>
                 </div>
               </div>
             </div>
@@ -56,10 +56,15 @@ export const CourseHeader = () => {
               Смотреть программу курса
             </Button>
           </div>
-          <img
-            src="https://img.poehalisnami.kz/static/psn/pagecover/cov8930/orig/8930_638011906482831219.jpg"
-            alt="тетя"
-          />
+          {getImageUrl(course?.images, images?.[1]) ? (
+            <img
+              src={getImageUrl(course?.images, images?.[1])}
+              loading="lazy"
+              alt="travel"
+            />
+          ) : (
+            <div className="w-[350px] m-auto bg-zinc-200" />
+          )}
         </section>
       </div>
     </div>

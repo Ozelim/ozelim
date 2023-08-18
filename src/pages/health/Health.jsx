@@ -5,39 +5,63 @@ import { CourseCurrator } from 'pages/courses/ui/CourseCurrator'
 import curratorHealth from 'shared/assets/images/curratorHealth.jpg'
 import { HealthLink } from '../../shared/ui/HealthLink'
 import { HealthCard } from 'entities/healthCard'
+import { pb } from 'shared/api'
+import { getImageUrl } from 'shared/lib'
 
-const array = [
-  {
-    flow: 'left',
-    text: ` Туризм активного отдыха и оздоровления называют оздоровительным
-  или реабилитационным туризмом, так как предусмотрена лечение в
-  условиях санатория под наблюдением квалифицированных медицинских
-  работников и узких специалистов.`,
-  },
-  {
-    flow: 'right',
-    text: ` Благодаря лечебно-оздоровительному туризму можно получить
-  эффективное, практически полное, всестороннее обновление
-  организма, так как человеку предоставляется возможность временно
-  покинуть место постоянного жительства, работу, изменить привычную
-  обстановку и образ жизни.`,
-  },
-  {
-    flow: 'left',
-    text: `Если совместить отдых с лечением и восстановлением организма и превратить его в привычку, т.е. в ежегодное мероприятие, то можно снять симптомы физической и морально-психологической усталости на достаточно длительный срок.`,
-  },
-  {
-    flow: 'right',
-    text: `Казахстан – не только часть Евразии и Шёлкового пути, но и прекрасное место для лечебно-оздоровительного туризма. 
-    Курорты Казахстана располагают практически всеми известными в мире типами лечебных минеральных вод и лечебных грязей. Также практикуют кумысотерапия и пантолечение, которые способствуют серьезному усилению иммунитета и стимулированию функций всех систем организма. `,
-  },
-]
+async function getHealth() {
+  const text = await pb
+    .collection('text')
+    .getFullList({ filter: `page = 'health'` })
+  const images = await pb
+    .collection('images')
+    .getFullList({ filter: `page = 'health'` })
+  return {
+    text: text[0],
+    images: images[0],
+  }
+}
 
 export const Health = () => {
+  const [health, setHealth] = React.useState({})
+
+  const headings = health?.text?.headings
+  const text = health?.text?.text
+
+  const images = health?.images ?? {}
+
+  React.useEffect(() => {
+    getHealth().then((res) => {
+      setHealth(res)
+    })
+  }, [])
+
+  const array = [
+    {
+      flow: 'left',
+      text: text?.flow1,
+      image: getImageUrl(health?.images, images?.[3]),
+    },
+    {
+      flow: 'right',
+      text: text?.flow2,
+      image: getImageUrl(health?.images, images?.[4]),
+    },
+    {
+      flow: 'left',
+      text: text?.flow3,
+      image: getImageUrl(health?.images, images?.[5]),
+    },
+    {
+      flow: 'right',
+      text: text?.flow4,
+      image: getImageUrl(health?.images, images?.[6]),
+    },
+  ]
+
   return (
     <main className="w-full">
-      <HealthHeader />
-      <HealthPros />
+      <HealthHeader headings={headings} text={text} />
+      <HealthPros headings={headings} text={text} />
       <div className="grid grid-cols-1 gap-6 mt-10">
         {array.map((val, i) => {
           return <HealthCard card={val} key={i} />

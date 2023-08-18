@@ -8,7 +8,7 @@ export const Card = ({ card }) => {
     <div className="grid grid-cols-2 rounded-primary overflow-hidden shadow-md bg-white max-w-4xl w-full mx-auto">
       {card?.flow === 'left' ? (
         <>
-          <img src={url} className="aspect-video h-60" />
+          <img src={card.image} className="aspect-video h-60" />
           <div className="p-4">
             <p className="text">{card.text}</p>
           </div>
@@ -18,7 +18,7 @@ export const Card = ({ card }) => {
           <div className="p-4">
             <p className="text">{card.text}</p>
           </div>
-          <img src={url} className="aspect-video w-full h-full h-60" />
+          <img src={url} className="aspect-video w-full h-full " />
         </>
       )}
     </div>
