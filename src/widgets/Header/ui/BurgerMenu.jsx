@@ -23,7 +23,7 @@ export const BurgerMenu = () => {
   return (
     <Popover opened={opened} onChange={toggle}>
       <Popover.Target>
-        <Burger opened={opened} onClick={toggle} />
+        <Burger color='white' opened={opened} onClick={toggle} />
       </Popover.Target>
       <Popover.Dropdown>
         <nav>
@@ -37,7 +37,10 @@ export const BurgerMenu = () => {
             })}
             {array2.map((val, i) => {
               return (
-                <li key={i} className="hover:text-primary-500 font-head">
+                <li
+                  key={i}
+                  className="hover:text-primary-500 font-head lg:hidden"
+                >
                   <Link to={val.link}>{val.label}</Link>
                 </li>
               )

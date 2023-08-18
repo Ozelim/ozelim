@@ -8,8 +8,8 @@ import YouTube from 'shared/assets/icons/YouTube.svg'
 
 export const SubHeader = () => {
   return (
-    <div className="w-full">
-      <div className="container">
+    <div className="w-full text-white">
+      <div>
         <div className="flex justify-center py-3 border-b">
           <a href="#" className="flex items-center border-r pr-4 mr-2 md:mr-4">
             <CgPhone className="text-xl flex-shrink-0" />

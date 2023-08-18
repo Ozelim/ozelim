@@ -1,15 +1,14 @@
 import { Button } from '@mantine/core'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Kazmap from 'shared/assets/images/map-kz.png'
 
-const url =
-  'https://cdn.pixabay.com/photo/2016/04/15/04/02/water-1330252_640.jpg'
 
 export const Franchise = () => {
   return (
     <div className="w-full">
       <div className="container">
-        <div className="flex lg:flex-row flex-col gap-4 justify-between items-center bg-[#fff]  px-4 rounded-primary">
+        <div className="flex lg:flex-row flex-col gap-4 justify-between items-center bg-[#fff] rounded-primary">
           <div className="ml-8">
             <div className="text-4xl text-[#424242]">Lorem</div>
             <div className="text-4xl mt-2 text-[#424242]">
@@ -27,7 +26,7 @@ export const Franchise = () => {
               </Link>
             </div>
           </div>
-          <img src={url} alt="" className="rounded-primary" />
+          <img src={Kazmap} alt="" className="max-w-3xl w-full rounded-primary" />
         </div>
       </div>
     </div>

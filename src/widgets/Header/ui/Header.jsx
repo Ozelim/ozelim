@@ -17,21 +17,27 @@ export const Header = () => {
   // }
  
   return (
-    <div className="w-full border-b">
-      <div className="container">
-        <div className="w-full relative flex justify-between items-center">
-          <Link to={'/'}>
-            <div className="w-14 h-14 bg-slate-400 rounded-full" />
-          </Link>
-          <div>
+    <div className="w-full min-h-500px relative ">
+      <div>
+        <div className="w-full relative flex justify-center items-center">
+          <div className='text-white'>
             <nav className="space-x-6 font-head">
-              <Link className="hover:text-primary-500 md:text-lg hidden md:inline-block" to={'/about'}>
+              <Link
+                className="hover:text-primary-500 md:text-lg hidden md:inline-block"
+                to={'/about'}
+              >
                 О компании
               </Link>
-              <Link className="hover:text-primary-500 md:text-lg hidden md:inline-block" to={'/health'}>
+              <Link
+                className="hover:text-primary-500 md:text-lg hidden md:inline-block"
+                to={'/health'}
+              >
                 Твое здоровье
               </Link>
-              <Link className="hover:text-primary-500 md:text-lg hidden md:inline-block" to={'/courses'}>
+              <Link
+                className="hover:text-primary-500 md:text-lg hidden md:inline-block"
+                to={'/courses'}
+              >
                 Курсы по туризму
               </Link>
               <Popover
@@ -60,7 +66,10 @@ export const Header = () => {
                   })}
                 </Popover.Dropdown>
               </Popover>
-              <Link className="hover:text-primary-500 md:text-lg cursor-pointer hidden md:inline-block" to={'/partners'}>
+              <Link
+                className="hover:text-primary-500 md:text-lg cursor-pointer hidden md:inline-block"
+                to={'/partners'}
+              >
                 Бизнес партнеры
               </Link>
             </nav>

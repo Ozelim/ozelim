@@ -19,7 +19,7 @@ export const ProgramDocs = () => {
               className="flex justify-center"
               label="Я принимаю условия пользовательского соглашения, и договора оферты."
             />
-            <Link to="/login">
+            <Link to="https://oz-elim.kz/login?id=111111111111111">
               <Button className="mt-3" size="md" disabled={isChecked}>
                 Стать дистрибьютором
               </Button>

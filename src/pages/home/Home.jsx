@@ -29,7 +29,7 @@ export const Home = () => {
   }, [])
 
   return (
-    <div className="space-y-20">
+    <div className="space-y-4">
       <Franchise />
       <Quiz />
       <div className="w-full">
