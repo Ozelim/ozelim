@@ -34,7 +34,7 @@ export const Quiz = () => {
   const [step, setStep] = React.useState(1)
 
   const nextStep = () =>
-    setStep((current) => (current < questions.count ? current + 1 : current))
+    setStep((current) => (current < 10 ? current + 1 : current))
   const prevStep = () =>
     setStep((current) => (current > 0 ? current - 1 : current))
 
@@ -52,8 +52,6 @@ export const Quiz = () => {
     }
     setAnswer({ ...answer, [name]: e })
   }
-
-  const quiz = [...Object.keys(questions)].filter((e) => !isNaN(e))
 
   return (
     <div className="w-full bg-white">
@@ -75,64 +73,12 @@ export const Quiz = () => {
             onStepClick={setStep}
             classNames={{
               steps: 'md:!flex !hidden',
-              content: '-mt-14 md:mt-0',
+              content: '-mt-16 md:mt-0',
             }}
           >
-            {/* {quiz.map((key, i) => {
-              if (Number(key) <= questions.count) {
-                console.log(key)
-                return (
-                  <Stepper.Step key={key}>
-                    <div
-                      className={
-                        'flex rounded-primary border border-zinc-200 justify-center items-center w-full h-full'
-                      }
-                    >
-                      <div className="w-full p-4">
-                        <p className="text-lg text-center text">
-                          {questions?.[key]}
-                        </p>
-                        {key == 3 && (
-                          <Select
-                            variant="filled"
-                            data={utils?.diseases ?? []}
-                            className="mt-5 rounded-primary w-full max-w-[300px] mx-auto"
-                            name={key}
-                            value={answer?.[key] ?? ''}
-                            onChange={(e) => handleAnswerChange(e, key)}
-                            label="Ваш ответ"
-                          />
-                        )}
-                        {key == 2 && (
-                          <Select
-                            variant="filled"
-                            data={utils?.regions ?? []}
-                            className="mt-5 rounded-primary w-full max-w-[300px] mx-auto"
-                            name={key}
-                            value={answer?.[key] ?? ''}
-                            onChange={(e) => handleAnswerChange(e, key)}
-                            label="Ваш ответ"
-                          />
-                        )}
-                        {key != 3 && key != 2 && (
-                          <TextInput
-                            variant="filled"
-                            className="mt-5 rounded-primary w-full max-w-[300px] mx-auto"
-                            name={key}
-                            value={answer?.[key] ?? ''}
-                            onChange={handleAnswerChange}
-                            label="Ваш ответ"
-                          />
-                        )}
-                      </div>
-                    </div>
-                  </Stepper.Step>
-                )
-              }
-            })} */}
             {Object.keys(questions)?.map((key, i) => {
               if (!isNaN(key)) {
-                if (key < 8) {
+                if (key < 11) {
                   return (
                     <Stepper.Step key={key}>
                       <div

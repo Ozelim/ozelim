@@ -12,15 +12,17 @@ export const ProgramSuits = ({ headings, text }) => {
             <div className="w-1/2">
               <div className="mb-5">
                 <h3 className="font-semibold text-heading text-[20px]">
-                  {text?.text1}
+                  {headings?.text1}
                 </h3>
                 <p className="pr-5 text-[#545454]">{text?.text2}</p>
               </div>
               <div>
                 <h3 className="font-semibold text-heading text-[20px]">
-                  {text?.text3}
+                {text?.text3}
                 </h3>
-                <p className="pr-5 text-[#545454]">{text?.text4}</p>
+                <p className="pr-5 text-[#545454]">
+                {text?.text4}
+                </p>
               </div>
             </div>
           </div>

@@ -4,8 +4,11 @@ import { AiOutlineCalendar } from 'react-icons/ai'
 import { AiOutlineUnorderedList } from 'react-icons/ai'
 import { Button } from '@mantine/core'
 import { getImageUrl } from 'shared/lib'
+import { ImgSkeleton } from 'shared/ui/ImgSkeleton'
 
-export const CourseHeader = ({ headings, text, course, images }) => {
+export const CourseHeader = ({ headings, course, text }) => {
+  const images = course?.images ?? {}
+
   return (
     <div className="w-full">
       <div className="container">
@@ -58,12 +61,12 @@ export const CourseHeader = ({ headings, text, course, images }) => {
           </div>
           {getImageUrl(course?.images, images?.[1]) ? (
             <img
+              className="w-3/5"
               src={getImageUrl(course?.images, images?.[1])}
-              loading="lazy"
-              alt="travel"
+              alt="kid"
             />
           ) : (
-            <div className="w-[350px] m-auto bg-zinc-200" />
+            <ImgSkeleton width="max-w-3xl" />
           )}
         </section>
       </div>

@@ -38,7 +38,7 @@ export const TeachComfort = ({ headings, text }) => {
               <div className="pb-2">
                 <AiOutlineCheckCircle className="text-3xl flex-shrink-0 text-primary-600" />
               </div>
-              <p className="mt-1"> {text?.grid2_p5}</p>
+              <p className="mt-1">{text?.grid2_p5}</p>
             </div>
             <div className="p-4">
               <div className="pb-2">

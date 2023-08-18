@@ -15,9 +15,10 @@ import { UserAvatar } from './UserAvatar'
 import { pb } from 'shared/api'
 import { CopyBtn } from 'shared/ui'
 import { Controller, useForm } from 'react-hook-form'
-
+import { Capthca } from 'shared/ui/Capthca'
+import { ConfirmModal } from 'shared/ui/ConfirmModal'
 import { useDisclosure } from '@mantine/hooks'
-
+import { Withdraw } from 'shared/ui/Withdraw'
 export const UserData = () => {
   const { pathname } = useLocation()
   const [opened, { open, close }] = useDisclosure(false)

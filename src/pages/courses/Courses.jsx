@@ -16,19 +16,28 @@ async function getCourses() {
   const images = await pb
     .collection('images')
     .getFullList({ filter: `page = 'course'` })
+  const slider = await pb
+    .collection('slider')
+    .getFullList({ filter: `page = 'course'` })
   return {
     text: text[0],
     images: images[0],
+    slider: slider[0],
   }
 }
 
 export const Courses = () => {
+  const onSubmit = async (data) => {
+    await pb.collection('courseBids').create(data)
+  }
+
   const [course, setCourse] = React.useState({})
 
   const headings = course?.text?.headings
   const text = course?.text?.text
+  const slider = course?.slider?.image
 
-  const images = course?.images ?? {}
+
 
   React.useEffect(() => {
     getCourses().then((res) => {
@@ -38,12 +47,7 @@ export const Courses = () => {
 
   return (
     <main className="container">
-      <CourseHeader
-        headings={headings}
-        text={text}
-        images={images}
-        course={course}
-      />
+      <CourseHeader headings={headings} course={course} text={text} />
       <CourseCards headings={headings} text={text} />
       <WhyOurCourse headings={headings} text={text} />
       <CourseUsefulFor />
@@ -53,7 +57,7 @@ export const Courses = () => {
         img={curratorCourse}
         desc="Предприниматель, психолог, бизнес-советник, директор Центра сертификации специалистов «САПА»"
       />
-      <HealthLink />
+      <HealthLink onSubmit={onSubmit} />
     </main>
   )
 }

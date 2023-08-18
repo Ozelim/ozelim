@@ -28,9 +28,7 @@ export const CourseCards = ({ headings, text }) => {
                 {headings?.card_head2}
               </h2>
             </div>
-            <p className="mt-3">
-             {text?.card_p2}
-            </p>
+            <p className="mt-3">{text?.card_p2}</p>
           </div>
           <div className="border-solid border-4 rounded-primary py-5 px-7 border-primary-500 w-1/3">
             <div className="flex items-center">
@@ -41,9 +39,7 @@ export const CourseCards = ({ headings, text }) => {
                 {headings?.card_head3}
               </h2>
             </div>
-            <p className="mt-3">
-            {text?.card_p3}
-            </p>
+            <p className="mt-3">{text?.card_p3}</p>
           </div>
         </section>
       </div>

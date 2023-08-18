@@ -10,9 +10,56 @@ import { useAuth } from 'shared/hooks'
 import Draggable from 'react-draggable'
 import Test from 'entities/pyramid/Test'
 
+
+import Tree from 'react-d3-tree'
 // async function getPyramid () {
 //   return (await pb.collection('pyramid').getFullList({expand: 'sponsor, b1, b2, b4, b5, b6, b7, b8, b9, b10, b11, b12'}))[0]
 // }
+
+function CustomNode({ nodeData, toggleNode }) {
+
+  const data = nodeData?.value
+
+  return (
+    <g stroke="grey" fill="grey" stroke-width="0.7">
+      <circle
+        r={10}
+        fill={nodeData.children ? 'Aquamarine' : '#ccc'}
+        onClick={toggleNode}
+      />
+
+      <text
+        stroke="green"
+        x={-60}
+        y={-18}
+        style={{ fontSize: '12px' }}
+        textAnchor="start"
+      >
+        {data?.name} {data?.surname}
+      </text>
+
+      <text
+        stroke="green"
+        x={-48}
+        y={25}
+        style={{ fontSize: '13px' }}
+        textAnchor="start"
+      >
+        ID: {data?.id}
+      </text>
+
+      <text
+        stroke="grey"
+        x={-48}
+        y={40}
+        style={{ fontSize: '12px' }}
+        textAnchor="start"
+      >
+        {dayjs(data?.created).format('YYYY-MM-DD hh:mm')}
+      </text>
+    </g>
+  )
+}
 
 async function getPyramidByUser (userId) {
 
@@ -78,7 +125,7 @@ const Node = ({ node }) => {
     <div className='my-4 text-center w-full'>
       
       {node?.value?.email && (
-        <div className={clsx('relative bg-zinc-300 p-4 text-center inline-flex flex-col items-center rounded-primary')}>
+        <div className={clsx('relative bg-zinc-300 p-2 text-center inline-flex flex-col items-center rounded-primary')}>
 
           {/* <div className='absolute -top-[190px] left-1/2 -translate-x-1/2 h-[200px] w-1 bg-zinc-300'/> */}
           <Avatar
@@ -103,9 +150,9 @@ const Node = ({ node }) => {
 
 export const Profile = () => {
 
-  const {user} = useAuth()
+  const {user} = useAuth() 
 
-  const binaryTree = new BinaryTree(4);
+  const binaryTree = new BinaryTree(8);
 
   const [pyramid, setPyramid] = React.useState([])
 
@@ -117,17 +164,19 @@ export const Profile = () => {
     // })
     getPyramidByUser(user?.id)
     .then(res => {
-      setPyramid(res.result)
+      setPyramid(res?.result)
     })
   }, [])
 
+  const [tree, setTree] = React.useState({})
 
-  const array = pyramid.flat(1)
-  ?.map((stage, i) => {
-      return binaryTree.insert(stage)
-  })
-
-  const tree = binaryTree.root
+  React.useEffect(() => {
+    pyramid.flat(1)
+    ?.map((stage, i) => {
+        return binaryTree.insert(stage)
+    })
+    setTree(binaryTree.root)
+  }, [pyramid])
 
   // const contentRef = React.useRef(null);
   // const [isDragging, setIsDragging] = React.useState(false);
@@ -156,67 +205,37 @@ export const Profile = () => {
   // };
 
   return (
-    <div className='w-full'>
+    <div className="w-full">
       <div className="container">
-        <div className='w-full bg-white shadow-md rounded-primary p-4'>
+        <div className="w-full bg-white shadow-md rounded-primary p-4">
           <div className="grid grid-cols-[25%_auto] gap-6">
-            <UserData/>
-            <div className='relative overflow-hidden'>
-              <ReferalsList/>
-              <div 
-                // className='overflow-scroll '
-                // ref={contentRef}
-                // onMouseDown={handleMouseDown}
-                // onMouseMove={handleMouseMove}
-                // onMouseUp={handleMouseUp}  
-              >
-                <div className='w-full overflow-auto'>
-                  <Test treeData={tree} />
-                </div>
-                <div className='w-[2000px] h-full overflow-auto'>
-
-                  <Draggable
-                    handle='.handle'
-                  >
-                    <div className='handle'>
-                      <Binary root={tree} />
-                    </div>
-                  </Draggable>
-
-    
-                  {/* <div className='overflow-scroll w-[9999px] h-screen'>
-                    {array.map((faggots, i) => {
-                      return (
-                        <div
-                          className='min-w-full flex justify-center text-center gap-4 mt-4'
-                          // style={{
-                          //   display: 'grid',
-                          //   gridTemplateColumns: `repeat(${Math.pow(2, i + 1)}, minmax(0, 1fr))`,
-                          // }}
-                        >
-                          {faggots?.map((faggot, index) => {
-                            return (
-                              <div>
-                                <p>
-                                {i + 1}  {faggot?.email}
-                                </p>
-                                <p>
-                                  {faggot?.id}
-                                </p>
-                              </div>
-                            )
-                          })}
-                        </div>
-                      )
-                    })} 
-                  </div> */}
+            <UserData />
+            <div className="relative overflow-hidden">
+              <ReferalsList />
+              <div className="mt-10 overflow-auto">
+                <div 
+                  className='h-[100vh] border-2 border-primary-400 p-4 '
+                >
+                  <Tree
+                    data={tree ?? {}}
+                    orientation="vertical"
+                    pathFunc="elbow"
+                    nodeSvgShape={{
+                      shape: 'circle',
+                      shapeProps: { r: 10, fill: 'green' },
+                    }}
+                    renderCustomNodeElement={({ nodeDatum, toggleNode }) => (
+                      <CustomNode
+                        nodeData={nodeDatum}
+                        toggleNode={toggleNode}
+                      />
+                    )}
+                  />
                 </div>
               </div>
             </div>
           </div>
-          <div>
-            
-          </div>
+          <div></div>
         </div>
       </div>
     </div>

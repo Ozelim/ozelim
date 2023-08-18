@@ -1,6 +1,11 @@
 import { pb } from "shared/api"
 import { getId } from "shared/lib";
 
+function RandomNumbers() {
+  const randomNumbers = Array.from({ length: 15 }, () => Math.floor(Math.random() * 10));
+  return randomNumbers
+}
+
 function generateRandomEmail() {
   const validChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   const emailLength = 10;

@@ -5,21 +5,23 @@ import { Link } from 'react-router-dom'
 import { Avatar } from 'shared/ui'
 import { getImageUrl } from 'shared/lib'
 
-export const Card = ({ headings, text, images, news }) => {
+export const Card = ({ headings, text, news, images }) => {
   return (
-    <div className="bg-white shadow rounded-primary max-w-5xl mx-auto">
+    <div className="bg-white shadow rounded-primary max-w-5xl w-full mx-auto">
       <div className="p-10 flex flex-col">
         <div className="flex items-center">
-          {getImageUrl(news?.images, images?.[1]) ? (
-            <img
-              className="w-14 h-14 bg-slate-300 rounded-full object-cover"
-              src={getImageUrl(news?.images, images?.[1])}
-              loading="lazy"
-              alt="travel"
-            />
-          ) : (
-            <div className="w-[350px] m-auto bg-zinc-200" />
-          )}
+          <Link to={'/'}>
+            {getImageUrl(news?.images, images?.[1]) ? (
+              <img
+                className="w-14 h-14 bg-slate-300 rounded-full object-cover"
+                src={getImageUrl(news?.images, images?.[1])}
+                loading="lazy"
+                alt="travel"
+              />
+            ) : (
+              <div className="w-14 h-14 bg-slate-300 rounded-full object-cover" />
+            )}
+          </Link>
           <span className="ml-4 text-lg">{headings?.name}</span>
         </div>
 
@@ -34,15 +36,14 @@ export const Card = ({ headings, text, images, news }) => {
         </div>
         {getImageUrl(news?.images, images?.[2]) ? (
           <img
-            className="w-full max-h-[400px]  object-cover"
+            className="w-full max-h-[400px]"
             src={getImageUrl(news?.images, images?.[2])}
             loading="lazy"
             alt="travel"
           />
         ) : (
-          <div className="w-[350px] m-auto bg-zinc-200" />
+          <div className="w-full max-h-[400px] bg-slate-300" />
         )}
-
         <p className="flex-grow font-body my-4 text">{text?.news}</p>
 
         <p className="text-zinc-400 text-sm uppercase">ozelim.kz</p>
