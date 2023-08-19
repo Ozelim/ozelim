@@ -10,7 +10,6 @@ export const TourOperators = ({ slider }) => {
 
   useAnimationOffsetEffect(embla, 200)
 
-  console.log(slider?.[0])
   return (
     <div className="w-full">
       <div className="container">

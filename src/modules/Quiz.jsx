@@ -60,103 +60,105 @@ export const Quiz = () => {
   console.log(answer?.[step + 1]?.length, 'answer');
 
   return (
-    <div className="w-full bg-white">
-      <div className="container">
-        <div className="max-w-4xl mx-auto relative overflow-hidden space-y-2 pb-4">
-          <div className="mb-10">
-            <h1 className="text-center text-4xl mb-2 text-primary-500">
-              Бесплатная помощь специалиста!
-            </h1>
-            <p className="text-center text">
-              Впервые на сайте? Ответьте на пару вопросов и ожидайте консультацию.
-            </p>
-          </div>
+    <div className="w-full px-8">
+      <div className="container bg-white rounded-primary py-8 shadow-md">
+        <div className='w-full flex justify-center'>
+          <div className="max-w-4xl relative overflow-hidden space-y-2">
+            <div className="mb-10">
+              <h1 className="text-center text-4xl mb-2 text-primary-500">
+                Бесплатная помощь специалиста!
+              </h1>
+              <p className="text-center text">
+                Впервые на сайте? Ответьте на пару вопросов и ожидайте консультацию.
+              </p>
+            </div>
 
-          <Stepper
-            allowNextStepsSelect={false}
-            active={step}
-            onStepClick={setStep}
-            classNames={{
-              steps: 'md:!flex !hidden',
-              content: '-mt-16 md:mt-0',
-            }}
-          >
-            {Object.keys(questions)?.map((key, i) => {
-              if (!isNaN(key)) {
-                if (key <= questions?.count) {
-                  return (
-                    <Stepper.Step key={key}>
-                      <div
-                        className={
-                          'flex rounded-primary border border-zinc-200 justify-center items-center w-full h-full'
-                        }
-                      >
-                        <div className="w-full p-4">
-                          <p className="text-lg text-center text">
-                            {questions?.[key]}
-                          </p>
-                          {key == 1 && (
-                            <Select
-                              variant="filled"
-                              data={diseases ?? []}
-                              className="mt-5 rounded-primary w-full max-w-[300px] mx-auto"
-                              name={key}
-                              value={answer?.[key] ?? ''}
-                              onChange={(e) => handleAnswerChange(e, key)}
-                              label="Ваш ответ"
-                            />
-                          )}
-                          {key == 2 && (
-                            <Select
-                              variant="filled"
-                              data={regions ?? []}
-                              className="mt-5 rounded-primary w-full max-w-[300px] mx-auto"
-                              name={key}
-                              value={answer?.[key] ?? ''}
-                              onChange={(e) => handleAnswerChange(e, key)}
-                              label="Ваш ответ"
-                            />
-                          )}
-                          {key >= 3 && (
-                            <TextInput
-                              variant="filled"
-                              className="mt-5 rounded-primary w-full max-w-[300px] mx-auto"
-                              name={key}
-                              value={answer?.[key] ?? ''}
-                              onChange={handleAnswerChange}
-                              label="Ваш ответ"
-                            />
-                          )}
+            <Stepper
+              allowNextStepsSelect={false}
+              active={step}
+              onStepClick={setStep}
+              classNames={{
+                steps: 'md:!flex !hidden',
+                content: '-mt-16 md:mt-0',
+              }}
+            >
+              {Object.keys(questions)?.map((key, i) => {
+                if (!isNaN(key)) {
+                  if (key <= questions?.count) {
+                    return (
+                      <Stepper.Step key={key}>
+                        <div
+                          className={
+                            'flex rounded-primary border border-zinc-200 justify-center items-center w-full h-full'
+                          }
+                        >
+                          <div className="w-full p-4">
+                            <p className="text-lg text-center text">
+                              {questions?.[key]}
+                            </p>
+                            {key == 1 && (
+                              <Select
+                                variant="filled"
+                                data={diseases ?? []}
+                                className="mt-5 rounded-primary w-full max-w-[300px] mx-auto"
+                                name={key}
+                                value={answer?.[key] ?? ''}
+                                onChange={(e) => handleAnswerChange(e, key)}
+                                label="Ваш ответ"
+                              />
+                            )}
+                            {key == 2 && (
+                              <Select
+                                variant="filled"
+                                data={regions ?? []}
+                                className="mt-5 rounded-primary w-full max-w-[300px] mx-auto"
+                                name={key}
+                                value={answer?.[key] ?? ''}
+                                onChange={(e) => handleAnswerChange(e, key)}
+                                label="Ваш ответ"
+                              />
+                            )}
+                            {key >= 3 && (
+                              <TextInput
+                                variant="filled"
+                                className="mt-5 rounded-primary w-full max-w-[300px] mx-auto"
+                                name={key}
+                                value={answer?.[key] ?? ''}
+                                onChange={handleAnswerChange}
+                                label="Ваш ответ"
+                              />
+                            )}
+                          </div>
                         </div>
-                      </div>
-                    </Stepper.Step>
-                  )
+                      </Stepper.Step>
+                    )
+                  }
                 }
-              }
-            })}
-          </Stepper>
-          <Group position="center" mt="xl">
-            {step > 0 && (
-              <Button variant="default" onClick={prevStep}>
-                Назад
-              </Button>
-            )}
-            {step < questions.count - 1 ? (
-              <Button
-                onClick={nextStep}
-                disabled={(answer?.[step + 1]?.length ?? 0) < 3}
-              >
-                Следуйщий вопрос
-              </Button>
-            ) : (
-              <Button
-                onClick={saveAnswers}
-                disabled={(answer?.[step + 1]?.length ?? 0) < 3}
-              >
-                Отправить
-              </Button>
-            )}
-          </Group>
+              })}
+            </Stepper>
+            <Group position="center" mt="xl">
+              {step > 0 && (
+                <Button variant="default" onClick={prevStep}>
+                  Назад
+                </Button>
+              )}
+              {step < questions.count - 1 ? (
+                <Button
+                  onClick={nextStep}
+                  disabled={(answer?.[step + 1]?.length ?? 0) < 3}
+                >
+                  Следуйщий вопрос
+                </Button>
+              ) : (
+                <Button
+                  onClick={saveAnswers}
+                  disabled={(answer?.[step + 1]?.length ?? 0) < 3}
+                >
+                  Отправить
+                </Button>
+              )}
+            </Group>
+          </div>
         </div>
       </div>
     </div>

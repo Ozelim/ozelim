@@ -58,24 +58,24 @@ export class BinaryTree {
 
     return -1;
   }
-
+  
   findMaxLevel() {
-    return this.findMaxLevelNode(this.root);
+    return this.findMaxLevelNode(this.root, 0);
   }
 
-  findMaxLevelNode(node) {
+  findMaxLevelNode(node, currentLevel) {
     if (!node) {
-      return 0;
+      return currentLevel;
     }
 
-    let maxLevel = 0;
+    let maxLevel = currentLevel;
 
     for (const child of node.children) {
-      const childLevel = this.findMaxLevelNode(child);
+      const childLevel = this.findMaxLevelNode(child, currentLevel + 1);
       maxLevel = Math.max(maxLevel, childLevel);
     }
 
-    return maxLevel + 1;
+    return maxLevel;
   }
 
   search(value) {

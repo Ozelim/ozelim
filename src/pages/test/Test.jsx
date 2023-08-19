@@ -18,6 +18,7 @@ import { Resort } from 'pages'
 import { TeachComfort } from 'pages/courses/ui/TeachComfort'
 import { WhyOurCourse } from 'pages/courses/ui/WhyOurCourse'
 import React from 'react'
+import { TourOperators } from 'modules/TourOperators'
 
 export const Test = () => {
   return (
@@ -40,7 +41,8 @@ export const Test = () => {
       <TouristAgency />
       <VacationPlan />
       <Resort />
-      <Regions />/
+      <Regions />
+      <TourOperators/>
     </div>
   )
 }

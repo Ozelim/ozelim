@@ -260,13 +260,13 @@ export const UserData = () => {
             value={values.city ?? ''}
             onChange={handleValuesChange}
           />
-          <DatePickerInput
+          {/* <DatePickerInput
             label="Дата рождения"
             variant="filled"
-            value={values?.birthday ?? ''}
+            value={values?.birthday ?? new Date()}
             onChange={handleValuesChange}
             locale="ru"
-          />
+          /> */}
           <PasswordInput
             label="ИИН"
             variant="filled"

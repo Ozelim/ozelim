@@ -5,7 +5,7 @@ import { loginSchema } from '../model/loginSchema'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { loginWithEmail } from '../model/login'
 
-export const LoginForm = () => {
+export const LoginForm = ({onComplete}) => {
 
 
   const [loading, setLoading] = React.useState(false)
@@ -22,6 +22,7 @@ export const LoginForm = () => {
     setLoading(true)
     loginWithEmail(data)
     .then(res => {
+      onComplete(res)
       console.log(res);
     })
     .finally(() => {
