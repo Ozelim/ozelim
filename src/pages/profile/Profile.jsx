@@ -10,9 +10,6 @@ import { useAuth } from 'shared/hooks'
 import Draggable from 'react-draggable'
 import Test from 'entities/pyramid/Test'
 
-// import { Tree } from 'react-tree-graph'
-
-import 'react-tree-graph/dist/style.css'
 import Tree from 'react-d3-tree'
 import { formatNumber } from 'shared/lib'
 
@@ -165,8 +162,6 @@ export const Profile = () => {
 
   const [pyramid, setPyramid] = React.useState([])
   
-  const [toggle, setToggle] = React.useState(false)
-
   const [withdraws, setWithdraws] = React.useState([])
   const [transfers, setTransfers] = React.useState([])
 
@@ -188,7 +183,6 @@ export const Profile = () => {
     getPyramidByUser(user?.id)
     .then(res => {
       setPyramid(res?.result)
-      setToggle(true)
     })
   }, [])
 
@@ -212,15 +206,13 @@ export const Profile = () => {
     }
   }, [binaryTree])
 
-  console.log(tree, 'tree');
-
   return (
     <div className="w-full">
       <div className="container">
         <div className="w-full bg-white shadow-md rounded-primary p-4">
           <div className="grid grid-cols-[25%_auto] gap-6">
             <UserData />
-            <div className="relative overflow-scroll h-[600px] w-[5000px]">
+            <div className="relative overflow-scroll">
               <ReferalsList level={level} />
               {/* <BinaryTreeTest root={tree ?? {}} /> */}
               {/* <Tree
@@ -236,7 +228,7 @@ export const Profile = () => {
               </Tree> */}
 
               <div className="mt-10 overflow-auto">
-                <div className="h-[100vh] border-2 border-primary-400 p-4 ">
+                <div className="h-[50vh] border-2 border-primary-400 p-4 ">
                   {tree ? (
                     <Tree
                       data={tree ?? {}}
