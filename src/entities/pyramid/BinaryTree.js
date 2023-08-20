@@ -10,31 +10,79 @@ export class BinaryTree {
     this.root = null;
     this.nodes = [];
     this.maxLevels = maxLevels;
+    this.currentLevel = 1;
   }
 
-  insert(value, level = 0) {
+  insert(value) {
     const newNode = new Node(value);
-
-    if (level >= this.maxLevels) {
-      return;
-    }
 
     if (!this.root) {
       this.root = newNode;
       this.nodes.push(newNode);
     } else {
-      const parent = this.nodes[0];
+      let parent = this.nodes[0];
       if (parent.children.length < 2) {
         parent.children.push(newNode);
-        level + 1;
       } else {
-        parent.children[0].children.push(newNode);
-        level + 1;
-        this.nodes.shift();
+        while (parent.children.length === 2) {
+          this.nodes.shift();
+          parent = this.nodes[0];
+        }
+        parent.children.push(newNode);
       }
       this.nodes.push(newNode);
     }
+
+    this.currentLevel++;
   }
+
+  // insert(value, level = 0) {
+  //   const newNode = new Node(value);
+
+  //   if (level >= this.maxLevels) {
+  //     return;
+  //   }
+
+  //   if (!this.root) {
+  //     this.root = newNode;
+  //     this.nodes.push(newNode);
+  //   } else {
+  //     const parent = this.nodes[0];
+  //     if (parent.children.length < 2) {
+  //       parent.children.push(newNode);
+  //       level = level + 1; // Исправлено
+  //     } else {
+  //       parent.children[0].children.push(newNode);
+  //       level = level + 1; // Исправлено
+  //       this.nodes.shift();
+  //     }
+  //     this.nodes.push(newNode);
+  //   }
+  // }
+
+  // insert(value, level = 0) {
+  //   const newNode = new Node(value);
+
+  //   if (level >= this.maxLevels) {
+  //     return;
+  //   }
+
+  //   if (!this.root) {
+  //     this.root = newNode;
+  //     this.nodes.push(newNode);
+  //   } else {
+  //     const parent = this.nodes[0];
+  //     if (parent.children.length < 2) {
+  //       parent.children.push(newNode);
+  //       level + 1;
+  //     } else {
+  //       parent.children[0].children.push(newNode);
+  //       level + 1;
+  //       this.nodes.shift();
+  //     }
+  //     this.nodes.push(newNode);
+  //   }
+  // }
 
   findLevelById(id) {
     return this.findLevelByIdNode(this.root, id, 0);

@@ -64,8 +64,8 @@ export const Home = () => {
                   {resorts
                     .map((resort, i) => {
                       return (
-                        <div className='mx-2 py-4'>
-                          <ResortCard resort={resort} key={i} />
+                        <div className='mx-2 py-4' key={i}>
+                          <ResortCard resort={resort}  />
                         </div>
                       )
                     })

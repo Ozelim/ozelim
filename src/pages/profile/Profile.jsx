@@ -10,7 +10,9 @@ import { useAuth } from 'shared/hooks'
 import Draggable from 'react-draggable'
 import Test from 'entities/pyramid/Test'
 
+// import { Tree } from 'react-tree-graph'
 
+import 'react-tree-graph/dist/style.css'
 import Tree from 'react-d3-tree'
 import { formatNumber } from 'shared/lib'
 
@@ -112,14 +114,17 @@ async function getPyramidByUser (userId) {
   for (const stage in pyramid) {
     if (!isNaN(stage)) {
       const stageArrays = pyramid?.expand?.[stage]
-      if (stageArrays?.find(e => e?.id === userId)) {
+      const stageUser = stageArrays?.find(e => e?.id === userId)
+      if (stageUser) {
+
         foundUser = userId
         const properties = Object.keys(pyramid?.expand)
         // const pows = properties.length - Number(stage)
 
+
         properties.map((key, i) => {
-          
           if (Number(key) > Number(stage)) {
+            // console.log(pyramid?.expand?.[key], key, stage, 'stage')
             result.push(pyramid?.expand?.[key])
 
             return 
@@ -127,11 +132,12 @@ async function getPyramidByUser (userId) {
 
         })
 
+
         result = result?.map((arr, i) => {
           return arr.slice(0, Math.pow(2, i + 1));
         })
-
         result.unshift([pyramidsUser])
+
       } 
     }
   }
@@ -150,40 +156,6 @@ async function getPyramidByUser (userId) {
 
 }
 
-const Binary = ({ root }) => {
-
-  return <Node node={root} />;
-};
-
-const Node = ({ node }) => {
-  if (!node) return null;
-
-  return (
-    <div className='my-4 text-center w-full'>
-      
-      {node?.value?.email && (
-        <div className={clsx('relative bg-zinc-300 p-2 text-center inline-flex flex-col items-center rounded-primary')}>
-
-          {/* <div className='absolute -top-[190px] left-1/2 -translate-x-1/2 h-[200px] w-1 bg-zinc-300'/> */}
-          <Avatar
-            record={node?.value}
-            src={node?.value?.avatar}
-            classNames={{
-              placeholder: '!rounded-full !overflow-hidden'
-            }}
-          />
-          <p className='text-sm mt-2'>
-            {node?.value?.id}
-          </p>
-        </div>
-      )}
-      <div className='flex gap-8'>
-        {node.left && <Node node={node.left} />}
-        {node.right && <Node node={node.right} />}
-      </div>
-    </div>
-  );
-};
 
 export const Profile = () => {
 
@@ -192,11 +164,11 @@ export const Profile = () => {
   const binaryTree = new BinaryTree(8);
 
   const [pyramid, setPyramid] = React.useState([])
+  
+  const [toggle, setToggle] = React.useState(false)
 
   const [withdraws, setWithdraws] = React.useState([])
   const [transfers, setTransfers] = React.useState([])
-
-  
 
   React.useEffect(() => {
     // getPyramid()
@@ -216,6 +188,7 @@ export const Profile = () => {
     getPyramidByUser(user?.id)
     .then(res => {
       setPyramid(res?.result)
+      setToggle(true)
     })
   }, [])
 
@@ -224,11 +197,14 @@ export const Profile = () => {
 
   React.useEffect(() => {
     pyramid.flat(1)
-    ?.map((stage, i) => {
+      ?.map((stage, i) => {
         return binaryTree.insert(stage)
-    })
-    setTree(binaryTree.root)
+      })
+
+      setTree(binaryTree.root)
   }, [pyramid])
+
+  // console.log(tree, 'tree');
 
   React.useEffect(() => {
     if (binaryTree.findMaxLevel()) {
@@ -236,14 +212,29 @@ export const Profile = () => {
     }
   }, [binaryTree])
 
+  console.log(tree, 'tree');
+
   return (
     <div className="w-full">
-      <div className="container"> 
+      <div className="container">
         <div className="w-full bg-white shadow-md rounded-primary p-4">
           <div className="grid grid-cols-[25%_auto] gap-6">
             <UserData />
-            <div className="relative overflow-hidden">
+            <div className="relative overflow-scroll h-[600px] w-[5000px]">
               <ReferalsList level={level} />
+              {/* <BinaryTreeTest root={tree ?? {}} /> */}
+              {/* <Tree
+                data={tree ?? {}}
+                height={800}
+                width={800}
+                nodeShape='circle'
+                nodeProps={{
+                  image: 'aaaa'
+                }}
+              >
+      
+              </Tree> */}
+
               <div className="mt-10 overflow-auto">
                 <div className="h-[100vh] border-2 border-primary-400 p-4 ">
                   {tree ? (
@@ -342,3 +333,55 @@ export const Profile = () => {
     </div>
   )
 }
+
+const TreeNodeTest = ({ data }) => {
+  return (
+    <div className='w-full my-4 text-center'>
+      <p>{data?.value?.id}</p>
+      {data?.children && (
+        <div className='flex gap-8'>
+          <TreeNodeTest data={data?.children?.[0]} />
+          <TreeNodeTest data={data?.children?.[1]} />
+        </div>
+      )}
+    </div>
+  )
+}
+
+const BinaryTreeTest = ({ root }) => {
+  return <TreeNodeTest data={root} />
+}
+
+// const Binary = ({ root }) => {
+//   return <Node node={root} />
+// }
+
+// const Node = ({ node }) => {
+//   if (!node) return null
+
+//   return (
+//     <div className="my-4 text-center w-full">
+//       {node?.value?.email && (
+//         <div
+//           className={clsx(
+//             'relative bg-zinc-300 p-2 text-center inline-flex flex-col items-center rounded-primary'
+//           )}
+//         >
+//           {/* <div className='absolute -top-[190px] left-1/2 -translate-x-1/2 h-[200px] w-1 bg-zinc-300'/> */}
+//           <Avatar
+//             record={node?.value}
+//             src={node?.value?.avatar}
+//             classNames={{
+//               placeholder: '!rounded-full !overflow-hidden',
+//             }}
+//           />
+//           <p className="text-sm mt-2">{node?.value?.id}</p>
+//         </div>
+//       )}
+//       <div className="flex gap-8">
+//         {node.left && <Node node={node.left} />}
+//         {node.right && <Node node={node.right} />}
+//       </div>
+//     </div>
+//   )
+// }
