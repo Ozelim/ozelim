@@ -23,7 +23,7 @@ export const BurgerMenu = () => {
   return (
     <Popover opened={opened} onChange={toggle}>
       <Popover.Target>
-        <Burger color='white' opened={opened} onClick={toggle} />
+        <Burger color='black' opened={opened} onClick={toggle} />
       </Popover.Target>
       <Popover.Dropdown>
         <nav>

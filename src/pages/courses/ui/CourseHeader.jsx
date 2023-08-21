@@ -5,6 +5,7 @@ import { AiOutlineUnorderedList } from 'react-icons/ai'
 import { Button } from '@mantine/core'
 import { getImageUrl } from 'shared/lib'
 import { ImgSkeleton } from 'shared/ui/ImgSkeleton'
+import { FiYoutube } from 'react-icons/fi'
 
 export const CourseHeader = ({ headings, course, text }) => {
   const images = course?.images ?? {}
@@ -56,7 +57,9 @@ export const CourseHeader = ({ headings, course, text }) => {
               </div>
             </div>
             <Button size="lg" className="mt-10">
-              Смотреть программу курса
+              <span>Смотреть программу курса 
+                <FiYoutube size={25}/>
+              </span>
             </Button>
           </div>
           {getImageUrl(course?.images, images?.[1]) ? (

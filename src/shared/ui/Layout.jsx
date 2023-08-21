@@ -1,7 +1,7 @@
 import { Button } from '@mantine/core'
 import React from 'react'
 import { Link, Outlet } from 'react-router-dom'
-import ozelimlogo from 'shared/assets/images/logo-b-w.png'
+import ozelimlogo from 'shared/assets/images/logo.svg'
 
 import { CgProfile } from 'react-icons/cg'
 import { useAuth } from 'shared/hooks'
@@ -14,7 +14,7 @@ export const Layout = ({subheaderSlot,  headerSlot, footerSlot}) => {
 
   return (
     <div className="grid grid-rows-[auto_1fr_auto] min-h-screen">
-      <div className="w-full flex items-center border-b gap-4 bg-gradient-to-tl from-emerald-800 to-primary-500 ">
+      <div className="w-full flex items-center border-b gap-4">
         <Link to={'/'}>
           <img className="max-w-[130px] ml-10" src={ozelimlogo} />
         </Link>
@@ -26,21 +26,21 @@ export const Layout = ({subheaderSlot,  headerSlot, footerSlot}) => {
         {!!user 
           ? 
             <Link to={'/profile'}>
-              <div className='flex flex-col items-center gap-2 text-white'>
+              <div className='flex flex-col items-center gap-2 '>
                 {user?.avatar 
-                    ? <img src={getImageUrl(user, user?.avatar)} className='w-[40px] h-[40px] border-2 border-yellow-200 rounded-full ' />
+                    ? <img src={getImageUrl(user, user?.avatar)} className='w-[40px] h-[40px] border-2 border-yellow-400 rounded-full ' />
                     : <CgProfile size={30}/>  
                   }
-                <p className='hover:text-yellow-200'>
+                <p className='hover:text-yellow-400'>
                   Профиль
                 </p>
               </div>
             </Link>
           :  
             <Link to={'/login'}>
-              <div className='flex flex-col items-center gap-2 text-white'>
+              <div className='flex flex-col items-center gap-2 '>
                 <CgProfile size={30}/>
-                <p className='hover:text-yellow-200'>
+                <p className='hover:text-yellow-400'>
                   Авторизация
                 </p>
               </div>
