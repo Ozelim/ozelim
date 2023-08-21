@@ -37,7 +37,8 @@ export class BinaryTree {
   }
 
   // insert(value, level = 0) {
-  //   const newNode = new Node(value);
+  //   const newNode = new No
+  // de(value);
 
   //   if (level >= this.maxLevels) {
   //     return;

@@ -5,9 +5,11 @@ import { LiaCalendarAlt, LiaConciergeBellSolid } from 'react-icons/lia'
 import { CiPlane } from 'react-icons/ci'
 import { formatNumber, getImageUrl } from 'shared/lib'
 
+// max-w-[300px]
+
 export const Card = ({ resort }) => {
   return (
-    <div className="flex flex-col shadow-md h-full rounded-primary overflow-hidden w-[320px] w-full">
+    <div className="flex flex-col shadow-md h-full rounded-primary overflow-hidden w-full">
       <img
         src={getImageUrl(resort, resort?.[1])}
         alt=""
