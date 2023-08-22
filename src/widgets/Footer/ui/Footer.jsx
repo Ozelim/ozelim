@@ -19,7 +19,7 @@ export const Footer = () => {
                 className="max-w-[100px] mr-3"
                 alt="OzElim Logo"
               />
-              <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+              <span className="self-center text-2xl whitespace-nowrap dark:text-white">
                 Oz Elim
               </span>
             </a>

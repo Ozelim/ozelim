@@ -1,5 +1,4 @@
 import React from 'react'
-import img from 'shared/assets/images/photo.jpg'
 import { AiFillCalendar } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 import { Avatar } from 'shared/ui'

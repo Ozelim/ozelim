@@ -6,6 +6,7 @@ import { Button } from '@mantine/core'
 import { getImageUrl } from 'shared/lib'
 import { ImgSkeleton } from 'shared/ui/ImgSkeleton'
 import { FiYoutube } from 'react-icons/fi'
+import { Link } from 'react-router-dom'
 
 export const CourseHeader = ({ headings, course, text }) => {
   const images = course?.images ?? {}
@@ -57,9 +58,10 @@ export const CourseHeader = ({ headings, course, text }) => {
               </div>
             </div>
             <Button size="lg" className="mt-10">
-              <span>Смотреть программу курса 
-                <FiYoutube size={25}/>
-              </span>
+              <a href={text?.link} target='_blank'>
+                Смотреть программу курса
+                <FiYoutube size={25} className="inline ml-2" />
+              </a>
             </Button>
           </div>
           {getImageUrl(course?.images, images?.[1]) ? (

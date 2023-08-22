@@ -63,6 +63,7 @@ export const UserData = () => {
       })
     }
     pb.collection('users').subscribe(user?.id, function({action, record}) {
+      console.log(record);
       setValues({
         ...record,
         birthday: new Date(user.birthday)
@@ -165,6 +166,7 @@ export const UserData = () => {
             <div className="flex gap-1 items-center">
               <p className="text text-lg">Баланс:</p>
               <p className="text-lg">{formatNumber(user?.balance)}</p>
+              {console.log(user, 'asd')}
             </div>
             <div className="space-y-2 mt-2">
               <Withdraw />
@@ -252,13 +254,14 @@ export const UserData = () => {
             value={values?.email ?? ''}
             name="email"
             onChange={handleValuesChange}
+            readOnly
           />
           <Select
             data={cities}
             label="Город"
             variant="filled"
             value={values.city ?? ''}
-            onChange={handleValuesChange}
+            onChange={(e) => handleValuesChange(e, 'city')}
           />
           {/* <DatePickerInput
             label="Дата рождения"
