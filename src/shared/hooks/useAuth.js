@@ -1,15 +1,30 @@
 import React from 'react'
-
 import { pb } from '../api/pocketbase'
+
+async function getUser (userId) {
+  return await pb.collection('users').getOne(userId)
+}
 
 export const useAuth = () => {
 
-  const user = pb.authStore.model 
-  const token = pb.authStore.token
+  const [user, setUser] = React.useState(pb.authStore.model)
+
+  // const user = pb.authStore.model 
+  // const token = pb.authStore.token
+
+  React.useEffect(() => {
+    getUser(pb.authStore?.model?.id)
+    .then(res => {
+      setUser(res)
+    })
+
+    pb.collection('users').subscribe(user?.id, function({action, record}) {
+      setUser(record)
+    })
+  }, [pb])
 
   return {
     ...pb.authStore,
     user,
-    token,
   }
 }

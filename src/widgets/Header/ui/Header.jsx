@@ -25,14 +25,14 @@ export const Header = () => {
   return (
     <div className="w-full relative py-3">
       <div className="w-full relative flex justify-center items-center">
-        <div className='text-white'>
+        <div className=''>
 
           <nav className="space-x-6 font-head">
             {array.map((val, i) => {
               return (
                 <Link
                   key={i}
-                  className="hover:text-yellow-200 md:text-lg hidden md:inline-block"
+                  className="hover:text-yellow-400 md:text-lg hidden md:inline-block"
                   to={val.link}
                 >
                   {val.label}
@@ -45,7 +45,7 @@ export const Header = () => {
               }}
             >
               <Popover.Target>
-                <span className="hover:text-yellow-200 md:text-lg cursor-pointer">
+                <span className="hover:text-yellow-400 md:text-lg cursor-pointer">
                   Наши курорты
                   <RiArrowDownSLine className="inline text-xl" />
                 </span>
@@ -55,7 +55,7 @@ export const Header = () => {
                   return (
                     <Link to={`/resorts?region=${region}&page=1`} key={i}>
                       <span
-                        className="hover:text-yellow-200 text-sm cursor-pointer text-black"
+                        className="hover:text-yellow-400 text-sm cursor-pointer text-black"
                         // onClick={() => handleRegionClick(city)}
                       >
                         {region}
@@ -66,7 +66,7 @@ export const Header = () => {
               </Popover.Dropdown>
             </Popover>
             <Link
-              className="hover:text-yellow-200 md:text-lg cursor-pointer hidden md:inline-block"
+              className="hover:text-yellow-400 md:text-lg cursor-pointer hidden md:inline-block"
               to={'/partners'}
             >
               Бизнес партнеры

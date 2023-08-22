@@ -26,8 +26,8 @@ export const UserData = () => {
     return Math.round(Math.random() * (to - from + 1) + from)
   }
 
-  const [random1, setRandom1] = React.useState(myRandom(10, 50))
-  const [random2, setRandom2] = React.useState(myRandom(1, 7))
+  const [random1] = React.useState(myRandom(10, 50))
+  const [random2] = React.useState(myRandom(1, 7))
   const [answer, setAnswer] = React.useState('?')
   const equal = random1 + random2
 
@@ -63,6 +63,7 @@ export const UserData = () => {
       })
     }
     pb.collection('users').subscribe(user?.id, function({action, record}) {
+      console.log(record, 'record');
       setValues({
         ...record,
         birthday: new Date(user.birthday)
@@ -100,7 +101,8 @@ export const UserData = () => {
     transfer?.id?.length > 10 &&
     (Number(transfer?.sum) >= 100 &&
     Number(transfer?.sum) <= user?.balance) &&
-    (answer == (random1 + random2))
+    (answer == (random1 + random2)) && 
+    user?.id !== transfer?.id
 
     async function confirmTransfer() {
 
@@ -153,6 +155,9 @@ export const UserData = () => {
         centered: true,
         labels: { confirm: 'Да', cancel: 'Нет' },
         onConfirm: () => confirmTransfer(),
+        children: (
+          <>Вы действительно хотите совершить перевод средств?</>
+        )
       })
     }
 
@@ -252,13 +257,14 @@ export const UserData = () => {
             value={values?.email ?? ''}
             name="email"
             onChange={handleValuesChange}
+            readOnly
           />
           <Select
             data={cities}
             label="Город"
             variant="filled"
             value={values.city ?? ''}
-            onChange={handleValuesChange}
+            onChange={(e) => handleValuesChange(e, 'city')}
           />
           {/* <DatePickerInput
             label="Дата рождения"

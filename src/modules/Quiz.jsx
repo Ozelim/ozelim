@@ -55,10 +55,6 @@ export const Quiz = () => {
     }
   }
 
-  console.log(step, 'step');
-
-  console.log(answer?.[step + 1]?.length, 'answer');
-
   return (
     <div className="w-full px-8">
       <div className="container bg-white rounded-primary py-8 shadow-md">

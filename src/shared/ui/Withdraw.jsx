@@ -5,6 +5,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { pb } from 'shared/api'
 import { openConfirmModal } from '@mantine/modals'
 import { useAuth } from 'shared/hooks'
+import { showNotification } from '@mantine/notifications'
 
 export const Withdraw = () => {
 
@@ -26,13 +27,17 @@ export const Withdraw = () => {
       user: user?.id,
       status: 'created'
     })
-    .then(res => {
-      showNotification({
-        title: 'Уведомление',
-        message: 'Заявка на вывод подана',
-        color: 'green',
+    .then(async res => {
+      await pb.collection('users').update(user?.id, {
+        balance: user?.balance - Number(withdraw?.sum)
       })
-      console.log(res, 'res')
+      .then(() => {
+        showNotification({
+          title: 'Уведомление',
+          message: 'Заявка на вывод подана',
+          color: 'green',
+        })
+      })
     })
   }
 
@@ -42,6 +47,9 @@ export const Withdraw = () => {
       title: 'Подвердить действие',
       centered: true,
       labels: { confirm: 'Да', cancel: 'Нет' },
+      children: (
+        <>Вы действительно хотите вывести средства?</>
+      ),
       onConfirm: () => confirmWithdraw(),
     })
   }

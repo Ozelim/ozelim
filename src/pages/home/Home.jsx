@@ -11,11 +11,9 @@ import { Carousel, useAnimationOffsetEffect } from '@mantine/carousel'
 import Autoplay from 'embla-carousel-autoplay'
 
 async function getResorts() {
-  return (
-    await pb.collection('resorts').getList(1, 20, {
-      // filter: status = 'good',
-    })
-  ).items
+  return await pb.collection('resorts').getFullList({
+    filter: `status = 'good'`,
+  })
 }
 
 export const Home = () => {
@@ -28,6 +26,9 @@ export const Home = () => {
 
   React.useEffect(() => {
     getResorts().then((res) => setResorts(res))
+    .catch(err => {
+      console.log(err, 'err');
+    })
   }, [])
 
     const [embla, setEmbla] = React.useState(null)
@@ -46,17 +47,16 @@ export const Home = () => {
             <h1 className="text-center head text-primary-500">
               Курортные зоны
             </h1>
-            <div className="overflow-hidden mt-6">
+            <div className=" mt-6">
               <div className="max-w-full">
                 <Carousel
                   slideSize={'25%'}
                   align={'start'}
                   height={'100%'}
-                  w={'100%'}
+                  // w={'100%'}
                   loop
                   withControls={false}
                   getEmblaApi={setEmbla}
-                  slideGap={'sm'}
                   plugins={[autoplay.current]}
                   onMouseEnter={autoplay.current.stop}
                   onMouseLeave={autoplay.current.reset}
@@ -64,7 +64,7 @@ export const Home = () => {
                   {resorts
                     .map((resort, i) => {
                       return (
-                        <div className='mx-2 py-4' key={i}>
+                        <div className='py-4 px-2 shrink-0 max-w-[315px]' key={i} >
                           <ResortCard resort={resort}  />
                         </div>
                       )
@@ -74,8 +74,7 @@ export const Home = () => {
                 </Carousel>
               </div>
             </div>
-            <div className="grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4 mt-8">
-            </div>
+        
           </div>
           {/* {sliced === 4 && (
             <div className="flex justify-center mt-4">

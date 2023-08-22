@@ -44,6 +44,7 @@ const currentMonthString = `created >= '${currentYearAndMonth}'`
 async function getWithdraws (userId) {
   return await pb.collection('withdraws').getFullList({
     filter: `${currentMonthString} && user = '${userId}'`,
+    sort: '-created'
   })
 }
 
@@ -212,7 +213,7 @@ export const Profile = () => {
         <div className="w-full bg-white shadow-md rounded-primary p-4">
           <div className="grid grid-cols-[25%_auto] gap-6">
             <UserData />
-            <div className="relative overflow-scroll">
+            <div className="relative overflow-hidden">
               <ReferalsList level={level} />
               {/* <BinaryTreeTest root={tree ?? {}} /> */}
               {/* <Tree
@@ -277,9 +278,9 @@ export const Profile = () => {
                             <td>{withdraw?.card}</td>
                             <td>{withdraw?.owner}</td>
                             <td>
-                              {withdraw?.status === 'created'
-                                ? 'В обработке'
-                                : 'Завершено'}
+                              {withdraw?.status === 'created' && 'В обработке'}
+                              {withdraw?.status === 'paid' && 'Завершено'}
+                              {withdraw?.status === 'rejected' && 'Отклонено'}
                             </td>
                           </tr>
                         )
