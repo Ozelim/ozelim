@@ -16,6 +16,7 @@ async function getNews() {
 }
 
 export const News = () => {
+  
   const [news, setNews] = React.useState({})
 
   const headings = news?.text?.headings
