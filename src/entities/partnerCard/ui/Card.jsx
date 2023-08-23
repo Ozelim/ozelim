@@ -4,6 +4,9 @@ import Autoplay from "embla-carousel-autoplay";
 import { Button, Textarea } from "@mantine/core";
 import { getImageUrl } from "shared/lib";
 
+
+import { GrDocumentPdf } from 'react-icons/gr'
+
 export const PartnersCard = ({
   partner,
   viewPdf,
@@ -32,7 +35,7 @@ export const PartnersCard = ({
   }, [partner])
 
   return (
-    <div className="relative rounded-primary overflow-hidden space-y-2  w-full shadow-md pb-4">
+    <div className="relative rounded-primary overflow-hidden space-y-2  w-full shadow-md pb-4 max-w-xs mx-auto" >
       <Carousel
         slideSize={"100%"}
         loop
@@ -49,7 +52,7 @@ export const PartnersCard = ({
                 <img
                   src={getImageUrl(partner, img)}
                   className={
-                    "flex justify-center items-center object-cover w-full h-72 text-3xl bg-slate-200"
+                    "flex justify-center items-center object-cover w-full h-56 text-3xl bg-slate-200"
                   }
                 >
                   {/* {i + 1} */}
@@ -59,15 +62,18 @@ export const PartnersCard = ({
           })}
       </Carousel>
       <h2 className="text-center font-head text-2xl px-6">{partner.name}</h2>
-      <p className="px-4 text-center ">{partner.description}</p>
+      <p className="px-4 text-center text-sm">{partner.description}</p>
       {partner?.pdf && (
-        <Button
-          compact
-          variant="subtle"
-          onClick={() => viewPdf(partner)}
-        > 
-          Документ
-        </Button>
+        <div className="flex justify-center mt-2">
+          <Button
+            compact
+            variant="subtle"
+            onClick={() => viewPdf(partner)}
+          > 
+          <GrDocumentPdf className="inline mr-2" size={20} />
+            Документ.pdf
+          </Button>
+        </div>
       )}
     </div>
   );

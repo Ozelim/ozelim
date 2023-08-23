@@ -17,9 +17,6 @@ export const PriceList = () => {
                   </p>
                   <div className="flex flex-col items-center">
                     <div className="text-blue-500 text-xl font-bold">6590 тенге</div>
-                    {/* <button className="ml-auto text-blue-500 border-blue-500 border-2 border-solid py-2 px-6 rounded-full">
-                      В корзину
-                    </button> */}
                   </div>
                 </div>
               )
