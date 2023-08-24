@@ -4,6 +4,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { pb } from 'shared/api'
 
 export function Modal({ children, onSubmit }) {
+
   const [opened, { open, close }] = useDisclosure(false)
 
   const {
@@ -19,9 +20,17 @@ export function Modal({ children, onSubmit }) {
     // resolver: yupResolver(signupSchema)
   })
 
+  function hanle () {
+    onSubmit()
+    .then(() => {
+      close()
+    })
+  }
+
   return (
     <>
-      <ModalM opened={opened} onClose={close} title="Заявка">
+      <ModalM 
+        opened={opened} onClose={close} title="Заявка">
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
           <Controller
             name="email"

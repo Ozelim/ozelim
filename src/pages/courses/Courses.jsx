@@ -28,7 +28,10 @@ async function getCourses() {
 
 export const Courses = () => {
   const onSubmit = async (data) => {
-    await pb.collection('courseBids').create(data)
+    await pb.collection('bids').create({
+      ...data,
+      type: 'course'
+    })
   }
 
   const [course, setCourse] = React.useState({})

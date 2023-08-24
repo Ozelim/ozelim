@@ -25,8 +25,12 @@ async function getHealth() {
 }
 
 export const Health = () => {
+
   const onSubmit = async (data) => {
-    await pb.collection('healthBids').create(data)
+    await pb.collection('bids').create({
+      ...data,
+      type: 'health'
+    })
   }
 
   const [health, setHealth] = React.useState({})

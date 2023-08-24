@@ -35,8 +35,8 @@ export const Quiz = () => {
   const [answer, setAnswer] = React.useState({})
 
   async function saveAnswers() {
-    checkAnswers()
-    // await pb.collection('questions').create(answer)
+    // checkAnswers()
+    await pb.collection('questions').create(answer)
   }
 
   function handleAnswerChange(e, name) {
