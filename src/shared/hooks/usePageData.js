@@ -1,13 +1,7 @@
 import React from 'react'
-import { pb } from "./pocketbase"
+import { pb } from 'shared/api'
 
-async function getData (page, withSlider) {
-
-  let slider = [] 
-
-  if (withSlider) {
-    slider = await pb.collection('slider').getFullList({filter: `page = '${page}'`})
-  }
+async function getData (page) {
 
   const images = await pb.collection('images').getFullList({filter: `page = '${page}'`})
   const text = await pb.collection('text').getFullList({filter: `page = '${page}'`})
@@ -19,23 +13,25 @@ async function getData (page, withSlider) {
   }
 }
 
-export const usePageData = ({page}) => {
+export const usePageData = (page) => {
 
-  const [slider, setSlider] = React.useState({})
   const [text, setText] = React.useState({})
   const [images, setImages] = React.useState({})
+  const [headings, setHeadings] = React.useState({})
 
   React.useEffect(() => {
     getData(page)
     .then(res => {
       setImages(res.images)
-      setText(res.text)
+      setText(res.text.text)
+      setHeadings(res.text.headings)
     })
   }, [])
 
   return {
     text,
-    images
+    images,
+    headings
   }
 }
 

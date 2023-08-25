@@ -280,7 +280,14 @@ export const UserData = () => {
             onChange={handleValuesChange}
           />
         </div>
-        <div className="mt-4 flex justify-end">
+        <div className="mt-4 flex justify-between items-center">
+          <Button
+            compact
+            variant='outline'
+            color='red'
+          >
+            Выйти
+          </Button>
           <Button onClick={saveUser}>Сохранить</Button>
         </div>
       </div>

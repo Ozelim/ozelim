@@ -6,33 +6,12 @@ import { AiOutlineInstagram } from 'react-icons/ai'
 import { AiOutlineWhatsApp } from 'react-icons/ai'
 import { pb } from 'shared/api'
 import { getImageUrl } from 'shared/lib'
+import { usePageData } from 'shared/hooks'
 
-async function getAbout() {
-  const text = await pb
-    .collection('text')
-    .getFullList({ filter: `page = 'about'` })
-  const images = await pb
-    .collection('images')
-    .getFullList({ filter: `page = 'about'` })
-  return {
-    text: text[0],
-    images: images[0],
-  }
-}
 
 export const About = () => {
-  const [about, setAbout] = React.useState({})
 
-  const headings = about?.text?.headings
-  const text = about?.text?.text
-
-  const images = about?.images ?? {}
-
-  React.useEffect(() => {
-    getAbout().then((res) => {
-      setAbout(res)
-    })
-  }, [])
+  const {images, text, headings} = usePageData('about')
 
   return (
     <main className="w-full">
@@ -58,10 +37,10 @@ export const About = () => {
               </h1>
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mt-3">
                 <div className="text-center bg-[#f8f8ff] py-2 hover:-translate-y-3 transition-transform">
-                  {getImageUrl(about?.images, images?.[1]) ? (
+                  {getImageUrl(images, images?.[1]) ? (
                     <img
                       className="w-[350px]  m-auto"
-                      src={getImageUrl(about?.images, images?.[1])}
+                      src={getImageUrl(images, images?.[1])}
                       loading="lazy"
                       alt="travel"
                     />
@@ -79,7 +58,7 @@ export const About = () => {
                 <div className="text-center bg-[#f8f8ff] py-2 hover:-translate-y-3 transition-transform">
                   <img
                     className="w-80 m-auto"
-                    src={getImageUrl(about?.images, images[1])}
+                    src={getImageUrl(images, images?.[1])}
                     alt="travel"
                     loading="lazy"
                   />
@@ -94,7 +73,7 @@ export const About = () => {
                 <div className="text-center bg-[#f8f8ff] py-2 hover:-translate-y-3 transition-transform">
                   <img
                     className="w-80 m-auto"
-                    src={getImageUrl(about?.images, images[2])}
+                    src={getImageUrl(images, images?.[2])}
                     alt="travel"
                     loading="eager"
                   />
@@ -121,7 +100,7 @@ export const About = () => {
               </h1>
               <img
                 className="block lg:hidden w-full mt-5"
-                src={getImageUrl(about?.images, images[3])}
+                src={getImageUrl(images, images?.[3])}
                 alt="sport"
               />
               <p className="mt-5 text-[#5a5959]">{text?.task}</p>
@@ -131,7 +110,7 @@ export const About = () => {
             </div>
             <img
               className="hidden lg:block max-w-2xl w-full"
-              src={getImageUrl(about?.images, images[3])}
+              src={getImageUrl(images, images?.[3])}
               alt="sport"
             />
           </div>

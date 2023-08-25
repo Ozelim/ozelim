@@ -1,14 +1,15 @@
+import React from 'react'
 import { Button } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
-import React from 'react'
+import { usePageData } from 'shared/hooks'
 import { getImageUrl } from 'shared/lib'
 
-const url =
-  'https://cdn.pixabay.com/photo/2016/04/15/04/02/water-1330252_640.jpg'
 
-export const CourseUsefulFor = ({price, images, text, headings}) => {
+export const CourseUsefulFor = () => {
   const matches = useMediaQuery(`(max-width: 1100px)`)
 
+  const {headings, text, images} = usePageData('price')
+  
   return (
     <div className="w-full">
       <div className="container">
@@ -48,32 +49,32 @@ export const CourseUsefulFor = ({price, images, text, headings}) => {
               />
             </div>
             <div>
-              <h1 className="heading">Наши курсы будут полезны тем, кто</h1>
+              <h1 className="heading">
+                {headings?.[1]}
+              </h1>
               <ul className="space-y-4 mt-8">
                 <li className="flex gap-4">
                   <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
                   <p className="text-xl">
-                    Планирует поменять сферу деятельности
+                    {text?.[1]}
                   </p>
                 </li>
                 <li className="flex gap-4">
                   <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
                   <p className="text-xl">
-                    Хочет работать в туристической отрасли
+                    {text[2]}
                   </p>
                 </li>
                 <li className="flex gap-4">
                   <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
                   <p className="text-xl">
-                    Увлекается географией и мечтает превратить свое хобби в
-                    основной источник дохода
+                    {text[3]}
                   </p>
                 </li>
                 <li className="flex gap-4">
                   <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
                   <p className="text-xl">
-                    Много путешествует и желает узнать «всю кухню»
-                    туристического бизнеса изнутри
+                    {text[4]}
                   </p>
                 </li>
               </ul>
