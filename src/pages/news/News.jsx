@@ -34,19 +34,7 @@ export const News = () => {
     <div className="w-full">
       <div className="container">
         <div className="grid grid-cols-1 gap-6">
-          {Array(6)
-            .fill(1)
-            .map((_, i) => {
-              return (
-                <NewsCard
-                  news={news}
-                  headings={headings}
-                  images={images}
-                  text={text}
-                  key={i}
-                />
-              )
-            })}
+          
         </div>
       </div>
     </div>

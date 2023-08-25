@@ -3,7 +3,7 @@ import { Modal as ModalM, Button, Group, TextInput } from '@mantine/core'
 import { Controller, useForm } from 'react-hook-form'
 import { pb } from 'shared/api'
 
-export function Modal({ children, onSubmit }) {
+export function Modal({ children, onSubmit, buttonProps }) {
 
   const [opened, { open, close }] = useDisclosure(false)
 
@@ -20,17 +20,15 @@ export function Modal({ children, onSubmit }) {
     // resolver: yupResolver(signupSchema)
   })
 
-  function hanle () {
-    onSubmit()
-    .then(() => {
+  function hanle() {
+    onSubmit().then(() => {
       close()
     })
   }
 
   return (
     <>
-      <ModalM 
-        opened={opened} onClose={close} title="Заявка">
+      <ModalM opened={opened} onClose={close} title="Заявка">
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
           <Controller
             name="email"
@@ -82,8 +80,12 @@ export function Modal({ children, onSubmit }) {
         </form>
       </ModalM>
 
-      <Group position="center">
-        <Button size="md" onClick={open}>
+      <Group position="center" className='w-full'>
+        <Button 
+          size="md" 
+          onClick={open}
+          {...buttonProps} 
+        >
           {children}
         </Button>
       </Group>

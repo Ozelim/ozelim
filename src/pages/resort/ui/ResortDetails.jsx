@@ -6,6 +6,8 @@ import { formatNumber } from 'shared/lib'
 import WhatsApp from 'shared/assets/icons/WhatsApp.svg'
 import Instagram from 'shared/assets/icons/Instagram.svg'
 import { useUtils } from 'shared/hooks'
+import { HealthLink } from 'shared/ui/HealthLink'
+import { pb } from 'shared/api'
 
 export const ResortDetails = ({resort}) => {
 
@@ -16,6 +18,13 @@ export const ResortDetails = ({resort}) => {
     phone: '',
     region: '',
   })
+
+  async function submit (data) {
+    return await pb.collection('bids').create({
+      ...data, 
+      type: 'resort'
+    })
+  }
 
   return (
     <>
@@ -53,12 +62,15 @@ export const ResortDetails = ({resort}) => {
         <span className="text-3xl font-bold">
           {formatNumber(resort?.cost)} тг
         </span>
-        <div className="mt-2">
-          <Button fullWidth size="md" onClick={() => setModal(true)}>
-            Отправить заявку
-          </Button>
+        <div className="mt-2 w-full">
+          <HealthLink 
+            label={'Отправить заявку'} 
+            buttonProps={{
+              fullWidth: true,
+            }}
+            onSubmit={submit}
+          />
         </div>
-
         <hr className="mt-5" />
         <div>Уточнить детали тура</div>
         <div className="flex flex-col mt-3">
@@ -82,36 +94,27 @@ export const ResortDetails = ({resort}) => {
           </div>
         </div>
       </div>
-      <Modal 
-        centered 
-        title="Заявка" 
-        opened={modal}
-        onClose={setModal}
-      >
-        <div className='space-y-4'>
+      <Modal centered title="Заявка" opened={modal} onClose={setModal}>
+        <div className="space-y-4">
           <TextInput
-            label='Имя'
+            label="Имя"
             value={bid?.name}
             onChange={(e) => setBid({ ...bid, name: e.currentTarget.value })}
-            variant='filled'
+            variant="filled"
           />
           <TextInput
-            label='Телефон'
+            label="Телефон"
             value={bid?.phone}
             onChange={(e) => setBid({ ...bid, phone: e.currentTarget.value })}
-            variant='filled'
+            variant="filled"
           />
           <TextInput
-            label='Город'
+            label="Город"
             value={bid?.region}
             onChange={(e) => setBid({ ...bid, region: e.currentTarget.value })}
-            variant='filled'
+            variant="filled"
           />
-          <Button
-            fullWidth
-          >
-            Отправить
-          </Button>
+          <Button fullWidth>Отправить</Button>
         </div>
       </Modal>
     </>
