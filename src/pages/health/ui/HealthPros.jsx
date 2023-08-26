@@ -1,15 +1,15 @@
 import React from 'react'
 import { getImageUrl } from 'shared/lib'
 
-export const HealthPros = ({ headings, health, images, text }) => {
+export const HealthPros = ({ headings, images, text }) => {
   return (
     <section className="bg-primary-500 py-4 lg:py-24 mt-10 lg:mt-20">
       <div className="container">
         <div className="flex flex-col lg:flex-row max-w-6xl m-auto gap-10">
-          {getImageUrl(health?.images, images?.[2]) ? (
+          {getImageUrl(images, images?.[2]) ? (
             <img
-              className="rounded-primary"
-              src={getImageUrl(health?.images, images?.[2])}
+              className="rounded-primary max-w-xs"
+              src={getImageUrl(images, images?.[2])}
               loading="lazy"
               alt="travel"
             />

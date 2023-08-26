@@ -6,8 +6,6 @@ import { pb } from 'shared/api'
 
 export const HealthLink = ({ onSubmit, label, heading, buttonProps }) => {
 
-  console.log(buttonProps);
-
   return (
     <div className="w-full">
       <div className="container">

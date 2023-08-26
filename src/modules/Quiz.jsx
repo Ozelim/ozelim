@@ -3,6 +3,7 @@ import { Button, Group, Select, Stepper, TextInput } from '@mantine/core'
 import { pb } from 'shared/api'
 import { getRegionsAndDiseas } from 'shared/lib/getRegionsAndDiseases'
 import { useUtils } from 'shared/hooks'
+import { showNotification } from '@mantine/notifications'
 
 async function getQuestions() {
   return (await pb.collection('questions').getFullList({
@@ -33,10 +34,30 @@ export const Quiz = () => {
     setStep((current) => (current > 0 ? current - 1 : current))
 
   const [answer, setAnswer] = React.useState({})
+  const [loading, setLoading] = React.useState(false)
 
   async function saveAnswers() {
-    // checkAnswers()
+    setLoading(true)
     await pb.collection('questions').create(answer)
+    .then(() => {
+      showNotification({
+        title: 'Заявка',
+        message: 'Ваша заявка принята',
+        color: 'green'
+      })
+    })
+    .catch(() => {
+      showNotification({
+        title: 'Заявка',
+        message: 'Не удалось отправить результат, попробуйте еще раз позже',
+        color: 'red'
+      })
+    })
+    .finally(() => {
+      setLoading(false)
+      setStep(0)
+      setAnswer({})
+    })
   }
 
   function handleAnswerChange(e, name) {
@@ -47,12 +68,6 @@ export const Quiz = () => {
     }
     setAnswer({ ...answer, [name]: e })
     // setNumber(name)
-  }
-
-  function checkAnswers () {
-    for (let i = 1; i <= questions?.count; i++) {
-      console.log(answer);
-    }
   }
 
   return (

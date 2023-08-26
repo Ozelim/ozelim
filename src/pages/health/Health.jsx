@@ -6,25 +6,11 @@ import curratorHealth from 'shared/assets/images/curratorHealth.jpg'
 import { HealthLink } from '../../shared/ui/HealthLink'
 import { HealthCard } from 'entities/healthCard'
 import { pb } from 'shared/api'
-
-async function getHealth() {
-  const text = await pb
-    .collection('text')
-    .getFullList({ filter: `page = 'health'` })
-  const images = await pb
-    .collection('images')
-    .getFullList({ filter: `page = 'health'` })
-  const slider = await pb
-    .collection('slider')
-    .getFullList({ filter: `page = 'health'` })
-  return {
-    text: text[0],
-    images: images[0],
-    slider: slider[0],
-  }
-}
+import { usePageData } from 'shared/hooks'
 
 export const Health = () => {
+
+  const { headings, images, text } = usePageData('health')
 
   const onSubmit = async (data) => {
     await pb.collection('bids').create({
@@ -32,13 +18,6 @@ export const Health = () => {
       type: 'health'
     })
   }
-
-  const [health, setHealth] = React.useState({})
-
-  const headings = health?.text?.headings
-  const text = health?.text?.text
-  const slider = health?.slider?.image
-  const images = health?.images ?? {}
 
   const array = [
     {
@@ -63,29 +42,21 @@ export const Health = () => {
     },
   ]
 
-  React.useEffect(() => {
-    getHealth().then((res) => {
-      setHealth(res)
-    })
-  }, [])
-
   return (
     <main className="w-full">
       <HealthHeader
-        health={health}
         images={images}
         headings={headings}
         text={text}
       />
       <HealthPros
         headings={headings}
-        health={health}
         images={images}
         text={text}
       />
       <div className="grid grid-cols-1 gap-6 mt-10">
         {array.map((val, i) => {
-          return <HealthCard card={val} key={i} />
+          return <HealthCard card={val} key={i} images={images}/>
         })}
       </div>
       <CourseCurrator

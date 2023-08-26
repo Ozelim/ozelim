@@ -1,22 +1,38 @@
 import React from 'react'
+import { pb } from 'shared/api'
+import { formatNumber } from 'shared/lib'
+
+async function getPrice () {
+  return await pb.collection('price').getFullList()
+}
 
 export const PriceList = () => {
+
+  const [price, setPrice] = React.useState([])
+
+  React.useEffect(() => {
+    getPrice()
+    .then(res => {
+      setPrice(res)
+    })
+  }, [])
+
   return (
     <div className="w-full">
       <div className="container">
-        <div>
+        <div className='mt-10'>
           <h2 className="text-2xl text-blue-500 font-bold ">
-            Lorem ipsum dolor sit amet consectetur.
+            Прайс-лист
           </h2>
           <div className='grid grid-cols-1 gap-4'>         
-            {Array(6).fill(1).map((_, i) => {
+            {price?.map((p, i) => {
               return (
                 <div key={i} className="flex flex-col md:flex-row justify-between shadow-md rounded-primary p-4 bg-white">
                   <p className="font-medium">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing.
+                    {p?.title}
                   </p>
                   <div className="flex flex-col items-center">
-                    <div className="text-blue-500 text-xl font-bold">6590 тенге</div>
+                    <div className="text-blue-500 text-xl font-bold">{formatNumber(p?.cost)} тенге</div>
                   </div>
                 </div>
               )

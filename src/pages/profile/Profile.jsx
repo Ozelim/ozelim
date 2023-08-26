@@ -215,19 +215,6 @@ export const Profile = () => {
             <UserData />
             <div className="relative overflow-hidden">
               <ReferalsList level={level} />
-              {/* <BinaryTreeTest root={tree ?? {}} /> */}
-              {/* <Tree
-                data={tree ?? {}}
-                height={800}
-                width={800}
-                nodeShape='circle'
-                nodeProps={{
-                  image: 'aaaa'
-                }}
-              >
-      
-              </Tree> */}
-
               <div className="mt-10 overflow-auto">
                 <div className="h-[50vh] border-2 border-primary-400 p-4 ">
                   {tree ? (
@@ -253,128 +240,80 @@ export const Profile = () => {
                     </div>
                   )}
                 </div>
-                <div className="mt-12">
-                  <h2 className="text-center text-xl font-head">Выводы</h2>
-                  <Table className="border mt-4">
-                    <thead>
-                      <tr>
-                        <th>Дата</th>
-                        <th>Сумма</th>
-                        <th>Карта</th>
-                        <th>Владелец карты</th>
-                        <th>Статус</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {withdraws?.map((withdraw, i) => {
-                        return (
-                          <tr key={i} className="text">
-                            <td>
-                              {dayjs(withdraw?.created).format(
-                                'YY-MM-DD, hh:mm'
-                              )}
-                            </td>
-                            <td>{formatNumber(withdraw?.sum)}</td>
-                            <td>{withdraw?.card}</td>
-                            <td>{withdraw?.owner}</td>
-                            <td>
-                              {withdraw?.status === 'created' && 'В обработке'}
-                              {withdraw?.status === 'paid' && 'Завершено'}
-                              {withdraw?.status === 'rejected' && 'Отклонено'}
-                            </td>
-                          </tr>
-                        )
-                      })}
-                    </tbody>
-                  </Table>
-                </div>
-                <div className="mt-12">
-                  <h2 className="text-center text-xl font-head">Переводы</h2>
-                  <Table className="border mt-4">
-                    <thead>
-                      <tr>
-                        <th>Дата</th>
-                        <th>Сумма</th>
-                        <th>Отправитель</th>
-                        <th>Получатель</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {transfers?.map((transfer, i) => {
-                        return (
-                          <tr key={i} className="text">
-                            <td>
-                              {dayjs(transfer?.created).format(
-                                'YY-MM-DD, hh:mm'
-                              )}
-                            </td>
-                            <td>{formatNumber(transfer?.sum)}</td>
-                            <td>{transfer?.user}</td>
-                            <td>{transfer?.taker}</td>
-                          </tr>
-                        )
-                      })}
-                    </tbody>
-                  </Table>
-                </div>
+                {withdraws?.length !== 0 && (
+                  <div className="mt-12">
+                    <h2 className="text-center text-xl font-head">Выводы</h2>
+                    <Table className="border mt-4">
+                      <thead>
+                        <tr>
+                          <th>Дата</th>
+                          <th>Сумма</th>
+                          <th>Карта</th>
+                          <th>Владелец карты</th>
+                          <th>Статус</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {withdraws?.map((withdraw, i) => {
+                          return (
+                            <tr key={i} className="text">
+                              <td>
+                                {dayjs(withdraw?.created).format(
+                                  'YY-MM-DD, hh:mm'
+                                )}
+                              </td>
+                              <td>{formatNumber(withdraw?.sum)}</td>
+                              <td>{withdraw?.card}</td>
+                              <td>{withdraw?.owner}</td>
+                              <td>
+                                {withdraw?.status === 'created' && 'В обработке'}
+                                {withdraw?.status === 'paid' && 'Завершено'}
+                                {withdraw?.status === 'rejected' && 'Отклонено'}
+                              </td>
+                            </tr>
+                          )
+                        })}
+                      </tbody>
+                    </Table>
+                  </div>
+                )}
+                {transfers?.length !== 0 && (
+                  <div className="mt-12">
+                    <h2 className="text-center text-xl font-head">Переводы</h2>
+                    <Table className="border mt-4">
+                      <thead>
+                        <tr>
+                          <th>Дата</th>
+                          <th>Сумма</th>
+                          <th>Отправитель</th>
+                          <th>Получатель</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {transfers?.map((transfer, i) => {
+                          return (
+                            <tr key={i} className="text">
+                              <td>
+                                {dayjs(transfer?.created).format(
+                                  'YY-MM-DD, hh:mm'
+                                )}
+                              </td>
+                              <td>{formatNumber(transfer?.sum)}</td>
+                              <td>{transfer?.user}</td>
+                              <td>{transfer?.taker}</td>
+                            </tr>
+                          )
+                        })}
+                      </tbody>
+                    </Table>
+                  </div>
+                )}
               </div>
+              
             </div>
           </div>
-          <div></div>
         </div>
       </div>
     </div>
   )
 }
-
-const TreeNodeTest = ({ data }) => {
-  return (
-    <div className='w-full my-4 text-center'>
-      <p>{data?.value?.id}</p>
-      {data?.children && (
-        <div className='flex gap-8'>
-          <TreeNodeTest data={data?.children?.[0]} />
-          <TreeNodeTest data={data?.children?.[1]} />
-        </div>
-      )}
-    </div>
-  )
-}
-
-const BinaryTreeTest = ({ root }) => {
-  return <TreeNodeTest data={root} />
-}
-
-// const Binary = ({ root }) => {
-//   return <Node node={root} />
-// }
-
-// const Node = ({ node }) => {
-//   if (!node) return null
-
-//   return (
-//     <div className="my-4 text-center w-full">
-//       {node?.value?.email && (
-//         <div
-//           className={clsx(
-//             'relative bg-zinc-300 p-2 text-center inline-flex flex-col items-center rounded-primary'
-//           )}
-//         >
-//           {/* <div className='absolute -top-[190px] left-1/2 -translate-x-1/2 h-[200px] w-1 bg-zinc-300'/> */}
-//           <Avatar
-//             record={node?.value}
-//             src={node?.value?.avatar}
-//             classNames={{
-//               placeholder: '!rounded-full !overflow-hidden',
-//             }}
-//           />
-//           <p className="text-sm mt-2">{node?.value?.id}</p>
-//         </div>
-//       )}
-//       <div className="flex gap-8">
-//         {node.left && <Node node={node.left} />}
-//         {node.right && <Node node={node.right} />}
-//       </div>
-//     </div>
-//   )
-// }

@@ -2,6 +2,7 @@ import { useDisclosure } from '@mantine/hooks'
 import { Modal as ModalM, Button, Group, TextInput } from '@mantine/core'
 import { Controller, useForm } from 'react-hook-form'
 import { pb } from 'shared/api'
+import { showNotification } from '@mantine/notifications'
 
 export function Modal({ children, onSubmit, buttonProps }) {
 
@@ -21,8 +22,22 @@ export function Modal({ children, onSubmit, buttonProps }) {
   })
 
   function hanle() {
-    onSubmit().then(() => {
+    onSubmit()
+    .then(() => {
       close()
+      showNotification({
+        title: 'Заявка',
+        message: 'Заявка успешно отправлена',
+        color: 'green'
+      })
+    })
+    .catch(() => {
+      close()
+      showNotification({
+        title: 'Заявка',
+        message: 'Не удалось отправить заявку',
+        color: 'red'
+      })
     })
   }
 
