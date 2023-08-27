@@ -3,6 +3,7 @@ import { Button } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
 import { usePageData } from 'shared/hooks'
 import { getImageUrl } from 'shared/lib'
+import { Image } from 'shared/ui'
 
 
 export const CourseUsefulFor = () => {
@@ -15,14 +16,18 @@ export const CourseUsefulFor = () => {
       <div className="container">
         {matches ? (
           <div className="grid grid-cols-1">
-            <h1 className="heading">Lorem ipsum dolor sit amet consectetur.</h1>
-            <div className=" md:gap-4 mt-6">
-              <img
+            <h1 className="heading">{headings?.[1]}</h1>
+            <div className="md:gap-4 mt-6">
+              <Image
+                record={images}
+                index={1}
+                className="w-full h-full rounded-primary"
+              />
+              {/* <img
                 src={getImageUrl(images, images?.[1])}
                 alt=""
                 className="row-span-2 w-full h-full rounded-primary"
-              />
-     
+              /> */}
             </div>
             <ul className="space-y-4 mt-6">
               {Array(6)
@@ -42,10 +47,10 @@ export const CourseUsefulFor = () => {
         ) : (
           <div className="grid grid-cols-2 max-h-[500] mt-16 gap-10">
             <div className="">
-              <img
-                src={getImageUrl(images, images?.[1])}
-                alt=""
-                className="row-span-2 w-full  rounded-primary"
+              <Image
+                record={images}
+                index={1}
+                className="w-full h-full rounded-primary"
               />
             </div>
             <div>

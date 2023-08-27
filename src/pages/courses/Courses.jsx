@@ -8,25 +8,13 @@ import { CourseCurrator } from './ui/CourseCurrator'
 import curratorCourse from 'shared/assets/images/curratorCourse.jpg'
 import { HealthLink } from 'shared/ui/HealthLink'
 import { pb } from 'shared/api'
+import { usePageData } from 'shared/hooks'
 
-async function getCourses() {
-  const text = await pb
-    .collection('text')
-    .getFullList({ filter: `page = 'course'` })
-  const images = await pb
-    .collection('images')
-    .getFullList({ filter: `page = 'course'` })
-  const slider = await pb
-    .collection('slider')
-    .getFullList({ filter: `page = 'course'` })
-  return {
-    text: text[0],
-    images: images[0],
-    slider: slider[0],
-  }
-}
 
 export const Courses = () => {
+
+  const {headings, text, images} = usePageData('course')
+
   const onSubmit = async (data) => {
     await pb.collection('bids').create({
       ...data,
@@ -34,24 +22,17 @@ export const Courses = () => {
     })
   }
 
-  const [course, setCourse] = React.useState({})
-
-  const headings = course?.text?.headings
-  const text = course?.text?.text
-  const slider = course?.slider?.image
-
-
-
-  React.useEffect(() => {
-    getCourses().then((res) => {
-      setCourse(res)
-    })
-  }, [])
-
   return (
-    <main className="container">
-      <CourseHeader headings={headings} course={course} text={text} />
-      <CourseCards headings={headings} text={text} />
+    <main className="w-full">
+      <CourseHeader 
+        headings={headings} 
+        text={text} 
+        images={images}
+      />
+      <CourseCards 
+        headings={headings}  
+        text={text} 
+      />
       <WhyOurCourse headings={headings} text={text} />
       <CourseUsefulFor />
       <TeachComfort headings={headings} text={text} />
@@ -60,7 +41,7 @@ export const Courses = () => {
         img={curratorCourse}
         desc="Предприниматель, психолог, бизнес-советник, директор Центра сертификации специалистов «САПА»"
       />
-      <HealthLink onSubmit={onSubmit} />
+      <HealthLink onSubmit={onSubmit}  label={'Оставить заявку'} heading={'Узнать больше'}/>
     </main>
   )
 }

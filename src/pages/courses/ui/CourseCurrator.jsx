@@ -8,21 +8,21 @@ export const CourseCurrator = ({ name, desc, img }) => {
   return (
     <div className="w-full">
       <div className="container">
-        <div className="flex bg-white mt-10 rounded-primary py-6 px-10 shadow-md">
-          <div className="w-2/5">
+        <div className="grid md:grid-cols-[40%_auto] bg-white mt-10 rounded-primary py-6 px-10 shadow-md">
+          <div className="w-full text-center md:text-left md:mb-0 mb-4">
             <h1 className="text-4xl text-[#424242] font-semibold">
               Куратор курса
             </h1>
-            <p className="text-lg text-[#888888] max-w-xs  mt-2">
+            <p className="text-lg text-[#888888] max-w-xs mx-auto md:mx-0 mt-2">
               Задавайте любые интересующие вас вопросы нашему куратору
             </p>
             <img
               src={img}
-              className="max-h-80  rounded-primary mt-5 "
+              className="max-h-80 rounded-primary mt-5 mx-auto md:mx-0"
               alt="currator"
             />
           </div>
-          <div className="flex w-4/6 bg-[#f4f4f4]  rounded-primary p-5">
+          <div className="flex bg-[#f4f4f4]  rounded-primary p-5">
             <div className="ml-8">
               <h2 className="text-xl font-semibold text-[#424242]">{name}</h2>
               <p className="mt-2">{desc}</p>

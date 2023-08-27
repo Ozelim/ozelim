@@ -7,7 +7,7 @@ import Kazmap from 'shared/assets/images/map-kz.png'
 
 export const Franchise = () => {
   return (
-    <div className="w-full px-5">
+    <div className="w-full">
       <div className="container">
         <div className="flex lg:flex-row flex-col gap-4 justify-between items-center bg-white shadow-md rounded-primary">
           <div className="ml-8">

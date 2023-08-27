@@ -7,6 +7,7 @@ import { AiOutlineWhatsApp } from 'react-icons/ai'
 import { pb } from 'shared/api'
 import { getImageUrl } from 'shared/lib'
 import { usePageData } from 'shared/hooks'
+import { Image } from 'shared/ui'
 
 
 export const About = () => {
@@ -15,7 +16,7 @@ export const About = () => {
 
   return (
     <main className="w-full">
-      <section className="w-full">
+      <section className="w-full ">
         <div className="container">
           <div className="w-full">
             <div className="text-center">
@@ -37,7 +38,12 @@ export const About = () => {
               </h1>
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mt-3">
                 <div className="text-center bg-[#f8f8ff] py-2 hover:-translate-y-3 transition-transform">
-                  {getImageUrl(images, images?.[1]) ? (
+                <Image
+                  record={images}
+                  index={1}
+                  className="max-w-[350px] w-full m-auto h-full"
+                />
+                  {/* {getImageUrl(images, images?.[1]) ? (
                     <img
                       className="w-[350px]  m-auto"
                       src={getImageUrl(images, images?.[1])}
@@ -46,7 +52,7 @@ export const About = () => {
                     />
                   ) : (
                     <div className="w-[350px] m-auto bg-zinc-200" />
-                  )}
+                  )} */}
                   <h2 className="text-[#2a2a2a] text-xl mb-1 font-bold">
                     Охват всех туристических зон
                   </h2>
@@ -56,11 +62,10 @@ export const About = () => {
                   </p>
                 </div>
                 <div className="text-center bg-[#f8f8ff] py-2 hover:-translate-y-3 transition-transform">
-                  <img
-                    className="w-80 m-auto"
-                    src={getImageUrl(images, images?.[1])}
-                    alt="travel"
-                    loading="lazy"
+                  <Image
+                    record={images}
+                    index={2}
+                    className="max-w-[350px] w-full m-auto h-full"
                   />
                   <h2 className="text-[#2a2a2a] text-xl mb-1 font-bold">
                     Конструктор туров
@@ -71,11 +76,10 @@ export const About = () => {
                   </p>
                 </div>
                 <div className="text-center bg-[#f8f8ff] py-2 hover:-translate-y-3 transition-transform">
-                  <img
-                    className="w-80 m-auto"
-                    src={getImageUrl(images, images?.[2])}
-                    alt="travel"
-                    loading="eager"
+                  <Image
+                    record={images}
+                    index={3}
+                    className="max-w-[350px] w-full m-auto h-full"
                   />
                   <h2 className="text-[#2a2a2a] text-xl font-bold mb-1">
                     Врач-консультант
@@ -91,18 +95,23 @@ export const About = () => {
         </div>
       </section>
 
-      <section className="w-full mt-10 lg:mt-20">
+      <section className="w-full mt-40">
         <div className="container">
           <div className="flex">
             <div>
               <h1 className="text-4xl text-[#2a2a2a] font-bold">
                 {headings?.task}
               </h1>
-              <img
+              <Image
+                record={images}
+                index={4}
+                className="block lg:hidden w-full mt-5"
+              />
+              {/* <img
                 className="block lg:hidden w-full mt-5"
                 src={getImageUrl(images, images?.[3])}
                 alt="sport"
-              />
+              /> */}
               <p className="mt-5 text-[#5a5959]">{text?.task}</p>
               <Button className="mt-5" size="md">
                 Подробнее

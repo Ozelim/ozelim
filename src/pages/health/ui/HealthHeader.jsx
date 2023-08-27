@@ -3,11 +3,9 @@ import FitnessIcon from 'shared/assets/icons/fitness.svg'
 import { Button } from '@mantine/core'
 import { Link } from 'react-router-dom'
 import { getImageUrl } from 'shared/lib'
+import { Image } from 'shared/ui'
 
 export const HealthHeader = ({ headings, team, images, text }) => {
-
-  console.log(team, 'team');
-  console.log(images, 'images');
 
   return (
     <section className="w-full">
@@ -16,7 +14,13 @@ export const HealthHeader = ({ headings, team, images, text }) => {
           <span className="text-primary-500">{headings?.heading}</span>
         </h1>
         <div className="flex flex-col lg:flex-row mt-10 gap-8">
-          {getImageUrl(images, images?.[1]) ? (
+          <Image
+            record={images}
+            index={1}
+            className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 "
+          />
+          
+          {/* {getImageUrl(images, images?.[1]) ? (
             <img
               className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0"
               src={getImageUrl(images, images?.[1])}
@@ -25,7 +29,7 @@ export const HealthHeader = ({ headings, team, images, text }) => {
             />
           ) : (
             <div className="lg:max-w-xl w-full m-auto bg-zinc-200" />
-          )}
+          )} */}
           <div className="w-full lg:text-left text-center">
             <h1 className="text-2xl md:text-3xl font-bold font-head text-[#1e1e1e]">
               {headings?.main}

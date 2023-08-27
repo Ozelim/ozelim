@@ -7,16 +7,16 @@ import { getImageUrl } from 'shared/lib'
 import { ImgSkeleton } from 'shared/ui/ImgSkeleton'
 import { FiYoutube } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
+import { Image } from 'shared/ui'
 
-export const CourseHeader = ({ headings, course, text }) => {
-  const images = course?.images ?? {}
+export const CourseHeader = ({ headings, images, text }) => {
 
   return (
     <div className="w-full">
       <div className="container">
-        <section className="flex">
+        <section className="grid lg:grid-cols-2 gap-4">
           <div>
-            <h1 className="text-4xl font-bold pt-16 pb-5 text-[#2a2a2a]">
+            <h1 className="text-4xl font-bold pt-6 pb-5 text-[#2a2a2a]">
               {headings?.main}
             </h1>
             <p className="text-heading text-xl font-medium">
@@ -64,7 +64,12 @@ export const CourseHeader = ({ headings, course, text }) => {
               </a>
             </Button>
           </div>
-          {getImageUrl(course?.images, images?.[1]) ? (
+          <Image
+            record={images}
+            index={1}
+            className='w-full max-h-[350px] object-cover lg:block hidden'
+          />  
+          {/* {getImageUrl(course?.images, images?.[1]) ? (
             <img
               className="w-3/5"
               src={getImageUrl(course?.images, images?.[1])}
@@ -72,7 +77,7 @@ export const CourseHeader = ({ headings, course, text }) => {
             />
           ) : (
             <ImgSkeleton width="max-w-3xl" />
-          )}
+          )} */}
         </section>
       </div>
     </div>

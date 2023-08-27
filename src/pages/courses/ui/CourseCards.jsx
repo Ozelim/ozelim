@@ -7,8 +7,8 @@ export const CourseCards = ({ headings, text }) => {
   return (
     <div className="w-full">
       <div className="container">
-        <section className="flex gap-7 mt-20">
-          <div className="border-solid border-4 rounded-primary py-5 px-7 border-[#20c997] w-1/3">
+        <section className="grid  lg:grid-cols-3 gap-7 mt-20">
+          <div className="border-solid border-4 rounded-primary py-5 px-7 border-[#20c997] ">
             <div className="flex items-center">
               <div className="bg-[#20c997] p-4 rounded-full">
                 <HiMiniUserGroup className="text-5xl text-heading flex-shrink-0" />
@@ -19,7 +19,7 @@ export const CourseCards = ({ headings, text }) => {
             </div>
             <p className="mt-3">{text?.card_p1}</p>
           </div>
-          <div className="border-solid border-4 rounded-primary py-5 px-7 border-primary-500 w-1/3">
+          <div className="border-solid border-4 rounded-primary py-5 px-7 border-primary-500 ">
             <div className="flex items-center">
               <div className="bg-[#20c997] p-4 rounded-full">
                 <SiYourtraveldottv className="text-5xl text-heading flex-shrink-0" />
@@ -30,7 +30,7 @@ export const CourseCards = ({ headings, text }) => {
             </div>
             <p className="mt-3">{text?.card_p2}</p>
           </div>
-          <div className="border-solid border-4 rounded-primary py-5 px-7 border-primary-500 w-1/3">
+          <div className="border-solid border-4 rounded-primary py-5 px-7 border-primary-500 ">
             <div className="flex items-center">
               <div className="bg-[#20c997] p-4 rounded-full">
                 <FaRegHandshake className="text-5xl text-heading flex-shrink-0" />
