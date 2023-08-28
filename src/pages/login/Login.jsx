@@ -3,15 +3,26 @@ import { LoginForm } from 'features/auth/loginWithEmail'
 import { SignupForm } from 'features/auth/signupWithLink'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { showNotification } from '@mantine/notifications'
+import { useAuth } from 'shared/hooks'
 
 export const Login = () => {
 
+  const {user, loading} = useAuth()
+
   const [params] = useSearchParams()
 
-  const naviagte = useNavigate() 
+  const navigate = useNavigate() 
+
+  React.useEffect(() => {
+    if (!loading) {
+      if (user) {
+        navigate('/')
+      }
+    }
+  }, [loading])
 
   function onComplete () {
-    naviagte('/')
+    navigate('/')
     showNotification({
       title: 'Уведомление', 
       message: 'Вход выполнен успешно'

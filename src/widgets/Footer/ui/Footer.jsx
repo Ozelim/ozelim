@@ -17,7 +17,7 @@ export const Footer = () => {
                 alt="OzElim Logo"
               />
               <span className="self-center text-2xl whitespace-nowrap dark:text-white">
-                Oz Elim
+              OZ ELIM
               </span>
             </a>
           </div>

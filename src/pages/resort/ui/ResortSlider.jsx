@@ -2,8 +2,10 @@ import React from 'react'
 import { Carousel } from '@mantine/carousel'
 import { getImageUrl } from 'shared/lib'
 import { useModals } from 'shared/hooks'
+import { Image } from 'shared/ui'
 
 export const ResortSlider = ({ resort }) => {
+
   // const autoplay = React.useRef(Autoplay({ delay: 2000 }))
 
   const { openModal } = useModals()
@@ -40,11 +42,10 @@ export const ResortSlider = ({ resort }) => {
           return (
             <Carousel.Slide key={i + 10} className={`relative `}>
               <div className="bg-slate-200">
-                <img
-                  src={getImageUrl(resort, resort?.[i + 1])}
-                  alt=""
+                <Image
+                  record={resort}
+                  index={i + 1}
                   className=" aspect-video object-cover w-full h-full"
-                  // onClick={() => viewImage(image)}
                 />
               </div>
             </Carousel.Slide>

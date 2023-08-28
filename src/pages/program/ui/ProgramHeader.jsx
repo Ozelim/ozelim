@@ -4,7 +4,7 @@ import { FcInfo } from 'react-icons/fc'
 import { Link } from 'react-scroll'
 import { getImageUrl } from 'shared/lib'
 
-export const ProgramHeader = ({ headings, text, images, program }) => {
+export const ProgramHeader = ({ headings, text, images }) => {
   return (
     <div className="w-full">
       <div className="container">
@@ -35,10 +35,10 @@ export const ProgramHeader = ({ headings, text, images, program }) => {
               </div>
             </div>
           </div>
-          {getImageUrl(program?.images, images?.[1]) ? (
+          {getImageUrl(images, images?.[1]) ? (
             <img
               className="w-1/2"
-              src={getImageUrl(program?.images, images?.[1])}
+              src={getImageUrl(images, images?.[1])}
               loading="lazy"
               alt="travel"
             />

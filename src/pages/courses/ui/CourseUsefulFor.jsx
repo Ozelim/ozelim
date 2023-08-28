@@ -4,12 +4,22 @@ import { useMediaQuery } from '@mantine/hooks'
 import { usePageData } from 'shared/hooks'
 import { getImageUrl } from 'shared/lib'
 import { Image } from 'shared/ui'
+import { HealthLink } from 'shared/ui/HealthLink'
+import { pb } from 'shared/api'
 
 
 export const CourseUsefulFor = () => {
+
   const matches = useMediaQuery(`(max-width: 1100px)`)
 
   const {headings, text, images} = usePageData('price')
+
+  async function submit (data) {
+    return await pb.collection('bids').create({
+      ...data,
+      type: 'price'
+    })
+  }
   
   return (
     <div className="w-full">
@@ -84,7 +94,11 @@ export const CourseUsefulFor = () => {
                 </li>
               </ul>
               <div className="mt-6">
-                <Button size="lg">Записаться на курс</Button>
+                <HealthLink 
+                  onSubmit={submit} 
+                  label='Заказать услугу'
+                />
+                {/* <Button size="lg">Записаться на курс</Button> */}
               </div>
             </div>
           </div>

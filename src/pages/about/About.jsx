@@ -38,11 +38,11 @@ export const About = () => {
               </h1>
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mt-3">
                 <div className="text-center bg-[#f8f8ff] py-2 hover:-translate-y-3 transition-transform">
-                <Image
-                  record={images}
-                  index={1}
-                  className="max-w-[350px] w-full m-auto h-full"
-                />
+                  <Image
+                    record={images}
+                    index={1}
+                    className="max-w-[350px] w-full m-auto h-full max-h-64"
+                  />
                   {/* {getImageUrl(images, images?.[1]) ? (
                     <img
                       className="w-[350px]  m-auto"
@@ -65,7 +65,7 @@ export const About = () => {
                   <Image
                     record={images}
                     index={2}
-                    className="max-w-[350px] w-full m-auto h-full"
+                    className="max-w-[350px] w-full m-auto h-full max-h-64"
                   />
                   <h2 className="text-[#2a2a2a] text-xl mb-1 font-bold">
                     Конструктор туров
@@ -79,7 +79,7 @@ export const About = () => {
                   <Image
                     record={images}
                     index={3}
-                    className="max-w-[350px] w-full m-auto h-full"
+                    className="max-w-[350px] w-full m-auto h-full max-h-64"
                   />
                   <h2 className="text-[#2a2a2a] text-xl font-bold mb-1">
                     Врач-консультант
@@ -117,10 +117,10 @@ export const About = () => {
                 Подробнее
               </Button>
             </div>
-            <img
+            <Image
               className="hidden lg:block max-w-2xl w-full"
-              src={getImageUrl(images, images?.[3])}
-              alt="sport"
+              record={images}
+              index={5}
             />
           </div>
         </div>

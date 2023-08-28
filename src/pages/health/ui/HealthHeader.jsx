@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { getImageUrl } from 'shared/lib'
 import { Image } from 'shared/ui'
 
-export const HealthHeader = ({ headings, team, images, text }) => {
+export const HealthHeader = ({ headings, images, text }) => {
 
   return (
     <section className="w-full">

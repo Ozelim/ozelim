@@ -43,7 +43,7 @@ export function Modal({ children, onSubmit, buttonProps }) {
 
   return (
     <>
-      <ModalM opened={opened} onClose={close} title="Заявка">
+      <ModalM opened={opened} onClose={close} title="Заявка" centered>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
           <Controller
             name="email"

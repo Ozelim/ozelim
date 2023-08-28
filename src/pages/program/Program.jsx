@@ -6,6 +6,7 @@ import { ProgramSuits } from './ui/ProgramSuits'
 import { ProgramRules } from './ui/ProgramRules'
 import { ProgramDocs } from './ui/ProgramDocs'
 import { pb } from 'shared/api'
+import { usePageData } from 'shared/hooks'
 
 async function getProgram() {
   const text = await pb
@@ -25,23 +26,12 @@ async function getProgram() {
 }
 
 export const Program = () => {
-  const [program, setProgram] = React.useState({})
 
-  const headings = program?.text?.headings
-  const text = program?.text?.text
-  const slider = program?.slider?.image
-  const images = program?.images ?? {}
-
-  React.useEffect(() => {
-    getProgram().then((res) => {
-      setProgram(res)
-    })
-  }, [])
+  const { headings, images, text } = usePageData('program')
 
   return (
     <div className="w-full">
       <ProgramHeader
-        program={program}
         images={images}
         headings={headings}
         text={text}

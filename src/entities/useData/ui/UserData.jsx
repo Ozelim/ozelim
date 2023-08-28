@@ -18,6 +18,8 @@ export const UserData = () => {
 
   const { user } = useAuth()
 
+  
+
   const referal = `${window.location.hostname}:3000/login?id=${user?.id}`
 
   const [opened, { open, close }] = useDisclosure(false)
@@ -161,6 +163,11 @@ export const UserData = () => {
       })
     }
 
+    function signout () {
+      pb.authStore.clear()
+      window.location.reload()
+    }
+
   return (
     <div className="w-full">
       <div>
@@ -285,6 +292,7 @@ export const UserData = () => {
             compact
             variant='outline'
             color='red'
+            onClick={signout}
           >
             Выйти
           </Button>

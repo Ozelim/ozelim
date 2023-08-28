@@ -3,7 +3,7 @@ import { UserData } from 'entities/useData'
 import dayjs from 'dayjs'
 import { ReferalsList } from 'entities/referalsList'
 import { pb } from 'shared/api'
-import { clsx, Table } from '@mantine/core'
+import { clsx, Loader, Table } from '@mantine/core'
 import { BinaryTree } from 'entities/pyramid/BinaryTree'
 import { Avatar } from 'shared/ui'
 import { useAuth } from 'shared/hooks'
@@ -12,6 +12,7 @@ import Test from 'entities/pyramid/Test'
 
 import Tree from 'react-d3-tree'
 import { formatNumber } from 'shared/lib'
+import { useNavigate } from 'react-router-dom'
 
 
 function getMonth(previous) {
@@ -154,10 +155,20 @@ async function getPyramidByUser (userId) {
 
 }
 
-
 export const Profile = () => {
 
-  const {user} = useAuth() 
+  const {user, loading} = useAuth()
+  
+  const navigate = useNavigate()
+
+  React.useEffect(() => {
+    if (!loading) {
+      if (!user) {
+        navigate('/login')
+        console.log('not logged');
+      }
+    }
+  }, [loading])
 
   const binaryTree = new BinaryTree(8);
 
@@ -191,15 +202,16 @@ export const Profile = () => {
   const [level, setLevel] = React.useState(0)
 
   React.useEffect(() => {
-    pyramid.flat(1)
-      ?.map((stage, i) => {
-        return binaryTree.insert(stage)
-      })
-
-      setTree(binaryTree.root)
+    pyramid?.flat(1)
+    ?.map((stage, i) => {
+      return binaryTree.insert(stage)
+    })
+    if (binaryTree.root) setTree(binaryTree.root)
+    
   }, [pyramid])
 
-  // console.log(tree, 'tree');
+  React.useEffect(() => {
+  }, [binaryTree])
 
   React.useEffect(() => {
     if (binaryTree.findMaxLevel()) {
@@ -216,29 +228,42 @@ export const Profile = () => {
             <div className="relative overflow-hidden">
               <ReferalsList level={level} />
               <div className="mt-10 overflow-auto">
-                <div className="h-[50vh] border-2 border-primary-400 p-4 ">
-                  {tree ? (
-                    <Tree
-                      data={tree ?? {}}
-                      orientation="vertical"
-                      pathFunc="elbow"
-                      nodeSvgShape={{
-                        shape: 'circle',
-                        shapeProps: { r: 10, fill: 'green' },
-                      }}
-                      renderCustomNodeElement={({ nodeDatum, toggleNode }) => (
-                        <CustomNode
-                          nodeData={nodeDatum}
-                          toggleNode={toggleNode}
+                <div className="h-[70vh] border-2 border-primary-400 p-4 ">
+                  {tree && (
+                    <>
+                      {tree?.value && (
+                        <Tree
+                          data={tree ?? {}}
+                          orientation="vertical"
+                          pathFunc="elbow"
+                          nodeSvgShape={{
+                            shape: 'circle',
+                            shapeProps: { r: 10, fill: 'green' },
+                          }}
+                          renderCustomNodeElement={({
+                            nodeDatum,
+                            toggleNode,
+                          }) => (
+                            <CustomNode
+                              nodeData={nodeDatum}
+                              toggleNode={toggleNode}
+                            />
+                          )}
                         />
                       )}
-                    />
-                  ) : (
-                    <div className="flex justify-center items-center h-full">
-                      Для отображения структуры пройдите условия партнерской
-                      программы
-                    </div>
-                  )}
+                      {/* <div className="flex justify-center items-center h-full">
+                        Для отображения структуры пройдите условия партнерской
+                        программы asd
+                      </div> */}
+                    </>
+                  ) 
+                  // : (
+                  //   <div className="flex justify-center items-center h-full">
+                  //     Для отображения структуры пройдите условия партнерской
+                  //     программы
+                  //   </div>
+                  // )
+                  }
                 </div>
                 {withdraws?.length !== 0 && (
                   <div className="mt-12">
@@ -266,7 +291,8 @@ export const Profile = () => {
                               <td>{withdraw?.card}</td>
                               <td>{withdraw?.owner}</td>
                               <td>
-                                {withdraw?.status === 'created' && 'В обработке'}
+                                {withdraw?.status === 'created' &&
+                                  'В обработке'}
                                 {withdraw?.status === 'paid' && 'Завершено'}
                                 {withdraw?.status === 'rejected' && 'Отклонено'}
                               </td>
@@ -309,7 +335,6 @@ export const Profile = () => {
                   </div>
                 )}
               </div>
-              
             </div>
           </div>
         </div>
