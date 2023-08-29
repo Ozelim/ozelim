@@ -7,7 +7,6 @@ import { loginWithEmail } from '../model/login'
 
 export const LoginForm = ({onComplete}) => {
 
-
   const [loading, setLoading] = React.useState(false)
 
   const { control, handleSubmit, formState: {errors, isSubmitting, isLoading} } = useForm({
@@ -18,6 +17,8 @@ export const LoginForm = ({onComplete}) => {
     resolver: yupResolver(loginSchema) 
   })
 
+  const [error, setError] = React.useState('')
+
   const onSubmit = data => {
     setLoading(true)
     loginWithEmail(data)
@@ -25,11 +26,14 @@ export const LoginForm = ({onComplete}) => {
       onComplete(res)
       console.log(res);
     })
+    .catch(err => {
+      setError('Неверные данные')
+      console.log(err, 'asd');
+    })
     .finally(() => {
       setLoading(false)
     })
   }
-
 
   return (
     <div className='bg-white p-4 shadow-md rounded-primary'> 
@@ -67,14 +71,17 @@ export const LoginForm = ({onComplete}) => {
           />
           )}
         />
-          <Button 
-            className='mt-4' 
-            type='submit'
-            fullWidth
-            loading={loading}
-          >
-            Войти
-          </Button>
+        {error && (
+          <p className='text-red-500 text-sm mt-4'>{error}</p>
+        )}
+        <Button 
+          className='mt-4' 
+          type='submit'
+          fullWidth
+          loading={loading}
+        >
+          Войти
+        </Button>
       </form>
     </div>
   )

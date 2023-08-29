@@ -34,8 +34,17 @@ export const ProgramRules = ({ headings, text }) => {
           </section>
         </div>
       </div>
-      <Modal opened={opened} onClose={close} centered>
-        <iframe className="w-full h-screen" src={test} frameborder="0" />
+      <Modal 
+        opened={opened} 
+        onClose={close} 
+        centered 
+        size={'xl'}
+      >
+        <iframe 
+          className="w-full h-screen" 
+          src={test} 
+          frameborder="0" 
+        />
       </Modal>
     </>
   )

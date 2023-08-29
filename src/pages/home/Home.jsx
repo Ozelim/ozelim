@@ -38,8 +38,6 @@ export const Home = () => {
 
   useAnimationOffsetEffect(embla, 200)
 
-  console.log(getId(15));
-
   return (
     <div className="space-y-8">
       <Franchise />

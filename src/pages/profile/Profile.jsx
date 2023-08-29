@@ -105,54 +105,92 @@ function CustomNode({ nodeData, toggleNode }) {
 
 async function getPyramidByUser (userId) {
 
-  const pyramid = (await pb.collection('pyramid').getFullList({expand: '1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12'}))[0]
-  const pyramidsUser = await pb.collection('users').getOne(userId)
-  let foundUser = null
-  let result = []
+  if (userId) {
+    const pyramid = (
+      await pb
+        .collection("pyramid")
+        .getFullList({ expand: "1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12" })
+    )[0];
+    const pyramidsUser = await pb.collection("users").getOne(userId);
+    let foundUser = null;
+    let result = [];
+
+    for (const stage in pyramid) {
+      if (!isNaN(stage)) {
+        const stageArrays = pyramid?.expand?.[stage];
+        const stageUser = stageArrays?.find((e) => e?.id === userId);
+        if (stageUser) {
+          foundUser = userId;
+          const properties = Object.keys(pyramid?.expand);
+          // const pows = properties.length - Number(stage)
+
+          properties.map((key, i) => {
+            if (Number(key) > Number(stage)) {
+              // console.log(pyramid?.expand?.[key], key, stage, 'stage')
+              result.push(pyramid?.expand?.[key]);
+
+              return;
+            }
+          });
+
+          result = result?.map((arr, i) => {
+            return arr.slice(0, Math.pow(2, i + 1));
+          });
+          result.unshift([pyramidsUser]);
+        }
+      }
+    }
+
+    if (foundUser) {
+      return {
+        pyramid: pyramid,
+        result,
+      };
+    } else {
+      return {
+        pyramid: pyramid,
+        result: null,
+      };
+    }
+}
+
+  const pyramid = (
+    await pb
+      .collection("pyramid")
+      .getFullList({ expand: "sponsor, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12" })
+  )[0];
+
+  const sponsor = pyramid?.expand?.sponsor
+
+  // const pyramidsUser = await pb.collection("users").getOne(userId);
+  let result = [];
 
   for (const stage in pyramid) {
     if (!isNaN(stage)) {
-      const stageArrays = pyramid?.expand?.[stage]
-      const stageUser = stageArrays?.find(e => e?.id === userId)
-      if (stageUser) {
-
-        foundUser = userId
-        const properties = Object.keys(pyramid?.expand)
-        // const pows = properties.length - Number(stage)
 
 
-        properties.map((key, i) => {
-          if (Number(key) > Number(stage)) {
-            // console.log(pyramid?.expand?.[key], key, stage, 'stage')
-            result.push(pyramid?.expand?.[key])
-
-            return 
-          }
-
-        })
-
-
-        result = result?.map((arr, i) => {
-          return arr.slice(0, Math.pow(2, i + 1));
-        })
-        result.unshift([pyramidsUser])
-
-      } 
+      result.push(pyramid?.expand?.[stage]);
+      // const stageUser = stageArrays?.find((e) => e?.id === sponsor);
     }
+    result = result?.map((arr, i) => {
+      return arr?.slice(0, Math.pow(2, i + 1));
+    });
+    
   }
 
-  if (foundUser) {
+  result?.unshift([sponsor]);
+
+  if (sponsor) {
     return {
       pyramid: pyramid,
-      result
-    }
+      result,
+    };
   } else {
     return {
       pyramid: pyramid,
-      result: null
-    }
+      result: null,
+    };
   }
-
 }
 
 export const Profile = () => {
@@ -192,7 +230,7 @@ export const Profile = () => {
       setTransfers(res)
     })
 
-    getPyramidByUser(user?.id)
+    getPyramidByUser(user?.id !== '111111111111111' ? user?.id : false)
     .then(res => {
       setPyramid(res?.result)
     })
@@ -241,11 +279,7 @@ export const Profile = () => {
               <ReferalsList level={level} />
               <div className="mt-10 overflow-auto">
                 <div className="h-[70vh] border-2 border-primary-400 p-4 ">
-                  {load ? (
-                    <>
-                      <Loader />
-                    </>
-                  ) : tree?.value ? (
+                  {tree?.value ? (
                     <>
                       <Tree
                         data={tree ?? {}}
@@ -265,7 +299,6 @@ export const Profile = () => {
                           />
                         )}
                       />
-                      asd
                     </>
                   ) : (
                     <div className="flex justify-center items-center h-full">

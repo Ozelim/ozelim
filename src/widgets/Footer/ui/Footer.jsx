@@ -124,10 +124,8 @@ export const Footer = () => {
               href="https://github.com/MIDstructure"
               className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
             >
-              <a href="#" className="flex items-center">
-                <BsTiktok className="text-xl flex-shrink-0" color="black" />
+              <BsTiktok className="text-xl flex-shrink-0" color="black" />
                 {/* <img src={TikTok} className="w-6" /> */}
-              </a>
             </a>
             {/* <a
               href="https://github.com/MIDstructure"

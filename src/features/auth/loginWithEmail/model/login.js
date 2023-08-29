@@ -2,12 +2,15 @@ import { pb } from "shared/api";
 
 async function loginWithEmail (data) {
   try {
-    return await pb.collection('users').authWithPassword(
+    await pb.collection('users').authWithPassword(
       data.email,
       data.password
     )
+    .then((res) => {
+      return res
+    })
   } catch (err) {
-    console.log(err?.message);
+    throw new Error(err)
   }
 }
 
