@@ -8,23 +8,6 @@ import { ProgramDocs } from './ui/ProgramDocs'
 import { pb } from 'shared/api'
 import { usePageData } from 'shared/hooks'
 
-async function getProgram() {
-  const text = await pb
-    .collection('text')
-    .getFullList({ filter: `page = 'program'` })
-  const images = await pb
-    .collection('images')
-    .getFullList({ filter: `page = 'program'` })
-  const slider = await pb
-    .collection('slider')
-    .getFullList({ filter: `page = 'program'` })
-  return {
-    text: text[0],
-    images: images[0],
-    slider: slider[0],
-  }
-}
-
 export const Program = () => {
 
   const { headings, images, text } = usePageData('program')

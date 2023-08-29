@@ -7,12 +7,23 @@ import { HealthLink } from '../../shared/ui/HealthLink'
 import { HealthCard } from 'entities/healthCard'
 import { pb } from 'shared/api'
 import { usePageData } from 'shared/hooks'
+import { Link } from 'react-router-dom'
+
+export const Editor = ({data}) => {
+
+  return (
+    <div className='w-full mt-10'>
+      <div className="max-w-2xl mx-auto">
+        <div dangerouslySetInnerHTML={{__html: data}}/>
+      </div>
+    </div>
+  )
+}
+
 
 export const Health = () => {
 
   const { headings, images, text } = usePageData('health')
-
-
 
   const array = [
     {
@@ -54,11 +65,21 @@ export const Health = () => {
           return <HealthCard card={val} key={i} images={images}/>
         })}
       </div>
+
+      <Editor data={text?.editor} />
+
       <CourseCurrator
         name="Байзакова Гульнара Сериковна"
         img={curratorHealth}
         desc="Терапевт-кардиолог высшей категории, действующий врач-эксперт Кардиологического центра города Павлодар, врач-консультант по иммунопрофилактике и оздоровлению через санаторно-курортные комплексы."
       />
+
+      <div className='text-center mt-10'>
+        <Link to={'/price'} className='text-blue-500 underline'>
+          Узнать подробнее о ценах
+        </Link>
+      </div>
+
     </main>
   )
 }

@@ -10,10 +10,10 @@ export const HealthHeader = ({ headings, images, text }) => {
   return (
     <section className="w-full">
       <div className="container">
-        <h1 className="text-3xl max-w-3xl m-auto font-bold text-center font-head">
+        {/* <h1 className="text-3xl max-w-3xl m-auto font-bold text-center font-head">
           <span className="text-primary-500">{headings?.heading}</span>
-        </h1>
-        <div className="flex flex-col lg:flex-row mt-10 gap-8">
+        </h1> */}
+        <div className="flex flex-col lg:flex-row mt-4 gap-8">
           <Image
             record={images}
             index={1}

@@ -45,18 +45,7 @@ export const ResortDetails = ({resort}) => {
         <div>
           Сезон тура: <b>{resort?.season}</b>
         </div>
-        <div className="flex items-center">
-          <FcInfo />
-          <div className="ml-2">
-            13 июля, чт <b>из Алматы</b>
-          </div>
-        </div>
-        <div className="flex items-center">
-          <FcInfo />
-          <div className="ml-2">
-            20 июля, чт <b>из Египта</b>
-          </div>
-        </div>
+
         <hr className="mt-5" />
         <div className="mt-2 mb-1">Цена за 1 чел, в номере для двоих</div>
         <span className="text-3xl font-bold">
@@ -69,6 +58,7 @@ export const ResortDetails = ({resort}) => {
               fullWidth: true,
             }}
             onSubmit={submit}
+            data={resort?.id}
           />
         </div>
         <hr className="mt-5" />

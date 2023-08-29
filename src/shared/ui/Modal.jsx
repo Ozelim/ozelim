@@ -13,7 +13,7 @@ const schema = yup.object({
 })
 
 
-export function Modal({ children, onSubmit, buttonProps }) {
+export function Modal({ children, onSubmit, buttonProps, data }) {
 
   const [opened, { open, close }] = useDisclosure(false)
 
@@ -32,8 +32,11 @@ export function Modal({ children, onSubmit, buttonProps }) {
     resolver: yupResolver(schema),
   })
 
-  function handle() {
-    onSubmit()
+  function handle(val) {
+    onSubmit({
+      ...val, 
+      data,
+    })
     .then(() => {
       close()
       showNotification({

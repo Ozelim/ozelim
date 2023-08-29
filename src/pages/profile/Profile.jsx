@@ -166,7 +166,7 @@ export const Profile = () => {
       if (!user) {
         navigate('/login')
         console.log('not logged');
-      }
+      } 
     }
   }, [loading])
 
@@ -201,13 +201,17 @@ export const Profile = () => {
   const [tree, setTree] = React.useState({})
   const [level, setLevel] = React.useState(0)
 
+  const [load, setLoad] = React.useState(true)
+
   React.useEffect(() => {
     pyramid?.flat(1)
     ?.map((stage, i) => {
       return binaryTree.insert(stage)
     })
-    if (binaryTree.root) setTree(binaryTree.root)
-    
+    if (binaryTree.root) {
+      setTree(binaryTree.root)
+      setLoad(false)
+    }
   }, [pyramid])
 
   React.useEffect(() => {
@@ -219,6 +223,14 @@ export const Profile = () => {
     }
   }, [binaryTree])
 
+  if (!user?.verified) {
+    return (
+      <div className='flex justify-center items-center h-full'>
+        Ваш профиль не верифицирован, ваш ID: {user?.id}
+      </div>
+    ) 
+  }
+
   return (
     <div className="w-full">
       <div className="container">
@@ -229,41 +241,38 @@ export const Profile = () => {
               <ReferalsList level={level} />
               <div className="mt-10 overflow-auto">
                 <div className="h-[70vh] border-2 border-primary-400 p-4 ">
-                  {tree && (
+                  {load ? (
                     <>
-                      {tree?.value && (
-                        <Tree
-                          data={tree ?? {}}
-                          orientation="vertical"
-                          pathFunc="elbow"
-                          nodeSvgShape={{
-                            shape: 'circle',
-                            shapeProps: { r: 10, fill: 'green' },
-                          }}
-                          renderCustomNodeElement={({
-                            nodeDatum,
-                            toggleNode,
-                          }) => (
-                            <CustomNode
-                              nodeData={nodeDatum}
-                              toggleNode={toggleNode}
-                            />
-                          )}
-                        />
-                      )}
-                      {/* <div className="flex justify-center items-center h-full">
-                        Для отображения структуры пройдите условия партнерской
-                        программы asd
-                      </div> */}
+                      <Loader />
                     </>
-                  ) 
-                  // : (
-                  //   <div className="flex justify-center items-center h-full">
-                  //     Для отображения структуры пройдите условия партнерской
-                  //     программы
-                  //   </div>
-                  // )
-                  }
+                  ) : tree?.value ? (
+                    <>
+                      <Tree
+                        data={tree ?? {}}
+                        orientation="vertical"
+                        pathFunc="elbow"
+                        nodeSvgShape={{
+                          shape: 'circle',
+                          shapeProps: { r: 10, fill: 'green' },
+                        }}
+                        renderCustomNodeElement={({
+                          nodeDatum,
+                          toggleNode,
+                        }) => (
+                          <CustomNode
+                            nodeData={nodeDatum}
+                            toggleNode={toggleNode}
+                          />
+                        )}
+                      />
+                      asd
+                    </>
+                  ) : (
+                    <div className="flex justify-center items-center h-full">
+                      Для отображения структуры пройдите условия партнерской
+                      программы
+                    </div>
+                  )}
                 </div>
                 {withdraws?.length !== 0 && (
                   <div className="mt-12">

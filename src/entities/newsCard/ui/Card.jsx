@@ -4,7 +4,7 @@ import { getImageUrl } from "shared/lib"
 
 export const Card = ({news}) => {
   return (
-    <div className="bg-white shadow rounded-primary max-w-4xl w-full mx-auto">
+    <div className="bg-white shadow rounded-primary max-w-2xl w-full mx-auto">
       <div className="p-6 flex flex-col">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
@@ -29,10 +29,7 @@ export const Card = ({news}) => {
         </div>
 
         <div className="flex justify-between">
-          <h1 className="font-head font-bold my-4 text-4xl">
-            {news?.title}
-          </h1>
-  
+          <h1 className="font-head font-bold my-4 text-4xl">{news?.title}</h1>
         </div>
         {getImageUrl(news, news?.image) ? (
           <img
@@ -46,7 +43,17 @@ export const Card = ({news}) => {
         )}
         <p className="flex-grow font-body my-4 text">{news?.description}</p>
 
-        <p className="text-zinc-400 text-sm uppercase">ozelim.kz</p>
+        <div className="flex justify-between">
+          <a
+            href={news?.link}
+            target="_blank"
+            className="text-zinc-400 text-sm underline"
+          >
+            {news?.link}
+          </a>
+          <p className="text-zinc-400 text-sm uppercase">OZ-ELIM.kz</p>
+        </div>
+
       </div>
     </div>
   )

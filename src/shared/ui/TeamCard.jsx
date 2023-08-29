@@ -3,7 +3,7 @@ import { getImageUrl } from 'shared/lib'
 
 export const TeamCard = ({ team }) => {
   return (
-    <div className="relative rounded-primary overflow-hidden space-y-2 shadow-md pb-4 max-w-xs mx-auto">
+    <div className="relative rounded-primary overflow-hidden space-y-2 shadow-md pb-4 max-w-xs mx-auto bg-white">
       <img
         src={getImageUrl(team, team?.image)}
         alt=""
@@ -13,6 +13,12 @@ export const TeamCard = ({ team }) => {
         {team?.name}
       </h2>
       <p className="px-4 text-center text">{team?.description}</p>
+      <div className='text-center'>
+        <a href={team?.link} target="_blnak" className="underline text-blue-300">
+          Перейти по ссылке
+        </a>
+      </div>
     </div>
   )
 }
+ 
