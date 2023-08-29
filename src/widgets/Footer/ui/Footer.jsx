@@ -22,13 +22,10 @@ export const Footer = () => {
               </span>
             </a>
           </div>
-          <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+          <div className="grid grid-cols-2 gap-2 sm:gap-2 sm:grid-cols-3">
             <div>
-              <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                ССЫЛКИ:
-              </h2>
               <ul className="text-gray-600 dark:text-gray-400 font-medium">
-                <li className="mb-4">
+                <li className="sm:mb-4">
                   <a
                     href="https://oz-elim.kz/about"
                     className="hover:underline"
@@ -47,11 +44,8 @@ export const Footer = () => {
               </ul>
             </div>
             <div>
-              <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                —
-              </h2>
               <ul className="text-gray-600 dark:text-gray-400 font-medium">
-                <li className="mb-4">
+                <li className="sm:mb-4">
                   <a
                     href="https://oz-elim.kz/price"
                     className="hover:underline "
@@ -70,11 +64,8 @@ export const Footer = () => {
               </ul>
             </div>
             <div>
-              <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                —
-              </h2>
               <ul className="text-gray-600 dark:text-gray-400 font-medium">
-                <li className="mb-4">
+                <li className="sm:mb-4">
                   <a
                     href="https://oz-elim.kz/courses"
                     className="hover:underline"

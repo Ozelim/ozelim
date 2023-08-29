@@ -9,17 +9,13 @@ export const Franchise = () => {
   return (
     <div className="w-full">
       <div className="container">
-        <div className="flex lg:flex-row flex-col gap-4 justify-between items-center bg-white shadow-md rounded-primary">
+        <div className="flex lg:flex-row flex-col gap-4 justify-between items-center bg-gradient-to-tl from-teal-600 to-teal-500 shadow-md rounded-primary">
           <div className="ml-8">
-            <p className="text-4xl mt-2 text-[#424242]">
-              Отдых вместе с 
-            </p>
+            <p className="text-4xl mt-2 text-white">Отдых вместе с</p>
 
-            <p className="text-4xl mt-2 text-[#424242]">
-              «OZ ELIM»
-            </p>
+            <p className="text-4xl mt-2 text-white">«OZ ELIM»</p>
 
-            <p className="mt-5 text-2xl text-[#424242] ">
+            <p className="mt-5 text-2xl text-white ">
               Поиск и подбор оздоровительных туров по Казахстану.
             </p>
             <div className="mt-5">

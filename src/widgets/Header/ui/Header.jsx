@@ -25,14 +25,13 @@ export const Header = () => {
   return (
     <div className="w-full relative py-3">
       <div className="w-full relative flex justify-center items-center">
-        <div className=''>
-
+        <div className="">
           <nav className="space-x-6 font-head">
             {array.map((val, i) => {
               return (
                 <Link
                   key={i}
-                  className="hover:text-yellow-400 text-sm lg:text-xl hidden md:inline-block"
+                  className="text-teal-500 hover:text-yellow-400 text-sm lg:text-xl hidden md:inline-block"
                   to={val.link}
                 >
                   {val.label}
@@ -45,7 +44,7 @@ export const Header = () => {
               }}
             >
               <Popover.Target>
-                <span className="hover:text-yellow-400 text-sm lg:text-xl cursor-pointer">
+                <span className="text-teal-500 hover:text-yellow-400 text-sm lg:text-xl cursor-pointer">
                   Наши курорты
                   <RiArrowDownSLine className="inline text-xl" />
                 </span>
@@ -55,7 +54,7 @@ export const Header = () => {
                   return (
                     <Link to={`/resorts?region=${region}`} key={i}>
                       <span
-                        className="hover:text-yellow-400 text-sm cursor-pointer text-black"
+                        className="hover:text-yellow-400 text-sm cursor-pointer text-teal-500"
                         // onClick={() => handleRegionClick(city)}
                       >
                         {region}
@@ -66,7 +65,7 @@ export const Header = () => {
               </Popover.Dropdown>
             </Popover>
             <Link
-              className="hover:text-yellow-400 text-sm lg:text-xl cursor-pointer hidden md:inline-block"
+              className="text-teal-500 hover:text-yellow-400 text-sm lg:text-xl cursor-pointer hidden md:inline-block"
               to={'/partners'}
             >
               Бизнес партнеры
