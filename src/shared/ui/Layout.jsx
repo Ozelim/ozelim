@@ -62,9 +62,12 @@ export const Layout = ({subheaderSlot,  headerSlot, footerSlot}) => {
           )}
         </div>
       </div>
-      <div className={clsx('w-full h-full bg-zinc-50 md:py-10 py-5', {
-        'bg-teal-100': pathname === '/'
-      })}>
+      <div
+        className={clsx('w-full h-full md:py-10 py-5', {
+          'bg-teal-100': pathname === '/',
+          'bg-zinc-50': pathname !== '/',
+        })}
+      >
         <Outlet />
       </div>
       <div className="w-full h-full">{footerSlot}</div>
