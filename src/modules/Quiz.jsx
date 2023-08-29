@@ -71,7 +71,7 @@ export const Quiz = () => {
   }
 
   return (
-    <div className="w-full px-8">
+    <div className="w-full px-4">
       <div className="container bg-white rounded-primary py-8 shadow-md">
         <div className='w-full flex justify-center'>
           <div className="max-w-4xl relative overflow-hidden space-y-2">
@@ -100,7 +100,7 @@ export const Quiz = () => {
                       <Stepper.Step key={key}>
                         <div
                           className={
-                            'flex rounded-primary border border-zinc-200 justify-center items-center w-full h-full'
+                            'flex rounded-primary border border-zinc-200 justify-center items-center w-full h-full mt-4'
                           }
                         >
                           <div className="w-full p-4">
