@@ -4,38 +4,12 @@ import { TourOperators } from 'modules/TourOperators'
 import { pb } from 'shared/api'
 import { getImageUrl } from 'shared/lib'
 import { ImgSkeleton } from 'shared/ui/ImgSkeleton'
+import { usePageData } from 'shared/hooks'
 
-async function getCharity() {
-  const text = await pb
-    .collection('text')
-    .getFullList({ filter: `page = 'charity'` })
-  const images = await pb
-    .collection('images')
-    .getFullList({ filter: `page = 'charity'` })
-  const slider = await pb
-    .collection('slider')
-    .getFullList({ filter: `page = 'charity'` })
-  return {
-    text: text[0],
-    images: images[0],
-    slider: slider[0],
-  }
-}
 
 export const CharityFund = () => {
-  const [charity, setCharity] = React.useState({})
 
-  const headings = charity?.text?.headings
-  const text = charity?.text?.text
-  const slider = charity?.slider?.image
-
-  const images = charity?.images ?? {}
-
-  React.useEffect(() => {
-    getCharity().then((res) => {
-      setCharity(res)
-    })
-  }, [])
+  const {images, headings, text} = usePageData('charity')
 
   return (
     <div className="w-full">
@@ -53,21 +27,17 @@ export const CharityFund = () => {
                 Подробнее
               </Button>
             </div>
-            {getImageUrl(charity?.images, images?.[1]) ? (
-              <img
-                className="w-3/5"
-                src={getImageUrl(charity?.images, images?.[1])}
-                alt="kid"
-              />
-            ) : (
-              <ImgSkeleton width="max-w-3xl" />
-            )}
+            <img
+              className="aspect-video max-w-xl mx-auto object-cover"
+              src={getImageUrl(images, images?.[1])}
+              alt="kid"
+            />
           </div>
         </section>
         <h1 className="text-5xl font-bold text-center mt-10 text-primary-500">
           {headings?.history}
         </h1>
-        <TourOperators slider={slider} />
+        <TourOperators images={images} />
         <h1 className="heading mt-10 text-primary-500">{headings?.grid}</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-x-8 gap-y-4 md:gap-y-6 mt-5 md:mt-10">
           <div className="p-6 rounded-primary shadow-md bg-white">
@@ -96,15 +66,11 @@ export const CharityFund = () => {
           </div>
         </div>
         <section className="mt-16 flex">
-          {getImageUrl(charity?.images, images?.[5]) ? (
-            <img
-              className="w-3/5"
-              src={getImageUrl(charity?.images, images?.[5])}
-              alt="kid"
-            />
-          ) : (
-            <ImgSkeleton width="max-w-3xl" />
-          )}
+          <img
+            className="aspect-video max-w-xl mx-auto object-cover"
+            src={getImageUrl(images, images?.[5])}
+            alt="kid"
+          />
           <div className="w-2/5 ml-10">
             <h1 className="text-3xl  font-semibold text-primary-500">
               {headings?.help}

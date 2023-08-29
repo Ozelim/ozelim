@@ -1,6 +1,6 @@
-import { Button } from '@mantine/core'
+import { Button, clsx } from '@mantine/core'
 import React from 'react'
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet, useLocation } from 'react-router-dom'
 import ozelimlogo from 'shared/assets/images/logo.svg'
 
 import { CgProfile } from 'react-icons/cg'
@@ -13,6 +13,9 @@ export const Layout = ({subheaderSlot,  headerSlot, footerSlot}) => {
 
   const {user} = useAuth()
 
+  const {pathname} = useLocation()
+
+
   return (
     <div className="grid grid-rows-[auto_1fr_auto] min-h-screen">
       <div className="w-full flex items-center border-b gap-4">
@@ -20,7 +23,10 @@ export const Layout = ({subheaderSlot,  headerSlot, footerSlot}) => {
           <picture>
             <source media="(min-width:650px)" srcSet={ozelimlogo} />
             {/* <source media="(min-width:465px)" srcset="img_white_flower.jpg"/> */}
-            <img className="max-w-[130px] ml-2 lg:ml-6 w-full min-w-[70px]" src={mobileLogo} />
+            <img
+              className="max-w-[130px] ml-2 lg:ml-6 w-full min-w-[70px]"
+              src={mobileLogo}
+            />
           </picture>
         </Link>
         <div className="w-full flex flex-col justify-center">
@@ -39,20 +45,26 @@ export const Layout = ({subheaderSlot,  headerSlot, footerSlot}) => {
                 ) : (
                   <CgProfile size={30} />
                 )}
-                <p className="hover:text-yellow-400 text-sm hidden md:block">Профиль</p>
+                <p className="hover:text-yellow-400 text-sm hidden md:block">
+                  Профиль
+                </p>
               </div>
             </Link>
           ) : (
             <Link to={'/login'}>
               <div className="flex flex-col items-center gap-2 ">
                 <CgProfile size={30} />
-                <p className="hover:text-yellow-400 text-sm hidden md:block">Авторизация</p>
+                <p className="hover:text-yellow-400 text-sm hidden md:block">
+                  Авторизация
+                </p>
               </div>
             </Link>
           )}
         </div>
       </div>
-      <div className="w-full h-full bg-zinc-50 md:py-10 py-5">
+      <div className={clsx('w-full h-full bg-zinc-50 md:py-10 py-5', {
+        'bg-teal-100': pathname === '/'
+      })}>
         <Outlet />
       </div>
       <div className="w-full h-full">{footerSlot}</div>

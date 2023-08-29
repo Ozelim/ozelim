@@ -9,7 +9,7 @@ import { formatNumber, getImageUrl } from 'shared/lib'
 
 export const Card = ({ resort }) => {
   return (
-    <div className="flex flex-col shadow-md h-full rounded-primary overflow-hidden w-full">
+    <div className="flex flex-col bg-white shadow-md h-full rounded-primary overflow-hidden w-full">
       <img
         src={getImageUrl(resort, resort?.[1])}
         alt=""

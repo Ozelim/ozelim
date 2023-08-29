@@ -32,7 +32,7 @@ export const Header = () => {
               return (
                 <Link
                   key={i}
-                  className="hover:text-yellow-400 text-sm lg:text-lg hidden md:inline-block"
+                  className="hover:text-yellow-400 text-sm lg:text-xl hidden md:inline-block"
                   to={val.link}
                 >
                   {val.label}
@@ -45,7 +45,7 @@ export const Header = () => {
               }}
             >
               <Popover.Target>
-                <span className="hover:text-yellow-400 text-sm lg:text-lg cursor-pointer">
+                <span className="hover:text-yellow-400 text-sm lg:text-xl cursor-pointer">
                   Наши курорты
                   <RiArrowDownSLine className="inline text-xl" />
                 </span>
@@ -66,7 +66,7 @@ export const Header = () => {
               </Popover.Dropdown>
             </Popover>
             <Link
-              className="hover:text-yellow-400 text-sm lg:text-lg cursor-pointer hidden md:inline-block"
+              className="hover:text-yellow-400 text-sm lg:text-xl cursor-pointer hidden md:inline-block"
               to={'/partners'}
             >
               Бизнес партнеры
