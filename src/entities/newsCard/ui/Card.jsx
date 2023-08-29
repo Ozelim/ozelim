@@ -5,7 +5,7 @@ import { getImageUrl } from "shared/lib"
 export const Card = ({news}) => {
   return (
     <div className="bg-white shadow rounded-primary max-w-4xl w-full mx-auto">
-      <div className="p-5 flex flex-col">
+      <div className="p-6 flex flex-col">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             {getImageUrl(news, news?.avatar) ? (

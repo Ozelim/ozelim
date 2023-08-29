@@ -13,29 +13,32 @@ export const SignupForm = () => {
 
   const [searchParams] = useSearchParams()
 
-  const { control, handleSubmit, formState: {errors, isSubmitting}, clearErrors } = useForm({
+  const { control, handleSubmit, setValue, sformState: { errors, isSubmitting}, clearErrors } = useForm({
     values: {
       name: '',
       surname: '',
       city: '',
       birthday: '',
-      iin: '',
       phone: '',
       email: '',
       password: '',
     },
-    // resolver: yupResolver(signupSchema) 
+    resolver: yupResolver(signupSchema) 
   })
 
   function onSubmit (data) {
     signupWithLink({
-      // ...data, 
+      ...data, 
       sponsor: searchParams.get('id'),
-      // passwordConfirm: data.password,
+      passwordConfirm: data.password,
     })
     .then(res => {
       console.log(res, 'succ');
     })
+  }
+
+  function onChange (name, val) {
+    setValue
   }
 
   return (
@@ -57,10 +60,10 @@ export const SignupForm = () => {
                 type='email'
                 placeholder='Ваша почта'
                 label='Почта'
-                // error={errors.email?.message}
                 variant='filled'
-                // disabled={isSubmitting}
-                // onChange={() => clearErrors('email')}
+                disabled={isSubmitting}
+                onChange={(e) => onChange('email', e.currentTarget.value)}
+                error={errors.email?.message}
               />
             )}
           />
@@ -72,9 +75,10 @@ export const SignupForm = () => {
                 {...field}
                 placeholder='Ваше имя'
                 label='Имя'
-                // error={errors.name?.message}
                 variant='filled'
-                // disabled={isSubmitting}
+                error={errors.name?.message}
+                disabled={isSubmitting}
+                onChange={(e) => onChange('name', e.currentTarget.value)}
               />
             )}
           />
@@ -86,9 +90,10 @@ export const SignupForm = () => {
                 {...field}
                 placeholder='Ваша фамилия'
                 label='Фамилия'
-                // error={errors.name?.message}
                 variant='filled'
-                // disabled={isSubmitting}
+                error={errors.surname?.message}
+                disabled={isSubmitting}
+                onChange={(e) => onChange('surname', e.currentTarget.value)}
               />
             )}
           />
@@ -101,24 +106,10 @@ export const SignupForm = () => {
                 data={cities}
                 placeholder='Ваш город'
                 label='Город'
-                // error={errors.city?.message}
                 variant='filled'
-                // disabled={isSubmitting}
-              />
-            )}
-          />
-          <Controller
-            name='iin'
-            control={control}
-            render={({field}) => (
-              <NumberInput
-                {...field}
-                placeholder='Ваш ИИН'
-                label='ИИН'
-                variant='filled'
-                // disabled={isSubmitting}
-                // error={errors?.iin?.message}
-                hideControls
+                error={errors.city?.message}
+                disabled={isSubmitting}
+                onChange={(e) => onChange('city', e)}
               />
             )}
           />
@@ -130,9 +121,10 @@ export const SignupForm = () => {
                 {...field}
                 placeholder='Ваша дата рождения'
                 label='Дата рождения'
-                // error={errors.iin?.message}
                 variant='filled'
-                // disabled={isSubmitting}
+                error={errors.birthday?.message}
+                disabled={isSubmitting}
+                onChange={(e) => onChange('birthday', e)}
               />
             )}
           />
@@ -144,9 +136,10 @@ export const SignupForm = () => {
                 {...field}
                 placeholder='Ваш номер'
                 label='Номер телефона'
-                // error={errors.phone?.message}
                 variant='filled'
-                // disabled={isSubmitting}
+                error={errors.phone?.message}
+                disabled={isSubmitting}
+                onChange={(e) => onChange('phone', e.currentTarget.value)}
               />
             )}
           />
@@ -159,9 +152,10 @@ export const SignupForm = () => {
                 {...field}
                 placeholder='Ваш пароль'
                 label='Пароль'
-                // error={errors.password?.message}
                 variant='filled'
-                // disabled={isSubmitting}
+                error={errors.password?.message}
+                disabled={isSubmitting}
+                onChange={(e) => onChange('password', e.currentTarget.value)}
               />
             )}
           />

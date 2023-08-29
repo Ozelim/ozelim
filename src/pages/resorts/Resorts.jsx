@@ -6,24 +6,23 @@ import { pb } from 'shared/api'
 import { useUtils } from 'shared/hooks'
 import { BomjPlaza } from 'widgets/BomjPlaza'
 
-async function getResortsByRegion (region, page) {
-  return (await pb.collection('resorts').getList(page, 20, {
+async function getResortsByRegion (region) {
+  return await pb.collection('resorts').getFullList({
     filter: `(region = '${region}') && (status = 'bomj')`
-  })).items
+  })
 }
 
 export const Resorts = () => {
 
   const [searchParams] = useSearchParams()
 
-  const {regions, record} = useUtils()
+  const {regions} = useUtils()
 
   const [resorts, setResorts] = React.useState([])
 
   React.useEffect(() => {
-    getResortsByRegion(searchParams.get('region'), searchParams.get('page'))
+    getResortsByRegion(searchParams.get('region'))
     .then(res => {
-      console.log(res, 'res');
       setResorts(res)
     })
   }, [searchParams.get('region')])

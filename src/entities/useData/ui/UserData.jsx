@@ -280,12 +280,6 @@ export const UserData = () => {
             onChange={handleValuesChange}
             locale="ru"
           /> */}
-          <PasswordInput
-            label="ИИН"
-            variant="filled"
-            value={values?.iin ?? ''}
-            onChange={handleValuesChange}
-          />
         </div>
         <div className="mt-4 flex justify-between items-center">
           <Button

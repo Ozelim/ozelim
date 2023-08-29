@@ -53,7 +53,7 @@ export const Header = () => {
               <Popover.Dropdown>
                 {regions.map((region, i) => {
                   return (
-                    <Link to={`/resorts?region=${region}&page=1`} key={i}>
+                    <Link to={`/resorts?region=${region}`} key={i}>
                       <span
                         className="hover:text-yellow-400 text-sm cursor-pointer text-black"
                         // onClick={() => handleRegionClick(city)}

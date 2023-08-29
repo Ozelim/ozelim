@@ -9,6 +9,7 @@ import { Resort, Resorts } from 'pages'
 import { Capthca } from 'shared/ui/Capthca'
 import { Carousel, useAnimationOffsetEffect } from '@mantine/carousel'
 import Autoplay from 'embla-carousel-autoplay'
+import { getId } from 'shared/lib'
 
 async function getResorts() {
   return await pb.collection('resorts').getFullList({
@@ -31,11 +32,13 @@ export const Home = () => {
     })
   }, [])
 
-    const [embla, setEmbla] = React.useState(null)
+  const [embla, setEmbla] = React.useState(null)
 
-    const autoplay = React.useRef(Autoplay({ delay: 2000 }))
+  const autoplay = React.useRef(Autoplay({ delay: 2000 }))
 
-    useAnimationOffsetEffect(embla, 200)
+  useAnimationOffsetEffect(embla, 200)
+
+  console.log(getId(15));
 
   return (
     <div className="space-y-8">

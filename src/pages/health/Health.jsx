@@ -12,12 +12,7 @@ export const Health = () => {
 
   const { headings, images, text } = usePageData('health')
 
-  const onSubmit = async (data) => {
-    await pb.collection('bids').create({
-      ...data,
-      type: 'health'
-    })
-  }
+
 
   const array = [
     {
@@ -64,7 +59,6 @@ export const Health = () => {
         img={curratorHealth}
         desc="Терапевт-кардиолог высшей категории, действующий врач-эксперт Кардиологического центра города Павлодар, врач-консультант по иммунопрофилактике и оздоровлению через санаторно-курортные комплексы."
       />
-      <HealthLink onSubmit={onSubmit} label={'Оставить заявку'} heading={'Узнать больше'} />
     </main>
   )
 }

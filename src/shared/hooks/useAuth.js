@@ -10,9 +10,6 @@ export const useAuth = () => {
   const [user, setUser] = React.useState(pb.authStore.model)
   const [loading, setLoading] = React.useState(true)
 
-  // const user = pb.authStore.model 
-  // const token = pb.authStore.token
-
   React.useEffect(() => {
     getUser(pb.authStore?.model?.id)
     .then(res => {
@@ -29,7 +26,7 @@ export const useAuth = () => {
     .finally(() => {
       setLoading(false)
     })
-  }, [pb])
+  }, [])
 
   return {
     ...pb.authStore,

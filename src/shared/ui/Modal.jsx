@@ -1,8 +1,17 @@
 import { useDisclosure } from '@mantine/hooks'
 import { Modal as ModalM, Button, Group, TextInput } from '@mantine/core'
 import { Controller, useForm } from 'react-hook-form'
-import { pb } from 'shared/api'
 import { showNotification } from '@mantine/notifications'
+
+import * as yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
+
+const schema = yup.object({
+  name: yup.string().required('Заполните данное поле'),
+  phone: yup.string().required('Заполните данное поле'),
+  email: yup.string().email("Неверный формат почты").required("Заполните данное поле"),
+})
+
 
 export function Modal({ children, onSubmit, buttonProps }) {
 
@@ -11,17 +20,19 @@ export function Modal({ children, onSubmit, buttonProps }) {
   const {
     control,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    clearErrors,
+    setValue,
+    formState: { errors },
   } = useForm({
     values: {
       name: '',
       phone: '',
       email: '',
     },
-    // resolver: yupResolver(signupSchema)
+    resolver: yupResolver(schema),
   })
 
-  function hanle() {
+  function handle() {
     onSubmit()
     .then(() => {
       close()
@@ -39,12 +50,22 @@ export function Modal({ children, onSubmit, buttonProps }) {
         color: 'red'
       })
     })
+    .finally(() => {
+      setValue('email', '')
+      setValue('name', '')
+      setValue('phone', '')
+    })
+  }
+
+  function onChange (name, e) {
+    setValue(name, e)
+    clearErrors(name)
   }
 
   return (
     <>
       <ModalM opened={opened} onClose={close} title="Заявка" centered>
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
+        <form onSubmit={handleSubmit(handle)} className="flex flex-col gap-2">
           <Controller
             name="email"
             control={control}
@@ -54,10 +75,9 @@ export function Modal({ children, onSubmit, buttonProps }) {
                 type="email"
                 placeholder="Ваша почта"
                 label="Почта"
-                // error={errors.email?.message}
                 variant="filled"
-                // disabled={isSubmitting}
-                // onChange={() => clearErrors('email')}
+                error={errors?.email?.message}
+                onChange={(e) => onChange('email', e.currentTarget.value)}
               />
             )}
           />
@@ -69,8 +89,9 @@ export function Modal({ children, onSubmit, buttonProps }) {
                 {...field}
                 placeholder="Ваше ФИО"
                 label="ФИО"
-                // error={errors.name?.message}
                 variant="filled"
+                error={errors.name?.message}
+                onChange={(e) => onChange('name', e.currentTarget.value)}
                 // disabled={isSubmitting}
               />
             )}
@@ -83,13 +104,18 @@ export function Modal({ children, onSubmit, buttonProps }) {
                 {...field}
                 placeholder="Ваш номер"
                 label="Номер телефона"
-                // error={errors.phone?.message}
                 variant="filled"
+                error={errors?.phone?.message}
+                onChange={(e) => onChange('phone', e.currentTarget.value)}
                 // disabled={isSubmitting}
               />
             )}
           />
-          <Button className="mt-4" type="submit" fullWidth>
+          <Button 
+            className="mt-4" 
+            type="submit" 
+            fullWidth
+          >
             Оставить заявку
           </Button>
         </form>

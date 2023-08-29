@@ -3,8 +3,18 @@ import React from 'react'
 import { BsWhatsapp } from 'react-icons/bs'
 import { MdOutlineMailOutline } from 'react-icons/md'
 import { CgPhone } from 'react-icons/cg'
+import { HealthLink } from 'shared/ui/HealthLink'
+import { pb } from 'shared/api'
 
 export const CourseCurrator = ({ name, desc, img }) => {
+
+  const onSubmit = async (data) => {
+    await pb.collection('bids').create({
+      ...data,
+      type: 'health'
+    })
+  }
+
   return (
     <div className="w-full">
       <div className="container">
@@ -47,6 +57,7 @@ export const CourseCurrator = ({ name, desc, img }) => {
                   </p>
                 </div>
               </div>
+              <HealthLink onSubmit={onSubmit} label={'Оставить заявку'} heading={'Узнать больше'} />
             </div>
           </div>
         </div>

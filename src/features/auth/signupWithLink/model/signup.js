@@ -1,11 +1,6 @@
 import { pb } from "shared/api"
 import { getId } from "shared/lib";
 
-function RandomNumbers() {
-  const randomNumbers = Array.from({ length: 15 }, () => Math.floor(Math.random() * 10));
-  return randomNumbers
-}
-
 function generateRandomEmail() {
   const validChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   const emailLength = 10;
@@ -24,8 +19,12 @@ async function signupWithLink (data) {
 
   try {
 
+
+
     const pyramid = await pb.collection('pyramid').getOne('ozelimbinary123', {expand: 'sponsor'})
     const sponsor = await pb.collection('users').getOne(data?.sponsor)
+
+    if (!sponsor?.verified) return 'unverified'
 
     return await pb.collection('users').create({
       ...data, 
@@ -33,7 +32,6 @@ async function signupWithLink (data) {
       email: generateRandomEmail(),
       name: generateRandomEmail(),
       city: 'Алматы', 
-      iin: 112233112233,
       birthday: new Date(),
       phone: 87024299146,
       password: 'zxczxczxc',
@@ -51,9 +49,9 @@ async function signupWithLink (data) {
         for (let i = 1; i <= 50; i++) {
           let multiple = Math.pow(2, i);
           
-          if (pyramid?.[`${i}`]?.length < multiple) {
+          if (pyramid?.[i]?.length < multiple) {
             await pb.collection('pyramid').update(pyramid.id, {
-              [`${i}`]: [...pyramid?.[`${i}`], sponsor.id]
+              [i]: [...pyramid?.[`${i}`], sponsor.id]
             })
             .then(async res => {
               console.log(sponsor);
