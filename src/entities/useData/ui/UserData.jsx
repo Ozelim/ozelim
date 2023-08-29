@@ -18,7 +18,7 @@ export const UserData = () => {
 
   const { user } = useAuth()
 
-  const referal = `${window.location.hostname}:3000/login?id=${user?.id}`
+  const referal = `${window.location.hostname}/login?id=${user?.id}`
 
   const [opened, { open, close }] = useDisclosure(false)
 
