@@ -5,19 +5,25 @@ import { signupSchema } from '../model/signupSchema'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Button, NumberInput, PasswordInput, Select, TextInput } from '@mantine/core'
 import { cities } from 'shared/lib'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { DatePickerInput, DateTimePicker } from '@mantine/dates'
 import { signupWithLink } from '../model/signup'
+import { useUtils } from 'shared/hooks'
 
 export const SignupForm = () => {
 
+  const navigate = useNavigate() 
+
   const [searchParams] = useSearchParams()
 
-  const { control, handleSubmit, setValue, sformState: { errors, isSubmitting}, clearErrors } = useForm({
+  const {regions} = useUtils('')
+
+  const { control, handleSubmit, setValue, setError, formState: { errors, isSubmitting}, clearErrors } = useForm({
     values: {
       name: '',
       surname: '',
-      city: '',
+      adress: '',
+      region: '',
       birthday: '',
       phone: '',
       email: '',
@@ -26,6 +32,8 @@ export const SignupForm = () => {
     resolver: yupResolver(signupSchema) 
   })
 
+  const [err, setErr] = React.useState('')
+
   function onSubmit (data) {
     signupWithLink({
       ...data, 
@@ -33,12 +41,29 @@ export const SignupForm = () => {
       passwordConfirm: data.password,
     })
     .then(res => {
-      console.log(res, 'succ');
+      navigate('/')
+      window.location.reload()
+    })
+    .catch((err) => {
+      if(err?.data?.code === 404) {
+        setErr('Данная ссылка недоступна для регистрации')
+        return
+      }
+      if (err?.data?.data?.email?.code === 'validation_invalid_email') {
+        setError('email', {message: 'Данная почту уже используется'})
+        return
+      } 
+      if (err === 'unverified') {
+        setErr('Данная ссылка недоступна для регистрации')
+        return
+      }
     })
   }
 
   function onChange (name, val) {
-    setValue
+    setValue(name, val)
+    clearErrors(name)
+    setErr('')
   }
 
   return (
@@ -48,7 +73,7 @@ export const SignupForm = () => {
       > 
         <h1 className='text-center font-head text-lg'>Регистрация</h1>
         <form 
-          onSubmit={handleSubmit(onSubmit)}
+          // onSubmit={handleSubmit(onSubmit)}
           className='grid grid-cols-1 gap-2'
         >
           <Controller
@@ -98,18 +123,33 @@ export const SignupForm = () => {
             )}
           />
           <Controller
-            name='city'
+            name='region'
             control={control}
             render={({field}) => (
               <Select
                 {...field}
-                data={cities}
-                placeholder='Ваш город'
-                label='Город'
+                data={regions}
+                placeholder='Ваша область'
+                label='Область'
                 variant='filled'
-                error={errors.city?.message}
+                error={errors.region?.message}
                 disabled={isSubmitting}
-                onChange={(e) => onChange('city', e)}
+                onChange={(e) => onChange('region', e)}
+              />
+            )}
+          />
+          <Controller
+            name='adress'
+            control={control}
+            render={({field}) => (
+              <TextInput
+                {...field}
+                placeholder='г. Астана, Улы дала 3, 77'
+              label='Адрес'
+                variant='filled'
+                error={errors.adress?.message}
+                disabled={isSubmitting}
+                onChange={(e) => onChange('adress', e.currentTarget.value)}
               />
             )}
           />
@@ -159,25 +199,20 @@ export const SignupForm = () => {
               />
             )}
           />
-          {/* <Button 
+
+          {err && (
+            <p className='text-red-500 text-sm mt-4'>{err}</p>
+          )}
+          <Button 
             className='mt-4' 
-            type='button'
+            // type='submit'
             fullWidth
             onClick={handleSubmit(onSubmit)}
-            // loading={isSubmitting}
+            loading={isSubmitting}
           >
-            Зарегистрироваться
-          </Button> */}
+            Зарегистрироваться 
+          </Button>
         </form>
-        <Button 
-          className='mt-4' 
-          type='button'
-          fullWidth
-          onClick={onSubmit}
-          // loading={isSubmitting}
-        >
-          Зарегистрироваться
-        </Button>
       </div>
 
     </>

@@ -3,7 +3,7 @@ import { UserData } from 'entities/useData'
 import dayjs from 'dayjs'
 import { ReferalsList } from 'entities/referalsList'
 import { pb } from 'shared/api'
-import { clsx, Loader, Table } from '@mantine/core'
+import { Button, clsx, Loader, Table } from '@mantine/core'
 import { BinaryTree } from 'entities/pyramid/BinaryTree'
 import { Avatar } from 'shared/ui'
 import { useAuth } from 'shared/hooks'
@@ -203,7 +203,6 @@ export const Profile = () => {
     if (!loading) {
       if (!user) {
         navigate('/login')
-        console.log('not logged');
       } 
     }
   }, [loading])
@@ -261,10 +260,32 @@ export const Profile = () => {
     }
   }, [binaryTree])
 
+  function signout () {
+    pb.authStore.clear()
+    window.location.reload()
+  }
+
+  if (loading) {
+    return <></>
+  }
+
   if (!user?.verified) {
     return (
       <div className='flex justify-center items-center h-full'>
-        Ваш профиль не верифицирован, ваш ID: {user?.id}
+        <div>
+          Ваш профиль не верифицирован, ваш ID: {user?.id}
+          <p className='text-center'>Пожалуйста обратитесь в службу поддержки</p>
+          <div className='text-center'>
+            <Button
+              compact
+              variant='outline'
+              color='red'
+              onClick={signout}
+            >
+              Выйти
+            </Button>
+          </div>
+        </div>
       </div>
     ) 
   }
@@ -279,7 +300,7 @@ export const Profile = () => {
               <ReferalsList level={level} />
               <div className="mt-10 overflow-auto">
                 <div className="h-[70vh] border-2 border-primary-400 p-4 ">
-                  {tree?.value ? (
+                  {tree?.value && (
                     <>
                       <Tree
                         data={tree ?? {}}
@@ -300,11 +321,6 @@ export const Profile = () => {
                         )}
                       />
                     </>
-                  ) : (
-                    <div className="flex justify-center items-center h-full">
-                      Для отображения структуры пройдите условия партнерской
-                      программы
-                    </div>
                   )}
                 </div>
                 {withdraws?.length !== 0 && (

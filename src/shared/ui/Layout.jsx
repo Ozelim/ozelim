@@ -15,7 +15,6 @@ export const Layout = ({subheaderSlot,  headerSlot, footerSlot}) => {
 
   const {pathname} = useLocation()
 
-
   return (
     <div className="grid grid-rows-[auto_1fr_auto] min-h-screen">
       <div className="w-full flex items-center border-b gap-4">

@@ -7,20 +7,24 @@ async function getUser (userId) {
 
 export const useAuth = () => {
 
-  const [user, setUser] = React.useState(pb.authStore.model)
+  const [user, setUser] = React.useState(pb.authStore.model ?? null)
   const [loading, setLoading] = React.useState(true)
 
   React.useEffect(() => {
-    getUser(pb.authStore?.model?.id)
-    .then(res => {
-      setUser(res)
-    })
-    .finally(() => {
+    if (pb.authStore?.model?.id) {      
+      getUser(pb.authStore?.model?.id)
+      .then(res => {
+        setUser(res)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+    } else {
+      setUser(null)
       setLoading(false)
-    })
-    
-    pb.collection('users').subscribe(user?.id, function({action, record}) {
-      setUser(record)
+    }
+    pb.collection('users').subscribe(pb.authStore?.model?.id, function({action, record}) {
+      setUser(record ?? user)
       setLoading(false)
     })
     .finally(() => {
@@ -29,7 +33,7 @@ export const useAuth = () => {
   }, [])
 
   return {
-    ...pb.authStore,
+    // ...pb.authStore,
     user,
     loading
   }

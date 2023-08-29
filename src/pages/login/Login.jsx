@@ -23,6 +23,7 @@ export const Login = () => {
 
   function onComplete () {
     navigate('/')
+    window.location.reload()
     showNotification({
       title: 'Уведомление', 
       message: 'Вход выполнен успешно'

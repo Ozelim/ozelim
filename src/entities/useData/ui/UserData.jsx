@@ -148,23 +148,23 @@ export const UserData = () => {
       }
     }
 
-    const confirm = () => {
-      close()
-      openConfirmModal({
-        title: 'Подвердить действие',
-        centered: true,
-        labels: { confirm: 'Да', cancel: 'Нет' },
-        onConfirm: () => confirmTransfer(),
-        children: (
-          <>Вы действительно хотите совершить перевод средств?</>
-        )
-      })
-    }
+  const confirm = () => {
+    close()
+    openConfirmModal({
+      title: 'Подвердить действие',
+      centered: true,
+      labels: { confirm: 'Да', cancel: 'Нет' },
+      onConfirm: () => confirmTransfer(),
+      children: (
+        <>Вы действительно хотите совершить перевод средств?</>
+      )
+    })
+  }
 
-    function signout () {
-      pb.authStore.clear()
-      window.location.reload()
-    }
+  function signout () {
+    pb.authStore.clear()
+    window.location.reload()
+  }
 
   return (
     <div className="w-full">

@@ -10,6 +10,7 @@ import { Capthca } from 'shared/ui/Capthca'
 import { Carousel, useAnimationOffsetEffect } from '@mantine/carousel'
 import Autoplay from 'embla-carousel-autoplay'
 import { getId } from 'shared/lib'
+import { useAuth } from 'shared/hooks'
 
 async function getResorts() {
   return await pb.collection('resorts').getFullList({
@@ -19,11 +20,6 @@ async function getResorts() {
 
 export const Home = () => {
   const [resorts, setResorts] = React.useState([])
-  const [sliced, setSliced] = React.useState(4)
-
-  function handleViewMode() {
-    setSliced(999)
-  }
 
   React.useEffect(() => {
     getResorts().then((res) => setResorts(res))
