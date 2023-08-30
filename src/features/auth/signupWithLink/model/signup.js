@@ -21,34 +21,32 @@ async function signupWithLink (data) {
       emailVisibility: true,
     })
     .then(async (res) => {
-      
-      await pb.collection('users').authWithPassword(res.email, data?.password)
 
-      if (sponsor.id === pyramid?.sponsor) return
+      // if (sponsor.id === pyramid?.sponsor) return
 
-      const referals = await pb.collection('users').getFullList({
-        filter: `sponsor = '${sponsor.id}'`
-      })
+      // const referals = await pb.collection('users').getFullList({
+      //   filter: `sponsor = '${sponsor.id}'`
+      // })
 
-      if (referals.length === 3 && !sponsor?.bin) {
-        for (let i = 1; i <= 50; i++) {
-          let multiple = Math.pow(2, i);
+      // if (referals.length === 3 && !sponsor?.bin) { 
+      //   for (let i = 1; i <= 50; i++) {
+      //     let multiple = Math.pow(2, i);
           
-          if (pyramid?.[i]?.length < multiple) {
-            await pb.collection('pyramid').update(pyramid.id, {
-              [i]: [...pyramid?.[`${i}`], sponsor.id]
-            })
-            .then(async res => {
-              console.log(sponsor);
-              await pb.collection('users').update(sponsor.id, {
-                bin: true
-              })
-              console.log(res, 'write');
-            })
-            return
-          }
-        }
-      }
+      //     if (pyramid?.[i]?.length < multiple) {
+      //       await pb.collection('pyramid').update(pyramid.id, {
+      //         [i]: [...pyramid?.[`${i}`], sponsor.id]
+      //       })
+      //       .then(async res => {
+      //         console.log(sponsor);
+      //         await pb.collection('users').update(sponsor.id, {
+      //           bin: true
+      //         })
+      //         console.log(res, 'write');
+      //       })
+      //       return
+      //     }
+      //   }
+      // }
     })
 
   } catch (err) {

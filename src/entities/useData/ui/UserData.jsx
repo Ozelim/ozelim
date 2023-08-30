@@ -3,7 +3,7 @@ import { Button, Group, Modal, PasswordInput, Select, TextInput } from '@mantine
 import { DatePickerInput, DateTimePicker } from '@mantine/dates'
 import { cities, formatNumber } from 'shared/lib'
 import { useLocation } from 'react-router-dom'
-import { useAuth } from 'shared/hooks'
+import { useAuth, useUtils } from 'shared/hooks'
 import { UserAvatar } from './UserAvatar'
 import { pb } from 'shared/api'
 import { CopyBtn, Capthca, Withdraw } from 'shared/ui'
@@ -18,7 +18,9 @@ export const UserData = () => {
 
   const { user } = useAuth()
 
-  const referal = `${window.location.hostname}/login?id=${user?.id}`
+  const {regions} = useUtils()
+
+  const referal = `https://oz-elim.kz/login?id=${user?.id}`
 
   const [opened, { open, close }] = useDisclosure(false)
 
@@ -51,7 +53,8 @@ export const UserData = () => {
     surname: '',
     city: '',
     birthday: '',
-    iin: '',
+    region: '',
+    adress: '',
     email: '',
   })
 
@@ -179,14 +182,12 @@ export const UserData = () => {
             <div className="space-y-2 mt-2">
               <Withdraw />
               <Modal centered opened={opened} onClose={close} title="Перевод">
-                <div
-                  className="flex flex-col gap-2"
-                >
+                <div className="flex flex-col gap-2">
                   <TextInput
                     placeholder="111222333111222333"
                     label="ID-получателя"
                     variant="filled"
-                    name='id'
+                    name="id"
                     value={transfer?.id}
                     onChange={handleTransferChange}
                   />
@@ -194,7 +195,7 @@ export const UserData = () => {
                     placeholder="сумма перевода"
                     label="Сумма"
                     variant="filled"
-                    name='sum'
+                    name="sum"
                     value={transfer?.sum}
                     onChange={handleTransferChange}
                   />
@@ -213,7 +214,6 @@ export const UserData = () => {
                     // onClick={}
                     disabled={!disabled}
                     onClick={confirm}
-                    
                   >
                     Перевести
                   </Button>
@@ -264,12 +264,20 @@ export const UserData = () => {
             onChange={handleValuesChange}
             readOnly
           />
+
           <Select
-            data={cities}
-            label="Город"
+            data={regions}
+            label="Область"
             variant="filled"
             value={values.city ?? ''}
             onChange={(e) => handleValuesChange(e, 'city')}
+          />
+          <TextInput
+            label="Адрес"
+            variant="filled"
+            value={values?.adress ?? ''}
+            name="adress"
+            onChange={handleValuesChange}
           />
           {/* <DatePickerInput
             label="Дата рождения"
@@ -280,12 +288,7 @@ export const UserData = () => {
           /> */}
         </div>
         <div className="mt-4 flex justify-between items-center">
-          <Button
-            compact
-            variant='outline'
-            color='red'
-            onClick={signout}
-          >
+          <Button compact variant="outline" color="red" onClick={signout}>
             Выйти
           </Button>
           <Button onClick={saveUser}>Сохранить</Button>

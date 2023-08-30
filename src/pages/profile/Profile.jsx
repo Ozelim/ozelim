@@ -265,6 +265,14 @@ export const Profile = () => {
     window.location.reload()
   }
 
+  React.useEffect(() => {
+    if (user?.level !== level) {
+      pb.collection('users').update(user?.id, {
+        level: level
+      })
+    }
+  }, [level])
+
   if (loading) {
     return <></>
   }
