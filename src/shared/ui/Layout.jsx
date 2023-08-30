@@ -1,13 +1,12 @@
 import { Button, clsx } from '@mantine/core'
 import React from 'react'
 import { Link, Outlet, useLocation } from 'react-router-dom'
-import ozelimlogo from 'shared/assets/images/logo.svg'
 
 import { CgProfile } from 'react-icons/cg'
 import { useAuth } from 'shared/hooks'
 import { getImageUrl } from 'shared/lib'
 
-import mobileLogo from 'shared/assets/images/ico.svg'
+import mobileLogo from 'shared/assets/images/logo.svg'
 
 export const Layout = ({subheaderSlot,  headerSlot, footerSlot}) => {
 
@@ -19,14 +18,10 @@ export const Layout = ({subheaderSlot,  headerSlot, footerSlot}) => {
     <div className="grid grid-rows-[auto_1fr_auto] min-h-screen">
       <div className="w-full flex items-center border-b gap-4">
         <Link to={'/'}>
-          <picture>
-            <source media="(min-width:650px)" srcSet={ozelimlogo} />
-            {/* <source media="(min-width:465px)" srcset="img_white_flower.jpg"/> */}
-            <img
-              className="max-w-[130px] ml-2 lg:ml-6 w-full min-w-[70px]"
-              src={mobileLogo}
-            />
-          </picture>
+          <img
+            className="max-w-[130px] ml-2 lg:ml-6 w-full min-w-[70px]"
+            src={mobileLogo}
+          />
         </Link>
         <div className="w-full flex flex-col justify-center">
           {subheaderSlot}
