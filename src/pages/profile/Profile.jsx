@@ -4,10 +4,8 @@ import dayjs from 'dayjs'
 import { ReferalsList } from 'entities/referalsList'
 import { pb } from 'shared/api'
 import { Button, clsx, Loader, Table } from '@mantine/core'
-import { BinaryTree } from 'entities/pyramid/BinaryTree'
 import { Avatar } from 'shared/ui'
 import { useAuth } from 'shared/hooks'
-import Draggable from 'react-draggable'
 import Test from 'entities/pyramid/Test'
 
 import Tree from 'react-d3-tree'
@@ -54,149 +52,90 @@ async function getTransfers (userId) {
     filter: `${currentMonthString} && user = '${userId}'`,
   })
 }
-// async function getPyramid () {
-//   return (await pb.collection('pyramid').getFullList({expand: 'sponsor, b1, b2, b4, b5, b6, b7, b8, b9, b10, b11, b12'}))[0]
-// }
 
-function CustomNode({ nodeData, toggleNode }) {
+function CustomNode({ nodeDatum, onNodeClick, sponsor, node }) {
 
-  const data = nodeData?.value
+  const data = nodeDatum?.value;
+
+  function click (data) {
+    onNodeClick(data)
+  }
+
+  const isSponsor = data?.id && (data?.id === sponsor?.sponsor)
+
+  const selected = node?.id === data?.id 
 
   return (
-    <g stroke="grey" fill="grey" strokeWidth="0.7">
+    <g stroke="grey" fill="grey" strokeWidth="0.7" >
       <circle
-        r={10}
-        fill={nodeData.children ? 'Aquamarine' : '#ccc'}
-        onClick={toggleNode}
+        r={isSponsor ? 30 : 20}
+        fill={selected ? "lightgray" : "Aquamarine"}
+        onClick={() => data?.id && click(nodeDatum)}
+        // strokeWidth={selected ? 5 : 1}
+        stroke={selected ? 'gray' : 'black'}
       />
-
       <text
         stroke="green"
         x={-60}
-        y={-18}
-        style={{ fontSize: '12px' }}
+        y={-25}
+        style={{ fontSize: "12px" }}
         textAnchor="start"
       >
         {data?.name} {data?.surname}
       </text>
-
       <text
         stroke="green"
         x={-48}
-        y={25}
-        style={{ fontSize: '13px' }}
+        y={35}
+        style={{ fontSize: "13px" }}
         textAnchor="start"
       >
-        ID: {data?.id}
+        {data?.id && (
+          `ID: ${data?.id}`
+        )}
       </text>
 
       <text
         stroke="grey"
         x={-48}
-        y={40}
-        style={{ fontSize: '12px' }}
+        y={50}
+        style={{ fontSize: "12px" }}
         textAnchor="start"
       >
-        {dayjs(data?.created).format('YYYY-MM-DD hh:mm')}
+        {data?.created && (
+          dayjs(data?.created).format("YYYY-MM-DD hh:mm")
+        )}
       </text>
     </g>
-  )
+  );
 }
 
-async function getPyramidByUser (userId) {
+async function getBinaryById (id) {
+  return await pb.collection('binary').getFirstListItem(`sponsor = '${id}'`, {
+    expand: 'sponsor, children'
+  })
+}
 
-  if (userId) {
-    const pyramid = (
-      await pb
-        .collection("pyramid")
-        .getFullList({ expand: "1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12" })
-    )[0];
-    const pyramidsUser = await pb.collection("users").getOne(userId);
-    let foundUser = null;
-    let result = [];
+function findAndReplaceObjectById(obj, idToFind, replacementObject) {
+  if (obj?.value?.id === idToFind) {
+    return replacementObject;
+  }
 
-    for (const stage in pyramid) {
-      if (!isNaN(stage)) {
-        const stageArrays = pyramid?.expand?.[stage];
-        const stageUser = stageArrays?.find((e) => e?.id === userId);
-        if (stageUser) {
-          foundUser = userId;
-          const properties = Object.keys(pyramid?.expand);
-          // const pows = properties.length - Number(stage)
-
-          properties.map((key, i) => {
-            if (Number(key) > Number(stage)) {
-              // console.log(pyramid?.expand?.[key], key, stage, 'stage')
-              result.push(pyramid?.expand?.[key]);
-
-              return;
-            }
-          });
-
-          result = result?.map((arr, i) => {
-            return arr.slice(0, Math.pow(2, i + 1));
-          });
-          result.unshift([pyramidsUser]);
-        }
+  for (const key in obj) {
+    if (typeof obj[key] === 'object') {
+      const result = findAndReplaceObjectById(obj[key], idToFind, replacementObject);
+      if (result !== null) {
+        obj[key] = result;
       }
     }
-
-    if (foundUser) {
-      return {
-        pyramid: pyramid,
-        result,
-      };
-    } else {
-      return {
-        pyramid: pyramid,
-        result: null,
-      };
-    }
-}
-
-  const pyramid = (
-    await pb
-      .collection("pyramid")
-      .getFullList({ expand: "sponsor, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12" })
-  )[0];
-
-  const sponsor = pyramid?.expand?.sponsor
-
-  // const pyramidsUser = await pb.collection("users").getOne(userId);
-  let result = [];
-
-  for (const stage in pyramid) {
-    if (!isNaN(stage)) {
-
-
-      result.push(pyramid?.expand?.[stage]);
-      // const stageUser = stageArrays?.find((e) => e?.id === sponsor);
-    }
-    result = result?.map((arr, i) => {
-      return arr?.slice(0, Math.pow(2, i + 1));
-    });
-    
   }
 
-  result?.unshift([sponsor]);
-
-  if (sponsor) {
-    return {
-      pyramid: pyramid,
-      result,
-    };
-  } else {
-    return {
-      pyramid: pyramid,
-      result: null,
-    };
-  }
+  return obj;
 }
 
 export const Profile = () => {
 
   const {user, loading} = useAuth()
-  
   const navigate = useNavigate()
 
   React.useEffect(() => {
@@ -207,19 +146,29 @@ export const Profile = () => {
     }
   }, [loading])
 
-  const binaryTree = new BinaryTree(8);
-
-  const [pyramid, setPyramid] = React.useState([])
   
+  const [binary, setBinary] = React.useState({})
+  const [node, setNode] = React.useState(null)
   const [withdraws, setWithdraws] = React.useState([])
   const [transfers, setTransfers] = React.useState([])
 
   React.useEffect(() => {
-    // getPyramid()
-    // .then(res => {
-    //   setPyramid(res?.expand)
-    //   // binaryTree.insert(res?.expand?.sponsor)
-    // })
+    getBinaryById(user?.id)
+    .then(res => {
+      setBinary({
+        value: res?.expand?.sponsor,
+        children: [
+          {
+            value: res?.expand?.children?.[0],
+            children: []
+          },
+          {
+            value: res?.expand?.children?.[1],
+            children: []
+          },
+        ]
+      })
+    }, [])
     getWithdraws(user?.id)
     .then(res => {
       setWithdraws(res)
@@ -228,37 +177,9 @@ export const Profile = () => {
     .then(res => {
       setTransfers(res)
     })
-
-    getPyramidByUser(user?.id !== '111111111111111' ? user?.id : false)
-    .then(res => {
-      setPyramid(res?.result)
-    })
   }, [])
 
-  const [tree, setTree] = React.useState({})
   const [level, setLevel] = React.useState(0)
-
-  const [load, setLoad] = React.useState(true)
-
-  React.useEffect(() => {
-    pyramid?.flat(1)
-    ?.map((stage, i) => {
-      return binaryTree.insert(stage)
-    })
-    if (binaryTree.root) {
-      setTree(binaryTree.root)
-      setLoad(false)
-    }
-  }, [pyramid])
-
-  React.useEffect(() => {
-  }, [binaryTree])
-
-  React.useEffect(() => {
-    if (binaryTree.findMaxLevel()) {
-      setLevel(binaryTree.findMaxLevel())
-    }
-  }, [binaryTree])
 
   function signout () {
     pb.authStore.clear()
@@ -266,12 +187,18 @@ export const Profile = () => {
   }
 
   React.useEffect(() => {
-    if (user?.level !== level) {
+    if ((binary?.children?.[0]?.value && binary?.children?.[1]?.value) && user?.level == 0) { 
       pb.collection('users').update(user?.id, {
-        level: level
+        level: `1-3`
       })
     }
-  }, [level])
+  }, [binary])
+
+  React.useEffect(() => {
+    setLevel((!user?.level || user?.level == '0') ? 0 : user?.level)
+  }, [user])
+
+  console.log(binary, 'binary');
 
   if (loading) {
     return <></>
@@ -298,6 +225,32 @@ export const Profile = () => {
     ) 
   }
 
+
+  async function handleNodeClick (data) {
+    getBinaryById(data?.value?.id)
+    .then(async res => {
+      const slot = await pb.collection('binary').getOne(data?.value?.id, {expand: 'sponsor, children'}) 
+      setNode(slot)
+      const obj = findAndReplaceObjectById(binary, data?.value?.id, {
+        value: res?.expand?.sponsor,
+        children: [
+          {
+            value: res?.expand?.children?.[0],
+            children: []
+          },
+          {
+            value: res?.expand?.children?.[1],
+            children: []
+          },
+        ]
+      })
+      setBinary({...binary, ...obj})
+    })
+    .catch(err => {
+      console.log(err, 'err');
+    }) 
+  } 
+
   return (
     <div className="w-full">
       <div className="container">
@@ -308,28 +261,22 @@ export const Profile = () => {
               <ReferalsList level={level} />
               <div className="mt-10 overflow-auto">
                 <div className="h-[70vh] border-2 border-primary-400 p-4 ">
-                  {tree?.value && (
-                    <>
-                      <Tree
-                        data={tree ?? {}}
-                        orientation="vertical"
-                        pathFunc="elbow"
-                        nodeSvgShape={{
-                          shape: 'circle',
-                          shapeProps: { r: 10, fill: 'green' },
-                        }}
-                        renderCustomNodeElement={({
-                          nodeDatum,
-                          toggleNode,
-                        }) => (
-                          <CustomNode
-                            nodeData={nodeDatum}
-                            toggleNode={toggleNode}
-                          />
-                        )}
-                      />
-                    </>
+                <Tree 
+                  data={binary ?? {}}
+                  orientation="vertical" 
+                  pathFunc="elbow"
+                  nodeSvgShape={{
+                    shape: "circle",
+                    shapeProps: { r: 20, fill: "green " },
+                  }}
+                  renderCustomNodeElement={(props) => (
+                    <CustomNode 
+                      {...props}
+                      onNodeClick={handleNodeClick}
+                      // node={node}
+                    />
                   )}
+                />
                 </div>
                 {withdraws?.length !== 0 && (
                   <div className="mt-12">
@@ -408,3 +355,93 @@ export const Profile = () => {
     </div>
   )
 }
+
+// async function getPyramidByUser (userId) {
+
+//   if (userId) {
+//     const pyramid = (
+//       await pb
+//         .collection("pyramid")
+//         .getFullList({ expand: "1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12" })
+//     )[0];
+//     const pyramidsUser = await pb.collection("users").getOne(userId);
+//     let foundUser = null;
+//     let result = [];
+
+//     for (const stage in pyramid) {
+//       if (!isNaN(stage)) {
+//         const stageArrays = pyramid?.expand?.[stage];
+//         const stageUser = stageArrays?.find((e) => e?.id === userId);
+//         if (stageUser) {
+//           foundUser = userId;
+//           const properties = Object.keys(pyramid?.expand);
+//           // const pows = properties.length - Number(stage)
+
+//           properties.map((key, i) => {
+//             if (Number(key) > Number(stage)) {
+//               // console.log(pyramid?.expand?.[key], key, stage, 'stage')
+//               result.push(pyramid?.expand?.[key]);
+
+//               return;
+//             }
+//           });
+
+//           result = result?.map((arr, i) => {
+//             return arr.slice(0, Math.pow(2, i + 1));
+//           });
+//           result.unshift([pyramidsUser]);
+//         }
+//       }
+//     }
+
+//     if (foundUser) {
+//       return {
+//         pyramid: pyramid,
+//         result,
+//       };
+//     } else {
+//       return {
+//         pyramid: pyramid,
+//         result: null,
+//       };
+//     }
+// }
+
+//   const pyramid = (
+//     await pb
+//       .collection("pyramid")
+//       .getFullList({ expand: "sponsor, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12" })
+//   )[0];
+
+//   const sponsor = pyramid?.expand?.sponsor
+
+//   // const pyramidsUser = await pb.collection("users").getOne(userId);
+//   let result = [];
+
+//   for (const stage in pyramid) {
+//     if (!isNaN(stage)) {
+
+
+//       result.push(pyramid?.expand?.[stage]);
+//       // const stageUser = stageArrays?.find((e) => e?.id === sponsor);
+//     }
+//     result = result?.map((arr, i) => {
+//       return arr?.slice(0, Math.pow(2, i + 1));
+//     });
+    
+//   }
+
+//   result?.unshift([sponsor]);
+
+//   if (sponsor) {
+//     return {
+//       pyramid: pyramid,
+//       result,
+//     };
+//   } else {
+//     return {
+//       pyramid: pyramid,
+//       result: null,
+//     };
+//   }
+// }

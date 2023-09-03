@@ -2,10 +2,10 @@ import dayjs from 'dayjs'
 import React from 'react'
 import { Avatar } from 'shared/ui';
 
-export const Referal = ({referal}) => {
+export const Referal = ({referal, onReferalClick}) => {
 
   return (
-    <div className='flex shrink-0'>
+    <div className='flex shrink-0' onClick={() => onReferalClick(referal)}>
       <Avatar
         src={referal?.avatar}
         className='aspect-square w-14 mx-auto'
@@ -19,7 +19,7 @@ export const Referal = ({referal}) => {
       /> */}
       <div className='flex flex-col justify-center ml-2'>
         <p className='text-sm font-head'>
-          {referal?.name}
+          {referal?.name} {referal?.surname}
         </p>
         <p className='mt-1 text-xs text'>
           {dayjs(referal?.created).format('DD.MM.YYYY, HH:mm')}
