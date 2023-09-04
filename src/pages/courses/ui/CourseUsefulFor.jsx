@@ -8,7 +8,7 @@ import { HealthLink } from 'shared/ui/HealthLink'
 import { pb } from 'shared/api'
 
 
-export const CourseUsefulFor = () => {
+export const CourseUsefulFor = ({type}) => {
 
   const matches = useMediaQuery(`(max-width: 1100px)`)
 
@@ -30,8 +30,8 @@ export const CourseUsefulFor = () => {
             <div className="md:gap-4 mt-6">
               <Image
                 record={images}
-                index={1}
-                className="w-full h-full rounded-primary"
+                index={type ? 2 : 1}
+                className="max-w-xl mx-auto w-full h-full rounded-primary"
               />
               {/* <img
                 src={getImageUrl(images, images?.[1])}
@@ -47,7 +47,7 @@ export const CourseUsefulFor = () => {
                     <li key={i} className="flex gap-4">
                       <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
                       <p className="text">
-                        {text?.[i]}
+                        {text?.[i + 4]}
                       </p>
                     </li>
                   )
@@ -55,41 +55,41 @@ export const CourseUsefulFor = () => {
             </ul>
           </div>
         ) : (
-          <div className="grid grid-cols-2 max-h-[500] mt-16 gap-10">
-            <div className="">
+          <div className="grid grid-cols-2 mt-6 gap-10">
+            <div>
               <Image
                 record={images}
-                index={1}
-                className="w-full h-full rounded-primary"
+                index={type ? 2 : 1}
+                className="w-full max-h-full rounded-primary object-cover"
               />
             </div>
             <div>
               <h1 className="heading">
-                {headings?.[1]}
+                {headings?.[type ? 2 : 1]}
               </h1>
               <ul className="space-y-4 mt-8">
                 <li className="flex gap-4">
                   <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
                   <p className="text-xl">
-                    {text?.[1]}
+                    {text?.[type ? 5 : 1]}
                   </p>
                 </li>
                 <li className="flex gap-4">
                   <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
                   <p className="text-xl">
-                    {text[2]}
+                    {text[type ? 6 : 2]}
                   </p>
                 </li>
                 <li className="flex gap-4">
                   <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
                   <p className="text-xl">
-                    {text[3]}
+                    {text[type ? 7 : 3]}
                   </p>
                 </li>
                 <li className="flex gap-4">
                   <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
                   <p className="text-xl">
-                    {text[4]}
+                    {text[type ? 8 : 4]}
                   </p>
                 </li>
               </ul>

@@ -6,6 +6,10 @@ export const Price = () => {
     <div>
       <CourseUsefulFor />
       <PriceList />
+      <div className='mt-10 lg:mt-20'>
+        <CourseUsefulFor type='new' />
+        <PriceList />
+      </div>
     </div>
   )
 }

@@ -9,7 +9,7 @@ export const ProgramHeader = ({ headings, text, images }) => {
     <div className="w-full">
       <div className="container">
         <div className="flex">
-          <div className="w-1/2">
+          <div className="">
             <h1 className="mb-[15px] text-6xl  text-heading font-bold">
               {headings?.main}
             </h1>
@@ -37,7 +37,7 @@ export const ProgramHeader = ({ headings, text, images }) => {
           </div>
           {getImageUrl(images, images?.[1]) ? (
             <img
-              className="w-1/2"
+              className="rounded-primary"
               src={getImageUrl(images, images?.[1])}
               loading="lazy"
               alt="travel"

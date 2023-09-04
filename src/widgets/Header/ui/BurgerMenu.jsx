@@ -1,14 +1,14 @@
 import React from 'react'
-import { Burger, Popover } from '@mantine/core'
+import { Burger, Popover, clsx } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { Link } from 'react-router-dom'
 
 const array = [
+  { label: 'Новости компании', link: '/news' },
   { label: 'Прайс лист', link: '/price' },
   { label: 'Партнерская программа', link: '/program' },
-  { label: 'Наша команда', link: '/our-team' },
-  { label: 'Благотворительный фонд', link: '/charity-fund' },
-  { label: 'Новости компании', link: '/news' },
+  { label: 'Наша команда', link: '/our-team', disabled: true },
+  { label: 'Благотворительный фонд', link: '/charity-fund', disabled: true },
 ]
 
 const array2 = [
@@ -30,7 +30,9 @@ export const BurgerMenu = () => {
           <ul className="flex flex-col space-y-2">
             {array.map((val, i) => {
               return (
-                <li key={i} className="hover:text-primary-500 font-head">
+                <li key={i} className={clsx("hover:text-primary-500 font-head", {
+                  'pointer-events-none opacity-50': val?.disabled
+                })}>
                   <Link to={val.link}>{val.label}</Link>
                 </li>
               )

@@ -15,20 +15,20 @@ export const CharityFund = () => {
     <div className="w-full">
       <div className="container">
         <section>
-          <div className="flex">
-            <div className="w-2/5 mt-10">
+          <div className="grid lg:grid-cols-[40%_auto]">
+            <div className="mt-10">
               <h1 className="text-5xl font-semibold text-[#2a2a2a] ">
                 {headings?.main}
               </h1>
               <p className="mt-5 text-primary-500 text-xl font-medium">
                 {headings?.submain}
               </p>
-              <Button className="mt-10" size="xl">
+              <Button className="mt-5" size="xl">
                 Подробнее
               </Button>
             </div>
             <img
-              className="aspect-video max-w-xl mx-auto object-cover"
+              className="aspect-video mt-10 lg:mt-0 w-full max-w-xl mx-auto lg:max-w-full lg:mx-0 object-cover rounded-primary"
               src={getImageUrl(images, images?.[1])}
               alt="kid"
             />
@@ -65,19 +65,19 @@ export const CharityFund = () => {
             <p className="paragraph mt-2">{text?.card4}</p>
           </div>
         </div>
-        <section className="mt-16 flex">
+        {/* <section className="mt-16 flex flex-col lg:flex-row gap-10">
           <img
-            className="aspect-video max-w-xl mx-auto object-cover"
+            className="aspect-video object-cover rounded-primary mx-auto lg:mx-0 max-w-xl lg:max-w-full"
             src={getImageUrl(images, images?.[5])}
             alt="kid"
           />
-          <div className="w-2/5 ml-10">
+          <div className="w-full">
             <h1 className="text-3xl  font-semibold text-primary-500">
               {headings?.help}
             </h1>
             <p className="mt-2 ">{text?.help}</p>
           </div>
-        </section>
+        </section> */}
       </div>
     </div>
   )

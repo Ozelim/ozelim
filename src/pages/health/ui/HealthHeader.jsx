@@ -17,7 +17,7 @@ export const HealthHeader = ({ headings, images, text }) => {
           <Image
             record={images}
             index={1}
-            className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 "
+            className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 rounded-primary"
           />
           
           {/* {getImageUrl(images, images?.[1]) ? (
@@ -49,8 +49,6 @@ export const HealthHeader = ({ headings, images, text }) => {
               <li>• {text?.text2}</li>
               <li>• {text?.text3}</li>
               <li>• {text?.text4}</li>
-              <li>• {text?.text5}</li>
-              <li>• {text?.text6}</li>
             </ul>
 
           </div>
