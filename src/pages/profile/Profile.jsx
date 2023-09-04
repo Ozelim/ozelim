@@ -198,8 +198,6 @@ export const Profile = () => {
     setLevel((!user?.level || user?.level == '0') ? 0 : user?.level)
   }, [user])
 
-  console.log(binary, 'binary');
-
   if (loading) {
     return <></>
   }
