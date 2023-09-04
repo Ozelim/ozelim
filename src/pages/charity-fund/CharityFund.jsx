@@ -17,7 +17,7 @@ export const CharityFund = () => {
         <section>
           <div className="flex">
             <div className="w-2/5 mt-10">
-              <h1 className="text-5xl font-semibold text-[#2a2a2a] ">
+              <h1 className="text-4xl font-semibold text-[#2a2a2a] ">
                 {headings?.main}
               </h1>
               <p className="mt-5 text-primary-500 text-xl font-medium">

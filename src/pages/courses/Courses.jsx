@@ -32,11 +32,11 @@ export const Courses = () => {
       <WhyOurCourse headings={headings} text={text} />
       <CourseUsefulFor />
       <TeachComfort headings={headings} text={text} />
-      <CourseCurrator
+      {/* <CourseCurrator
         name="Ильясова Бахытжан Ильясовна"
         img={curratorCourse}
         desc="Предприниматель, психолог, бизнес-советник, директор Центра сертификации специалистов «САПА»"
-      />
+      /> */}
       <div className="container mt-14">
         <div className="grid grid-cols-3 gap-4">
           {Array(3)

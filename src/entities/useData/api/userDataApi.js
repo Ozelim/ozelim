@@ -1,12 +1,11 @@
 import { pb } from 'shared/api'
 import { getId } from 'shared/lib'
 
-
 const userDataApi = {
   changeAvatar: async (userId, image) => {
     if (image) {
       const formData = new FormData()
-      formData.append('avatar', image, getId(10))
+      formData.append('avatar', image, getId(5))
   
       return await pb.collection('users').update(userId, formData)
       .then(res => {

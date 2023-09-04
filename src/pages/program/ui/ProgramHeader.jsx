@@ -10,7 +10,7 @@ export const ProgramHeader = ({ headings, text, images }) => {
       <div className="container">
         <div className="flex">
           <div className="w-1/2">
-            <h1 className="mb-[15px] text-6xl  text-heading font-bold">
+            <h1 className="mb-[15px] text-4xl  text-heading font-bold">
               {headings?.main}
             </h1>
             <p className="mb-[40px] text-[#27272D] mr-5">{headings?.submain}</p>

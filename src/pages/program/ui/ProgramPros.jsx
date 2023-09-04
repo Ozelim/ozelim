@@ -4,7 +4,7 @@ import { FcInfo } from 'react-icons/fc'
 
 export const ProgramPros = ({ headings, text }) => {
   return (
-    <div className="bg-[#242424] w-full">
+    <div className="bg-primary-500 w-full">
       <div className="container">
         <section className="text-white p-[50px] rounded-[20px] mt-16">
           <h1 className="text-[35px] font-bold mb-5 text-center">
@@ -37,7 +37,7 @@ export const ProgramPros = ({ headings, text }) => {
             </div>
           </div>
           <Center>
-            <Button size="lg" className="mt-10">
+            <Button size="lg" className="mt-10" color="green">
               Стать партнером
             </Button>
           </Center>

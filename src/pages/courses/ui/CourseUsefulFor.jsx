@@ -55,7 +55,7 @@ export const CourseUsefulFor = () => {
             </ul>
           </div>
         ) : (
-          <div className="grid grid-cols-2 max-h-[500] mt-16 gap-10">
+          <div className="grid grid-cols-2 max-h-[500] gap-10">
             <div className="">
               <Image
                 record={images}

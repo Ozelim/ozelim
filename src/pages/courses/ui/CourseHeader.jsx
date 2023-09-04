@@ -1,5 +1,5 @@
 import React from 'react'
-import { BiTimeFive } from 'react-icons/bi'
+import { GiDiploma } from 'react-icons/gi'
 import { AiOutlineCalendar } from 'react-icons/ai'
 import { AiOutlineUnorderedList } from 'react-icons/ai'
 import { Button } from '@mantine/core'
@@ -25,7 +25,7 @@ export const CourseHeader = ({ headings, images, text }) => {
             <div className="flex gap-6 mt-10">
               <div className="flex items-center">
                 <div className="border border-solid border-[#dae7f3] p-2 rounded-md shadow">
-                  <AiOutlineCalendar className="text-4xl flex-shrink-0 text-primary-600 " />
+                  <GiDiploma className="text-4xl flex-shrink-0 text-primary-600 " />
                 </div>
                 <div className="ml-2">
                   <h4 className="text-heading text-sm font-medium">
@@ -36,7 +36,7 @@ export const CourseHeader = ({ headings, images, text }) => {
               </div>
               <div className="flex items-center">
                 <div className="border border-solid border-[#dae7f3] p-2 rounded-md shadow">
-                  <BiTimeFive className="text-4xl flex-shrink-0 text-primary-600 " />
+                  <GiDiploma className="text-4xl flex-shrink-0 text-primary-600 " />
                 </div>
                 <div className="ml-2">
                   <h4 className="text-heading text-sm  font-medium">
@@ -47,7 +47,7 @@ export const CourseHeader = ({ headings, images, text }) => {
               </div>
               <div className="flex items-center">
                 <div className="border border-solid border-[#dae7f3] p-2 rounded-md shadow">
-                  <AiOutlineUnorderedList className="text-4xl flex-shrink-0 text-primary-600 " />
+                  <GiDiploma className="text-4xl flex-shrink-0 text-primary-600 " />
                 </div>
                 <div className="ml-2">
                   <h4 className="text-heading text-sm  font-medium">
