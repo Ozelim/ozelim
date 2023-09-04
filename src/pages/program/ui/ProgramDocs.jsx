@@ -1,5 +1,5 @@
 import { Button, Checkbox, Modal } from '@mantine/core'
-import { useDisclosure } from '@mantine/hooks'
+import { useDisclosure, useMediaQuery } from '@mantine/hooks'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
@@ -15,6 +15,8 @@ export const ProgramDocs = () => {
 
   const [opened, { open, close }] = useDisclosure(false)
 
+  const matches = useMediaQuery(`(min-width: 767px)`)
+
   return (
     <>
       <div className="w-full">
@@ -25,7 +27,18 @@ export const ProgramDocs = () => {
                 onChange={onChangeChecked}
                 className="flex justify-center"
                 label={
-                  <>"Я принимаю <span className='underline cursor-pointer' onClick={open}>условия пользовательского соглашения</span>, и договора оферты."</>
+                  <>
+                    "Я принимаю <span 
+                        className='underline cursor-pointer' 
+                        onClick={matches ? open : () => {}}
+                      >
+                        {matches 
+                          ? 'условия пользовательского соглашения'
+                          : <a href={'/policy.pdf'} target='_blank'> условия пользовательского соглашения</a>
+                        }
+                       
+                      </span>, и договора оферты."
+                  </>
                 }
               />
               <Link to="https://oz-elim.kz/login?id=111111111111111">
@@ -43,10 +56,9 @@ export const ProgramDocs = () => {
         centered 
         size={'xl'}
       >
-        <iframe 
+        <embed 
           className="w-full h-screen" 
           src={test} 
-          frameborder="0" 
         />
       </Modal>
     </>

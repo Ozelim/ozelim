@@ -25,7 +25,7 @@ export const About = () => {
                 src="https://storiestour.ru/img/home/section-icon.png"
                 alt=""
               />
-              <h1 className="text-3xl lg:text-4xl font-bold mt-1 text-[#2a2a2a]">
+              <h1 className="text-3xl lg:text-4xl font-bold mt-1 text-primary-500">
                 {headings?.main}
                 {/* Мы cоциальный проект */}
               </h1>
@@ -34,14 +34,14 @@ export const About = () => {
 
             <div className="mt-10">
               <h1 className="text-center text-4xl font-bold text-[#2a2a2a]">
-                Наша цель
+                {headings?.main2}
               </h1>
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mt-3">
                 <div className="text-center bg-[#f8f8ff] py-2 hover:-translate-y-3 transition-transform">
                   <Image
                     record={images}
                     index={1}
-                    className="max-w-[350px] w-full m-auto h-full max-h-64"
+                    className="max-w-[350px] w-full m-auto h-full max-h-64 rounded-primary object-cover"
                   />
                   {/* {getImageUrl(images, images?.[1]) ? (
                     <img
@@ -54,39 +54,36 @@ export const About = () => {
                     <div className="w-[350px] m-auto bg-zinc-200" />
                   )} */}
                   <h2 className="text-[#2a2a2a] text-xl mb-1 font-bold">
-                    Охват всех туристических зон
+                    {headings?.grid}
                   </h2>
                   <p className="text-[#888888]">
-                    Мы охватываем все туристические зоны и единый реестр
-                    санаторно-курортных комплексов Казахстана
+                    {text?.grid}
                   </p>
                 </div>
                 <div className="text-center bg-[#f8f8ff] py-2 hover:-translate-y-3 transition-transform">
                   <Image
                     record={images}
                     index={2}
-                    className="max-w-[350px] w-full m-auto h-full max-h-64"
+                    className="max-w-[350px] w-full m-auto h-full max-h-64 rounded-primary object-cover"
                   />
                   <h2 className="text-[#2a2a2a] text-xl mb-1 font-bold">
-                    Конструктор туров
+                    {headings?.grid2}
                   </h2>
                   <p className="text-[#888888]">
-                    Автоматизированный профильный конструктор туров по
-                    заболеваниям и патологиям
+                    {text?.grid2}
                   </p>
                 </div>
                 <div className="text-center bg-[#f8f8ff] py-2 hover:-translate-y-3 transition-transform">
                   <Image
                     record={images}
                     index={3}
-                    className="max-w-[350px] w-full m-auto h-full max-h-64"
+                    className="max-w-[350px] w-full m-auto h-full max-h-64 rounded-primary object-cover"
                   />
                   <h2 className="text-[#2a2a2a] text-xl font-bold mb-1">
-                    Врач-консультант
+                    {headings?.grid3}
                   </h2>
                   <p className="text-[#888888]">
-                    Предоставим врача-консультант по подбору путевки на
-                    оздоровление
+                    {text?.grid3}
                   </p>
                 </div>
               </div>
@@ -97,15 +94,15 @@ export const About = () => {
 
       <section className="w-full mt-40">
         <div className="container">
-          <div className="flex">
+          <div className="flex gap-4">
             <div>
-              <h1 className="text-4xl text-[#2a2a2a] font-bold">
+              <h1 className="text-4xl text-primary-500 font-bold">
                 {headings?.task}
               </h1>
               <Image
                 record={images}
                 index={4}
-                className="block lg:hidden w-full mt-5"
+                className="block lg:hidden w-full mt-5 rounded-primary"
               />
               {/* <img
                 className="block lg:hidden w-full mt-5"
@@ -113,14 +110,14 @@ export const About = () => {
                 alt="sport"
               /> */}
               <p className="mt-5 text-[#5a5959]">{text?.task}</p>
-              <Button className="mt-5" size="md">
+              <Button className="mt-5" size="md" component={Link} to={'/courses'}>
                 Подробнее
               </Button>
             </div>
             <Image
-              className="hidden lg:block max-w-2xl w-full"
+              className="hidden lg:block max-w-2xl w-full rounded-primary"
               record={images}
-              index={5}
+              index={4}
             />
           </div>
         </div>
@@ -129,29 +126,38 @@ export const About = () => {
       <section className="mt-10 lg:mt-24">
         <div className="container">
           <div className="text-center">
-            <h1 className="text-4xl font-medium text-[#2a2a2a]">
+            <h1 className="text-4xl font-medium text-primary-500">
               {headings?.bond}
             </h1>
             <p className="mt-5 text ">{text?.bond}</p>
             <div className="flex justify-center items-center gap-10 mt-10">
-              <Link to="/" className="">
+              <a 
+                target='_blank'
+                href="https://instagram.com/oz_elim_14?igshid=MzRlODBiNWFlZA=="
+              >
                 <div className="border border-solid border-gray-300 rounded-full p-4 md:p-7 hover:bg-teal-600 transition-all ">
                   <AiOutlineInstagram className="text-4xl md:text-7xl flex-shrink-0 text-primary-500 hover:text-white" />
                 </div>
                 <p className="text-primary-600 mt-2">Instagram</p>
-              </Link>
-              <Link to="/" className="">
+              </a>
+              <a 
+                target='_blank'
+                href="https://wa.me/77051769699"
+              >
                 <div className="border border-solid border-gray-300 rounded-full p-4 md:p-7 hover:bg-teal-600 transition-all ">
                   <AiOutlineWhatsApp className="text-4xl md:text-7xl flex-shrink-0 text-primary-500 hover:text-white" />
                 </div>
                 <p className="text-primary-600 mt-2">WhatApp</p>
-              </Link>
-              <Link to="/" className="">
+              </a>
+              <a  
+                href="https://www.youtube.com/channel/UCOm22rq5ELyWBJWNImiv3Ww"
+                target='_blank'
+              >
                 <div className="border border-solid border-gray-300 rounded-full p-4 md:p-7 hover:bg-teal-600 transition-all ">
                   <AiOutlineYoutube className="text-4xl md:text-7xl flex-shrink-0 text-primary-500 hover:text-white" />
                 </div>
                 <p className="text-primary-600 mt-2">YouTube</p>
-              </Link>
+              </a>
             </div>
             <h3 className="mt-5 font-medium text-[#2a2a2a] text-xl md:text-2xl">
               {headings?.bond2}

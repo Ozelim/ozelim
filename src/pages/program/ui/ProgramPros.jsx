@@ -6,11 +6,11 @@ export const ProgramPros = ({ headings, text }) => {
   return (
     <div className="bg-primary-500 w-full">
       <div className="container">
-        <section className="text-white p-[50px] rounded-[20px] mt-16">
+        <section className="text-white p-6 lg:p-[50px] rounded-[20px] mt-16">
           <h1 className="text-[35px] font-bold mb-5 text-center">
             {headings?.list_head}
           </h1>
-          <div className="grid grid-cols-2 gap-10">
+          <div className="grid lg:grid-cols-2 gap-10">
             <div className="flex items-center ">
               <FcInfo className="text-5xl flex-shrink-0" />
               <p className="text-[22px] ml-4 font-normal">{text?.list1}</p>

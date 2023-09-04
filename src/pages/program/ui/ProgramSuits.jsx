@@ -5,13 +5,13 @@ export const ProgramSuits = ({ headings, text }) => {
     <div className="w-full">
       <div className="container">
         <section className="pt-16">
-          <div className="flex">
-            <h1 className="w-1/2 text-[35px] text-heading font-bold">
+          <div className="flex flex-col">
+            <h1 className=" text-[35px] font-bold text-teal-500">
               {headings?.text_head}
             </h1>
-            <div className="w-1/2">
+            <div className="flex flex-col md:flex-row gap-2 mt-8">
               <div className="mb-5">
-                <h3 className="font-semibold text-heading text-[20px]">
+                <h3 className="font-semibold text-[20px]">
                   {headings?.text1}
                 </h3>
                 <p className="pr-5 text-[#545454]">{text?.text2}</p>

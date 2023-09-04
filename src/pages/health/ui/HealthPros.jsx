@@ -6,10 +6,11 @@ export const HealthPros = ({ headings, images, text }) => {
   return (
     <section className="bg-primary-500 py-4 lg:py-24 mt-10 lg:mt-20">
       <div className="container">
-        <div className="flex flex-col lg:flex-row gap-10 w-full justify-between">
+        <div className="flex flex-col lg:flex-row gap-10 w-full justify-between ">
           <Image
             record={images}
             index={2}
+            className={'rounded-primary'}
           />
           {/* {getImageUrl(images, images?.[2]) ? (
             <img

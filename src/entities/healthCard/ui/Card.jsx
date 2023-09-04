@@ -4,13 +4,13 @@ import { Image } from 'shared/ui'
 
 export const Card = ({ card, images, }) => {
   return (
-    <div className="grid grid-cols-2 rounded-primary overflow-hidden shadow-md bg-white max-w-4xl w-full mx-auto">
+    <div className="grid md:grid-cols-2 rounded-primary overflow-hidden shadow-md bg-white max-w-4xl w-full mx-auto">
       {card?.flow === 'left' ? (
         <>
         <Image
           record={images}
           index={card?.index}
-          className="aspect-video h-60"
+          className="aspect-video h-full object-cover w-full"
         />
           {/* {getImageUrl(images, images?.[card.index]) ? (
             <img
@@ -34,7 +34,7 @@ export const Card = ({ card, images, }) => {
           <Image
             record={images}
             index={card?.index}
-            className="aspect-video h-60"
+            className="aspect-video h-full object-cover w-full"
           />
           {/* {getImageUrl(images, images?.[card.index]) ? (
             <img

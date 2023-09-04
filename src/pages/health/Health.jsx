@@ -2,7 +2,6 @@ import React from 'react'
 import { HealthPros } from './ui/HealthPros'
 import { HealthHeader } from './ui/HealthHeader'
 import { CourseCurrator } from 'pages/courses/ui/CourseCurrator'
-import curratorHealth from 'shared/assets/images/curratorHealth.jpg'
 import { HealthLink } from '../../shared/ui/HealthLink'
 import { HealthCard } from 'entities/healthCard'
 import { pb } from 'shared/api'
@@ -19,7 +18,6 @@ export const Editor = ({data}) => {
     </div>
   )
 }
-
 
 export const Health = () => {
 
@@ -60,18 +58,22 @@ export const Health = () => {
         images={images}
         text={text}
       />
-      <div className="grid grid-cols-1 gap-6 mt-10">
-        {array.map((val, i) => {
-          return <HealthCard card={val} key={i} images={images}/>
-        })}
+      <div className="container">
+        <div className="grid grid-cols-1 gap-6 mt-10">
+          {array.map((val, i) => {
+            return <HealthCard card={val} key={i} images={images}/>
+          })}
+        </div>
       </div>
 
-      <Editor data={text?.editor} />
+      <div className="container">
+        <Editor data={text?.editor} />
+      </div>
 
       <CourseCurrator
-        name="Байзакова Гульнара Сериковна"
-        img={curratorHealth}
-        desc="Терапевт-кардиолог высшей категории, действующий врач-эксперт Кардиологического центра города Павлодар, врач-консультант по иммунопрофилактике и оздоровлению через санаторно-курортные комплексы."
+        headings={headings}
+        images={images}
+        text={text}
       />
 
       <div className='text-center mt-10'>
@@ -79,7 +81,6 @@ export const Health = () => {
           Узнать подробнее о ценах
         </Link>
       </div>
-
     </main>
   )
 }

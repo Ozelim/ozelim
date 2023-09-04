@@ -5,59 +5,66 @@ import { MdOutlineMailOutline } from 'react-icons/md'
 import { CgPhone } from 'react-icons/cg'
 import { HealthLink } from 'shared/ui/HealthLink'
 import { pb } from 'shared/api'
+import { getImageUrl } from 'shared/lib'
+import { Image } from 'shared/ui'
+import { Button } from '@mantine/core'
 
-export const CourseCurrator = ({ name, desc, img }) => {
 
-  const onSubmit = async (data) => {
-    await pb.collection('bids').create({
-      ...data,
-      type: 'health'
-    })
-  }
+export const CourseCurrator = ({ images, text, headings, }) => {
+
 
   return (
     <div className="w-full">
       <div className="container">
-        <div className="grid md:grid-cols-[40%_auto] bg-white mt-10 rounded-primary py-6 px-10 shadow-md">
+        <div className="grid md:grid-cols-[40%_auto] bg-white mt-10 rounded-primary py-3 px-4 md:py-6 md:px-10 shadow-md">
           <div className="w-full text-center md:text-left md:mb-0 mb-4">
             <h1 className="text-4xl text-[#424242] font-semibold">
-              Куратор курса
+              {headings?.z1}
             </h1>
-            <p className="text-lg text-[#888888] max-w-xs mx-auto md:mx-0 mt-2">
-              Задавайте любые интересующие вас вопросы нашему куратору
-            </p>
-            <img
-              src={img}
+ 
+            <Image
+              record={images}
+              index={7}
               className="max-h-80 rounded-primary mt-5 mx-auto md:mx-0"
               alt="currator"
             />
           </div>
           <div className="flex bg-[#f4f4f4]  rounded-primary p-5">
-            <div className="ml-8">
-              <h2 className="text-xl font-semibold text-[#424242]">{name}</h2>
-              <p className="mt-2">{desc}</p>
-              <p className=" text-[#888888] mt-2">
-                Задавайте любые интересующие вас вопросы нашему куратору
+            <div className="md:ml-8">
+              <h2 className="text-xl font-semibold text-[#424242]">
+                {headings?.z3} 
+              </h2>
+              <p className="mt-2">
+                {text?.z4}
               </p>
               <div className="mt-5">
                 <div className="flex items-center">
                   <CgPhone className="text-primary-600 text-lg flex-shrink-0" />
-                  <p className="ml-2 text-primary-600">+7 747 094 05 98</p>
+                  <p className="ml-2 text-primary-600">
+                    {text?.z5}
+                  </p>
                 </div>
                 <div className="flex items-center">
                   <BsWhatsapp className="text-primary-600 text-lg flex-shrink-0" />
                   <p className="ml-2 text-primary-600">
-                    +7 747 811 8489 (WhatsApp)
+                    {text?.z6} (WhatsApp)
                   </p>
                 </div>
                 <div className="flex items-center">
                   <MdOutlineMailOutline className="text-primary-600 text-xl flex-shrink-0" />
                   <p className="ml-2 text-primary-600">
-                    lesia@poehalisnami.com
+                    {text?.z7}
                   </p>
                 </div>
               </div>
-              <HealthLink onSubmit={onSubmit} label={'Оставить заявку'} heading={'Узнать больше'} />
+              {/* <HealthLink onSubmit={onSubmit} label={'Оставить заявку'} heading={'Узнать больше'} /> */}
+              <div className='flex justify-center w-full mt-5'>
+                <a href="https://wa.me/77051769699" target="_blank" rel="noopener noreferrer">
+                  <Button>
+                    Оставить заявку
+                  </Button>
+                </a>
+              </div>
             </div>
           </div>
         </div>

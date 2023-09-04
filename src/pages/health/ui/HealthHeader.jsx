@@ -17,7 +17,7 @@ export const HealthHeader = ({ headings, images, text }) => {
           <Image
             record={images}
             index={1}
-            className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 rounded-primary"
+            className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 rounded-primary max-h-96 object-cover"
           />
           
           {/* {getImageUrl(images, images?.[1]) ? (
