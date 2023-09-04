@@ -4,6 +4,7 @@ import { referapsApi } from '../api/referalsApi'
 import { useAuth } from 'shared/hooks'
 import { Modal } from '@mantine/core'
 import dayjs from 'dayjs'
+import { Button } from 'react-scroll'
 
 export const ReferalsList = ({level}) => {
 
@@ -30,18 +31,30 @@ export const ReferalsList = ({level}) => {
     setReferal(val)
     setModal(true)
   }
+ 
+  const [z, setZ] = React.useState(false)
 
   return (
     <>
       <div className='w-full'>
         <div className='flex gap-3'>
+          <Button
+            onClick={() => setZ(true)}
+          >
+            Модалка
+          </Button>
           <div className='flex gap-1'>
             <p className='text'>Партнеры:</p>
             <p className=''>{referals.length}</p>
           </div>
           <div className='flex gap-1'>
             <p className='text'>Уровень:</p>
-            <p className=''>{level}</p>
+            <p className=''>
+              {level === '1-3' && level}
+              {(level === '4.1' || level === '4.2') && 4}
+              {level === '5' && 5}
+              {level === '6' && 6}
+            </p>
           </div>
         </div>
         <div className='flex gap-4 overflow-x-auto pb-2 mt-4'>
@@ -101,6 +114,13 @@ export const ReferalsList = ({level}) => {
             <p>{dayjs(referal?.created).format('DD.MM.YY')}</p>
           </li>
         </ul>
+      </Modal>
+      <Modal
+        opened={z}
+        onClose={setZ}
+        centered
+      >
+        modal
       </Modal>
     </>
   )

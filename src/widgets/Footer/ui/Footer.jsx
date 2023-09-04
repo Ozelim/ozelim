@@ -25,9 +25,7 @@ export const Footer = () => {
                   className="max-w-[100px] mr-3"
                   alt="OzElim Logo"
                 />
-                <span className="self-center text-2xl whitespace-nowrap dark:text-white">
-                  OZ ELIM
-                </span>
+                
               </a>
             </div>
             <div className="grid grid-cols-2 gap-2 sm:gap-2 sm:grid-cols-3">
