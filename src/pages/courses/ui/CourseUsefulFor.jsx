@@ -26,7 +26,9 @@ export const CourseUsefulFor = ({type}) => {
       <div className="container">
         {matches ? (
           <div className="grid grid-cols-1">
-            <h1 className="heading">{headings?.[1]}</h1>
+            <h1 className="heading text-teal-500">
+              {headings?.[1]} 
+            </h1>
             <div className="md:gap-4 mt-6">
               <Image
                 record={images}
@@ -64,8 +66,8 @@ export const CourseUsefulFor = ({type}) => {
               />
             </div>
             <div>
-              <h1 className="heading">
-                {headings?.[type ? 2 : 1]}
+              <h1 className="heading text-teal-500">
+                {headings?.[type ? 2 : 1]} asd
               </h1>
               <ul className="space-y-4 mt-8">
                 <li className="flex gap-4">

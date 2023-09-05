@@ -38,7 +38,7 @@ export const ProgramHeader = ({ headings, text, images }) => {
             </div>
           </div>
           <img
-            className="rounded-primary lg:mx-0 lg:max-w-full lg:mt-0 mt-10 max-w-lg mx-auto w-full"
+            className="rounded-primary lg:mx-0 lg:max-w-xl lg:mt-0 mt-10 max-w-lg mx-auto w-full"
             src={getImageUrl(images, images?.[1])}
             loading="lazy"
             alt="travel"

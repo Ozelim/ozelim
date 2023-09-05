@@ -2,11 +2,13 @@ import React from 'react'
 import { Referal } from './Referal'
 import { referapsApi } from '../api/referalsApi'
 import { useAuth } from 'shared/hooks'
-import { Modal } from '@mantine/core'
+import { Button, Modal } from '@mantine/core'
 import dayjs from 'dayjs'
-import { Button } from 'react-scroll'
 
-export const ReferalsList = ({level}) => {
+import market from 'shared/assets/images/market.png'
+import { useMediaQuery } from '@mantine/hooks'
+
+export const ReferalsList = ({level, setCount}) => {
 
   const {user} = useAuth()
 
@@ -32,24 +34,27 @@ export const ReferalsList = ({level}) => {
     setModal(true)
   }
  
-  const [z, setZ] = React.useState(false)
+  const [shitModal, setShitModal] = React.useState(false)
+
+  const matches = useMediaQuery(`(min-width: 767px)`)
 
   return (
     <>
       <div className='w-full'>
-        <div className='flex gap-3'>
+        <div className='flex flex-col md:flex-row gap-3 items-center'>
           <Button
-            onClick={() => setZ(true)}
+            onClick={() => setShitModal(true)}
           >
-            Модалка
+            Программа
           </Button>
           <div className='flex gap-1'>
-            <p className='text'>Партнеры:</p>
+            <p className='text' onClick={() => setCount(q => q + 1)}>Партнеры:</p>
             <p className=''>{referals.length}</p>
           </div>
           <div className='flex gap-1'>
             <p className='text'>Уровень:</p>
             <p className=''>
+              {(level === '0' || !level) && '0'}
               {level === '1-3' && level}
               {(level === '4.1' || level === '4.2') && 4}
               {level === '5' && 5}
@@ -116,11 +121,14 @@ export const ReferalsList = ({level}) => {
         </ul>
       </Modal>
       <Modal
-        opened={z}
-        onClose={setZ}
+        opened={shitModal}
+        onClose={() => setShitModal(false)}
         centered
+        size='xl'
+        fullScreen={matches ? false : true}
+
       >
-        modal
+        <img src={market} alt="" className='h-full' />
       </Modal>
     </>
   )

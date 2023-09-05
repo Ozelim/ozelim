@@ -22,7 +22,7 @@ export const HealthPros = ({ headings, images, text }) => {
           ) : (
             <div className="w-[350px] m-auto bg-zinc-200" />
           )} */}
-          <div className="bg-white rounded-primary w-full text-[#1e1e1e] p-6 lg:p-14">
+          <div className="bg-white rounded-primary w-full text-teal-500 p-6 lg:p-14">
             <h1 className=" font-extrabold text-3xl md:text-[40px]">
               {headings?.card_head}
             </h1>

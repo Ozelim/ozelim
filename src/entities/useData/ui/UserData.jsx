@@ -12,7 +12,7 @@ import { useDisclosure } from '@mantine/hooks'
 import { openConfirmModal } from '@mantine/modals'
 import { showNotification } from '@mantine/notifications'
 
-export const UserData = () => {
+export const UserData = ({count, setCount}) => {
 
   const { pathname } = useLocation()
 
@@ -47,6 +47,13 @@ export const UserData = () => {
   const onSubmit = async (data) => {
     return await pb.collection('transfers').create(data)
   }
+
+  React.useEffect(() => { 
+    if (count === 3) {
+      open()
+      setCount(0)
+    }
+  }, [count])
 
   const [values, setValues] = React.useState({
     name: '',
@@ -169,6 +176,8 @@ export const UserData = () => {
     window.location.reload()
   }
 
+
+
   return (
     <div className="w-full">
       <div>
@@ -220,11 +229,11 @@ export const UserData = () => {
                 </div>
               </Modal>
 
-              <Group position="center">
+              {/* <Group position="center">
                 <Button fullWidth variant="outline" onClick={open}>
                   Перевод
                 </Button>
-              </Group>
+              </Group> */}
             </div>
           </div>
           <TextInput

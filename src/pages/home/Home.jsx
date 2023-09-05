@@ -11,6 +11,7 @@ import { Carousel, useAnimationOffsetEffect } from '@mantine/carousel'
 import Autoplay from 'embla-carousel-autoplay'
 import { getId } from 'shared/lib'
 import { useAuth } from 'shared/hooks'
+import { Results } from 'modules/Results'
 
 async function getResorts() {
   return await pb.collection('resorts').getFullList({
@@ -38,6 +39,7 @@ export const Home = () => {
   return (
     <div className="space-y-8">
       <Franchise />
+      <Results/>
       <Quiz />
       <div className="w-full">
         <div className="container">

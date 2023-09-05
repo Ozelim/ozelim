@@ -94,31 +94,26 @@ export const About = () => {
 
       <section className="w-full mt-40">
         <div className="container">
-          <div className="flex gap-4">
-            <div>
-              <h1 className="text-4xl text-primary-500 font-bold">
-                {headings?.task}
-              </h1>
+          <div className="">
+            <h1 className="text-4xl text-primary-500 font-bold">
+              {headings?.task}
+            </h1>
+            <div className='flex flex-col md:flex-row gap-8 mt-6'>
               <Image
+                className="max-w-2xl w-full rounded-primary max-h-80 object-cover"
                 record={images}
                 index={4}
-                className="block lg:hidden w-full mt-5 rounded-primary"
               />
-              {/* <img
-                className="block lg:hidden w-full mt-5"
-                src={getImageUrl(images, images?.[3])}
-                alt="sport"
-              /> */}
-              <p className="mt-5 text-[#5a5959]">{text?.task}</p>
-              <Button className="mt-5" size="md" component={Link} to={'/courses'}>
-                Подробнее
-              </Button>
+              <div>
+                <ul className="mt-3 text-lg font-medium text-[#5a5959] space-y-3">
+                  <li>
+                    • {text?.task1}
+                  </li>
+                  <li>• {text?.task2}</li>
+                  <li>• {text?.task3}</li>
+                </ul>
+              </div>
             </div>
-            <Image
-              className="hidden lg:block max-w-2xl w-full rounded-primary"
-              record={images}
-              index={4}
-            />
           </div>
         </div>
       </section>

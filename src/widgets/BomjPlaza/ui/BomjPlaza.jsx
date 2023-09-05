@@ -5,8 +5,6 @@ import { Button } from '@mantine/core'
 
 export const BomjPlaza = ({resort}) => {
 
-  console.log(resort?.whats);
-
   return (
     <div className="flex justify-between items-center max-w-2xl shadow-md border p-4 rounded-primary w-auto bg-white" >
       <div className='flex flex-col'>

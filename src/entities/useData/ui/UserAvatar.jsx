@@ -53,10 +53,10 @@ export const UserAvatar = () => {
 
   return (
     <div className='w-full h-full'>
-      <div className='aspect-square h-full bg-slate-300 rounded-primary overflow-hidden relative'>
+      <div className='aspect-square h-full bg-slate-300 rounded-primary overflow-hidden relative max-w-[200px] mx-auto lg:max-w-full'>
         {avatar && (
           <img 
-            className='w-full h-full object-cover'
+            className=' h-full object-cover max-w-[200px] mx-auto lg:max-w-full '
             src={URL.createObjectURL(avatar)}
             alt="" 
           />
@@ -64,7 +64,7 @@ export const UserAvatar = () => {
         {image && (
           <img
             src={getImageUrl(user, image)} 
-            className='w-full h-full object-cover'
+            className=' h-full object-cover max-w-[200px] mx-auto lg:max-w-full '
             alt="" 
           />
         )}

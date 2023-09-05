@@ -22,7 +22,7 @@ export const CourseHeader = ({ headings, images, text }) => {
             <p className="text-heading text-xl font-medium">
               {headings?.submain}
             </p>
-            <div className="flex gap-6 mt-10">
+            <div className="grid lg:grid-cols-3 gap-6 mt-10">
               <div className="flex items-center">
                 <div className="border border-solid border-[#dae7f3] p-2 rounded-md shadow">
                   <GiDiploma className="text-4xl flex-shrink-0 text-primary-600 " />
@@ -67,7 +67,7 @@ export const CourseHeader = ({ headings, images, text }) => {
           <Image
             record={images}
             index={1}
-            className='w-full max-h-[350px] object-cover lg:block hidden'
+            className='w-full max-h-[350px] object-cover lg:block hidden rounded-primary'
           />  
           {/* {getImageUrl(course?.images, images?.[1]) ? (
             <img

@@ -20,9 +20,13 @@ export const News = () => {
     <div className="w-full">
       <div className="container">
         <div className="grid grid-cols-1 gap-6">
-          {news?.map((n, i) => {
+          {news?.length !== 0 ? news?.map((n, i) => {
             return <NewsCard news={n} />
-          })}
+          }) : (
+            <div className='flex justify-center items-center w-full h-screen'>
+              Пока что нет новостей
+            </div>
+          )}
         </div>
       </div>
     </div>

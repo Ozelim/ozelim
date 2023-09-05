@@ -12,7 +12,6 @@ import { Button } from '@mantine/core'
 
 export const CourseCurrator = ({ images, text, headings, }) => {
 
-
   return (
     <div className="w-full">
       <div className="container">
@@ -37,7 +36,7 @@ export const CourseCurrator = ({ images, text, headings, }) => {
               <p className="mt-2">
                 {text?.z4}
               </p>
-              <div className="mt-5">
+              {/* <div className="mt-5">
                 <div className="flex items-center">
                   <CgPhone className="text-primary-600 text-lg flex-shrink-0" />
                   <p className="ml-2 text-primary-600">
@@ -56,7 +55,7 @@ export const CourseCurrator = ({ images, text, headings, }) => {
                     {text?.z7}
                   </p>
                 </div>
-              </div>
+              </div> */}
               {/* <HealthLink onSubmit={onSubmit} label={'Оставить заявку'} heading={'Узнать больше'} /> */}
               <div className='flex justify-center w-full mt-5'>
                 <a href="https://wa.me/77051769699" target="_blank" rel="noopener noreferrer">

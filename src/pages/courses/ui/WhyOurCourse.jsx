@@ -28,8 +28,10 @@ export const WhyOurCourse = ({ headings, text }) => {
             </div>
           </div>
           <div>
-            <h2 className='text-center my-5 text-2xl font-semibold font-head text-teal-500'>Наши курсы будут полезны тем кто</h2>
-            <div className='grid grid-cols-3 gap-8'>
+            <h2 className='text-center mt-5 mb-3 md:mt-5 md:mb-5 text-2xl font-semibold font-head text-teal-500'>
+              {text?.grid_head4}
+            </h2>
+            <div className='grid md:grid-cols-3 gap-4 md:gap-8'>
               <div className="p-6 rounded-primary shadow-md bg-white">
                 <p className="paragraph mt-2">{text?.grid_p4}</p>
               </div>

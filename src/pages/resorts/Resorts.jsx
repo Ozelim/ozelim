@@ -31,8 +31,8 @@ export const Resorts = () => {
     <div className='w-full'>
       <div className="container">
         <div className="w-full">
-          <div className="grid grid-cols-[350px_auto] gap-4">
-            <ul className='flex flex-col bg-white shadow-md p-4 rounded-primary'>
+          <div className="grid  lg:grid-cols-[350px_auto] gap-4">
+            <ul className='flex flex-col bg-white shadow-md p-4 rounded-primary mx-auto max-w-md lg:max-w-full'>
               {regions?.map((region, i) => {
                 return (
                   <Link to={`/resorts/?region=${region}&page=1`} key={i}>

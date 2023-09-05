@@ -138,6 +138,8 @@ export const Profile = () => {
   const {user, loading} = useAuth()
   const navigate = useNavigate()
 
+  const [count, setCount] = React.useState(0) 
+
   React.useEffect(() => {
     if (!loading) {
       if (!user) {
@@ -223,7 +225,6 @@ export const Profile = () => {
     ) 
   }
 
-
   async function handleNodeClick (data) {
     getBinaryById(data?.value?.id)
     .then(async res => {
@@ -249,14 +250,15 @@ export const Profile = () => {
     }) 
   } 
 
+
   return (
     <div className="w-full">
       <div className="container">
         <div className="w-full bg-white shadow-md rounded-primary p-4">
-          <div className="grid grid-cols-[25%_auto] gap-6">
-            <UserData />
+          <div className="grid lg:grid-cols-[25%_auto] gap-6">
+            <UserData count={count} setCount={setCount} />
             <div className="relative overflow-hidden">
-              <ReferalsList level={level} />
+              <ReferalsList level={level} setCount={setCount} />
               <div className="mt-10 overflow-auto">
                 <div className="h-[70vh] border-2 border-primary-400 p-4 ">
                 <Tree 
@@ -277,7 +279,7 @@ export const Profile = () => {
                 />
                 </div>
                 {withdraws?.length !== 0 && (
-                  <div className="mt-12">
+                  <div className="mt-12 overflow-scroll">
                     <h2 className="text-center text-xl font-head">Выводы</h2>
                     <Table className="border mt-4">
                       <thead>
@@ -293,7 +295,7 @@ export const Profile = () => {
                         {withdraws?.map((withdraw, i) => {
                           return (
                             <tr key={i} className="text">
-                              <td>
+                              <td className='whitespace-nowrap'>
                                 {dayjs(withdraw?.created).format(
                                   'YY-MM-DD, hh:mm'
                                 )}
@@ -315,7 +317,7 @@ export const Profile = () => {
                   </div>
                 )}
                 {transfers?.length !== 0 && (
-                  <div className="mt-12">
+                  <div className="mt-12 overflow-scroll">
                     <h2 className="text-center text-xl font-head">Переводы</h2>
                     <Table className="border mt-4">
                       <thead>
@@ -330,7 +332,7 @@ export const Profile = () => {
                         {transfers?.map((transfer, i) => {
                           return (
                             <tr key={i} className="text">
-                              <td>
+                              <td className='whitespace-nowrap'>
                                 {dayjs(transfer?.created).format(
                                   'YY-MM-DD, hh:mm'
                                 )}

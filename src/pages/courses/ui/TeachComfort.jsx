@@ -6,7 +6,7 @@ export const TeachComfort = ({ headings, text }) => {
     <div className="w-full">
       <div className="container">
         <div className="w-full mt-10">
-          <h1 className="heading border-b-2 pb-4 text-4xl">
+          <h1 className="heading border-b-2 pb-4 text-4xl text-teal-500">
             {headings?.grid2_main}
           </h1>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:mt-5 border-b-2 pb-5">

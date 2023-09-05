@@ -31,7 +31,7 @@ export const HealthHeader = ({ headings, images, text }) => {
             <div className="lg:max-w-xl w-full m-auto bg-zinc-200" />
           )} */}
           <div className="w-full lg:text-left text-center">
-            <h1 className="text-2xl md:text-3xl font-bold font-head text-[#1e1e1e]">
+            <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
               {headings?.main}
             </h1>
             {/* <img

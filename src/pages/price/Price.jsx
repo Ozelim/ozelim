@@ -8,7 +8,7 @@ export const Price = () => {
       <PriceList />
       <div className='mt-10 lg:mt-20'>
         <CourseUsefulFor type='new' />
-        <PriceList />
+        <PriceList type='new' />
       </div>
     </div>
   )

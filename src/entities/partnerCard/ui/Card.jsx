@@ -47,19 +47,19 @@ export const PartnersCard = ({
         onMouseLeave={autoplay.current.reset}
       >
         {images?.map((img, i) => {
-            return (
-              <Carousel.Slide key={i} className={`relative `}>
-                <img
-                  src={getImageUrl(partner, img)}
-                  className={
-                    "flex justify-center items-center object-cover w-full h-56 text-3xl bg-slate-200"
-                  }
-                >
-                  {/* {i + 1} */}
-                </img>
-              </Carousel.Slide>
-            );
-          })}
+          return (
+            <Carousel.Slide key={i} className={`relative `}>
+              <img
+                src={getImageUrl(partner, img)}
+                className={
+                  "flex justify-center items-center object-cover w-full h-56 text-3xl bg-slate-200"
+                }
+              >
+                {/* {i + 1} */}
+              </img>
+            </Carousel.Slide>
+          );
+        })}
       </Carousel>
       <h2 className="text-center font-head text-2xl px-6">{partner.name}</h2>
       <p className="px-4 text-center text-sm">{partner.description}</p>
@@ -71,7 +71,7 @@ export const PartnersCard = ({
             onClick={() => viewPdf(partner)}
           > 
           <GrDocumentPdf className="inline mr-2" size={20} />
-            Документ.pdf
+            Документ
           </Button>
         </div>
       )}
