@@ -32,7 +32,7 @@ export const PriceList = ({type}) => {
                     {p?.title}
                   </p>
                   <div className="flex flex-col items-center">
-                    <div className="text-blue-500 text-xl font-bold">{formatNumber(p?.cost)} тенге</div>
+                    <div className="text-blue-500 text-xl font-bold">{formatNumber(p?.cost)}</div>
                   </div>
                 </div>
               )

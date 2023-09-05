@@ -67,7 +67,7 @@ export const CourseUsefulFor = ({type}) => {
             </div>
             <div>
               <h1 className="heading text-teal-500">
-                {headings?.[type ? 2 : 1]} asd
+                {headings?.[type ? 2 : 1]}
               </h1>
               <ul className="space-y-4 mt-8">
                 <li className="flex gap-4">

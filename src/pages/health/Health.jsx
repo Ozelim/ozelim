@@ -70,11 +70,13 @@ export const Health = () => {
         <Editor data={text?.editor} />
       </div>
 
-      <CourseCurrator
-        headings={headings}
-        images={images}
-        text={text}
-      />
+      {headings?.z1 && (
+        <CourseCurrator
+          headings={headings}
+          images={images}
+          text={text}
+        />
+      )}
 
       <div className='text-center mt-10'>
         <Link to={'/price'} className='text-blue-500 underline'>
