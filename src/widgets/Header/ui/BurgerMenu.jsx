@@ -7,7 +7,7 @@ const array = [
   { label: 'Новости компании', link: '/news' },
   { label: 'Прайс лист', link: '/price' },
   { label: 'Партнерская программа', link: '/program' },
-  { label: 'Наша команда', link: '/our-team', disabled: true },
+  { label: 'Наша команда', link: '/our-team', },
   { label: 'Благотворительный фонд', link: '/charity-fund', disabled: true },
 ]
 
