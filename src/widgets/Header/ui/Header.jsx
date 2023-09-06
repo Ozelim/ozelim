@@ -66,9 +66,9 @@ export const Header = () => {
             </Popover>
             <Link
               className="text-teal-500 hover:text-yellow-400 text-sm lg:text-xl cursor-pointer hidden md:inline-block"
-              to={'/partners'}
+              to={'/price'}
             >
-              Бизнес партнеры
+              Прайс лист
             </Link>
           </nav>
           {/* <ContactInfo/> */}

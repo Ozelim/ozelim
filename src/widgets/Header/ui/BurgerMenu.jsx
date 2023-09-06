@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 const array = [
   { label: 'Новости компании', link: '/news' },
-  { label: 'Прайс лист', link: '/price' },
+  { label: 'Бизнес партнеры', link: '/partners' },
   { label: 'Партнерская программа', link: '/program' },
   { label: 'Наша команда', link: '/our-team', },
   { label: 'Благотворительный фонд', link: '/charity-fund', disabled: true },

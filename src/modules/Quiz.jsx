@@ -29,7 +29,7 @@ export const Quiz = () => {
   const [step, setStep] = React.useState(0)
 
   const nextStep = () =>
-    setStep((current) => (current < questions.count ? current + 1 : current))
+    setStep((current) => (current < questions?.count ? current + 1 : current))
   const prevStep = () =>
     setStep((current) => (current > 0 ? current - 1 : current))
 
@@ -93,7 +93,7 @@ export const Quiz = () => {
                 content: '-mt-16 md:mt-0',
               }}
             >
-              {Object.keys(questions)?.map((key, i) => {
+              {Object.keys(questions ?? {})?.map((key, i) => {
                 if (!isNaN(key)) {
                   if (key <= questions?.count) {
                     return (
@@ -153,7 +153,7 @@ export const Quiz = () => {
                   Назад
                 </Button>
               )}
-              {step < questions.count - 1 ? (
+              {step < questions?.count - 1 ? (
                 <Button
                   onClick={nextStep}
                   disabled={(answer?.[step + 1]?.length ?? 0) < 3}
