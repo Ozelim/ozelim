@@ -19,13 +19,15 @@ export const ProgramRules = ({ headings, text }) => {
             <h2 className="text-[35px] text-teal-500 font-bold">
               {headings?.text2_head}
             </h2>
-            <div className="flex flex-col md:flex-row">
+            <div className="grid md:grid-cols-2 md:gap-10">
               <div className="">
                 <p className="mt-5 font-medium">{text?.text5}</p>
                 <p className="mt-5  font-medium">{text?.text6}</p> 
               </div>
-              <div className=" md:ml-11 mt-5">
-                <p className="text-[#27272D]">{text?.text7}</p>
+              <div className="mt-5">
+                <p className="text-[#27272D]">
+                  {text?.text7}
+                </p>
                 
                 <Center>
                   <Button size="md" className="mt-5" onClick={matches ? open : () => {}}>

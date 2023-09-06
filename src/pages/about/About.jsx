@@ -142,7 +142,7 @@ export const About = () => {
                 <div className="border border-solid border-gray-300 rounded-full p-4 md:p-7 hover:bg-teal-600 transition-all ">
                   <AiOutlineWhatsApp className="text-4xl md:text-7xl flex-shrink-0 text-primary-500 hover:text-white" />
                 </div>
-                <p className="text-primary-600 mt-2">WhatApp</p>
+                <p className="text-primary-600 mt-2">WhatsApp</p>
               </a>
               <a  
                 href="https://www.youtube.com/channel/UCOm22rq5ELyWBJWNImiv3Ww"
