@@ -27,7 +27,7 @@ export const CourseUsefulFor = ({type}) => {
         {matches ? (
           <div className="grid grid-cols-1">
             <h1 className="heading text-teal-500">
-              {headings?.[1]} 
+              {headings?.[type ? 2 : 1]} 
             </h1>
             <div className="md:gap-4 mt-6">
               <Image
@@ -42,7 +42,7 @@ export const CourseUsefulFor = ({type}) => {
               /> */}
             </div>
             <ul className="space-y-4 mt-6">
-              {Array(6)
+              {Array(5)
                 .fill(1)
                 .map((_, i) => {
                   return (
