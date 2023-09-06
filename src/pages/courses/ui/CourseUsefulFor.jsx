@@ -27,7 +27,7 @@ export const CourseUsefulFor = ({type}) => {
         {matches ? (
           <div className="grid grid-cols-1">
             <h1 className="heading text-teal-500">
-              {headings?.[1]} 
+              {headings?.[type ? 2 : 1]} 
             </h1>
             <div className="md:gap-4 mt-6">
               <Image
@@ -42,18 +42,32 @@ export const CourseUsefulFor = ({type}) => {
               /> */}
             </div>
             <ul className="space-y-4 mt-6">
-              {Array(6)
-                .fill(1)
-                .map((_, i) => {
-                  return (
-                    <li key={i} className="flex gap-4">
-                      <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
-                      <p className="text">
-                        {text?.[i + 4]}
-                      </p>
-                    </li>
-                  )
-                })}
+           
+              <li className="flex gap-4">
+                <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                <p className="text">
+                  {text?.[type ? 5 : 1]}
+                </p>
+              </li>
+              <li className="flex gap-4">
+                <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                <p className="text">
+                  {text?.[type ? 6 : 2]}
+                </p>
+              </li>
+              <li className="flex gap-4">
+                <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                <p className="text">
+                  {text?.[type ? 7 : 3]}
+                </p>
+              </li>
+              <li className="flex gap-4">
+                <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                <p className="text">
+                  {text?.[type ? 8 : 4]}
+                </p>
+              </li>
+
             </ul>
           </div>
         ) : (
