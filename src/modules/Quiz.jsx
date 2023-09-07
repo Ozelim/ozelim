@@ -77,10 +77,10 @@ export const Quiz = () => {
           <div className="max-w-4xl relative overflow-hidden space-y-2">
             <div className="mb-10">
               <h1 className="text-center text-4xl mb-2 text-primary-500">
-                Бесплатная помощь специалиста!
+                Санаторно-курортные комплексы по Вашим медицинским показаниям
               </h1>
               <p className="text-center text">
-                Впервые на сайте? Ответьте на пару вопросов и ожидайте консультацию.
+                Ответьте на вопросы и ожидайте консультацию
               </p>
             </div>
 
