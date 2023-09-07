@@ -74,9 +74,9 @@ export const Quiz = () => {
     <div className="w-full px-4">
       <div className="container bg-white rounded-primary py-8 shadow-md">
         <div className='w-full flex justify-center'>
-          <div className="max-w-4xl relative overflow-hidden space-y-2">
+          <div className="relative overflow-hidden space-y-2">
             <div className="mb-10">
-              <h1 className="text-center text-4xl mb-2 text-primary-500">
+              <h1 className="text-center text-4xl mb-2 text-primary-500 max-w-4xl mx-auto">
                 Санаторно-курортные комплексы по Вашим медицинским показаниям
               </h1>
               <p className="text-center text">
@@ -156,14 +156,14 @@ export const Quiz = () => {
               {step < questions?.count - 1 ? (
                 <Button
                   onClick={nextStep}
-                  disabled={(answer?.[step + 1]?.length ?? 0) < 3}
+                  disabled={(answer?.[step + 1]?.length ?? 0) < 1}
                 >
                   Следуйщий вопрос
                 </Button>
               ) : (
                 <Button
                   onClick={saveAnswers}
-                  disabled={(answer?.[step + 1]?.length ?? 0) < 3}
+                  disabled={(answer?.[step + 1]?.length ?? 0) < 1}
                 >
                   Отправить
                 </Button>

@@ -204,26 +204,7 @@ export const Profile = () => {
     return <></>
   }
 
-  if (!user?.verified) {
-    return (
-      <div className='flex justify-center items-center h-full'>
-        <div>
-          Ваш профиль не верифицирован, ваш ID: {user?.id}
-          <p className='text-center'>Пожалуйста обратитесь в службу поддержки</p>
-          <div className='text-center'>
-            <Button
-              compact
-              variant='outline'
-              color='red'
-              onClick={signout}
-            >
-              Выйти
-            </Button>
-          </div>
-        </div>
-      </div>
-    ) 
-  }
+
 
   async function handleNodeClick (data) {
     getBinaryById(data?.value?.id)
@@ -250,6 +231,26 @@ export const Profile = () => {
     }) 
   } 
 
+  if (!user?.verified) {
+    return (
+      <div className='flex justify-center items-center h-full'>
+        <div>
+          Ваш профиль не верифицирован, ваш ID: {user?.id}
+          <p className='text-center'>Пожалуйста обратитесь в службу поддержки</p>
+          <div className='text-center'>
+            <Button
+              compact
+              variant='outline'
+              color='red'
+              onClick={signout}
+            >
+              Выйти
+            </Button>
+          </div>
+        </div>
+      </div>
+    ) 
+  }
 
   return (
     <div className="w-full">
