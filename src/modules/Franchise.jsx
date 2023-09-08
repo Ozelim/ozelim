@@ -11,9 +11,8 @@ export const Franchise = () => {
       <div className="container">
         <div className="flex lg:flex-row flex-col gap-4 justify-between items-center bg-gradient-to-tl from-teal-600 to-teal-500 shadow-md rounded-primary">
           <div className="ml-8">
-            <p className="text-4xl mt-2 text-white">Отдых вместе с</p>
+            <p className="text-4xl mt-2 text-white">Единый реестр санаторно-курортных комплексов Казахстана</p>
 
-            <p className="text-4xl mt-2 text-white">«OZ ELIM»</p>
 
             <p className="mt-5 text-2xl text-white ">
               Поиск и подбор оздоровительных туров по Казахстану.
