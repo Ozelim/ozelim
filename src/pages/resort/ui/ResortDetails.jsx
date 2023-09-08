@@ -29,21 +29,15 @@ export const ResortDetails = ({resort}) => {
   return (
     <>
       <div className="p-4">
-        <h2 className="text-2xl font-bold mb-3">Информация о туре</h2>
+        <h2 className="text-2xl font-bold mb-3">{resort?.title}</h2>
         <div>
-          Длительность: <b>{resort?.duration} д.</b>
+          {resort?.duration}
         </div>
         <div>
-          Питание <b>{resort?.diet}</b>
+          {resort?.diet}
         </div>
         <div>
-          Выезд с <b>{resort?.from}</b>
-        </div>
-        <div>
-          Выезд: <b>{resort?.departure}</b>
-        </div>
-        <div>
-          Сезон тура: <b>{resort?.season}</b>
+          {resort?.from}
         </div>
 
         <hr className="mt-5" />
@@ -63,25 +57,20 @@ export const ResortDetails = ({resort}) => {
         </div>
         <hr className="mt-5" />
         <div>Уточнить детали тура</div>
-        <div className="flex flex-col mt-3">
-          <a href={`https://www.instagram.com/${resort?.inst}`} target="_blank">
+        <div className="flex flex-col">
+          {/* <a href={`https://www.instagram.com/${resort?.inst}`} target="_blank">
             <div className="flex items-center gap-2">
               <img src={Instagram} className="w-10" />
               <p>Instagram</p>
             </div>
-          </a>
+          </a> */}
           <a href={`https://wa.me/${resort?.whats}`} target="_blank">
             <div className="flex items-center gap-2 mt-4">
               <img src={WhatsApp} className="w-10" />
               <p>WhatsApp</p>
             </div>
           </a>
-          <div className="mt-4">
-            <div>{resort?.adress}</div>
-            <a href={resort?.twogis} className="text-orange-500 cursor-pointer">
-              Подробнее
-            </a>
-          </div>
+
         </div>
       </div>
       <Modal centered title="Заявка" opened={modal} onClose={setModal}>

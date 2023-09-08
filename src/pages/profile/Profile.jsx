@@ -247,6 +247,14 @@ export const Profile = () => {
               Выйти
             </Button>
           </div>
+          <div className='flex justify-center gap-4 mt-4'>
+            <Button>
+              Конпка 1
+            </Button>
+            <Button>
+              Конпка 2
+            </Button>
+          </div>
         </div>
       </div>
     ) 

@@ -24,18 +24,18 @@ export const Card = ({ resort }) => {
         <p className="mt-1">{resort?.region}</p>
         <ul className="mt-4">
           <li className="flex items-center gap-2">
-            <LiaCalendarAlt className="text-xl text-slate-400" />
+            {/* <LiaCalendarAlt className="text-xl text-slate-400" /> */}
             <span className="text">
-              Длительность тура: {resort?.duration} д.
+              {resort?.duration}
             </span>
           </li>
           <li className="flex items-center gap-2">
-            <CiPlane className="text-xl text-slate-400" />
-            <span className="text">Выезд с: {resort?.from}</span>
+            {/* <LiaConciergeBellSolid className="text-xl text-slate-400" /> */}
+            <span className="text">{resort?.diet}</span>
           </li>
           <li className="flex items-center gap-2">
-            <LiaConciergeBellSolid className="text-xl text-slate-400" />
-            <span className="text">Питание: {resort?.diet}</span>
+            {/* <CiPlane className="text-xl text-slate-400" /> */}
+            <span className="text">{resort?.from}</span>
           </li>
         </ul>
         <div className="mt-4">

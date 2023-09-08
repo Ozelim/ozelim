@@ -28,7 +28,7 @@ export const Resort = () => {
     <div className="w-full">
       <div className="container">
         <div className="relative rounded-primary overflow-hidden space-y-2 pb-4">
-          <h1 className=" text-4xl mb-2">{resort?.title}</h1>
+          {/* <h1 className=" text-4xl mb-2">{resort?.title}</h1> */}
           <p>{resort?.region}</p>
           <div className="grid grid-cols-1 lg:grid-cols-[60%_auto] gap-6 border-gray-100 border-solid border-2 w-full rounded-primary">
             <ResortSlider resort={resort} />
@@ -39,6 +39,9 @@ export const Resort = () => {
       <div className="w-full">
         <div className="container">
           <div className="w-full">
+            <h1 className='text-center my-4'>
+              {resort?.inst}
+            </h1>
             <div className="grid grid-cols-[750px_auto] gap-2">
               <div
                 className="default-styles"
