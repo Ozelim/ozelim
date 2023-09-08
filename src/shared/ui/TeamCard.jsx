@@ -14,7 +14,7 @@ export const TeamCard = ({ team }) => {
       </h2>
       <p className="px-4 text-center text">{team?.description}</p>
       <div className='text-center'>
-        <a href={team?.link} target="_blnak" className="underline text-blue-300">
+        <a href={team?.link} target="_blank" className="underline text-blue-300">
           Перейти по ссылке
         </a>
       </div>

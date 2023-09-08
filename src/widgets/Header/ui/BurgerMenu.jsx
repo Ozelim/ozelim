@@ -8,7 +8,7 @@ const array = [
   { label: 'Клуб лидеров', link: '/partners', disabled: true },
   { label: 'Партнерская программа', link: '/program' },
   { label: 'Наша команда', link: '/our-team', },
-  { label: 'Благотворительный фонд', link: '/charity-fund', disabled: true },
+  { label: 'Благотворительный фонд', link: '/charity-fund', },
 ]
 
 const array2 = [

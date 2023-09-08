@@ -36,11 +36,11 @@ export const ProgramPros = ({ headings, text }) => {
               <p className="text-[22px] ml-4 font-normal">{text?.list6}</p>
             </div>
           </div>
-          <Center>
+          {/* <Center>
             <Button size="lg" className="mt-10" color="green">
               Стать партнером
             </Button>
-          </Center>
+          </Center> */}
         </section>
       </div>
     </div>

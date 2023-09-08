@@ -74,7 +74,7 @@ export const Courses = () => {
                 >
                   <div className="flex items-center justify-center gap-4">
                     <div className="flex flex-col">
-                      <h2 className="text-xl">{text?.[`label${index}`]}</h2>
+                      <h2 className="text-xl text-primary-500">{text?.[`label${index}`]}</h2>
                       <p className="text-orange-500 font-semibold text-lg">
                         {text?.[`cost${index}`]}
                       </p>

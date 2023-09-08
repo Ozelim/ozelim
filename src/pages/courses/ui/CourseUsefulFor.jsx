@@ -35,13 +35,14 @@ export const CourseUsefulFor = ({type}) => {
                 index={type ? 2 : 1}
                 className="max-w-xl mx-auto w-full h-full rounded-primary"
               />
+              <p className='mt-2 text-center text-lg'>{text?.[type ? 'name2' : 'name']}</p>
               {/* <img
                 src={getImageUrl(images, images?.[1])}
                 alt=""
                 className="row-span-2 w-full h-full rounded-primary"
               /> */}
             </div>
-            <ul className="space-y-4 mt-6">
+            <ul className="space-y-4 mt-10">
            
               <li className="flex gap-4">
                 <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
@@ -78,6 +79,7 @@ export const CourseUsefulFor = ({type}) => {
                 index={type ? 2 : 1}
                 className="w-full max-h-full rounded-primary object-cover"
               />
+              <p className='mt-2 text-lg text-center'>{text?.[type ? 'name2' : 'name']}</p>
             </div>
             <div>
               <h1 className="heading text-teal-500">
