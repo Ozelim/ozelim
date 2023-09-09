@@ -28,24 +28,44 @@ export const ResortDetails = ({resort}) => {
 
   return (
     <>
-      <div className="p-4">
+      <div className="p-4 flex flex-col">
         <h2 className="text-2xl font-bold mb-3">{resort?.title}</h2>
-        <div>
-          {resort?.duration}
+        <div className='space-y-2 mt-4'>
+          <div>
+            {resort?.duration}
+          </div>
+          <div>
+            {resort?.diet}
+          </div>
+          <div>
+            {resort?.from}
+          </div>
         </div>
-        <div>
-          {resort?.diet}
-        </div>
-        <div>
-          {resort?.from}
-        </div>
-
         <hr className="mt-5" />
-        <div className="mt-2 mb-1">Цена за 1 чел, в номере для двоих</div>
+        <div className="mt-4 mb-1">Цена за 1 чел, в номере для двоих</div>
         <span className="text-3xl font-bold">
           {formatNumber(resort?.cost)} тг
         </span>
-        <div className="mt-2 w-full">
+
+        <div className='mt-10'>
+          <div>Уточнить детали тура</div>
+          <div className="flex flex-col">
+            {/* <a href={`https://www.instagram.com/${resort?.inst}`} target="_blank">
+              <div className="flex items-center gap-2">
+                <img src={Instagram} className="w-10" />
+                <p>Instagram</p>
+              </div>
+            </a> */}
+            <a href={`https://wa.me/${resort?.whats}`} target="_blank">
+              <div className="flex items-center gap-2 mt-4">
+                <img src={WhatsApp} className="w-10" />
+                <p>WhatsApp</p>
+              </div>
+            </a>
+
+          </div>
+        </div>
+        <div className="w-full mb-4">
           <HealthLink 
             label={'Отправить заявку'} 
             buttonProps={{
@@ -54,23 +74,6 @@ export const ResortDetails = ({resort}) => {
             onSubmit={submit}
             data={resort?.id}
           />
-        </div>
-        <hr className="mt-5" />
-        <div>Уточнить детали тура</div>
-        <div className="flex flex-col">
-          {/* <a href={`https://www.instagram.com/${resort?.inst}`} target="_blank">
-            <div className="flex items-center gap-2">
-              <img src={Instagram} className="w-10" />
-              <p>Instagram</p>
-            </div>
-          </a> */}
-          <a href={`https://wa.me/${resort?.whats}`} target="_blank">
-            <div className="flex items-center gap-2 mt-4">
-              <img src={WhatsApp} className="w-10" />
-              <p>WhatsApp</p>
-            </div>
-          </a>
-
         </div>
       </div>
       <Modal centered title="Заявка" opened={modal} onClose={setModal}>

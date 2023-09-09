@@ -233,28 +233,43 @@ export const Profile = () => {
 
   if (!user?.verified) {
     return (
-      <div className='flex justify-center items-center h-full'>
-        <div>
-          Ваш профиль не верифицирован, ваш ID: {user?.id}
-          <p className='text-center'>Пожалуйста обратитесь в службу поддержки</p>
-          <div className='text-center'>
-            <Button
-              compact
-              variant='outline'
-              color='red'
-              onClick={signout}
-            >
-              Выйти
-            </Button>
+      <div className="container h-full">
+        <div className='flex justify-center items-center h-full flex-col'>
+          <div className='flex gap-4 items-end'>
+            Ваш профиль не верифицирован, ваш ID: {user?.id}
+              <Button
+                compact
+                variant='outline'
+                color='red'
+                onClick={signout}
+                className='mt-2'
+              >
+                Выйти
+              </Button>
           </div>
-          <div className='flex justify-center gap-4 mt-4'>
-            <Button>
-              Конпка 1
-            </Button>
-            <Button>
-              Конпка 2
-            </Button>
-          </div>
+            <p className='text-center mt-4 mb-4 font-bold'>Пожалуйста обратитесь в службу поддержки или выберите способ оплаты</p>
+            <div className='flex justify-between flex-col md:flex-row gap-4 mt-2'>
+              <div className='p-4 border rounded-primary shadow-md bg-white max-w-xs w-full text-center'>
+                <p className='text'>Свяжитесь с менеджером для удаленнойй оплаты</p>
+                <p className='text-xl font-bold mt-2'>
+                  Kaspi Pay
+                </p>
+                <a href={`https://wa.me/77051769699?text=Здравствуйте! Хочу оплатить верификацию аккаунта с ID: ${user?.id}`} target="_blank" rel="noopener noreferrer">
+                  <Button className='mt-4'>
+                    Связаться
+                  </Button>
+                </a>
+              </div>
+              <div className='p-4 border rounded-primary shadow-md bg-white max-w-xs w-full text-center'>
+                <p className='text'>Онлайн оплата с помощью банковской карты</p>
+                <p className='text-xl font-bold mt-2'>
+                  Visa/MasterCard
+                </p>
+                <Button className='mt-4'>
+                  Оплатить
+                </Button>
+              </div>
+            </div>
         </div>
       </div>
     ) 

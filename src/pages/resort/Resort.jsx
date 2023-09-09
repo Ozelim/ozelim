@@ -39,7 +39,7 @@ export const Resort = () => {
       <div className="w-full">
         <div className="container">
           <div className="w-full">
-            <h1 className='text-center my-4'>
+            <h1 className='my-4 text-3xl font-bold'>
               {resort?.inst}
             </h1>
             <div className="grid grid-cols-[750px_auto] gap-2">
