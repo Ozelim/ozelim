@@ -87,7 +87,7 @@ export const Courses = () => {
                     // }}
                   />
 
-                  <a className='text-center' href="http://" target="_blank" rel="noopener noreferrer">
+                  <a className='text-center' href="http://wa.me/77051769699" target="_blank" rel="noopener noreferrer">
                     <Button>
                       Оставить заявку
                     </Button>
