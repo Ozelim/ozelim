@@ -79,7 +79,7 @@ export const Quiz = () => {
               <h1 className="text-center text-4xl mb-2 text-primary-500 max-w-4xl mx-auto">
                 Санаторно-курортные комплексы по Вашим медицинским показаниям
               </h1>
-              <p className="text-center text">
+              <p className="text-center text text-black text-xl">
                 Ответьте на вопросы и ожидайте консультацию
               </p>
             </div>

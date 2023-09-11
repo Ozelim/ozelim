@@ -34,10 +34,7 @@ export const CharityFund = () => {
             />
           </div>
         </section>
-        <h1 className="text-5xl font-bold text-center mt-10 text-primary-500">
-          {headings?.history}
-        </h1>
-        <TourOperators images={images} />
+    
         <h1 className="heading mt-10 text-primary-500">{headings?.grid}</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-x-8 gap-y-4 md:gap-y-6 mt-5 md:mt-10">
           <div className="p-6 rounded-primary shadow-md bg-white">
@@ -65,9 +62,10 @@ export const CharityFund = () => {
             <p className="paragraph mt-2">{text?.card4}</p>
           </div>
         </div>
-        {/* <section className="mt-16 flex flex-col lg:flex-row gap-10">
+    
+        <section className="mt-8 lg:mt-16 flex flex-col lg:flex-row gap-10">
           <img
-            className="aspect-video object-cover rounded-primary mx-auto lg:mx-0 max-w-xl lg:max-w-full"
+            className="aspect-video object-cover rounded-primary mx-auto lg:mx-0 max-w-xl"
             src={getImageUrl(images, images?.[5])}
             alt="kid"
           />
@@ -77,7 +75,11 @@ export const CharityFund = () => {
             </h1>
             <p className="mt-2 ">{text?.help}</p>
           </div>
-        </section> */}
+        </section>
+        <h1 className="text-5xl font-bold text-center mt-10 text-primary-500">
+          {headings?.history}
+        </h1>
+        <TourOperators images={images} text={text} />
       </div>
     </div>
   )

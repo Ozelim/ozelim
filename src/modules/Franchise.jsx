@@ -27,7 +27,7 @@ export const Franchise = () => {
           <img
             src={Kazmap}
             alt=""
-            className="max-w-3xl w-full rounded-primary"
+            className="max-w-md md:max-w-3xl w-full rounded-primary"
           />
         </div>
       </div>

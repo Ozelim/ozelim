@@ -8,7 +8,7 @@ export const Results = () => {
   return (
     <div className='w-full pt-10'>
       <div className="container">
-        <h1 className='heading'>{headings?.[1]}</h1>
+        <h1 className='heading text-primary-500 '>{headings?.[1]}</h1>
         <div className='grid grid-cols-1 md:grid-cols-3 gap-4 mt-6'>
           <div>
             <h2 className='md:text-2xl lg:text-4xl text-primary-500 border-b-4 border-black pb-2 md:pb-4 font-bold'>

@@ -8,7 +8,7 @@ const array = [
   { label: 'Клуб лидеров', link: '/partners', disabled: true },
   { label: 'Партнерская программа', link: '/program' },
   { label: 'Наша команда', link: '/our-team', },
-  { label: 'Благотворительный фонд', link: '/charity-fund', },
+  { label: 'Благотворительность', link: '/charity-fund', },
 ]
 
 const array2 = [
@@ -16,6 +16,7 @@ const array2 = [
   { label: 'Твое здоровье', link: '/health' },
   { label: 'Курсы по туризму', link: '/courses' },
   { label: 'Бизнес партнеры', link: '/partners' },
+  { label: 'Прайс лист', link: '/price' },
 ]
 
 export const BurgerMenu = () => {
