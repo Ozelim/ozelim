@@ -23,9 +23,6 @@ export const CharityFund = () => {
               <p className="mt-5 text-xl font-medium">
                 {headings?.submain}
               </p>
-              <Button className="mt-5" size="xl">
-                Подробнее
-              </Button>
             </div>
             <img
               className="aspect-video mt-10 lg:mt-0 w-full max-w-xl mx-auto lg:max-w-full lg:mx-0 object-cover rounded-primary"

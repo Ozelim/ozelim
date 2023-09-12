@@ -12,7 +12,7 @@ export const BomjPlaza = ({resort}) => {
           {resort?.title} 
         </div>
         <p className="text-sm text">
-          {resort?.adress}
+          {resort?.region}
         </p>
       </div>
       <div className='flex gap-4 text-primary-500'>

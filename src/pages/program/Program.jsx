@@ -45,7 +45,7 @@ export const Program = () => {
                 <li className="flex gap-4">
                   <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
                   <p >
-                    {text?.fck1}
+                    {text?.fck2}
                   </p>
                 </li>
               </ul>

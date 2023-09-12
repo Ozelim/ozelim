@@ -47,11 +47,11 @@ export const Resort = () => {
                 className="default-styles"
                 dangerouslySetInnerHTML={{ __html: resort?.description }}
               />
-              <div className='flex gap-2'>
+              {/* <div className='flex gap-2'>
                 {resort?.tags?.map((tag, i) => {
                   return <Chip checked key={i}>{tag}</Chip>
                 })}
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
