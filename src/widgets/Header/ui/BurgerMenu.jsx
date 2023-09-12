@@ -15,7 +15,6 @@ const array2 = [
   { label: 'О компании', link: '/about' },
   { label: 'Твое здоровье', link: '/health' },
   { label: 'Курсы по туризму', link: '/courses' },
-  { label: 'Бизнес партнеры', link: '/partners' },
   { label: 'Прайс лист', link: '/price' },
 ]
 
