@@ -48,7 +48,7 @@ export const Home = () => {
               Курортные зоны
             </h1>
             <div className=" mt-6">
-              <div className="max-w-full">
+              <div className="max-w-full overflow-hidden">
                 <Carousel
                   slideSize={'25%'}
                   align={'start'}
