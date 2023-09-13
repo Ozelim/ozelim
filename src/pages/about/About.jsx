@@ -20,11 +20,11 @@ export const About = () => {
         <div className="container">
           <div className="w-full">
             <div className="text-center">
-              <img
+              {/* <img
                 className="m-auto"
                 src="https://storiestour.ru/img/home/section-icon.png"
                 alt=""
-              />
+              /> */}
               <h1 className="text-3xl lg:text-4xl font-bold mt-1 text-primary-500">
                 {headings?.main}
                 {/* Мы cоциальный проект */}

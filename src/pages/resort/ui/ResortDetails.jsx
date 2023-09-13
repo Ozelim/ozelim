@@ -31,7 +31,14 @@ export const ResortDetails = ({resort}) => {
       <div className="p-4 flex flex-col">
         <h2 className="text-2xl font-bold mb-3">{resort?.title}</h2>
         <div className='space-y-2 mt-4'>
-          <div>
+          <div className='flex flex-wrap gap-3'>
+            {resort?.diseas && resort?.diseas?.map((q, i) => {
+              return (
+                <p key={i} className='text'>{q}</p>
+              )
+            })}
+          </div>
+          {/* <div>
             {resort?.duration}
           </div>
           <div>
@@ -39,7 +46,7 @@ export const ResortDetails = ({resort}) => {
           </div>
           <div>
             {resort?.from}
-          </div>
+          </div> */}
         </div>
         <hr className="mt-5" />
         <div className="mt-4 mb-1">Цена за 1 чел, в номере для двоих</div>
