@@ -222,12 +222,6 @@ export const Profile = () => {
     setLevel((!user?.level || user?.level == '0') ? 0 : user?.level)
   }, [user])
 
-  if (loading) {
-    return <></>
-  }
-
-
-
   async function handleNodeClick (data) {
     getBinaryById(data?.value?.id)
     .then(async res => {
@@ -252,6 +246,10 @@ export const Profile = () => {
       console.log(err, 'err');
     }) 
   } 
+
+  if (loading) {
+    return <></>
+  }
 
   if (!user?.verified) {
     return (
