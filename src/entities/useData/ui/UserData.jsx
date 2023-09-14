@@ -289,8 +289,8 @@ export const UserData = ({count, setCount}) => {
               data={regions}
               label="Область"
               variant="filled"
-              value={values.city ?? ''}
-              onChange={(e) => handleValuesChange(e, 'city')}
+              value={values.region ?? ''}
+              onChange={(e) => handleValuesChange(e, 'region')}
             />
             <TextInput
               label="Адрес"
