@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDisclosure } from '@mantine/hooks'
-import { Button, Group, Modal, NumberInput, PinInput, TextInput } from '@mantine/core'
+import { Button, Group, Modal, NumberInput, PinInput, Select, TextInput } from '@mantine/core'
 import { Controller, useForm } from 'react-hook-form'
 import { pb } from 'shared/api'
 import { openConfirmModal } from '@mantine/modals'
@@ -13,9 +13,25 @@ export const Withdraw = () => {
 
   const [opened, { open, close }] = useDisclosure(false)
 
+  const banks = [
+    "Народный банк Казахстана",
+    "Kaspi Bank",
+    "Банк ЦентрКредит",
+    "Forte Bank",
+    "Евразийский банк",
+    "First Heartland Jusan Bank",
+    "Bank RBK",
+    "Bereke Bank",
+    "Банк Фридом Финанс Казахстан",
+    "Ситибанк Казахстан",
+    "Home Credit Bank Kazakhstan",
+    "Нурбанк"
+  ]
+
   const [withdraw, setWithdraw] = React.useState({
     sum: '',
     owner: '',
+    bank: null,
   })
 
   const [card, setCard] = React.useState('')
@@ -71,10 +87,9 @@ export const Withdraw = () => {
   }
 
   const disabled =
-    (withdraw?.owner?.length > 3) &&
+    withdraw?.bank && (withdraw?.owner?.length > 3) &&
     (Number(withdraw?.sum) >= 100 && Number(withdraw?.sum) <= user?.balance) &&
     card.length == 19
-
 
   return (
     <div className="space-y-2 mt-2">
@@ -87,6 +102,11 @@ export const Withdraw = () => {
             variant="filled"
             name="sum"
             onChange={handleWithdrawChange}
+          />
+          <Select
+            data={banks}
+            label='Банк:'
+            onChange={(e) => setWithdraw({...withdraw, bank: e})}
           />
           <TextInput
             value={handleCardDisplay()}

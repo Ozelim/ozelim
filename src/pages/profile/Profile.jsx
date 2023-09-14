@@ -188,12 +188,34 @@ export const Profile = () => {
     window.location.reload()
   }
 
-  React.useEffect(() => {
-    if ((binary?.children?.[0]?.value && binary?.children?.[1]?.value) && user?.level == 0) { 
-      pb.collection('users').update(user?.id, {
-        level: `1-3`
-      })
+  async function checkLevel () {
+    console.log(binary?.children?.[0], 'id');
+    if ((binary?.children?.[0]?.value && binary?.children?.[1]?.value)) { 
+      if (user?.level == 0) {
+        pb.collection('users').update(user?.id, {
+          level: `1`
+        })
+        return
+      }
+      if (user?.level == 1) {
+
+        if (
+              binary?.children?.[0]?.children?.[0]?.value && 
+              binary?.children?.[0]?.children?.[1]?.value && 
+              binary?.children?.[1]?.children?.[0]?.value && 
+              binary?.children?.[2]?.children?.[1]?.value 
+          ){
+          pb.collection('users').update(user?.id, {
+            level: `2-3`
+          })
+          return
+        }
+      }
     }
+  } 
+
+  React.useEffect(() => {
+    checkLevel()
   }, [binary])
 
   React.useEffect(() => {
@@ -284,6 +306,7 @@ export const Profile = () => {
             <div className="relative overflow-hidden">
               <ReferalsList level={level} setCount={setCount} />
               <div className="mt-10 overflow-auto">
+                <p>Бинарное дерево:</p>
                 <div className="h-[70vh] border-2 border-primary-400 p-4 ">
                 <Tree 
                   data={binary ?? {}}

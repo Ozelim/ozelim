@@ -28,7 +28,7 @@ export const ResortSlider = ({ resort }) => {
     .slice(1)
 
   return (
-    <div className="w-full">
+    <div className="w-full lg:max-w-full overflow-hidden">
       <Carousel
         slideSize={'100%'}
         loop

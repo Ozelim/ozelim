@@ -6,9 +6,10 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Button, NumberInput, PasswordInput, Select, TextInput } from '@mantine/core'
 import { cities } from 'shared/lib'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { DatePickerInput, DateTimePicker } from '@mantine/dates'
+import { DateInput, DatePickerInput, DateTimePicker } from '@mantine/dates'
 import { signupWithLink } from '../model/signup'
 import { useUtils } from 'shared/hooks'
+import { pb } from 'shared/api'
 
 export const SignupForm = () => {
 
@@ -17,6 +18,8 @@ export const SignupForm = () => {
   const [searchParams] = useSearchParams()
 
   const {regions} = useUtils('')
+
+  const [loading, setLoading] = React.useState(false)
 
   const { control, handleSubmit, setValue, setError, formState: { errors, isSubmitting}, clearErrors } = useForm({
     values: {
@@ -35,16 +38,21 @@ export const SignupForm = () => {
   const [err, setErr] = React.useState('')
 
   function onSubmit (data) {
+    setLoading(true)
     signupWithLink({
       ...data, 
       sponsor: searchParams.get('id'),
       passwordConfirm: data.password,
     })
-    .then(res => {
-      navigate('/')
-      window.location.reload()
+    .then(async res => {
+      await pb.collection('users').authWithPassword(res?.email, data?.password)
+      .then(() => {
+        navigate('/')
+        window.location.reload()
+      })
     })
     .catch((err) => {
+      setLoading(false)
       if(err?.data?.code === 404) {
         setErr('Данная ссылка недоступна для регистрации')
         return
@@ -92,36 +100,38 @@ export const SignupForm = () => {
               />
             )}
           />
-          <Controller
-            name='name'
-            control={control}
-            render={({field}) => (
-              <TextInput
-                {...field}
-                placeholder='Ваше имя'
-                label='Имя'
-                variant='filled'
-                error={errors.name?.message}
-                disabled={isSubmitting}
-                onChange={(e) => onChange('name', e.currentTarget.value)}
-              />
-            )}
-          />
-          <Controller
-            name='surname'
-            control={control}
-            render={({field}) => (
-              <TextInput
-                {...field}
-                placeholder='Ваша фамилия'
-                label='Фамилия'
-                variant='filled'
-                error={errors.surname?.message}
-                disabled={isSubmitting}
-                onChange={(e) => onChange('surname', e.currentTarget.value)}
-              />
-            )}
-          />
+          <div className='grid grid-cols-2 gap-4'>
+            <Controller
+              name='name'
+              control={control}
+              render={({field}) => (
+                <TextInput
+                  {...field}
+                  placeholder='Ваше имя'
+                  label='Имя'
+                  variant='filled'
+                  error={errors.name?.message}
+                  disabled={isSubmitting}
+                  onChange={(e) => onChange('name', e.currentTarget.value)}
+                />
+              )}
+            />
+            <Controller
+              name='surname'
+              control={control}
+              render={({field}) => (
+                <TextInput
+                  {...field}
+                  placeholder='Ваша фамилия'
+                  label='Фамилия'
+                  variant='filled'
+                  error={errors.surname?.message}
+                  disabled={isSubmitting}
+                  onChange={(e) => onChange('surname', e.currentTarget.value)}
+                />
+              )}
+            />
+          </div>
           <Controller
             name='region'
             control={control}
@@ -157,7 +167,7 @@ export const SignupForm = () => {
             name='birthday'
             control={control}
             render={({field}) => (
-              <DateTimePicker
+              <DateInput
                 {...field}
                 placeholder='Ваша дата рождения'
                 label='Дата рождения'
@@ -165,6 +175,7 @@ export const SignupForm = () => {
                 error={errors.birthday?.message}
                 disabled={isSubmitting}
                 onChange={(e) => onChange('birthday', e)}
+                locale='ru'
               />
             )}
           />
@@ -208,7 +219,7 @@ export const SignupForm = () => {
             // type='submit'
             fullWidth
             onClick={handleSubmit(onSubmit)}
-            loading={isSubmitting}
+            loading={isSubmitting || loading}
           >
             Зарегистрироваться 
           </Button>

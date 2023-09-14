@@ -49,10 +49,9 @@ export const ResortDetails = ({resort}) => {
           </div> */}
         </div>
         <hr className="mt-5" />
-        <div className="mt-4 mb-1">Цена за 1 чел, в номере для двоих</div>
-        <span className="text-3xl font-bold">
-          {formatNumber(resort?.cost)} тг
-        </span>
+        {/* <span className="text-3xl font-bold">
+          {formatNumber(resort?.cost)} 
+        </span> */}
 
         <div className='mt-10'>
           <div>Уточнить детали тура</div>

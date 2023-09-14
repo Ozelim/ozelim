@@ -5,8 +5,12 @@ import { useAuth } from 'shared/hooks'
 import { Button, Modal } from '@mantine/core'
 import dayjs from 'dayjs'
 
-import market from 'shared/assets/images/market.png'
+import market from 'shared/assets/images/marketing.png'
 import { useMediaQuery } from '@mantine/hooks'
+import { openConfirmModal } from '@mantine/modals'
+import { pb } from 'shared/api'
+
+import zay from 'shared/assets/images/zay.png'
 
 export const ReferalsList = ({level, setCount}) => {
 
@@ -38,6 +42,31 @@ export const ReferalsList = ({level, setCount}) => {
 
   const matches = useMediaQuery(`(min-width: 767px)`)
 
+  async function bids () {
+    await pb.collection('bids').create({
+      type: 'level'
+    })
+  }
+
+  const bidConfirm = () => openConfirmModal({
+    title: 'Заявка на повышение 4-го уровня',
+    classNames: {
+      title: '!font-semibold',
+    },
+    centered: true, 
+    size: '90%',
+    children: (
+      <div>
+        <p className='text-center'>
+          По окончанию заполнения 4-го уровня активными пользователями, вы можете подать заявку получение вознаграждения по маркетингу.
+        </p>
+        <img src={zay} alt=""  />
+      </div>
+    ),
+    labels: {confirm: 'Подтвердить', cancel: 'Отмена'},
+    onConfirm: () => bids()
+  })
+
   return (
     <>
       <div className='w-full'>
@@ -55,10 +84,24 @@ export const ReferalsList = ({level, setCount}) => {
             <p className='text'>Уровень:</p>
             <p className=''>
               {(level === '0' || !level) && '0'}
-              {level === '1-3' && level}
+              {level === '1' && level}
+              {level === '2-3' && 
+              <>
+                  {level}
+              </>}
               {(level === '4.1' || level === '4.2') && 4}
               {level === '5' && 5}
               {level === '6' && 6}
+              {level === '2-3' && (
+                <Button
+                  compact
+                  variant='outline'
+                  ml={16}
+                  onClick={bidConfirm}
+                >
+                  Заявка на 4 ур.
+                </Button>
+              )}
             </p>
           </div>
         </div>
