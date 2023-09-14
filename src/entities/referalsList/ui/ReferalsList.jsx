@@ -2,7 +2,7 @@ import React from 'react'
 import { Referal } from './Referal'
 import { referapsApi } from '../api/referalsApi'
 import { useAuth } from 'shared/hooks'
-import { Button, Modal } from '@mantine/core'
+import { Button, Group, Modal, Radio } from '@mantine/core'
 import dayjs from 'dayjs'
 
 import market from 'shared/assets/images/marketing.png'
@@ -43,29 +43,16 @@ export const ReferalsList = ({level, setCount}) => {
   const matches = useMediaQuery(`(min-width: 767px)`)
 
   async function bids () {
-    await pb.collection('bids').create({
-      type: 'level'
+    await pb.collection('level').create({
+      user: user?.id,
+      level: user?.level,
+      new_level: `4.${radio}`
     })
   }
 
-  const bidConfirm = () => openConfirmModal({
-    title: 'Заявка на повышение 4-го уровня',
-    classNames: {
-      title: '!font-semibold',
-    },
-    centered: true, 
-    size: '90%',
-    children: (
-      <div>
-        <p className='text-center'>
-          По окончанию заполнения 4-го уровня активными пользователями, вы можете подать заявку получение вознаграждения по маркетингу.
-        </p>
-        <img src={zay} alt=""  />
-      </div>
-    ),
-    labels: {confirm: 'Подтвердить', cancel: 'Отмена'},
-    onConfirm: () => bids()
-  })
+  const [bidModal, setBidModal] = React.useState(false)
+
+  const [radio, setRadio] = React.useState('')
 
   return (
     <>
@@ -78,11 +65,11 @@ export const ReferalsList = ({level, setCount}) => {
           </Button>
           <div className='flex gap-1'>
             <p className='text' onClick={() => setCount(q => q + 1)}>Партнеры:</p>
-            <p className=''>{referals.length}</p>
+            <p>{referals.length}</p>
           </div>
           <div className='flex gap-1'>
             <p className='text'>Уровень:</p>
-            <p className=''>
+            <p>
               {(level === '0' || !level) && '0'}
               {level === '1' && level}
               {level === '2-3' && 
@@ -97,9 +84,9 @@ export const ReferalsList = ({level, setCount}) => {
                   compact
                   variant='outline'
                   ml={16}
-                  onClick={bidConfirm}
+                  onClick={() => setBidModal(true)}
                 >
-                  Заявка на 4 ур.
+                  Получить услугу (4 ур.)
                 </Button>
               )}
             </p>
@@ -172,6 +159,67 @@ export const ReferalsList = ({level, setCount}) => {
 
       >
         <img src={market} alt="" className='h-full' />
+      </Modal>
+      <Modal
+        title='Заявка на получение услуги и повышение до 4 ур.'
+        centered
+        opened={bidModal}
+        onClose={() => setBidModal(false)}
+        size='80%'
+        classNames={{
+          title: '!font-semibold'
+        }}
+      >
+        <div>
+          <p className='text-center'>
+            По окончанию заполнения 4-го уровня активными пользователями, вы можете подать заявку получение вознаграждения по маркетингу.
+          </p>
+          <img src={zay} alt="" className='!mx-0' />
+          <Radio.Group
+            name="radio"
+            label="Выберите один из вариантов"
+            withAsterisk
+            value={radio}
+            onChange={setRadio}
+            classNames={{
+              label: '!text-xl mb-4'
+            }}
+          >
+            <Group mt="x
+            s">
+              <Radio 
+                value="1" 
+                label="Путёвка всё включено" 
+                classNames={{
+                  label: 'text-xl',
+                  body: '!items-end'
+                }}
+              />
+              <Radio 
+                value="2" 
+                label="Обучение всё включено" 
+                classNames={{
+                  label: 'text-xl',
+                  body: '!items-end'
+                }}
+              />
+            </Group>
+          </Radio.Group>
+          <div className='flex justify-center gap-4'>
+            <Button 
+              variant='outline'
+              onClick={() => setBidModal(false)}
+            >
+              Отмена
+            </Button>
+            <Button
+              disabled={!radio}
+              onClick={bids}
+            >
+              Подтвердить
+            </Button>
+          </div>
+        </div>
       </Modal>
     </>
   )

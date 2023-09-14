@@ -277,6 +277,13 @@ export const UserData = ({count, setCount}) => {
               onChange={handleValuesChange}
             />
             <TextInput
+              label="Телефон"
+              variant="filled"
+              value={values.phone ?? ''}
+              name="phone"
+              onChange={handleValuesChange}
+            />
+            <TextInput
               label="Почта"
               variant="filled"
               value={values?.email ?? ''}
