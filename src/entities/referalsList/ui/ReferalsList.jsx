@@ -40,6 +40,8 @@ export const ReferalsList = ({level, setCount}) => {
  
   const [shitModal, setShitModal] = React.useState(false)
 
+  const [bidModal, setBidModal] = React.useState(false)
+
   const matches = useMediaQuery(`(min-width: 767px)`)
 
   async function bids () {
@@ -48,9 +50,10 @@ export const ReferalsList = ({level, setCount}) => {
       level: user?.level,
       new_level: `4.${radio}`
     })
+    .then(() => {
+      setBidModal(false)
+    })
   }
-
-  const [bidModal, setBidModal] = React.useState(false)
 
   const [radio, setRadio] = React.useState('')
 
@@ -87,6 +90,16 @@ export const ReferalsList = ({level, setCount}) => {
                   onClick={() => setBidModal(true)}
                 >
                   Получить услугу (4 ур.)
+                </Button>
+              )}
+              {(level === '4.1' || level === '4.2') && (
+                <Button
+                  compact
+                  variant='outline'
+                  ml={16}
+                  onClick={() => setBidModal(true)}
+                > 
+                  Получить услугу (5 ур.)
                 </Button>
               )}
             </p>
