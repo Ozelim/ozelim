@@ -11,9 +11,12 @@ import { openConfirmModal } from '@mantine/modals'
 import { pb } from 'shared/api'
 
 import zay from 'shared/assets/images/zay.png'
-
+import five from 'shared/assets/images/structure5.png'
+import six from 'shared/assets/images/structure6.png'
 
 export const ReferalsList = ({level, setCount}) => {
+
+
 
   const {user} = useAuth()
 
@@ -49,14 +52,17 @@ export const ReferalsList = ({level, setCount}) => {
     await pb.collection('level').create({
       user: user?.id,
       level: user?.level,
-      new_level: `4${radio}`,
+      new_level: `4.${radio}`,
       status: 'created',
     })
     .then(async () => {
       await pb.collection('users').update(user?.id, {
         cock: true,
       })
-      setBidModal(false)
+      .then(() => {
+        setBidModal(false)
+        window.location.reload()
+      })
     })
   }
 
@@ -64,21 +70,39 @@ export const ReferalsList = ({level, setCount}) => {
     await pb.collection('level').create({
       user: user?.id,
       level: user?.level,
+      status: 'created',
       new_level: level
     })
-    .then(() => {
-      setBidModal(false)
+    .then(async () => {
+      await pb.collection('users').update(user?.id, {
+        cock: true,
+      })
+      .then(() => {
+        setBidModal(false)
+        window.location.reload()
+      })
     })
   }
 
   const [radio, setRadio] = React.useState('')
 
   const levelbid = (level) => openConfirmModal({
-    title: '',
+    title: `Заявка на получения вознаграждения и повышение до ${level} ур.`,
+    classNames: {
+      title: '!font-semibold'
+    },
     centered: true,
     children: (
-      <></>
+      <>         
+        <p className='text-center'>
+          По окончанию заполнения {level}-го уровня активными пользователями, вы можете подать заявку получение вознаграждения по маркетингу.
+        </p>
+        {level == 5 && <img src={five} />}
+        {level == 6 && <img src={six} />}
+      </>
     ),
+    size: '100%',
+    // fullScreen: matches ? false : true,
     labels: {confirm: 'Подтвердить', cancel: 'Отмена'},
     onConfirm: () => levelBids(level)
   })
@@ -108,35 +132,39 @@ export const ReferalsList = ({level, setCount}) => {
               {(level === '4.1' || level === '4.2') && 4}
               {level === '5' && 5}
               {level === '6' && 6}
-              {level === '2-3' && (
-                <Button
-                  compact
-                  variant='outline'
-                  ml={16}
-                  onClick={() => setBidModal(true)}
-                >
-                  Получить услугу (4 ур.)
-                </Button>
-              )}
-              {(level === '4.1' || level === '4.2') && (
-                <Button
-                  compact
-                  variant='outline'
-                  ml={16}
-                  onClick={() => levelbid(5)}
-                > 
-                  Получить услугу (5 ур.)
-                </Button>
-              )}
-              {(level === '5') && (
-                <Button
-                  compact
-                  variant='outline'
-                  ml={16}
-                  onClick={() => levelbid(6)}
-                > 
-                  Получить услугу (6 ур.)
-                </Button>
+              {!user?.cock && (
+                <>
+                  {level === '2-3' && (
+                    <Button
+                      compact
+                      variant='outline'
+                      ml={16}
+                      onClick={() => setBidModal(true)}
+                    >
+                      Получить услугу
+                    </Button>
+                  )}
+                  {(level === '4.1' || level === '4.2') && (
+                    <Button
+                      compact
+                      variant='outline'
+                      ml={16}
+                      onClick={() => levelbid(5)}
+                    > 
+                      Получить вознаграждение 
+                    </Button>
+                  )}
+                  {(level === '5') && (
+                    <Button
+                      compact
+                      variant='outline'
+                      ml={16}
+                      onClick={() => levelbid(6)}
+                    > 
+                      Получить вознаграждение
+                    </Button>
+                  )}
+                </>
               )}
             </p>
           </div>
