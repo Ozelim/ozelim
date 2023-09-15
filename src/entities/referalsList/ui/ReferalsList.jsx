@@ -12,6 +12,7 @@ import { pb } from 'shared/api'
 
 import zay from 'shared/assets/images/zay.png'
 
+
 export const ReferalsList = ({level, setCount}) => {
 
   const {user} = useAuth()
@@ -48,7 +49,22 @@ export const ReferalsList = ({level, setCount}) => {
     await pb.collection('level').create({
       user: user?.id,
       level: user?.level,
-      new_level: `4.${radio}`
+      new_level: `4${radio}`,
+      status: 'created',
+    })
+    .then(async () => {
+      await pb.collection('users').update(user?.id, {
+        cock: true,
+      })
+      setBidModal(false)
+    })
+  }
+
+  async function levelBids (level) {
+    await pb.collection('level').create({
+      user: user?.id,
+      level: user?.level,
+      new_level: level
     })
     .then(() => {
       setBidModal(false)
@@ -56,6 +72,16 @@ export const ReferalsList = ({level, setCount}) => {
   }
 
   const [radio, setRadio] = React.useState('')
+
+  const levelbid = (level) => openConfirmModal({
+    title: '',
+    centered: true,
+    children: (
+      <></>
+    ),
+    labels: {confirm: 'Подтвердить', cancel: 'Отмена'},
+    onConfirm: () => levelBids(level)
+  })
 
   return (
     <>
@@ -97,9 +123,19 @@ export const ReferalsList = ({level, setCount}) => {
                   compact
                   variant='outline'
                   ml={16}
-                  onClick={() => setBidModal(true)}
+                  onClick={() => levelbid(5)}
                 > 
                   Получить услугу (5 ур.)
+                </Button>
+              )}
+              {(level === '5') && (
+                <Button
+                  compact
+                  variant='outline'
+                  ml={16}
+                  onClick={() => levelbid(6)}
+                > 
+                  Получить услугу (6 ур.)
                 </Button>
               )}
             </p>
