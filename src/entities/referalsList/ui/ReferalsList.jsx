@@ -154,7 +154,7 @@ export const ReferalsList = ({level, setCount}) => {
                       Получить вознаграждение 
                     </Button>
                   )}
-                  {(level === '5') && (
+                  {(level == '5') && (
                     <Button
                       compact
                       variant='outline'

@@ -110,7 +110,17 @@ function CustomNode({ nodeDatum, onNodeClick, sponsor, node }) {
   );
 }
 
-async function getBinaryById (id) {
+async function getBinaryById (id, bin) {
+  if (bin === 2) {
+    return await pb.collection('binary2').getFirstListItem(`sponsor = '${id}'`, {
+      expand: 'sponsor, children'
+    })
+  }
+  if (bin === 3) {
+    return await pb.collection('binary3').getFirstListItem(`sponsor = '${id}'`, {
+      expand: 'sponsor, children'
+    })
+  }
   return await pb.collection('binary').getFirstListItem(`sponsor = '${id}'`, {
     expand: 'sponsor, children'
   })
@@ -147,12 +157,13 @@ export const Profile = () => {
       } 
     }
   }, [loading])
-
   
   const [binary, setBinary] = React.useState({})
   const [node, setNode] = React.useState(null)
   const [withdraws, setWithdraws] = React.useState([])
   const [transfers, setTransfers] = React.useState([])
+
+  const [currentBinary, setCurrentBinary] = React.useState(1)
 
   React.useEffect(() => {
     getBinaryById(user?.id)
@@ -181,6 +192,63 @@ export const Profile = () => {
     })
   }, [])
 
+  React.useEffect(() => {
+    if (currentBinary === 1) {
+      getBinaryById(user?.id)
+      .then(res => {
+        setBinary({
+          value: res?.expand?.sponsor,
+          children: [
+            {
+              value: res?.expand?.children?.[0],
+              children: []
+            },
+            {
+              value: res?.expand?.children?.[1],
+              children: []
+            },
+          ]
+        })
+      }, [])
+    }
+    if (currentBinary === 2) {
+      getBinaryById(user?.id, currentBinary)
+      .then(res => {
+        setBinary({
+          value: res?.expand?.sponsor,
+          children: [
+            {
+              value: res?.expand?.children?.[0],
+              children: []
+            },
+            {
+              value: res?.expand?.children?.[1],
+              children: []
+            },
+          ]
+        })
+      }, [])
+    }
+    if (currentBinary === 3) {
+      getBinaryById(user?.id, currentBinary)
+      .then(res => {
+        setBinary({
+          value: res?.expand?.sponsor,
+          children: [
+            {
+              value: res?.expand?.children?.[0],
+              children: []
+            },
+            {
+              value: res?.expand?.children?.[1],
+              children: []
+            },
+          ]
+        })
+      }, [])
+    }
+  }, [currentBinary])
+
   const [level, setLevel] = React.useState(0)
 
   function signout () {
@@ -189,7 +257,6 @@ export const Profile = () => {
   }
 
   async function checkLevel () {
-    console.log(binary?.children?.[0], 'id');
     if ((binary?.children?.[0]?.value && binary?.children?.[1]?.value)) { 
       if (user?.level == 0) {
         pb.collection('users').update(user?.id, {
@@ -223,28 +290,78 @@ export const Profile = () => {
   }, [user])
 
   async function handleNodeClick (data) {
-    getBinaryById(data?.value?.id)
-    .then(async res => {
-      const slot = await pb.collection('binary').getOne(data?.value?.id, {expand: 'sponsor, children'}) 
-      setNode(slot)
-      const obj = findAndReplaceObjectById(binary, data?.value?.id, {
-        value: res?.expand?.sponsor,
-        children: [
-          {
-            value: res?.expand?.children?.[0],
-            children: []
-          },
-          {
-            value: res?.expand?.children?.[1],
-            children: []
-          },
-        ]
+    if (currentBinary === 1) {
+      getBinaryById(data?.value?.id)
+      .then(async res => {
+        const slot = await pb.collection(`binary`).getOne(data?.value?.id, {expand: 'sponsor, children'}) 
+        setNode(slot)
+        const obj = findAndReplaceObjectById(binary, data?.value?.id, {
+          value: res?.expand?.sponsor,
+          children: [
+            {
+              value: res?.expand?.children?.[0],
+              children: []
+            },
+            {
+              value: res?.expand?.children?.[1],
+              children: []
+            },
+          ]
+        })
+        setBinary({...binary, ...obj})
       })
-      setBinary({...binary, ...obj})
-    })
-    .catch(err => {
-      console.log(err, 'err');
-    }) 
+      .catch(err => {
+        console.log(err, 'err');
+      }) 
+    } 
+    if (currentBinary === 2) {
+      getBinaryById(data?.value?.id, 2)
+      .then(async res => {
+        const slot = await pb.collection(`binary2`).getOne(data?.value?.id, {expand: 'sponsor, children'}) 
+        setNode(slot)
+        const obj = findAndReplaceObjectById(binary, data?.value?.id, {
+          value: res?.expand?.sponsor,
+          children: [
+            {
+              value: res?.expand?.children?.[0],
+              children: []
+            },
+            {
+              value: res?.expand?.children?.[1],
+              children: []
+            },
+          ]
+        })
+        setBinary({...binary, ...obj})
+      })
+      .catch(err => {
+        console.log(err, 'err');
+      }) 
+    } 
+    if (currentBinary === 3) {
+      getBinaryById(data?.value?.id, 3)
+      .then(async res => {
+        const slot = await pb.collection(`binary3`).getOne(data?.value?.id, {expand: 'sponsor, children'}) 
+        setNode(slot)
+        const obj = findAndReplaceObjectById(binary, data?.value?.id, {
+          value: res?.expand?.sponsor,
+          children: [
+            {
+              value: res?.expand?.children?.[0],
+              children: []
+            },
+            {
+              value: res?.expand?.children?.[1],
+              children: []
+            },
+          ]
+        })
+        setBinary({...binary, ...obj})
+      })
+      .catch(err => {
+        console.log(err, 'err');
+      }) 
+    } 
   } 
 
   if (loading) {
@@ -304,24 +421,72 @@ export const Profile = () => {
             <div className="relative overflow-hidden">
               <ReferalsList level={level} setCount={setCount} />
               <div className="mt-10 overflow-auto">
-                <p>Бинарное дерево:</p>
+              <div className='flex gap-4 items-center mb-4'>
+                <p>
+                  Бинарное дерево:
+                </p>
+                {user?.binary === 2 && (
+                  <>
+                    <Button
+                      compact
+                      variant='outline'
+                      onClick={() => setCurrentBinary(1)}
+                    >
+                      1
+                    </Button>
+                    <Button 
+                      compact
+                      variant='outline'
+                      onClick={() => setCurrentBinary(2)}
+                    >
+                      2
+                    </Button>
+                  </>
+                )}
+                {user?.binary === 3 && (
+                  <>
+                  <Button
+                    compact
+                    variant='outline'
+                    onClick={() => setCurrentBinary(1)}
+                  >
+                    1
+                  </Button>
+                  <Button 
+                    compact
+                    variant='outline'
+                    onClick={() => setCurrentBinary(2)}
+                  >
+                    2
+                  </Button>
+                  <Button 
+                    compact
+                    variant='outline'
+                    onClick={() => setCurrentBinary(3)}
+                  >
+                    3
+                  </Button>
+                  </>
+                )}
+              </div>
+
                 <div className="h-[70vh] border-2 border-primary-400 p-4 ">
-                <Tree 
-                  data={binary ?? {}}
-                  orientation="vertical" 
-                  pathFunc="elbow"
-                  nodeSvgShape={{
-                    shape: "circle",
-                    shapeProps: { r: 20, fill: "green " },
-                  }}
-                  renderCustomNodeElement={(props) => (
-                    <CustomNode 
-                      {...props}
-                      onNodeClick={handleNodeClick}
-                      // node={node}
-                    />
-                  )}
-                />
+                  <Tree 
+                    data={binary ?? {}}
+                    orientation="vertical" 
+                    pathFunc="elbow"
+                    nodeSvgShape={{
+                      shape: "circle",
+                      shapeProps: { r: 20, fill: "green " },
+                    }}
+                    renderCustomNodeElement={(props) => (
+                      <CustomNode 
+                        {...props}
+                        onNodeClick={handleNodeClick}
+                        // node={node}
+                      />
+                    )}
+                  />
                 </div>
                 {withdraws?.length !== 0 && (
                   <div className="mt-12 overflow-scroll">
