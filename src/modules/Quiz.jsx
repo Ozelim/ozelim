@@ -38,7 +38,11 @@ export const Quiz = () => {
 
   async function saveAnswers() {
     setLoading(true)
-    await pb.collection('questions').create(answer)
+    await pb.collection('questions').create({
+      ...answer,
+      status: 'created',
+      question: false,
+    })
     .then(() => {
       showNotification({
         title: 'Заявка',
