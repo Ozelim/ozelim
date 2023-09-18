@@ -23,14 +23,14 @@ export const SignupForm = () => {
 
   const { control, handleSubmit, setValue, setError, formState: { errors, isSubmitting}, clearErrors } = useForm({
     values: {
-      name: 'Имя',
-      surname: 'Фамилия',
-      adress: '1 мая 288',
-      region: 'Павлодарская область',
+      name: '',
+      surname: '',
+      adress: '',
+      region: '',
       birthday: new Date(),
-      phone: '87024299146',
+      phone: '',
       email: '',
-      password: 'zxczxczxc',
+      password: '',
     },
     // resolver: yupResolver(signupSchema) 
   })

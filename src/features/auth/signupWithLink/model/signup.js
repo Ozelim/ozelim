@@ -40,7 +40,7 @@ async function signupWithLink (data) {
 
     return await pb.collection('users').create({
       ...data, 
-      email: generateRandomEmail(),
+      // email: generateRandomEmail(),
       id: getId(15),
       emailVisibility: true,
       level: '0',
