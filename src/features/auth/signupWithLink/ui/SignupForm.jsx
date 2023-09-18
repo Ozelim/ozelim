@@ -44,13 +44,13 @@ export const SignupForm = () => {
       sponsor: searchParams.get('id'),
       passwordConfirm: data.password,
     })
-    // .then(async res => {
-    //   await pb.collection('users').authWithPassword(res?.email, data?.password)
-    //   .then(() => {
-    //     navigate('/')
-    //     window.location.reload()
-    //   })
-    // })
+    .then(async res => {
+      await pb.collection('users').authWithPassword(res?.email, data?.password)
+      .then(() => {
+        navigate('/')
+        window.location.reload()
+      })
+    })
     .catch((err) => {
       setLoading(false)
       if(err?.data?.code === 404) {
@@ -219,7 +219,7 @@ export const SignupForm = () => {
             // type='submit'
             fullWidth
             onClick={handleSubmit(onSubmit)}
-            // loading={isSubmitting || loading}
+            loading={isSubmitting || loading}
           >
             Зарегистрироваться 
           </Button>
