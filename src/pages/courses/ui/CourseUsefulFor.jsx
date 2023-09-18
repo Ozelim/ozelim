@@ -17,7 +17,8 @@ export const CourseUsefulFor = ({type}) => {
   async function submit (data) {
     return await pb.collection('bids').create({
       ...data,
-      type: 'price'
+      type: 'price',
+      status: 'created',
     })
   }
   

@@ -121,17 +121,14 @@ export const ReferalsList = ({level, setCount}) => {
             <p>{referals.length}</p>
           </div>
           <div className='flex gap-1'>
-            <p className='text'>Уровень:</p>
+            <p className='text'>Уровень в процессе:</p>
             <p>
-              {(level === '0' || !level) && '0'}
-              {level === '1' && level}
-              {level === '2-3' && 
-              <>
-                  {level}
-              </>}
-              {(level === '4.1' || level === '4.2') && 4}
-              {level === '5' && 5}
-              {level === '6' && 6}
+              {(level === '0' || !level) && '1'}
+              {level === '1' && `2-3`}
+              {level === '2-3' && 4}
+              {(level === '4.1' || level === '4.2') && 5}
+              {level === '5' && 6}
+              {/* {level === '6' && 6} */}
               {!user?.cock && (
                 <>
                   {level === '2-3' && (

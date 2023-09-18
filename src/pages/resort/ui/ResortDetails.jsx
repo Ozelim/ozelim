@@ -22,7 +22,8 @@ export const ResortDetails = ({resort}) => {
   async function submit (data) {
     return await pb.collection('bids').create({
       ...data, 
-      type: 'resort'
+      type: 'resort',
+      status: 'created'
     })
   }
 
