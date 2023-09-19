@@ -27,7 +27,7 @@ export const SignupForm = () => {
       surname: '',
       adress: '',
       region: '',
-      birthday: new Date(),
+      birthday: '',
       phone: '',
       email: '',
       password: '',
