@@ -120,7 +120,7 @@ export const ReferalsList = ({level, setCount}) => {
             <p className='text' onClick={() => setCount(q => q + 1)}>Партнеры:</p>
             <p>{referals.length}</p>
           </div>
-          {(level != 0 && level != '0') && (
+          {(user?.bin) && (
             <div className='flex gap-1'>
               <p className='text'>Уровень в процессе:</p>
               <p>
