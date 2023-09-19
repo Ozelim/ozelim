@@ -120,51 +120,53 @@ export const ReferalsList = ({level, setCount}) => {
             <p className='text' onClick={() => setCount(q => q + 1)}>Партнеры:</p>
             <p>{referals.length}</p>
           </div>
-          <div className='flex gap-1'>
-            <p className='text'>Уровень в процессе:</p>
-            <p>
-              {(level === '0' || !level) && '1'}
-              {level === '1' && `2-3`}
-              {level === '2-3' && 4}
-              {(level === '4.1' || level === '4.2') && 5}
-              {level === '5' && 6}
-              {/* {level === '6' && 6} */}
-              {!user?.cock && (
-                <>
-                  {level === '2-3' && (
-                    <Button
-                      compact
-                      variant='outline'
-                      ml={16}
-                      onClick={() => setBidModal(true)}
-                    >
-                      Получить услугу
-                    </Button>
-                  )}
-                  {(level === '4.1' || level === '4.2') && (
-                    <Button
-                      compact
-                      variant='outline'
-                      ml={16}
-                      onClick={() => levelbid(5)}
-                    > 
-                      Получить вознаграждение 
-                    </Button>
-                  )}
-                  {(level == '5') && (
-                    <Button
-                      compact
-                      variant='outline'
-                      ml={16}
-                      onClick={() => levelbid(6)}
-                    > 
-                      Получить вознаграждение
-                    </Button>
-                  )}
-                </>
-              )}
-            </p>
-          </div>
+          {(level && level != 0) && (
+            <div className='flex gap-1'>
+              <p className='text'>Уровень в процессе:</p>
+              <p>
+                {(level === '0' || !level) && '1'}
+                {level === '1' && `2-3`}
+                {level === '2-3' && 4}
+                {(level === '4.1' || level === '4.2') && 5}
+                {level === '5' && 6}
+                {/* {level === '6' && 6} */}
+                {!user?.cock && (
+                  <>
+                    {level === '2-3' && (
+                      <Button
+                        compact
+                        variant='outline'
+                        ml={16}
+                        onClick={() => setBidModal(true)}
+                      >
+                        Получить услугу
+                      </Button>
+                    )}
+                    {(level === '4.1' || level === '4.2') && (
+                      <Button
+                        compact
+                        variant='outline'
+                        ml={16}
+                        onClick={() => levelbid(5)}
+                      > 
+                        Получить вознаграждение 
+                      </Button>
+                    )}
+                    {(level == '5') && (
+                      <Button
+                        compact
+                        variant='outline'
+                        ml={16}
+                        onClick={() => levelbid(6)}
+                      > 
+                        Получить вознаграждение
+                      </Button>
+                    )}
+                  </>
+                )}
+              </p>
+            </div>
+          )}
         </div>
         <div className='flex gap-4 overflow-x-auto pb-2 mt-4'>
           {referals.map((referal, i) => {
