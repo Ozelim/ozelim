@@ -27,12 +27,12 @@ export const SignupForm = () => {
       surname: '',
       adress: '',
       region: '',
-      birthday: '',
+      // birthday: '',
       phone: '',
       email: '',
       password: '',
     },
-    // resolver: yupResolver(signupSchema) 
+    resolver: yupResolver(signupSchema) 
   })
 
   const [err, setErr] = React.useState('')
@@ -163,7 +163,7 @@ export const SignupForm = () => {
               />
             )}
           />
-          <Controller
+          {/* <Controller
             name='birthday'
             control={control}
             render={({field}) => (
@@ -178,7 +178,7 @@ export const SignupForm = () => {
                 locale='ru'
               />
             )}
-          />
+          /> */}
           <Controller
             name='phone'
             control={control}
