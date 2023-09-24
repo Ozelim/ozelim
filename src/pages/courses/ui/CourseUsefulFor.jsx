@@ -44,32 +44,46 @@ export const CourseUsefulFor = ({price}) => {
               /> */}
             </div>
             <ul className="space-y-4 mt-10">
-           
-              <li className="flex gap-4">
-                <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
-                <p className="text">
-                  {price?.[1]}
-                </p>
-              </li>
-              <li className="flex gap-4">
-                <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
-                <p className="text">
-                  {price?.[2]}
-                </p>
-              </li>
-              <li className="flex gap-4">
-                <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
-                <p className="text">
-                  {price?.[3]}
-                </p>
-              </li>
-              <li className="flex gap-4">
-                <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
-                <p className="text">
-                  {price?.[4]}
-                </p>
-              </li>
-
+              {price?.[1] && (
+                <li className="flex gap-4">
+                  <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                  <p className="text">
+                    {price?.[1]}
+                  </p>
+                </li>
+              )}
+              {price?.[2] && (
+                <li className="flex gap-4">
+                  <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                  <p className="text">
+                    {price?.[2]}
+                  </p>
+                </li>
+              )}
+              {price?.[2] && (
+                <li className="flex gap-4">
+                  <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                  <p className="text">
+                    {price?.[2]}
+                  </p>
+                </li>
+              )}
+              {price?.[3] && (
+                <li className="flex gap-4">
+                  <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                  <p className="text">
+                    {price?.[3]}
+                  </p>
+                </li>
+              )}
+              {price?.[4] && (
+                <li className="flex gap-4">
+                  <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                  <p className="text">
+                    {price?.[4]}
+                  </p>
+                </li>
+              )}
             </ul>
           </div>
         ) : (
