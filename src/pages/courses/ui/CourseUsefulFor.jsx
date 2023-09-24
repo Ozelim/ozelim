@@ -79,7 +79,7 @@ export const CourseUsefulFor = ({price}) => {
               {price?.[4] && (
                 <li className="flex gap-4">
                   <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
-                  <p className="text">
+                <p className="text">
                     {price?.[4]}
                   </p>
                 </li>

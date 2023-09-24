@@ -23,7 +23,7 @@ export const Price = () => {
 
   return (
     <div>
-      <div className='space-y-8'>
+      <div className='space-y-16'>
         {prices?.map((price) => {
           return (
             <div>
