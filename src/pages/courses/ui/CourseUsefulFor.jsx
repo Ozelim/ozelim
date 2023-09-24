@@ -133,7 +133,7 @@ export const CourseUsefulFor = ({price}) => {
                   </p>
                 </li>
               )}
-              {price?.[4] && (
+              {price?.[4]?.length !== 0 && (
                 <li className="flex gap-4">
                   <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
                 <p className="text">
