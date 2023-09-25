@@ -4,7 +4,8 @@ import { Controller, useForm } from 'react-hook-form'
 import { Button, PasswordInput } from '@mantine/core'
 import { resetPassword } from '../model/actions'
 import * as yup from 'yup'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { showNotification } from '@mantine/notifications'
 
 const passwordSchema = yup.object({
   password: yup.string().min(8, "Минимум 8 символов").max(20, "Максимум 20 символов").required("Пароль обязателен для заполнения"),
@@ -13,6 +14,7 @@ const passwordSchema = yup.object({
 
 export const NewPassword = () => {
 
+  const navigate = useNavigate()
   const [params] = useSearchParams()
 
   const { control, handleSubmit, setValue, clearErrors, formState: {errors, isSubmitting, isLoading} } = useForm({
@@ -34,6 +36,12 @@ export const NewPassword = () => {
       data?.password, 
     )
     .then(res => {
+      showNotification({
+        title: 'Восстановление пароля', 
+        message: 'Пароль измененм успешно',
+        color: 'green'
+      })
+      navigate('/login')
       // onComplete(res)
       console.log(res);
     })
