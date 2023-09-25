@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDisclosure } from '@mantine/hooks'
-import { Button, Group, Modal, NumberInput, PinInput, Select, TextInput } from '@mantine/core'
+import { Button, Group, LoadingOverlay, Modal, NumberInput, PinInput, Select, TextInput } from '@mantine/core'
 import { Controller, useForm } from 'react-hook-form'
 import { pb } from 'shared/api'
 import { openConfirmModal } from '@mantine/modals'
@@ -12,6 +12,8 @@ export const Withdraw = () => {
   const {user} = useAuth()
 
   const [opened, { open, close }] = useDisclosure(false)
+
+  const [loading, setLoading] = React.useState(false)
 
   const banks = [
     "Народный банк Казахстана",
@@ -37,6 +39,7 @@ export const Withdraw = () => {
   const [card, setCard] = React.useState('')
 
   async function confirmWithdraw () {
+    setLoading(true)
     await pb.collection('withdraws').create({
       ...withdraw,
       card: card,
@@ -53,7 +56,11 @@ export const Withdraw = () => {
           message: 'Заявка на вывод подана',
           color: 'green',
         })
+        window.location.reload()
       })
+    })
+    .catch(err => {
+      setLoading(false)
     })
   }
 
@@ -92,48 +99,55 @@ export const Withdraw = () => {
     card.length == 19
 
   return (
-    <div className="space-y-2 mt-2">
-      <Modal centered opened={opened} onClose={close} title="Вывод">
-        <div className="flex flex-col gap-2">
-          <TextInput
-            description='Минимально 100'
-            placeholder="500"
-            label="Сумма"
-            variant="filled"
-            name="sum"
-            onChange={handleWithdrawChange}
-          />
-          <Select
-            data={banks}
-            label='Банк:'
-            onChange={(e) => setWithdraw({...withdraw, bank: e})}
-          />
-          <TextInput
-            value={handleCardDisplay()}
-            onChange={(e) => setCard(e.currentTarget.value)}
-            maxLength={19}
-            placeholder="8888 8888 8888 8888"
-            label="Карта для вывода"
-            variant="filled"
-          />
-          <TextInput
-            placeholder="RAUAN GOSLING"
-            label="Владелец карты"
-            variant="filled"
-            name="owner"
-            onChange={handleWithdrawChange}
-          />
+    <div>
+      <LoadingOverlay visible={loading} />
+      <div className="space-y-2 mt-2">
+        <Modal centered opened={opened} onClose={close} title="Вывод">
+          <div className="flex flex-col gap-2">
+            <TextInput
+              description='Минимально 100'
+              placeholder="500"
+              label="Сумма"
+              variant="filled"
+              name="sum"
+              onChange={handleWithdrawChange}
+            />
+            <Select
+              data={banks}
+              label='Банк:'
+              onChange={(e) => setWithdraw({...withdraw, bank: e})}
+            />
+            <TextInput
+              value={handleCardDisplay()}
+              onChange={(e) => setCard(e.currentTarget.value)}
+              maxLength={19}
+              placeholder="8888 8888 8888 8888"
+              label="Карта для вывода"
+              variant="filled"
+            />
+            <TextInput
+              placeholder="RAUAN GOSLING"
+              label="Владелец карты"
+              variant="filled"
+              name="owner"
+              onChange={handleWithdrawChange}
+            />
 
-          <div className="mt-4">
-            <Button fullWidth onClick={confirm} disabled={!disabled}>
-              Подтвердить
-            </Button>
+            <div className="mt-4">
+              <Button 
+                fullWidth 
+                onClick={confirm} 
+                disabled={!disabled}
+              >
+                Подтвердить
+              </Button>
+            </div>
           </div>
-        </div>
-      </Modal>
-      <Button fullWidth onClick={open}>
-        Вывод
-      </Button>
+        </Modal>
+        <Button fullWidth onClick={open}>
+          Вывод
+        </Button>
+      </div>
     </div>
   )
 }
