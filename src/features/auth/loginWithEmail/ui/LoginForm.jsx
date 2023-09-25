@@ -4,6 +4,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { loginSchema } from '../model/loginSchema'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { loginWithEmail } from '../model/login'
+import { Link } from 'react-router-dom'
 
 export const LoginForm = ({onComplete}) => {
 
@@ -74,6 +75,7 @@ export const LoginForm = ({onComplete}) => {
         {error && (
           <p className='text-red-500 text-sm mt-4'>{error}</p>
         )}
+        <Link to={'https://oz-elim.kz/login?reset=true'} className='underline text-gray-500 text-sm mt-4'>Восстановить пароль</Link>
         <Button 
           className='mt-4' 
           type='submit'
