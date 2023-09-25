@@ -91,8 +91,8 @@ export const Withdraw = () => {
   function handleWithdrawChange(e) {
     const { value, name } = e.currentTarget
     if (name === 'sum') {
-      if (/^[0-9\b]+$/.test(value)) {
-        setWithdraw({ ...withdraw, sum: value.trim()})
+      if (/^[0-9\b]+$/.test(value) || value === '') {
+        setWithdraw({ ...withdraw, sum: value})
       }
       return
     }
@@ -122,6 +122,7 @@ export const Withdraw = () => {
             <Select
               data={banks}
               label='Банк:'
+              value={withdraw?.bank}
               onChange={(e) => setWithdraw({...withdraw, bank: e})}
             />
             <TextInput
