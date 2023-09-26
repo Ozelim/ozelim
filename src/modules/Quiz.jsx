@@ -86,8 +86,8 @@ export const Quiz = () => {
               <p className="text-center text text-black text-2xl font-bold">
                 Ответьте на вопросы и ожидайте консультацию
               </p>
+              <p className='text-center text'>(Услуга платная)</p>
             </div>
-
             <Stepper
               allowNextStepsSelect={false}
               active={step}
