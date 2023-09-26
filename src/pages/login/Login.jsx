@@ -4,6 +4,7 @@ import { SignupForm } from 'features/auth/signupWithLink'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { showNotification } from '@mantine/notifications'
 import { useAuth } from 'shared/hooks'
+import { NewPassword, SendResetToEmail } from 'features/auth/forgotPassword'
 
 export const Login = () => {
 
@@ -33,6 +34,18 @@ export const Login = () => {
   if (params.get('id')) return (
     <div className='max-w-sm mx-auto'>
       <SignupForm/>
+    </div>
+  )
+
+  if (params.get('token')) return (
+    <div className='max-w-sm mx-auto'>
+      <NewPassword/>
+    </div>
+  )
+
+  if (params.get('reset')) return (
+    <div className='max-w-sm mx-auto h-full'>
+      <SendResetToEmail/>
     </div>
   )
 

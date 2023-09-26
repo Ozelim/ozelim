@@ -225,7 +225,6 @@ export const SignupForm = () => {
           </Button>
         </form>
       </div>
-
     </>
   )
 }
