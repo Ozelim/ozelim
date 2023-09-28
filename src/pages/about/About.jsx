@@ -124,20 +124,9 @@ export const About = () => {
             <h1 className="text-4xl font-medium text-primary-500">
               {headings?.bond}
             </h1>
-            <div className='grid md:grid-cols-2 gap-8 mt-5 max-w-3xl mx-auto'>
+            <div className='grid gap-8 mt-5 max-w-3xl mx-auto'>
               <p className="text text-left">{text?.bond}</p>
-              <div className='text text-left'>
-                <p>
-                  ТОО «Saigu Travel»
-                </p>
-                <p>
-                  140000 г. Павлодар, ул. Гагарина 50
-                </p>
-                <p>
-
-                </p>
-                e-mail: sk-pvl@mail.ru 
-              </div>
+       
             </div>
             <div className="flex justify-center items-center gap-10 mt-10">
               <a 

@@ -29,6 +29,18 @@ export const Footer = () => {
                 />
               </a>
             </div>
+            <div className='text text-gray-400 text-left'>
+              <p>
+                ТОО «Saigu Travel»
+              </p>
+              <p>
+                140000 г. Павлодар, ул. Гагарина 50
+              </p>
+              <p>
+
+              </p>
+              e-mail: sk-pvl@mail.ru 
+            </div>
             <div className="grid grid-cols-2 gap-2 sm:gap-2 sm:grid-cols-3">
               <div>
                 <ul className="text-gray-600 dark:text-gray-400 font-medium">
@@ -85,7 +97,7 @@ export const Footer = () => {
                     <span onClick={matches ? open : () => {}} className="hover:underline">
                       {matches 
                         ? 'Польз. соглашение'
-                        : <a href={'/policy.pdf'} target='_blank'>Польз. соглашение</a>
+                        : <a href={'/policy.pdf'} target='_blank'>Политика конф.</a>
                       }
                     </span>
                   </li>
