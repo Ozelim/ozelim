@@ -96,7 +96,7 @@ export const Footer = () => {
                   <li>
                     <span onClick={matches ? open : () => {}} className="hover:underline">
                       {matches 
-                        ? 'Польз. соглашение'
+                        ? 'Политика конф.'
                         : <a href={'/policy.pdf'} target='_blank'>Политика конф.</a>
                       }
                     </span>
