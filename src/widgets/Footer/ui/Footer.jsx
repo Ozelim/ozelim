@@ -57,7 +57,7 @@ export const Footer = () => {
                       href="https://oz-elim.kz/program"
                       className="hover:underline"
                     >
-                      Партнерская программа
+                      Дистрибьюторская программа
                     </a>
                   </li>
                 </ul>
