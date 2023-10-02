@@ -84,7 +84,6 @@ export const Footer = () => {
                         <a
                           href="/dogone.pdf"
                           target='_blank'
-                          className="hover:underline"
                         >
                           Договор оферты
                         </a>
