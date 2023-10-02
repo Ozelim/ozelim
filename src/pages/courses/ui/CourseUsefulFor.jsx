@@ -14,13 +14,7 @@ export const CourseUsefulFor = ({price}) => {
 
   const {headings, text, images} = usePageData('price')
 
-  async function submit (data) {
-    return await pb.collection('bids').create({
-      ...data,
-      type: 'price',
-      status: 'created',
-    })
-  }
+
   
   return (
     <div className="w-full">
@@ -142,13 +136,6 @@ export const CourseUsefulFor = ({price}) => {
                 </li>
               )}
               </ul>
-              <div className="mt-6">
-                <HealthLink 
-                  onSubmit={submit} 
-                  label='Заказать услугу'
-                />
-                {/* <Button size="lg">Записаться на курс</Button> */}
-              </div>
             </div>
           </div>
         )}

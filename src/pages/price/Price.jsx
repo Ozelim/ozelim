@@ -3,12 +3,21 @@ import { PriceList } from 'modules/PriceList'
 import { CourseUsefulFor } from 'pages/courses/ui/CourseUsefulFor'
 import { pb } from 'shared/api'
 import { usePageData } from 'shared/hooks'
+import { HealthLink } from 'shared/ui/HealthLink'
 
 async function getPrices () {
   return await pb.collection('prices').getFullList({expand: 'prices'})
 }
 
 export const Price = () => {
+
+  async function submit (data) {
+    return await pb.collection('bids').create({
+      ...data,
+      type: 'price',
+      status: 'created',
+    })
+  }
 
   const {text, headings} = usePageData('price')
 
@@ -29,6 +38,13 @@ export const Price = () => {
             <div>
               <CourseUsefulFor price={price} />
               <PriceList list={price?.expand?.prices} />
+              <div className="mt-6">
+                <HealthLink
+                  onSubmit={submit} 
+                  label='Заказать услугу'
+                />
+                {/* <Button size="lg">Записаться на курс</Button> */}
+              </div>
             </div>
           )
         })}
