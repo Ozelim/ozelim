@@ -82,7 +82,7 @@ export const Footer = () => {
                       ? 'Договор оферты'
                       :
                         <a
-                          href="/1dog.pdf"
+                          href="/dogone.pdf"
                           target='_blank'
                           className="hover:underline"
                         >
