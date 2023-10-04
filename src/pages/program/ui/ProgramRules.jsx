@@ -3,7 +3,7 @@ import { useDisclosure, useMediaQuery } from '@mantine/hooks'
 import React from 'react'
 import { getExtension, getImageUrl } from 'shared/lib'
 
-import test from 'shared/assets/images/test.pdf'
+import dog from 'shared/assets/images/dogtwo.pdf'
 
 export const ProgramRules = ({ headings, text }) => {
 
@@ -33,7 +33,7 @@ export const ProgramRules = ({ headings, text }) => {
                   <Button size="md" className="mt-5" onClick={matches ? open : () => {}}>
                     {matches 
                       ? 'Договор оферты'
-                      : <a href={'/test.pdf'} target='_blank'> Договор оферты</a>
+                      : <a href={'/dogtwo.pdf'} target='_blank'> Договор оферты</a>
                     }
                   </Button>
                 </Center>
@@ -50,7 +50,7 @@ export const ProgramRules = ({ headings, text }) => {
       >
         <iframe 
           className="w-full h-screen" 
-          src={test} 
+          src={dog} 
           frameborder="0" 
         />
       </Modal>

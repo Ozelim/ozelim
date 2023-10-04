@@ -7,6 +7,7 @@ import { useDisclosure, useMediaQuery } from '@mantine/hooks'
 
 import test from 'shared/assets/images/policy.pdf'
 import { Link, useNavigate } from 'react-router-dom'
+import dog from 'shared/assets/images/dogone.pdf'
 
 const date = new Date()
 
@@ -15,6 +16,8 @@ export const Footer = () => {
   const navigate = useNavigate()
 
   const [opened, { open, close }] = useDisclosure(false)
+
+  const [d, setD] = React.useState(false)
 
   const matches = useMediaQuery(`(min-width: 767px)`)
 
@@ -30,7 +33,7 @@ export const Footer = () => {
       <footer className="bg-white dark:bg-gray-800">
         <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
           <div className="md:flex md:justify-between">
-            <div className="mb-6 md:mb-0">
+            <div className="mb-6  md:mb-0">
               <a href="https://oz-elim.kz" className="flex items-center">
                 <img
                   src={ozelimlogo}
@@ -39,7 +42,7 @@ export const Footer = () => {
                 />
               </a>
             </div>
-            <div className='text text-gray-400 text-left'>
+            <div className='text text-gray-400 text-left mb-4 md:mb-0'>
               <p>
                 ТОО «Saigu Travel»
               </p>
@@ -47,9 +50,10 @@ export const Footer = () => {
                 140000 г. Павлодар, ул. Гагарина 50
               </p>
               <p>
-
+                e-mail: sk-pvl@mail.ru 
               </p>
-              e-mail: sk-pvl@mail.ru 
+              <p>Служба поддержки: +7 (705) 176 9699</p>
+              
             </div>
             <div className="grid grid-cols-2 gap-2 sm:gap-2 sm:grid-cols-3">
               <div>
@@ -64,10 +68,10 @@ export const Footer = () => {
                   </li>
                   <li>
                     <a
-                      href="https://oz-elim.kz/program"
+                      href="https://oz-elim.kz/health"
                       className="hover:underline"
                     >
-                      Дистрибьюторская программа
+                      Твое здоровье
                     </a>
                   </li>
                 </ul>
@@ -86,12 +90,18 @@ export const Footer = () => {
                     {/* </Link> */}
                   </li>
                   <li className="mb-4">
-                    <a
-                      href="https://oz-elim.kz/charity-fund"
-                      className="hover:underline"
-                    >
-                      Благотворительность
-                    </a>
+                  <span onClick={matches ? () => setD(true) : () => {}} className="hover:underline">
+                    {matches 
+                      ? 'Договор оферты'
+                      :
+                        <a
+                          href="/dogone.pdf"
+                          target='_blank'
+                        >
+                          Договор оферты
+                        </a>
+                    }
+                  </span>                    
                   </li>
                 </ul>
               </div>
@@ -109,8 +119,8 @@ export const Footer = () => {
                   <li>
                     <span onClick={matches ? open : () => {}} className="hover:underline">
                       {matches 
-                        ? 'Политика конф.'
-                        : <a href={'/policy.pdf'} target='_blank'>Политика конф.</a>
+                        ? 'Политика конфиденциальности'
+                        : <a href={'/policy.pdf'} target='_blank'>Политика конфиденциальности</a>
                       }
                     </span>
                   </li>
@@ -165,6 +175,18 @@ export const Footer = () => {
         <iframe 
           className="w-full h-screen" 
           src={test} 
+          frameborder="0" 
+        />
+      </Modal>
+      <Modal
+        opened={d} 
+        onClose={setD} 
+        centered 
+        size={'xl'}
+      >
+        <iframe 
+          className="w-full h-screen" 
+          src={dog} 
           frameborder="0" 
         />
       </Modal>

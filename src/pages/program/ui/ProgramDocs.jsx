@@ -21,7 +21,7 @@ export const ProgramDocs = () => {
     <>
       <div className="w-full">
         <div className="container">
-          <section id="docs" className=" mt-10">
+          <section id="docs" className="mt-10">
             <div className="text-center">
               <Checkbox
                 onChange={onChangeChecked}
@@ -34,7 +34,7 @@ export const ProgramDocs = () => {
                       >
                         {matches 
                           ? 'условия пользовательского соглашения'
-                          : <a href={'/policy.pdf'} target='_blank'> условия пользовательского соглашения</a>
+                          : <a href={'/test.pdf'} target='_blank'> условия пользовательского соглашения</a>
                         }
                        
                       </span>, и договора оферты."

@@ -122,7 +122,7 @@ export const About = () => {
         <div className="container">
           <div className="text-center">
             <h1 className="text-4xl font-medium text-primary-500">
-              {headings?.bond}
+              {headings?.bond} 
             </h1>
             <div className='grid gap-8 mt-5 max-w-3xl mx-auto'>
               <p className="text text-left">{text?.bond}</p>
@@ -157,12 +157,12 @@ export const About = () => {
                 <p className="text-primary-600 mt-2">YouTube</p>
               </a>
             </div>
-            <h3 className="mt-5 font-medium text-[#2a2a2a] text-xl md:text-2xl">
+            {/* <h3 className="mt-5 font-medium text-[#2a2a2a] text-xl md:text-2xl">
               {headings?.bond2}
             </h3>
             <p className="text-primary-600 text-xl font-medium">
-              {text?.bond2}
-            </p>
+              {text?.bond2} asd
+            </p> */}
           </div>
         </div>
       </section>
