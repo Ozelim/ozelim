@@ -12,22 +12,17 @@ const schema = yup.object({
   email: yup.string().email("Неверный формат почты").required("Заполните данное поле"),
 })
 
-
-export function Modal({ children, onSubmit, buttonProps, data }) {
+export function Modal({ children, onSubmit, buttonProps, data, resort }) {
 
   const [opened, { open, close }] = useDisclosure(false)
 
-  const {
-    control,
-    handleSubmit,
-    clearErrors,
-    setValue,
-    formState: { errors },
+  const { control, handleSubmit, clearErrors, setValue, formState: { errors },
   } = useForm({
     values: {
       name: '',
       phone: '',
       email: '',
+      resort: '',
     },
     resolver: yupResolver(schema),
   })
@@ -114,6 +109,24 @@ export function Modal({ children, onSubmit, buttonProps, data }) {
               />
             )}
           />
+          {resort && (
+            <Controller
+              name="resort"
+              control={control}
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  placeholder="Название курорта"
+                  label="Курорт"
+                  variant="filled"
+                  error={errors?.resort?.message}
+                  onChange={(e) => onChange('resort', e.currentTarget.value)}
+                  // disabled={isSubmitting}
+                  required
+                />
+              )}
+            />
+          )}
           <Button 
             className="mt-4" 
             type="submit" 

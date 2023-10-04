@@ -66,13 +66,13 @@ export const ResortDetails = ({resort}) => {
             <a href={`https://wa.me/${resort?.whats}`} target="_blank">
               <div className="flex items-center gap-2 mt-4">
                 <img src={WhatsApp} className="w-10" />
-                <p>WhatsApp</p>
+                <p>Отправить заявку</p>
               </div>
             </a>
 
           </div>
         </div>
-        <div className="w-full mb-4">
+        {/* <div className="w-full mb-4">
           <HealthLink 
             label={'Отправить заявку'} 
             buttonProps={{
@@ -81,7 +81,7 @@ export const ResortDetails = ({resort}) => {
             onSubmit={submit}
             data={resort?.id}
           />
-        </div>
+        </div> */}
       </div>
       <Modal centered title="Заявка" opened={modal} onClose={setModal}>
         <div className="space-y-4">

@@ -6,14 +6,24 @@ import { Modal } from '@mantine/core'
 import { useDisclosure, useMediaQuery } from '@mantine/hooks'
 
 import test from 'shared/assets/images/policy.pdf'
+import { Link, useNavigate } from 'react-router-dom'
 
 const date = new Date()
 
 export const Footer = () => {
 
+  const navigate = useNavigate()
+
   const [opened, { open, close }] = useDisclosure(false)
 
   const matches = useMediaQuery(`(min-width: 767px)`)
+
+  function fck () {
+    navigate('/')
+    setTimeout(() => {
+      window.scrollTo(0, 9999)
+    }, 100)
+  }
 
   return (
     <>
@@ -65,12 +75,15 @@ export const Footer = () => {
               <div>
                 <ul className="text-gray-600 dark:text-gray-400 font-medium">
                   <li className="sm:mb-4">
-                    <a
-                      href="https://oz-elim.kz/price"
-                      className="hover:underline "
-                    >
-                      Прайс лист
-                    </a>
+                    {/* <Link to="jopa"> */}
+                      <span
+                        // href="https://oz-elim.kz/price"
+                        className="hover:underline "
+                        onClick={fck}
+                      >
+                        Сотрудничество
+                      </span>
+                    {/* </Link> */}
                   </li>
                   <li className="mb-4">
                     <a
