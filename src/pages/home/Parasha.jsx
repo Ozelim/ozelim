@@ -4,8 +4,11 @@ import { HealthLink } from 'shared/ui/HealthLink'
 import { useDisclosure, useMediaQuery } from '@mantine/hooks'
 
 import test from 'shared/assets/images/policy.pdf'
+import { usePageData } from 'shared/hooks'
 
 export const Parasha = () => {
+
+  const {text, headings} = usePageData('stats')
 
   const [isChecked, setIsChecked] = React.useState(true)
   const [opened, { open, close }] = useDisclosure(false)
@@ -32,20 +35,20 @@ export const Parasha = () => {
     <>
       <section className="bg-[#F7F7F5] mt-8 lg:mt-16 rounded-[20px]" id='jopa'>
         <h2 className="text-[35px] text-teal-500 font-bold">
-          Заголовок
+          {headings?.[2]}
         </h2>
         <div className="grid md:grid-cols-2 md:gap-10">
           <div className="">
             <p className="mt-5 font-medium">
-              текст описание текст описание текст описание текст описание текст описание текст описание текст описание 
+              {text?.z1}
             </p>
             <p className="mt-5  font-medium">
-            текст описание текст описание текст описание текст описание текст описание текст описание текст описание 
+              {text?.z1}
             </p> 
           </div>
           <div className="mt-5">
             <p className="text-[#27272D] text-center">
-              текст описание текст описание текст описание текст описание текст описание текст описание текст описание 
+              {text?.z1}
             </p>
             <Checkbox
               onChange={onChangeChecked}
