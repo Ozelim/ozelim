@@ -1,6 +1,6 @@
 import { Button } from '@mantine/core'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-scroll'
 import Kazmap from 'shared/assets/images/map-kz.png'
 
 export const Franchise = () => {
@@ -17,7 +17,7 @@ export const Franchise = () => {
               <Button component={Link} to="/about" size="md">
                 Подробнее
               </Button>
-              <Link to="/program">
+              <Link to="jopa" spy smooth>
                 <Button size="md" className="ml-3">
                   Регистрация
                 </Button>

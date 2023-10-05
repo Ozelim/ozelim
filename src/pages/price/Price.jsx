@@ -16,7 +16,7 @@ async function getPrices () {
 
 export const Price = () => {
 
-  const matches = useMediaQuery(`(max-width: 1100px)`)
+  const matches = useMediaQuery(`(min-width: 767px)`)
 
   async function submit (data) {
     return await pb.collection('bids').create({
@@ -110,7 +110,7 @@ export const Price = () => {
                 <span className='text-lg underline'>
                   {matches 
                     ? 'Отмена заявки и возврат денег (.doc)'
-                    : <a href={'/dogone.pdf'} target='_blank'>Отмена заявки и возврат денег (.doc)</a>
+                    : <a href={'/voz.pdf'} target='_blank'>Отмена заявки и возврат денег (.doc)</a>
                   }
                 </span>
               </li>
