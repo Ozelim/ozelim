@@ -42,15 +42,15 @@ export const Parasha = () => {
             <p className="mt-5 font-medium">
               {text?.z1}
             </p>
-            <p className="mt-5  font-medium">
+            {/* <p className="mt-5  font-medium">
               {text?.z1}
-            </p> 
+            </p>  */}
           </div>
           <div className="mt-5">
-            <p className="text-[#27272D] text-center">
+            {/* <p className="text-[#27272D] text-center">
               {text?.z1}
-            </p>
-            <Checkbox
+            </p> */}
+            {/* <Checkbox
               onChange={onChangeChecked}
               className="flex justify-center mt-5"
               label={
@@ -67,7 +67,7 @@ export const Parasha = () => {
                     </span>, и договора оферты."
                 </>
               }
-            />
+            /> */}
             <Center>
               <HealthLink
                 label='Подать заявку'

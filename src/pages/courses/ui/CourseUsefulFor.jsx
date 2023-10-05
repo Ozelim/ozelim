@@ -150,7 +150,7 @@ export const CourseUsefulFor = ({price}) => {
                   </li>
                 )}
                 </ul>
-                <div className="mt-6">
+                {/* <div className="mt-6">
                   <Checkbox
                     onChange={onChangeChecked}
                     className="flex justify-center -mb-4"
@@ -176,7 +176,7 @@ export const CourseUsefulFor = ({price}) => {
                       disabled: isChecked
                     }}
                   />
-                </div>
+                </div> */}
               </div>
             </div>
           )}

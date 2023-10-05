@@ -8,6 +8,7 @@ import { useDisclosure, useMediaQuery } from '@mantine/hooks'
 import { Checkbox, Modal } from '@mantine/core'
 
 import test from 'shared/assets/images/policy.pdf'
+import voz from 'shared/assets/images/voz.pdf'
 
 async function getPrices () {
   return await pb.collection('prices').getFullList({expand: 'prices'})
@@ -44,6 +45,9 @@ export const Price = () => {
     setIsChecked(!isChecked)
   }
 
+  const [a, setA] = React.useState(false)
+  const [v, setV] = React.useState(false)
+
   return (
     <>
       <div>
@@ -63,12 +67,19 @@ export const Price = () => {
                             className='underline cursor-pointer' 
                             onClick={matches ? open : () => {}}
                           >
-                            {matches 
+                            {/* {matches 
                               ? 'условия пользовательского соглашения'
                               : <a href={'/policy.pdf'} target='_blank'> условия пользовательского соглашения</a>
+                            } */}
+                          </span> условия <span
+                            className='underline cursor-pointer' 
+                            onClick={matches ? () => setA(true) : () => {}}
+                          >
+                            {matches 
+                              ? 'условия пользовательского соглашения'
+                              : <a href={'/dogone.pdf'} target='_blank'>договора оферты</a>
                             }
-                          
-                          </span>, и договора оферты."
+                          </span>
                       </>
                     }
                   />
@@ -94,6 +105,15 @@ export const Price = () => {
           <div>
             <h3 className='text-2xl text-primary-600 font-bold'>{headings?.q1}</h3>
             <ul className='mt-4'>
+              <li className='flex gap-4'>
+                <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                <span className='text-lg underline'>
+                  {matches 
+                    ? 'Отмена заявки и возврат денег (.doc)'
+                    : <a href={'/dogone.pdf'} target='_blank'>Отмена заявки и возврат денег (.doc)</a>
+                  }
+                </span>
+              </li>
               {text?.q1 && (
                 <li className='flex gap-4'>
                   <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
@@ -139,6 +159,28 @@ export const Price = () => {
         <embed 
           className="w-full h-screen" 
           src={test} 
+        />
+      </Modal>
+      <Modal
+        opened={a} 
+        onClose={setA} 
+        centered 
+        size={'xl'}
+      >
+        <embed 
+          className="w-full h-screen" 
+          src={test} 
+        />
+      </Modal>
+      <Modal
+        opened={v} 
+        onClose={setV} 
+        centered 
+        size={'xl'}
+      >
+        <embed 
+          className="w-full h-screen" 
+          src={voz} 
         />
       </Modal>
     </>
