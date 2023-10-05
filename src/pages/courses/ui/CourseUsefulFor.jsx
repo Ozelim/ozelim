@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from '@mantine/core'
+import { Button, Checkbox } from '@mantine/core'
 import { useDisclosure, useMediaQuery } from '@mantine/hooks'
 import { usePageData } from 'shared/hooks'
 import { getImageUrl } from 'shared/lib'
