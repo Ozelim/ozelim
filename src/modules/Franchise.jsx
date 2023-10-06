@@ -19,7 +19,7 @@ export const Franchise = () => {
               </Button>
               <Link to="jopa" spy smooth>
                 <Button size="md" className="ml-3">
-                  Регистрация
+                  Сотрудничество
                 </Button>
               </Link>
             </div>

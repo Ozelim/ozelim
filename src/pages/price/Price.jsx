@@ -167,7 +167,7 @@ export const Price = () => {
       </Modal>
       <Modal
         opened={a} 
-        onClose={setA} 
+        onClose={() => setA(false)} 
         centered 
         size={'xl'}
       >
@@ -178,7 +178,7 @@ export const Price = () => {
       </Modal>
       <Modal
         opened={v} 
-        onClose={setV} 
+        onClose={() => setV(false)} 
         centered 
         size={'xl'}
       >
