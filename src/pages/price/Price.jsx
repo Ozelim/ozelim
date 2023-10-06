@@ -16,7 +16,7 @@ async function getPrices () {
 
 export const Price = () => {
 
-  const matches = useMediaQuery(`(max-width: 1100px)`)
+  const matches = useMediaQuery(`(min-width: 767px)`)
 
   async function submit (data) {
     return await pb.collection('bids').create({
@@ -105,15 +105,7 @@ export const Price = () => {
           <div>
             <h3 className='text-2xl text-primary-600 font-bold'>{headings?.q1}</h3>
             <ul className='mt-4'>
-              <li className='flex gap-4'>
-                <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
-                <span className='text-lg underline'>
-                  {matches 
-                    ? 'Отмена заявки и возврат денег (.doc)'
-                    : <a href={'/dogone.pdf'} target='_blank'>Отмена заявки и возврат денег (.doc)</a>
-                  }
-                </span>
-              </li>
+  
               {text?.q1 && (
                 <li className='flex gap-4'>
                   <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
@@ -146,6 +138,18 @@ export const Price = () => {
                   </span>
                 </li>
               )}
+              <li className='flex gap-4'>
+                <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                <span 
+                  className='text-lg underline cursor-pointer'
+                  onClick={matches ? () => setV(true) : () => {}}
+                >
+                  {matches 
+                    ? 'Отмена заявки и возврат денег (.doc)'
+                    : <a href={'/voz.pdf'} target='_blank'>Отмена заявки и возврат денег (.doc)</a>
+                  }
+                </span>
+              </li>
             </ul>
           </div>
         </div>
