@@ -24,7 +24,7 @@ export const Footer = () => {
   function fck () {
     navigate('/')
     setTimeout(() => {
-      window.scrollTo(0, window.scrollY - 100)
+      window.scrollTo(0, 0)
     }, 100)
   }
 

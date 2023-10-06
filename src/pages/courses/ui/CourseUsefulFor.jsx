@@ -153,7 +153,7 @@ export const CourseUsefulFor = ({price}) => {
                 {/* <div className="mt-6">
                   <Checkbox
                     onChange={onChangeChecked}
-                    className="flex justify-center -mb-4"
+                    className="flex justify-center -mb-6"
                     label={
                       <>
                         "Я принимаю <span 
