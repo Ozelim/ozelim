@@ -71,7 +71,7 @@ export const Price = () => {
                               ? 'условия пользовательского соглашения'
                               : <a href={'/policy.pdf'} target='_blank'> условия пользовательского соглашения</a>
                             } */}
-                          </span> условия <span
+                          </span> <span
                             className='underline cursor-pointer' 
                             onClick={matches ? () => setA(true) : () => {}}
                           >

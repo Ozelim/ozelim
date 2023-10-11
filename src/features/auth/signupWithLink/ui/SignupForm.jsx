@@ -69,9 +69,9 @@ export const SignupForm = () => {
   }
 
   function onChange (name, val) {
-    setValue(name, val)
-    clearErrors(name)
-    setErr('')
+      setValue(name, val)
+      clearErrors(name)
+      setErr('')
   }
 
   return (
