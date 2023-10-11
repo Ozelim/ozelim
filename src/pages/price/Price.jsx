@@ -39,10 +39,10 @@ export const Price = () => {
 
   const [opened, { open, close }] = useDisclosure(false)
 
-  const [isChecked, setIsChecked] = React.useState(true)
+  const [isChecked, setIsChecked] = React.useState(null)
 
-  const onChangeChecked = () => {
-    setIsChecked(!isChecked)
+  const onChangeChecked = (val) => {
+    setIsChecked(val)
   }
 
   const [a, setA] = React.useState(false)
@@ -59,7 +59,7 @@ export const Price = () => {
                 <PriceList list={price?.expand?.prices} />
                 <div className="mt-6 px-4">
                   <Checkbox
-                    onChange={onChangeChecked}
+                    onChange={() => onChangeChecked(price?.id)}
                     className="flex justify-center -mb-4"
                     label={
                       <>
@@ -87,7 +87,7 @@ export const Price = () => {
                     onSubmit={submit} 
                     label='Заказать услугу'
                     buttonProps={{
-                      disabled: isChecked
+                      disabled: isChecked !== price?.id
                     }}
                   />
                   {/* <Button size="lg">Записаться на курс</Button> */}
