@@ -42,7 +42,11 @@ export const Price = () => {
   const [isChecked, setIsChecked] = React.useState(null)
 
   const onChangeChecked = (val) => {
-    setIsChecked(val)
+    if (val === isChecked) {
+      setIsChecked(null)
+    } else {
+      setIsChecked(val)
+    }
   }
 
   const [a, setA] = React.useState(false)
