@@ -68,7 +68,7 @@ export const Parasha = () => {
                 </>
               }
             /> */}
-            <Center>
+            {/* <Center>
               <HealthLink
                 label='Подать заявку'
                 onSubmit={submit}
@@ -76,7 +76,7 @@ export const Parasha = () => {
                 buttonProps={{
                   disabled: isChecked
                 }}
-              />
+              /> */}
               {/* <Button 
                 size="md" 
                 className="mt-2" 
@@ -88,7 +88,7 @@ export const Parasha = () => {
                   : <a href={'/test.pdf'} target='_blank'>Подать заявку</a>
                 }
               </Button> */}
-            </Center>
+            {/* </Center> */}
           </div>
         </div>
       </section>

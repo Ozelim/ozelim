@@ -39,10 +39,14 @@ export const Price = () => {
 
   const [opened, { open, close }] = useDisclosure(false)
 
-  const [isChecked, setIsChecked] = React.useState(true)
+  const [isChecked, setIsChecked] = React.useState(null)
 
-  const onChangeChecked = () => {
-    setIsChecked(!isChecked)
+  const onChangeChecked = (val) => {
+    if (val === isChecked) {
+      setIsChecked(null)
+    } else {
+      setIsChecked(val)
+    }
   }
 
   const [a, setA] = React.useState(false)
@@ -59,7 +63,7 @@ export const Price = () => {
                 <PriceList list={price?.expand?.prices} />
                 <div className="mt-6 px-4">
                   <Checkbox
-                    onChange={onChangeChecked}
+                    onChange={() => onChangeChecked(price?.id)}
                     className="flex justify-center -mb-4"
                     label={
                       <>
@@ -71,7 +75,7 @@ export const Price = () => {
                               ? 'условия пользовательского соглашения'
                               : <a href={'/policy.pdf'} target='_blank'> условия пользовательского соглашения</a>
                             } */}
-                          </span> условия <span
+                          </span> <span
                             className='underline cursor-pointer' 
                             onClick={matches ? () => setA(true) : () => {}}
                           >
@@ -87,7 +91,7 @@ export const Price = () => {
                     onSubmit={submit} 
                     label='Заказать услугу'
                     buttonProps={{
-                      disabled: isChecked
+                      disabled: isChecked !== price?.id
                     }}
                   />
                   {/* <Button size="lg">Записаться на курс</Button> */}
@@ -105,15 +109,7 @@ export const Price = () => {
           <div>
             <h3 className='text-2xl text-primary-600 font-bold'>{headings?.q1}</h3>
             <ul className='mt-4'>
-              <li className='flex gap-4'>
-                <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
-                <span className='text-lg underline'>
-                  {matches 
-                    ? 'Отмена заявки и возврат денег (.doc)'
-                    : <a href={'/voz.pdf'} target='_blank'>Отмена заявки и возврат денег (.doc)</a>
-                  }
-                </span>
-              </li>
+  
               {text?.q1 && (
                 <li className='flex gap-4'>
                   <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
@@ -146,6 +142,18 @@ export const Price = () => {
                   </span>
                 </li>
               )}
+              <li className='flex gap-4'>
+                <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                <span 
+                  className='text-lg underline cursor-pointer'
+                  onClick={matches ? () => setV(true) : () => {}}
+                >
+                  {matches 
+                    ? 'Отмена заявки и возврат денег (.doc)'
+                    : <a href={'/voz.pdf'} target='_blank'>Отмена заявки и возврат денег (.doc)</a>
+                  }
+                </span>
+              </li>
             </ul>
           </div>
         </div>
