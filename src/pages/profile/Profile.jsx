@@ -391,7 +391,7 @@ export const Profile = () => {
                 <p className='text-xl font-bold mt-2'>
                   Kaspi Pay
                 </p>
-                <a href={`https://wa.me/77051769699?text=Здравствуйте! Хочу оплатить верификацию аккаунта с ID: ${user?.id}`} target="_blank" rel="noopener noreferrer">
+                <a href={`https://wa.me/77470512252?text=Здравствуйте! Хочу оплатить верификацию аккаунта с ID: ${user?.id}`} target="_blank" rel="noopener noreferrer">
                   <Button className='mt-4'>
                     Связаться
                   </Button>
