@@ -23,6 +23,8 @@ export const useAuth = () => {
       setUser(null)
       setLoading(false)
     }
+
+    
     pb.collection('users').subscribe(pb.authStore?.model?.id, function({action, record}) {
       setUser(record ?? user)
       setLoading(false)

@@ -62,7 +62,7 @@ export const CharityFund = () => {
     
         <section className="mt-8 lg:mt-16 flex flex-col lg:flex-row gap-10">
           <img
-            className="aspect-video object-cover rounded-primary mx-auto lg:mx-0 max-w-xl"
+            className="aspect-video object-cover rounded-primary w-full mx-auto lg:mx-0 max-w-xl"
             src={getImageUrl(images, images?.[5])}
             alt="kid"
           />
