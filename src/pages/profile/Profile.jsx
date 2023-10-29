@@ -3,7 +3,7 @@ import { UserData } from 'entities/useData'
 import dayjs from 'dayjs'
 import { ReferalsList } from 'entities/referalsList'
 import { pb } from 'shared/api'
-import { Button, clsx, Loader, Table } from '@mantine/core'
+import { Button, clsx, Loader, Modal, Table } from '@mantine/core'
 import { Avatar } from 'shared/ui'
 import { useAuth } from 'shared/hooks'
 import Test from 'entities/pyramid/Test'
@@ -364,51 +364,60 @@ export const Profile = () => {
     } 
   } 
 
+  const [payModal,setPayModal] = React.useState(false)
+
   if (loading) {
     return <></>
   }
 
   if (!user?.verified) {
     return (
-      <div className="container h-full">
-        <div className='flex justify-center items-center h-full flex-col'>
-          <div className='flex gap-4 items-end'>
-            Ваш профиль не верифицирован, ваш ID: {user?.id}
-              <Button
-                compact
-                variant='outline'
-                color='red'
-                onClick={signout}
-                className='mt-2'
-              >
-                Выйти
-              </Button>
-          </div>
-            <p className='text-center mt-4 mb-4 font-bold'>Пожалуйста обратитесь в службу поддержки или выберите способ оплаты</p>
-            <div className='flex justify-between flex-col md:flex-row gap-4 mt-2'>
-              <div className='p-4 border rounded-primary shadow-md bg-white max-w-xs w-full text-center'>
-                <p className='text'>Свяжитесь с менеджером для удаленнойй оплаты</p>
-                <p className='text-xl font-bold mt-2'>
-                  Kaspi Pay
-                </p>
-                <a href={`https://wa.me/77470512252?text=Здравствуйте! Хочу оплатить верификацию аккаунта с ID: ${user?.id}`} target="_blank" rel="noopener noreferrer">
-                  <Button className='mt-4'>
-                    Связаться
-                  </Button>
-                </a>
-              </div>
-              <div className='p-4 border rounded-primary shadow-md bg-white max-w-xs w-full text-center'>
-                <p className='text'>Онлайн оплата с помощью банковской карты</p>
-                <p className='text-xl font-bold mt-2'>
-                  Visa/MasterCard
-                </p>
-                <Button className='mt-4'>
-                  Оплатить
+      <>
+        <div className="container h-full">
+          <div className='flex justify-center items-center h-full flex-col'>
+            <div className='flex gap-4 items-end'>
+              Ваш профиль не верифицирован, ваш ID: {user?.id}
+                <Button
+                  compact
+                  variant='outline'
+                  color='red'
+                  onClick={signout}
+                  className='mt-2'
+                >
+                  Выйти
                 </Button>
-              </div>
             </div>
+              <p className='text-center mt-4 mb-4 font-bold'>Пожалуйста обратитесь в службу поддержки или выберите способ оплаты</p>
+              <div className='flex justify-between flex-col md:flex-row gap-4 mt-2'>
+                <div className='p-4 border rounded-primary shadow-md bg-white max-w-xs w-full text-center'>
+                  <p className='text'>Свяжитесь с менеджером для удаленнойй оплаты</p>
+                  <p className='text-xl font-bold mt-2'>
+                    Kaspi Pay
+                  </p>
+                  <a href={`https://wa.me/77470512252?text=Здравствуйте! Хочу оплатить верификацию аккаунта с ID: ${user?.id}`} target="_blank" rel="noopener noreferrer">
+                    <Button className='mt-4'>
+                      Связаться
+                    </Button>
+                  </a>
+                </div>
+                <div className='p-4 border rounded-primary shadow-md bg-white max-w-xs w-full text-center'>
+                  <p className='text'>Онлайн оплата с помощью банковской карты</p>
+                  <p className='text-xl font-bold mt-2'>
+                    Visa/MasterCard
+                  </p>
+                  <Button className='mt-4' >
+                    Оплатить
+                  </Button>
+                </div>
+              </div>
+          </div>
         </div>
-      </div>
+        <Modal
+          opened={payModal}
+        >
+          <iframe src='' />
+        </Modal>
+      </>
     ) 
   }
 
