@@ -19,32 +19,46 @@ import { TeachComfort } from 'pages/courses/ui/TeachComfort'
 import { WhyOurCourse } from 'pages/courses/ui/WhyOurCourse'
 import React from 'react'
 import { TourOperators } from 'modules/TourOperators'
+import { Button, TextInput } from '@mantine/core'
+import { pb } from 'shared/api'
+import axios from 'axios'
 
 export const Test = () => {
 
+  const [value, setValue] = React.useState({})
+
+  async function submit (e) {
+    e.preventDefault()
+    await axios.post(`https://ecom.jysanbank.kz/ecom/api`)
+    .then(res => {
+      console.log(res, 'res');
+    })
+    .catch(err => {
+      console.log(err, 'err');
+    })
+  }
 
   return (
-    <div>
-      <Results />
-      {/* <NewFormat />
-      <PriceList />
-      <HaveQuestions />
-      <OnlineCourseManager />
-      <JobTeachPractice />
-      <WhyOurCourse />
-      <CourseAbout />
-      <TeachingProgram />
-      <TeachPacks />
-      <TeachComfort />
-      <OurPartners />
-      <CuratorCourse />
-      <TourWeb />
-      <BuyFranchise />
-      <TouristAgency />
-      <VacationPlan />
-      <Resort />
-      <Regions />
-      <TourOperators/> */}
+    <div className='flex justify-center items-center h-full'>
+      <form 
+        className='max-w-sm w-full'
+        onSubmit={submit}
+      >
+        <TextInput
+          value={value.card}
+        />
+        <TextInput
+          value={value.term}
+        />
+        <TextInput
+          value={value.cvv}
+        />
+        <Button
+          type='submit'
+        >
+          Оплатить
+        </Button>
+      </form>
     </div>
   )
 }
