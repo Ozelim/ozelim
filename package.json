@@ -1,9 +1,9 @@
 {
   "name": "oz-elim",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
-  "proxy": "https://ecom.jysanbank.kz/",
+  "proxy": "https://oz-elim.kz/",
   "scripts": {
     "dev": "vite",
     "start:dev": "concurrently \"npm run dev\" \"npm run serve\"",

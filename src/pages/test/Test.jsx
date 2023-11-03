@@ -18,7 +18,7 @@ export const Test = () => {
     formData.append('ORDER', val?.order)
     formData.append('AMOUNT', 666)
     formData.append('CURRENCY', 'KZT')
-    formData.append('MERCHANT','TEST_ECOM')
+    formData.append('MERCHANT','ECOM_JYSAN')
     formData.append('DESC','ТЕСТ')
     formData.append('DESC_ORDER', `Какая то перечень херня какая то`)
     formData.append('TERMINAL', 'WEB10004'),
@@ -57,7 +57,7 @@ export const Test = () => {
   }
 
   async function generateP () {
-    const inputString = `${val?.order};666;KZT;TEST_ECOM;WEB10004;1698922631531;69;ТЕСТ;Какая то перечень херня какая то;https://www.google.kz;`
+    const inputString = `${val?.order};666;KZT;ECOM_JYSAN;WEB10004;1698922631531;69;ТЕСТ;Какая то перечень херня какая то;https://www.google.kz;`
     const secret = '01234567890123456789012'
   
     const data  = (inputString + secret).toString()
