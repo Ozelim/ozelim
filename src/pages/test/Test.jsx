@@ -6,40 +6,31 @@ import axios from 'axios'
 
 export const Test = () => {
 
-  const [value, setValue] = React.useState({})
+  const [val, setVal] = React.useState({
+    order: '',
+  })
 
-
-   // Ваша строка значений полей заказа, к которой добавлен секретный ключ
-  const inputString = 'order=1233211234;amount=666;currency=KZT;merchant=TEST_ECOM;terminal=WEB10004;desc=ТЕСТ01234567890123456789012';
-
-  async function sha512(str) {
-    return crypto.subtle.digest("SHA-512", new TextEncoder("utf-8").encode(str)).then(buf => {
-      return Array.prototype.map.call(new Uint8Array(buf), x=>(('00'+x.toString(16)).slice(-2))).join('');
-    });
-  }
-  
+  const [p, setP] = React.useState('')
 
   async function submit (e) {
     e.preventDefault()
-    const p = await sha512(inputString)
-    console.log(p);
     const formData = new FormData()
-    formData.append('ORDER',1233211234)
-    formData.append('AMOUNT', 'KZT')
-    formData.append('CURRENCY',1233211234)
+    formData.append('ORDER', val?.order)
+    formData.append('AMOUNT', 666)
+    formData.append('CURRENCY', 'KZT')
     formData.append('MERCHANT','TEST_ECOM')
     formData.append('DESC','ТЕСТ')
-    formData.append('LANGUAGE','ru')
-    formData.append('CLIENT_ID', 69)
+    formData.append('DESC_ORDER', `Какая то перечень херня какая то`)
     formData.append('TERMINAL', 'WEB10004'),
     formData.append('NAME', 'TEST USER')
-    formData.append('crd_pan', '4413 2800 4692 5120')
-    formData.append('crd_exp', '04/23')
-    formData.append('crd_cvc', 618)
-    formData.append('NONCE', '1698922631529')
+    formData.append('LANGUAGE','ru')
+    formData.append('CLIENT_ID', 69)
+    formData.append('crd_pan', '5356 5020 0543 9678')
+    formData.append('crd_exp', '04/26')
+    formData.append('crd_cvc', 537)
+    formData.append('NONCE', '1698922631531')
     formData.append('EMAIL', 'iartichshev@crystalspring.kz')
-    formData.append('BACKREF', 'https://www.google.kz/#q=crystalspring.kz')
-    formData.append('DESC_ORDER', `Какая то перечень херня какая то`)
+    formData.append('BACKREF', 'https://www.google.kz')
     formData.append('P_SIGN', p)
     
     await axios.post(`https://ecom.jysanbank.kz/ecom/api`, formData
@@ -60,13 +51,37 @@ export const Test = () => {
     })
   }
 
+  function handleInputChange (e) {
+    const { name, value } = e?.currentTarget
+    setVal({...val, [name]: value})
+  }
+
+  async function generateP () {
+    const inputString = `${val?.order};666;KZT;TEST_ECOM;WEB10004;1698922631531;69;ТЕСТ;Какая то перечень херня какая то;https://www.google.kz;`
+    const secret = '01234567890123456789012'
+  
+    const data  = (inputString + secret).toString()
+  
+    async function sha512(str) {
+      return crypto.subtle.digest("SHA-512", new TextEncoder("utf-8").encode(str)).then(buf => {
+        return Array.prototype.map.call(new Uint8Array(buf), x=>(('00'+x.toString(16)).slice(-2))).join('');
+      });
+    }
+    const sign = await sha512(data) 
+    setP(sign)
+  }
+
   return (
     <div className='flex justify-center items-center h-full'>
       <form 
-        className='max-w-sm w-full'
-        onSubmit={submit}
+        className='container'
       >
         <TextInput
+          value={val?.order}
+          name='order'
+          onChange={handleInputChange}
+        />
+        {/* <TextInput
           value={value.card}
         />
         <TextInput
@@ -74,9 +89,19 @@ export const Test = () => {
         />
         <TextInput
           value={value.cvv}
-        />
+        /> */}
+
+        <div className='flex gap-4'>
+          P_SIGN: 
+          {p}
+        </div>
         <Button
-          type='submit'
+          onClick={generateP}
+        >
+          Сгенерировать
+        </Button>
+        <Button
+          onClick={submit}
         >
           Оплатить
         </Button>
