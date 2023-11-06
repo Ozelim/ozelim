@@ -68,7 +68,7 @@ export const Test = () => {
         'content-type': 'application/x-www-form-urlencoded',
         'Access-Control-Allow-Origin': 'https://oz-elim.kz',
       },
-      data: qs.stringify(data),
+      data: data,
       url: 'https://ecom.jysanbank.kz/ecom/api'
     })
     .then(res => {
