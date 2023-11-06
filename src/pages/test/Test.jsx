@@ -68,8 +68,8 @@ export const Test = () => {
         'content-type': 'application/x-www-form-urlencoded',
         'Access-Control-Allow-Origin': 'https://oz-elim.kz',
       },
-      data: data,
-      url: 'https://ecom.jysanbank.kz/ecom/api'
+      // data: data,
+      url: `https://ecom.jysanbank.kz/ecom/api?ORDER=${val?.order}&AMOUNT=666&CURRENCY=KZT&MERCHANT=ECOM_JYSAN&TERMINAL=WEB00008&LANGUAGE=ru&CLIENT_ID=85201&DESC=test&DESC_ORDER=test_crd_1%0D%0A&NAME=NAME+OF+CLIENT&EMAIL=&BACKREF=&NONCE=1699007797058&Ucaf_Flag=&Ucaf_Authentication_Data=&P_SIGN=5a80185aa02a04791e74e98770f00807d463098f2a78d73e1bf12b917792b1afc2f4c5faed4af5d355a2d45e5b828c614feb8b7d503ed009689498ed934b0a9c`
     })
     .then(res => {
       console.log(res, 'res');
