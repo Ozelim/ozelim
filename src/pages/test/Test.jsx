@@ -4,6 +4,8 @@ import { Button, TextInput } from '@mantine/core'
 import { pb } from 'shared/api'
 import axios from 'axios'
 
+import qs from 'qs'
+
 export const Test = () => {
 
   const [val, setVal] = React.useState({
@@ -32,17 +34,43 @@ export const Test = () => {
     formData.append('EMAIL', 'iartichshev@crystalspring.kz')
     formData.append('BACKREF', 'https://www.google.kz')
     formData.append('P_SIGN', p)
+
+    const data = {
+      ORDER: val?.order,
+      AMOUNT: 666,
+      CURRENCY: 'KZT',
+      MERCHANT:'ECOM_JYSAN',
+      DESC:'ТЕСТ',
+      DESC_ORDER: `Какая то перечень херня какая то`,
+      TERMINAL: 'WEB10004',
+      NAME: 'TEST USER',
+      LANGUAGE:'ru',
+      CLIENT_ID: 69,
+      crd_pan: '5356 5020 0543 9678',
+      crd_exp: '04/26',
+      crd_cvc: 537,
+      NONCE: '1698922631531',
+      EMAIL: 'iartichshev@crystalspring.kz',
+      BACKREF: 'https://www.google.kz',
+      P_SIGN: p,
+    }
+
+    const options = {
+      method: 'POST',
+      headers: {
+      },
+      data: qs.stringify(data),
+    }
     
-    await axios.post(`https://ecom.jysanbank.kz/ecom/api`, formData
-      // SHARED_SECRET: '',
-      // ORDER: 1233211234,
-      // AMOUNT: 666,
-      // CURRENCY: 'KZT',
-      // MERCHANT: 'TEST_ECOM',
-      // TERMINAL: 'WEB10004',
-      // DESC: 'ТЕСТ',
-      // P_SIGN: `ec15a559be256dba0194cc80f92ffaf5e76b72b451aba5ec904ef01c065b5d4df31001fb72b2560b690f2b8c23b2f3547ee00df1df439540f1d5542469088734`
-    )
+    await axios({
+      method: 'POST',
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded',
+        'Access-Control-Allow-Origin': 'https://oz-elim.kz',
+        
+      },
+      url: 'https://ecom.jysanbank.kz/ecom/api'
+    })
     .then(res => {
       console.log(res, 'res');
     })
