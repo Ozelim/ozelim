@@ -6,6 +6,8 @@ import axios from 'axios'
 
 import qs from 'qs'
 
+import {SHA512} from 'crypto-js'
+
 export const Test = () => {
 
   const [val, setVal] = React.useState({
@@ -13,6 +15,27 @@ export const Test = () => {
   })
 
   const [p, setP] = React.useState('')
+
+  const data = {
+    ORDER: val?.order,
+    AMOUNT: 666,
+    CURRENCY: 'KZT',
+    MERCHANT:'ECOM_JYSAN',
+    TERMINAL: 'WEB00008',
+    NONCE: '1023958673',
+    DESC:'ТЕСТ',
+    P_SIGN: p,
+    // DESC_ORDER: `Какая то перечень херня какая то`,
+    // NAME: 'TEST USER',
+    // LANGUAGE:'ru',
+    // CLIENT_ID: 69,
+    // crd_pan: '5356 5020 0543 9678',
+    // crd_exp: '04/26',
+    // crd_cvc: 537,
+    // NONCE: '1698922631531',
+    // EMAIL: 'iartichshev@crystalspring.kz',
+    // BACKREF: 'https://www.google.kz',
+  }
 
   async function submit (e) {
     e.preventDefault()
@@ -35,25 +58,7 @@ export const Test = () => {
     formData.append('BACKREF', 'https://www.google.kz')
     formData.append('P_SIGN', p)
 
-    const data = {
-      ORDER: val?.order,
-      AMOUNT: 666,
-      CURRENCY: 'KZT',
-      MERCHANT:'ECOM_JYSAN',
-      DESC:'ТЕСТ',
-      DESC_ORDER: `Какая то перечень херня какая то`,
-      TERMINAL: 'WEB10004',
-      NAME: 'TEST USER',
-      LANGUAGE:'ru',
-      CLIENT_ID: 69,
-      crd_pan: '5356 5020 0543 9678',
-      crd_exp: '04/26',
-      crd_cvc: 537,
-      NONCE: '1698922631531',
-      EMAIL: 'iartichshev@crystalspring.kz',
-      BACKREF: 'https://www.google.kz',
-      P_SIGN: p,
-    }
+
 
     const options = {
       method: 'POST',
@@ -69,7 +74,7 @@ export const Test = () => {
         'Access-Control-Allow-Origin': 'https://oz-elim.kz',
       },
       data: data,
-      url: `https://ecom.jysanbank.kz/ecom/api?ORDER=${val?.order}&AMOUNT=666&CURRENCY=KZT&MERCHANT=ECOM_JYSAN&TERMINAL=WEB00008&LANGUAGE=ru&CLIENT_ID=85201&DESC=test&DESC_ORDER=test_crd_1%0D%0A&NAME=NAME+OF+CLIENT&EMAIL=&BACKREF=&NONCE=1699007797058&Ucaf_Flag=&Ucaf_Authentication_Data=&P_SIGN=${p}`
+      url: `https://ecom.jysanbank.kz/ecom/api`
     })
     .then(res => {
       console.log(res, 'res');
@@ -85,17 +90,18 @@ export const Test = () => {
   }
 
   async function generateP () {
-    const inputString = `${val?.order};666;KZT;ECOM_JYSAN;WEB10004;1698922631531;69;ТЕСТ;Какая то перечень херня какая то;https://www.google.kz;`
-    const secret = '01234567890123456789012'
+    const inputString = `${val?.order};${data?.AMOUNT};${data?.CURRENCY};${data?.MERCHANT};${data?.TERMINAL};`
+    const secret = '123456789012345678901234567890'
   
-    const data  = (inputString + secret).toString()
+    const string  = ('123456789012345678901234567890' + inputString).toString()
   
-    async function sha512(str) {
-      return crypto.subtle.digest("SHA-512", new TextEncoder("utf-8").encode(str)).then(buf => {
-        return Array.prototype.map.call(new Uint8Array(buf), x=>(('00'+x.toString(16)).slice(-2))).join('');
-      });
-    }
-    const sign = await sha512(data) 
+    // async function sha512(str) {
+    //   return crypto.subtle.digest("SHA-512", new TextEncoder("utf-8").encode(str)).then(buf => {
+    //     return Array.prototype.map.call(new Uint8Array(buf), x=>(('00'+x.toString(16)).slice(-2))).join('');
+    //   });
+    // }
+    // const sign = await sha512(string) 
+    const sign = SHA512(string).toString()
     setP(sign)
   }
 
@@ -133,6 +139,14 @@ export const Test = () => {
         >
           Оплатить
         </Button>
+        {console.log(p, 'p')}
+        {console.log(val?.order, 'order')}
+        <a 
+          href={`https://ecom.jysanbank.kz/ecom/api?ORDER=${val?.order}&AMOUNT=${data?.AMOUNT}&CURRENCY=${data?.CURRENCY}&MERCHANT=${data?.MERCHANT}&TERMINAL=${data?.TERMINAL}&DESC=tvari&P_SIGN=${p}`} target='_blank'
+          // href='https://ecom.jysanbank.kz/ecom/api?456123567;0.99;EUR;ECOMM002;ECOMM001;1699278365507;12;Cлоны от Мерчанта в ассортименте;1. Печь настольная 2000W ВУ-109 - 1шт2. Робот письменный CВВ22 - 1шт3. Дом нежилой фруктовый инд.050022 - 4 шт.Покупайте наших слонов!;iartichshev@crystalspring.kz;https://www.google.kz/?#q=crystalspring.kz;;;' target='_blank'
+        >
+          asdasd
+        </a>
       </form>
     </div>
   )
