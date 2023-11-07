@@ -25,16 +25,6 @@ export const Test = () => {
     NONCE: '1023958673',
     DESC:'ТЕСТ',
     P_SIGN: p,
-    // DESC_ORDER: `Какая то перечень херня какая то`,
-    // NAME: 'TEST USER',
-    // LANGUAGE:'ru',
-    // CLIENT_ID: 69,
-    // crd_pan: '5356 5020 0543 9678',
-    // crd_exp: '04/26',
-    // crd_cvc: 537,
-    // NONCE: '1698922631531',
-    // EMAIL: 'iartichshev@crystalspring.kz',
-    // BACKREF: 'https://www.google.kz',
   }
 
   async function submit (e) {
@@ -58,23 +48,10 @@ export const Test = () => {
     formData.append('BACKREF', 'https://www.google.kz')
     formData.append('P_SIGN', p)
 
-
-
-    const options = {
-      method: 'POST',
-      headers: {
-      },
-      data: qs.stringify(data),
-    }
-    
-    await axios({
-      method: 'GET',
+    await axios.get(`https://ecom.jysanbank.kz/ecom/api`, formData, {
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
-        'Access-Control-Allow-Origin': 'https://oz-elim.kz',
-      },
-      data: data,
-      url: `https://ecom.jysanbank.kz/ecom/api`
+      }
     })
     .then(res => {
       console.log(res, 'res');
@@ -91,16 +68,8 @@ export const Test = () => {
 
   async function generateP () {
     const inputString = `${val?.order};${data?.AMOUNT};${data?.CURRENCY};${data?.MERCHANT};${data?.TERMINAL};`
-    const secret = '123456789012345678901234567890'
-  
     const string  = ('123456789012345678901234567890' + inputString).toString()
-  
-    // async function sha512(str) {
-    //   return crypto.subtle.digest("SHA-512", new TextEncoder("utf-8").encode(str)).then(buf => {
-    //     return Array.prototype.map.call(new Uint8Array(buf), x=>(('00'+x.toString(16)).slice(-2))).join('');
-    //   });
-    // }
-    // const sign = await sha512(string) 
+ 
     const sign = SHA512(string).toString()
     setP(sign)
   }
@@ -115,16 +84,6 @@ export const Test = () => {
           name='order'
           onChange={handleInputChange}
         />
-        {/* <TextInput
-          value={value.card}
-        />
-        <TextInput
-          value={value.term}
-        />
-        <TextInput
-          value={value.cvv}
-        /> */}
-
         <div className='flex gap-4'>
           P_SIGN: 
           {p}
@@ -139,8 +98,6 @@ export const Test = () => {
         >
           Оплатить
         </Button>
-        {console.log(p, 'p')}
-        {console.log(val?.order, 'order')}
         <a 
           href={`https://ecom.jysanbank.kz/ecom/api?ORDER=${val?.order}&AMOUNT=${data?.AMOUNT}&CURRENCY=${data?.CURRENCY}&MERCHANT=${data?.MERCHANT}&TERMINAL=${data?.TERMINAL}&DESC=tvari&P_SIGN=${p}`} target='_blank'
           // href='https://ecom.jysanbank.kz/ecom/api?456123567;0.99;EUR;ECOMM002;ECOMM001;1699278365507;12;Cлоны от Мерчанта в ассортименте;1. Печь настольная 2000W ВУ-109 - 1шт2. Робот письменный CВВ22 - 1шт3. Дом нежилой фруктовый инд.050022 - 4 шт.Покупайте наших слонов!;iartichshev@crystalspring.kz;https://www.google.kz/?#q=crystalspring.kz;;;' target='_blank'
