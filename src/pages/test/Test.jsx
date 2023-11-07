@@ -18,11 +18,10 @@ export const Test = () => {
 
   const data = {
     ORDER: val?.order,
-    AMOUNT: 666,
+    AMOUNT: 100,
     CURRENCY: 'KZT',
-    MERCHANT:'ECOM_JYSAN',
-    TERMINAL: 'WEB00008',
-    NONCE: '1023958673',
+    MERCHANT:'110-R-113431490',
+    TERMINAL: '11371491',
     DESC:'ТЕСТ',
     P_SIGN: p,
   }
@@ -31,24 +30,24 @@ export const Test = () => {
     e.preventDefault()
     const formData = new FormData()
     formData.append('ORDER', val?.order)
-    formData.append('AMOUNT', 666)
-    formData.append('CURRENCY', 'KZT')
-    formData.append('MERCHANT','ECOM_JYSAN')
-    formData.append('DESC','ТЕСТ')
-    formData.append('DESC_ORDER', `Какая то перечень херня какая то`)
-    formData.append('TERMINAL', 'WEB10004'),
-    formData.append('NAME', 'TEST USER')
-    formData.append('LANGUAGE','ru')
-    formData.append('CLIENT_ID', 69)
-    formData.append('crd_pan', '5356 5020 0543 9678')
-    formData.append('crd_exp', '04/26')
-    formData.append('crd_cvc', 537)
-    formData.append('NONCE', '1698922631531')
-    formData.append('EMAIL', 'iartichshev@crystalspring.kz')
-    formData.append('BACKREF', 'https://www.google.kz')
+    formData.append('AMOUNT', data?.AMOUNT)
+    formData.append('CURRENCY', data?.CURRENCY)
+    formData.append('MERCHANT',data?.MERCHANT)
+    formData.append('TERMINAL', data?.TERMINAL),
     formData.append('P_SIGN', p)
+    formData.append('DESC','!00 тг')
+    formData.append('BACKREF', 'https://www.google.kz')
+    // formData.append('DESC_ORDER', `Какая то перечень херня какая то`)
+    // formData.append('NAME', 'TEST USER')
+    // formData.append('LANGUAGE','ru')
+    // formData.append('CLIENT_ID', 69)
+    // formData.append('crd_pan', '5356 5020 0543 9678')
+    // formData.append('crd_exp', '04/26')
+    // formData.append('crd_cvc', 537)
+    // formData.append('NONCE', '1698922631531')
+    // formData.append('EMAIL', 'iartichshev@crystalspring.kz')
 
-    await axios.get(`https://ecom.jysanbank.kz/ecom/api`, formData, {
+    await axios.post(`https://jpay.jysanbank.kz/ecom/arm`, formData, {
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
       }
@@ -68,7 +67,7 @@ export const Test = () => {
 
   async function generateP () {
     const inputString = `${val?.order};${data?.AMOUNT};${data?.CURRENCY};${data?.MERCHANT};${data?.TERMINAL};`
-    const string  = ('123456789012345678901234567890' + inputString).toString()
+    const string  = ('1586356816616841668616;' + inputString).toString()
  
     const sign = SHA512(string).toString()
     setP(sign)
