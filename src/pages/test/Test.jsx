@@ -13,17 +13,7 @@ export const Test = () => {
 
   const [p, setP] = React.useState('')
 
-  const data = {
-    ORDER: val?.order,
-    AMOUNT: 100,
-    CURRENCY: 'KZT',
-    MERCHANT:'TEST_ECOM',
-    TERMINAL: 'WEB100004',
-    NONCE: '123456789',
-    DESC:'ТЕСТ',
-    BACKREF: 'https://www.google.kz',
-    P_SIGN: p,
-  }
+
 
   async function submit (e) {
     try {
@@ -47,25 +37,31 @@ export const Test = () => {
         // formData.append('NONCE', '1698922631531')
         // formData.append('EMAIL', 'iartichshev@crystalspring.kz')
         
-        const config = {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Access-Control-Allow-Origin': 'https://oz-elim.com/',
-            'Access-Control-Allow-Credentials': 'true'
-          },
-          withCredentials: true
-        };
-      await instance.post(`https://ecom.jysanbank.kz/ecom/api`, formData, config)
-      .then(res => {
-        console.log(res, 'res');
-      })
-      // .catch(err => {
-      //   console.log(err, 'err');
-      // })
-    } catch (err) {
-      throw err
+    const data = {
+      ORDER: 357277697,
+      AMOUNT: 500,
+      CURRENCY: 'KZT',
+      MERCHANT:'ECOM_JYSAN',
+      TERMINAL: 'WEB00008',
+      NONCE: '1699357277697',
+      CLIENT_ID: '85201',
+      DESC:'test',
+      DESC_ORDER:'est_crd_1',
+      P_SIGN: `46ce30d0c6bbfc5a7f137691effb5e17d62c8822c70f0c285dc6c18701595f6de900493fe2d568d8664bc135933364a70a47d7b221c9c045c8901916c5626386`,
     }
+        
+    await instance.post('https://ecom.jysanbank.kz/ecom/api', data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    })
+    .then(res => {
+      console.log(res, 'res');
+    })
 
+    } catch (err) {
+      console.log(err, 'err');
+    }
   }
 
   function handleInputChange (e) {
@@ -74,8 +70,8 @@ export const Test = () => {
   }
 
   async function generateP () {
-    const inputString = `${val?.order};${data?.AMOUNT};${data?.CURRENCY};${data?.MERCHANT};${data?.TERMINAL};${data?.NONCE};;${data?.DESC};;;${data?.BACKREF};;;`
-    const string  = ('01234567890123456789012' + inputString).toString()
+    const inputString = `${data?.ORDER};${data?.AMOUNT};${data?.CURRENCY};${data?.MERCHANT};${data?.TERMINAL};${data?.NONCE};${data?.CLIENT_ID};${data?.DESC};${data?.DESC_ORDER};;;;;`
+    const string  = ('123456789012345678901234567890' + inputString).toString()
  
     const sign = sha512(string).toString()
     setP(sign)
