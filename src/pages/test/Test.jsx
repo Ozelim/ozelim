@@ -12,8 +12,20 @@ export const Test = () => {
   })
 
   const [p, setP] = React.useState('')
-
-
+        
+  const data = {
+    ORDER: 357277697,
+    AMOUNT: 500,
+    CURRENCY: 'KZT',
+    MERCHANT:'ECOM_JYSAN',
+    TERMINAL: 'WEB00008',
+    NONCE: '1699357277697',
+    CLIENT_ID: '85201',
+    DESC:'test',
+    DESC_ORDER:'est_crd_1',
+    P_SIGN: `46ce30d0c6bbfc5a7f137691effb5e17d62c8822c70f0c285dc6c18701595f6de900493fe2d568d8664bc135933364a70a47d7b221c9c045c8901916c5626386`,
+  }
+    
 
   async function submit (e) {
     try {
@@ -36,20 +48,7 @@ export const Test = () => {
         // formData.append('crd_cvc', 537)
         // formData.append('NONCE', '1698922631531')
         // formData.append('EMAIL', 'iartichshev@crystalspring.kz')
-        
-    const data = {
-      ORDER: 357277697,
-      AMOUNT: 500,
-      CURRENCY: 'KZT',
-      MERCHANT:'ECOM_JYSAN',
-      TERMINAL: 'WEB00008',
-      NONCE: '1699357277697',
-      CLIENT_ID: '85201',
-      DESC:'test',
-      DESC_ORDER:'est_crd_1',
-      P_SIGN: `46ce30d0c6bbfc5a7f137691effb5e17d62c8822c70f0c285dc6c18701595f6de900493fe2d568d8664bc135933364a70a47d7b221c9c045c8901916c5626386`,
-    }
-        
+  
     await instance.post('https://ecom.jysanbank.kz/ecom/api', data, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
