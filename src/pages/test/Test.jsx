@@ -3,10 +3,8 @@ import React from 'react'
 import { Button, TextInput } from '@mantine/core'
 import { pb } from 'shared/api'
 import axios from 'axios'
+import { sha512 } from 'js-sha512'
 
-import qs from 'qs'
-
-import {SHA512} from 'crypto-js'
 
 export const Test = () => {
 
@@ -20,9 +18,11 @@ export const Test = () => {
     ORDER: val?.order,
     AMOUNT: 100,
     CURRENCY: 'KZT',
-    MERCHANT:'110-R-113431490',
-    TERMINAL: '11371491',
+    MERCHANT:'TEST_ECOM',
+    TERMINAL: 'WEB100004',
+    NONCE: '123456789',
     DESC:'ТЕСТ',
+    BACKREF: 'https://www.google.kz',
     P_SIGN: p,
   }
 
@@ -33,10 +33,10 @@ export const Test = () => {
     formData.append('AMOUNT', data?.AMOUNT)
     formData.append('CURRENCY', data?.CURRENCY)
     formData.append('MERCHANT',data?.MERCHANT)
-    formData.append('TERMINAL', data?.TERMINAL),
+    formData.append('TERMINAL', data?.TERMINAL)
     formData.append('P_SIGN', p)
-    formData.append('DESC','!00 тг')
-    formData.append('BACKREF', 'https://www.google.kz')
+    formData.append('DESC', data?.DESC)
+    formData.append('BACKREF', data?.BACKREF)
     // formData.append('DESC_ORDER', `Какая то перечень херня какая то`)
     // formData.append('NAME', 'TEST USER')
     // formData.append('LANGUAGE','ru')
@@ -47,7 +47,9 @@ export const Test = () => {
     // formData.append('NONCE', '1698922631531')
     // formData.append('EMAIL', 'iartichshev@crystalspring.kz')
 
-    await axios.post(`https://jpay.jysanbank.kz/ecom/arm`, formData, {
+
+
+    await axios.post(`https://ecom.jysanbank.kz/ecom/api`, formData, {
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
       }
@@ -66,10 +68,10 @@ export const Test = () => {
   }
 
   async function generateP () {
-    const inputString = `${val?.order};${data?.AMOUNT};${data?.CURRENCY};${data?.MERCHANT};${data?.TERMINAL};`
-    const string  = ('1586356816616841668616;' + inputString).toString()
+    const inputString = `${val?.order};${data?.AMOUNT};${data?.CURRENCY};${data?.MERCHANT};${data?.TERMINAL};${data?.NONCE};;${data?.DESC};;;${data?.BACKREF};;;`
+    const string  = ('01234567890123456789012' + inputString).toString()
  
-    const sign = SHA512(string).toString()
+    const sign = sha512(string).toString()
     setP(sign)
   }
 
