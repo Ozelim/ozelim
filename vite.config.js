@@ -8,7 +8,7 @@ import jsconfigPaths from 'vite-jsconfig-paths'
 export default defineConfig({
   plugins: [react(), jsconfigPaths()],
   server: {
-    port: 3000
+    port: 4000
   }
 })
  

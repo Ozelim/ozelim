@@ -3,6 +3,7 @@ import React from 'react'
 import { Button, TextInput } from '@mantine/core'
 import { instance, pb } from 'shared/api'
 import { sha512 } from 'js-sha512'
+import axios from 'axios'
 
 
 export const Test = () => {
@@ -48,14 +49,18 @@ export const Test = () => {
         // formData.append('crd_cvc', 537)
         // formData.append('NONCE', '1698922631531')
         // formData.append('EMAIL', 'iartichshev@crystalspring.kz')
-  
-    await instance.post('https://ecom.jysanbank.kz/ecom/api', data, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    })
+    await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/pay`, data)
     .then(res => {
-      console.log(res, 'res');
+      console.log(res?.request, 'asd');
+      // const searchParams = new URLSearchParams({
+      //   ...res?.data?.qdata
+      // });
+      // console.log(searchParams, 'params');
+      // window.location.replace('')
+      // window.location.href = `https://ecom.jysanbank.kz/ecom/api/?${searchParams.toString()}`;
+      // console.log(res?.data, 'res');
+      
+      // const url = `https://ecom.jysanbank.kz/ecom/api?ORDER=447135152&AMOUNT=500&CURRENCY=KZT&MERCHANT=ECOM_JYSAN&TERMINAL=WEB00008&LANGUAGE=ru&CLIENT_ID=85201&DESC=test&DESC_ORDER=test_crd_1%0D%0A&NAME=NAME+OF+CLIENT&EMAIL=&BACKREF=&NONCE=1699447135152&Ucaf_Flag=&Ucaf_Authentication_Data=&P_SIGN=8f3c90829305944652f9ae3a824927de72d6e02133bd6bff3055597f21f3f46e6b4f2c007597a8a79913fb441583fb0aa17a19cc5823451561d8df117a9f7a2c`
     })
 
     } catch (err) {
@@ -80,6 +85,9 @@ export const Test = () => {
     <div className='flex justify-center items-center h-full'>
       <form 
         className='container'
+        action='https://ecom.jysanbank.kz/ecom/api'
+        method='post'
+        onSubmit={submit}
       >
         <TextInput
           value={val?.order}
@@ -90,13 +98,14 @@ export const Test = () => {
           P_SIGN: 
           {p}
         </div>
-        <Button
+        {/* <Button
           onClick={generateP}
         >
           Сгенерировать
-        </Button>
+        </Button> */}
         <Button
-          onClick={submit}
+          type='submit'
+          // onClick={submit}
         >
           Оплатить
         </Button>
