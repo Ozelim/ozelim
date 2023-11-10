@@ -364,28 +364,24 @@ export const Profile = () => {
     } 
   } 
 
-  if (loading) {
-    return <></>
-  }
-
   async function submit (e) {
     try {
       e.preventDefault()
-      const randomNumber = Math.floor(Math.random() * 10000000)
-      const token = `01234567890123456789012`
+      const randomNumber = Math.floor(Math.random() * 100000000)
+      const token = import.meta.env.VITE_APP_SHARED_SECRET
 
       const data = {
         ORDER: randomNumber,
-        AMOUNT: 30000,
+        AMOUNT: 100,
         CURRENCY: 'KZT',
-        MERCHANT:'TEST_ECOM',
-        TERMINAL: 'WEB10004',
+        MERCHANT:'Oz Elim',
+        TERMINAL: '11371491',
         NONCE: randomNumber + 107,
         DESC: 'Оплата',
         CLIENT_ID: user?.id,
         DESC_ORDER: 'Оплата 2',
         EMAIL: user?.email,
-        BACKREF: `localhost:4000/verification/${user?.id}`,
+        BACKREF: ``,
         Ucaf_Flag: '',
         Ucaf_Authentication_Data: '',
       }
@@ -401,19 +397,103 @@ export const Profile = () => {
         ...data,
         P_SIGN: sign
       })
-      .then(res => {
+      .then(async res => {
         const searchParams = new URLSearchParams(JSON.parse(res?.config?.data));
-        console.log(res, 'data');
-        // console.log(searchParams, 'params');
-        // window.location.replace('')
-        // console.log(res?.data, 'res');
-        const url = `https://ecom.jysanbank.kz/ecom/api?${searchParams}`
-        window.location.href = url;
+        await pb.collection('users').update(user?.id, {
+          pay: {
+            ...JSON.parse(res?.config?.data),
+            SHARED_KEY: token
+          }
+        })
+        .then(() => {
+          window.location.href = `https://ecom.jysanbank.kz/ecom/api?${searchParams}`;
+        })
       })
 
     } catch (err) {
       console.log(err, 'err');
     }
+  }
+
+  async function verifyUser(userId) {
+    // setLoading(true)
+    
+    await pb.admins.authWithPassword('helper@mail.ru', import.meta.env.VITE_APP_PASSWORD)
+    .then(async res => {
+      await pb.collection("users").update(userId, {
+        verified: true,
+      })
+      .then(async res => {
+        const sponsor = await pb.collection('users').getOne(res?.sponsor)
+        await pb.collection('users').update(sponsor?.id, {
+          referals: [...sponsor?.referals, res?.id]
+        })
+      
+        const referals = await pb.collection('users').getFullList({filter: `sponsor = '${sponsor?.id}' && verified = true`})
+  
+        if (referals?.length === 1) {
+          await pb.collection('users').update(sponsor?.id, {
+            balance: sponsor?.balance + 30000            
+          })
+          .finally(async () => {
+            await pb.authStore.clear()
+            window.location.reload()
+          })            
+          // setLoading(false)
+          return
+        }
+  
+        if (referals?.length >= 4) {
+          await pb.collection('users').update(sponsor?.id, {
+            balance: sponsor?.balance + 15000            
+          })
+          .finally(async () => {
+            await pb.authStore.clear()
+            window.location.reload()
+          })            
+          // setLoading(false)
+          return
+        }
+        // setLoading(false)
+      })
+      .catch(err => {
+        // setLoading(false)
+      })
+    })
+
+    
+  }
+
+  async function checkPaymentStatus () {
+
+    const token = import.meta.env.VITE_APP_SHARED_SECRET
+    const string = `${user?.pay?.ORDER};${user?.pay?.MERCHANT}`
+    const sign = sha512(token + string).toString()
+    if (user?.pay?.MERCHANT && user?.pay?.ORDER && !user?.verified) {
+      await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/check`, {
+        ORDER: user?.pay?.ORDER,
+        MERCHANT: user?.pay?.MERCHANT,
+        GETSTATUS: 1,
+        P_SIGN: sign,
+      })
+      .then(async res => {
+        console.log(res?.data?.includes('Обработано успешно'), 'res');
+        if (res?.data?.includes('Обработано успешно')) {
+          verifyUser(user?.id)
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    }
+  }
+
+  React.useEffect(() => {
+    checkPaymentStatus(user?.id)
+  }, [user])
+
+  if (loading) {
+    return <></>
   }
 
   if (!user?.verified) {
