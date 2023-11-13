@@ -374,7 +374,7 @@ export const Profile = () => {
         ORDER: randomNumber,
         AMOUNT: 100,
         CURRENCY: 'KZT',
-        MERCHANT:'Oz Elim',
+        MERCHANT:'110-R-113431490',
         TERMINAL: '11371491',
         NONCE: randomNumber + 107,
         DESC: 'Оплата',
@@ -398,6 +398,8 @@ export const Profile = () => {
         P_SIGN: sign
       })
       .then(async res => {
+        console.log(res, 'res');
+        console.log(res?.data, 'res data');
         const searchParams = new URLSearchParams(JSON.parse(res?.config?.data));
         await pb.collection('users').update(user?.id, {
           pay: {
@@ -406,7 +408,7 @@ export const Profile = () => {
           }
         })
         .then(() => {
-          window.location.href = `https://ecom.jysanbank.kz/ecom/api?${searchParams}`;
+          window.location.href = `https://jpay.jysanbank.kz/ecom/api?${searchParams}`;
         })
       })
 
@@ -477,6 +479,7 @@ export const Profile = () => {
         P_SIGN: sign,
       })
       .then(async res => {
+        console.log(res, 'response');
         console.log(res?.data?.includes('Обработано успешно'), 'res');
         if (res?.data?.includes('Обработано успешно')) {
           verifyUser(user?.id)
