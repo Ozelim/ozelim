@@ -372,14 +372,14 @@ export const Profile = () => {
 
       const data = {
         ORDER: randomNumber,
-        AMOUNT: 100,
+        AMOUNT: 30000,
         CURRENCY: 'KZT',
         MERCHANT:'110-R-113431490',
         TERMINAL: '11371491',
         NONCE: randomNumber + 107,
         DESC: 'Оплата',
         CLIENT_ID: user?.id,
-        DESC_ORDER: 'Оплата 2',
+        DESC_ORDER: 'Оплата верификация',
         EMAIL: user?.email,
         BACKREF: ``,
         Ucaf_Flag: '',
