@@ -428,7 +428,7 @@ export const Profile = () => {
   }
 
   async function verifyUser(userId) {
-    // setLoading(true)
+
     setVerifyLoading(true)
     await pb.admins.authWithPassword('helper@mail.ru', import.meta.env.VITE_APP_PASSWORD)
     .then(async res => {
@@ -448,24 +448,23 @@ export const Profile = () => {
             balance: sponsor?.balance + 30000            
           })
           .finally(async () => {
-            await pb.authStore.clear()
+            pb.authStore.clear()
             window.location.reload()
           })            
-          // setLoading(false)
-          return
         }
-  
+
         if (referals?.length >= 4) {
           await pb.collection('users').update(sponsor?.id, {
             balance: sponsor?.balance + 15000            
           })
           .finally(async () => {
-            await pb.authStore.clear()
+            pb.authStore.clear()
             window.location.reload()
           })            
-          // setLoading(false)
-          return
         }
+
+        pb.authStore.clear()
+        window.location.reload()
         // setLoading(false)
       })
       .catch(err => {
@@ -506,7 +505,7 @@ export const Profile = () => {
   }
 
   React.useEffect(() => {
-    checkPaymentStatus(user?.id)
+    checkPaymentStatus()
   }, [user])
 
   if (loading) {
