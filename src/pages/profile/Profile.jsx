@@ -3,7 +3,7 @@ import { UserData } from 'entities/useData'
 import dayjs from 'dayjs'
 import { ReferalsList } from 'entities/referalsList'
 import { pb } from 'shared/api'
-import { Button, Table } from '@mantine/core'
+import { Button, LoadingOverlay, Table } from '@mantine/core'
 import { useAuth } from 'shared/hooks'
 
 import Tree from 'react-d3-tree'
@@ -364,15 +364,20 @@ export const Profile = () => {
     } 
   } 
 
+  const [paymentLoading, setPaymentLoading] = React.useState(false)
+  const [verifyLoading, setVerifyLoading] = React.useState(false)
+
   async function submit (e) {
+    
     try {
+      setPaymentLoading(true)
       e.preventDefault()
       const randomNumber = Math.floor(Math.random() * 100000000)
       const token = import.meta.env.VITE_APP_SHARED_SECRET
 
       const data = {
         ORDER: randomNumber,
-        AMOUNT: 30000,
+        AMOUNT: 50,
         CURRENCY: 'KZT',
         MERCHANT:'110-R-113431490',
         TERMINAL: '11371491',
@@ -408,18 +413,23 @@ export const Profile = () => {
           }
         })
         .then(() => {
+          setPaymentLoading(false)
           window.location.href = `https://jpay.jysanbank.kz/ecom/api?${searchParams}`;
         })
       })
+      .finally(() => {
+        setPaymentLoading(false)
+      })
 
     } catch (err) {
+      setPaymentLoading(false)
       console.log(err, 'err');
     }
   }
 
   async function verifyUser(userId) {
     // setLoading(true)
-    
+    setVerifyLoading(true)
     await pb.admins.authWithPassword('helper@mail.ru', import.meta.env.VITE_APP_PASSWORD)
     .then(async res => {
       await pb.collection("users").update(userId, {
@@ -461,13 +471,16 @@ export const Profile = () => {
       .catch(err => {
         // setLoading(false)
       })
+      .finally(() => {
+        setVerifyLoading(false)
+      })
     })
-
-    
+    .finally(() => {
+      setVerifyLoading(false)
+    })
   }
 
   async function checkPaymentStatus () {
-
     const token = import.meta.env.VITE_APP_SHARED_SECRET
     const string = `${user?.pay?.ORDER};${user?.pay?.MERCHANT}`
     const sign = sha512(token + string).toString()
@@ -488,6 +501,7 @@ export const Profile = () => {
       .catch(err => {
         console.log(err);
       })
+
     }
   }
 
@@ -502,6 +516,7 @@ export const Profile = () => {
   if (!user?.verified) {
     return (
       <>
+        <LoadingOverlay visible={paymentLoading || verifyLoading} />
         <div className="container h-full">
           <div className='flex justify-center items-center h-full flex-col'>
             <div className='flex gap-4 items-end'>
@@ -519,7 +534,7 @@ export const Profile = () => {
               <p className='text-center mt-4 mb-4 font-bold'>Пожалуйста обратитесь в службу поддержки или выберите способ оплаты</p>
               <div className='flex justify-between flex-col md:flex-row gap-4 mt-2'>
                 <div className='p-4 border rounded-primary shadow-md bg-white max-w-xs w-full text-center'>
-                  <p className='text'>Свяжитесь с менеджером для удаленнойй оплаты</p>
+                  <p className='text'>Свяжитесь с менеджером для выставления счета на оплату</p>
                   <p className='text-xl font-bold mt-2'>
                     Kaspi Pay
                   </p>
