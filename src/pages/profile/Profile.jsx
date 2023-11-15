@@ -386,7 +386,7 @@ export const Profile = () => {
         CLIENT_ID: user?.id,
         DESC_ORDER: 'Оплата верификация',
         EMAIL: user?.email,
-        BACKREF: ``,
+        BACKREF: `https://oz-elim.kz/profile`,
         Ucaf_Flag: '',
         Ucaf_Authentication_Data: '',
       }
