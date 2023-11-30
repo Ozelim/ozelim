@@ -48,7 +48,7 @@ export const usePageData = (page) => {
 
     if (!storedDataString) {
       const expirationDate = new Date();
-      expirationDate.setTime(expirationDate.getTime() + 2 * 24 * 60 * 60 * 1000); 
+      expirationDate.setTime(expirationDate.getTime() + 1 * 24 * 60 * 60 * 1000); 
 
 
       let data = {}
