@@ -506,7 +506,7 @@ export const Profile = () => {
 
   React.useEffect(() => {
     checkPaymentStatus()
-  }, [user])
+  }, [])
 
   if (loading) {
     return <></>
