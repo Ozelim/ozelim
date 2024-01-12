@@ -50,7 +50,7 @@ export const Footer = () => {
                 140000 г. Павлодар, ул. Гагарина 50
               </p>
               <p>
-                e-mail: sk-pvl@mail.ru 
+                e-mail: support@oz-elim.kz
               </p>
               <p>Служба поддержки: +7 (705) 176 9699</p>
               

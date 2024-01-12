@@ -45,7 +45,7 @@ export const Header = () => {
             >
               <Popover.Target>
                 <span className="whitespace-nowrap text-teal-500 hover:text-yellow-400 text-sm lg:text-xl cursor-pointer">
-                  Наши курорты
+                  Санатории
                   <RiArrowDownSLine className="inline text-xl" />
                 </span>
               </Popover.Target>

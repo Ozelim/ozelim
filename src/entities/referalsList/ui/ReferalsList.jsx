@@ -182,7 +182,7 @@ export const ReferalsList = ({level, setCount}) => {
       </div>
       <Modal
         opened={modal}
-        onClose={setModal}
+        onClose={() => setModal(false)}
         centered
         size={'xs'}
         title='Данные партнера'

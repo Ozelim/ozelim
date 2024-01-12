@@ -34,6 +34,7 @@ export const Withdraw = () => {
     sum: '',
     owner: '',
     bank: null,
+    iban: ''
   })
 
   const [card, setCard] = React.useState('')
@@ -102,7 +103,8 @@ export const Withdraw = () => {
   const disabled =
     withdraw?.bank && (withdraw?.owner?.length > 3) &&
     (Number(withdraw?.sum) >= 100 && Number(withdraw?.sum) <= user?.balance) &&
-    card.length == 19
+    // card.length == 19
+    withdraw?.iban?.length == 20
 
   return (
     <div>
@@ -125,22 +127,29 @@ export const Withdraw = () => {
               value={withdraw?.bank}
               onChange={(e) => setWithdraw({...withdraw, bank: e})}
             />
-            <TextInput
+            {/* <TextInput
               value={handleCardDisplay()}
               onChange={(e) => setCard(e.currentTarget.value)}
               maxLength={19}
               placeholder="8888 8888 8888 8888"
-              label="Карта для вывода"
+              label="Номер счета карты (IBAN)"
               variant="filled"
+            /> */}
+            <TextInput
+              placeholder="KZ123456789123456789"
+              label="Номер счета карты (IBAN)"
+              variant="filled"
+              name="iban"
+              maxLength={20}
+              onChange={handleWithdrawChange}
             />
             <TextInput
-              placeholder="RAUAN GOSLING"
-              label="Владелец карты"
+              placeholder="ФИО"
+              label="Владелец счета"
               variant="filled"
               name="owner"
               onChange={handleWithdrawChange}
             />
-
             <div className="mt-4">
               <Button 
                 fullWidth 
