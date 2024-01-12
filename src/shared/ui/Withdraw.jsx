@@ -34,7 +34,8 @@ export const Withdraw = () => {
     sum: '',
     owner: '',
     bank: null,
-    iban: ''
+    iban: '',
+    iin,
   })
 
   const [card, setCard] = React.useState('')
@@ -104,7 +105,7 @@ export const Withdraw = () => {
     withdraw?.bank && (withdraw?.owner?.length > 3) &&
     (Number(withdraw?.sum) >= 100 && Number(withdraw?.sum) <= user?.balance) &&
     // card.length == 19
-    withdraw?.iban?.length == 20
+    withdraw?.iban?.length == 20 && withdraw?.iin?.length == 12
 
   return (
     <div>
@@ -148,6 +149,14 @@ export const Withdraw = () => {
               label="Владелец счета"
               variant="filled"
               name="owner"
+              onChange={handleWithdrawChange}
+            />
+            <NumberInput
+              placeholder="030627129340"
+              label="ИИН"
+              variant="filled"
+              name="iin"
+              maxLength={12}
               onChange={handleWithdrawChange}
             />
             <div className="mt-4">
