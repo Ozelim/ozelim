@@ -35,7 +35,7 @@ export const Withdraw = () => {
     owner: '',
     bank: null,
     iban: '',
-    iin,
+    iin: ''
   })
 
   const [card, setCard] = React.useState('')
@@ -46,7 +46,7 @@ export const Withdraw = () => {
       ...withdraw,
       card: card,
       user: user?.id,
-      status: 'created'
+      status: 'created',
     })
     .then(async res => {
       await pb.collection('users').update(user?.id, {
