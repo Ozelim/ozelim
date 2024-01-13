@@ -158,6 +158,7 @@ export const Withdraw = () => {
               name="iin"
               maxLength={12}
               onChange={handleWithdrawChange}
+              hideControls
             />
             <div className="mt-4">
               <Button 
