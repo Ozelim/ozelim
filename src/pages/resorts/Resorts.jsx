@@ -50,7 +50,7 @@ export const Resorts = () => {
                 <h1>{searchParams.get('region')}</h1>
               </div>
               {resorts.length === 0 && (
-                <div className='flex justify-center items-center h-full'>Не найдено курортов в этой области</div>
+                <div className='flex justify-center items-center h-full'>Не найдено санаториев в этой области</div>
               )}
               {resorts && (
                 <div className="grid grid-cols-1 gap-4 mt-4">
