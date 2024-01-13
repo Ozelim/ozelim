@@ -165,11 +165,11 @@ export const Profile = () => {
   };
 
   React.useEffect(() => {
-    window.addEventListener('beforeunload', handleBeforeUnload);
+    // window.addEventListener('beforeunload', handleBeforeUnload);
 
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
+    // return () => {
+    //   window.removeEventListener('beforeunload', handleBeforeUnload);
+    // };
   }, []);
   
   const [binary, setBinary] = React.useState({})
