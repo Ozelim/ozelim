@@ -16,8 +16,6 @@ import six from 'shared/assets/images/structure6.png'
 
 export const ReferalsList = ({level, setCount}) => {
 
-
-
   const {user} = useAuth()
 
   const [referals, setReferals] = React.useState([])
