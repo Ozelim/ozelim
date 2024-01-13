@@ -90,22 +90,26 @@ export const Withdraw = () => {
     return creditCard.join('') // Transform card array to string
   }
 
-  function handleWithdrawChange(e) {
-    const { value, name } = e.currentTarget
-    if (name === 'sum') {
-      if (/^[0-9\b]+$/.test(value) || value === '') {
-        setWithdraw({ ...withdraw, sum: value})
+  function handleWithdrawChange(e, name) {
+    if (e.currentTarget) {
+      const { value, name } = e.currentTarget
+      setWithdraw({ ...withdraw, [name]: value })
+      if (name === 'sum') {
+        if (/^[0-9\b]+$/.test(value) || value === '') {
+          setWithdraw({ ...withdraw, sum: value})
+        }
+        return
       }
       return
     }
-    setWithdraw({ ...withdraw, [name]: value })
+    setWithdraw({ ...withdraw, [name]: e })
   }
 
   const disabled =
     withdraw?.bank && (withdraw?.owner?.length > 3) &&
     (Number(withdraw?.sum) >= 100 && Number(withdraw?.sum) <= user?.balance) &&
     // card.length == 19
-    withdraw?.iban?.length == 20 && withdraw?.iin?.length == 12
+    ((withdraw?.iban?.toString()?.length > 15) && (withdraw?.iin?.toString()?.length > 10))
 
   return (
     <div>
@@ -137,6 +141,7 @@ export const Withdraw = () => {
               variant="filled"
             /> */}
             <TextInput
+              value={withdraw?.iban}
               placeholder="KZ123456789123456789"
               label="Номер счета карты (IBAN)"
               variant="filled"
@@ -145,6 +150,7 @@ export const Withdraw = () => {
               onChange={handleWithdrawChange}
             />
             <TextInput
+              value={withdraw?.owner}
               placeholder="ФИО"
               label="Владелец счета"
               variant="filled"
@@ -152,12 +158,13 @@ export const Withdraw = () => {
               onChange={handleWithdrawChange}
             />
             <NumberInput
+              value={withdraw?.iin}
               placeholder="030627129340"
               label="ИИН"
               variant="filled"
               name="iin"
               maxLength={12}
-              onChange={handleWithdrawChange}
+              onChange={(e) => handleWithdrawChange(e, 'iin')}
               hideControls
             />
             <div className="mt-4">

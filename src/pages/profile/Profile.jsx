@@ -157,6 +157,20 @@ export const Profile = () => {
       } 
     }
   }, [loading])
+
+  const handleBeforeUnload = (event) => {
+    const message = "Are you sure you want to leave? Your changes may not be saved.";
+    event.returnValue = message; // Standard for most browsers
+    return message; // For some older browsers
+  };
+
+  React.useEffect(() => {
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
   
   const [binary, setBinary] = React.useState({})
   const [node, setNode] = React.useState(null)
@@ -394,9 +408,7 @@ export const Profile = () => {
       const dataString = `${data?.ORDER};${data?.AMOUNT};${data?.CURRENCY};${data?.MERCHANT};${data?.TERMINAL};${data?.NONCE};${data?.CLIENT_ID};${data?.DESC};${data?.DESC_ORDER};${data?.EMAIL};${data?.BACKREF};${data?.Ucaf_Flag};${data?.Ucaf_Authentication_Data};`
       
       const all = token + dataString
-      console.log(all, 'all');
       const sign = sha512(all).toString()
-      console.log(sign, 'sign');
 
       await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/pay`, {
         ...data,
@@ -427,7 +439,7 @@ export const Profile = () => {
     }
   }
 
-  async function verifyUser(userId) {
+  async function  verifyUser(userId) {
 
     setVerifyLoading(true)
     await pb.admins.authWithPassword('helper@mail.ru', import.meta.env.VITE_APP_PASSWORD)
