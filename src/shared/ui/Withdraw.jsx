@@ -109,7 +109,7 @@ export const Withdraw = () => {
     withdraw?.bank && (withdraw?.owner?.length > 3) &&
     (Number(withdraw?.sum) >= 100 && Number(withdraw?.sum) <= user?.balance) &&
     // card.length == 19
-    ((withdraw?.iban?.toString()?.length > 15) && (withdraw?.iin?.toString()?.length > 10))
+    ((withdraw?.iban?.toString()?.length > 10) && (withdraw?.iin?.toString()?.length > 6))
 
   return (
     <div>
