@@ -462,53 +462,53 @@ export const Profile = () => {
       setVerifyLoading(true)
     })
 
-    // await pb.admins.authWithPassword('helper@mail.ru', import.meta.env.VITE_APP_PASSWORD)
-    // .then(async res => {
-    //   await pb.collection("users").update(userId, {
-    //     verified: true,
-    //   })
-    //   .then(async res => {
-    //     const sponsor = await pb.collection('users').getOne(res?.sponsor)
-    //     await pb.collection('users').update(sponsor?.id, {
-    //       referals: [...sponsor?.referals, res?.id]
-    //     })
+    await pb.admins.authWithPassword('helper@mail.ru', import.meta.env.VITE_APP_PASSWORD)
+    .then(async res => {
+      await pb.collection("users").update(userId, {
+        verified: true,
+      })
+      .then(async res => {
+        const sponsor = await pb.collection('users').getOne(res?.sponsor)
+        await pb.collection('users').update(sponsor?.id, {
+          referals: [...sponsor?.referals, res?.id]
+        })
       
-    //     const referals = await pb.collection('users').getFullList({filter: `sponsor = '${sponsor?.id}' && verified = true`})
+        const referals = await pb.collection('users').getFullList({filter: `sponsor = '${sponsor?.id}' && verified = true`})
   
-    //     if (referals?.length === 1) {
-    //       await pb.collection('users').update(sponsor?.id, {
-    //         balance: sponsor?.balance + 30000            
-    //       })
-    //       .finally(async () => {
-    //         pb.authStore.clear()
-    //         window.location.reload()
-    //       })            
-    //     }
+        if (referals?.length === 1) {
+          await pb.collection('users').update(sponsor?.id, {
+            balance: sponsor?.balance + 30000            
+          })
+          .finally(async () => {
+            pb.authStore.clear()
+            window.location.reload()
+          })            
+        }
 
-    //     if (referals?.length >= 4) {
-    //       await pb.collection('users').update(sponsor?.id, {
-    //         balance: sponsor?.balance + 15000            
-    //       })
-    //       .finally(async () => {
-    //         pb.authStore.clear()
-    //         window.location.reload()
-    //       })            
-    //     }
+        if (referals?.length >= 4) {
+          await pb.collection('users').update(sponsor?.id, {
+            balance: sponsor?.balance + 15000            
+          })
+          .finally(async () => {
+            pb.authStore.clear()
+            window.location.reload()
+          })            
+        }
 
-    //     pb.authStore.clear()
-    //     window.location.reload()
-    //     // setLoading(false)
-    //   })
-    //   .catch(err => {
-    //     // setLoading(false)
-    //   })
-    //   .finally(() => {
-    //     setVerifyLoading(false)
-    //   })
-    // })
-    // .finally(() => {
-    //   setVerifyLoading(false)
-    // })
+        pb.authStore.clear()
+        window.location.reload()
+        // setLoading(false)
+      })
+      .catch(err => {
+        // setLoading(false)
+      })
+      .finally(() => {
+        setVerifyLoading(false)
+      })
+    })
+    .finally(() => {
+      setVerifyLoading(false)
+    })
   }
 
   async function checkPaymentStatus () {
