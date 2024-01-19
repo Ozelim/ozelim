@@ -13,6 +13,16 @@ import { pb } from 'shared/api'
 import zay from 'shared/assets/images/zay.png'
 import five from 'shared/assets/images/structure5.png'
 import six from 'shared/assets/images/structure6.png'
+import axios from 'axios'
+
+async function checkSponsors (user) {
+
+  if (user?.referals?.length < 3) return 
+
+  return await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/sponsors`, {
+    id: user?.id
+  })
+}
 
 export const ReferalsList = ({level, setCount}) => {
 
@@ -26,6 +36,15 @@ export const ReferalsList = ({level, setCount}) => {
       setReferals(res)
     })
   }
+  
+  const [friki, setFriki] = React.useState(null)
+
+  React.useEffect(() => {
+    checkSponsors(user)
+    .then(e => {
+      setFriki(e?.data?.overall)
+    })
+  }, [])
 
   React.useEffect(() => {
     getReferals()
@@ -128,7 +147,7 @@ export const ReferalsList = ({level, setCount}) => {
                 {(level === '4.1' || level === '4.2') && 5}
                 {level === '5' && 6}
                 {/* {level === '6' && 6} */}
-                {!user?.cock && (
+                {/* {!user?.cock && ( */}
                   <>
                     {level === '2-3' && (
                       <Button
@@ -161,10 +180,14 @@ export const ReferalsList = ({level, setCount}) => {
                       </Button>
                     )}
                   </>
-                )}
+                {/* )} */}
               </p>
             </div>
           )}
+          <div className='flex gap-1'>
+            <p className='text' onClick={() => setCount(q => q + 1)}>Людей в структуре:</p>
+            <p>{friki}</p>
+          </div>
         </div>
         <div className='flex gap-4 overflow-x-auto pb-2 mt-4'>
           {referals.map((referal, i) => {

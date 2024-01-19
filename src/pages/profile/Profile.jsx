@@ -170,22 +170,6 @@ export const Profile = () => {
     // };
   }, []);
 
-  async function checkSponsors (userId) {
-    await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/sponsors`, {
-      id: userId
-    })
-    .then((res) => {
-      console.log(res);
-    })
-    .catch(err => {
-      console.log(err);
-    })
-  }
-
-  React.useEffect(() => {
-    // checkSponsors(user?.id)
-  }, [])
-  
   const [binary, setBinary] = React.useState({})
   const [node, setNode] = React.useState(null)
   const [withdraws, setWithdraws] = React.useState([])
@@ -301,7 +285,7 @@ export const Profile = () => {
               binary?.children?.[2]?.children?.[1]?.value 
           ){
           pb.collection('users').update(user?.id, {
-            level: `2-3`
+            level: `2`
           })
           return
         }
