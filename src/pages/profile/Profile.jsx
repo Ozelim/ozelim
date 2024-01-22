@@ -272,22 +272,18 @@ export const Profile = () => {
     if ((binary?.children?.[0]?.value && binary?.children?.[1]?.value)) { 
       if (user?.level == 0) {
         pb.collection('users').update(user?.id, {
-          level: `1`
+          level: '1'
         })
-        return
       }
-      if (user?.level == 1) {
 
-        if (
-              binary?.children?.[0]?.children?.[0]?.value && 
-              binary?.children?.[0]?.children?.[1]?.value && 
-              binary?.children?.[1]?.children?.[0]?.value && 
-              binary?.children?.[2]?.children?.[1]?.value 
-          ){
+      if (user?.level == 1) {
+        const child1 = await getBinaryById(binary?.children?.[0]?.value?.id)
+        const child2 = await getBinaryById(binary?.children?.[1]?.value?.id)
+        
+        if (child1.children.length === 2 && child2.children.length === 2) {
           pb.collection('users').update(user?.id, {
             level: `2`
           })
-          return
         }
       }
     }
@@ -439,12 +435,13 @@ export const Profile = () => {
 
   async function  verifyUser(userId) {
     setVerifyLoading(true)
-    await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/verify`, {
-      id: userId
-    })
-    .finally(() => {
-      setVerifyLoading(true)
-    })
+
+    // await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/verify`, {
+    //   id: userId
+    // })
+    // .finally(() => {
+    //   setVerifyLoading(true)
+    // })
 
     await pb.admins.authWithPassword('helper@mail.ru', import.meta.env.VITE_APP_PASSWORD)
     .then(async res => {
