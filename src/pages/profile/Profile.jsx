@@ -455,12 +455,12 @@ export const Profile = () => {
 
   async function  verifyUser(userId) {
     setVerifyLoading(true)
-    await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/verify`, {
-      id: userId
-    })
-    .finally(() => {
-      setVerifyLoading(true)
-    })
+    // await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/verify`, {
+    //   id: userId
+    // })
+    // .finally(() => {
+    //   setVerifyLoading(true)
+    // })
 
     await pb.admins.authWithPassword('helper@mail.ru', import.meta.env.VITE_APP_PASSWORD)
     .then(async res => {
