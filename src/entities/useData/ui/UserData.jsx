@@ -186,8 +186,6 @@ export const UserData = ({count, setCount}) => {
     window.location.reload()
   }
 
-
-
   return (
     <>
       <div className="w-full">

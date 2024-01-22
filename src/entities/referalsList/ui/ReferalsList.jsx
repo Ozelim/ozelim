@@ -15,6 +15,7 @@ import five from 'shared/assets/images/structure5.png'
 import six from 'shared/assets/images/structure6.png'
 import level3 from 'shared/assets/images/3level.png'
 import axios from 'axios'
+import { getImageUrl } from 'shared/lib'
 
 async function checkSponsors (user) {
 
@@ -242,6 +243,11 @@ export const ReferalsList = ({level, setCount}) => {
         size={'xs'}
         title='Данные партнера'
       >
+        <img 
+          src={getImageUrl(referal, referal.avatar)} 
+          alt="" 
+          className='w-[150px] h-[150px] object-cover rounded-full mx-auto mb-5'
+        />
         <ul className='space-y-2'>
           <li className='grid grid-cols-2'>
             <p>ID:</p>

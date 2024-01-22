@@ -182,6 +182,12 @@ export const Withdraw = () => {
           Вывод
         </Button>
       </div>
+      <Button fullWidth onClick={open} className='mt-4'>
+        Пополнение
+      </Button>
+      <Button fullWidth onClick={open} className='mt-4'>
+        Услуги
+      </Button>
     </div>
   )
 }
