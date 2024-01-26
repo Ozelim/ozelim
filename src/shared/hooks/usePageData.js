@@ -1,5 +1,5 @@
-import Cookies from 'js-cookie'
 import React from 'react'
+import { useLangContext } from 'app/langContext'
 import { pb } from 'shared/api'
 
 async function getData (page) {
@@ -16,31 +16,17 @@ async function getData (page) {
 
 export const usePageData = (page) => {
 
+  const {lang, kz} = useLangContext()
+
   const [text, setText] = React.useState({})
   const [images, setImages] = React.useState({})
   const [headings, setHeadings] = React.useState({})
 
-  async function get () {
-    saveToLocalStorage(page)
-    // await getData(page)
-    // .then(res => {
-    //   saveToLocalStorage({
-    //     images: res.images,
-    //     text: res.text.text,
-    //     headings: res.text.headings,
-    //     page
-    //   })
-    //   // setImages(res.images)
-    //   // setText(res.text.text)
-    //   // setHeadings(res.text.headings)
-    // })
-  }
-
   async function saveToLocalStorage () {
-    const storedDataString  = localStorage.getItem(page)
+    const storedDataString  = localStorage.getItem(kz ? `${page}_kz` : `${page}`)
 
     if (storedDataString) {
-      const { images, text, headings } = JSON.parse(storedDataString )
+      const { ozelim_images, ozelim_text, ozelim_headings } = JSON.parse(storedDataString)
       setImages(images)
       setText(text)
       setHeadings(headings)
@@ -55,19 +41,21 @@ export const usePageData = (page) => {
       await getData(page)
       .then(res => {
         data = {
-          images: res.images,
-          text: res.text.text,
-          headings: res.text.headings,
-          page
+          images: kz ? res.text.images : res.images,
+          text: kz ? res.text.text_kz : res.text.text,
+          headings: kz ? res.text.headings_kz : res.text.headings,
+          page: kz ? `${page}_kz` : page
         }
-        setImages(res.images)
-        setText(res.text.text)
-        setHeadings(res.text.headings)
+        setImages(kz ? res.images : res.images)
+        setText(kz ? res.text.text_kz : res.text.text)
+        setHeadings(kz ? res.text.headings_kz : res.text.headings)
       })
 
       const dataString = JSON.stringify({...data, expires: expirationDate.getTime()});
-
-      localStorage.setItem(page, dataString);
+      kz 
+        ? localStorage.setItem(`ozelim_${page}_kz`, dataString)
+        : localStorage.setItem(`ozelim_${page}`, dataString)
+      
     } else {
       const storedData = JSON.parse(storedDataString);
       const currentTime = new Date().getTime();
@@ -79,8 +67,8 @@ export const usePageData = (page) => {
   }
 
   React.useEffect(() => {
-    get()
-  }, [])
+    saveToLocalStorage(page)
+  }, [lang])
 
   return {
     text,
@@ -88,6 +76,3 @@ export const usePageData = (page) => {
     headings
   }
 }
-
-
-

@@ -2,20 +2,21 @@ import React from 'react'
 import { ContactInfo } from './ContactInfo'
 import { BurgerMenu } from './BurgerMenu'
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
-import { Popover, Tooltip } from '@mantine/core'
+import { Popover, Switch, Tooltip } from '@mantine/core'
 import { cities, regions } from 'shared/lib'
 
 import { RiArrowDownSLine } from 'react-icons/ri'
+import { useLangContext } from 'app/langContext'
 
 const array = [
-  {label: 'О компании', link: '/about'},
-  {label: 'Твое здоровье', link: '/health'},
-  {label: 'Курсы по туризму', link: '/courses'},
+  {labelkz: `Компания туралы`, labelru: 'О компании', link: '/about'},
+  {labelkz: `Сенің денсаулығың`, labelru: 'Твое здоровье', link: '/health'},
+  {labelkz: `Туристік курстар`, labelru: 'Курсы по туризму', link: '/courses'},
 ]
 
 export const Header = () => {
 
-  let [_, setSearchParams] = useSearchParams()
+  const { lang, kz, handleLang } = useLangContext()
 
   // function handleRegionClick (val) {
   //   console.log(val);
@@ -34,7 +35,9 @@ export const Header = () => {
                   className="text-teal-500 hover:text-yellow-400 text-sm lg:text-xl hidden md:inline-block"
                   to={val.link}
                 >
-                  {val.label}
+                  {lang === 'kz' 
+                    ? val.labelkz ?? val.labelru
+                    : val.labelru}
                 </Link>
               )
             })}
@@ -45,7 +48,7 @@ export const Header = () => {
             >
               <Popover.Target>
                 <span className="whitespace-nowrap text-teal-500 hover:text-yellow-400 text-sm lg:text-xl cursor-pointer">
-                  Санатории
+                  {kz ? 'Санаторийлер' : `Санатории`}
                   <RiArrowDownSLine className="inline text-xl" />
                 </span>
               </Popover.Target>
@@ -75,6 +78,7 @@ export const Header = () => {
         </div>
         <div className="ml-6">
           <BurgerMenu />
+  
         </div>
       </div>
     </div>
