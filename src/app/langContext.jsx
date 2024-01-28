@@ -18,8 +18,14 @@ export function LangProvider({children}) {
     }
   } 
 
+  function changeLang (l) {
+    console.log(l);
+    setLang(l)
+    localStorage.setItem('lang', l)
+  }
+
   return (
-    <LangContext.Provider value={{lang, handleLang, kz}}>
+    <LangContext.Provider value={{lang, handleLang, kz, changeLang}}>
       {children}
     </LangContext.Provider>
   )

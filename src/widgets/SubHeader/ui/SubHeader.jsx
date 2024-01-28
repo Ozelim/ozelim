@@ -1,14 +1,18 @@
 import React from 'react'
-import { Switch } from '@mantine/core'
+import { Menu, Switch } from '@mantine/core'
 
 import {
   BsWhatsapp,
 } from 'react-icons/bs'
 import { useLangContext } from 'app/langContext'
+import { Button } from '@mantine/core'
+
+import { IoIosArrowDown } from "react-icons/io";
+
 
 export const SubHeader = () => {
 
-  const {lang, kz, handleLang} = useLangContext()
+  const {kz, changeLang} = useLangContext()
 
   return (
     <div className="w-full">
@@ -21,15 +25,30 @@ export const SubHeader = () => {
             +7 705 176 9699
           </span>
         </a>
-        <Switch
+        <Menu
+          className='ml-6'
+        >
+          <Menu.Target>
+            <p className='font-bold text-primary-500 cursor-pointer flex gap-2 items-center'>
+              {kz ? 'Каз': 'Рус'}
+              <IoIosArrowDown />
+            </p>
+          </Menu.Target>
+          <Menu.Dropdown >
+            <Menu.Item onClick={() => changeLang('ru')}>
+              Русский
+            </Menu.Item>
+            <Menu.Item onClick={() => changeLang('kz')}>
+              Казахский
+            </Menu.Item>
+          </Menu.Dropdown>
+        </Menu>
+        {/* <Switch
           className='ml-6'
           onChange={handleLang}
           checked={kz}
           label={kz ? 'каз' : 'рус'}
-          // value={lang}
-          // onChange={handleLang}
-          // checked={kz}
-        />
+        /> */}
       </div>
     </div>
   )

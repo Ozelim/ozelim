@@ -9,7 +9,6 @@ import { getImageUrl } from 'shared/lib'
 import { usePageData } from 'shared/hooks'
 import { Image } from 'shared/ui'
 
-
 export const About = () => {
 
   const {images, text, headings} = usePageData('about')

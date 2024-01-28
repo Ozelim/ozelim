@@ -1,6 +1,7 @@
 import { HealthHeader } from 'pages/health/ui/HealthHeader'
 import React from 'react'
 import { pb } from 'shared/api'
+import { usePageData } from 'shared/hooks'
 import { TeamCard } from 'shared/ui/TeamCard'
 
 async function getTeam() {
@@ -24,11 +25,12 @@ async function getOurTeam() {
   return await pb.collection('members').getFullList()
 }
 
-
 export const OurTeam = () => {
 
   const [ourTeam, setOurTeam] = React.useState([])
   const [team, setTeam] = React.useState({})
+
+  const {images, text, headings} = usePageData('team')
 
   React.useEffect(() => {
     getTeam()
@@ -39,11 +41,6 @@ export const OurTeam = () => {
       setOurTeam(res)
     })
   }, [])
-
-  const headings = team?.text?.headings
-  const text = team?.text?.text
-  const slider = team?.slider?.image
-  const images = team?.images ?? {}
 
   return (
     <div className="w-full">
