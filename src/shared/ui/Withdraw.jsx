@@ -6,6 +6,7 @@ import { pb } from 'shared/api'
 import { openConfirmModal } from '@mantine/modals'
 import { useAuth } from 'shared/hooks'
 import { showNotification } from '@mantine/notifications'
+import { Link } from 'react-router-dom'
 
 async function getServices () {
   return await pb.collection('services').getFullList()
@@ -201,9 +202,11 @@ export const Withdraw = () => {
         <Button fullWidth onClick={open} className='mt-4'>
           Пополнение
         </Button>
-        <Button fullWidth onClick={() => setServiceModal(true)} className='mt-4'>
-          Услуги
-        </Button>
+        <Link to={'/services'}>
+          <Button fullWidth onClick={() => setServiceModal(true)}  className='mt-4'>
+            Услуги
+          </Button>
+        </Link>
       </div>
       <Modal
         opened={serviceModal}

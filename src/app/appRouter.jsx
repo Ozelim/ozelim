@@ -15,7 +15,8 @@ import { About,
   Price,
   NotFound,
   Login,
-  Verification
+  Verification,
+  Services
 } from "pages";
 import { baseLayout } from "./layouts/baseLayout";
 import { Test } from "pages/test/Test";
@@ -40,6 +41,7 @@ const appRouter = createBrowserRouter([
     {path: '*', element: <NotFound/>},
     {path: '/test', element: <Test/>},
     {path: '/verification/:id', element: <Verification/>},
+    {path: '/services', element: <Services/>},
   ]}
 ])
 

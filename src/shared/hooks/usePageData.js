@@ -26,7 +26,7 @@ export const usePageData = (page) => {
     const storedDataString  = localStorage.getItem(kz ? `${page}_kz` : `${page}`)
 
     if (storedDataString) {
-      const { ozelim_images, ozelim_text, ozelim_headings } = JSON.parse(storedDataString)
+      const { images, text, headings } = JSON.parse(storedDataString)
       setImages(images)
       setText(text)
       setHeadings(headings)
