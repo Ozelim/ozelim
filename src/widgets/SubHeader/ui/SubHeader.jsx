@@ -25,15 +25,15 @@ export const SubHeader = () => {
             +7 705 176 9699
           </span>
         </a>
-        <Menu
-          className='ml-6'
-        >
-          <Menu.Target>
-            <p className='font-bold text-primary-500 cursor-pointer flex gap-2 items-center'>
-              {kz ? 'Каз': 'Рус'}
-              <IoIosArrowDown />
-            </p>
-          </Menu.Target>
+        {/* <Menu */}
+          {/* // className='ml-6' */}
+        {/* // > */}
+          {/* <Menu.Target> */}
+            {/* <p className='font-bold text-primary-500 cursor-pointer flex gap-2 items-center'> */}
+              {/* {kz ? 'Каз': 'Рус'} */}
+              {/* <IoIosArrowDown /> */}
+            {/* </p> */}
+          {/* </Menu.Target> */}
           {/* <Menu.Dropdown >
             <Menu.Item onClick={() => changeLang('ru')}>
               Русский
@@ -42,7 +42,7 @@ export const SubHeader = () => {
               Казахский
             </Menu.Item>
           </Menu.Dropdown> */}
-        </Menu>
+        {/* </Menu> */}
         {/* <Switch
           className='ml-6'
           onChange={handleLang}
