@@ -4,6 +4,7 @@ import { pb } from 'shared/api'
 import { getRegionsAndDiseas } from 'shared/lib/getRegionsAndDiseases'
 import { useUtils } from 'shared/hooks'
 import { showNotification } from '@mantine/notifications'
+import { useLangContext } from 'app/langContext'
 
 async function getQuestions() {
   return (await pb.collection('questions').getFullList({
@@ -12,6 +13,8 @@ async function getQuestions() {
 }
 
 export const Quiz = () => {
+
+  const {kz} = useLangContext()
 
   const [questions, setQuestions] = React.useState({})
 
@@ -81,12 +84,25 @@ export const Quiz = () => {
           <div className="relative overflow-hidden space-y-2">
             <div className="mb-10">
               <h1 className="text-center text-4xl mb-2 text-primary-500 max-w-4xl mx-auto">
-                Санаторно-курортные комплексы по Вашим медицинским показаниям
+                
+                {kz 
+                  ? `Сіздің медициналық көрсеткіштеріңіз бойынша санаториялық-курорттық кешендер`
+                  : `Санаторно-курортные комплексы по Вашим медицинским показаниям`
+                }
               </h1>
               <p className="text-center text text-black text-2xl font-bold">
-                Ответьте на вопросы и ожидайте консультацию
+                {kz 
+                  ? `Сұрақтарға жауап беріп, кеңес күтіңіз`
+                  : `Ответьте на вопросы и ожидайте консультацию`
+                }
+                
               </p>
-              <p className='text-center text'>(Услуга платная)</p>
+              <p className='text-center text'>
+                {kz 
+                  ? `(Ақылы қызмет)`
+                  : `(Услуга платная)`
+                }
+              </p>
             </div>
             <Stepper
               allowNextStepsSelect={false}

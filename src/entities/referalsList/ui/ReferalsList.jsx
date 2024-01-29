@@ -13,6 +13,18 @@ import { pb } from 'shared/api'
 import zay from 'shared/assets/images/zay.png'
 import five from 'shared/assets/images/structure5.png'
 import six from 'shared/assets/images/structure6.png'
+import level3 from 'shared/assets/images/3level.png'
+import axios from 'axios'
+import { getImageUrl } from 'shared/lib'
+
+async function checkSponsors (user) {
+
+  if (user?.referals?.length < 3) return 
+
+  return await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/sponsors`, {
+    id: user?.id
+  })
+}
 
 export const ReferalsList = ({level, setCount}) => {
 
@@ -26,6 +38,16 @@ export const ReferalsList = ({level, setCount}) => {
       setReferals(res)
     })
   }
+  
+  const [friki, setFriki] = React.useState(null)
+
+  React.useEffect(() => {
+    checkSponsors(user)
+    .then(e => {
+      console.log(e, 'freaks');
+      setFriki(e?.data?.overall)
+    })
+  }, [])
 
   React.useEffect(() => {
     getReferals()
@@ -43,6 +65,7 @@ export const ReferalsList = ({level, setCount}) => {
   const [shitModal, setShitModal] = React.useState(false)
 
   const [bidModal, setBidModal] = React.useState(false)
+  const [threeModal, setThreeModal] = React.useState(false)
 
   const matches = useMediaQuery(`(min-width: 767px)`)
 
@@ -59,6 +82,25 @@ export const ReferalsList = ({level, setCount}) => {
       })
       .then(() => {
         setBidModal(false)
+        window.location.reload()
+      })
+    })
+  }
+
+  async function bids3 () {
+    await pb.collection('level').create({
+      user: user?.id,
+      level: user?.level,
+      new_level: `3`,
+      status: 'created',
+    })
+    .then(async () => {
+      await pb.collection('users').update(user?.id, {
+        cock: true,
+        balance: user?.balance - 5000
+      })
+      .then(() => {
+        setThreeModal(false)
         window.location.reload()
       })
     })
@@ -105,6 +147,7 @@ export const ReferalsList = ({level, setCount}) => {
     onConfirm: () => levelBids(level)
   })
 
+
   return (
     <>
       <div className='w-full'>
@@ -123,14 +166,25 @@ export const ReferalsList = ({level, setCount}) => {
               <p className='text'>Уровень в процессе:</p>
               <p>
                 {(level === '0' || !level) && '1'}
-                {level === '1' && `2-3`}
-                {level === '2-3' && 4}
+                {(level === '1') && `2`}
+                {(level === '2') && `3`}
+                {(level === '3') && `4`}
                 {(level === '4.1' || level === '4.2') && 5}
                 {level === '5' && 6}
                 {/* {level === '6' && 6} */}
-                {!user?.cock && (
+                {/* {!user?.cock && ( */}
                   <>
-                    {level === '2-3' && (
+                    {level === '2' && (
+                      <Button
+                        compact
+                        variant='outline'
+                        ml={16}
+                        onClick={() => setThreeModal(true)}
+                      >
+                        Получить уровень 3
+                      </Button>
+                    )}
+                    {level === '3' && (
                       <Button
                         compact
                         variant='outline'
@@ -161,10 +215,14 @@ export const ReferalsList = ({level, setCount}) => {
                       </Button>
                     )}
                   </>
-                )}
+                {/* )} */}
               </p>
             </div>
           )}
+          <div className='flex gap-1'>
+            <p className='text' onClick={() => setCount(q => q + 1)}>Людей в структуре:</p>
+            <p>{friki}</p>
+          </div>
         </div>
         <div className='flex gap-4 overflow-x-auto pb-2 mt-4'>
           {referals.map((referal, i) => {
@@ -185,6 +243,11 @@ export const ReferalsList = ({level, setCount}) => {
         size={'xs'}
         title='Данные партнера'
       >
+        <img 
+          src={getImageUrl(referal, referal.avatar)} 
+          alt="" 
+          className='w-[150px] h-[150px] object-cover rounded-full mx-auto mb-5'
+        />
         <ul className='space-y-2'>
           <li className='grid grid-cols-2'>
             <p>ID:</p>
@@ -289,6 +352,39 @@ export const ReferalsList = ({level, setCount}) => {
             <Button
               disabled={!radio}
               onClick={bids}
+            >
+              Подтвердить
+            </Button>
+          </div>
+        </div>
+      </Modal>
+      <Modal
+        title='Заявка на повышение до 3 ур.'
+        centered
+        opened={threeModal}
+        onClose={() => setThreeModal(false)}
+        size='80%'
+        classNames={{
+          title: '!font-semibold'
+        }}
+      >
+        <div>
+          <p className='text-center'>
+            По окончанию заполнения 3-го уровня активными пользователями, вы можете подать заявку на повышение до 3-го уровня
+          </p>
+          <img src={level3} alt="" className='!mx-0 w-full' />
+          <p className='text-center my-4 text-slate-400'>Сумма (5000 тг) на благотворительность будет списана с вашего баланса в личном кабинете</p>
+          <div className='flex justify-center gap-4'>
+            <Button 
+              variant='outline'
+              onClick={() => setBidModal(false)}
+            >
+              Отмена
+            </Button>
+            <Button
+              onClick={bids3}
+              disabled={user?.balance < 5000}
+              
             >
               Подтвердить
             </Button>

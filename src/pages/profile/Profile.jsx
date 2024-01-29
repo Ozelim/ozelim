@@ -11,6 +11,7 @@ import { formatNumber } from 'shared/lib'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { sha512 } from 'js-sha512'
+import { Avatar } from 'shared/ui'
 
 function getMonth(previous) {
   let month = dayjs().month() + 1
@@ -170,22 +171,6 @@ export const Profile = () => {
     // };
   }, []);
 
-  async function checkSponsors (userId) {
-    await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/sponsors`, {
-      id: userId
-    })
-    .then((res) => {
-      console.log(res);
-    })
-    .catch(err => {
-      console.log(err);
-    })
-  }
-
-  React.useEffect(() => {
-    // checkSponsors(user?.id)
-  }, [])
-  
   const [binary, setBinary] = React.useState({})
   const [node, setNode] = React.useState(null)
   const [withdraws, setWithdraws] = React.useState([])
@@ -288,22 +273,18 @@ export const Profile = () => {
     if ((binary?.children?.[0]?.value && binary?.children?.[1]?.value)) { 
       if (user?.level == 0) {
         pb.collection('users').update(user?.id, {
-          level: `1`
+          level: '1'
         })
-        return
       }
-      if (user?.level == 1) {
 
-        if (
-              binary?.children?.[0]?.children?.[0]?.value && 
-              binary?.children?.[0]?.children?.[1]?.value && 
-              binary?.children?.[1]?.children?.[0]?.value && 
-              binary?.children?.[2]?.children?.[1]?.value 
-          ){
+      if (user?.level == 1) {
+        const child1 = await getBinaryById(binary?.children?.[0]?.value?.id)
+        const child2 = await getBinaryById(binary?.children?.[1]?.value?.id)
+        
+        if (child1.children.length === 2 && child2.children.length === 2) {
           pb.collection('users').update(user?.id, {
-            level: `2-3`
+            level: `2`
           })
-          return
         }
       }
     }
@@ -604,9 +585,33 @@ export const Profile = () => {
               <ReferalsList level={level} setCount={setCount} />
               <div className="mt-10 overflow-auto">
               <div className='flex gap-4 items-center mb-4'>
-                <p>
-                  Бинарное дерево:
-                </p>
+                <div>
+                  Спонсор: 
+                  <div 
+                    className='flex shrink-0' 
+                    // onClick={() => onReferalClick(referal)}
+                  >
+                    <Avatar
+                      // src={referal?.avatar}
+                      className='aspect-square w-14 mx-auto'
+                      radius='xl'
+                      // record={referal}
+                    />
+                    {/* <img 
+                      className=''
+                      src={'https://cdn.pixabay.com/photo/2016/11/29/05/45/astronomy-1867616_640.jpg'} 
+                      alt="" 
+                    /> */}
+                    <div className='flex flex-col justify-center ml-2'>
+                      <p className='text-sm font-head'>
+                        {/* {referal?.name} {referal?.surname} */}
+                      </p>
+                      <p className='mt-1 text-xs text'>
+                        {/* {dayjs(referal?.created).format('DD.MM.YYYY, HH:mm')} */}
+                      </p>
+                    </div>
+                  </div>
+                </div>
                 {user?.binary === 2 && (
                   <>
                     <Button
