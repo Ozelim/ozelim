@@ -34,14 +34,14 @@ export const SubHeader = () => {
               <IoIosArrowDown />
             </p>
           </Menu.Target>
-          <Menu.Dropdown >
+          {/* <Menu.Dropdown >
             <Menu.Item onClick={() => changeLang('ru')}>
               Русский
             </Menu.Item>
             <Menu.Item onClick={() => changeLang('kz')}>
               Казахский
             </Menu.Item>
-          </Menu.Dropdown>
+          </Menu.Dropdown> */}
         </Menu>
         {/* <Switch
           className='ml-6'
