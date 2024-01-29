@@ -199,14 +199,14 @@ export const Withdraw = () => {
             Вывод
           </Button>
         </div>
-        <Button fullWidth onClick={open} className='mt-4'>
+        {/* <Button fullWidth onClick={open} className='mt-4'>
           Пополнение
-        </Button>
-        <Link to={'/services'}>
+        </Button> */}
+        {/* <Link to={'/services'}>
           <Button fullWidth onClick={() => setServiceModal(true)}  className='mt-4'>
             Услуги
           </Button>
-        </Link>
+        </Link> */}
       </div>
       <Modal
         opened={serviceModal}

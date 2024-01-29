@@ -219,10 +219,10 @@ export const ReferalsList = ({level, setCount}) => {
               </p>
             </div>
           )}
-          <div className='flex gap-1'>
+          {/* <div className='flex gap-1'>
             <p className='text' onClick={() => setCount(q => q + 1)}>Людей в структуре:</p>
             <p>{friki}</p>
-          </div>
+          </div> */}
         </div>
         <div className='flex gap-4 overflow-x-auto pb-2 mt-4'>
           {referals.map((referal, i) => {
@@ -234,7 +234,7 @@ export const ReferalsList = ({level, setCount}) => {
               />
             )
           })}
-        </div>
+        </div>su
       </div>
       <Modal
         opened={modal}
