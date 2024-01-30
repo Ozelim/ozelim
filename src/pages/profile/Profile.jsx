@@ -172,7 +172,6 @@ export const Profile = () => {
   React.useEffect(() => {
     getSponsor(user?.sponsor)
     .then(res => {
-      console.log(res, 'res');
       setSponsor(res)
     })
     // window.addEventListener('beforeunload', handleBeforeUnload);
@@ -181,6 +180,8 @@ export const Profile = () => {
     //   window.removeEventListener('beforeunload', handleBeforeUnload);
     // };
   }, []);
+
+  console.log(sponsor, 'sponsor');
 
   const [binary, setBinary] = React.useState({})
   const [node, setNode] = React.useState(null)
@@ -595,8 +596,30 @@ export const Profile = () => {
             <div className="relative overflow-hidden">
               <ReferalsList level={level} setCount={setCount} />
               <div className="mt-10 overflow-auto">
+              <div className='max-w-xs'>
+                Спонсор: 
+                <div 
+                  className='flex shrink-0 mt-2' 
+                  // onClick={() => onReferalClick(referal)}
+                >
+                  <Avatar
+                    src={sponsor?.avatar}
+                    className='aspect-square !w-20 !h-20'
+                    radius='xl'
+                    record={sponsor}
+                  />
+                  <div className='flex flex-col justify-center ml-2'>
+                    <p className='text-lg font-head'>
+                      {sponsor?.name} {sponsor?.surname}
+                    </p>
+                    <p className='mt-1 text'>
+                      {dayjs(sponsor?.created).format('DD.MM.YYYY')}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            
               <div className='flex gap-4 items-center mb-4'>
-         
                 {user?.binary === 2 && (
                   <>
                     <Button
@@ -729,7 +752,7 @@ export const Profile = () => {
                     </Table>
                   </div>
                 )}
-              </div>
+            </div>
             </div>
           </div>
         </div>
@@ -737,93 +760,3 @@ export const Profile = () => {
     </div>
   )
 }
-
-// async function getPyramidByUser (userId) {
-
-//   if (userId) {
-//     const pyramid = (
-//       await pb
-//         .collection("pyramid")
-//         .getFullList({ expand: "1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12" })
-//     )[0];
-//     const pyramidsUser = await pb.collection("users").getOne(userId);
-//     let foundUser = null;
-//     let result = [];
-
-//     for (const stage in pyramid) {
-//       if (!isNaN(stage)) {
-//         const stageArrays = pyramid?.expand?.[stage];
-//         const stageUser = stageArrays?.find((e) => e?.id === userId);
-//         if (stageUser) {
-//           foundUser = userId;
-//           const properties = Object.keys(pyramid?.expand);
-//           // const pows = properties.length - Number(stage)
-
-//           properties.map((key, i) => {
-//             if (Number(key) > Number(stage)) {
-//               // console.log(pyramid?.expand?.[key], key, stage, 'stage')
-//               result.push(pyramid?.expand?.[key]);
-
-//               return;
-//             }
-//           });
-
-//           result = result?.map((arr, i) => {
-//             return arr.slice(0, Math.pow(2, i + 1));
-//           });
-//           result.unshift([pyramidsUser]);
-//         }
-//       }
-//     }
-
-//     if (foundUser) {
-//       return {
-//         pyramid: pyramid,
-//         result,
-//       };
-//     } else {
-//       return {
-//         pyramid: pyramid,
-//         result: null,
-//       };
-//     }
-// }
-
-//   const pyramid = (
-//     await pb
-//       .collection("pyramid")
-//       .getFullList({ expand: "sponsor, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12" })
-//   )[0];
-
-//   const sponsor = pyramid?.expand?.sponsor
-
-//   // const pyramidsUser = await pb.collection("users").getOne(userId);
-//   let result = [];
-
-//   for (const stage in pyramid) {
-//     if (!isNaN(stage)) {
-
-
-//       result.push(pyramid?.expand?.[stage]);
-//       // const stageUser = stageArrays?.find((e) => e?.id === sponsor);
-//     }
-//     result = result?.map((arr, i) => {
-//       return arr?.slice(0, Math.pow(2, i + 1));
-//     });
-    
-//   }
-
-//   result?.unshift([sponsor]);
-
-//   if (sponsor) {
-//     return {
-//       pyramid: pyramid,
-//       result,
-//     };
-//   } else {
-//     return {
-//       pyramid: pyramid,
-//       result: null,
-//     };
-//   }
-// }

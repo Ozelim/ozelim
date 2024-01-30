@@ -2,24 +2,29 @@ import React from 'react'
 import { Burger, Popover, clsx } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { Link } from 'react-router-dom'
+import { useLangContext } from 'app/langContext'
 
 const array = [
-  { label: 'Новости компании', link: '/news' },
-  { label: 'Клуб лидеров', link: '/partners', disabled: true },
-  { label: 'Дистрибьюторская программа', link: '/program' },
-  { label: 'Наша команда', link: '/our-team', },
-  { label: 'Доброе дело', link: '/charity-fund', },
+  { labelkz: `Жаңалықтар`, labelru: 'Новости', link: '/news' },
+  { labelkz: `Біздің туристер`, labelru: 'Наши туристы', link: '/partners', disabled: true },
+  { labelkz: `Агенттік бағдарлама`, labelru: 'Агентская программа', link: '/program' },
+  { labelkz: `Бизнес серіктестер`, labelru: 'Бизнес партнеры', link: '/our-team', },
+  { labelkz: `Мейірімділік`, labelru: 'Доброе дело', link: '/charity-fund', },
 ]
 
 const array2 = [
-  { label: 'О компании', link: '/about' },
-  { label: 'Твое здоровье', link: '/health' },
-  { label: 'Курсы по туризму', link: '/courses' },
-  { label: 'Прайс лист', link: '/price' },
+  {labelkz: `Компания туралы`, labelru: 'О компании', link: '/about' },
+  {labelkz: `Сенің денсаулығың`, labelru: 'Твое здоровье', link: '/health' },
+  {labelkz: `Туристік курстар`, labelru: 'Курсы по туризму', link: '/courses' },
+  {labelkz: `Қызметтер`, labelru: 'Услуги', link: '/price' },
 ]
 
 export const BurgerMenu = () => {
+
+  const {kz} = useLangContext()
+
   const [opened, { toggle }] = useDisclosure(false)
+  
   return (
     <Popover opened={opened} onChange={toggle}>
       <Popover.Target>
@@ -33,7 +38,9 @@ export const BurgerMenu = () => {
                 <li key={i} className={clsx("hover:text-primary-500 font-head", {
                   'pointer-events-none opacity-50': val?.disabled
                 })}>
-                  <Link to={val.link}>{val.label}</Link>
+                  <Link to={val.link}>
+                    {kz ? val.labelkz : val.labelru}
+                  </Link>
                 </li>
               )
             })}
@@ -43,12 +50,13 @@ export const BurgerMenu = () => {
                   key={i}
                   className="hover:text-primary-500 font-head lg:hidden"
                 >
-                  <Link to={val.link}>{val.label}</Link>
+                  <Link to={val.link}>
+                    {kz ? val.labelkz : val.labelru}
+                  </Link>
                 </li>
               )
             })}
           </ul>
-
         </nav>
       </Popover.Dropdown>
     </Popover>

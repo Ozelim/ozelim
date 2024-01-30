@@ -8,10 +8,13 @@ import { useDisclosure, useMediaQuery } from '@mantine/hooks'
 import test from 'shared/assets/images/policy.pdf'
 import { Link, useNavigate } from 'react-router-dom'
 import dog from 'shared/assets/images/dogone.pdf'
+import { useLangContext } from 'app/langContext'
 
 const date = new Date()
 
 export const Footer = () => {
+
+  const {kz} = useLangContext()
 
   const navigate = useNavigate()
 
@@ -47,12 +50,15 @@ export const Footer = () => {
                 ТОО «Saigu Travel»
               </p>
               <p>
+                БИН: 221140000992
+              </p>
+              <p>
                 140000 г. Павлодар, ул. Гагарина 50
               </p>
               <p>
                 e-mail: support@oz-elim.kz
               </p>
-              <p>Служба поддержки: +7 (705) 176 9699</p>
+              <p>Служба поддержки: +7 (747) 051 2252</p>
               
             </div>
             <div className="grid grid-cols-2 gap-2 sm:gap-2 sm:grid-cols-3">
@@ -63,7 +69,7 @@ export const Footer = () => {
                       href="https://oz-elim.kz/about"
                       className="hover:underline"
                     >
-                      О Компании
+                      {kz ? 'Компания туралы' : 'О Компании'}
                     </a>
                   </li>
                   <li>
@@ -71,7 +77,7 @@ export const Footer = () => {
                       href="https://oz-elim.kz/health"
                       className="hover:underline"
                     >
-                      Твое здоровье
+                      {kz ? `Сенің денсаулығың`: `Твое здоровье`}
                     </a>
                   </li>
                 </ul>
@@ -85,20 +91,21 @@ export const Footer = () => {
                         className="hover:underline "
                         onClick={fck}
                       >
-                        Сотрудничество
+                        
+                        {kz ? `Серiктестiк` : `Сотрудничество`}
                       </span>
                     {/* </Link> */}
                   </li>
                   <li className="mb-4">
                   <span onClick={matches ? () => setD(true) : () => {}} className="hover:underline">
                     {matches 
-                      ? 'Договор оферты'
+                      ? kz ? `Келісімшарт` : 'Договор оферты'
                       :
                         <a
                           href="/dogone.pdf"
                           target='_blank'
                         >
-                          Договор оферты
+                          {kz ? `Келісімшарт` : `Договор оферты`}
                         </a>
                     }
                   </span>                    
@@ -112,15 +119,15 @@ export const Footer = () => {
                       href="https://oz-elim.kz/courses"
                       className="hover:underline"
                     >
-                      Курсы
+                      {kz ? `Курстар` : `Курсы` }
                     </a>
                   </li>
 
                   <li>
                     <span onClick={matches ? open : () => {}} className="hover:underline">
                       {matches 
-                        ? 'Политика конфиденциальности'
-                        : <a href={'/policy.pdf'} target='_blank'>Политика конфиденциальности</a>
+                        ? kz ? `Құпиялылық саясаты` : 'Политика конфиденциальности'
+                        : <a href={'/policy.pdf'} target='_blank'>{kz ? `Құпиялылық саясаты` : `Политика конфиденциальности`} </a>
                       }
                     </span>
                   </li>

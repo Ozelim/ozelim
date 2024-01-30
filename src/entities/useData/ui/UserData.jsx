@@ -11,8 +11,11 @@ import { Controller, useForm } from 'react-hook-form'
 import { useDisclosure } from '@mantine/hooks'
 import { openConfirmModal } from '@mantine/modals'
 import { showNotification } from '@mantine/notifications'
+import { useLangContext } from 'app/langContext'
 
 export const UserData = ({count, setCount}) => {
+
+  const {kz} = useLangContext()
 
   const { pathname } = useLocation()
 
@@ -249,7 +252,7 @@ export const UserData = ({count, setCount}) => {
               value={referal}
               readOnly
               variant="filled"
-              label="Реферальная ссылка"
+              label={kz ? `Ревералдык сілтеме` : `Реферальная ссылка`}
               rightSection={<CopyBtn value={referal} />}
             />
             <TextInput
@@ -261,14 +264,14 @@ export const UserData = ({count, setCount}) => {
               rightSection={<CopyBtn value={values?.id} />}
             />
             <TextInput
-              label="Имя"
+              label={kz ? `Аты` : `Имя`}
               variant="filled"
               value={values.name ?? ''}
               name="name"
               onChange={handleValuesChange}
             />
             <TextInput
-              label="Фамилия"
+              label={kz ? `Тегі` : `Фамилия`}
               variant="filled"
               value={values.surname ?? ''}
               name="surname"
@@ -291,14 +294,14 @@ export const UserData = ({count, setCount}) => {
             />
 
             <Select
+              label={kz ? `Облыс` : `Область`}
               data={regions}
-              label="Область"
               variant="filled"
               value={values.region ?? ''}
               onChange={(e) => handleValuesChange(e, 'region')}
             />
             <TextInput
-              label="Адрес"
+              label={kz ? `Мекен-жайы` : `Мекен-жайы`}
               variant="filled"
               value={values?.adress ?? ''}
               name="adress"
@@ -314,9 +317,11 @@ export const UserData = ({count, setCount}) => {
           </div>
           <div className="mt-4 flex justify-between items-center">
             <Button compact variant="outline" color="red" onClick={signout}>
-              Выйти
+              {kz ? 'Шығу' : 'Выйти'}
             </Button>
-            <Button onClick={saveUser}>Сохранить</Button>
+            <Button onClick={saveUser}>
+              {kz ? 'Сақтау' : 'Сохранить'}
+            </Button>
           </div>
         </div>
       </div>
@@ -328,7 +333,7 @@ export const UserData = ({count, setCount}) => {
         <div className='flex flex-col justify-center h-24 items-center'>
           <Loader size='lg'/>
           <p className='mt-4'>
-            Обработка запроса...
+            {kz ? `Сұранысты өңдеуде...`: `Обработка запроса...`}
           </p>
         </div>
       </Modal>
