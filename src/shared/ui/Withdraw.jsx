@@ -216,16 +216,58 @@ export const Withdraw = () => {
       console.log(res?.data, 'res data');
       const searchParams = new URLSearchParams(JSON.parse(res?.config?.data));
       await pb.collection('users').update(user?.id, {
-        replenish: {
-          ...JSON.parse(res?.config?.data),
-          SHARED_KEY: token
-        }
+        replenish: [
+          {...user.replenish},
+          {...data, P_SIGN: sign},
+        ]
       })
       .then(() => {
         window.location.href = `https://jpay.jysanbank.kz/ecom/api?${searchParams}`;
       })
     })
   }
+
+  async function checkReplenishStatus () {
+    const token = import.meta.env.VITE_APP_SHARED_SECRET
+
+    user?.replenish?.map(async (q , i) => {
+      const string = `${q?.ORDER};${q?.MERCHANT}`
+      const sign = sha512(token + string).toString()
+      
+      if (q?.MERCHANT && q?.ORDER) {
+        await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/check`, {
+          ORDER: q?.ORDER,
+          MERCHANT: q?.MERCHANT,
+          GETSTATUS: 1,
+          P_SIGN: sign,
+        })
+        .then(async res => {
+          console.log(res, 'response');
+          console.log(res?.data?.includes('Обработано успешно'), 'res');
+          if (res?.data?.includes('Обработано успешно')) {
+            await pb.collection('replenish').create({
+              user: user?.id,
+              sum: q?.AMOUNT
+            })
+            .then(async res => {
+              await pb.collection('users').update(user?.id, {
+                'balance+': q?.AMOUNT
+              })
+            })
+            // verifyUser(user?.id)
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        })
+      }
+    })
+
+  }
+
+  React.useEffect(() => {
+    checkReplenishStatus()
+  }, [])
 
   return (
     <>

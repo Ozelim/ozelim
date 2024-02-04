@@ -524,7 +524,6 @@ export const Profile = () => {
       .catch(err => {
         console.log(err);
       })
-
     }
   }
 
