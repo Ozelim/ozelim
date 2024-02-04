@@ -267,7 +267,7 @@ export const Withdraw = () => {
   }
 
   React.useEffect(() => {
-    checkReplenishStatus()
+    // checkReplenishStatus()
   }, [])
 
   return (
@@ -342,9 +342,9 @@ export const Withdraw = () => {
             Вывод
           </Button>
         </div>
-        <Button fullWidth onClick={() => setFill({...fill, modal: true})} className='mt-4'>
+        {/* <Button fullWidth onClick={() => setFill({...fill, modal: true})} className='mt-4'>
           Пополнение
-        </Button>
+        </Button> */}
         {/* <Button fullWidth onClick={() => setModals({...modals, confirm: true})}  className='mt-4'>
           Услуги
         </Button> */}
