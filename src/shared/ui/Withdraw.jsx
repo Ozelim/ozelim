@@ -234,7 +234,7 @@ export const Withdraw = () => {
       const string = `${q?.ORDER};${q?.MERCHANT}`
       const sign = sha512(token + string).toString()
       
-      if (q?.MERCHANT && q?.ORDER) {
+      if (q?.MERCHANT && q?.ORDER && !q?.status === 'done') {
         await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/check`, {
           ORDER: q?.ORDER,
           MERCHANT: q?.MERCHANT,
@@ -252,7 +252,7 @@ export const Withdraw = () => {
             .then(async res => {
               await pb.collection('users').update(user?.id, {
                 'balance+': q?.AMOUNT,
-                replenish: [...user?.replenish?.splice(i, 1)]
+                replenish: [...user?.replenish, {...q, status: 'done'}]
               })
             })
             // verifyUser(user?.id)
