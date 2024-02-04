@@ -251,7 +251,8 @@ export const Withdraw = () => {
             })
             .then(async res => {
               await pb.collection('users').update(user?.id, {
-                'balance+': q?.AMOUNT
+                'balance+': q?.AMOUNT,
+                replenish: user?.replenish?.filter((w, index) => index !== i)
               })
             })
             // verifyUser(user?.id)
