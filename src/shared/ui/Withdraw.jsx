@@ -7,6 +7,9 @@ import { openConfirmModal } from '@mantine/modals'
 import { useAuth } from 'shared/hooks'
 import { showNotification } from '@mantine/notifications'
 import { Link } from 'react-router-dom'
+import { arraysContainSameItemsById, totalCost } from 'shared/lib'
+import { sha512 } from 'js-sha512'
+import axios from 'axios'
 
 async function getServices () {
   return await pb.collection('services').getFullList()
@@ -117,8 +120,29 @@ export const Withdraw = () => {
     ((withdraw?.iban?.toString()?.length > 10) && (withdraw?.iin?.toString()?.length > 6))
 
   const [services, setServices] = React.useState([])
+  const [addedServices, setAddedServices] = React.useState([])
 
-  const [serviceModal, setServiceModal] = React.useState(false)
+  function addService (service) {
+    setAddedServices([...addedServices, service])
+  }
+ 
+  const [modals, setModals] = React.useState({
+    services: false,
+    confirm: false,
+    pay: false
+  })
+
+  const [name, setName] = React.useState('')
+
+  const [serviceLoading, setServiceLoading] = React.useState(false)
+
+  function handleServiceAdd () {
+    setModals({...modals, confirm: false, services: true})
+  }
+
+  function handleServiceClose () {
+    setModals({...modals, confirm: false})
+  }
 
   React.useEffect(() => {
     getServices()
@@ -127,10 +151,86 @@ export const Withdraw = () => {
     })
   }, [])
 
+  async function buyServiceWithBalance () {
+    setServiceLoading(true)
+    await pb.collection('service_bids').create({
+      services: [...addedServices.map(q => q.id)],
+      serv1ce: [...addedServices],      
+      user: user.id,
+      name,
+      status: 'created',
+      total_cost: totalCost(addedServices) 
+    })
+    .then(async res => {
+      await pb.collection('users').update(user.id, {
+        'balance-': totalCost(addedServices)
+      })
+      .finally(() => {
+        setServiceLoading(false)
+        window.location.reload()
+      })
+    })
+    .catch(() => {
+      setServiceLoading(false)
+      window.location.reload()
+    })
+  }
+
+  const [fill, setFill] = React.useState({
+    modal: false,
+    sum: ''
+  })
+
+  async function replenish (e) {
+    e.preventDefault()
+    const randomNumber = Math.floor(Math.random() * 100000000)
+    const token = import.meta.env.VITE_APP_SHARED_SECRET
+
+    const data = {
+      ORDER: randomNumber,
+      AMOUNT: fill.sum,
+      CURRENCY: 'KZT',
+      MERCHANT:'110-R-113431490',
+      TERMINAL: '11371491',
+      NONCE: randomNumber + 107,
+      DESC: 'Пополнение баланса Ozelim',
+      CLIENT_ID: user?.id,
+      DESC_ORDER: 'Пополнение',
+      EMAIL: user?.email,
+      BACKREF: `https://oz-elim.kz/profile`,
+      Ucaf_Flag: '',
+      Ucaf_Authentication_Data: '',
+    }
+
+    const dataString = `${data?.ORDER};${data?.AMOUNT};${data?.CURRENCY};${data?.MERCHANT};${data?.TERMINAL};${data?.NONCE};${data?.CLIENT_ID};${data?.DESC};${data?.DESC_ORDER};${data?.EMAIL};${data?.BACKREF};${data?.Ucaf_Flag};${data?.Ucaf_Authentication_Data};`
+    
+    const all = token + dataString
+    const sign = sha512(all).toString()
+
+    await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/pay`, {
+      ...data,
+      P_SIGN: sign
+    })
+    .then(async res => {
+      console.log(res, 'res');
+      console.log(res?.data, 'res data');
+      const searchParams = new URLSearchParams(JSON.parse(res?.config?.data));
+      await pb.collection('users').update(user?.id, {
+        replenish: {
+          ...JSON.parse(res?.config?.data),
+          SHARED_KEY: token
+        }
+      })
+      .then(() => {
+        window.location.href = `https://jpay.jysanbank.kz/ecom/api?${searchParams}`;
+      })
+    })
+  }
+
   return (
     <>
-      <div>
-        <LoadingOverlay visible={loading} />
+      <div className='w-full h-full'>
+        <LoadingOverlay visible={loading || serviceLoading} />
         <div className="space-y-2 mt-2">
           <Modal centered opened={opened} onClose={close} title="Вывод">
             <div className="flex flex-col gap-2">
@@ -199,41 +299,119 @@ export const Withdraw = () => {
             Вывод
           </Button>
         </div>
-        {/* <Button fullWidth onClick={open} className='mt-4'>
+        <Button fullWidth onClick={() => setFill({...fill, modal: true})} className='mt-4'>
           Пополнение
+        </Button>
+        {/* <Button fullWidth onClick={() => setModals({...modals, confirm: true})}  className='mt-4'>
+          Услуги
         </Button> */}
-        {/* <Link to={'/services'}>
-          <Button fullWidth onClick={() => setServiceModal(true)}  className='mt-4'>
-            Услуги
-          </Button>
-        </Link> */}
       </div>
       <Modal
-        opened={serviceModal}
-        onClose={() => setServiceModal(false)}
+        opened={modals.services}
+        onClose={() => setModals({...modals, services: false, confirm: true})}
         title='Услуги'
         centered
+        className='relative'
       >
-        <div className='space-y-4 '>
+        <div className='space-y-4'>
           {services.map((service, i) => {
             return (
               <div 
                 key={i}
-                className='flex justify-between gap-4'
+                className='justify-between gap-6 border p-4 rounded-lg'
               >
                 <div>
                   <p className='font-bold text-lg'>{service.title}</p>
-                  <p>{service.description}</p>
+                  <p className='text-sm'>{service.description}</p>
                 </div>
-                <div>
-                  <p className='font-bold text-lg'>{service.cost} тг</p>
-                  <Button compact>
-                    Приобрести
+                <div className='space-y-2'> 
+                  <p className='font-bold text-2xl'>{service.cost} тг</p>
+                  <Button 
+                    size='sm' onClick={() => addService(service)}
+                    disabled={arraysContainSameItemsById(services, addedServices).some(q => q.id === service.id)}
+                  >
+                    Выбрать
                   </Button>
                 </div>
               </div>
             )
           })}
+          <div className='absolute top-10 right-10'>
+          </div>
+        </div>
+        <div className='sticky inline bottom-12 left-3/4'>
+          <Button onClick={() => setModals({...modals, services: false, confirm: true})}>Назад</Button>
+        </div>
+      </Modal>
+      <Modal
+        opened={modals.confirm}
+        onClose={handleServiceClose}
+        centered
+      >
+        <div>
+          {addedServices.length !== 0 && <h2>Выбранные услуги</h2>} 
+          {addedServices.map((service, i) => {
+            return (
+              <div 
+                key={i}
+                className='justify-between border p-4 rounded-lg mt-4'
+              >
+                <div>
+                  <p className='font-bold text-lg'>{service.title}</p>
+                </div>
+                <div className='space-y-2'> 
+                  <p className='font-bold text-2xl'>{service.cost} тг</p>
+                </div>
+              </div>
+            )
+          })}
+          <div className='flex justify-center mt-5'>            
+            <Button onClick={handleServiceAdd}>
+              Добавить услугу
+            </Button>
+          </div>
+          <TextInput 
+            label='Фио'
+            placeholder='Для кого вы приобретяете услугу'
+            value={name}
+            onChange={e => setName(e.currentTarget.value)}
+            description='Обязательное поле'
+          />
+          <p className='mt-4'>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia ducimus optio numquam esse provident maxime unde eos. Voluptatum, delectus veniam!
+          </p>
+          <div className='flex justify-center w-full mt-5 gap-4'>
+            <Button 
+              onClick={buyServiceWithBalance}
+              disabled={(totalCost(addedServices) > user.balance) || (name.length < 2)}
+            >
+              Баланс
+            </Button>
+            <Button
+              disabled={name.length < 2}
+            >
+              Карта
+            </Button>
+          </div>
+        </div>
+      </Modal>
+      <Modal
+        opened={fill.modal}
+        onClose={() => setFill({...fill, modal: false})}
+        centered
+        title='Пополнение'
+      >
+        <NumberInput
+          value={fill.sum}
+          onChange={e => setFill({...fill, sum: e})}
+          hideControls
+        />
+        <div className='mt-5'>
+          <Button
+            onClick={replenish}
+          >
+            Пополнить
+          </Button>
         </div>
       </Modal>
     </>

@@ -9,3 +9,11 @@ export function getId(length) {
 
   return result;
 }
+
+export function arraysContainSameItemsById(array1, array2) {
+  return array1.filter(item1 => array2.some(item2 => item1.id === item2.id));
+}
+
+export function totalCost (array) {
+  return array.reduce((sum, item) => sum + item.cost, 0)
+}
