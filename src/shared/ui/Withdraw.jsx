@@ -350,7 +350,7 @@ export const Withdraw = () => {
             Вывод
           </Button>
         </div>
-        <Button 
+        {/* <Button 
           // fullWidth 
           onClick={() => setFill({...fill, modal: true})} 
           className='mt-4' 
@@ -359,10 +359,14 @@ export const Withdraw = () => {
           variant='subtle'
         >
           Пополнение
-        </Button>
-        {/* <Button fullWidth onClick={() => setModals({...modals, confirm: true})}  className='mt-4' compact >
-          Услуги
         </Button> */}
+        <Button 
+          fullWidth onClick={() => setModals({...modals, confirm: true})}  
+          className='mt-4' 
+          compact 
+        >
+          Услуги
+        </Button>
       </div>
       <Modal
         opened={modals.services}
