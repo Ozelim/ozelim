@@ -251,7 +251,7 @@ export const Withdraw = () => {
         console.log(res, 'response');
         console.log(res?.data?.includes('Обработано успешно'), 'res');
         if (res?.data?.includes('Обработано успешно')) {
-          await pb.collection('replenish').update({
+          await pb.collection('replenish').update(replenish?.id, {
             status: 'paid'
           })
           .then(async res => {
