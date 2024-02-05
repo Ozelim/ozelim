@@ -360,13 +360,13 @@ export const Withdraw = () => {
         >
           Пополнение
         </Button> */}
-        <Button 
+        {/* <Button 
           fullWidth onClick={() => setModals({...modals, confirm: true})}  
           className='mt-4' 
           compact 
         >
           Услуги
-        </Button>
+        </Button> */}
       </div>
       <Modal
         opened={modals.services}
