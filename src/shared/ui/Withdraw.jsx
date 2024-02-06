@@ -372,7 +372,6 @@ export const Withdraw = () => {
     const string = `${pay?.ORDER};${pay?.MERCHANT}`
     const sign = sha512(token + string).toString()
 
-    
     if (pay?.MERCHANT && pay?.ORDER) {
       await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/check`, {
         ORDER: pay?.ORDER,
@@ -410,6 +409,10 @@ export const Withdraw = () => {
       setBids(res)
     })
   }, [])
+
+  React.useEffect(() => {
+    checkBids()
+  }, [bids])
 
   return (
     <>
