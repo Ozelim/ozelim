@@ -2,7 +2,9 @@ import React from 'react'
 import { pb } from '../api/pocketbase'
 
 async function getUser (userId) {
-  return await pb.collection('users').getOne(userId)
+  return await pb.collection('users').getOne(userId, {
+    expand: 'sponsor'
+  })
 }
 
 export const useAuth = () => {

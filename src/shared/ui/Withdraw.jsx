@@ -169,15 +169,19 @@ export const Withdraw = () => {
       user: user.id,
       name,
       status: 'created',
-      total_cost: totalCost(addedServices) 
+      total_cost: totalCost(addedServices),
+      pay: null,
     })
     .then(async res => {
       await pb.collection('users').update(user.id, {
         'balance-': totalCost(addedServices)
       })
-      .finally(() => {
+      .then(() => {
         setServiceLoading(false)
         window.location.reload()
+      })
+      .catch(() => {
+        setServiceLoading(false)
       })
     })
     .catch(() => {
@@ -193,6 +197,7 @@ export const Withdraw = () => {
 
   async function replenish (e) {
     e.preventDefault()
+    setServiceLoading(true)
     const randomNumber = Math.floor(Math.random() * 100000000)
     const token = import.meta.env.VITE_APP_SHARED_SECRET
 
@@ -235,12 +240,20 @@ export const Withdraw = () => {
         }
       })
       .then(() => {
+        setServiceLoading(false)
         window.location.href = `https://jpay.jysanbank.kz/ecom/api?${searchParams}`;
       })
+      .catch(() => {
+        setServiceLoading(false)
+      })
+    })
+    .catch(() => {
+      setServiceLoading(false)
     })
   }
 
   async function checkReplenishStatus (replenish) {
+    setServiceLoading(true)
     const token = import.meta.env.VITE_APP_SHARED_SECRET
 
     const string = `${replenish?.pay?.ORDER};${replenish?.pay?.MERCHANT}`
@@ -265,10 +278,14 @@ export const Withdraw = () => {
               'balance+': replenish?.pay?.AMOUNT,
             })
           })
+          .finally(() => {
+            setServiceLoading(false)
+          })
           // verifyUser(user?.id)
         }
       })
       .catch(err => {
+        setServiceLoading(false)
         console.log(err);
       })
     }
@@ -276,6 +293,7 @@ export const Withdraw = () => {
 
   async function buyServicesWithCard (e) {
     e.preventDefault()
+    setServiceLoading(true)
     const randomNumber = Math.floor(Math.random() * 100000000)
     const token = import.meta.env.VITE_APP_SHARED_SECRET
 
@@ -321,13 +339,23 @@ export const Withdraw = () => {
         }
       })
       .then(() => {
+        setServiceLoading(false)
         window.location.href = `https://jpay.jysanbank.kz/ecom/api?${searchParams}`;
       })
+      .catch(() => {
+        setServiceLoading(false)
+      })
+    })
+    .catch(() => {
+      setServiceLoading(false)
     })
   }
 
+  console.log(serviceLoading);
+
   async function buyServiceWithCardContinue (e) {
     e.preventDefault()
+    setServiceLoading(true)
     const randomNumber = Math.floor(Math.random() * 100000000)
     const token = import.meta.env.VITE_APP_SHARED_SECRET
 
@@ -360,18 +388,22 @@ export const Withdraw = () => {
       console.log(res, 'res');
       console.log(res?.data, 'res data');
       const searchParams = new URLSearchParams(JSON.parse(res?.config?.data));
+      setServiceLoading(false)
       window.location.href = `https://jpay.jysanbank.kz/ecom/api?${searchParams}`;
+    })
+    .catch(() => {
+      setServiceLoading(false)
     })
   }
 
   async function checkBids (bid) {
+    setServiceLoading(true)
     const token = import.meta.env.VITE_APP_SHARED_SECRET
 
     const pay = bid?.[0]?.pay
 
     const string = `${pay?.ORDER};${pay?.MERCHANT}`
     const sign = sha512(token + string).toString()
-
     if (pay?.MERCHANT && pay?.ORDER) {
       await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/check`, {
         ORDER: pay?.ORDER,
@@ -386,12 +418,21 @@ export const Withdraw = () => {
           await pb.collection('service_bids').update(bid?.[0]?.id, {
             status: 'created',
           })
-          .then(res => {setBids([])})
+          .then(res => {
+            setBids([])
+            setServiceLoading(false)
+          })
+          .finally(() => {
+            setServiceLoading(false)
+          })
         }
+        setServiceLoading(false)
       })
-      .catch(err => {
-        console.log(err);
+      .catch(() => {
+        setServiceLoading(false)
       })
+    } else {
+      setServiceLoading(false)
     }
   }
 

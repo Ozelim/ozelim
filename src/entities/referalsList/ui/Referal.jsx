@@ -3,7 +3,26 @@ import dayjs from 'dayjs'
 import React from 'react'
 import { Avatar } from 'shared/ui';
 
-export const Referal = ({referal, onReferalClick}) => {
+export const Referal = ({referal, onReferalClick, sponsor}) => {
+
+  if (sponsor) return (
+    <div className='flex' onClick={() => onReferalClick(referal)}>
+      <Avatar
+        src={referal?.avatar}
+        className='aspect-square !w-16 !h-16 mx-auto'
+        radius='xl'
+        record={referal}
+      />
+      <div className='flex flex-col justify-center ml-2'>
+        <p className='text-lg font-head'>
+          {referal?.name} {referal?.surname}
+        </p>
+        <p className='mt-1 text'>
+          {dayjs(referal?.created).format('DD.MM.YYYY, HH:mm')}
+        </p>
+      </div>
+    </div>
+  )
 
   return (
     <div className='flex shrink-0' onClick={() => onReferalClick(referal)}>

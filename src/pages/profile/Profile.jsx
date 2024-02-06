@@ -3,15 +3,16 @@ import { UserData } from 'entities/useData'
 import dayjs from 'dayjs'
 import { ReferalsList } from 'entities/referalsList'
 import { pb } from 'shared/api'
-import { Button, LoadingOverlay, Table } from '@mantine/core'
+import { Button, LoadingOverlay, Modal, Table } from '@mantine/core'
 import { useAuth } from 'shared/hooks'
 
 import Tree from 'react-d3-tree'
-import { formatNumber } from 'shared/lib'
+import { formatNumber, getImageUrl } from 'shared/lib'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { sha512 } from 'js-sha512'
 import { Avatar } from 'shared/ui'
+import { Referal } from 'entities/referalsList/ui/Referal'
 
 function getMonth(previous) {
   let month = dayjs().month() + 1
@@ -50,6 +51,12 @@ async function getWithdraws (userId) {
 async function getTransfers (userId) {
   return await pb.collection('transfers').getFullList({
     filter: `${currentMonthString} && user = '${userId}'`,
+  })
+}
+
+async function getServiceBids (id) {
+  return await pb.collection('service_bids').getFullList({
+    filter: `user = '${id}'`,
   })
 }
 
@@ -142,16 +149,10 @@ function findAndReplaceObjectById(obj, idToFind, replacementObject) {
   return obj;
 }
 
-async function getSponsor (id) {
-  return await pb.collection('users').getOne(id)
-}
-
 export const Profile = () => {
 
   const {user, loading} = useAuth()
   const navigate = useNavigate()
-
-  const [sponsor, setSponsor] = React.useState({})
 
   const [count, setCount] = React.useState(0) 
 
@@ -163,24 +164,20 @@ export const Profile = () => {
     }
   }, [loading])
 
+  const [bids, setBids] = React.useState([])
+
+  React.useEffect(() => {
+    getServiceBids(user?.id)
+    .then(res => {
+      setBids(res)
+    })
+  }, [])
+
   const handleBeforeUnload = (event) => {
     const message = "Are you sure you want to leave? Your changes may not be saved.";
     event.returnValue = message; // Standard for most browsers
     return message; // For some older browsers
   };
-
-  React.useEffect(() => {
-    getSponsor(user?.sponsor)
-    .then(res => {
-      console.log(res, 'res');
-      setSponsor(res)
-    })
-    // window.addEventListener('beforeunload', handleBeforeUnload);
-
-    // return () => {
-    //   window.removeEventListener('beforeunload', handleBeforeUnload);
-    // };
-  }, []);
 
   const [binary, setBinary] = React.useState({})
   const [node, setNode] = React.useState(null)
@@ -388,7 +385,6 @@ export const Profile = () => {
   const [verifyLoading, setVerifyLoading] = React.useState(false)
 
   async function submit (e) {
-    
     try {
       setPaymentLoading(true)
       e.preventDefault()
@@ -444,6 +440,7 @@ export const Profile = () => {
       console.log(err, 'err');
     }
   }
+
 
   async function  verifyUser(userId) {
     setVerifyLoading(true)
@@ -531,6 +528,17 @@ export const Profile = () => {
     checkPaymentStatus()
   }, [])
 
+  const [modal, setModal] = React.useState(false)
+
+  function handleReferal () {
+    setModal(true)
+  }
+
+  const [viewModal, setViewModal] = React.useState({
+    modal: false,
+    services: []
+  })
+
   if (loading) {
     return <></>
   }
@@ -586,243 +594,280 @@ export const Profile = () => {
   }
 
   return (
-    <div className="w-full">
-      <div className="container">
-        <div className="w-full bg-white shadow-md rounded-primary p-4">
-          <div className="grid lg:grid-cols-[25%_auto] gap-6">
-            <UserData count={count} setCount={setCount} />
-            <div className="relative overflow-hidden">
-              <ReferalsList level={level} setCount={setCount} />
-              <div className="mt-10 overflow-auto">
-              <div className='flex gap-4 items-center mb-4'>
-         
-                {user?.binary === 2 && (
-                  <>
-                    <Button
-                      compact
-                      variant='outline'
-                      onClick={() => setCurrentBinary(1)}
-                    >
-                      1
-                    </Button>
-                    <Button 
-                      compact
-                      variant='outline'
-                      onClick={() => setCurrentBinary(2)}
-                    >
-                      2
-                    </Button>
-                  </>
-                )}
-                {user?.binary === 3 && (
-                  <>
-                  <Button
-                    compact
-                    variant='outline'
-                    onClick={() => setCurrentBinary(1)}
-                  >
-                    1
-                  </Button>
-                  <Button 
-                    compact
-                    variant='outline'
-                    onClick={() => setCurrentBinary(2)}
-                  >
-                    2
-                  </Button>
-                  <Button 
-                    compact
-                    variant='outline'
-                    onClick={() => setCurrentBinary(3)}
-                  >
-                    3
-                  </Button>
-                  </>
-                )}
-              </div>
+    <>
+      <div className="w-full">
+        <div className="container">
+          <div className="w-full bg-white shadow-md rounded-primary p-4">
+            <div className="grid lg:grid-cols-[25%_auto] gap-6">
+              <UserData count={count} setCount={setCount} />
+              <div className="relative overflow-hidden">
+                <ReferalsList level={level} setCount={setCount} />
+                <div className="mt-10 overflow-auto">
 
-                <div className="h-[70vh] border-2 border-primary-400 p-4 ">
-                  <Tree 
-                    data={binary ?? {}}
-                    orientation="vertical" 
-                    pathFunc="elbow"
-                    nodeSvgShape={{
-                      shape: "circle",
-                      shapeProps: { r: 20, fill: "green " },
-                    }}
-                    renderCustomNodeElement={(props) => (
-                      <CustomNode 
-                        {...props}
-                        onNodeClick={handleNodeClick}
-                        // node={node}
+                  <div>
+                    <p>Спонсор:</p>
+                    <div className='flex mt-2'>
+                      <Referal
+                        referal={user?.expand?.sponsor}
+                        onReferalClick={() => {}}
+                        sponsor
                       />
+                    </div>
+                  </div>
+
+
+                  <div className='flex gap-4 items-center mb-4'>
+            
+                    {user?.binary === 2 && (
+                      <>
+                        <Button
+                          compact
+                          variant='outline'
+                          onClick={() => setCurrentBinary(1)}
+                        >
+                          1
+                        </Button>
+                        <Button 
+                          compact
+                          variant='outline'
+                          onClick={() => setCurrentBinary(2)}
+                        >
+                          2
+                        </Button>
+                      </>
                     )}
-                  />
+                    {user?.binary === 3 && (
+                      <>
+                      <Button
+                        compact
+                        variant='outline'
+                        onClick={() => setCurrentBinary(1)}
+                      >
+                        1
+                      </Button>
+                      <Button 
+                        compact
+                        variant='outline'
+                        onClick={() => setCurrentBinary(2)}
+                      >
+                        2
+                      </Button>
+                      <Button 
+                        compact
+                        variant='outline'
+                        onClick={() => setCurrentBinary(3)}
+                      >
+                        3
+                      </Button>
+                      </>
+                    )}
+                  </div>
+
+                  <div className="h-[70vh] border-2 border-primary-400 p-4 ">
+                    <Tree 
+                      data={binary ?? {}}
+                      orientation="vertical" 
+                      pathFunc="elbow"
+                      nodeSvgShape={{
+                        shape: "circle",
+                        shapeProps: { r: 20, fill: "green " },
+                      }}
+                      renderCustomNodeElement={(props) => (
+                        <CustomNode 
+                          {...props}
+                          onNodeClick={handleNodeClick}
+                          // node={node}
+                        />
+                      )}
+                    />
+                  </div>
+                  {withdraws?.length !== 0 && (
+                    <div className="mt-12 overflow-scroll">
+                      <h2 className="text-center text-xl font-head">Выводы</h2>
+                      <Table className="border mt-4">
+                        <thead>
+                          <tr>
+                            <th>Дата</th>
+                            <th>Сумма</th>
+                            <th>Карта</th>
+                            <th>Владелец карты</th>
+                            <th>Статус</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {withdraws?.map((withdraw, i) => {
+                            return (
+                              <tr key={i} className="text">
+                                <td className='whitespace-nowrap'>
+                                  {dayjs(withdraw?.created).format(
+                                    'YY-MM-DD, hh:mm'
+                                  )}
+                                </td>
+                                <td>{formatNumber(withdraw?.sum)}</td>
+                                <td>{withdraw?.card}</td>
+                                <td>{withdraw?.owner}</td>
+                                <td>
+                                  {withdraw?.status === 'created' &&
+                                    'В обработке'}
+                                  {withdraw?.status === 'paid' && 'Завершено'}
+                                  {withdraw?.status === 'rejected' && 'Отклонено'}
+                                </td>
+                              </tr>
+                            )
+                          })}
+                        </tbody>
+                      </Table>
+                    </div>
+                  )}
+                  {transfers?.length !== 0 && (
+                    <div className="mt-12 overflow-scroll">
+                      <h2 className="text-center text-xl font-head">Переводы</h2>
+                      <Table className="border mt-4">
+                        <thead>
+                          <tr>
+                            <th>Дата</th>
+                            <th>Сумма</th>
+                            <th>Отправитель</th>
+                            <th>Получатель</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {transfers?.map((transfer, i) => {
+                            return (
+                              <tr key={i} className="text">
+                                <td className='whitespace-nowrap'>
+                                  {dayjs(transfer?.created).format(
+                                    'YY-MM-DD, hh:mm'
+                                  )}
+                                </td>
+                                <td>{formatNumber(transfer?.sum)}</td>
+                                <td>{transfer?.user}</td>
+                                <td>{transfer?.taker}</td>
+                              </tr>
+                            )
+                          })}
+                        </tbody>
+                      </Table>
+                    </div>
+                  )}
+                  {bids?.length !== 0 && (
+                    <div className="mt-12 overflow-scroll">
+                      <h2 className="text-center text-xl font-head">Услуги</h2>
+                      <Table className="border mt-4">
+                        <thead>
+                          <tr>
+                            <th>ФИО</th>
+                            <th>Стоимость</th>
+                            <th>Услуги</th>
+                            <th>Статус</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {bids?.map((q, i) => {
+                            return (
+                              <tr key={i}>
+                                <td>{q.name}</td>
+                                <td>{q.total_cost}</td>
+                                <td>
+                                  <Button
+                                    variant='outline'
+                                    compact
+                                    onClick={() => setViewModal({modal: true, services: q?.serv1ce})}
+                                  >
+                                    Услуги
+                                  </Button>
+                                </td>
+                                <td>
+                                  {q?.status === 'created' && 'В ожидании'}
+                                  {q?.status === 'succ' && 'Одобрено'}
+                                  {q?.status === 'rejected' && 'Отклонена'}
+                                </td>
+                              </tr>
+                            )
+                          })}
+                        </tbody>
+                      </Table>
+                    </div>
+                  )}
                 </div>
-                {withdraws?.length !== 0 && (
-                  <div className="mt-12 overflow-scroll">
-                    <h2 className="text-center text-xl font-head">Выводы</h2>
-                    <Table className="border mt-4">
-                      <thead>
-                        <tr>
-                          <th>Дата</th>
-                          <th>Сумма</th>
-                          <th>Карта</th>
-                          <th>Владелец карты</th>
-                          <th>Статус</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {withdraws?.map((withdraw, i) => {
-                          return (
-                            <tr key={i} className="text">
-                              <td className='whitespace-nowrap'>
-                                {dayjs(withdraw?.created).format(
-                                  'YY-MM-DD, hh:mm'
-                                )}
-                              </td>
-                              <td>{formatNumber(withdraw?.sum)}</td>
-                              <td>{withdraw?.card}</td>
-                              <td>{withdraw?.owner}</td>
-                              <td>
-                                {withdraw?.status === 'created' &&
-                                  'В обработке'}
-                                {withdraw?.status === 'paid' && 'Завершено'}
-                                {withdraw?.status === 'rejected' && 'Отклонено'}
-                              </td>
-                            </tr>
-                          )
-                        })}
-                      </tbody>
-                    </Table>
-                  </div>
-                )}
-                {transfers?.length !== 0 && (
-                  <div className="mt-12 overflow-scroll">
-                    <h2 className="text-center text-xl font-head">Переводы</h2>
-                    <Table className="border mt-4">
-                      <thead>
-                        <tr>
-                          <th>Дата</th>
-                          <th>Сумма</th>
-                          <th>Отправитель</th>
-                          <th>Получатель</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {transfers?.map((transfer, i) => {
-                          return (
-                            <tr key={i} className="text">
-                              <td className='whitespace-nowrap'>
-                                {dayjs(transfer?.created).format(
-                                  'YY-MM-DD, hh:mm'
-                                )}
-                              </td>
-                              <td>{formatNumber(transfer?.sum)}</td>
-                              <td>{transfer?.user}</td>
-                              <td>{transfer?.taker}</td>
-                            </tr>
-                          )
-                        })}
-                      </tbody>
-                    </Table>
-                  </div>
-                )}
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+      <Modal
+        opened={viewModal.modal}
+        onClose={() => setViewModal({services: [], modal: false})}
+        centered
+      >
+        {viewModal.services.map((service, i) => {
+          return (
+            <div 
+              key={i}
+              className='justify-between gap-6 border p-4 rounded-lg'
+            >
+              <div>
+                <p className='font-bold text-lg'>{service.title}</p>
+                <p className='text-sm'>{service.description}</p>
+              </div>
+              <div className='space-y-2'> 
+                <p className='font-bold text-2xl'>{service.cost} тг</p>
+              </div>
+            </div>
+          )
+        })}
+      </Modal>
+      {/* <Modal
+        opened={modal}
+        onClose={() => setModal(false)}
+        centered
+        size={'xs'}
+        title='Данные партнера'
+      >
+        <img 
+          src={getImageUrl(user?.expand?.sponsor, user?.expand?.sponsor?.avatar)} 
+          alt="" 
+          className='w-[150px] h-[150px] object-cover rounded-full mx-auto mb-5 bg-slate-300'
+        />
+        <ul className='space-y-2'>
+          <li className='grid grid-cols-2'>
+            <p>ID:</p>
+            <p>{user?.expand?.sponsor?.id}</p>
+          </li>
+          <li className='grid grid-cols-2'>
+            <p>Имя:</p>
+            <p>{user?.expand?.sponsor?.name}</p>
+          </li>
+          <li className='grid grid-cols-2'>
+            <p>Фамилия:</p>
+            <p>{user?.expand?.sponsor?.surname}</p>
+          </li>
+          <li className='grid grid-cols-2'>
+            <p>Телефон:</p>
+            <p>{user?.expand?.sponsor?.phone}</p>
+          </li>
+          <li className='grid grid-cols-2'>
+            <p>Область:</p>
+            <p>{user?.expand?.sponsor?.region}</p>
+          </li>
+          <li className='grid grid-cols-2'>
+            <p>Партнеры:</p>
+            <p>{user?.expand?.sponsor?.referals?.length}</p>
+          </li>
+          <li className='grid grid-cols-2'>
+            <p>Бинар:</p>
+            <p>{user?.expand?.sponsor?.bin ? 'Да' : 'Нет'}</p>
+          </li>
+          <li className='grid grid-cols-2'>
+            <p>Уровень:</p>
+            <p>{user?.expand?.sponsor?.level}</p>
+          </li>
+          <li className='grid grid-cols-2'>
+            <p>Дата рег:</p>
+            <p>{dayjs(user?.expand?.sponsor?.created).format('DD.MM.YY')}</p>
+          </li>
+        </ul>
+      </Modal> */}
+    </>
   )
 }
-
-// async function getPyramidByUser (userId) {
-
-//   if (userId) {
-//     const pyramid = (
-//       await pb
-//         .collection("pyramid")
-//         .getFullList({ expand: "1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12" })
-//     )[0];
-//     const pyramidsUser = await pb.collection("users").getOne(userId);
-//     let foundUser = null;
-//     let result = [];
-
-//     for (const stage in pyramid) {
-//       if (!isNaN(stage)) {
-//         const stageArrays = pyramid?.expand?.[stage];
-//         const stageUser = stageArrays?.find((e) => e?.id === userId);
-//         if (stageUser) {
-//           foundUser = userId;
-//           const properties = Object.keys(pyramid?.expand);
-//           // const pows = properties.length - Number(stage)
-
-//           properties.map((key, i) => {
-//             if (Number(key) > Number(stage)) {
-//               // console.log(pyramid?.expand?.[key], key, stage, 'stage')
-//               result.push(pyramid?.expand?.[key]);
-
-//               return;
-//             }
-//           });
-
-//           result = result?.map((arr, i) => {
-//             return arr.slice(0, Math.pow(2, i + 1));
-//           });
-//           result.unshift([pyramidsUser]);
-//         }
-//       }
-//     }
-
-//     if (foundUser) {
-//       return {
-//         pyramid: pyramid,
-//         result,
-//       };
-//     } else {
-//       return {
-//         pyramid: pyramid,
-//         result: null,
-//       };
-//     }
-// }
-
-//   const pyramid = (
-//     await pb
-//       .collection("pyramid")
-//       .getFullList({ expand: "sponsor, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12" })
-//   )[0];
-
-//   const sponsor = pyramid?.expand?.sponsor
-
-//   // const pyramidsUser = await pb.collection("users").getOne(userId);
-//   let result = [];
-
-//   for (const stage in pyramid) {
-//     if (!isNaN(stage)) {
-
-
-//       result.push(pyramid?.expand?.[stage]);
-//       // const stageUser = stageArrays?.find((e) => e?.id === sponsor);
-//     }
-//     result = result?.map((arr, i) => {
-//       return arr?.slice(0, Math.pow(2, i + 1));
-//     });
-    
-//   }
-
-//   result?.unshift([sponsor]);
-
-//   if (sponsor) {
-//     return {
-//       pyramid: pyramid,
-//       result,
-//     };
-//   } else {
-//     return {
-//       pyramid: pyramid,
-//       result: null,
-//     };
-//   }
-// }
