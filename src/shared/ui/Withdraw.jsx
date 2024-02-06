@@ -333,7 +333,7 @@ export const Withdraw = () => {
 
     const data = {
       ORDER: randomNumber,
-      AMOUNT: totalCost(addedServices),
+      AMOUNT: totalCost(bids, 'total_cost'),
       CURRENCY: 'KZT',
       MERCHANT:'110-R-113431490',
       TERMINAL: '11371491',
