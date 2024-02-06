@@ -383,7 +383,7 @@ export const Withdraw = () => {
         console.log(res, 'response');
         console.log(res?.data?.includes('Обработано успешно'), 'res');
         if (res?.data?.includes('Обработано успешно')) {
-          await pb.collection('service_bids').update(bid?.id, {
+          await pb.collection('service_bids').update(bid?.[0]?.id, {
             status: 'created',
           })
           .then(res => {setBids([])})
