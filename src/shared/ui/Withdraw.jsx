@@ -339,7 +339,8 @@ export const Withdraw = () => {
         status: 'waiting',
         pay: {
           ...data,
-          P_SIGN: sign
+          P_SIGN: sign,
+          pay_url: `https://jpay.jysanbank.kz/ecom/api?${searchParams}`,
         }
       })
       .then(() => {
@@ -357,53 +358,7 @@ export const Withdraw = () => {
 
   async function buyServiceWithCardContinue (e) {
     e.preventDefault()
-    setServiceLoading(true)
-    const randomNumber = Math.floor(Math.random() * 100000000)
-    const token = import.meta.env.VITE_APP_SHARED_SECRET
-
-    const data = {
-      ORDER: randomNumber,
-      AMOUNT: totalCost(bids, 'total_cost'),
-      CURRENCY: 'KZT',
-      MERCHANT:'110-R-113431490',
-      TERMINAL: '11371491',
-      NONCE: randomNumber + 107,
-      DESC: 'Пополнение баланса Ozelim',
-      CLIENT_ID: user?.id,
-      DESC_ORDER: 'Пополнение',
-      EMAIL: user?.email,
-      BACKREF: `https://oz-elim.kz/profile`,
-      Ucaf_Flag: '',
-      Ucaf_Authentication_Data: '',
-    }
-
-    const dataString = `${data?.ORDER};${data?.AMOUNT};${data?.CURRENCY};${data?.MERCHANT};${data?.TERMINAL};${data?.NONCE};${data?.CLIENT_ID};${data?.DESC};${data?.DESC_ORDER};${data?.EMAIL};${data?.BACKREF};${data?.Ucaf_Flag};${data?.Ucaf_Authentication_Data};`
-    
-    const all = token + dataString
-    const sign = sha512(all).toString()
-
-    await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/pay`, {
-      ...data,
-      P_SIGN: sign
-    })
-    .then(async res => {
-      console.log(res, 'res');
-      console.log(res?.data, 'res data');
-      const searchParams = new URLSearchParams(JSON.parse(res?.config?.data));
-      await pb.collection('service_bids').update(bids?.[0]?.id, {
-        pay: {
-          ...data,
-          P_SIGN: sign
-        }
-      })
-      .then(() => {
-        setServiceLoading(false)
-        window.location.href = `https://jpay.jysanbank.kz/ecom/api?${searchParams}`;
-      })
-    })
-    .catch(() => {
-      setServiceLoading(false)
-    })
+    window.location.href = bids?.[0]?.pay?.url;
   }
 
   async function checkBids (bid) {
