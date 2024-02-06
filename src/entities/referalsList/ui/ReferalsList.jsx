@@ -238,10 +238,12 @@ export const ReferalsList = ({level, setCount}) => {
               </p>
             </div>
           )}
-          <div className='flex gap-1'>
-            <p className='text' onClick={() => setCount(q => q + 1)}>Статистика:</p>
-            <p>{friki}</p>
-          </div>
+          {user?.bin && (
+            <div className='flex gap-1'>
+              <p className='text' onClick={() => setCount(q => q + 1)}>Статистика:</p>
+              <p>{friki}</p>
+            </div>
+          )}
         </div>
         <div className='flex gap-4 overflow-x-auto pb-2 mt-4'>
           {referals.map((referal, i) => {
