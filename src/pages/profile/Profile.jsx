@@ -617,6 +617,8 @@ export const Profile = () => {
     ) 
   }
 
+  console.log(user?.expand?.sponsor, 'sponsor');
+
   return (
     <>
       <div className="w-full">
