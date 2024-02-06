@@ -628,7 +628,7 @@ export const Profile = () => {
                 <ReferalsList level={level} setCount={setCount} />
                 <div className="mt-10 overflow-auto">
 
-                  {user?.expand?.sponsor && (
+                  {user?.sponsor && (
                     <div>
                       <p>Спонсор:</p>
                       <div className='flex mt-2'>
