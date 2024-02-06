@@ -369,6 +369,8 @@ export const Withdraw = () => {
 
     const pay = bids?.[0]?.pay
 
+    console.log(pay, 'pay');
+
     const string = `${pay?.ORDER};${pay?.MERCHANT}`
     const sign = sha512(token + string).toString()
 
