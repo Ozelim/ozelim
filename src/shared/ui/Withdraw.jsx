@@ -504,7 +504,7 @@ export const Withdraw = () => {
           size='xs'
           variant='subtle'
         >
-          Услуги
+          Услуги (тест)
         </Button>
       </div>
       <Modal
