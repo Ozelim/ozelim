@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDisclosure } from '@mantine/hooks'
-import { Button, Group, LoadingOverlay, Modal, NumberInput, PinInput, Select, TextInput } from '@mantine/core'
+import { Button, Group, LoadingOverlay, Modal, NumberInput, PinInput, Popover, Select, TextInput } from '@mantine/core'
 import { Controller, useForm } from 'react-hook-form'
 import { pb } from 'shared/api'
 import { openConfirmModal } from '@mantine/modals'
@@ -16,7 +16,12 @@ async function getServices () {
 }
 
 async function getReplenishes (id) {
+  if (!id) return
   return await pb.collection('replenish').getFullList({filter: `user = '${id}' && status = 'created'`})
+}
+
+async function getWaitingServices (id) {
+  return await pb.collection('service_bids').getFullList({filter: `user = '${id}' && status = 'waiting'`})
 }
 
 export const Withdraw = () => {
@@ -133,7 +138,8 @@ export const Withdraw = () => {
   const [modals, setModals] = React.useState({
     services: false,
     confirm: false,
-    pay: false
+    pay: false,
+    waiting: false,
   })
 
   const [name, setName] = React.useState('')
@@ -268,14 +274,141 @@ export const Withdraw = () => {
     }
   }
 
+  async function buyServicesWithCard (e) {
+    e.preventDefault()
+    const randomNumber = Math.floor(Math.random() * 100000000)
+    const token = import.meta.env.VITE_APP_SHARED_SECRET
+
+    const data = {
+      ORDER: randomNumber,
+      AMOUNT: totalCost(addedServices),
+      CURRENCY: 'KZT',
+      MERCHANT:'110-R-113431490',
+      TERMINAL: '11371491',
+      NONCE: randomNumber + 107,
+      DESC: 'Пополнение баланса Ozelim',
+      CLIENT_ID: user?.id,
+      DESC_ORDER: 'Пополнение',
+      EMAIL: user?.email,
+      BACKREF: `https://oz-elim.kz/profile`,
+      Ucaf_Flag: '',
+      Ucaf_Authentication_Data: '',
+    }
+
+    const dataString = `${data?.ORDER};${data?.AMOUNT};${data?.CURRENCY};${data?.MERCHANT};${data?.TERMINAL};${data?.NONCE};${data?.CLIENT_ID};${data?.DESC};${data?.DESC_ORDER};${data?.EMAIL};${data?.BACKREF};${data?.Ucaf_Flag};${data?.Ucaf_Authentication_Data};`
+    
+    const all = token + dataString
+    const sign = sha512(all).toString()
+
+    await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/pay`, {
+      ...data,
+      P_SIGN: sign
+    })
+    .then(async res => {
+      console.log(res, 'res');
+      console.log(res?.data, 'res data');
+      const searchParams = new URLSearchParams(JSON.parse(res?.config?.data));
+      await pb.collection('service_bids').create({
+        serv1ce: [...addedServices],
+        service: [...addedServices.map(q => q.id)],
+        name,
+        user: user?.id,
+        total_cost: data?.AMOUNT,
+        status: 'waiting',
+        pay: {
+          ...data,
+          P_SIGN: sign
+        }
+      })
+      .then(() => {
+        window.location.href = `https://jpay.jysanbank.kz/ecom/api?${searchParams}`;
+      })
+    })
+  }
+
+  async function buyServiceWithCardContinue (e) {
+    e.preventDefault()
+    const randomNumber = Math.floor(Math.random() * 100000000)
+    const token = import.meta.env.VITE_APP_SHARED_SECRET
+
+    const data = {
+      ORDER: randomNumber,
+      AMOUNT: totalCost(addedServices),
+      CURRENCY: 'KZT',
+      MERCHANT:'110-R-113431490',
+      TERMINAL: '11371491',
+      NONCE: randomNumber + 107,
+      DESC: 'Пополнение баланса Ozelim',
+      CLIENT_ID: user?.id,
+      DESC_ORDER: 'Пополнение',
+      EMAIL: user?.email,
+      BACKREF: `https://oz-elim.kz/profile`,
+      Ucaf_Flag: '',
+      Ucaf_Authentication_Data: '',
+    }
+
+    const dataString = `${data?.ORDER};${data?.AMOUNT};${data?.CURRENCY};${data?.MERCHANT};${data?.TERMINAL};${data?.NONCE};${data?.CLIENT_ID};${data?.DESC};${data?.DESC_ORDER};${data?.EMAIL};${data?.BACKREF};${data?.Ucaf_Flag};${data?.Ucaf_Authentication_Data};`
+    
+    const all = token + dataString
+    const sign = sha512(all).toString()
+
+    await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/pay`, {
+      ...data,
+      P_SIGN: sign
+    })
+    .then(async res => {
+      console.log(res, 'res');
+      console.log(res?.data, 'res data');
+      const searchParams = new URLSearchParams(JSON.parse(res?.config?.data));
+      window.location.href = `https://jpay.jysanbank.kz/ecom/api?${searchParams}`;
+    })
+  }
+
+  async function checkBids () {
+    const token = import.meta.env.VITE_APP_SHARED_SECRET
+
+    const pay = bids?.[0]?.pay
+
+    const string = `${pay?.ORDER};${pay?.MERCHANT}`
+    const sign = sha512(token + string).toString()
+
+    
+    if (pay?.MERCHANT && pay?.ORDER) {
+      await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/check`, {
+        ORDER: pay?.ORDER,
+        MERCHANT: pay?.MERCHANT,
+        GETSTATUS: 1,
+        P_SIGN: sign,
+      })
+      .then(async res => {
+        console.log(res, 'response');
+        console.log(res?.data?.includes('Обработано успешно'), 'res');
+        if (res?.data?.includes('Обработано успешно')) {
+          await pb.collection('service_bids').update(bids?.[0]?.id, {
+            status: 'created',
+          })
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    }
+  }
+
+  const [bids, setBids] = React.useState([])
+
   React.useEffect(() => {
     getReplenishes(user?.id)
     .then(res => {
+      if (res.length === 0) return
       res.map(async (q, i) => {
         await checkReplenishStatus(q)
       })
     }) 
-    // checkReplenishStatus()
+    getWaitingServices(user?.id)
+    .then(res => {
+      setBids(res)
+    })
   }, [])
 
   return (
@@ -360,13 +493,19 @@ export const Withdraw = () => {
         >
           Пополнение
         </Button> */}
-        {/* <Button 
-          fullWidth onClick={() => setModals({...modals, confirm: true})}  
-          className='mt-4' 
+        <Button 
+          onClick={
+            bids.length === 0 
+              ? () => setModals({...modals, confirm: true})
+              : () => setModals({...modals, waiting: true})
+            }  
+          className='mt-2' 
           compact 
+          size='xs'
+          variant='subtle'
         >
           Услуги
-        </Button> */}
+        </Button>
       </div>
       <Modal
         opened={modals.services}
@@ -439,6 +578,7 @@ export const Withdraw = () => {
             onChange={e => setName(e.currentTarget.value)}
             description='Обязательное поле'
           />
+          <p>Общая стоиомсть: {totalCost(addedServices)}</p>
           <p className='mt-4'>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia ducimus optio numquam esse provident maxime unde eos. Voluptatum, delectus veniam!
           </p>
@@ -451,6 +591,7 @@ export const Withdraw = () => {
             </Button>
             <Button
               disabled={name.length < 2}
+              onClick={buyServicesWithCard}
             >
               Карта
             </Button>
@@ -474,6 +615,54 @@ export const Withdraw = () => {
           >
             Пополнить
           </Button>
+        </div>
+      </Modal>
+      <Modal
+        opened={modals.waiting}
+        onClose={() => setModals({...modals, waiting: false})}
+        centered
+      >
+        <div>
+          {bids.map((bid, i) => {
+            return bid?.serv1ce?.map((service, index) => {
+              return ( 
+                <div 
+                  key={service.id}
+                  className='justify-between border p-4 rounded-lg mt-4'
+                >
+                  <div>
+                    <p className='font-bold text-lg'>{service.title}
+                    </p>
+                  </div>
+                  <div className='space-y-2'> 
+                    <p className='font-bold text-2xl'>{service.cost} тг</p>
+                  </div>
+                </div>
+              )            
+            })
+          })}
+          <p>Общая стоиомсть: {totalCost(bids, 'total_cost')}</p>
+          <div className='flex mt-5'>
+            <Button onClick={buyServiceWithCardContinue}>
+              Перейти к оплате
+            </Button>
+            <Popover position="bottom" withArrow shadow="md">
+              <Popover.Target>
+                <Button>Отменить</Button>
+              </Popover.Target>
+              <Popover.Dropdown>
+                <Button onClick={async () => {
+                  await pb.collection('service_bids').delete(bids?.[0]?.id)
+                  .then(res => {
+                    setModals({...modals, waiting: false})
+                    setBids([])
+                  })}}
+                >
+                  Да
+                </Button>
+              </Popover.Dropdown>
+            </Popover>
+          </div>
         </div>
       </Modal>
     </>
