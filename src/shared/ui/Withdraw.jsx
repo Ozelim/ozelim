@@ -364,12 +364,10 @@ export const Withdraw = () => {
     })
   }
 
-  async function checkBids () {
+  async function checkBids (bid) {
     const token = import.meta.env.VITE_APP_SHARED_SECRET
 
-    const pay = bids?.[0]?.pay
-
-    console.log(pay, 'pay');
+    const pay = bid?.[0]?.pay
 
     const string = `${pay?.ORDER};${pay?.MERCHANT}`
     const sign = sha512(token + string).toString()
@@ -388,6 +386,7 @@ export const Withdraw = () => {
           await pb.collection('service_bids').update(bids?.[0]?.id, {
             status: 'created',
           })
+          .then(res => {setBids([])})
         }
       })
       .catch(err => {
@@ -409,12 +408,9 @@ export const Withdraw = () => {
     getWaitingServices(user?.id)
     .then(res => {
       setBids(res)
+      checkBids(res)
     })
   }, [])
-
-  React.useEffect(() => {
-    checkBids()
-  }, [bids])
 
   return (
     <>
