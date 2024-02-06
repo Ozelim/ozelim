@@ -11,6 +11,9 @@ import { arraysContainSameItemsById, totalCost } from 'shared/lib'
 import { sha512 } from 'js-sha512'
 import axios from 'axios'
 
+import cardImg from 'shared/assets/images/card.png'
+import { isNumber } from '@tiptap/react'
+
 async function getServices () {
   return await pb.collection('services').getFullList()
 }
@@ -152,6 +155,7 @@ export const Withdraw = () => {
 
   function handleServiceClose () {
     setModals({...modals, confirm: false})
+    setAddedServices([])
   }
 
   React.useEffect(() => {
@@ -351,8 +355,6 @@ export const Withdraw = () => {
     })
   }
 
-  console.log(serviceLoading);
-
   async function buyServiceWithCardContinue (e) {
     e.preventDefault()
     setServiceLoading(true)
@@ -525,28 +527,23 @@ export const Withdraw = () => {
             Вывод
           </Button>
         </div>
-        {/* <Button 
-          // fullWidth 
+        <Button 
+          className='mt-3'
+          fullWidth 
           onClick={() => setFill({...fill, modal: true})} 
-          className='mt-4' 
-          compact
-          size='xs'
-          variant='subtle'
         >
           Пополнение
-        </Button> */}
+        </Button>
         <Button 
+          className='mt-3'
+          fullWidth
           onClick={
             bids.length === 0 
               ? () => setModals({...modals, confirm: true})
               : () => setModals({...modals, waiting: true})
             }  
-          className='mt-2' 
-          compact 
-          size='xs'
-          variant='subtle'
         >
-          Услуги (тест)
+          Услуги
         </Button>
       </div>
       <Modal
@@ -564,7 +561,7 @@ export const Withdraw = () => {
                 className='justify-between gap-6 border p-4 rounded-lg'
               >
                 <div>
-                  <p className='font-bold text-lg'>{service.title}</p>
+                  <p className='text-lg'>{service.title}</p>
                   <p className='text-sm'>{service.description}</p>
                 </div>
                 <div className='space-y-2'> 
@@ -583,7 +580,7 @@ export const Withdraw = () => {
           </div>
         </div>
         <div className='sticky inline bottom-12 left-3/4'>
-          <Button onClick={() => setModals({...modals, services: false, confirm: true})}>Назад</Button>
+          <Button onClick={() => setModals({...modals, services: false, confirm: true})}>Далее</Button>
         </div>
       </Modal>
       <Modal
@@ -592,15 +589,15 @@ export const Withdraw = () => {
         centered
       >
         <div>
-          {addedServices.length !== 0 && <h2>Выбранные услуги</h2>} 
+          {addedServices.length !== 0 && <h2 className='mb-4'>Выбранные услуги</h2>} 
           {addedServices.map((service, i) => {
             return (
               <div 
                 key={i}
-                className='justify-between border p-4 rounded-lg mt-4'
+                className='justify-between border p-4 rounded-lg mb-4'
               >
                 <div>
-                  <p className='font-bold text-lg'>{service.title}</p>
+                  <p className='text-lg'>{service.title}</p>
                 </div>
                 <div className='space-y-2'> 
                   <p className='font-bold text-2xl'>{service.cost} тг</p>
@@ -608,35 +605,46 @@ export const Withdraw = () => {
               </div>
             )
           })}
-          <div className='flex justify-center mt-5'>            
+          <div className='flex justify-center'>            
             <Button onClick={handleServiceAdd}>
               Добавить услугу
             </Button>
           </div>
           <TextInput 
-            label='Фио'
+            label='ФИО'
             placeholder='Для кого вы приобретяете услугу'
             value={name}
             onChange={e => setName(e.currentTarget.value)}
             description='Обязательное поле'
           />
-          <p>Общая стоиомсть: {totalCost(addedServices)}</p>
-          <p className='mt-4'>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia ducimus optio numquam esse provident maxime unde eos. Voluptatum, delectus veniam!
-          </p>
+          <p className='mt-4'>Общая стоиомсть: {totalCost(addedServices)}</p>
           <div className='flex justify-center w-full mt-5 gap-4'>
-            <Button 
-              onClick={buyServiceWithBalance}
-              disabled={(totalCost(addedServices) > user.balance) || (name.length < 2)}
-            >
-              Баланс
-            </Button>
-            <Button
-              disabled={name.length < 2}
-              onClick={buyServicesWithCard}
-            >
-              Карта
-            </Button>
+            <div className='p-4 border rounded-primary shadow-md bg-white max-w-xs w-full text-center'>
+              <p className='text'>Онлайн оплата с помощью баланса в профиле</p>
+              <p className='text-xl font-bold mt-2'>
+                Баланс: <span className='font-normal'>{user?.balance}</span> 
+              </p>
+              <Button 
+                className='mt-4'
+                onClick={buyServiceWithBalance}
+                disabled={(totalCost(addedServices) > user.balance) || (name.length < 2) || addedServices.length === 0}
+              >
+                Оплатить
+              </Button>
+            </div>
+            <div className='p-4 border rounded-primary shadow-md bg-white max-w-xs w-full text-center'>
+              <p className='text'>Онлайн оплата с помощью банковской карты</p>
+              <p className='text-xl font-bold mt-2'>
+                Visa/MasterCard
+              </p>
+              <Button 
+                className='mt-4' 
+                onClick={buyServicesWithCard}
+                disabled={name.length < 2 || addedServices.length === 0}
+              >
+                Оплатить
+              </Button>
+            </div>
           </div>
         </div>
       </Modal>
@@ -644,16 +652,40 @@ export const Withdraw = () => {
         opened={fill.modal}
         onClose={() => setFill({...fill, modal: false})}
         centered
-        title='Пополнение'
+        title='Пополнение баланса'
+        classNames={{
+          title: '!text-lg'
+        }}
       >
-        <NumberInput
+        <div className='border p-4 inline-block border-primary-500 rounded-primary'>
+          <p>
+            <img src={cardImg} alt="" className='w-20'/>
+            <p className='text-xl mt-3'>Банковская карта</p>
+          </p>
+          <p className='text text-base'>
+            Коммисия 0%
+          </p>
+        </div>
+        <TextInput
           value={fill.sum}
-          onChange={e => setFill({...fill, sum: e})}
+          inputMode='numeric'
+          pattern="[0-9]"
+          onChange={e => setFill({...fill, sum: e.currentTarget.value})}
           hideControls
+          label='Введите сумму пополнение'
+          description='от 500 T до 1 000 000 T'
+          placeholder='500'
+          className='mt-4'
+          classNames={{
+            label: '!text-lg',
+            input: '!mt-3'
+          }}
         />
         <div className='mt-5'>
           <Button
             onClick={replenish}
+            fullWidth
+            disabled={(fill.sum < 500) || isNaN(fill.sum)}
           >
             Пополнить
           </Button>
@@ -673,7 +705,7 @@ export const Withdraw = () => {
                   className='justify-between border p-4 rounded-lg mt-4'
                 >
                   <div>
-                    <p className='font-bold text-lg'>{service.title}
+                    <p className='text-lg'>{service.title}
                     </p>
                   </div>
                   <div className='space-y-2'> 
@@ -683,14 +715,11 @@ export const Withdraw = () => {
               )            
             })
           })}
-          <p>Общая стоиомсть: {totalCost(bids, 'total_cost')}</p>
-          <div className='flex mt-5'>
-            <Button onClick={buyServiceWithCardContinue}>
-              Перейти к оплате
-            </Button>
+          <p className='mt-4'>Общая стоиомсть: {totalCost(bids, 'total_cost')}</p>
+          <div className='flex mt-5 gap-4 justify-center'>
             <Popover position="bottom" withArrow shadow="md">
               <Popover.Target>
-                <Button>Отменить</Button>
+                <Button color='red' variant='outline'>Отменить</Button>
               </Popover.Target>
               <Popover.Dropdown>
                 <Button onClick={async () => {
@@ -704,6 +733,10 @@ export const Withdraw = () => {
                 </Button>
               </Popover.Dropdown>
             </Popover>
+            <Button onClick={buyServiceWithCardContinue}>
+              Перейти к оплате
+            </Button>
+
           </div>
         </div>
       </Modal>

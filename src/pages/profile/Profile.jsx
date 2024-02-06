@@ -13,6 +13,10 @@ import axios from 'axios'
 import { sha512 } from 'js-sha512'
 import { Avatar } from 'shared/ui'
 import { Referal } from 'entities/referalsList/ui/Referal'
+import { openConfirmModal } from '@mantine/modals'
+
+import { FaCircleXmark } from 'react-icons/fa6'
+
 
 function getMonth(previous) {
   let month = dayjs().month() + 1
@@ -393,7 +397,8 @@ export const Profile = () => {
 
       const data = {
         ORDER: randomNumber,
-        AMOUNT: 30000,
+        // AMOUNT: 30000,
+        AMOUNT: 3,
         CURRENCY: 'KZT',
         MERCHANT:'110-R-113431490',
         TERMINAL: '11371491',
@@ -444,60 +449,63 @@ export const Profile = () => {
 
   async function  verifyUser(userId) {
     setVerifyLoading(true)
-    // await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/verify`, {
-    //   id: userId
-    // })
-    // .finally(() => {
-    //   setVerifyLoading(true)
-    // })
-
-    await pb.admins.authWithPassword('helper@mail.ru', import.meta.env.VITE_APP_PASSWORD)
-    .then(async res => {
-      await pb.collection("users").update(userId, {
-        verified: true,
-      })
-      .then(async res => {
-        const sponsor = await pb.collection('users').getOne(res?.sponsor)
-        await pb.collection('users').update(sponsor?.id, {
-          referals: [...sponsor?.referals, res?.id]
-        })
-      
-        const referals = await pb.collection('users').getFullList({filter: `sponsor = '${sponsor?.id}' && verified = true`})
-  
-        if (referals?.length === 1) {
-          await pb.collection('users').update(sponsor?.id, {
-            balance: sponsor?.balance + 30000            
-          })
-          .finally(async () => {
-            pb.authStore.clear()
-            window.location.reload()
-          })            
-        }
-
-        if (referals?.length >= 4) {
-          await pb.collection('users').update(sponsor?.id, {
-            balance: sponsor?.balance + 15000            
-          })
-          .finally(async () => {
-            pb.authStore.clear()
-            window.location.reload()
-          })            
-        }
-
-        pb.authStore.clear()
-        window.location.reload()
-        // setLoading(false)
-      })
-      .catch(err => {
-        // setLoading(false)
-      })
-      .finally(() => {
-        setVerifyLoading(false)
-      })
+    await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/verify`, {
+      id: userId
+    })
+    .then(res => {
+      console.log(res, 'succ');
     })
     .finally(() => {
-      setVerifyLoading(false)
+      setVerifyLoading(true)
     })
+
+    // await pb.admins.authWithPassword('helper@mail.ru', import.meta.env.VITE_APP_PASSWORD)
+    // .then(async res => {
+    //   await pb.collection("users").update(userId, {
+    //     verified: true,
+    //   })
+    //   .then(async res => {
+    //     const sponsor = await pb.collection('users').getOne(res?.sponsor)
+    //     await pb.collection('users').update(sponsor?.id, {
+    //       referals: [...sponsor?.referals, res?.id]
+    //     })
+      
+    //     const referals = await pb.collection('users').getFullList({filter: `sponsor = '${sponsor?.id}' && verified = true`})
+  
+    //     if (referals?.length === 1) {
+    //       await pb.collection('users').update(sponsor?.id, {
+    //         balance: sponsor?.balance + 30000            
+    //       })
+    //       .finally(async () => {
+    //         pb.authStore.clear()
+    //         window.location.reload()
+    //       })            
+    //     }
+
+    //     if (referals?.length >= 4) {
+    //       await pb.collection('users').update(sponsor?.id, {
+    //         balance: sponsor?.balance + 15000            
+    //       })
+    //       .finally(async () => {
+    //         pb.authStore.clear()
+    //         window.location.reload()
+    //       })            
+    //     }
+
+    //     pb.authStore.clear()
+    //     window.location.reload()
+    //     // setLoading(false)
+    //   })
+    //   .catch(err => {
+    //     // setLoading(false)
+    //   })
+    //   .finally(() => {
+    //     setVerifyLoading(false)
+    //   })
+    // })
+    // .finally(() => {
+    //   setVerifyLoading(false)
+    // })
   }
 
   async function checkPaymentStatus () {
@@ -537,6 +545,21 @@ export const Profile = () => {
   const [viewModal, setViewModal] = React.useState({
     modal: false,
     services: []
+  })
+
+  const confirm = (bid) => openConfirmModal({
+    title: 'Отменить услугу',
+    centered: true,
+    labels: { confirm: 'Подтвердить', cancel: 'Отмена' },
+    onConfirm: async () => pb.collection('service_bids').delete(bid?.id)
+    .then(async res => {
+      await pb.collection('users').update(user?.id, {
+        'balance+': bid?.total_cost
+      })
+      .then(() => {
+        window.location.reload()
+      })
+    }) 
   })
 
   if (loading) {
@@ -760,6 +783,7 @@ export const Profile = () => {
                             <th>Стоимость</th>
                             <th>Услуги</th>
                             <th>Статус</th>
+                            <th></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -781,6 +805,11 @@ export const Profile = () => {
                                   {q?.status === 'created' && 'В ожидании'}
                                   {q?.status === 'succ' && 'Одобрено'}
                                   {q?.status === 'rejected' && 'Отклонена'}
+                                </td>
+                                <td>
+                                  <div className='cursor-pointer'>
+                                    {(!q?.pay && q?.status == 'created') && <FaCircleXmark color="gray" size={20} onClick={() => confirm(q)} />}
+                                  </div>
                                 </td>
                               </tr>
                             )
@@ -807,7 +836,7 @@ export const Profile = () => {
               className='justify-between gap-6 border p-4 rounded-lg'
             >
               <div>
-                <p className='font-bold text-lg'>{service.title}</p>
+                <p className='text-lg'>{service.title}</p>
                 <p className='text-sm'>{service.description}</p>
               </div>
               <div className='space-y-2'> 
