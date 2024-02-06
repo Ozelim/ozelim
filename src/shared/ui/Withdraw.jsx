@@ -358,7 +358,7 @@ export const Withdraw = () => {
 
   async function buyServiceWithCardContinue (e) {
     e.preventDefault()
-    window.location.href = bids?.[0]?.pay?.url;
+    window.location.href = bids?.[0]?.pay?.pay_url;
   }
 
   async function checkBids (bid) {
