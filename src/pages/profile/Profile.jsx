@@ -61,6 +61,7 @@ async function getTransfers (userId) {
 async function getServiceBids (id) {
   return await pb.collection('service_bids').getFullList({
     filter: `user = '${id}'`,
+    sort: `+created`,
   })
 }
 
@@ -627,16 +628,18 @@ export const Profile = () => {
                 <ReferalsList level={level} setCount={setCount} />
                 <div className="mt-10 overflow-auto">
 
-                  <div>
-                    <p>Спонсор:</p>
-                    <div className='flex mt-2'>
-                      <Referal
-                        referal={user?.expand?.sponsor}
-                        onReferalClick={() => {}}
-                        sponsor
-                      />
+                  {user?.expand?.sponsor && (
+                    <div>
+                      <p>Спонсор:</p>
+                      <div className='flex mt-2'>
+                        <Referal
+                          referal={user?.expand?.sponsor}
+                          onReferalClick={() => {}}
+                          sponsor
+                        />
+                      </div>
                     </div>
-                  </div>
+                  )}
 
 
                   <div className='flex gap-4 items-center mb-4'>
@@ -802,9 +805,7 @@ export const Profile = () => {
                                   </Button>
                                 </td>
                                 <td>
-                                  {q?.status === 'created' && 'В ожидании'}
-                                  {q?.status === 'succ' && 'Одобрено'}
-                                  {q?.status === 'rejected' && 'Отклонена'}
+                                  Приобретено
                                 </td>
                                 <td>
                                   <div className='cursor-pointer'>

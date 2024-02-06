@@ -18,7 +18,7 @@ export const Referal = ({referal, onReferalClick, sponsor}) => {
           {referal?.name} {referal?.surname}
         </p>
         <p className='mt-1 text'>
-          {dayjs(referal?.created).format('DD.MM.YYYY, HH:mm')}
+          {dayjs(referal?.created).format('DD.MM.YYYY')}
         </p>
       </div>
     </div>

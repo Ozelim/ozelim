@@ -390,8 +390,16 @@ export const Withdraw = () => {
       console.log(res, 'res');
       console.log(res?.data, 'res data');
       const searchParams = new URLSearchParams(JSON.parse(res?.config?.data));
-      setServiceLoading(false)
-      window.location.href = `https://jpay.jysanbank.kz/ecom/api?${searchParams}`;
+      await pb.collection('service_bids').update(bids?.[0]?.id, {
+        pay: {
+          ...data,
+          P_SIGN: sign
+        }
+      })
+      .then(() => {
+        setServiceLoading(false)
+        window.location.href = `https://jpay.jysanbank.kz/ecom/api?${searchParams}`;
+      })
     })
     .catch(() => {
       setServiceLoading(false)

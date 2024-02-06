@@ -301,7 +301,7 @@ export const UserData = ({count, setCount}) => {
               onChange={(e) => handleValuesChange(e, 'region')}
             />
             <TextInput
-              label={kz ? `Мекен-жайы` : `Мекен-жайы`}
+              label={kz ? `Мекен-жайы` : `Адрес`}
               variant="filled"
               value={values?.adress ?? ''}
               name="adress"

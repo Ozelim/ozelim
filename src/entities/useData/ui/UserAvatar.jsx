@@ -53,7 +53,7 @@ export const UserAvatar = () => {
 
   return (
     <div className='w-full h-full'>
-      <div className='aspect-square h-full rounded-full bg-slate-300 overflow-hidden relative max-w-[200px] mx-auto lg:max-w-full'>
+      <div className='aspect-square h-full overflow-hidden relative max-w-[200px] mx-auto lg:max-w-full'>
         {avatar && (
           <img 
             className='h-full object-cover max-w-[200px] mx-auto lg:max-w-full rounded-full'
@@ -68,6 +68,8 @@ export const UserAvatar = () => {
             alt="" 
           />
         )}
+        <div className='h-full object-cover max-w-[200px] mx-auto lg:max-w-full rounded-full bg-slate-200'/>
+
         <div className='absolute bottom-1 right-1'>
           <Popover
             opened={opened}
@@ -79,7 +81,7 @@ export const UserAvatar = () => {
             <Popover.Target>
               <Button
                 compact
-                variant='subtle'
+                variant='filled'
                 size='xs'
                 onClick={() => setOpened((q) => !q)}
               >
