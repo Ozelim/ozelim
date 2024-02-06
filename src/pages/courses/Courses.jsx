@@ -13,20 +13,14 @@ import { BsBag, BsFillBagHeartFill } from 'react-icons/bs'
 import { Image } from 'shared/ui'
 import { Button } from '@mantine/core'
 import { Link } from 'react-router-dom'
+import { useLangContext } from 'app/langContext'
 
 
 export const Courses = () => {
 
+  const {kz} = useLangContext()
+
   const {headings, text, images} = usePageData('course')
-
-  const [label, setLabel] = React.useState(text?.[`label${1}`])
-
-  const onSubmit = async (data) => {
-    await pb.collection('bids').create({
-      ...data,
-      type: 'course'
-    })
-  }
 
   return (
     <main className="w-full">
@@ -100,7 +94,7 @@ export const Courses = () => {
       </div>
       <div className='text-center mt-10'>
         <Link to={'/price'} className='text-blue-500 underline'>
-          Узнать подробнее о ценах
+          {kz ? `Бағалар туралы көбірек біліңіз` : `Узнать подробнее о ценах`}
         </Link>
       </div>
     </main>

@@ -16,6 +16,7 @@ import six from 'shared/assets/images/structure6.png'
 import level3 from 'shared/assets/images/3level.png'
 import axios from 'axios'
 import { getImageUrl } from 'shared/lib'
+import { useLangContext } from 'app/langContext'
 
 async function checkSponsors (user) {
 
@@ -27,6 +28,8 @@ async function checkSponsors (user) {
 }
 
 export const ReferalsList = ({level, setCount}) => {
+
+  const {kz} = useLangContext()
 
   const {user} = useAuth()
 
@@ -97,7 +100,6 @@ export const ReferalsList = ({level, setCount}) => {
     .then(async () => {
       await pb.collection('users').update(user?.id, {
         cock: true,
-        balance: user?.balance - 5000
       })
       .then(() => {
         setThreeModal(false)
@@ -127,7 +129,7 @@ export const ReferalsList = ({level, setCount}) => {
   const [radio, setRadio] = React.useState('')
 
   const levelbid = (level) => openConfirmModal({
-    title: `Заявка на получения вознаграждения и повышение до ${level} ур.`,
+    title: level === 7 ? `Заявка на получения вознаграждения и услугу реинвеста.` : `Заявка на получения вознаграждения и повышение до ${level} ур.`,
     classNames: {
       title: '!font-semibold'
     },
@@ -135,10 +137,10 @@ export const ReferalsList = ({level, setCount}) => {
     children: (
       <>         
         <p className='text-center'>
-          По окончанию заполнения {level}-го уровня активными пользователями, вы можете подать заявку получение вознаграждения по маркетингу.
+          По окончанию заполнения {level - 1}-го уровня активными пользователями, вы можете подать заявку получение вознаграждения по маркетингу.
         </p>
-        {level == 5 && <img src={five} />}
-        {level == 6 && <img src={six} />}
+        {level == 7 && <img src={six} />}
+        {level == 6 && <img src={five} />}
       </>
     ),
     size: '100%',
@@ -147,7 +149,6 @@ export const ReferalsList = ({level, setCount}) => {
     onConfirm: () => levelBids(level)
   })
 
-
   return (
     <>
       <div className='w-full'>
@@ -155,10 +156,12 @@ export const ReferalsList = ({level, setCount}) => {
           <Button
             onClick={() => setShitModal(true)}
           >
-            Программа
+            {kz ? `Бағдарлама` : `Программа`}
           </Button>
           <div className='flex gap-1'>
-            <p className='text' onClick={() => setCount(q => q + 1)}>Партнеры:</p>
+            <p className='text' onClick={() => setCount(q => q + 1)}>
+              {kz ? `Серіктестер` : `Партнеры`}:
+            </p>
             <p>{referals.length}</p>
           </div>
           {(user?.bin) && (
@@ -171,6 +174,7 @@ export const ReferalsList = ({level, setCount}) => {
                 {(level === '3') && `4`}
                 {(level === '4.1' || level === '4.2') && 5}
                 {level === '5' && 6}
+                {level === '6' && 6}
                 {/* {level === '6' && 6} */}
                 {/* {!user?.cock && ( */}
                   <>
@@ -180,8 +184,9 @@ export const ReferalsList = ({level, setCount}) => {
                         variant='outline'
                         ml={16}
                         onClick={() => setThreeModal(true)}
+                        disabled={user.cock}
                       >
-                        Получить уровень 3
+                        {kz ? `3 деңгей алу` : `Повыситься до 4 ур.`}
                       </Button>
                     )}
                     {level === '3' && (
@@ -190,8 +195,9 @@ export const ReferalsList = ({level, setCount}) => {
                         variant='outline'
                         ml={16}
                         onClick={() => setBidModal(true)}
+                        disabled={user.cock}
                       >
-                        Получить услугу
+                        {kz ? `Қызметті алу` : `Получить услугу`}
                       </Button>
                     )}
                     {(level === '4.1' || level === '4.2') && (
@@ -199,9 +205,10 @@ export const ReferalsList = ({level, setCount}) => {
                         compact
                         variant='outline'
                         ml={16}
-                        onClick={() => levelbid(5)}
+                        onClick={() => levelbid(6)}
+                        disabled={user.cock}
                       > 
-                        Получить вознаграждение 
+                        {kz ? `Сыйлық алу` : `Получить вознаграждение`}
                       </Button>
                     )}
                     {(level == '5') && (
@@ -209,9 +216,21 @@ export const ReferalsList = ({level, setCount}) => {
                         compact
                         variant='outline'
                         ml={16}
-                        onClick={() => levelbid(6)}
+                        onClick={() => levelbid(7)}
+                        disabled={user.cock}
                       > 
-                        Получить вознаграждение
+                        {kz ? `Сыйлық алу` : `Получить вознаграждение`}
+                      </Button>
+                    )}
+                    {(level == '6') && (
+                      <Button
+                        compact
+                        variant='outline'
+                        ml={16}
+                        onClick={() => levelbid(7)}
+                        disabled={user.cock}
+                      > 
+                        {kz ? `Сыйлық алу` : `Получить вознаграждение`}
                       </Button>
                     )}
                   </>
@@ -234,7 +253,7 @@ export const ReferalsList = ({level, setCount}) => {
               />
             )
           })}
-        </div>su
+        </div>
       </div>
       <Modal
         opened={modal}
@@ -298,7 +317,7 @@ export const ReferalsList = ({level, setCount}) => {
         <img src={market} alt="" className='h-full' />
       </Modal>
       <Modal
-        title='Заявка на получение услуги и повышение до 4 ур.'
+        title={kz ? `Қызмет алуға өтінім және 5 деңгейге дейін көтеру.`: 'Заявка на получение услуги и повышение до 5 ур.'}
         centered
         opened={bidModal}
         onClose={() => setBidModal(false)}
@@ -309,12 +328,15 @@ export const ReferalsList = ({level, setCount}) => {
       >
         <div>
           <p className='text-center'>
-            По окончанию заполнения 4-го уровня активными пользователями, вы можете подать заявку получение вознаграждения по маркетингу.
+            {kz 
+              ? `4-деңгейді белсенді пайдаланушылармен толтыру аяқталғаннан кейін сіз өтініш бере аласыз маркетингтік сыйақы алу.` 
+              : `По окончанию заполнения 4-го уровня активными пользователями, вы можете подать заявку на получение вознаграждения по маркетингу и повышение до следующего уровня.`
+            }
           </p>
           <img src={zay} alt="" className='!mx-0' />
           <Radio.Group
             name="radio"
-            label="Выберите один из вариантов"
+            label={kz ? `Опциялардың бірін таңдаңыз` : "Выберите один из вариантов"}
             withAsterisk
             value={radio}
             onChange={setRadio}
@@ -326,7 +348,7 @@ export const ReferalsList = ({level, setCount}) => {
             s">
               <Radio 
                 value="1" 
-                label="Путёвка всё включено" 
+                label={kz ? `Жолдама барлығы кіреді` : "Путёвка всё включено"} 
                 classNames={{
                   label: 'text-xl',
                   body: '!items-end'
@@ -334,7 +356,7 @@ export const ReferalsList = ({level, setCount}) => {
               />
               <Radio 
                 value="2" 
-                label="Обучение всё включено" 
+                label={kz ? ` Оқыту барлығы кіреді` : "Обучение всё включено"} 
                 classNames={{
                   label: 'text-xl',
                   body: '!items-end'
@@ -347,19 +369,19 @@ export const ReferalsList = ({level, setCount}) => {
               variant='outline'
               onClick={() => setBidModal(false)}
             >
-              Отмена
+              {kz ? `Бас тарту` : 'Отмена'}
             </Button>
             <Button
               disabled={!radio}
               onClick={bids}
             >
-              Подтвердить
+              {kz ? `Растау` : 'Подтвердить'}
             </Button>
           </div>
         </div>
       </Modal>
       <Modal
-        title='Заявка на повышение до 3 ур.'
+        title={kz ? `4-деңгейге көтерілу туралы өтініш.` : `Заявка на повышение до 4 ур.`}
         centered
         opened={threeModal}
         onClose={() => setThreeModal(false)}
@@ -370,23 +392,30 @@ export const ReferalsList = ({level, setCount}) => {
       >
         <div>
           <p className='text-center'>
-            По окончанию заполнения 3-го уровня активными пользователями, вы можете подать заявку на повышение до 3-го уровня
+            {kz 
+              ? `3-деңгейді белсенді пайдаланушылармен толтыру аяқталғаннан кейін сіз 4-деңгейге дейін көтеруге өтініш бере аласыз` 
+              : `По окончанию заполнения 3-го уровня активными пользователями, вы можете подать заявку на повышение до 4-го уровня`
+            }
           </p>
           <img src={level3} alt="" className='!mx-0 w-full' />
-          <p className='text-center my-4 text-slate-400'>Сумма (5000 тг) на благотворительность будет списана с вашего баланса в личном кабинете</p>
+          <p className='text-center my-4 text-slate-400'>
+            {/* {kz 
+              ? `Қайырымдылыққа арналған сома (5000 тг) сіздің жеке кабинетіңіздегі баланстан алынады`
+              : `Сумма (5000 тг) на благотворительность будет списана с вашего баланса в личном кабинете`
+            } */}
+          </p>
           <div className='flex justify-center gap-4'>
             <Button 
               variant='outline'
-              onClick={() => setBidModal(false)}
+              onClick={() => setThreeModal(false)}
             >
-              Отмена
+              {kz ? `Бас тарту` : 'Отмена'}
             </Button>
             <Button
               onClick={bids3}
-              disabled={user?.balance < 5000}
-              
+              // disabled={user?.balance < 5000}
             >
-              Подтвердить
+              {kz ? `Растау` : 'Подтвердить'}
             </Button>
           </div>
         </div>

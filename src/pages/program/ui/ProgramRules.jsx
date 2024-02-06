@@ -4,12 +4,15 @@ import React from 'react'
 import { getExtension, getImageUrl } from 'shared/lib'
 
 import dog from 'shared/assets/images/dogtwo.pdf'
+import { useLangContext } from 'app/langContext'
 
 export const ProgramRules = ({ headings, text }) => {
 
   const [opened, { open, close }] = useDisclosure(false)
 
   const matches = useMediaQuery(`(min-width: 767px)`)
+
+  const {kz} = useLangContext()
 
   return (
     <>
@@ -32,8 +35,9 @@ export const ProgramRules = ({ headings, text }) => {
                 <Center>
                   <Button size="md" className="mt-5" onClick={matches ? open : () => {}}>
                     {matches 
-                      ? 'Договор оферты'
-                      : <a href={'/dogtwo.pdf'} target='_blank'> Договор оферты</a>
+                      ? kz ? `Келісімшарт бойынша ұсыныс` : `Договор оферты`
+                      : <a href={'/dogtwo.pdf'} target='_blank'> 
+                      {kz ? `Келісімшарт бойынша ұсыныс` : `Договор оферты`}</a>
                     }
                   </Button>
                 </Center>

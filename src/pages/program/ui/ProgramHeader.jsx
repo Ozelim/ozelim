@@ -7,8 +7,11 @@ import { Link } from 'react-scroll'
 import { getImageUrl } from 'shared/lib'
 
 import gos from 'shared/assets/images/gos.pdf'
+import { useLangContext } from 'app/langContext'
 
 export const ProgramHeader = ({ headings, text, images }) => {
+
+  const {kz} = useLangContext()
 
   const [opened, { open, close }] = useDisclosure(false)
 
@@ -26,13 +29,15 @@ export const ProgramHeader = ({ headings, text, images }) => {
               <p className="mb-[25px] text-[#27272D] lg:mr-5">{headings?.submain}</p>
               <Link to="docs" spy={true} smooth={true}>
                 <Button className="py-[15px] mb-[20px] px-[45px]" size="lg">
-                  Стать партнером
+                  {kz ? `Серіктес болыңыз` : `Стать партнером`}
                 </Button>
               </Link>
               <p className='underline cursor-pointer text-primary-500' onClick={matches ? open : () => {}}>
                 {matches 
-                  ? 'Справка о гос. регистриции'
-                  : <a href={'/policy.pdf'} target='_blank'>Справка о гос. регистриции</a>
+                  ? kz ? `Мемлекеттік тіркеу куәлік` : `Справка о гос. регистриции`
+                  : <a href={'/policy.pdf'} target='_blank'>
+                    {kz ? `Мемлекеттік тіркеу куәлік` : `Справка о гос. регистриции`}
+                  </a>
                 }
               </p>
               <div className="flex flex-col md:flex-row gap-2 md:gap-5 items-center mt-5">

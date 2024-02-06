@@ -8,8 +8,11 @@ import { ImgSkeleton } from 'shared/ui/ImgSkeleton'
 import { FiYoutube } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import { Image } from 'shared/ui'
+import { useLangContext } from 'app/langContext'
 
 export const CourseHeader = ({ headings, images, text }) => {
+
+  const {kz} = useLangContext()
 
   return (
     <div className="w-full">
@@ -59,7 +62,7 @@ export const CourseHeader = ({ headings, images, text }) => {
             </div>
             <Button size="lg" className="mt-10">
               <a href={text?.link} target='_blank'>
-                Смотреть программу курса
+                {kz ? `Курс бағдарламасын қарау` : `Смотреть программу курса`}
                 <FiYoutube size={25} className="inline ml-2" />
               </a>
             </Button>

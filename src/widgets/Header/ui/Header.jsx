@@ -71,14 +71,13 @@ export const Header = () => {
               className="text-teal-500 hover:text-yellow-400 text-sm lg:text-xl cursor-pointer hidden md:inline-block"
               to={'/price'}
             >
-              Прайс лист
+              {kz ? 'Қызметтер' : 'Услуги'}
             </Link>
           </nav>
           {/* <ContactInfo/> */}
         </div>
         <div className="ml-6">
           <BurgerMenu />
-  
         </div>
       </div>
     </div>
