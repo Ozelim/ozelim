@@ -399,7 +399,7 @@ export const Profile = () => {
       const data = {
         ORDER: randomNumber,
         // AMOUNT: 30000,
-        AMOUNT: 300000,
+        AMOUNT: 30000,
         CURRENCY: 'KZT',
         MERCHANT:'110-R-113431490',
         TERMINAL: '11371491',
