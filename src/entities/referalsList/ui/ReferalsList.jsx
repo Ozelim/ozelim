@@ -129,7 +129,7 @@ export const ReferalsList = ({level, setCount}) => {
   const [radio, setRadio] = React.useState('')
 
   const levelbid = (level) => openConfirmModal({
-    title: level === 7 ? `Заявка на получения вознаграждения и услугу реинвеста.` : `Заявка на получения вознаграждения и повышение до ${level} ур.`,
+    title: level === 7 ? `Заявка на получения вознаграждения и услугу реинвеста.` : `Заявка на получения вознаграждения и переход на ${level} ур.`,
     classNames: {
       title: '!font-semibold'
     },
@@ -146,7 +146,7 @@ export const ReferalsList = ({level, setCount}) => {
     size: '100%',
     // fullScreen: matches ? false : true,
     labels: {confirm: 'Подтвердить', cancel: 'Отмена'},
-    onConfirm: () => levelBids(level)
+    onConfirm: () => levelBids(level - 1)
   })
 
   return (
@@ -186,7 +186,7 @@ export const ReferalsList = ({level, setCount}) => {
                         onClick={() => setThreeModal(true)}
                         disabled={user.cock}
                       >
-                        {kz ? `3 деңгей алу` : `Перейти.`}
+                        {kz ? `4 деңгей алу` : `Перейти на 4 ур.`}
                       </Button>
                     )}
                     {level === '3' && (
@@ -208,7 +208,7 @@ export const ReferalsList = ({level, setCount}) => {
                         onClick={() => levelbid(6)}
                         disabled={user.cock}
                       > 
-                        {kz ? `Сыйлық алу` : `Получить вознаграждение`}
+                        {kz ? `Сыйлық алу` : `Получить 500 000`}
                       </Button>
                     )}
                     {(level == '5') && (
@@ -219,7 +219,7 @@ export const ReferalsList = ({level, setCount}) => {
                         onClick={() => levelbid(7)}
                         disabled={user.cock}
                       > 
-                        {kz ? `Сыйлық алу` : `Получить вознаграждение`}
+                        {kz ? `Сыйлық алу` : `Получить 1 000 000`}
                       </Button>
                     )}
                     {(level == '6') && (
@@ -319,7 +319,7 @@ export const ReferalsList = ({level, setCount}) => {
         <img src={market} alt="" className='h-full' />
       </Modal>
       <Modal
-        title={kz ? `Қызмет алуға өтінім және 5 деңгейге дейін көтеру.`: 'Заявка на получение услуги и повышение до 5 ур.'}
+        title={kz ? `Қызмет алуға өтінім және 5 деңгейге дейін көтеру.`: 'Заявка на получение услуги и переход на 5 ур.'}
         centered
         opened={bidModal}
         onClose={() => setBidModal(false)}
@@ -332,7 +332,7 @@ export const ReferalsList = ({level, setCount}) => {
           <p className='text-center'>
             {kz 
               ? `4-деңгейді белсенді пайдаланушылармен толтыру аяқталғаннан кейін сіз өтініш бере аласыз маркетингтік сыйақы алу.` 
-              : `По окончанию заполнения 4-го уровня активными пользователями, вы можете подать заявку на получение вознаграждения по маркетингу и повышение до следующего уровня.`
+              : `По окончанию заполнения 4-го уровня активными пользователями, вы можете подать заявку на получение вознаграждения по маркетингу и переход на следующий уровень.`
             }
           </p>
           <img src={zay} alt="" className='!mx-0' />
@@ -383,7 +383,7 @@ export const ReferalsList = ({level, setCount}) => {
         </div>
       </Modal>
       <Modal
-        title={kz ? `4-деңгейге көтерілу туралы өтініш.` : `Заявка на повышение до 4 ур.`}
+        title={kz ? `4-деңгейге көтерілу туралы өтініш.` : `Заявка на переход на 4 ур.`}
         centered
         opened={threeModal}
         onClose={() => setThreeModal(false)}
@@ -396,7 +396,7 @@ export const ReferalsList = ({level, setCount}) => {
           <p className='text-center'>
             {kz 
               ? `3-деңгейді белсенді пайдаланушылармен толтыру аяқталғаннан кейін сіз 4-деңгейге дейін көтеруге өтініш бере аласыз` 
-              : `По окончанию заполнения 3-го уровня активными пользователями, вы можете подать заявку на повышение до 4-го уровня`
+              : `По окончанию заполнения 3-го уровня активными пользователями, вы можете подать заявку на переход в 4-тый уровня`
             }
           </p>
           <img src={level3} alt="" className='!mx-0 w-full' />

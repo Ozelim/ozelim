@@ -399,7 +399,7 @@ export const Profile = () => {
       const data = {
         ORDER: randomNumber,
         // AMOUNT: 30000,
-        AMOUNT: 3,
+        AMOUNT: 300000,
         CURRENCY: 'KZT',
         MERCHANT:'110-R-113431490',
         TERMINAL: '11371491',
@@ -631,66 +631,67 @@ export const Profile = () => {
                 <div className="mt-10 overflow-auto">
 
                   {user?.sponsor && (
-                    <div>
-                      <p>Спонсор:</p>
-                      <div className='flex mt-2'>
-                        <Referal
-                          referal={user?.expand?.sponsor}
-                          onReferalClick={() => {}}
-                          sponsor
-                        />
+                    <div className='flex justify-between mb-4'>
+                      <div>
+                        <p>Спонсор:</p>
+                        <div className='flex mt-2'>
+                          <Referal
+                            referal={user?.expand?.sponsor}
+                            onReferalClick={() => {}}
+                            sponsor
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <p>Бинар:</p>
+                        <div className='flex gap-4 items-center mt-2 mr-4'>
+                          {user?.binary === 2 && (
+                            <>
+                              <Button
+                                compact
+                                variant='outline'
+                                onClick={() => setCurrentBinary(1)}
+                              >
+                                1
+                              </Button>
+                              <Button 
+                                compact
+                                variant='outline'
+                                onClick={() => setCurrentBinary(2)}
+                              >
+                                2
+                              </Button>
+                            </>
+                          )}
+                          {user?.binary === 3 && (
+                            <>
+                            <Button
+                              compact
+                              variant='outline'
+                              onClick={() => setCurrentBinary(1)}
+                            >
+                              1
+                            </Button>
+                            <Button 
+                              compact
+                              variant='outline'
+                              onClick={() => setCurrentBinary(2)}
+                            >
+                              2
+                            </Button>
+                            <Button 
+                              compact
+                              variant='outline'
+                              onClick={() => setCurrentBinary(3)}
+                            >
+                              3
+                            </Button>
+                            </>
+                          )}
+                        </div>
                       </div>
                     </div>
                   )}
-
-
-                  <div className='flex gap-4 items-center mb-4'>
-            
-                    {user?.binary === 2 && (
-                      <>
-                        <Button
-                          compact
-                          variant='outline'
-                          onClick={() => setCurrentBinary(1)}
-                        >
-                          1
-                        </Button>
-                        <Button 
-                          compact
-                          variant='outline'
-                          onClick={() => setCurrentBinary(2)}
-                        >
-                          2
-                        </Button>
-                      </>
-                    )}
-                    {user?.binary === 3 && (
-                      <>
-                      <Button
-                        compact
-                        variant='outline'
-                        onClick={() => setCurrentBinary(1)}
-                      >
-                        1
-                      </Button>
-                      <Button 
-                        compact
-                        variant='outline'
-                        onClick={() => setCurrentBinary(2)}
-                      >
-                        2
-                      </Button>
-                      <Button 
-                        compact
-                        variant='outline'
-                        onClick={() => setCurrentBinary(3)}
-                      >
-                        3
-                      </Button>
-                      </>
-                    )}
-                  </div>
-
                   <div className="h-[70vh] border-2 border-primary-400 p-4 ">
                     <Tree 
                       data={binary ?? {}}

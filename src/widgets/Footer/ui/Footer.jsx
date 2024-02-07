@@ -2,19 +2,20 @@ import React from 'react'
 import ozelimlogo from 'shared/assets/images/logo.svg'
 import dayjs from 'dayjs'
 import { BsInstagram, BsTelegram, BsTiktok, BsYoutube } from 'react-icons/bs'
-import { Modal } from '@mantine/core'
+import { Menu, Modal, UnstyledButton } from '@mantine/core'
 import { useDisclosure, useMediaQuery } from '@mantine/hooks'
 
 import test from 'shared/assets/images/policy.pdf'
 import { Link, useNavigate } from 'react-router-dom'
 import dog from 'shared/assets/images/dogone.pdf'
 import { useLangContext } from 'app/langContext'
+import { IoIosArrowDown } from 'react-icons/io'
 
 const date = new Date()
 
 export const Footer = () => {
 
-  const {kz} = useLangContext()
+  const {kz, changeLang} = useLangContext()
 
   const navigate = useNavigate()
 
@@ -53,7 +54,25 @@ export const Footer = () => {
                 БИН: 221140000992
               </p>
               <p>
-                140000 г. Павлодар, ул. Гагарина 50
+              <Menu>
+                <Menu.Target>
+                  <div className='inline cursor-pointer'>
+                    140000
+                  </div>
+                  {/* <p className='font-bold text-primary-500 cursor-pointer flex gap-2 items-center'>
+                    {kz ? 'Каз': 'Рус'}
+                    <IoIosArrowDown />
+                  </p> */}
+                </Menu.Target>
+                <Menu.Dropdown >
+                  <Menu.Item onClick={() => changeLang('ru')}>
+                    Рус
+                  </Menu.Item>
+                  <Menu.Item onClick={() => changeLang('kz')}>
+                    Каз
+                  </Menu.Item>
+                </Menu.Dropdown>
+              </Menu> г. Павлодар, ул. Гагарина 50
               </p>
               <p>
                 e-mail: support@oz-elim.kz
