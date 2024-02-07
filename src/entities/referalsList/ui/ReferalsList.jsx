@@ -186,7 +186,7 @@ export const ReferalsList = ({level, setCount}) => {
                         onClick={() => setThreeModal(true)}
                         disabled={user.cock}
                       >
-                        {kz ? `3 деңгей алу` : `Повыситься до 4 ур.`}
+                        {kz ? `3 деңгей алу` : `Перейти.`}
                       </Button>
                     )}
                     {level === '3' && (
