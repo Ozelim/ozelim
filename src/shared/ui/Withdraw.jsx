@@ -500,11 +500,12 @@ export const Withdraw = () => {
         <Button 
           className='mt-3'
           fullWidth
-          onClick={
-            bids.length === 0 
-              ? () => setModals({...modals, confirm: true})
-              : () => setModals({...modals, waiting: true})
-            }  
+          // onClick={
+          //   bids.length === 0 
+          //     ? () => setModals({...modals, confirm: true})
+          //     : () => setModals({...modals, waiting: true})
+          //   }  
+          onClick={() => setModals({...modals, confirm: true})}  
         >
           Услуги
         </Button>
@@ -568,8 +569,8 @@ export const Withdraw = () => {
               </div>
             )
           })}
-          <div className='flex justify-center'>            
-            <Button onClick={handleServiceAdd}>
+          <div className='flex justify-center mb-4'>            
+            <Button onClick={handleServiceAdd} fullWidth>
               Добавить услугу
             </Button>
           </div>

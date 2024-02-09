@@ -3,11 +3,11 @@ import { UserData } from 'entities/useData'
 import dayjs from 'dayjs'
 import { ReferalsList } from 'entities/referalsList'
 import { pb } from 'shared/api'
-import { Button, LoadingOverlay, Modal, Table } from '@mantine/core'
+import { Button, LoadingOverlay, Modal, Table, TextInput } from '@mantine/core'
 import { useAuth } from 'shared/hooks'
 
 import Tree from 'react-d3-tree'
-import { formatNumber, getImageUrl } from 'shared/lib'
+import { formatNumber, getImageUrl, totalCost } from 'shared/lib'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { sha512 } from 'js-sha512'
@@ -61,7 +61,7 @@ async function getTransfers (userId) {
 async function getServiceBids (id) {
   return await pb.collection('service_bids').getFullList({
     filter: `user = '${id}'`,
-    sort: `+created`,
+    sort: `-created`,
   })
 }
 
@@ -563,6 +563,74 @@ export const Profile = () => {
     }) 
   })
 
+  const [card, setCard] = React.useState('')
+
+  const handleCardDisplay = () => {
+    const rawText = [...card?.split(' ').join('')] // Remove old space
+    const creditCard = [] // Create card as array
+    rawText.forEach((t, i) => {
+      if (i % 4 === 0 && i !== 0) creditCard.push(' ') // Add space
+      creditCard.push(t)
+    })
+
+    return creditCard.join('') // Transform card array to string
+  }
+
+  const [cancel, setCancel] = React.useState({
+    modal: false,
+    bid: {},
+  }) 
+
+  const confirmRefundBalance = () => openConfirmModal({
+    title: 'Подтвердите действие',
+    centered: true,
+    children: 'Отменить услугу и вернуть средства на баланс?',
+    labels: {confirm: 'Подтвердить', cancel: 'Назад'},
+    onConfirm: async () => {
+      await pb.collection('service_bids').update(cancel?.bid?.id, {
+        status: 'cancelled',
+        total_cost2: (cancel?.bid?.total_cost - (cancel?.bid?.total_cost * 0.05)).toFixed(0),
+      })
+      .then(async () => {
+        await pb.collection('users').update(user?.id, {
+          'balance+': (cancel?.bid?.total_cost - (cancel?.bid?.total_cost * 0.05)).toFixed(0) 
+        })
+        .then(() => {
+          window.location.reload()
+        })
+      })
+    },
+    onClose: () => setCancel({...cancel, modal: true})
+  })
+
+  const confirmRefundCard = () => openConfirmModal({
+    title: 'Подтвердите действие',
+    centered: true,
+    children: 'Отменить услугу и вернуть средства на карту?',
+    labels: {confirm: 'Подтвердить', cancel: 'Назад'},
+    onConfirm: async () => {
+      await pb.collection('service_bids').update(cancel?.bid?.id, {
+        status: 'cancelled',
+        total_cost2: (cancel?.bid?.total_cost - (cancel?.bid?.total_cost * 0.05)).toFixed(0),
+        card,
+      })
+      .then(() => {
+        window.location.reload()
+      })
+    },
+    onClose: () => setCancel({...cancel, modal: true})
+  })
+
+  function handleBalanceRefund () {
+    confirmRefundBalance()
+    setCancel({...cancel, modal: false})
+  }
+
+  function handleCardRefund () {
+    confirmRefundCard()
+    setCancel({...cancel, modal: false})
+  }
+
   if (loading) {
     return <></>
   }
@@ -616,8 +684,6 @@ export const Profile = () => {
       </>
     ) 
   }
-
-  console.log(user?.expand?.sponsor, 'sponsor');
 
   return (
     <>
@@ -808,11 +874,14 @@ export const Profile = () => {
                                   </Button>
                                 </td>
                                 <td>
-                                  Приобретено
+                                  {q.status === 'cancelled' 
+                                    ? `Отменена`
+                                    : 'Приобретена'}
                                 </td>
                                 <td>
                                   <div className='cursor-pointer'>
-                                    {(!q?.pay && q?.status == 'created') && <FaCircleXmark color="gray" size={20} onClick={() => confirm(q)} />}
+                                    {(q?.status === 'waiting') && <FaCircleXmark color="gray" size={20} onClick={() => setCancel({bid: q, modal: true})} />}
+                                    {(q?.status === 'created') && <FaCircleXmark color="gray" size={20} onClick={() => setCancel({bid: q, modal: true})} />}
                                   </div>
                                 </td>
                               </tr>
@@ -833,7 +902,7 @@ export const Profile = () => {
         onClose={() => setViewModal({services: [], modal: false})}
         centered
       >
-        {viewModal.services.map((service, i) => {
+        {viewModal.services?.map((service, i) => {
           return (
             <div 
               key={i}
@@ -849,6 +918,67 @@ export const Profile = () => {
             </div>
           )
         })}
+      </Modal>
+      <Modal 
+        opened={cancel.modal}
+        onClose={() => setCancel({modal: false, bid: {}})}
+        centered
+        title='Отмена услуги'
+      >
+        <div>
+          {cancel?.bid?.serv1ce?.map((service, i) => {
+            return (
+              <div 
+                key={i}
+                className='justify-between border p-4 rounded-lg mb-4'
+              >
+                <div>
+                  <p className='text-lg'>{service.title}</p>
+                </div>
+                <div className='space-y-2'> 
+                  <p className='font-bold text-2xl'>{service.cost} тг</p>
+                </div>
+              </div>
+            )
+          })}
+          <p className='text'>
+            При отмене услуги коммисия 5% от стоимости
+          </p>
+          {/* <p>
+             {cancel?.bid?.total_cost}
+          </p> */}
+          <p className='mt-4'>
+            <span>
+              Сумма:
+            </span> 
+            <span>
+              {(cancel?.bid?.total_cost - (cancel?.bid?.total_cost * 0.05)).toFixed(0)} тг
+            </span>
+          </p>
+          <TextInput
+            value={handleCardDisplay()}
+            onChange={(e) => setCard(e.currentTarget.value)}
+            maxLength={19}
+            placeholder="8888 8888 8888 8888"
+            label="Номер карты"
+            variant="filled"
+            className='mt-4'
+            classNames={{
+              label: 'text-lg'
+            }}
+          />
+          <div className='flex justify-center gap-4 mt-4'>
+            <Button onClick={handleBalanceRefund}>
+              Вернуть на баланс
+            </Button>
+            <Button 
+              onClick={handleCardRefund}
+              disabled={card.length != 19}
+            >
+              Вернуть на карту
+            </Button>
+          </div>
+        </div>
       </Modal>
       {/* <Modal
         opened={modal}
