@@ -590,6 +590,7 @@ export const Profile = () => {
       await pb.collection('service_bids').update(cancel?.bid?.id, {
         status: 'cancelled',
         total_cost2: (cancel?.bid?.total_cost - (cancel?.bid?.total_cost * 0.05)).toFixed(0),
+        refunded: true,
       })
       .then(async () => {
         await pb.collection('users').update(user?.id, {
