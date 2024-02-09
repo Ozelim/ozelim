@@ -53,7 +53,7 @@ export const Footer = () => {
               <p>
                 БИН: 221140000992
               </p>
-              <p>
+              <div>
               <Menu>
                 <Menu.Target>
                   <div className='inline cursor-pointer'>
@@ -73,7 +73,7 @@ export const Footer = () => {
                   </Menu.Item>
                 </Menu.Dropdown>
               </Menu> г. Павлодар, ул. Гагарина 50
-              </p>
+              </div>
               <p>
                 e-mail: support@oz-elim.kz
               </p>

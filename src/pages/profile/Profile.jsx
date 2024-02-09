@@ -3,7 +3,7 @@ import { UserData } from 'entities/useData'
 import dayjs from 'dayjs'
 import { ReferalsList } from 'entities/referalsList'
 import { pb } from 'shared/api'
-import { Button, LoadingOverlay, Modal, Table, TextInput } from '@mantine/core'
+import { Button, Group, LoadingOverlay, Modal, Radio, Table, TextInput } from '@mantine/core'
 import { useAuth } from 'shared/hooks'
 
 import Tree from 'react-d3-tree'
@@ -16,7 +16,6 @@ import { Referal } from 'entities/referalsList/ui/Referal'
 import { openConfirmModal } from '@mantine/modals'
 
 import { FaCircleXmark } from 'react-icons/fa6'
-
 
 function getMonth(previous) {
   let month = dayjs().month() + 1
@@ -60,7 +59,7 @@ async function getTransfers (userId) {
 
 async function getServiceBids (id) {
   return await pb.collection('service_bids').getFullList({
-    filter: `user = '${id}'`,
+    filter: `user = '${id}' && status != 'waiting'`,
     sort: `-created`,
   })
 }
@@ -176,6 +175,15 @@ export const Profile = () => {
     .then(res => {
       setBids(res)
     })
+
+    pb.collection('service_bids').subscribe('*', () => getServiceBids(user?.id)
+    .then(res => {
+      setBids(res)
+    }))
+    
+    return () => {
+      pb.collection('service_bids').subscribe('*')
+    }
   }, [])
 
   const handleBeforeUnload = (event) => {
@@ -581,27 +589,27 @@ export const Profile = () => {
     bid: {},
   }) 
 
-  const confirmRefundBalance = () => openConfirmModal({
+  const confirmRefundBalance = (bid, onclose) => openConfirmModal({
     title: 'Подтвердите действие',
     centered: true,
     children: 'Отменить услугу и вернуть средства на баланс?',
     labels: {confirm: 'Подтвердить', cancel: 'Назад'},
     onConfirm: async () => {
-      await pb.collection('service_bids').update(cancel?.bid?.id, {
+      await pb.collection('service_bids').update(bid?.id, {
         status: 'cancelled',
-        total_cost2: (cancel?.bid?.total_cost - (cancel?.bid?.total_cost * 0.05)).toFixed(0),
+        total_cost2: (bid?.total_cost - (bid?.total_cost * 0.05)).toFixed(0),
         refunded: true,
       })
       .then(async () => {
         await pb.collection('users').update(user?.id, {
-          'balance+': (cancel?.bid?.total_cost - (cancel?.bid?.total_cost * 0.05)).toFixed(0) 
+          'balance+': bid?.total_cost
         })
         .then(() => {
           window.location.reload()
         })
       })
     },
-    onClose: () => setCancel({...cancel, modal: true})
+    onClose: onclose ? () => {setCancel({...cancel, modal: true})} : () => {}
   })
 
   const confirmRefundCard = () => openConfirmModal({
@@ -619,18 +627,20 @@ export const Profile = () => {
         window.location.reload()
       })
     },
-    onClose: () => setCancel({...cancel, modal: true})
+    onClose: () => {setCancel({...cancel, modal: true})}
   })
 
-  function handleBalanceRefund () {
-    confirmRefundBalance()
+  function handleBalanceRefund (bid, onclose) {
     setCancel({...cancel, modal: false})
+    confirmRefundBalance(bid, onclose)
   }
 
   function handleCardRefund () {
-    confirmRefundCard()
     setCancel({...cancel, modal: false})
+    confirmRefundCard()
   }
+
+  const [refundType, setRefundType] = React.useState('')
 
   if (loading) {
     return <></>
@@ -864,7 +874,7 @@ export const Profile = () => {
                             return (
                               <tr key={i}>
                                 <td>{q.name}</td>
-                                <td>{q.total_cost}</td>
+                                <td>{q.total_cost} тг</td>
                                 <td>
                                   <Button
                                     variant='outline'
@@ -875,14 +885,16 @@ export const Profile = () => {
                                   </Button>
                                 </td>
                                 <td>
-                                  {q.status === 'cancelled' 
-                                    ? `Отменена`
-                                    : 'Приобретена'}
+                                  {q.status === 'cancelled' && `Отменена`}
+                                  {q.status === 'rejected' && `Отклонена`}
+                                  {q.status === 'created' && `Приобретена`}
                                 </td>
                                 <td>
                                   <div className='cursor-pointer'>
+                                    {(q?.status === 'created' && !q?.pay) && <FaCircleXmark color="gray" size={20} onClick={() => confirmRefundBalance(q)}/>}
+                                    {(q?.status === 'created' && q?.pay) && <FaCircleXmark color="gray" size={20} onClick={() => setCancel({bid: q, modal: true})}/>}
                                     {(q?.status === 'waiting') && <FaCircleXmark color="gray" size={20} onClick={() => setCancel({bid: q, modal: true})} />}
-                                    {(q?.status === 'created') && <FaCircleXmark color="gray" size={20} onClick={() => setCancel({bid: q, modal: true})} />}
+                                    {/* {(q?.status === 'created') && <FaCircleXmark color="gray" size={20} onClick={() => setCancel({bid: q, modal: true})} />} */}
                                   </div>
                                 </td>
                               </tr>
@@ -942,43 +954,69 @@ export const Profile = () => {
               </div>
             )
           })}
-          <p className='text'>
+          <p className='text text-sm'>
             При отмене услуги коммисия 5% от стоимости
           </p>
           {/* <p>
              {cancel?.bid?.total_cost}
           </p> */}
-          <p className='mt-4'>
+          <p className='flex gap-2 mt-4 text-lg'>
             <span>
-              Сумма:
+              Сумма возврата:
             </span> 
-            <span>
+            <span className='font-bold'>
               {(cancel?.bid?.total_cost - (cancel?.bid?.total_cost * 0.05)).toFixed(0)} тг
             </span>
           </p>
-          <TextInput
-            value={handleCardDisplay()}
-            onChange={(e) => setCard(e.currentTarget.value)}
-            maxLength={19}
-            placeholder="8888 8888 8888 8888"
-            label="Номер карты"
-            variant="filled"
-            className='mt-4'
+
+          <Radio.Group
+            label="Выберите куда вернуть средства"
+            withAsterisk
+            value={refundType}
+            onChange={e => setRefundType(e)}
             classNames={{
-              label: 'text-lg'
+              label: '!text-base'
             }}
-          />
-          <div className='flex justify-center gap-4 mt-4'>
-            <Button onClick={handleBalanceRefund}>
-              Вернуть на баланс
-            </Button>
-            <Button 
-              onClick={handleCardRefund}
-              disabled={card.length != 19}
-            >
-              Вернуть на карту
-            </Button>
-          </div>
+            className='mt-4'
+          >
+            <Group mt="xs">
+              <Radio value="balance" label="Баланс" classNames={{label: `text-base`}} />
+              <Radio value="card" label="Карта" classNames={{label: `text-base`}} />
+            </Group>
+          </Radio.Group>
+          {refundType === 'card' && (
+            <TextInput
+              value={handleCardDisplay()}
+              onChange={(e) => setCard(e.currentTarget.value)}
+              maxLength={19}
+              placeholder="8888 8888 8888 8888"
+              label="Номер карты"
+              variant="filled"
+              className='mt-4'
+              classNames={{
+                label: 'text-lg'
+              }}
+            />
+          )}
+          {refundType === 'balance' && (
+            <div className='flex justify-center mt-4'>
+              <Button 
+                onClick={() => handleBalanceRefund(cancel?.bid, true)}
+              >
+                Подтвердить
+              </Button>
+            </div>
+          )}
+          {refundType === 'card' && (
+            <div className='flex justify-center mt-4'>
+              <Button 
+                onClick={handleCardRefund}
+                disabled={card.length != 19}
+              >
+                Подтвердить
+              </Button>
+            </div>
+          )}
         </div>
       </Modal>
       {/* <Modal

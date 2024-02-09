@@ -416,6 +416,15 @@ export const Withdraw = () => {
       setBids(res)
       checkBids(res)
     })
+
+    pb.collection('service_bids').subscribe('*', () => getWaitingServices(user?.id)
+    .then(res => {
+      setBids(res)
+      checkBids(res)
+    }))
+    return () => {
+      pb.collection('service_bids').subscribe('*')
+    }
   }, [])
 
   return (
@@ -500,12 +509,12 @@ export const Withdraw = () => {
         <Button 
           className='mt-3'
           fullWidth
-          // onClick={
-          //   bids.length === 0 
-          //     ? () => setModals({...modals, confirm: true})
-          //     : () => setModals({...modals, waiting: true})
-          //   }  
-          onClick={() => setModals({...modals, confirm: true})}  
+          onClick={
+            bids.length === 0 
+              ? () => setModals({...modals, confirm: true})
+              : () => setModals({...modals, waiting: true})
+            }  
+          // onClick={() => setModals({...modals, confirm: true})}  
         >
           Услуги
         </Button>
@@ -659,6 +668,7 @@ export const Withdraw = () => {
         opened={modals.waiting}
         onClose={() => setModals({...modals, waiting: false})}
         centered
+        title='Услуги'
       >
         <div>
           {bids.map((bid, i) => {
@@ -683,7 +693,7 @@ export const Withdraw = () => {
           <div className='flex mt-5 gap-4 justify-center'>
             <Popover position="bottom" withArrow shadow="md">
               <Popover.Target>
-                <Button color='red' variant='outline'>Отменить</Button>
+                <Button color='red' variant='outline'>Отменить </Button>
               </Popover.Target>
               <Popover.Dropdown>
                 <Button onClick={async () => {
@@ -700,7 +710,6 @@ export const Withdraw = () => {
             <Button onClick={buyServiceWithCardContinue}>
               Перейти к оплате
             </Button>
-
           </div>
         </div>
       </Modal>
