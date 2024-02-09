@@ -43,7 +43,7 @@ export const ProgramDocs = () => {
               />
               <Link to="https://oz-elim.kz/login?id=111111111111111">
                 <Button className="mt-3" size="md" disabled={isChecked}>
-                  Стать дистрибьютором
+                  Стать партнером
                 </Button>
               </Link>
             </div>
