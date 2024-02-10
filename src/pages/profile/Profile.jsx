@@ -3,7 +3,7 @@ import { UserData } from 'entities/useData'
 import dayjs from 'dayjs'
 import { ReferalsList } from 'entities/referalsList'
 import { pb } from 'shared/api'
-import { Button, Group, LoadingOverlay, Modal, Radio, Table, TextInput } from '@mantine/core'
+import { Button, Group, LoadingOverlay, Modal, NumberInput, Radio, Table, TextInput } from '@mantine/core'
 import { useAuth } from 'shared/hooks'
 
 import Tree from 'react-d3-tree'
@@ -182,7 +182,7 @@ export const Profile = () => {
     }))
     
     return () => {
-      pb.collection('service_bids').subscribe('*')
+      pb.collection('service_bids').unsubscribe('*')
     }
   }, [])
 
@@ -588,6 +588,12 @@ export const Profile = () => {
     modal: false,
     bid: {},
   }) 
+  
+  const [refund, setRefund] = React.useState({
+    fio: '',
+    iban: '',
+    iin: '',
+  })
 
   const confirmRefundBalance = (bid, onclose) => openConfirmModal({
     title: 'Подтвердите действие',
@@ -621,7 +627,7 @@ export const Profile = () => {
       await pb.collection('service_bids').update(cancel?.bid?.id, {
         status: 'cancelled',
         total_cost2: (cancel?.bid?.total_cost - (cancel?.bid?.total_cost * 0.05)).toFixed(0),
-        card,
+        refund_data: {...refund}
       })
       .then(() => {
         window.location.reload()
@@ -641,6 +647,7 @@ export const Profile = () => {
   }
 
   const [refundType, setRefundType] = React.useState('')
+
 
   if (loading) {
     return <></>
@@ -968,7 +975,6 @@ export const Profile = () => {
               {(cancel?.bid?.total_cost - (cancel?.bid?.total_cost * 0.05)).toFixed(0)} тг
             </span>
           </p>
-
           <Radio.Group
             label="Выберите куда вернуть средства"
             withAsterisk
@@ -985,18 +991,35 @@ export const Profile = () => {
             </Group>
           </Radio.Group>
           {refundType === 'card' && (
-            <TextInput
-              value={handleCardDisplay()}
-              onChange={(e) => setCard(e.currentTarget.value)}
-              maxLength={19}
-              placeholder="8888 8888 8888 8888"
-              label="Номер карты"
-              variant="filled"
-              className='mt-4'
-              classNames={{
-                label: 'text-lg'
-              }}
-            />
+            <form className='mt-4'>
+              <TextInput
+                value={refund?.fio}
+                placeholder="ФИО"
+                label="Владелец счета"
+                variant="filled"
+                name="fio"
+                onChange={q => setRefund({...refund, fio: q.currentTarget.value})}
+              />
+              <TextInput
+                inputMode='numeric'
+                value={refund?.iin ?? ''}
+                onChange={q => setRefund({...refund, iin: q.currentTarget.value})}
+                placeholder="030627129340"
+                label="ИИН"
+                variant="filled"
+                name="iin"
+                maxLength={12}
+              /> 
+              <TextInput
+                value={refund?.iban}
+                placeholder="KZ123456789123456789"
+                label="Номер счета карты (IBAN)"
+                variant="filled"
+                name="iban"
+                maxLength={20}
+                onChange={q => setRefund({...refund, iban: q.currentTarget.value})}
+              />
+            </form>
           )}
           {refundType === 'balance' && (
             <div className='flex justify-center mt-4'>
@@ -1011,7 +1034,7 @@ export const Profile = () => {
             <div className='flex justify-center mt-4'>
               <Button 
                 onClick={handleCardRefund}
-                disabled={card.length != 19}
+                disabled={!((refund?.iban?.toString()?.length > 10) && (refund?.iin?.toString()?.length > 6))}
               >
                 Подтвердить
               </Button>

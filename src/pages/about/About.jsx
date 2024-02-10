@@ -130,7 +130,7 @@ export const About = () => {
             <div className="flex justify-center items-center gap-10 mt-10">
               <a 
                 target='_blank'
-                href="https://instagram.com/oz_elim_14?igshid=MzRlODBiNWFlZA=="
+                href="https://www.instagram.com/oz_elim_kaz?igsh=MTBlbHc0YjJrZTU0cw=="
               >
                 <div className="border border-solid border-gray-300 rounded-full p-4 md:p-7 hover:bg-teal-600 transition-all ">
                   <AiOutlineInstagram className="text-4xl md:text-7xl flex-shrink-0 text-primary-500 hover:text-white" />
@@ -139,7 +139,7 @@ export const About = () => {
               </a>
               <a 
                 target='_blank'
-                href="https://wa.me/77051769699"
+                href="https://wa.me/77470512252"
               >
                 <div className="border border-solid border-gray-300 rounded-full p-4 md:p-7 hover:bg-teal-600 transition-all ">
                   <AiOutlineWhatsApp className="text-4xl md:text-7xl flex-shrink-0 text-primary-500 hover:text-white" />

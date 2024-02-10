@@ -45,14 +45,14 @@ export const Resorts = () => {
     <div className='w-full'>
       <div className="container">
         <div className="w-full">
-          <div className="grid  lg:grid-cols-[350px_auto] gap-4">
+          <div className="grid lg:grid-cols-[325px_auto]">
             <Accordion 
               variant='separated'
               className='border'
             >
               {regions?.map((region, i) => {
                 return (
-                  <Accordion.Item value={region}>
+                  <Accordion.Item value={region} key={i}>
                     <Accordion.Control onClick={() => handleRegionClick(region)}>
                       <span className={clsx('p-2 font-head cursor-pointer transition-all duration-200', {
                         'text-primary-500': searchParams.get('region') === region
@@ -96,7 +96,7 @@ export const Resorts = () => {
               })}
             </ul> */}
             <div>
-              {/* <CoursesResorts/> */}
+              <CoursesResorts/>
             </div>
 
           </div>

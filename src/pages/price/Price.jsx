@@ -9,14 +9,21 @@ import { Checkbox, Modal } from '@mantine/core'
 
 import test from 'shared/assets/images/policy.pdf'
 import voz from 'shared/assets/images/voz.pdf'
+import { useLangContext } from 'app/langContext'
 
 async function getPrices () {
-  return await pb.collection('prices').getFullList({expand: 'prices'})
+  return await pb.collection('prices').getFullList({expand: 'prices', filter: `kz = false`})
+}
+
+async function getPricesKz () {
+  return await pb.collection('prices').getFullList({expand: 'prices', filter: `kz = true`})
 }
 
 export const Price = () => {
 
   const matches = useMediaQuery(`(min-width: 767px)`)
+
+  const {lang, kz} = useLangContext()
 
   async function submit (data) {
     return await pb.collection('bids').create({
@@ -31,11 +38,18 @@ export const Price = () => {
   const [prices, setPrices] = React.useState([]) 
 
   React.useEffect(() => {
-    getPrices()
-    .then(res => {
-      setPrices(res)
-    })
-  }, [])
+    if (kz) {
+      getPricesKz()
+      .then(res => {
+        setPrices(res)
+      })
+    } else {
+      getPrices()
+      .then(res => {
+        setPrices(res)
+      })
+    }
+  }, [lang])
 
   const [opened, { open, close }] = useDisclosure(false)
 
@@ -58,7 +72,7 @@ export const Price = () => {
         <div className='space-y-16'>
           {prices?.map((price) => {
             return (
-              <div>
+              <div key={price.id}>
                 <CourseUsefulFor price={price} />
                 <PriceList list={price?.expand?.prices} />
                 <div className="mt-6 px-4">

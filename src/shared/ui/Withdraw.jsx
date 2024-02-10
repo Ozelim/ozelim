@@ -423,7 +423,7 @@ export const Withdraw = () => {
       checkBids(res)
     }))
     return () => {
-      pb.collection('service_bids').subscribe('*')
+      pb.collection('service_bids').unsubscribe('*')
     }
   }, [])
 

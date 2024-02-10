@@ -19,7 +19,7 @@ export const CoursesResorts = () => {
 
   const {kz} = useLangContext()
 
-  const {headings, text, images} = usePageData('courseResorts')
+  const {headings, text, images} = usePageData('course_resorts')
 
   return (
     <main className="w-full">

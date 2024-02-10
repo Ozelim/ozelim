@@ -8,12 +8,12 @@ export const BomjPlaza = ({resort}) => {
   return (
     <div className="flex justify-between items-center max-w-2xl shadow border p-3 rounded-primary w-auto bg-white" >
       <div className='flex flex-col'>
-        <div className="hover:border-green-500 hover:text-green-500 transition-all border-solid rounded-md font-bold text-lg font-head">
+        <div className="hover:border-green-500 hover:text-green-500 transition-all border-solid rounded-md font-bold font-head">
           {resort?.title} 
         </div>
-        <p className="text-sm text">
+        {/* <p className="text-sm text">
           {resort?.region}
-        </p>
+        </p> */}
       </div>
       <div className='flex gap-4 text-primary-500'>
         {resort?.inst && (

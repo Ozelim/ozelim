@@ -62,7 +62,9 @@ export const CourseHeader = ({ headings, images, text }) => {
             </div>
             <Button size="lg" className="mt-10">
               <a href={text?.link} target='_blank'>
-                {kz ? `Курс бағдарламасын қарау` : `Смотреть программу курса`}
+                <span className='break-words'>
+                  {kz ? `Курс бағдарламасын қарау` : `Смотреть программу курса`}
+                </span>
                 <FiYoutube size={25} className="inline ml-2" />
               </a>
             </Button>
