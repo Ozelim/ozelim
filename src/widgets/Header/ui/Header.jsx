@@ -41,7 +41,13 @@ export const Header = () => {
                 </Link>
               )
             })}
-            <Popover
+            <Link
+              className="text-teal-500 hover:text-yellow-400 text-sm lg:text-xl cursor-pointer hidden md:inline-block"
+              to={'/resorts'}
+            >
+              {kz ? 'Санаторийлер' : `Санатории`}
+            </Link>
+            {/* <Popover
               classNames={{
                 dropdown: 'grid grid-cols-3 gap-4 border p-4 rounded-primary',
               }}
@@ -66,7 +72,7 @@ export const Header = () => {
                   )
                 })}
               </Popover.Dropdown>
-            </Popover>
+            </Popover> */}
             <Link
               className="text-teal-500 hover:text-yellow-400 text-sm lg:text-xl cursor-pointer hidden md:inline-block"
               to={'/price'}
