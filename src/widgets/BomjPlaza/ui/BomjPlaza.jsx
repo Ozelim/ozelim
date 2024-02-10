@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { AiOutlineInstagram, AiOutlinePhone } from 'react-icons/ai'
+import { AiOutlineCheckCircle, AiOutlineInstagram, AiOutlinePhone } from 'react-icons/ai'
 import { Button } from '@mantine/core'
 
 export const BomjPlaza = ({resort}) => {
@@ -8,7 +8,10 @@ export const BomjPlaza = ({resort}) => {
   return (
     <div className="flex justify-between items-center max-w-2xl p-2 rounded-primary w-auto bg-white" >
       <div className='flex flex-col'>
-        <div className="font-head font-medium">
+        <div className="flex gap-2 items-center font-head font-medium">
+          {resort?.signed && (
+            <AiOutlineCheckCircle className="text-3xl flex-shrink-0 text-primary-600" />
+          )}
           {resort?.title} 
         </div>
         {/* <p className="text-sm text">

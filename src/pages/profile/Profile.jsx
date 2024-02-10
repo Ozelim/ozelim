@@ -602,9 +602,10 @@ export const Profile = () => {
     labels: {confirm: 'Подтвердить', cancel: 'Назад'},
     onConfirm: async () => {
       await pb.collection('service_bids').update(bid?.id, {
-        status: 'rejected',
+        status: 'cancelled',
         total_cost2: (bid?.total_cost - (bid?.total_cost * 0.05)).toFixed(0),
         refunded: true,
+        refunded_sum: com ? (bid?.total_cost - (bid?.total_cost * 0.05)).toFixed(0) : bid?.total_cost,
       })
       .then(async () => {
         await pb.collection('users').update(user?.id, {
@@ -625,7 +626,7 @@ export const Profile = () => {
     labels: {confirm: 'Подтвердить', cancel: 'Назад'},
     onConfirm: async () => {
       await pb.collection('service_bids').update(cancel?.bid?.id, {
-        status: 'cancelled',
+        status: 'refunded',
         total_cost2: (cancel?.bid?.total_cost - (cancel?.bid?.total_cost * 0.05)).toFixed(0),
         refund_data: {...refund}
       })
@@ -900,7 +901,7 @@ export const Profile = () => {
                                   </Button>
                                 </td>
                                 <td>
-                                  {q.status === 'cancelled' && `Отменена`}
+                                  {(q.status === 'cancelled' || q.status === 'refunded') && `Отменена`}
                                   {q.status === 'rejected' && `Отклонена`}
                                   {q.status === 'created' && `Приобретена`}
                                 </td>

@@ -58,7 +58,7 @@ export const Resorts = () => {
                         <span className={clsx('p-1 font-head cursor-pointer transition-all duration-200', {
                           'text-primary-500': searchParams.get('region') === region
                         })}>
-                            {region}
+                          {region}
                         </span>
                       </Text>
                     </Accordion.Control>
