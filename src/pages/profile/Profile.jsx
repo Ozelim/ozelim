@@ -772,7 +772,7 @@ export const Profile = () => {
                             </Button>
                             </>
                           )}
-                          {user?.binary === 0 && (
+                          {(user?.binary === 0 || user?.binary === 1) && (
                             <Button
                               compact
                               variant='outline'
