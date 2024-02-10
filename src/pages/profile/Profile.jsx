@@ -602,13 +602,13 @@ export const Profile = () => {
     labels: {confirm: 'Подтвердить', cancel: 'Назад'},
     onConfirm: async () => {
       await pb.collection('service_bids').update(bid?.id, {
-        status: 'cancelled',
+        status: 'rejected',
         total_cost2: (bid?.total_cost - (bid?.total_cost * 0.05)).toFixed(0),
         refunded: true,
       })
       .then(async () => {
         await pb.collection('users').update(user?.id, {
-          'balance+': bid?.total_cost
+          'balance+': (bid?.total_cost - (bid?.total_cost * 0.05)).toFixed(0)
         })
         .then(() => {
           window.location.reload()
