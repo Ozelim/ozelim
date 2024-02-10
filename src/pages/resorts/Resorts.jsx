@@ -96,7 +96,6 @@ export const Resorts = () => {
               })}
             </ul> */}
             <div>
-              Пока что здесь ничего нет
               {/* <CoursesResorts/> */}
             </div>
 
