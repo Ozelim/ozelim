@@ -595,7 +595,7 @@ export const Profile = () => {
     iin: '',
   })
 
-  const confirmRefundBalance = (bid, onclose) => openConfirmModal({
+  const confirmRefundBalance = (bid, onclose, com) => openConfirmModal({
     title: 'Подтвердите действие',
     centered: true,
     children: 'Отменить услугу и вернуть средства на баланс?',
@@ -608,7 +608,7 @@ export const Profile = () => {
       })
       .then(async () => {
         await pb.collection('users').update(user?.id, {
-          'balance+': (bid?.total_cost - (bid?.total_cost * 0.05)).toFixed(0)
+          'balance+': com ? (bid?.total_cost - (bid?.total_cost * 0.05)).toFixed(0) : bid?.total_cost
         })
         .then(() => {
           window.location.reload()
@@ -636,9 +636,9 @@ export const Profile = () => {
     onClose: () => {setCancel({...cancel, modal: true})}
   })
 
-  function handleBalanceRefund (bid, onclose) {
+  function handleBalanceRefund (bid, onclose, com) {
     setCancel({...cancel, modal: false})
-    confirmRefundBalance(bid, onclose)
+    confirmRefundBalance(bid, onclose, com)
   }
 
   function handleCardRefund () {
@@ -713,7 +713,6 @@ export const Profile = () => {
               <div className="relative overflow-hidden">
                 <ReferalsList level={level} setCount={setCount} />
                 <div className="mt-10 overflow-auto">
-
                   {user?.sponsor && (
                     <div className='flex justify-between mb-4'>
                       <div>
@@ -1033,7 +1032,7 @@ export const Profile = () => {
           {refundType === 'balance' && (
             <div className='flex justify-center mt-4'>
               <Button 
-                onClick={() => handleBalanceRefund(cancel?.bid, true)}
+                onClick={() => handleBalanceRefund(cancel?.bid, true, true)}
               >
                 Подтвердить
               </Button>
