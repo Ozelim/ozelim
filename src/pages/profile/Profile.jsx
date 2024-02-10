@@ -727,6 +727,7 @@ export const Profile = () => {
                         </div>
                       </div>
                       <div>
+                        
                         <p>Бинар:</p>
                         <div className='flex gap-4 items-center mt-2 mr-4'>
                           {user?.binary === 2 && (
@@ -771,6 +772,14 @@ export const Profile = () => {
                               3
                             </Button>
                             </>
+                          )}
+                          {user?.binary === 0 && (
+                            <Button
+                              compact
+                              variant='outline'
+                            >
+                              1
+                            </Button>
                           )}
                         </div>
                       </div>

@@ -1,4 +1,4 @@
-import { Accordion, LoadingOverlay, clsx } from '@mantine/core'
+import { Accordion, LoadingOverlay, Text, clsx } from '@mantine/core'
 import { ResortCard } from 'entities/resort'
 import { CoursesResorts } from 'pages/courses/CoursesResorts'
 import React from 'react'
@@ -54,11 +54,13 @@ export const Resorts = () => {
                 return (
                   <Accordion.Item value={region} key={i}>
                     <Accordion.Control onClick={() => handleRegionClick(region)}>
-                      <span className={clsx('p-2 font-head cursor-pointer transition-all duration-200', {
-                        'text-primary-500': searchParams.get('region') === region
-                      })}>
-                        {region}
-                      </span>
+                      <Text lineClamp={1}>
+                        <span className={clsx('p-1 font-head cursor-pointer transition-all duration-200', {
+                          'text-primary-500': searchParams.get('region') === region
+                        })}>
+                            {region}
+                        </span>
+                      </Text>
                     </Accordion.Control>
                     <Accordion.Panel className='relative'>
                     <LoadingOverlay visible={loading}/>

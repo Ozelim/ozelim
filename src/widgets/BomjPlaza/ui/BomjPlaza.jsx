@@ -6,9 +6,9 @@ import { Button } from '@mantine/core'
 export const BomjPlaza = ({resort}) => {
 
   return (
-    <div className="flex justify-between items-center max-w-2xl shadow border p-3 rounded-primary w-auto bg-white" >
+    <div className="flex justify-between items-center max-w-2xl p-2 rounded-primary w-auto bg-white" >
       <div className='flex flex-col'>
-        <div className="hover:border-green-500 hover:text-green-500 transition-all border-solid rounded-md font-bold font-head">
+        <div className="font-head font-medium">
           {resort?.title} 
         </div>
         {/* <p className="text-sm text">
