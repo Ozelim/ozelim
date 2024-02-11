@@ -45,7 +45,7 @@ export const Header = () => {
               className="text-teal-500 hover:text-yellow-400 text-sm lg:text-xl cursor-pointer hidden md:inline-block"
               to={'/resorts'}
             >
-              {kz ? 'Санаторийлер' : `Санатории`}
+              {kz ? 'Санаториялар' : `Санатории`}
             </Link>
             {/* <Popover
               classNames={{
