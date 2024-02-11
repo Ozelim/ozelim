@@ -76,34 +76,59 @@ export const Price = () => {
                 <CourseUsefulFor price={price} />
                 <PriceList list={price?.expand?.prices} />
                 <div className="mt-6 px-4">
-                  <Checkbox
-                    onChange={() => onChangeChecked(price?.id)}
-                    className="flex justify-center -mb-4"
-                    label={
-                      <>
-                        "Я принимаю <span 
-                            className='underline cursor-pointer' 
-                            onClick={matches ? open : () => {}}
-                          >
-                            {/* {matches 
-                              ? 'условия пользовательского соглашения'
-                              : <a href={'/policy.pdf'} target='_blank'> условия пользовательского соглашения</a>
-                            } */}
-                          </span> <span
-                            className='underline cursor-pointer' 
-                            onClick={matches ? () => setA(true) : () => {}}
-                          >
-                            {matches 
-                              ? 'условия пользовательского соглашения'
-                              : <a href={'/dogone.pdf'} target='_blank'>договора оферты</a>
-                            }
-                          </span>
-                      </>
-                    }
-                  />
+                  {kz ? (
+                    <Checkbox
+                      onChange={() => onChangeChecked(price?.id)}
+                      className="flex justify-center -mb-4"
+                      label={
+                        <>
+                          "Мен пайдаланушы <span 
+                              className='underline cursor-pointer' 
+                              onClick={matches ? open : () => {}}
+                            >
+                            </span> <span
+                              className='underline cursor-pointer' 
+                              onClick={matches ? () => setA(true) : () => {}}
+                            >
+                              {matches 
+                                ? 'келісімінің шарттарын'
+                                : <a href={'/policy.pdf'} target='_blank'>келісімінің шарттарын</a>
+                              }
+                            </span> қабылдаймын"
+                        </>
+                      }
+                    />
+                  ) : (
+                    <Checkbox
+                      onChange={() => onChangeChecked(price?.id)}
+                      className="flex justify-center -mb-4"
+                      label={
+                        <>
+                          "Я принимаю <span 
+                              className='underline cursor-pointer' 
+                              onClick={matches ? open : () => {}}
+                            >
+                              {/* {matches 
+                                ? 'условия пользовательского соглашения'
+                                : <a href={'/policy.pdf'} target='_blank'> условия пользовательского соглашения</a>
+                              } */}
+                            </span> <span
+                              className='underline cursor-pointer' 
+                              onClick={matches ? () => setA(true) : () => {}}
+                            >
+                              {matches 
+                                ? 'условия пользовательского соглашения'
+                                : <a href={'/policy.pdf'} target='_blank'>договора оферты</a>
+                              }
+                            </span>
+                        </>
+                      }
+                    />
+                  )}
+           
                   <HealthLink
                     onSubmit={submit} 
-                    label='Заказать услугу'
+                    label={kz ? `Қызметке тапсырыс беру` : `Заказать услугу`}
                     buttonProps={{
                       disabled: isChecked !== price?.id
                     }}
