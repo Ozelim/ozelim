@@ -31,7 +31,7 @@ export const CourseHeader = ({ headings, images, text }) => {
               <Button size="lg">
                 <a href={text?.link} target='_blank'>
                   <span className='break-words'>
-                    {kz ? `Көру` : `Смотреть`}
+                    {kz ? `Көру ` : `Смотреть `}
                   </span>
                   <FiYoutube size={25} className="inline" />
                 </a>
@@ -39,7 +39,7 @@ export const CourseHeader = ({ headings, images, text }) => {
               <Button size="lg">
                 <a href={text?.link2} target='_blank'>
                   <span className='break-words'>
-                    {kz ? `Көру` : `Смотреть`}
+                    {kz ? `Көру ` : `Смотреть `}
                   </span>
                   <FiYoutube size={25} className="inline" />
                 </a>
@@ -47,7 +47,7 @@ export const CourseHeader = ({ headings, images, text }) => {
               <Button size="lg">
                 <a href={text?.link3} target='_blank'>
                   <span className='break-words'>
-                    {kz ? `Көру` : `Смотреть`}
+                    {kz ? `Көру ` : `Смотреть `}
                   </span>
                   <FiYoutube size={25} className="inline" />
                 </a>
@@ -55,7 +55,7 @@ export const CourseHeader = ({ headings, images, text }) => {
               <Button size="lg">
                 <a href={text?.link4} target='_blank'>
                   <span className='break-words'>
-                    {kz ? `Көру` : `Смотреть`}
+                    {kz ? `Көру ` : `Смотреть `}
                   </span>
                   <FiYoutube size={25} className="inline" />
                 </a>
