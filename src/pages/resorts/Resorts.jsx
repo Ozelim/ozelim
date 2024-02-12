@@ -50,7 +50,7 @@ export const Resorts = () => {
               variant='separated'
               className='border'
               classNames={{
-                control: `-mb-4`
+                control: `-mb-8`
               }}
             >
               {regions?.map((region, i) => {
@@ -68,7 +68,7 @@ export const Resorts = () => {
                     <Accordion.Panel className='relative'>
                     <LoadingOverlay visible={loading}/>
                     {resorts.length === 0 && (
-                      <div className='flex justify-center items-center h-full'>Не найдено санаториев в этой области</div>
+                      <div className='flex justify-center items-center h-full mt-4'>Не найдено санаториев в этой области</div>
                     )}
                       {resorts.length !== 0 && (
                         <div className="grid grid-cols-1 gap-4 mt-4">

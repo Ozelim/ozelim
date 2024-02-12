@@ -30,21 +30,27 @@ export const CoursesResorts = () => {
       <div className="w-full mt-10">
         <div className="container">
           <div className="grid md:grid-cols-3 gap-4">
-            <Image
-              record={images}
-              index={2}
-              className='rounded-primary w-full h-64 max-w-md mx-auto md:max-w-full bg-white'
-            />
-            <Image
-              record={images}
-              index={3} 
-              className='rounded-primary w-full h-64 max-w-md mx-auto md:max-w-full bg-white'
-            />
-            <Image
-              record={images}
-              index={4} 
-              className='rounded-primary w-full h-64 max-w-md mx-auto md:max-w-full bg-white'
-            />
+            {images?.[2] && (
+              <Image
+                record={images}
+                index={2}
+                className='rounded-primary w-full h-64 max-w-md mx-auto md:max-w-full bg-white'
+              />
+            )}
+            {images?.[3] && (
+              <Image
+                record={images}
+                index={3} 
+                className='rounded-primary w-full h-64 max-w-md mx-auto md:max-w-full bg-white'
+              />
+            )}
+            {images?.[4] && (
+              <Image
+                record={images}
+                index={4} 
+                className='rounded-primary w-full h-64 max-w-md mx-auto md:max-w-full bg-white'
+              />
+            )}
           </div>
         </div>
       </div>
