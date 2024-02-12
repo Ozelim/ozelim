@@ -1,3 +1,4 @@
+import { useLangContext } from 'app/langContext'
 import { HealthHeader } from 'pages/health/ui/HealthHeader'
 import React from 'react'
 import { pb } from 'shared/api'
@@ -22,7 +23,11 @@ async function getTeam() {
 }
 
 async function getOurTeam() {
-  return await pb.collection('members').getFullList()
+  return await pb.collection('members').getFullList({filter: `kz = false`})
+}
+
+async function getOurTeamKz() {
+  return await pb.collection('members').getFullList({filter: `kz = true`})
 }
 
 export const OurTeam = () => {
@@ -32,15 +37,26 @@ export const OurTeam = () => {
 
   const {images, text, headings} = usePageData('team')
 
+  const {kz} = useLangContext()
+
   React.useEffect(() => {
     getTeam()
     .then(res => {
       setTeam(res)
     })
-    getOurTeam().then((res) => {
-      setOurTeam(res)
-    })
   }, [])
+
+  React.useEffect(() => {
+    if (kz) {
+      getOurTeamKz().then((res) => {
+        setOurTeam(res)
+      })
+    } else {
+      getOurTeam().then((res) => {
+        setOurTeam(res)
+      })
+    }
+  }, [kz])
 
   return (
     <div className="w-full">
