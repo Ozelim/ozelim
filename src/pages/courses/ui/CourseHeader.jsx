@@ -6,7 +6,7 @@ import { Button } from '@mantine/core'
 import { getImageUrl } from 'shared/lib'
 import { ImgSkeleton } from 'shared/ui/ImgSkeleton'
 import { FiYoutube } from 'react-icons/fi'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Image } from 'shared/ui'
 import { useLangContext } from 'app/langContext'
 
@@ -14,10 +14,12 @@ export const CourseHeader = ({ headings, images, text }) => {
 
   const {kz} = useLangContext()
 
+  const {pathname} = useLocation()
+
   return (
     <div className="w-full">
       <div className="container">
-        <section className="grid lg:grid-cols-2 gap-4">
+        <section className="grid gap-4">
           <div>
             <h1 className="text-4xl font-bold pt-6 pb-5 text-teal-500">
               {headings?.main}
@@ -25,6 +27,7 @@ export const CourseHeader = ({ headings, images, text }) => {
             <p className="text-heading text-xl font-medium">
               {headings?.submain}
             </p>
+          {!pathname.includes('resorts') && (
             <div className="grid lg:grid-cols-3 gap-6 mt-10">
               <div className="flex items-center">
                 <div className="border border-solid border-[#dae7f3] p-2 rounded-md shadow">
@@ -60,7 +63,18 @@ export const CourseHeader = ({ headings, images, text }) => {
                 </div>
               </div>
             </div>
+          )}
+          {pathname.includes('resorts') ? (
             <Button size="lg" className="mt-10">
+              <a href={text?.link} target='_blank'>
+                <span className='break-words'>
+                  {kz ? `Көру` : `Смотреть`}
+                </span>
+                <FiYoutube size={25} className="inline ml-2" />
+              </a>
+            </Button>
+          ) :
+             <Button size="lg" className="mt-10">
               <a href={text?.link} target='_blank'>
                 <span className='break-words'>
                   {kz ? `Курс бағдарламасын қарау` : `Смотреть программу курса`}
@@ -68,12 +82,16 @@ export const CourseHeader = ({ headings, images, text }) => {
                 <FiYoutube size={25} className="inline ml-2" />
               </a>
             </Button>
+          }
           </div>
-          <Image
-            record={images}
-            index={1}
-            className='w-full max-h-[350px] object-cover lg:block hidden rounded-primary'
-          />  
+          {!pathname.includes('resorts') && (
+            <Image
+              record={images}
+              index={1}
+              className='w-full max-h-[350px] object-cover lg:block hidden rounded-primary'
+            />  
+          )}
+          
           {/* {getImageUrl(course?.images, images?.[1]) ? (
             <img
               className="w-3/5"
