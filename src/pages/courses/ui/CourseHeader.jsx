@@ -27,14 +27,40 @@ export const CourseHeader = ({ headings, images, text }) => {
             <p className="text-heading text-xl font-medium">
               {headings?.submain}
             </p>
-            <Button size="lg" className="mt-10">
-              <a href={text?.link} target='_blank'>
-                <span className='break-words'>
-                  {kz ? `Көру` : `Смотреть`}
-                </span>
-                <FiYoutube size={25} className="inline ml-2" />
-              </a>
-            </Button>
+            <div className='flex gap-4 flex-wrap mt-8'>
+              <Button size="lg">
+                <a href={text?.link} target='_blank'>
+                  <span className='break-words'>
+                    {kz ? `Көру` : `Смотреть`}
+                  </span>
+                  <FiYoutube size={25} className="inline" />
+                </a>
+              </Button>
+              <Button size="lg">
+                <a href={text?.link2} target='_blank'>
+                  <span className='break-words'>
+                    {kz ? `Көру` : `Смотреть`}
+                  </span>
+                  <FiYoutube size={25} className="inline" />
+                </a>
+              </Button>
+              <Button size="lg">
+                <a href={text?.link3} target='_blank'>
+                  <span className='break-words'>
+                    {kz ? `Көру` : `Смотреть`}
+                  </span>
+                  <FiYoutube size={25} className="inline" />
+                </a>
+              </Button>
+              <Button size="lg">
+                <a href={text?.link4} target='_blank'>
+                  <span className='break-words'>
+                    {kz ? `Көру` : `Смотреть`}
+                  </span>
+                  <FiYoutube size={25} className="inline" />
+                </a>
+              </Button>
+            </div>
           </div>
           
           {/* {getImageUrl(course?.images, images?.[1]) ? (
