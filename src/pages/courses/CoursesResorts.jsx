@@ -32,7 +32,7 @@ export const CoursesResorts = () => {
           <div className="grid md:grid-cols-3 gap-4">
             <Image
               record={images}
-              index={2} 
+              index={2}
               className='rounded-primary w-full h-64 max-w-md mx-auto md:max-w-full bg-white'
             />
             <Image

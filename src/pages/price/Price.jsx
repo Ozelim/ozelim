@@ -9,6 +9,7 @@ import { Checkbox, Modal } from '@mantine/core'
 
 import test from 'shared/assets/images/policy.pdf'
 import voz from 'shared/assets/images/voz.pdf'
+import vozkz from 'shared/assets/images/vozkz.pdf'
 import { useLangContext } from 'app/langContext'
 
 async function getPrices () {
@@ -65,6 +66,7 @@ export const Price = () => {
 
   const [a, setA] = React.useState(false)
   const [v, setV] = React.useState(false)
+  const [vKz, setVKz] = React.useState(false)
 
   return (
     <>
@@ -183,15 +185,31 @@ export const Price = () => {
               )}
               <li className='flex gap-4'>
                 <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
-                <span 
-                  className='text-lg underline cursor-pointer'
-                  onClick={matches ? () => setV(true) : () => {}}
-                >
-                  {matches 
-                    ? 'Отмена заявки и возврат денег (.doc)'
-                    : <a href={'/voz.pdf'} target='_blank'>Отмена заявки и возврат денег (.doc)</a>
-                  }
-                </span>
+                {kz ? (
+                  <span 
+                    className='text-lg underline cursor-pointer'
+                    onClick={matches ? () => setVKz(true) : () => {}}
+                  >
+                    {matches 
+                      ? `Өтінімді жою және төлемді қайтару саясаты`
+                      : <a href={'/vozkz.pdf'} target='_blank'>
+                          Өтінімді жою және төлемді қайтару саясаты
+                        </a>
+                    }
+                  </span>
+                ) : (
+                  <span 
+                    className='text-lg underline cursor-pointer'
+                    onClick={matches ? () => setV(true) : () => {}}
+                  >
+                    {matches 
+                      ? 'Отмена заявки и возврат денег (.doc)'
+                      : <a href={'/voz.pdf'} target='_blank'>
+                          Отмена заявки и возврат денег (.doc)
+                        </a>
+                    }
+                  </span>
+                )}
               </li>
             </ul>
           </div>
@@ -228,6 +246,17 @@ export const Price = () => {
         <embed 
           className="w-full h-screen" 
           src={voz} 
+        />
+      </Modal>
+      <Modal
+        opened={vKz} 
+        onClose={() => setVKz(false)} 
+        centered 
+        size={'xl'}
+      >
+        <embed 
+          className="w-full h-screen" 
+          src={vozkz} 
         />
       </Modal>
     </>
