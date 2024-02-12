@@ -7,7 +7,7 @@ import { useLangContext } from 'app/langContext'
 const array = [
   { labelkz: `Жаңалықтар`, labelru: 'Новости', link: '/news' },
   { labelkz: `Біздің туристер`, labelru: 'Наши туристы', link: '/partners', disabled: true },
-  { labelkz: `Агенттік бағдарлама`, labelru: 'Партнерская программа', link: '/program' },
+  { labelkz: `Серiктестiк бағдарлама`, labelru: 'Партнерская программа', link: '/program' },
   { labelkz: `Біздің команда`, labelru: 'Наша команда', link: '/our-team', },
   { labelkz: `Мейірімділік`, labelru: 'Доброе дело', link: '/charity-fund', },
 ]
