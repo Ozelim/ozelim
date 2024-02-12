@@ -16,7 +16,7 @@ export const CourseHeader = ({ headings, images, text }) => {
 
   const {pathname} = useLocation()
 
-  return (
+  if (pathname.includes('resorts')) return (
     <div className="w-full">
       <div className="container">
         <section className="grid gap-4">
@@ -27,7 +27,41 @@ export const CourseHeader = ({ headings, images, text }) => {
             <p className="text-heading text-xl font-medium">
               {headings?.submain}
             </p>
-          {!pathname.includes('resorts') && (
+            <Button size="lg" className="mt-10">
+              <a href={text?.link} target='_blank'>
+                <span className='break-words'>
+                  {kz ? `Көру` : `Смотреть`}
+                </span>
+                <FiYoutube size={25} className="inline ml-2" />
+              </a>
+            </Button>
+          </div>
+          
+          {/* {getImageUrl(course?.images, images?.[1]) ? (
+            <img
+              className="w-3/5"
+              src={getImageUrl(course?.images, images?.[1])}
+              alt="kid"
+            />
+          ) : (
+            <ImgSkeleton width="max-w-3xl" />
+          )} */}
+        </section>
+      </div>
+    </div>
+  )
+
+  return (
+    <div className="w-full">
+      <div className="container">
+        <section className="grid lg:grid-cols-2 gap-4">
+          <div>
+            <h1 className="text-4xl font-bold pt-6 pb-5 text-teal-500">
+              {headings?.main}
+            </h1>
+            <p className="text-heading text-xl font-medium">
+              {headings?.submain}
+            </p>
             <div className="grid lg:grid-cols-3 gap-6 mt-10">
               <div className="flex items-center">
                 <div className="border border-solid border-[#dae7f3] p-2 rounded-md shadow">
@@ -63,18 +97,7 @@ export const CourseHeader = ({ headings, images, text }) => {
                 </div>
               </div>
             </div>
-          )}
-          {pathname.includes('resorts') ? (
             <Button size="lg" className="mt-10">
-              <a href={text?.link} target='_blank'>
-                <span className='break-words'>
-                  {kz ? `Көру` : `Смотреть`}
-                </span>
-                <FiYoutube size={25} className="inline ml-2" />
-              </a>
-            </Button>
-          ) :
-             <Button size="lg" className="mt-10">
               <a href={text?.link} target='_blank'>
                 <span className='break-words'>
                   {kz ? `Курс бағдарламасын қарау` : `Смотреть программу курса`}
@@ -82,15 +105,12 @@ export const CourseHeader = ({ headings, images, text }) => {
                 <FiYoutube size={25} className="inline ml-2" />
               </a>
             </Button>
-          }
           </div>
-          {!pathname.includes('resorts') && (
-            <Image
-              record={images}
-              index={1}
-              className='w-full max-h-[350px] object-cover lg:block hidden rounded-primary'
-            />  
-          )}
+          <Image
+            record={images}
+            index={1}
+            className='w-full max-h-[350px] object-cover lg:block hidden rounded-primary'
+          />  
           
           {/* {getImageUrl(course?.images, images?.[1]) ? (
             <img

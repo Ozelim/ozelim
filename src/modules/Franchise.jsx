@@ -22,7 +22,7 @@ export const Franchise = () => {
             </p>
             <div className="mt-5">
               <Button component={RouterLink} to="/resorts" size="md">
-                {kz ? `Толығырақ` : `Подробнее`}
+                {kz ? `Толығырақ` : `Сотрудничество`}
               </Button>
             </div>
           </div>

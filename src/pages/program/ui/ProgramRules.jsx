@@ -35,9 +35,9 @@ export const ProgramRules = ({ headings, text }) => {
                 <Center>
                   <Button size="md" className="mt-5" onClick={matches ? open : () => {}}>
                     {matches 
-                      ? kz ? `Келісімшарт бойынша ұсыныс` : `Договор оферты`
+                      ? kz ? `Келісімшарт-офертасы` : `Договор оферты`
                       : <a href={'/dogtwo.pdf'} target='_blank'> 
-                      {kz ? `Келісімшарт бойынша ұсыныс` : `Договор оферты`}</a>
+                      {kz ? `Келісімшарт-офертасы` : `Договор оферты`}</a>
                     }
                   </Button>
                 </Center>
