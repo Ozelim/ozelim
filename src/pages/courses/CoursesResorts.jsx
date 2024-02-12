@@ -33,17 +33,17 @@ export const CoursesResorts = () => {
             <Image
               record={images}
               index={2} 
-              className='rounded-primary w-full h-64 max-w-md mx-auto md:max-w-full'
+              className='rounded-primary w-full h-64 max-w-md mx-auto md:max-w-full bg-white'
             />
             <Image
               record={images}
               index={3} 
-              className='rounded-primary w-full h-64 max-w-md mx-auto md:max-w-full'
+              className='rounded-primary w-full h-64 max-w-md mx-auto md:max-w-full bg-white'
             />
             <Image
               record={images}
               index={4} 
-              className='rounded-primary w-full h-64 max-w-md mx-auto md:max-w-full'
+              className='rounded-primary w-full h-64 max-w-md mx-auto md:max-w-full bg-white'
             />
           </div>
         </div>
