@@ -80,7 +80,7 @@ export const Health = () => {
 
       <div className='text-center mt-10'>
         <Link to={'/price'} className='text-blue-500 underline'>
-          Узнать подробнее о ценах
+          {kz ? `Бағалар туралы көбірек біліңіз` : `Узнать подробнее о ценах`
         </Link>
       </div>
     </main>
