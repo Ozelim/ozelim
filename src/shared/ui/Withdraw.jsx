@@ -429,6 +429,8 @@ export const Withdraw = () => {
     }
   }, [])
 
+  console.log(loading, serviceLoading, 'withdraw loading');
+
   return (
     <>
       <div className='w-full h-full'>

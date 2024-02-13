@@ -649,6 +649,7 @@ export const Profile = () => {
 
   const [refundType, setRefundType] = React.useState('')
 
+  console.log(paymentLoading, verifyLoading, `profile loading`);
 
   if (loading) {
     return <></>
