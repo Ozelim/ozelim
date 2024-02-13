@@ -7,6 +7,7 @@ import { HealthCard } from 'entities/healthCard'
 import { pb } from 'shared/api'
 import { usePageData } from 'shared/hooks'
 import { Link } from 'react-router-dom'
+import { useLangContext } from 'app/langContext'
 
 export const Editor = ({data}) => {
 
@@ -21,6 +22,8 @@ export const Editor = ({data}) => {
 
 export const Health = () => {
 
+  const {kz} = useLangContext() 
+  
   const { headings, images, text } = usePageData('health')
 
   const array = [
