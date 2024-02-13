@@ -26,7 +26,6 @@ export const CoursesResorts = () => {
       <CourseHeader headings={headings} text={text} images={images} />
       <CourseCards headings={headings} text={text} />
       <WhyOurCourse headings={headings} text={text} />
-      {/* <CourseUsefulFor /> */}
       <div className="w-full mt-10">
         <div className="container">
           <div className="grid md:grid-cols-3 gap-4">

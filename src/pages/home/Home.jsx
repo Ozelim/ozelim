@@ -44,7 +44,7 @@ export const Home = () => {
           <div className="container">
             <div className="w-full">
               <h1 className="text-center head text-primary-500">
-                {kz ? `Курортар` : `Курортные зоны`}
+                {kz ? `Курорттар` : `Курортные зоны`}
               </h1>
               <div className=" mt-6">
                 <div className="max-w-xs lg:max-w-full overflow-hidden lg:mx-0 mx-auto">
