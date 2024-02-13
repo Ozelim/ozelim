@@ -465,7 +465,7 @@ export const Profile = () => {
       console.log(res, 'succ');
     })
     .finally(() => {
-      setVerifyLoading(true)
+      setVerifyLoading(false)
     })
 
     // await pb.admins.authWithPassword('helper@mail.ru', import.meta.env.VITE_APP_PASSWORD)
@@ -657,7 +657,7 @@ export const Profile = () => {
   if (!user?.verified) {
     return (
       <>
-        <LoadingOverlay visible={paymentLoading || verifyLoading} />
+        <LoadingOverlay visible={verifyLoading} />
         <div className="container h-full">
           <div className='flex justify-center items-center h-full flex-col'>
             <div className='flex gap-4 items-end'>
