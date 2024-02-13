@@ -424,6 +424,11 @@ export const Withdraw = () => {
       setBids(res)
       checkBids(res)
     }))
+
+    setTimeout(() => {
+      setServiceLoading(false)
+    }, 3000)
+
     return () => {
       pb.collection('service_bids').unsubscribe('*')
     }
