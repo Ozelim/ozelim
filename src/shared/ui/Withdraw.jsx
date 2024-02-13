@@ -292,6 +292,8 @@ export const Withdraw = () => {
         setServiceLoading(false)
         console.log(err);
       })
+    } else {
+      setServiceLoading(false)
     }
   }
 

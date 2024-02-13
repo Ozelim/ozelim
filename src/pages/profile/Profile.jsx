@@ -657,7 +657,7 @@ export const Profile = () => {
   if (!user?.verified) {
     return (
       <>
-        <LoadingOverlay visible={verifyLoading} />
+        <LoadingOverlay visible={paymentLoading || verifyLoading} />
         <div className="container h-full">
           <div className='flex justify-center items-center h-full flex-col'>
             <div className='flex gap-4 items-end'>
