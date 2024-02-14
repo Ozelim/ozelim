@@ -27,14 +27,14 @@ export const Layout = ({subheaderSlot,  headerSlot, footerSlot}) => {
           {subheaderSlot}
           {headerSlot}
         </div>
-        <div className="mr-2 lg:mr-6">
+        <div className="mr-2 lg:mr-6 grow shrink-0">
           {!!user ? (
             <Link to={'/profile'}>
               <div className="flex flex-col items-center gap-2">
                 {user?.avatar ? (
                   <img
                     src={getImageUrl(user, user?.avatar)}
-                    className="md:w-[40px] md:h-[40px] border-2 border-yellow-400 rounded-full "
+                    className="w-10 h-10 border-2 border-yellow-400 rounded-full"
                   />
                 ) : (
                   <CgProfile size={30} />

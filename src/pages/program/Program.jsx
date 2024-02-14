@@ -20,7 +20,6 @@ export const Program = () => {
         headings={headings}
         text={text}
       />
-
       <ProgramPros headings={headings} text={text} />
       <ProgramSuits headings={headings} text={text} />
       <div className="w-full mt-8">

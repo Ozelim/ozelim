@@ -40,7 +40,7 @@ export const About = () => {
                   <Image
                     record={images}
                     index={1}
-                    className="max-w-[350px] w-full m-auto h-full max-h-64 rounded-primary object-cover"
+                    className="max-w-[350px] w-full m-auto h-full max-h-64 rounded-primary object-contain lg:object-cover"
                   />
                   {/* {getImageUrl(images, images?.[1]) ? (
                     <img

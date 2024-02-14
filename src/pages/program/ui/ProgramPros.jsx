@@ -6,8 +6,8 @@ export const ProgramPros = ({ headings, text }) => {
   return (
     <div className="bg-primary-500 w-full">
       <div className="container">
-        <section className="text-white p-6 lg:p-[50px] rounded-[20px] mt-16">
-          <h1 className="text-[35px] font-bold mb-5 text-center">
+        <section className="text-white p-0 lg:p-[50px] rounded-[20px] mt-16 py-6">
+          <h1 className="text-2xl lg:text-[35px] font-bold mb-5 text-center">
             {headings?.list_head}
           </h1>
           <div className="grid lg:grid-cols-2 gap-10">

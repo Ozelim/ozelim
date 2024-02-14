@@ -21,7 +21,7 @@ export const CourseHeader = ({ headings, images, text }) => {
       <div className="container">
         <section className="grid gap-4">
           <div>
-            <h1 className="text-4xl font-bold pt-6 pb-5 text-teal-500">
+            <h1 className="text-3xl font-bold pt-6 pb-5 text-teal-500">
               {headings?.main}
             </h1>
             <p className="text-heading text-xl font-medium">

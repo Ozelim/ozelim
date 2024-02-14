@@ -600,7 +600,7 @@ export const Withdraw = () => {
             description='Обязательное поле'
           />
           <p className='mt-4'>Общая стоиомсть: {totalCost(addedServices)}</p>
-          <div className='flex justify-center w-full mt-5 gap-4'>
+          <div className='grid grid-cols-1 md:grid-cols-2 justify-center w-full mt-5 gap-4'>
             <div className='p-4 border rounded-primary shadow-md bg-white max-w-xs w-full text-center'>
               <p className='text'>Онлайн оплата с помощью баланса в профиле</p>
               <p className='text-xl font-bold mt-2'>

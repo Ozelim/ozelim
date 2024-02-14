@@ -11,7 +11,7 @@ export const CourseCards = ({ headings, text }) => {
   if (kz) return (
     <div className="w-full">
       <div className="container">
-        <section className="grid lg:grid-cols-3 gap-7 mt-20">
+        <section className="grid lg:grid-cols-3 gap-7 mt-8">
           <div className="border-solid border-4 rounded-primary py-5 px-7 border-[#20c997]">
             <div className="flex items-center">
               <div className="bg-[#20c997] p-4 rounded-full">
@@ -53,7 +53,7 @@ export const CourseCards = ({ headings, text }) => {
   return (
     <div className="w-full">
       <div className="container">
-        <section className="grid lg:grid-cols-3 gap-7 mt-20">
+        <section className="grid lg:grid-cols-3 gap-7 mt-8">
           <div className="border-solid border-4 rounded-primary py-5 px-7 border-[#20c997]">
             <div className="flex items-center">
               <div className="bg-[#20c997] p-4 rounded-full">

@@ -48,9 +48,9 @@ export const Resorts = () => {
           <div className="grid lg:grid-cols-[325px_auto]">
             <Accordion 
               variant='separated'
-              className='border'
+              className='border -mb-4 pb-3'
               classNames={{
-                control: `-mb-8`
+                label: `!py-0 mt-2`,
               }}
             >
               {regions?.map((region, i) => {
@@ -78,7 +78,6 @@ export const Resorts = () => {
                               // <ResortCard resort={resort} key={i} />
                             )
                           })}
-
                         </div>
                       )}
                     </Accordion.Panel>

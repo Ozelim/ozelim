@@ -53,10 +53,10 @@ export const UserAvatar = () => {
 
   return (
     <div className='w-full h-full'>
-      <div className='aspect-square h-full overflow-hidden relative max-w-[200px] mx-auto lg:max-w-full'>
+      <div className='relative w-72 h-72 rounded-full overflow-hidden mx-auto'>
         {avatar && (
           <img 
-            className='h-full object-cover max-w-[200px] mx-auto lg:max-w-full rounded-full'
+            className='object-cover w-full h-full mx-auto'
             src={URL.createObjectURL(avatar)}
             alt="" 
           />
@@ -64,13 +64,13 @@ export const UserAvatar = () => {
         {image && (
           <img
             src={getImageUrl(user, image)} 
-            className='h-full object-cover max-w-[200px] mx-auto lg:max-w-full rounded-full'
+            className='object-cover w-full h-full mx-auto'
             alt="" 
           />
         )}
-        <div className='h-full object-cover max-w-[200px] mx-auto lg:max-w-full rounded-full bg-slate-200'/>
+        <div className='object-cover w-full h-full mx-auto bg-slate-200'/>
 
-        <div className='absolute bottom-1 right-1'>
+        <div className='absolute bottom-1 left-1/2 -translate-x-1/2'>
           <Popover
             opened={opened}
             onChange={setOpened}

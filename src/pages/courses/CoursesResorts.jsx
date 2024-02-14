@@ -54,13 +54,8 @@ export const CoursesResorts = () => {
         </div>
       </div>
       <TeachComfort headings={headings} text={text} />
-      {/* <CourseCurrator
-        name="Ильясова Бахытжан Ильясовна"
-        img={curratorCourse}
-        desc="Предприниматель, психолог, бизнес-советник, директор Центра сертификации специалистов «САПА»"
-      /> */}
-      <div className="container mt-14">
-        <div className="grid lg:grid-cols-3 gap-4">
+      <div className="container mt-8">
+        {/* <div className="grid lg:grid-cols-3 gap-4">
           {Array(3)
             .fill(1)
             .map((_, i) => {
@@ -90,10 +85,16 @@ export const CoursesResorts = () => {
                       {kz ? 'Өтініш қалдыру' : `Оставить заявку`}
                     </Button>
                   </a>
-                  {/* <HealthLink label={'Оставить заявку'} onSubmit={onSubmit} data={text?.[`label${index}`]} /> */}
                 </div>
               )
             })}
+        </div> */}
+        <div className='flex justify-center w-full'>
+          <a className='text-center' href="http://wa.me/77051769699" target="_blank" rel="noopener noreferrer">
+            <Button size='lg'>
+              {kz ? 'Өтініш қалдыру' : `Оставить заявку`}
+            </Button>
+          </a>
         </div>
       </div>
       <div className='text-center mt-10'>
