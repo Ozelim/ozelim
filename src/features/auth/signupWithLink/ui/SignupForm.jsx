@@ -58,7 +58,7 @@ export const SignupForm = () => {
         return
       }
       if (err?.data?.data?.email?.code === 'validation_invalid_email') {
-        setError('email', {message: 'Данная почту уже используется'})
+        setError('email', {message: 'Данная почта уже используется'})
         return
       } 
       if (err === 'unverified') {
