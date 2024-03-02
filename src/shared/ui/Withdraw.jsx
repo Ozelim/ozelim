@@ -13,6 +13,7 @@ import axios from 'axios'
 
 import cardImg from 'shared/assets/images/card.png'
 import { isNumber } from '@tiptap/react'
+import { useLangContext } from 'app/langContext'
 
 async function getServices () {
   return await pb.collection('services').getFullList()
@@ -30,6 +31,8 @@ async function getWaitingServices (id) {
 export const Withdraw = () => {
 
   const {user} = useAuth()
+
+  const {kz} = useLangContext()
 
   const [opened, { open, close }] = useDisclosure(false)
 
@@ -434,8 +437,6 @@ export const Withdraw = () => {
     }
   }, [])
 
-  console.log(loading, serviceLoading, 'withdraw loading');
-
   return (
     <>
       <div className='w-full h-full'>
@@ -505,7 +506,7 @@ export const Withdraw = () => {
             </div>
           </Modal>
           <Button fullWidth onClick={open}>
-            Вывод
+            {kz ? `шығару` : `Вывод`}
           </Button>
         </div>
         <Button 
@@ -513,7 +514,7 @@ export const Withdraw = () => {
           fullWidth 
           onClick={() => setFill({...fill, modal: true})} 
         >
-          Пополнение
+          {kz ? `Толықтыру` : `Пополнение`}
         </Button>
         <Button 
           className='mt-3'
@@ -525,7 +526,7 @@ export const Withdraw = () => {
             }  
           // onClick={() => setModals({...modals, confirm: true})}  
         >
-          Услуги
+          {kz ? 'Қызметтер' : 'Услуги'}
         </Button>
       </div>
       <Modal

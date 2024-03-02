@@ -76,7 +76,7 @@ export const Courses = () => {
                     // }}
                   />
 
-                  <a className='text-center' href="http://wa.me/77051769699" target="_blank" rel="noopener noreferrer">
+                  <a className='text-center' href="http://wa.me/77470512252" target="_blank" rel="noopener noreferrer">
                     <Button>
                       {kz ? 'Өтініш қалдыру' : `Оставить заявку`}
                     </Button>

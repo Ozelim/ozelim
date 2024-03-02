@@ -5,7 +5,7 @@ import { useAuth } from 'shared/hooks'
 import { Button, Group, Modal, Radio } from '@mantine/core'
 import dayjs from 'dayjs'
 
-import market from 'shared/assets/images/marketing.png'
+import market from 'shared/assets/images/marketing2.png'
 import { useMediaQuery } from '@mantine/hooks'
 import { openConfirmModal } from '@mantine/modals'
 import { pb } from 'shared/api'
@@ -166,7 +166,9 @@ export const ReferalsList = ({level, setCount}) => {
           </div>
           {(user?.bin) && (
             <div className='flex gap-1'>
-              <p className='text'>Уровень в процессе:</p>
+              <p className='text'>
+                {kz ? 'Орындалу денгейi:' : `Уровень в процессе:`}
+              </p>
               <p>
                 {(level === '0' || !level) && '1'}
                 {(level === '1') && `2`}
@@ -208,7 +210,7 @@ export const ReferalsList = ({level, setCount}) => {
                         onClick={() => levelbid(6)}
                         disabled={user.cock}
                       > 
-                        {kz ? `Сыйлық алу` : `Получить 500 000`}
+                        {kz ? `Сый500 000лық алу` : `Получить 500 000`}
                       </Button>
                     )}
                     {(level == '5') && (
@@ -219,7 +221,7 @@ export const ReferalsList = ({level, setCount}) => {
                         onClick={() => levelbid(7)}
                         disabled={user.cock}
                       > 
-                        {kz ? `Сыйлық алу` : `Получить 1 000 000`}
+                        {kz ? `1 000 000 алу` : `Получить 1 000 000`}
                       </Button>
                     )}
                     {(level == '6') && (

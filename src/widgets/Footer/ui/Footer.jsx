@@ -145,7 +145,7 @@ export const Footer = () => {
                   <li>
                     <span onClick={matches ? open : () => {}} className="hover:underline">
                       {matches 
-                        ? kz ? `Құпиялылық саясаты` : 'Политика конфиденциальности'
+                        ? kz ? `Құпия саясаты` : 'Политика конфиденциальности'
                         : <a href={'/policy.pdf'} target='_blank'>{kz ? `Құпиялылық саясаты` : `Политика конфиденциальности`} </a>
                       }
                     </span>
