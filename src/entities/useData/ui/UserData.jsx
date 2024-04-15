@@ -196,9 +196,11 @@ export const UserData = ({count, setCount}) => {
           <UserAvatar />
           <div className="grid grid-cols-1 w-full gap-2 mt-5">
             <div className="border p-3  rounded-primary border-primary-500">
-              <div className="flex gap-1 items-center">
-                <p className="text text-lg">Баланс:</p>
-                <p className="text-lg">{formatNumber(user?.balance)}</p>
+              <div className="flex gap-1 items-center ">
+                <p className="text">Баланс:</p>
+                <p>{formatNumber(user?.balance)}</p>
+                <p className="text  ml-auto">Бонусы:</p>
+                <p>{formatNumber(user?.bonuses)}</p>
               </div>
               <div className="space-y-2 mt-2">
                 <Withdraw />

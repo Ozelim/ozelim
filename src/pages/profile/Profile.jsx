@@ -619,6 +619,30 @@ export const Profile = () => {
     onClose: onclose ? () => {setCancel({...cancel, modal: true})} : () => {}
   })
 
+  const confirmRefundBonuses = (bid, onclose, com) => openConfirmModal({
+    title: 'Подтвердите действие',
+    centered: true,
+    children: 'Отменить услугу и вернуть бонусы?',
+    labels: {confirm: 'Подтвердить', cancel: 'Назад'},
+    onConfirm: async () => {
+      await pb.collection('service_bids').update(bid?.id, {
+        status: 'cancelled',
+        total_cost2: (bid?.total_cost - (bid?.total_cost * 0.05)).toFixed(0),
+        refunded: true,
+        refunded_sum: com ? (bid?.total_cost - (bid?.total_cost * 0.05)).toFixed(0) : bid?.total_cost,
+      })
+      .then(async () => {
+        await pb.collection('users').update(user?.id, {
+          'bonuses+': com ? (bid?.total_cost - (bid?.total_cost * 0.05)).toFixed(0) : bid?.total_cost
+        })
+        .then(() => {
+          window.location.reload()
+        })
+      })
+    },
+    onClose: onclose ? () => {setCancel({...cancel, modal: true})} : () => {}
+  })
+
   const confirmRefundCard = () => openConfirmModal({
     title: 'Подтвердите действие',
     centered: true,
@@ -905,11 +929,13 @@ export const Profile = () => {
                                   {(q.status === 'cancelled' || q.status === 'refunded') && `Отменена`}
                                   {q.status === 'rejected' && `Отклонена`}
                                   {q.status === 'created' && `Приобретена`}
+                                  {q.status === 'succ' && `Одобрена`}
                                 </td>
                                 <td>
                                   <div className='cursor-pointer'>
-                                    {(q?.status === 'created' && !q?.pay) && <FaCircleXmark color="gray" size={20} onClick={() => confirmRefundBalance(q)}/>}
-                                    {(q?.status === 'created' && q?.pay) && <FaCircleXmark color="gray" size={20} onClick={() => setCancel({bid: q, modal: true})}/>}
+                                    {(q?.status === 'created' && !q?.pay && !q?.bonuses) && <FaCircleXmark color="gray" size={20} onClick={() => confirmRefundBalance(q)}/>}
+                                    {(q?.status === 'created' && q?.pay && !q?.bonuses) && <FaCircleXmark color="gray" size={20} onClick={() => setCancel({bid: q, modal: true})}/>}
+                                    {(q?.status === 'created' && !q?.pay && q?.bonuses) && <FaCircleXmark color="gray" size={20} onClick={() => confirmRefundBonuses(q)}/>}
                                     {(q?.status === 'waiting') && <FaCircleXmark color="gray" size={20} onClick={() => setCancel({bid: q, modal: true})} />}
                                     {/* {(q?.status === 'created') && <FaCircleXmark color="gray" size={20} onClick={() => setCancel({bid: q, modal: true})} />} */}
                                   </div>

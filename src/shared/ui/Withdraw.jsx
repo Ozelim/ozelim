@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDisclosure } from '@mantine/hooks'
-import { Button, Group, LoadingOverlay, Modal, NumberInput, PinInput, Popover, Select, TextInput } from '@mantine/core'
+import { Button, Group, LoadingOverlay, Modal, NumberInput, PinInput, Popover, Select, TextInput, Textarea } from '@mantine/core'
 import { Controller, useForm } from 'react-hook-form'
 import { pb } from 'shared/api'
 import { openConfirmModal } from '@mantine/modals'
@@ -202,6 +202,8 @@ export const Withdraw = () => {
     sum: ''
   })
 
+  const [comment, setComment] = React.useState('')
+
   async function replenish (e) {
     e.preventDefault()
     setServiceLoading(true)
@@ -338,6 +340,7 @@ export const Withdraw = () => {
       await pb.collection('service_bids').create({
         serv1ce: [...addedServices],
         service: [...addedServices.map(q => q.id)],
+        comment,
         name,
         user: user?.id,
         total_cost: data?.AMOUNT,
@@ -436,6 +439,37 @@ export const Withdraw = () => {
       pb.collection('service_bids').unsubscribe('*')
     }
   }, [])
+ 
+  async function buyServicesWithBonuses () {
+    setServiceLoading(true)
+    await pb.collection('service_bids').create({
+      services: [...addedServices.map(q => q.id)],
+      comment,
+      serv1ce: [...addedServices],      
+      user: user.id,
+      name,
+      status: 'created',
+      total_cost: totalCost(addedServices),
+      pay: null,
+      bonuses: true
+    })
+    .then(async res => {
+      await pb.collection('users').update(user.id, {
+        'bonuses-': totalCost(addedServices)
+      })
+      .then(() => {
+        setServiceLoading(false)
+        window.location.reload()
+      })
+      .catch(() => {
+        setServiceLoading(false)
+      })
+    })
+    .catch(() => {
+      setServiceLoading(false)
+      window.location.reload()
+    })
+  }
 
   return (
     <>
@@ -601,27 +635,47 @@ export const Withdraw = () => {
             description='Обязательное поле'
           />
           <p className='mt-4'>Общая стоиомсть: {totalCost(addedServices)}</p>
-          <div className='grid grid-cols-1 md:grid-cols-2 justify-center w-full mt-5 gap-4'>
-            <div className='p-4 border rounded-primary shadow-md bg-white max-w-xs w-full text-center'>
-              <p className='text'>Онлайн оплата с помощью баланса в профиле</p>
-              <p className='text-xl font-bold mt-2'>
-                Баланс: <span className='font-normal'>{user?.balance}</span> 
+          <Textarea
+            className='mt-4'
+            label='Комментарий'
+            value={comment}
+            onChange={e => setComment(e.currentTarget.value)}
+          />
+
+          <div className='grid grid-cols-1 md:grid-cols-3  justify-center w-full mt-5 gap-4'>
+            <div className='p-2 flex flex-col  border rounded-primary shadow-md bg-white max-w-xs w-full text-center'>
+              {/* <p className='text'>Онлайн оплата с помощью баланса в профиле</p> */}
+              <p className='text-lg font-bold mt-2 grow'>
+                Баланс: <br className='md:block hidden'/><span className='font-normal'>{user?.balance}</span> 
               </p>
               <Button 
-                className='mt-4'
+                className='mt-4 flex-shrink'
                 onClick={buyServiceWithBalance}
                 disabled={(totalCost(addedServices) > user.balance) || (name.length < 2) || addedServices.length === 0}
               >
                 Оплатить
               </Button>
             </div>
-            <div className='p-4 border rounded-primary shadow-md bg-white max-w-xs w-full text-center'>
-              <p className='text'>Онлайн оплата с помощью банковской карты</p>
-              <p className='text-xl font-bold mt-2'>
-                Visa/MasterCard
+            <div className='p-2 flex flex-col  border rounded-primary shadow-md bg-white max-w-xs w-full text-center'>
+              {/* <p className='text'>Онлайн оплата с помощью баланса в профиле</p> */}
+              <p className='text-lg font-bold mt-2 grow'>
+                Бонусы: <span className='font-normal'>{user?.bonuses}</span> 
               </p>
               <Button 
-                className='mt-4' 
+                className='mt-4 flex-shrink'
+                disabled={(user?.bonuses < totalCost(addedServices)) || (name.length < 2) || addedServices.length === 0}
+                onClick={buyServicesWithBonuses}            
+              >
+                Оплатить
+              </Button>
+            </div>
+            <div className='p-2 flex flex-col  border rounded-primary shadow-md bg-white max-w-xs w-full text-center'>
+              {/* <p className='text'>Онлайн оплата с помощью банковской карты</p> */}
+              <p className='text-lg font-bold mt-2 grow'>
+                Visa MasterCard
+              </p>
+              <Button 
+                className='mt-4 flex-shrink' 
                 onClick={buyServicesWithCard}
                 disabled={name.length < 2 || addedServices.length === 0}
               >
