@@ -462,7 +462,7 @@ export const Profile = () => {
       id: userId
     })
     .then(async res => {
-      await pb.collection('users').getOne(user.id)
+      await pb.collection('users').getOne(user.id, {expand: 'sponsor'})
       .then(res => {
         setUser(res)
       })
@@ -678,6 +678,8 @@ export const Profile = () => {
   }
 
   const [refundType, setRefundType] = React.useState('')
+
+  console.log(user?.expand, 'user epxnad sponsor');
 
   if (loading) {
     return <></>
