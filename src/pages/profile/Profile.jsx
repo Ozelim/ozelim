@@ -542,7 +542,7 @@ export const Profile = () => {
   }
 
   React.useEffect(() => {
-    checkPaymentStatus()
+    // checkPaymentStatus()
   }, [])
 
   const [modal, setModal] = React.useState(false)
@@ -672,8 +672,6 @@ export const Profile = () => {
   }
 
   const [refundType, setRefundType] = React.useState('')
-
-  console.log(paymentLoading, verifyLoading, `profile loading`);
 
   if (loading) {
     return <></>
