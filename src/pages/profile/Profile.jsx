@@ -155,7 +155,7 @@ function findAndReplaceObjectById(obj, idToFind, replacementObject) {
 
 export const Profile = () => {
 
-  const {user, loading} = useAuth()
+  const {user, setUser, loading} = useAuth()
   const navigate = useNavigate()
 
   const [count, setCount] = React.useState(0) 
@@ -461,7 +461,11 @@ export const Profile = () => {
     await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/verify`, {
       id: userId
     })
-    .then(res => {
+    .then(async res => {
+      await pb.collection('users').getOne(user.id)
+      .then(res => {
+        setUser(res)
+      })
       console.log(res, 'succ');
     })
     .finally(() => {
