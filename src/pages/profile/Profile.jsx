@@ -518,13 +518,15 @@ export const Profile = () => {
   }
 
   async function checkPaymentStatus () {
+    const u = await pb.collection('users').getOne(user.id)
+
     const token = import.meta.env.VITE_APP_SHARED_SECRET
-    const string = `${user?.pay?.ORDER};${user?.pay?.MERCHANT}`
+    const string = `${u?.pay?.ORDER};${u?.pay?.MERCHANT}`
     const sign = sha512(token + string).toString()
-    if (user?.pay?.MERCHANT && user?.pay?.ORDER && !user?.verified) {
+    if (u?.pay?.MERCHANT && u?.pay?.ORDER && !u?.verified) {
       await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/check`, {
-        ORDER: user?.pay?.ORDER,
-        MERCHANT: user?.pay?.MERCHANT,
+        ORDER: u?.pay?.ORDER,
+        MERCHANT: u?.pay?.MERCHANT,
         GETSTATUS: 1,
         P_SIGN: sign,
       })
@@ -532,7 +534,7 @@ export const Profile = () => {
         console.log(res, 'response');
         console.log(res?.data?.includes('Обработано успешно'), 'res');
         if (res?.data?.includes('Обработано успешно')) {
-          verifyUser(user?.id)
+          verifyUser(u?.id)
         }
       })
       .catch(err => {
@@ -542,7 +544,7 @@ export const Profile = () => {
   }
 
   React.useEffect(() => {
-    // checkPaymentStatus()
+    checkPaymentStatus()
   }, [])
 
   const [modal, setModal] = React.useState(false)
