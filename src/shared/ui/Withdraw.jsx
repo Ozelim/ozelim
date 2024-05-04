@@ -634,7 +634,7 @@ export const Withdraw = () => {
             onChange={e => setName(e.currentTarget.value)}
             description='Обязательное поле'
           />
-          <p className='mt-4'>Общая стоиомсть: {totalCost(addedServices)}</p>
+          <p className='mt-4'>Общая стоимость: {totalCost(addedServices)}</p>
           <Textarea
             className='mt-4'
             label='Комментарий'
