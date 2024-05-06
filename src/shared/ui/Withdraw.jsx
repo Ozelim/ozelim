@@ -243,7 +243,7 @@ export const Withdraw = () => {
         user: user?.id,
         sum: fill.sum,
         status: 'created',
-        pay: {
+        replenish: {
           ...data,
           P_SIGN: sign
         }
@@ -281,7 +281,7 @@ export const Withdraw = () => {
         if (res?.data?.includes('Обработано успешно')) {
           await pb.collection('replenish').update(replenish?.id, {
             status: 'paid'
-          })
+          })  
           .then(async res => {
             await pb.collection('users').update(user?.id, {
               'balance+': replenish?.pay?.AMOUNT,
