@@ -518,7 +518,7 @@ export const Withdraw = () => {
                 name="owner"
                 onChange={handleWithdrawChange}
               />
-              <NumberInput
+              <TextInput
                 value={withdraw?.iin}
                 placeholder="030627129340"
                 label="ИИН"
@@ -526,7 +526,6 @@ export const Withdraw = () => {
                 name="iin"
                 maxLength={12}
                 onChange={(e) => handleWithdrawChange(e, 'iin')}
-                hideControls
               /> 
               <div className="mt-4">
                 <Button 
