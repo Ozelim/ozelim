@@ -243,7 +243,7 @@ export const Withdraw = () => {
         user: user?.id,
         sum: fill.sum,
         status: 'created',
-        replenish: {
+        pay: {
           ...data,
           P_SIGN: sign
         }
