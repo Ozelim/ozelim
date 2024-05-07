@@ -721,7 +721,7 @@ export const Withdraw = () => {
           <Button
             onClick={replenish}
             fullWidth
-            disabled={(fill.sum < 10) || isNaN(fill.sum)}
+            disabled={(fill.sum < 500) || isNaN(fill.sum)}
           >
             Пополнить
           </Button>
