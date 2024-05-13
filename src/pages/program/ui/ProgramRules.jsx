@@ -1,9 +1,9 @@
+import React from 'react'
 import { Button, Center, Modal } from '@mantine/core'
 import { useDisclosure, useMediaQuery } from '@mantine/hooks'
-import React from 'react'
 import { getExtension, getImageUrl } from 'shared/lib'
 
-import dog from 'shared/assets/images/dogtwo.pdf'
+import dog from 'shared/assets/images/dognew.pdf'
 import { useLangContext } from 'app/langContext'
 
 export const ProgramRules = ({ headings, text }) => {
@@ -36,7 +36,7 @@ export const ProgramRules = ({ headings, text }) => {
                   <Button size="md" className="mt-5" onClick={matches ? open : () => {}}>
                     {matches 
                       ? kz ? `Келісімшарт-офертасы` : `Договор оферты`
-                      : <a href={'/dogtwo.pdf'} target='_blank'> 
+                      : <a href={'/dognew.pdf'} target='_blank'> 
                       {kz ? `Келісімшарт-офертасы` : `Договор оферты`}</a>
                     }
                   </Button>
