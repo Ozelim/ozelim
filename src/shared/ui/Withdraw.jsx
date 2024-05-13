@@ -284,7 +284,7 @@ export const Withdraw = () => {
           })  
           .then(async res => {
             await pb.collection('users').update(user?.id, {
-              'balance+': replenish?.pay?.AMOUNT,
+              'balance+': Number(replenish?.pay?.AMOUNT),
             })
           })
           .finally(() => {
