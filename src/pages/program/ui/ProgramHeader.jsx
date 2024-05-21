@@ -1,12 +1,12 @@
+import React from 'react'
 import { Button, Modal } from '@mantine/core'
 import { useDisclosure, useMediaQuery } from '@mantine/hooks'
-import React from 'react'
 import { AiOutlineCheckCircle } from 'react-icons/ai'
 import { FcInfo } from 'react-icons/fc'
 import { Link } from 'react-scroll'
 import { getImageUrl } from 'shared/lib'
 
-import gos from 'shared/assets/images/gos.pdf'
+import gos from 'shared/assets/images/policynew.pdf'
 import { useLangContext } from 'app/langContext'
 
 export const ProgramHeader = ({ headings, text, images }) => {
@@ -35,7 +35,7 @@ export const ProgramHeader = ({ headings, text, images }) => {
               <p className='underline cursor-pointer text-primary-500' onClick={matches ? open : () => {}}>
                 {matches 
                   ? kz ? `Мемлекеттік тіркеу куәлік` : `Справка о гос. регистриции`
-                  : <a href={'/policy.pdf'} target='_blank'>
+                  : <a href={'/policynew.pdf'} target='_blank'>
                     {kz ? `Мемлекеттік тіркеу куәлік` : `Справка о гос. регистриции`}
                   </a>
                 }
