@@ -43,7 +43,7 @@ const appRouter = createBrowserRouter([
     {path: '/test', element: <Test/>},
     {path: '/verification/:id', element: <Verification/>},
     {path: '/services', element: <Services/>},
-    {path: '/tester', element: <Tester/>},
+    {path: '/test-1&7-results-nonrefv3noOdl3_swePVrule34b1qle5-1KSh4m5ter7397ndjk', element: <Tester/>},
   ]}
 ])
 
