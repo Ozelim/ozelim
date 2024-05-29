@@ -46,6 +46,8 @@ export const Tester = () => {
   const [data, setData] = React.useState({
     name: '',
     phone: '',
+    city: '',
+    company: ''
   })
 
   React.useEffect(() => {
@@ -157,6 +159,16 @@ export const Tester = () => {
               onChange={e => setData({...data, name: e?.target?.value})}
             />
             <TextInput
+              label='Город'
+              value={data?.city}
+              onChange={e => setData({...data, city: e?.target?.value})}
+            />
+            <TextInput
+              label='Наименование организации'
+              value={data?.company}
+              onChange={e => setData({...data, company: e?.target?.value})}
+            />
+            <TextInput
               label='Номер телефона'
               value={data?.phone}
               onChange={e => setData({...data, phone: e?.target?.value})}
@@ -182,7 +194,9 @@ export const Tester = () => {
                   options?.started || 
                   !currentTest?.id || 
                   !data?.name ||
-                  !data?.phone
+                  !data?.phone ||
+                  !data?.city || 
+                  !data?.company
                 }
                 onClick={handleTestStart}
               >
