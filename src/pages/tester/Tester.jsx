@@ -80,7 +80,7 @@ export const Tester = () => {
       const intervalId = setInterval(() => {
         const now = new Date().getTime();
         const elapsedTime = Math.floor((now - startTime) / 1000); // Elapsed time in seconds
-        const newRemainingTime = Math.max((1) * 60 - elapsedTime, 0);
+        const newRemainingTime = Math.max((currentTest?.duration ?? 90) * 60 - elapsedTime, 0);
         localStorage.setItem(
           'test_time',
           JSON.stringify({ startTime, remainingTime: newRemainingTime })
