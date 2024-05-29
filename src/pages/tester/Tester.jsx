@@ -45,7 +45,6 @@ export const Tester = () => {
 
   const [data, setData] = React.useState({
     name: '',
-    phone: '',
     city: '',
     company: ''
   })
@@ -103,7 +102,8 @@ export const Tester = () => {
       setCurrentTest({})
       setData({
         name: '',
-        phone: ''
+        company: '',
+        city: '',
       })
     }
   }, [remainingTime])
@@ -128,7 +128,7 @@ export const Tester = () => {
   }
 
   async function endTest () {
-    if (!currentTest?.name && !currentTest?.phone) return
+    if (!currentTest?.name) return
     setLoading(true)
     await pb.collection('tester_results').create({
       ...data,
@@ -168,11 +168,6 @@ export const Tester = () => {
               value={data?.company}
               onChange={e => setData({...data, company: e?.target?.value})}
             />
-            <TextInput
-              label='Номер телефона'
-              value={data?.phone}
-              onChange={e => setData({...data, phone: e?.target?.value})}
-            />
           </div>
           <p className='text-center mt-5'>Выберите тест</p>
           <div className='flex flex-wrap gap-4 justify-center mt-5'>
@@ -194,7 +189,6 @@ export const Tester = () => {
                   options?.started || 
                   !currentTest?.id || 
                   !data?.name ||
-                  !data?.phone ||
                   !data?.city || 
                   !data?.company
                 }
