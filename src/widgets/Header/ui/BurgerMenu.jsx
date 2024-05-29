@@ -8,7 +8,7 @@ const array = [
   { labelkz: `Жаңалықтар`, labelru: 'Новости', link: '/news' },
   { labelkz: `Біздің туристер`, labelru: 'Наши туристы', link: '/partners', disabled: true },
   { labelkz: `Серiктестiк бағдарлама`, labelru: 'Партнерская программа', link: '/program' },
-  { labelkz: `Тест`, labelru: 'Тест', link: '/https://oz-elim.kz/test-1&7-results-nonrefv3noOdl3_swePVrule34b1qle5-1KSh4m5ter7397ndjk', },
+  { labelkz: `Тест`, labelru: 'Тест', link: '/test-1&7-results-nonrefv3noOdl3_swePVrule34b1qle5-1KSh4m5ter7397ndjk', },
   { labelkz: `Біздің команда`, labelru: 'Наша команда', link: '/our-team', },
   { labelkz: `Мейірімділік`, labelru: 'Доброе дело', link: '/charity-fund', },
 ]
