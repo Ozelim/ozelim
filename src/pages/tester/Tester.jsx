@@ -63,11 +63,11 @@ export const Tester = () => {
     const storedStartTime = startTime || now;
     // Update start time and remaining time
     setStartTime(storedStartTime);
-    setRemainingTime(currentTest?.duration ?? 90 * 60); // 90 minutes in seconds
+    setRemainingTime((currentTest?.duration ?? 90) * 60); // 90 minutes in seconds
     // Save data to local storage
     localStorage.setItem(
       'test_time',
-      JSON.stringify({ startTime: storedStartTime, remainingTime: currentTest?.duration ?? 90 * 60 })
+      JSON.stringify({ startTime: storedStartTime, remainingTime: (currentTest?.duration ?? 90) * 60 })
     );
     localStorage.setItem(
       'ozelim_test',
