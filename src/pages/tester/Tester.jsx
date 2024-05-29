@@ -250,15 +250,17 @@ export const Tester = () => {
                   </div>
               </>
             )}
-            <div className='flex justify-center mt-8'>
-              <Button 
-                disabled={!currentTest?.questions?.every(q => q?.selected === 0 || q?.selected)}
-                onClick={endTest}
-                loading={loading}
-              >
-                Завершить тест
-              </Button>
-            </div>
+            {options?.started && (
+              <div className='flex justify-center mt-8'>
+                <Button 
+                  disabled={!currentTest?.questions?.every(q => q?.selected === 0 || q?.selected)}
+                  onClick={endTest}
+                  loading={loading}
+                >
+                  Завершить тест
+                </Button>
+              </div>
+            )}
         </div>
       </div>
     </div>
