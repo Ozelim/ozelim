@@ -10,7 +10,7 @@ const array = [
   { labelkz: `Серiктестiк бағдарлама`, labelru: 'Партнерская программа', link: '/program' },
   { labelkz: `Тестирование`, labelru: 'Тестирование', link: '/test-1&7-results-nonrefv3noOdl3_swePVrule34b1qle5-1KSh4m5ter7397ndjk', },
   { labelkz: `Біздің команда`, labelru: 'Наша команда', link: '/our-team', },
-  { labelkz: `Мейірімділік`, labelru: 'Доброе дело', link: '/charity-fund', },
+  // { labelkz: `Мейірімділік`, labelru: 'Доброе дело', link: '/charity-fund', },
 ]
 
 const array2 = [
