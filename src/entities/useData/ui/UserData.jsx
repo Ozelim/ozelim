@@ -254,7 +254,7 @@ export const UserData = ({count, setCount}) => {
               value={referal}
               readOnly
               variant="filled"
-              label={kz ? `Рефералдык сілтеме` : `Реферальная ссылка`}
+              label={kz ? `Рефералдық сілтеме` : `Реферальная ссылка`}
               rightSection={<CopyBtn value={referal} />}
             />
             <TextInput
@@ -272,7 +272,7 @@ export const UserData = ({count, setCount}) => {
               name="name"
               onChange={handleValuesChange}
             />
-            
+
             <TextInput
               label={kz ? `Тегі` : `Фамилия`}
               variant="filled"
