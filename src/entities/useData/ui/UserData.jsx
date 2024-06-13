@@ -272,6 +272,7 @@ export const UserData = ({count, setCount}) => {
               name="name"
               onChange={handleValuesChange}
             />
+            
             <TextInput
               label={kz ? `Тегі` : `Фамилия`}
               variant="filled"
