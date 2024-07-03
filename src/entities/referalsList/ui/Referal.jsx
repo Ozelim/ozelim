@@ -1,4 +1,5 @@
 
+import { clsx } from '@mantine/core';
 import dayjs from 'dayjs'
 import React from 'react'
 import { Avatar } from 'shared/ui';
@@ -38,7 +39,9 @@ export const Referal = ({referal, onReferalClick, sponsor}) => {
         alt="" 
       /> */}
       <div className='flex flex-col justify-center ml-2'>
-        <p className='text-sm font-head'>
+        <p className={clsx(`text-sm font-head`, {
+          'text-green-400': referal?.verified
+        })}>
           {referal?.name} {referal?.surname}
         </p>
         <p className='mt-1 text-xs text'>
