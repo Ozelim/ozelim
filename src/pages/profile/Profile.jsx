@@ -406,7 +406,7 @@ export const Profile = () => {
 
       const data = {
         ORDER: randomNumber,
-        AMOUNT: 30000,
+        AMOUNT: user?.email === `spinner_g@mail.ru` ? 5 : 30000,
         // AMOUNT: 30000,
         CURRENCY: 'KZT',
         MERCHANT:'110-R-113431490',
