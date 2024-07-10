@@ -679,8 +679,6 @@ export const Profile = () => {
 
   const [refundType, setRefundType] = React.useState('')
 
-  console.log(user?.expand, 'user epxnad sponsor');
-
   if (loading) {
     return <></>
   }

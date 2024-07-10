@@ -38,7 +38,6 @@ export const ReferalsList = ({level, setCount}) => {
   async function getReferals () {
     await referapsApi.getReferals(user?.id)
     .then(res => {
-      console.log(res, 'referals');
       setReferals(res)
     })
   }
@@ -48,7 +47,6 @@ export const ReferalsList = ({level, setCount}) => {
   React.useEffect(() => {
     checkSponsors(user)
     .then(e => {
-      console.log(e, 'freaks');
       setFriki(e?.data?.overall ?? 0)
     })
   }, [])
