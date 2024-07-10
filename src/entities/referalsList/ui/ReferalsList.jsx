@@ -38,6 +38,7 @@ export const ReferalsList = ({level, setCount}) => {
   async function getReferals () {
     await referapsApi.getReferals(user?.id)
     .then(res => {
+      console.log(res, 'referals');
       setReferals(res)
     })
   }

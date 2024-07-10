@@ -194,6 +194,21 @@ export const UserData = ({count, setCount}) => {
       <div className="w-full">
         <div>
           <UserAvatar />
+          <TextInput
+            label="ID"
+            variant="filled"
+            value={values.id ?? ''}
+            onChange={handleValuesChange}
+            readOnly
+            rightSection={<CopyBtn value={values?.id} />}
+          />
+          <TextInput
+            value={referal}
+            readOnly
+            variant="filled"
+            label={kz ? `Рефералдық сілтеме` : `Реферальная ссылка`}
+            rightSection={<CopyBtn value={referal} />}
+          />
           <div className="grid grid-cols-1 w-full gap-2 mt-5">
             <div className="border p-3  rounded-primary border-primary-500">
               <div className="flex gap-1 items-center ">
@@ -251,26 +266,12 @@ export const UserData = ({count, setCount}) => {
               </div>
             </div>
             <TextInput
-              value={referal}
-              readOnly
-              variant="filled"
-              label={kz ? `Рефералдық сілтеме` : `Реферальная ссылка`}
-              rightSection={<CopyBtn value={referal} />}
-            />
-            <TextInput
-              label="ID"
-              variant="filled"
-              value={values.id ?? ''}
-              onChange={handleValuesChange}
-              readOnly
-              rightSection={<CopyBtn value={values?.id} />}
-            />
-            <TextInput
               label={kz ? `Аты` : `Имя`}
               variant="filled"
               value={values.name ?? ''}
               name="name"
               onChange={handleValuesChange}
+              readOnly
             />
 
             <TextInput
@@ -279,6 +280,7 @@ export const UserData = ({count, setCount}) => {
               value={values.surname ?? ''}
               name="surname"
               onChange={handleValuesChange}
+              readOnly
             />
             <TextInput
               label="Телефон"
