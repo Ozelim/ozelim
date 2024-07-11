@@ -47,5 +47,4 @@ const appRouter = createBrowserRouter([
   ]}
 ])
 
-
 export { appRouter }

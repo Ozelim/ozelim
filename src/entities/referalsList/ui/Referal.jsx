@@ -26,22 +26,25 @@ export const Referal = ({referal, onReferalClick, sponsor}) => {
   )
 
   return (
-    <div className='flex shrink-0' onClick={() => onReferalClick(referal)}>
-      <Avatar
-        src={referal?.avatar}
-        className='aspect-square w-14 mx-auto'
-        radius='xl'
-        record={referal}
-      />
+    <div className={clsx('flex shrink-0')} onClick={() => onReferalClick(referal)}>
+      <div className={clsx('!border-4 rounded-full', {
+        '!border-green-500': referal?.verified,
+        '!border-gray-300': !referal?.verified,
+      })}>
+        <Avatar
+          src={referal?.avatar}
+          className={'aspect-square w-14 mx-auto'}
+          radius='xl'
+          record={referal}
+        />
+      </div>
       {/* <img 
         className=''
         src={'https://cdn.pixabay.com/photo/2016/11/29/05/45/astronomy-1867616_640.jpg'} 
         alt="" 
       /> */}
       <div className='flex flex-col justify-center ml-2'>
-        <p className={clsx(`text-sm font-head`, {
-          'text-green-400': referal?.verified
-        })}>
+        <p className={clsx(`text-sm font-head`)}>
           {referal?.name} {referal?.surname}
         </p>
         <p className='mt-1 text-xs text'>
