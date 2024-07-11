@@ -843,6 +843,59 @@ export const Profile = () => {
                       )}
                     />
                   </div>
+                  <div className="mt-12 overflow-scroll">
+                      <h2 className="text-center text-xl font-head">Записи</h2>
+                      <Table className="border mt-4">
+                        <thead>
+                          <tr>
+                            <th>Дата</th>
+                            <th>ID</th>
+                            <th>Сумма</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {bonuses?.referals?.map((q, i) => {
+                            return (
+                              <tr key={i} className="text">
+                                <td className='whitespace-nowrap'>
+                                  {dayjs(q?.created).format(
+                                    'YY-MM-DD, hh:mm'
+                                  )}
+                                </td>
+                                <td>{q?.referal}</td>
+                                <td>{formatNumber(q?.sum)}</td>
+                              </tr>
+                            )
+                          })}
+                          {bonuses?.bonuses?.map((q, i) => {
+                            return (
+                              <tr key={i} className="text">
+                                <td className='whitespace-nowrap'>
+                                  {dayjs(q?.created).format(
+                                    'YY-MM-DD, hh:mm'
+                                  )}
+                                </td>
+                                <td>-</td>
+                                <td>{formatNumber(q?.sum)}</td>
+                              </tr>
+                            )
+                          })}
+                          {bonuses?.replenish?.map((q, i) => {
+                            return (
+                              <tr key={i} className="text">
+                                <td className='whitespace-nowrap'>
+                                  {dayjs(q?.created).format(
+                                    'YY-MM-DD, hh:mm'
+                                  )}
+                                </td>
+                                <td>-</td>
+                                <td>{formatNumber(q?.sum)}</td>
+                              </tr>
+                            )
+                          })}
+                        </tbody>
+                      </Table>
+                    </div>
                   {withdraws?.length !== 0 && (
                     <div className="mt-12 overflow-scroll">
                       <h2 className="text-center text-xl font-head">Выводы</h2>
@@ -962,6 +1015,7 @@ export const Profile = () => {
                       </Table>
                     </div>
                   )}
+                  
                 </div>
               </div>
             </div>
