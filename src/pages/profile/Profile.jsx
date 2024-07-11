@@ -863,7 +863,7 @@ export const Profile = () => {
                                   )}
                                 </td>
                                 <td>{q?.referal}</td>
-                                <td>{formatNumber(q?.sum)}</td>
+                                <td className='text-green-500'>+ {formatNumber(q?.sum)}</td>
                               </tr>
                             )
                           })}
@@ -876,7 +876,7 @@ export const Profile = () => {
                                   )}
                                 </td>
                                 <td>-</td>
-                                <td>{formatNumber(q?.sum)}</td>
+                                <td className='text-green-500'>+ {formatNumber(q?.sum)}</td>
                               </tr>
                             )
                           })}
@@ -889,7 +889,20 @@ export const Profile = () => {
                                   )}
                                 </td>
                                 <td>-</td>
-                                <td>{formatNumber(q?.sum)}</td>
+                                <td className='text-green-500'>+ {formatNumber(q?.sum)}</td>
+                              </tr>
+                            )
+                          })}
+                          {bonuses?.withdraws?.map((q, i) => {
+                            return (
+                              <tr key={i} className="text">
+                                <td className='whitespace-nowrap'>
+                                  {dayjs(q?.created).format(
+                                    'YY-MM-DD, hh:mm'
+                                  )}
+                                </td>
+                                <td>-</td>
+                                <td className='text-red-500'>- {formatNumber(q?.sum)}</td>
                               </tr>
                             )
                           })}
