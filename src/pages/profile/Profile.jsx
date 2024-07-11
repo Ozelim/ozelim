@@ -164,7 +164,7 @@ export const Profile = () => {
 
   const [count, setCount] = React.useState(0) 
 
-  const [bonuses, setBonuses] = React.useState([])
+  const [bonuses, setBonuses] = React.useState({})
 
   React.useEffect(() => {
     if (!loading) {
