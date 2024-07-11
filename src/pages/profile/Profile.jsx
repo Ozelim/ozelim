@@ -18,7 +18,7 @@ import { openConfirmModal } from '@mantine/modals'
 import { FaCircleXmark } from 'react-icons/fa6'
 
 async function getBonusesRecord (id) {
-  return await pb.collection('user_bonuses').getFullList(id)
+  return await pb.collection('user_bonuses').getOne(id)
 }
 
 function getMonth(previous) {
