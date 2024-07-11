@@ -10,6 +10,7 @@ async function getPartners () {
 
 export const Partners = () => {
 
+  const [partner, setPartner] = React.useState({})
   const [partners, setPartners] = React.useState([])
   
   React.useEffect(() => {
@@ -18,8 +19,6 @@ export const Partners = () => {
       setPartners(res)
     })
   }, [])
-
-  const [partner, setPartner] = React.useState({})
 
   const [viewModal, setViewModal] = React.useState(false)
 

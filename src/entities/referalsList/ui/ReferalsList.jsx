@@ -273,6 +273,10 @@ export const ReferalsList = ({level, setCount}) => {
           alt="" 
           className='w-[150px] h-[150px] object-cover rounded-full mx-auto mb-5'
         />
+        {referal?.verified 
+          ? <div className='py-4 text-green-500'>Верифицирован</div>
+          : <div className='py-4 text-gray-500'>Не верифицирован</div>
+        }
         <ul className='space-y-2'>
           <li className='grid grid-cols-2'>
             <p>ID:</p>

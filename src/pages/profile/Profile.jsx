@@ -17,6 +17,10 @@ import { openConfirmModal } from '@mantine/modals'
 
 import { FaCircleXmark } from 'react-icons/fa6'
 
+async function getBonusesRecord (id) {
+  return await pb.collection('user_bonuses').getFullList(id)
+}
+
 function getMonth(previous) {
   let month = dayjs().month() + 1
 
@@ -160,6 +164,8 @@ export const Profile = () => {
 
   const [count, setCount] = React.useState(0) 
 
+  const [bonuses, setBonuses] = React.useState([])
+
   React.useEffect(() => {
     if (!loading) {
       if (!user) {
@@ -171,6 +177,10 @@ export const Profile = () => {
   const [bids, setBids] = React.useState([])
 
   React.useEffect(() => {
+    getBonusesRecord(user?.id)
+    .then(res => {
+      setBonuses(res)
+    })
     getServiceBids(user?.id)
     .then(res => {
       setBids(res)
@@ -185,6 +195,8 @@ export const Profile = () => {
       pb.collection('service_bids').unsubscribe('*')
     }
   }, [])
+
+  console.log(bonuses, 'bonuses');
 
   const handleBeforeUnload = (event) => {
     const message = "Are you sure you want to leave? Your changes may not be saved.";
@@ -454,7 +466,6 @@ export const Profile = () => {
       console.log(err, 'err');
     }
   }
-
 
   async function  verifyUser(userId) {
     setVerifyLoading(true)
@@ -1082,57 +1093,6 @@ export const Profile = () => {
           )}
         </div>
       </Modal>
-      {/* <Modal
-        opened={modal}
-        onClose={() => setModal(false)}
-        centered
-        size={'xs'}
-        title='Данные партнера'
-      >
-        <img 
-          src={getImageUrl(user?.expand?.sponsor, user?.expand?.sponsor?.avatar)} 
-          alt="" 
-          className='w-[150px] h-[150px] object-cover rounded-full mx-auto mb-5 bg-slate-300'
-        />
-        <ul className='space-y-2'>
-          <li className='grid grid-cols-2'>
-            <p>ID:</p>
-            <p>{user?.expand?.sponsor?.id}</p>
-          </li>
-          <li className='grid grid-cols-2'>
-            <p>Имя:</p>
-            <p>{user?.expand?.sponsor?.name}</p>
-          </li>
-          <li className='grid grid-cols-2'>
-            <p>Фамилия:</p>
-            <p>{user?.expand?.sponsor?.surname}</p>
-          </li>
-          <li className='grid grid-cols-2'>
-            <p>Телефон:</p>
-            <p>{user?.expand?.sponsor?.phone}</p>
-          </li>
-          <li className='grid grid-cols-2'>
-            <p>Область:</p>
-            <p>{user?.expand?.sponsor?.region}</p>
-          </li>
-          <li className='grid grid-cols-2'>
-            <p>Партнеры:</p>
-            <p>{user?.expand?.sponsor?.referals?.length}</p>
-          </li>
-          <li className='grid grid-cols-2'>
-            <p>Бинар:</p>
-            <p>{user?.expand?.sponsor?.bin ? 'Да' : 'Нет'}</p>
-          </li>
-          <li className='grid grid-cols-2'>
-            <p>Уровень:</p>
-            <p>{user?.expand?.sponsor?.level}</p>
-          </li>
-          <li className='grid grid-cols-2'>
-            <p>Дата рег:</p>
-            <p>{dayjs(user?.expand?.sponsor?.created).format('DD.MM.YY')}</p>
-          </li>
-        </ul>
-      </Modal> */}
     </>
   )
 }
