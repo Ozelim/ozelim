@@ -28,7 +28,7 @@ async function getWaitingServices (id) {
   return await pb.collection('service_bids').getFullList({filter: `user = '${id}' && status = 'waiting'`})
 }
 
-export const Withdraw = ({balance}) => {
+export const Withdraw = ({bonuses}) => {
 
   const {user} = useAuth()
 
@@ -130,7 +130,7 @@ export const Withdraw = ({balance}) => {
 
   const disabled =
     withdraw?.bank && (withdraw?.owner?.length > 3) &&
-    (Number(withdraw?.sum) >= 100 && Number(withdraw?.sum) <= balance) &&
+    (Number(withdraw?.sum) >= 100 && Number(withdraw?.sum) <= user?.balance) &&
     // card.length == 19
     ((withdraw?.iban?.toString()?.length > 10) && (withdraw?.iin?.toString()?.length > 6))
 
@@ -285,6 +285,19 @@ export const Withdraw = ({balance}) => {
           .then(async res => {
             await pb.collection('users').update(user?.id, {
               'balance+': Number(replenish?.pay?.AMOUNT),
+            })
+            .then(async res => {
+              await pb.collection('user_bonuses').update(user?.id, {
+                replenish: [
+                  ...bonuses?.replenish ?? [],
+                  {
+                    created: new Date(),
+                    id: crypto.randomUUID(),
+                    referal: user?.id,
+                    sum: Number(replenish?.pay?.AMOUNT),
+                  }
+                ]
+              })
             })
           })
           .finally(() => {
@@ -538,7 +551,7 @@ export const Withdraw = ({balance}) => {
               </div>
             </div>
           </Modal>
-          <Button fullWidth onClick={open} disabled>
+          <Button fullWidth onClick={open}>
             {kz ? `шығару` : `Вывод`}
           </Button>
         </div>
@@ -546,7 +559,6 @@ export const Withdraw = ({balance}) => {
           className='mt-3'
           fullWidth 
           onClick={() => setFill({...fill, modal: true})}
-          disabled 
         >
           {kz ? `Толықтыру` : `Пополнение`}
         </Button>
@@ -558,7 +570,6 @@ export const Withdraw = ({balance}) => {
               ? () => setModals({...modals, confirm: true})
               : () => setModals({...modals, waiting: true})
             } 
-          disabled
           // onClick={() => setModals({...modals, confirm: true})}  
         >
           {kz ? 'Қызметтер' : 'Услуги'}
@@ -643,32 +654,32 @@ export const Withdraw = ({balance}) => {
             onChange={e => setComment(e.currentTarget.value)}
           />
 
-          <div className='grid grid-cols-1 md:grid-cols-2  justify-center w-full mt-5 gap-4'>
+          <div className='grid grid-cols-1 md:grid-cols-3  justify-center w-full mt-5 gap-4'>
             <div className='p-2 flex flex-col  border rounded-primary shadow-md bg-white max-w-xs w-full text-center'>
               {/* <p className='text'>Онлайн оплата с помощью баланса в профиле</p> */}
               <p className='text-lg font-bold mt-2 grow'>
-                Баланс: <br className='md:block hidden'/><span className='font-normal'>{balance}</span> 
+                Баланс: <br className='md:block hidden'/><span className='font-normal'>{user?.balance}</span> 
               </p>
               <Button 
                 className='mt-4 flex-shrink'
                 onClick={buyServiceWithBalance}
-                disabled={(totalCost(addedServices) > balance) || (name.length < 2) || addedServices.length === 0 || bids?.length == 1}
+                disabled={(totalCost(addedServices) > user?.balance) || (name.length < 2) || addedServices.length === 0 || bids?.length == 1}
               >
                 Оплатить
               </Button>
             </div>
-            {/* <div className='p-2 flex flex-col  border rounded-primary shadow-md bg-white max-w-xs w-full text-center'>
+            <div className='p-2 flex flex-col  border rounded-primary shadow-md bg-white max-w-xs w-full text-center'>
               <p className='text-lg font-bold mt-2 grow'>
                 Бонусы: <span className='font-normal'>{user?.bonuses}</span> 
               </p>
               <Button 
                 className='mt-4 flex-shrink'
-                disabled={(balance < totalCost(addedServices)) || (name.length < 2) || addedServices.length === 0 || bids?.length !== 0}
+                disabled={(user?.bonuses < totalCost(addedServices)) || (name.length < 2) || addedServices.length === 0 || bids?.length !== 0}
                 onClick={buyServicesWithBonuses}            
               >
                 Оплатить
               </Button>
-            </div> */}
+            </div>
             <div className='p-2 flex flex-col  border rounded-primary shadow-md bg-white max-w-xs w-full text-center'>
               {/* <p className='text'>Онлайн оплата с помощью банковской карты</p> */}
               <p className='text-lg font-bold mt-2 grow'>

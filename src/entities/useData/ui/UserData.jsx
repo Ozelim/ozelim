@@ -13,7 +13,7 @@ import { openConfirmModal } from '@mantine/modals'
 import { showNotification } from '@mantine/notifications'
 import { useLangContext } from 'app/langContext'
 
-export const UserData = ({count, setCount, balance}) => {
+export const UserData = ({count, setCount, balance, bonuses}) => {
 
   const {kz} = useLangContext()
 
@@ -213,12 +213,12 @@ export const UserData = ({count, setCount, balance}) => {
             <div className="border p-3  rounded-primary border-primary-500">
               <div className="flex gap-1 items-center ">
                 <p className="text">Баланс:</p>
-                <p>{formatNumber(balance)}</p>
-                {/* <p className="text  ml-auto">Бонусы:</p>
-                <p>{formatNumber(user?.bonuses)}</p> */}
+                <p>{formatNumber(user?.balance)}</p>
+                <p className="text  ml-auto">Бонусы:</p>
+                <p>{formatNumber(user?.bonuses)}</p>
               </div>
               <div className="space-y-2 mt-2">
-                <Withdraw balance={balance}/>
+                <Withdraw balance={balance} bonuses={bonuses}/>
                 <Modal centered opened={opened} onClose={close} title="Перевод">
                   <div className="flex flex-col gap-2">
                     <TextInput
