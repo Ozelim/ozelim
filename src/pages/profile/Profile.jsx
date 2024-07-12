@@ -987,91 +987,91 @@ export const Profile = () => {
                     </div>
                   )}
 
-                    <div className="mt-12 overflow-scroll">
-                      <h2 className="text-center text-xl font-head">История</h2>
-                      <Table className="border mt-4">
-                        <thead>
-                          <tr>
-                            <th>Дата</th>
-                            <th>Тип</th>
-                            <th>ID</th>
-                            <th>Сумма</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {bonuses?.referals?.map((q, i) => {
-                            return (
-                              <tr key={i} className="text">
-                                <td className='whitespace-nowrap'>
-                                  {dayjs(q?.created).format(
-                                    'YY-MM-DD, hh:mm'
-                                  )}
-                                </td>
-                                <td className="text-black">Система</td>
-                                <td>{q?.referal}</td>
-                                <td className='text-green-500'>+ {formatNumber(q?.sum)}</td>
-                              </tr>
-                            )
-                          })}
-                          {bonuses?.bonuses?.map((q, i) => {
-                            return (
-                              <tr key={i} className="text">
-                                <td className='whitespace-nowrap'>
-                                  {dayjs(q?.created).format(
-                                    'YY-MM-DD, hh:mm'
-                                  )}
-                                </td>
-                                <td className="text-black">Бонус</td>
-                                <td>-</td>
-                                <td className='text-green-500'>+ {formatNumber(q?.sum)}</td>
-                              </tr>
-                            )
-                          })}
-                          {bonuses?.replenish?.map((q, i) => {
-                            return (
-                              <tr key={i} className="text">
-                                <td className='whitespace-nowrap'>
-                                  {dayjs(q?.created).format(
-                                    'YY-MM-DD, hh:mm'
-                                  )}
-                                </td>
-                                <td className="text-black">Пополнение</td>
-                                <td>-</td>
-                                <td className='text-green-500'>+ {formatNumber(q?.sum)}</td>
-                              </tr>
-                            )
-                          })}
-                          {bonuses?.withdraws?.map((q, i) => {
-                            return (
-                              <tr key={i} className="text">
-                                <td className='whitespace-nowrap'>
-                                  {dayjs(q?.created).format(
-                                    'YY-MM-DD, hh:mm'
-                                  )}
-                                </td>
-                                <td className="text-black">Вывод</td>
-                                <td>-</td>
-                                <td className='text-red-500'>- {formatNumber(q?.sum)}</td>
-                              </tr>
-                            )
-                          })}
-                          {bonuses?.services?.map((q, i) => {
-                            return (
-                              <tr key={i} className="text">
-                                <td className='whitespace-nowrap'>
-                                  {dayjs(q?.created).format(
-                                    'YY-MM-DD, hh:mm'
-                                  )}
-                                </td>
-                                <td className="text-black">Услуга</td>
-                                <td>-</td>
-                                <td className='text-red-500'>- {formatNumber(q?.sum)}</td>
-                              </tr>
-                            )
-                          })}
-                        </tbody>
-                      </Table>
-                    </div>
+                  <div className="mt-12 overflow-scroll">
+                    <h2 className="text-center text-xl font-head">История</h2>
+                    <Table className="border mt-4">
+                      <thead>
+                        <tr>
+                          <th>Дата</th>
+                          <th>Тип</th>
+                          <th>ID</th>
+                          <th>Сумма</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {bonuses?.referals?.map((q, i) => {
+                          return (
+                            <tr key={i} className="text">
+                              <td className='whitespace-nowrap'>
+                                {dayjs(q?.created).format(
+                                  'YY-MM-DD, hh:mm'
+                                )}
+                              </td>
+                              <td className="text-black">Система</td>
+                              <td>{q?.referal}</td>
+                              <td className='text-green-500'>+ {formatNumber(q?.sum)}</td>
+                            </tr>
+                          )
+                        })}
+                        {bonuses?.bonuses?.map((q, i) => {
+                          return (
+                            <tr key={i} className="text">
+                              <td className='whitespace-nowrap'>
+                                {dayjs(q?.created).format(
+                                  'YY-MM-DD, hh:mm'
+                                )}
+                              </td>
+                              <td className="text-black">Бонус</td>
+                              <td>-</td>
+                              <td className='text-green-500'>+ {formatNumber(q?.sum)}</td>
+                            </tr>
+                          )
+                        })}
+                        {bonuses?.replenish?.map((q, i) => {
+                          return (
+                            <tr key={i} className="text">
+                              <td className='whitespace-nowrap'>
+                                {dayjs(q?.created).format(
+                                  'YY-MM-DD, hh:mm'
+                                )}
+                              </td>
+                              <td className="text-black">Пополнение</td>
+                              <td>-</td>
+                              <td className='text-green-500'>+ {formatNumber(q?.sum)}</td>
+                            </tr>
+                          )
+                        })}
+                        {bonuses?.withdraws?.map((q, i) => {
+                          return (
+                            <tr key={i} className="text">
+                              <td className='whitespace-nowrap'>
+                                {dayjs(q?.created).format(
+                                  'YY-MM-DD, hh:mm'
+                                )}
+                              </td>
+                              <td className="text-black">Вывод</td>
+                              <td>-</td>
+                              <td className='text-red-500'>- {formatNumber(q?.sum)}</td>
+                            </tr>
+                          )
+                        })}
+                        {bonuses?.services?.map((q, i) => {
+                          return (
+                            <tr key={i} className="text">
+                              <td className='whitespace-nowrap'>
+                                {dayjs(q?.created).format(
+                                  'YY-MM-DD, hh:mm'
+                                )}
+                              </td>
+                              <td className="text-black">Услуга</td>
+                              <td>-</td>
+                              <td className='text-red-500'>- {formatNumber(q?.sum)}</td>
+                            </tr>
+                          )
+                        })}
+                      </tbody>
+                    </Table>
+                  </div>
                 </div>
               </div>
             </div>
