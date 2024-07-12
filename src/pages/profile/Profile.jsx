@@ -166,6 +166,8 @@ export const Profile = () => {
 
   const [bonuses, setBonuses] = React.useState({})
 
+  const [balance, setBalance] = React.useState(0)
+
   React.useEffect(() => {
     if (!loading) {
       if (!user) {
@@ -176,9 +178,23 @@ export const Profile = () => {
 
   const [bids, setBids] = React.useState([])
 
+  function sumBalance (record) {
+    const referals = record?.referals?.reduce((a, b) => a + Number(b?.sum), 0) ?? 0
+    const replenish = record?.replenish?.reduce((a, b) => a + Number(b?.sum), 0) ?? 0
+    const bonus = record?.bonuses?.reduce((a, b) => a + Number(b?.sum), 0) ?? 0
+    
+    const withdraws = record?.withdraws?.reduce((a, b) => a + Number(b?.sum), 0) ?? 0
+    const services = record?.services?.reduce((a, b) => a + Number(b?.sum), 0) ?? 0
+
+    const valBalance = (referals + replenish + bonus) - (withdraws + services)
+
+    setBalance(valBalance)
+  }
+
   React.useEffect(() => {
     getBonusesRecord(user?.id)
     .then(res => {
+      sumBalance(res)
       setBonuses(res)
     })
     getServiceBids(user?.id)
@@ -195,8 +211,6 @@ export const Profile = () => {
       pb.collection('service_bids').unsubscribe('*')
     }
   }, [])
-
-  console.log(bonuses, 'bonuses');
 
   const handleBeforeUnload = (event) => {
     const message = "Are you sure you want to leave? Your changes may not be saved.";
@@ -750,7 +764,7 @@ export const Profile = () => {
         <div className="container">
           <div className="w-full bg-white shadow-md rounded-primary p-4">
             <div className="grid lg:grid-cols-[25%_auto] gap-6">
-              <UserData count={count} setCount={setCount} />
+              <UserData count={count} setCount={setCount} balance={balance} />
               <div className="relative overflow-hidden">
                 <ReferalsList level={level} setCount={setCount} />
                 <div className="mt-10 overflow-auto">

@@ -28,7 +28,7 @@ async function getWaitingServices (id) {
   return await pb.collection('service_bids').getFullList({filter: `user = '${id}' && status = 'waiting'`})
 }
 
-export const Withdraw = () => {
+export const Withdraw = ({balance}) => {
 
   const {user} = useAuth()
 
@@ -130,7 +130,7 @@ export const Withdraw = () => {
 
   const disabled =
     withdraw?.bank && (withdraw?.owner?.length > 3) &&
-    (Number(withdraw?.sum) >= 100 && Number(withdraw?.sum) <= user?.balance) &&
+    (Number(withdraw?.sum) >= 100 && Number(withdraw?.sum) <= balance) &&
     // card.length == 19
     ((withdraw?.iban?.toString()?.length > 10) && (withdraw?.iin?.toString()?.length > 6))
 
@@ -538,14 +538,15 @@ export const Withdraw = () => {
               </div>
             </div>
           </Modal>
-          <Button fullWidth onClick={open}>
+          <Button fullWidth onClick={open} disabled>
             {kz ? `шығару` : `Вывод`}
           </Button>
         </div>
         <Button 
           className='mt-3'
           fullWidth 
-          onClick={() => setFill({...fill, modal: true})} 
+          onClick={() => setFill({...fill, modal: true})}
+          disabled 
         >
           {kz ? `Толықтыру` : `Пополнение`}
         </Button>
@@ -556,7 +557,8 @@ export const Withdraw = () => {
             bids.length === 0 
               ? () => setModals({...modals, confirm: true})
               : () => setModals({...modals, waiting: true})
-            }  
+            } 
+          disabled
           // onClick={() => setModals({...modals, confirm: true})}  
         >
           {kz ? 'Қызметтер' : 'Услуги'}
@@ -641,33 +643,32 @@ export const Withdraw = () => {
             onChange={e => setComment(e.currentTarget.value)}
           />
 
-          <div className='grid grid-cols-1 md:grid-cols-3  justify-center w-full mt-5 gap-4'>
+          <div className='grid grid-cols-1 md:grid-cols-2  justify-center w-full mt-5 gap-4'>
             <div className='p-2 flex flex-col  border rounded-primary shadow-md bg-white max-w-xs w-full text-center'>
               {/* <p className='text'>Онлайн оплата с помощью баланса в профиле</p> */}
               <p className='text-lg font-bold mt-2 grow'>
-                Баланс: <br className='md:block hidden'/><span className='font-normal'>{user?.balance}</span> 
+                Баланс: <br className='md:block hidden'/><span className='font-normal'>{balance}</span> 
               </p>
               <Button 
                 className='mt-4 flex-shrink'
                 onClick={buyServiceWithBalance}
-                disabled={(totalCost(addedServices) > user.balance) || (name.length < 2) || addedServices.length === 0}
+                disabled={(totalCost(addedServices) > balance) || (name.length < 2) || addedServices.length === 0 || bids?.length == 1}
               >
                 Оплатить
               </Button>
             </div>
-            <div className='p-2 flex flex-col  border rounded-primary shadow-md bg-white max-w-xs w-full text-center'>
-              {/* <p className='text'>Онлайн оплата с помощью баланса в профиле</p> */}
+            {/* <div className='p-2 flex flex-col  border rounded-primary shadow-md bg-white max-w-xs w-full text-center'>
               <p className='text-lg font-bold mt-2 grow'>
                 Бонусы: <span className='font-normal'>{user?.bonuses}</span> 
               </p>
               <Button 
                 className='mt-4 flex-shrink'
-                disabled={(user?.bonuses < totalCost(addedServices)) || (name.length < 2) || addedServices.length === 0}
+                disabled={(balance < totalCost(addedServices)) || (name.length < 2) || addedServices.length === 0 || bids?.length !== 0}
                 onClick={buyServicesWithBonuses}            
               >
                 Оплатить
               </Button>
-            </div>
+            </div> */}
             <div className='p-2 flex flex-col  border rounded-primary shadow-md bg-white max-w-xs w-full text-center'>
               {/* <p className='text'>Онлайн оплата с помощью банковской карты</p> */}
               <p className='text-lg font-bold mt-2 grow'>
