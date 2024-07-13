@@ -4,9 +4,7 @@ async function loginWithEmail (data) {
   try {
     await pb.collection('users').authWithPassword(
       data.email,
-      data.password,
-      {}, {expand: 'sponsor'}
-    )
+      data.password)
     .then((res) => {
       return res
     })
