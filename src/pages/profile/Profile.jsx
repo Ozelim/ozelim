@@ -203,8 +203,8 @@ export const Profile = () => {
       sumBalance(res)
       setBonuses(res)
     })
-    .catch(async () => {
-      await createUserRecord(user?.id)
+    .catch(async err => {
+      if (err?.status === 404) await createUserRecord(user?.id)
     })
     getServiceBids(user?.id)
     .then(res => {
