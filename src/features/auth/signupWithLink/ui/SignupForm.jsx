@@ -45,11 +45,20 @@ export const SignupForm = () => {
       passwordConfirm: data.password,
     })
     .then(async res => {
-      await pb.collection('users').authWithPassword(res?.email, data?.password)
-      .then(() => {
-        navigate('/')
-        window.location.reload()
+      console.log(res, 'res after signup');
+      await pb.collection('users').authWithPassword(
+        res?.email, 
+        data?.password)
+      .then(async () => {
+        await pb.collection('user_bonuses').create({
+          id: res?.id
+        })
+        .then(() => {
+          navigate('/')
+          window.location.reload()
+        })
       })
+  
     })
     .catch((err) => {
       setLoading(false)

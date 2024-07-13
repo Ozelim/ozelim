@@ -45,11 +45,6 @@ async function signupWithLink (data) {
       emailVisibility: true,
       level: '0',
     })
-    .then(async res => {
-      await pb.collection('user_bonuses').create({
-        id: res?.id
-      })
-    })
 
   } catch (err) {
     throw err
