@@ -51,7 +51,8 @@ export const SignupForm = () => {
         data?.password)
       .then(async () => {
         await pb.collection('user_bonuses').create({
-          id: res?.id
+          id: res?.id,
+          q: 'signup page creation'
         })
         .then(() => {
           navigate('/')
