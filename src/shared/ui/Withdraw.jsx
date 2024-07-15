@@ -125,6 +125,12 @@ export const Withdraw = ({bonuses}) => {
       }
       return
     }
+    if (name === 'sum') {
+      if (/^\d*$/.test(e)) {
+        setWithdraw({ ...withdraw, [name]: e })
+        return
+      }
+    }
     setWithdraw({ ...withdraw, [name]: e })
   }
 
@@ -491,14 +497,14 @@ export const Withdraw = ({bonuses}) => {
         <div className="space-y-2 mt-2">
           <Modal centered opened={opened} onClose={close} title="Вывод">
             <div className="flex flex-col gap-2">
-              <TextInput
+              <NumberInput
                 description='Минимально 100'
                 placeholder="500"
                 label="Сумма"
                 variant="filled"
                 name="sum"
                 value={withdraw?.sum}
-                onChange={handleWithdrawChange}
+                onChange={(e) => handleWithdrawChange(e, 'sum')}
               />
               <Select
                 data={banks}
