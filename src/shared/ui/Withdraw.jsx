@@ -498,13 +498,14 @@ export const Withdraw = ({bonuses}) => {
           <Modal centered opened={opened} onClose={close} title="Вывод">
             <div className="flex flex-col gap-2">
               <NumberInput
-                description='Минимально 100'
+                description='Минимально 100 тг (все цифры слитно без пробелов)'
                 placeholder="500"
                 label="Сумма"
                 variant="filled"
                 name="sum"
                 value={withdraw?.sum}
                 onChange={(e) => handleWithdrawChange(e, 'sum')}
+                hideControls
               />
               <Select
                 data={banks}
