@@ -192,6 +192,7 @@ export const Profile = () => {
   }
 
   async function createUserRecord (id) {
+    if (!id) return
     await pb.collection('user_bonuses').create({
       id: id,
       q: 'profile page creation'
