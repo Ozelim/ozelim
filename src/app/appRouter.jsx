@@ -25,7 +25,7 @@ import { Test } from "pages/test/Test";
 const appRouter = createBrowserRouter([
   {element: baseLayout, children: [
     {path: '/', element: <Home/>},
-    {path: '/charity-fund', element: <CharityFund/>},
+    {path: '/insurance', element: <CharityFund/>},
     {path: '/profile', element: <Profile/>},
     {path: '/bids', element: <Bids/>},
     {path: '/health', element: <Health/>},
