@@ -16,6 +16,7 @@ import { Referal } from 'entities/referalsList/ui/Referal'
 import { openConfirmModal } from '@mantine/modals'
 
 import { FaCircleXmark } from 'react-icons/fa6'
+import { ProfileCourse } from './ProfileCourse'
 
 async function getBonusesRecord (id) {
   return await pb.collection('user_bonuses').getOne(id)
@@ -160,11 +161,10 @@ function findAndReplaceObjectById(obj, idToFind, replacementObject) {
 export const Profile = () => {
 
   const {user, setUser, loading} = useAuth()
+
   const navigate = useNavigate()
 
   const [searchParams, setSearchParams] = useSearchParams()
-
-  console.log(searchParams.get('course'));
 
   const [count, setCount] = React.useState(0) 
 
@@ -729,11 +729,7 @@ export const Profile = () => {
     return <></>
   }
 
-  if (searchParams.get('course') === user?.id && user?.verified) return (
-    <div>
-
-    </div>
-  )
+  // if (searchParams.get('course') === user?.id && user?.verified) return <ProfileCourse/>
 
   if (!user?.verified) {
     return (
@@ -791,13 +787,10 @@ export const Profile = () => {
         <div className="container">
           <div className="w-full bg-white shadow-md rounded-primary p-4">
             <div className="grid lg:grid-cols-[25%_auto] gap-6">
-              {/* <Button
-                onClick={handleCourseClick}
-              >
-                Курс
-              </Button> */}
               <UserData count={count} setCount={setCount} balance={balance} bonuses={bonuses}/>
+       
               <div className="relative overflow-hidden">
+
                 <ReferalsList level={level} setCount={setCount} />
                 <div className="mt-10 overflow-auto">
                   {user?.sponsor && (

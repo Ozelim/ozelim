@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Group, Loader, Modal, PasswordInput, Select, TextInput } from '@mantine/core'
 import { DatePickerInput, DateTimePicker } from '@mantine/dates'
 import { cities, formatNumber } from 'shared/lib'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate, useNavigation } from 'react-router-dom'
 import { useAuth, useUtils } from 'shared/hooks'
 import { UserAvatar } from './UserAvatar'
 import { pb } from 'shared/api'
@@ -12,10 +12,13 @@ import { useDisclosure } from '@mantine/hooks'
 import { openConfirmModal } from '@mantine/modals'
 import { showNotification } from '@mantine/notifications'
 import { useLangContext } from 'app/langContext'
+import coursesImg from 'shared/assets/images/courses-img.svg'
 
 export const UserData = ({count, setCount, balance, bonuses}) => {
 
   const {kz} = useLangContext()
+
+  const navigate = useNavigate()
 
   const { pathname } = useLocation()
 
@@ -189,6 +192,10 @@ export const UserData = ({count, setCount, balance, bonuses}) => {
     window.location.reload()
   }
 
+  const handleCourseClick = () => {
+    navigate('/profile-courses')
+  }
+
   return (
     <>
       <div className="w-full">
@@ -328,6 +335,15 @@ export const UserData = ({count, setCount, balance, bonuses}) => {
               {kz ? 'Сақтау' : 'Сохранить'}
             </Button>
           </div>
+          {/* <div 
+            onClick={handleCourseClick}
+            className='rounded-lg cursor-pointer mt-8 border border-primary-500 p-4  flex flex-col justify-center items-center '
+          >
+            <img src={coursesImg} className='max-w-[150px] h-full' alt="" />
+            <p className='mt-2 text-lg font-head'>
+              Онлайн обучение
+            </p>
+          </div> */}
         </div>
       </div>
       <Modal 

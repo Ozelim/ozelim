@@ -1,12 +1,15 @@
 import React from 'react'
 import { Button, TextInput } from '@mantine/core'
 import { pb } from 'shared/api'
+import { useSearchParams } from 'react-router-dom'
 
 async function getTests () {
   return await pb.collection('tester').getFullList()
 }
 
 export const Tester = () => {
+
+  const [searchParams, setSearchParams] = useSearchParams()
 
   const [tests, setTests] = React.useState([]) 
   const [currentTest, setCurrentTest] = React.useState(() => {
@@ -21,6 +24,15 @@ export const Tester = () => {
       currentQuestion: 0
     };
   })
+
+  React.useEffect(() => {
+    if (searchParams.get('test')) {
+      const t = tests?.filter(q => q?.id === searchParams.get('test'))?.[0]
+      localStorage.setItem(`ozelim_test`, JSON.stringify(t))
+      console.log(t);
+      setCurrentTest(t)
+    }
+  }, [searchParams, tests])
 
   const [loading, setLoading] = React.useState(false)
 

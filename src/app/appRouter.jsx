@@ -21,12 +21,14 @@ import { About,
 } from "pages";
 import { baseLayout } from "./layouts/baseLayout";
 import { Test } from "pages/test/Test";
+import { ProfileCourse } from "pages/profile/ProfileCourse";
 
 const appRouter = createBrowserRouter([
   {element: baseLayout, children: [
     {path: '/', element: <Home/>},
     {path: '/insurance', element: <CharityFund/>},
     {path: '/profile', element: <Profile/>},
+    {path: '/profile-courses', element: <ProfileCourse/>},
     {path: '/bids', element: <Bids/>},
     {path: '/health', element: <Health/>},
     {path: '/our-team', element: <OurTeam/>},
