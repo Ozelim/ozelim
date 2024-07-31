@@ -27,7 +27,7 @@ export const Tester = () => {
 
   React.useEffect(() => {
     if (searchParams.get('test')) {
-      const t = tests?.filter(q => q?.id === searchParams.get('test'))?.[0]
+      const t = tests?.filter(q => q?.id === searchParams.get('test'))?.[0] ?? {}
       localStorage.setItem(`ozelim_test`, JSON.stringify(t))
       console.log(t);
       setCurrentTest(t)

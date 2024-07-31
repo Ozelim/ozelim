@@ -62,7 +62,7 @@ export const ProfileCourse = () => {
             <h1 className='text-3xl font-head p-3 border-b border-r'>
               {course?.name}
             </h1>
-            <div className='flex flex-col'>
+            <div className='flex flex-col overflow-hidden'>
               {course?.lessons?.map((l, i) => {
                 return (
                   <div 

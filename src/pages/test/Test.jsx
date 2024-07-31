@@ -14,8 +14,6 @@ export const Test = () => {
     order: '',
   })
 
-
-
   function handleInputChange (e) {
     const { name, value } = e?.currentTarget
     setVal({...val, [name]: value})
