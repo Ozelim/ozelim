@@ -14,12 +14,12 @@ export const Tester = () => {
   const [tests, setTests] = React.useState([]) 
   const [currentTest, setCurrentTest] = React.useState(() => {
     const storedTest = localStorage.getItem('ozelim_test');
-    return storedTest ? JSON.parse(storedTest) : {};
+    return storedTest ? JSON.parse(storedTest ?? {}) : {};
   })
 
   const [options, setOptions] = React.useState(() => {
     const storedTest = localStorage.getItem('test_options');
-    return storedTest ? JSON.parse(storedTest) : {
+    return storedTest ? JSON.parse(storedTest ?? {}) : {
       started: false, 
       currentQuestion: 0
     };
@@ -28,7 +28,7 @@ export const Tester = () => {
   React.useEffect(() => {
     if (searchParams.get('test')) {
       const t = tests?.filter(q => q?.id === searchParams.get('test'))?.[0] ?? {}
-      localStorage.setItem(`ozelim_test`, JSON.stringify(t))
+      localStorage.setItem(`ozelim_test`, JSON.stringify(t ?? {}))
       console.log(t);
       setCurrentTest(t)
     }
@@ -48,7 +48,7 @@ export const Tester = () => {
   }, []);
 
   React.useEffect(() => {
-    localStorage.setItem('ozelim_test', JSON.stringify(currentTest));
+    localStorage.setItem('ozelim_test', JSON.stringify(currentTest ?? {}));
   }, [currentTest]);
 
   React.useEffect(() => {
