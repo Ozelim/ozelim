@@ -2,7 +2,7 @@ import { Accordion, BackgroundImage, Button, Modal, Text, clsx } from '@mantine/
 import { openConfirmModal } from '@mantine/modals'
 import React from 'react'
 import ReactPlayer from 'react-player'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { pb } from 'shared/api'
 import { getImageUrl } from 'shared/lib'
 
@@ -57,7 +57,7 @@ export const ProfileCourse = () => {
   if (searchParams.get('show')) return (
     <div className='w-full'>
       <div className="container">
-        <div className="w-full grid grid-cols-[30%_auto] bg-white shadow-lg rounded-md h-full border">
+        <div className="w-full grid lg:grid-cols-[30%_auto] bg-white shadow-lg rounded-md h-full border">
           <div>
             <h1 className='text-3xl font-head p-3 border-b border-r'>
               {course?.name}
@@ -101,32 +101,34 @@ export const ProfileCourse = () => {
               >
                 Предыдущий урок
               </Button>
-              {lesson?.index + 1 === course?.lessons?.length 
-                ? (
-                  <Button 
-                    className='max-w-fit mt-2'
-                    onClick={() => {
-                      navigate('/test-1&7-results-nonrefv3noOdl3_swePVrule34b1qle5-1KSh4m5ter7397ndjk')
-                      setSearchParams({
-                        test: course?.test_id
-                      })
-                    }}
-                    color='blue'
-                  >
-                    Перейти к тесту
-                  </Button>
-                ) : (
-                  <Button 
-                    className='max-w-fit mt-2'
-                    onClick={() => {
-                      setLesson({...course?.lessons?.[lesson?.index + 1], index: lesson?.index + 1})
-                    }}
-                    disabled={lesson?.index + 1 === course?.lessons?.length}
-                  >
-                    Следуйщий урок
-                  </Button>
-                )}
+              {lesson?.index + 1 !== course?.lessons?.length && (
+                <Button 
+                  className='max-w-fit mt-2'
+                  onClick={() => {
+                    setLesson({...course?.lessons?.[lesson?.index + 1], index: lesson?.index + 1})
+                  }}
+                  disabled={lesson?.index + 1 === course?.lessons?.length}
+                >
+                  Следуйщий урок
+                </Button>
+              )}
             </div>
+            {lesson?.index + 1 === course?.lessons?.length && (
+              <div className='p-4'>
+                <div className='my-4'>
+                  {course?.ending}
+                </div>
+                <div className='flex gap-4'>
+                  <span className='font-bold'>ХОЧУ ПРОЙТИ ТЕСТИРОВАНИЕ №{course?.test?.index}: </span> 
+                  <div className='relative text-center'>
+                    <Link to={`/test-1&7-results?test=${course?.test?.id}`} className='underline' >
+                      https://oz-elim.kz/test-1&7-results
+                    </Link>
+                    <p className='text-sm'>(ссылка на тестирование)</p>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -139,7 +141,7 @@ export const ProfileCourse = () => {
         <div className="container">
           <div className="w-full">
             <h2 className='font-head text-4xl font-semibold'>Курсы и программы</h2>
-            <div className='grid grid-cols-[300px_auto] mt-10 gap-6'>
+            <div className='grid lg:grid-cols-[300px_auto] mt-10 gap-6'>
               <div className='flex flex-col gap-y-4'>
                 <Button 
                   variant={searchParams.get('course') == null ? 'gradient' : 'outline'}
@@ -165,11 +167,11 @@ export const ProfileCourse = () => {
                   )
                 })}
               </div>
-              <div className='grid grid-cols-3 gap-x-4 gap-y-10'>
+              <div className='grid md:grid-cols-1 lg:grid-cols-3 gap-x-4 gap-y-10 space-y-8'>
                 {(searchParams.get('course') ? filteredCourses : courses).map(c => {
                   return (
                     <div 
-                      className='max-w-[278px] space-y-4 max-h-96' 
+                      className='max-w-[278px] space-y-4 max-h-96 mx-auto' 
                       key={c?.id}
                       onClick={() => {
                         setSearchParams({
@@ -183,7 +185,7 @@ export const ProfileCourse = () => {
                         src={getImageUrl(c, c?.img)} alt="" 
                         className='aspect-square object-cover max-w-[278px] max-h-[278px] h-full'
                       />
-                      <p className='font-bold text-xl'>
+                      <p className='text-xl'>
                         {c.name}
                       </p>
                     </div>
