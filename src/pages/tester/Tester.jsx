@@ -262,6 +262,7 @@ export const Tester = () => {
                       <p>{i + 1}.</p>
                       <Checkbox
                         checked={currentTest?.id === q?.id}
+                        onClick={options?.started ? () => {} : () => handleTestClick(q)}
                       />
                       <p 
                         className={clsx('cursor-pointer', {

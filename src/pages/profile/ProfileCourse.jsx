@@ -62,7 +62,7 @@ export const ProfileCourse = () => {
             <h1 className='text-3xl font-head p-3 border-b border-r'>
               {course?.name}
             </h1>
-            <div className='flex flex-col overflow-hidden'>
+            <div className='flex flex-col overflow-scroll max-h-[448px]'>
               {course?.lessons?.map((l, i) => {
                 return (
                   <div 
@@ -119,12 +119,12 @@ export const ProfileCourse = () => {
                   {course?.ending}
                 </div>
                 <div className='flex gap-4'>
-                  <span className='font-bold'>ХОЧУ ПРОЙТИ ТЕСТИРОВАНИЕ №{course?.test?.index}: </span> 
+                  <span className='font-bold'>ПРОЙТИ ТЕСТИРОВАНИЕ №{course?.test?.index}: </span> 
                   <div className='relative text-center'>
-                    <Link to={`/test-1&7-results?test=${course?.test?.id}`} className='underline' >
+                    <Button component={Link} to={`/test-1&7-results?test=${course?.test?.id}`} className='underline'>
                       https://oz-elim.kz/test-1&7-results
-                    </Link>
-                    <p className='text-sm'>(ссылка на тестирование)</p>
+                    </Button>
+                    <p className='text-sm mt-2'>(ссылка на тестирование)</p>
                   </div>
                 </div>
               </div>

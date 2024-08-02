@@ -8,7 +8,7 @@ const array = [
   { labelkz: `Жаңалықтар`, labelru: 'Новости', link: '/news' },
   { labelkz: `Біздің туристер`, labelru: 'Наши туристы', link: '/partners', disabled: true },
   { labelkz: `Серiктестiк бағдарлама`, labelru: 'Партнерская программа', link: '/program' },
-  { labelkz: `Тестирование`, labelru: 'Тестирование', link: '/test-1&7-results-nonrefv3noOdl3_swePVrule34b1qle5-1KSh4m5ter7397ndjk', },
+  { labelkz: `Тестирование`, labelru: 'Тестирование', link: '/test-1&7-results', },
   { labelkz: `Біздің команда`, labelru: 'Наша команда', link: '/our-team', },
   { labelkz: `Сақтандыру`, labelru: 'Страхование', link: '/insurance', disabled: true},
 ]
