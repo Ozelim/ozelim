@@ -148,7 +148,10 @@ export const Tester = () => {
       ...data,
       results: {
         ...currentTest,
-      }
+      },
+      totalQuestions: currentTest?.questions?.length,
+      rightAnswers: currentTest?.questions?.filter(q => q?.selected === q?.answer)?.length,
+      passed: currentTest?.questions?.filter(q => q?.selected === q?.answer)?.length >= Math.round(currentTest?.questions?.length / 2)
     })
     .then(async (res) => {
       setResults({
