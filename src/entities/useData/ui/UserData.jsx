@@ -278,7 +278,7 @@ export const UserData = ({count, setCount, balance, bonuses}) => {
             >
               <img src={coursesImg} className='max-w-[150px] h-full' alt="" />
               <p className='mt-2 text-lg font-head'>
-                Онлайн обучение
+                Онлайн курсы
               </p>
             </div>
             <TextInput
