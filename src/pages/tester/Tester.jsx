@@ -149,9 +149,12 @@ export const Tester = () => {
       results: {
         ...currentTest,
       },
+      
+      index: currentTest?.index,
       totalQuestions: currentTest?.questions?.length,
       rightAnswers: currentTest?.questions?.filter(q => q?.selected === q?.answer)?.length,
-      passed: currentTest?.questions?.filter(q => q?.selected === q?.answer)?.length >= Math.round(currentTest?.questions?.length / 2)
+      // passed: currentTest?.questions?.filter(q => q?.selected === q?.answer)?.length >= Math.round(currentTest?.questions?.length / 2)
+      status: 'created'
     })
     .then(async (res) => {
       setResults({

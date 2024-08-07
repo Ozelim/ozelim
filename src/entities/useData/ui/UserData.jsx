@@ -272,6 +272,15 @@ export const UserData = ({count, setCount, balance, bonuses}) => {
                 </Group> */}
               </div>
             </div>
+            <div 
+              onClick={handleCourseClick}
+              className='rounded-lg cursor-pointer mt-2 border border-primary-500 p-4 flex flex-col justify-center items-center '
+            >
+              <img src={coursesImg} className='max-w-[150px] h-full' alt="" />
+              <p className='mt-2 text-lg font-head'>
+                Онлайн обучение
+              </p>
+            </div>
             <TextInput
               label={kz ? `Аты` : `Имя`}
               variant="filled"
@@ -335,15 +344,7 @@ export const UserData = ({count, setCount, balance, bonuses}) => {
               {kz ? 'Сақтау' : 'Сохранить'}
             </Button>
           </div>
-          {/* <div 
-            onClick={handleCourseClick}
-            className='rounded-lg cursor-pointer mt-8 border border-primary-500 p-4  flex flex-col justify-center items-center '
-          >
-            <img src={coursesImg} className='max-w-[150px] h-full' alt="" />
-            <p className='mt-2 text-lg font-head'>
-              Онлайн обучение
-            </p>
-          </div> */}
+
         </div>
       </div>
       <Modal 

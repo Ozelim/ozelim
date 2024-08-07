@@ -118,13 +118,13 @@ export const ProfileCourse = () => {
                 <div className='my-4'>
                   {course?.ending}
                 </div>
-                <div className='flex gap-4'>
-                  <span className='font-bold'>ПРОЙТИ ТЕСТИРОВАНИЕ №{course?.test?.index}: </span> 
+                <div className='flex gap-4 justify-center'>
+                  {/* <span className='font-bold'> №{course?.test?.index}: </span>  */}
                   <div className='relative text-center'>
                     <Button component={Link} to={`/test-1&7-results?test=${course?.test?.id}`} className='underline'>
-                      https://oz-elim.kz/test-1&7-results
+                      ПРОЙТИ ТЕСТИРОВАНИЕ
                     </Button>
-                    <p className='text-sm mt-2'>(ссылка на тестирование)</p>
+                    {/* <p className='text-sm mt-2'>(ссылка на тестирование)</p> */}
                   </div>
                 </div>
               </div>
