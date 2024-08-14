@@ -289,7 +289,6 @@ export const UserData = ({count, setCount, balance, bonuses}) => {
               onChange={handleValuesChange}
               readOnly
             />
-
             <TextInput
               label={kz ? `Тегі` : `Фамилия`}
               variant="filled"

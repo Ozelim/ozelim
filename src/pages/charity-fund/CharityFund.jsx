@@ -9,7 +9,7 @@ import { usePageData } from 'shared/hooks'
 
 export const CharityFund = () => {
 
-  const {images, headings, text} = usePageData('charity')
+  const {images, headings, text} = usePageData('insurance')
 
   return (
     <div className="w-full">
