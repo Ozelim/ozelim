@@ -84,7 +84,7 @@ export const Home = () => {
         </div>
       </div>
 
-      <section className='mt-6 text-center container'>
+      {/* <section className='mt-6 text-center container'>
         <h2 className='font-semibold text-[20px]'>
           Документы Ассоциации
         </h2>
@@ -96,7 +96,7 @@ export const Home = () => {
               </a>
           }
         </p>
-      </section>
+      </section> */}
       
       <section className='mt-8 container'>
         <div className="grid lg:grid-cols-2 mt-4 gap-8">
