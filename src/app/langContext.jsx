@@ -8,6 +8,11 @@ export function LangProvider({children}) {
 
   const kz = lang === 'kz'
 
+  const qq = (ru, kz) => { 
+    if (lang === 'kz') return kz
+    return ru
+  }
+
   function handleLang () {
     if (lang === 'kz') {
       setLang('ru')
@@ -25,7 +30,7 @@ export function LangProvider({children}) {
   }
 
   return (
-    <LangContext.Provider value={{lang, handleLang, kz, changeLang}}>
+    <LangContext.Provider value={{lang, qq, handleLang, kz, changeLang}}>
       {children}
     </LangContext.Provider>
   )

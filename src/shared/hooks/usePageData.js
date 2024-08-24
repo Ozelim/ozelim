@@ -41,9 +41,9 @@ export const usePageData = (page) => {
       await getData(page)
       .then(res => {
         data = {
-          images: kz ? res.text.images : res.images,
-          text: kz ? res.text.text_kz : res.text.text,
-          headings: kz ? res.text.headings_kz : res.text.headings,
+          images: kz ? res.text?.images : res?.images,
+          text: kz ? res.text?.text_kz : res.text?.text,
+          headings: kz ? res.text?.headings_kz : res.text?.headings,
           page: kz ? `${page}_kz` : page
         }
         setImages(kz ? res.images : res.images)

@@ -10,7 +10,7 @@ import { useLangContext } from 'app/langContext'
 
 const array = [
   {labelkz: `Компания туралы`, labelru: 'О компании', link: '/about'},
-  {labelkz: `Сенің денсаулығың`, labelru: 'Твое здоровье', link: '/health'},
+  {labelkz: `Денсаулық әлемі  `, labelru: 'Твое здоровье', link: '/health'},
   {labelkz: `Туристік курстар`, labelru: 'Курсы по туризму', link: '/courses'},
 ]
 

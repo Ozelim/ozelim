@@ -4,7 +4,7 @@ import { About,
   CharityFund, 
   Courses, 
   Health, 
-  Home, 
+  // Home, 
   News,
   OurTeam, 
   Partners, 
@@ -17,7 +17,13 @@ import { About,
   Login,
   Verification,
   Services,
-  Tester
+  Tester,
+  Fund,
+  HealthWorld,
+  Tours,
+  Dual,
+  Rights,
+  Home
 } from "pages";
 import { baseLayout } from "./layouts/baseLayout";
 import { Test } from "pages/test/Test";
@@ -45,6 +51,11 @@ const appRouter = createBrowserRouter([
     {path: '/test', element: <Test/>},
     {path: '/verification/:id', element: <Verification/>},
     {path: '/services', element: <Services/>},
+    {path: '/fund', element: <Fund/>},
+    {path: '/health-world', element: <HealthWorld/>},
+    {path: '/tours', element: <Tours/>},
+    {path: '/dual', element: <Dual/>},
+    {path: '/rights', element: <Rights/>},
     {path: '/test-1&7-results', element: <Tester/>},
   ]}
 ])

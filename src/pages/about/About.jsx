@@ -90,7 +90,6 @@ export const About = () => {
           </div>
         </div>
       </section>
-
       <section className="w-full mt-40">
         <div className="container">
           <div className="">
@@ -165,6 +164,7 @@ export const About = () => {
           </div>
         </div>
       </section>
+
     </main>
   )
 }
