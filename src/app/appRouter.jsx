@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { Navigate, createBrowserRouter } from "react-router-dom";
 import { About, 
   Bids, 
   CharityFund, 
@@ -31,7 +31,7 @@ import { ProfileCourse } from "pages/profile/ProfileCourse";
 
 const appRouter = createBrowserRouter([
   {element: baseLayout, children: [
-    {path: '/', element: <Home/>},
+    {path: '/', element: <Navigate to={'/health'}/>},
     {path: '/insurance', element: <CharityFund/>},
     {path: '/profile', element: <Profile/>},
     {path: '/profile-courses', element: <ProfileCourse/>},
@@ -56,6 +56,7 @@ const appRouter = createBrowserRouter([
     {path: '/tours', element: <Tours/>},
     {path: '/dual', element: <Dual/>},
     {path: '/rights', element: <Rights/>},
+    {path: '/home', element: <Home/>},
     {path: '/test-1&7-results', element: <Tester/>},
   ]}
 ])
