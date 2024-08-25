@@ -15,6 +15,8 @@ import { Button } from '@mantine/core'
 import { FaTiktok } from 'react-icons/fa'
 import { AiOutlineInstagram, AiOutlineYoutube } from 'react-icons/ai'
 import { RiTiktokFill } from 'react-icons/ri'
+import { Link as RouterLink } from 'react-router-dom'
+import Kazmap from 'shared/assets/images/hero.jpg'
 
 async function getResorts() {
   return await pb.collection('resorts').getFullList({
@@ -41,7 +43,31 @@ export const Home = () => {
 
   return (
     <>
-      <Franchise />
+      {/* <Franchise /> */}
+      <div className="w-full">
+        <div className="container">
+          <div className="bg-gradient-to-b from-teal-600 to-teal-500 shadow-md rounded-primary">
+            <img
+              src={Kazmap}
+              alt=""
+              className="max-w-full mx-auto lg:mx-0 rounded-r-primary object-cove"
+            />
+            <div className='text-center py-8'>
+              <p className="text-2xl lg:text-4xl mt-2 text-white">
+                {qq(headings?.main, headings?.main2_kz)}
+              </p>
+              <p className="mt-5 text-xl lg:text-2xl text-white ">
+                {qq(headings?.main2, headings?.main2_kz)}
+              </p>
+              <Button component={RouterLink} to="/resorts" size="md" className='mt-4'>
+                {qq(`Сотрудничество`, `Серiктестiк`)}
+              </Button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
       <div className="container mt-8">
 
         <h1 className='heading text-primary-500 '>
