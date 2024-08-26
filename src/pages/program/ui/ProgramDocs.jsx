@@ -1,7 +1,7 @@
+import React from 'react'
 import { Button, Checkbox, Modal } from '@mantine/core'
 import { useDisclosure, useMediaQuery } from '@mantine/hooks'
 import { useLangContext } from 'app/langContext'
-import React from 'react'
 import { Link } from 'react-router-dom'
 
 import test from 'shared/assets/images/policy.pdf'

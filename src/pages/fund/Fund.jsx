@@ -4,6 +4,7 @@ import { useLangContext } from 'app/langContext'
 import { usePageData } from 'shared/hooks'
 import { Image } from 'shared/ui'
 
+
 export const Fund = () => {
 
   const { headings, images, text } = usePageData('fund')
@@ -193,13 +194,11 @@ export const Fund = () => {
                   <h2 className='text-slate-400 text-[14px] mt-4'>
                     {headings?.heading12}
                   </h2>
-                  <p className='underline cursor-pointer text-primary-500' onClick={matches ? open : () => {}}>
-                    {matches 
-                      ? qq(`Программу Эндаумент фонда, Свидетельства, Сертификат `, `Мемлекеттік тіркеу куәлік`)
-                      : <a href={'/policynew.pdf'} target='_blank'>
-                          {qq(`Программу Эндаумент фонда, Свидетельства, Сертификат `, `Мемлекеттік тіркеу куәлік`)}
-                        </a>
-                    }
+                  <p className='underline cursor-pointer text-primary-500'>
+ 
+                      <a href={'/fund.pdf'} target='_blank'>
+                        {qq(`Программу Эндаумент фонда, Свидетельства, Сертификат `, `Мемлекеттік тіркеу куәлік`)} asd
+                      </a>
                   </p>
                 </div>
               </div>
