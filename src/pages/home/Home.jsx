@@ -110,7 +110,7 @@ export const Home = () => {
         </div>
       </div>
 
-      {/* <section className='mt-6 text-center container'>
+      <section className='mt-6 text-center container'>
         <h2 className='font-semibold text-[20px]'>
           Документы Ассоциации
         </h2>
@@ -122,7 +122,7 @@ export const Home = () => {
               </a>
           }
         </p>
-      </section> */}
+      </section>
       
       <section className='mt-8 container'>
         <div className="grid lg:grid-cols-2 mt-4 gap-8">
@@ -171,7 +171,7 @@ export const Home = () => {
           {headings?.[3]}
           {/* Руководитель Ассоциации туристов Казахстана */}
         </h1>
-        <div className='flex flex-col md:flex-row gap-8'>
+        <div className='flex flex-col md:flex-row gap-8 mt-5'>
           <Image
             className="max-w-2xl w-full rounded-primary max-h-80 object-cover"
             record={images}
@@ -214,10 +214,10 @@ export const Home = () => {
       
       <section className='mt-10 container'>
         <h1 className="text-3xl lg:text-4xl font-bold mt-1 text-primary-500">
-          Сотрудничество
+          {headings?.[4]}
         </h1>
         <p>
-          Стань членом Ассоциации
+          {headings?.[5]}
         </p>
         <div className="grid lg:grid-cols-3 gap-6 mt-4">
           <p className=' border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>{text?.[17]}</p>
@@ -229,7 +229,7 @@ export const Home = () => {
             Оставить заявку
           </Button>
           <p className='text-sm text-slate-400'>
-            Стань агентом Ассоциации
+            {headings?.[6]}
           </p>
         </div>
         <div className="grid lg:grid-cols-3 gap-6 mt-4">
@@ -244,7 +244,7 @@ export const Home = () => {
         </div>
         <div className='text-center mt-8'>
           <h1 className="text-3xl lg:text-4xl font-bold mt-1 text-primary-500">
-            Мы всегда на связи
+            {headings[7]}
           </h1>
           <p className="text-[#888888] text">
             {text?.[23]}
@@ -293,5 +293,5 @@ export const Home = () => {
         </div>
       </section>
     </>
-  )
+  ) 
 }
