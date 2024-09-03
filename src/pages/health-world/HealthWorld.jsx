@@ -212,11 +212,11 @@ export const HealthWorld = () => {
             <p className="mt-5 text-2xl text-white ">
               {kz ? `Қазақстан бойынша сауықтыру турларын іздеу және іріктеу`: `Поиск и подбор оздоровительных туров по Казахстану`}
             </p>
-            <div className="mt-5">
+            {/* <div className="mt-5">
               <Button component={RouterLink} to="/resorts" size="md">
                 {kz ? `Серiктестiк` : `Сотрудничество`}
               </Button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

@@ -49,7 +49,7 @@ export const Fund = () => {
               </div>
             </section>
 
-            <section className='mt-6 text-center'>
+            {/* <section className='mt-6 text-center'>
               <h2 className='font-semibold text-[20px]'>
                 Документы фонда
               </h2>
@@ -61,16 +61,15 @@ export const Fund = () => {
                     </a>
                 }
               </p>
-            </section>
+            </section> */}
 
             <section className="mt-10 lg:mt-16">
               <div className="text-center">
                 <h1 className="text-4xl font-medium text-primary-500">
                   {headings?.heading3} 
-                  zxc
                 </h1>
                 <div className='grid gap-8 mt-5 max-w-3xl mx-auto'>
-                  <p className="text text-left">{text?.text3}</p>
+                  <p className="text text-left underline">{text?.text3}</p>
                 </div>
               </div>
               <div className='grid lg:grid-cols-3 mt-4 gap-4'>
