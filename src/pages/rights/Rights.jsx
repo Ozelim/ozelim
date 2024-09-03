@@ -26,7 +26,25 @@ export const Rights = () => {
   const [data, setData] = React.useState({
     name: '',
     phone: '',
+    type
   })
+
+  async function send () {
+    console.log(data, 'a');
+    await pb.collection('righs_bids').create(...data)
+    .then(res => {
+      setData({
+        name: '',
+        phone: '',
+        type: ''
+      })
+      showNotification({
+        title: 'Заявка',
+        color: 'green',
+        message: 'Заявка успешно отправлена'
+      })
+    })
+  }
 
   return (
     <div className='w-full'>
@@ -190,7 +208,10 @@ export const Rights = () => {
             variant='filled'
           />
           <div className='flex justify-center mt-6'>
-            <Button disabled>
+            <Button 
+              disabled
+              onClick={send}
+            >
               Оставить заявку
             </Button>
           </div>

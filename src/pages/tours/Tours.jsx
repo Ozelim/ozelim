@@ -11,6 +11,7 @@ import { getImageUrl } from 'shared/lib'
 import { useLangContext } from 'app/langContext'
 import Autoplay from 'embla-carousel-autoplay'
 import { Carousel, useAnimationOffsetEffect } from '@mantine/carousel'
+import { showNotification } from '@mantine/notifications'
 
 async function getResots () {
   return await pb.collection('resorts_data').getFullList()
@@ -72,6 +73,11 @@ export const Tours = () => {
         child: 0,
         phone: '',
         resort: ''
+      })
+      showNotification({
+        title: 'Заявка',
+        color: 'green',
+        message: 'Заявка успешно отправлена'
       })
     })
   }
