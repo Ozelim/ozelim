@@ -68,33 +68,13 @@ export const HealthWorld = () => {
     <div className='w-full'>
       <div className="container">
         <div className="w-full">
-          <div className="py-6 px-4 text-center bg-gradient-to-tl from-teal-600 to-teal-500 shadow-md rounded-primary">
-            <div className="mx-auto">
-              <p className="text-4xl text-white">
-                {kz ? `Қазақстанның санаторияларының біріккен тізімі` : `Единый реестр санаторно-курортных комплексов Казахстана`}
-              </p>
-              <p className="mt-5 text-2xl text-white ">
-                {kz ? `Қазақстан бойынша сауықтыру турларын іздеу және іріктеу`: `Поиск и подбор оздоровительных туров по Казахстану`}
-              </p>
-              <div className="mt-5">
-                <Button component={RouterLink} to="/resorts" size="md">
-                  {kz ? `Серiктестiк` : `Сотрудничество`}
-                </Button>
-              </div>
-            </div>
-            {/* <img
-              src={Kazmap}
-              alt=""
-              className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 rounded-primary object-cove"
-            /> */}
-          </div>
 
           <div className="grid lg:grid-cols-2 mt-6 gap-10">
             <div>
               <Image
                 record={images}
                 index={1}
-                className="w-full max-w-[400px] mx-auto max-h-[400px] rounded-primary object-cover object-top"
+                className="w-full max-w-[300px] mx-auto max-h-[300px] rounded-primary object-cover object-top"
               />
               <h2 className="text-center pt-2 font-head text-2xl px-6 ">
                 {headings?.heading3}
@@ -164,13 +144,13 @@ export const HealthWorld = () => {
 
         </div>
       </div>
-      <section className="bg-primary-500 py-4 lg:py-24 mt-10 lg:mt-20">
+      <section className="bg-primary-500 py-4 lg:py-16 mt-10 lg:mt-20">
         <div className="container">
         <div className="flex flex-col lg:flex-row gap-10 w-full justify-between ">
           <Image
             record={images}
             index={2}
-            className={'rounded-primary'}
+            className={'rounded-primary lg:max-w-[50%] object-cover mx-auto'}
           />
           {/* {getImageUrl(images, images?.[2]) ? (
             <img
@@ -182,7 +162,7 @@ export const HealthWorld = () => {
           ) : (
             <div className="w-[350px] m-auto bg-zinc-200" />
           )} */}
-          <div className="bg-white rounded-primary w-full text-teal-500 p-6 lg:p-14">
+          <div className="bg-white rounded-primary w-full text-teal-500 p-4 lg:p-8">
             <h1 className=" font-extrabold text-3xl md:text-[40px]">
               {headings?.heading6}
             </h1>
@@ -222,6 +202,24 @@ export const HealthWorld = () => {
       </section>
 
       <Quiz/>
+
+      <div className="container">
+        <div className="py-6 px-4 text-center bg-gradient-to-tl from-teal-600 to-teal-500 shadow-md rounded-primary">
+          <div className="mx-auto">
+            <p className="text-4xl text-white">
+              {kz ? `Қазақстанның санаторияларының біріккен тізімі` : `Единый реестр санаторно-курортных комплексов Казахстана`}
+            </p>
+            <p className="mt-5 text-2xl text-white ">
+              {kz ? `Қазақстан бойынша сауықтыру турларын іздеу және іріктеу`: `Поиск и подбор оздоровительных туров по Казахстану`}
+            </p>
+            <div className="mt-5">
+              <Button component={RouterLink} to="/resorts" size="md">
+                {kz ? `Серiктестiк` : `Сотрудничество`}
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div className="container mt-10">
         <div className="w-full">

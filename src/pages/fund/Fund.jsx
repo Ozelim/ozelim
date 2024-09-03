@@ -3,7 +3,8 @@ import { useMediaQuery } from '@mantine/hooks'
 import { useLangContext } from 'app/langContext'
 import { usePageData } from 'shared/hooks'
 import { Image } from 'shared/ui'
-
+import fund1 from 'shared/assets/images/fund-01.png'
+import fund2 from 'shared/assets/images/fund-37.png'
 
 export const Fund = () => {
 
@@ -50,7 +51,7 @@ export const Fund = () => {
 
             <section className='mt-6 text-center'>
               <h2 className='font-semibold text-[20px]'>
-                {headings?.heading2}
+                Документы фонда
               </h2>
               <p className='underline cursor-pointer text-primary-500' onClick={matches ? open : () => {}}>
                 {matches 
@@ -66,6 +67,7 @@ export const Fund = () => {
               <div className="text-center">
                 <h1 className="text-4xl font-medium text-primary-500">
                   {headings?.heading3} 
+                  zxc
                 </h1>
                 <div className='grid gap-8 mt-5 max-w-3xl mx-auto'>
                   <p className="text text-left">{text?.text3}</p>
@@ -134,7 +136,7 @@ export const Fund = () => {
                     {headings?.heading6}
                   </h2>
                   <p className='mt-2 md:mt-4 text text-xl'>
-                    {text?.text4}
+                    {text?.text8}
                   </p>
                 </div>
                 <div>
@@ -142,7 +144,7 @@ export const Fund = () => {
                     {headings?.heading7}
                   </h2>
                   <p className='mt-2 md:mt-4 text text-xl'>
-                    {text?.text5}
+                    {text?.text9}
                   </p>
                 </div>
                 <div>
@@ -150,7 +152,7 @@ export const Fund = () => {
                     {headings?.heading8}
                   </h2>
                   <p className='mt-2 md:mt-4 text text-xl'>
-                    {text?.text6}
+                    {text?.text10}
                   </p>
                 </div>
               </div>
@@ -168,7 +170,7 @@ export const Fund = () => {
                 />
                 <div>
                   <ul className="mt-3 text-lg font-medium text-[#5a5959] space-y-3">
-                    {text?.text7}
+                    {text?.text11}
                   </ul>
                 </div>
               </div>
@@ -189,21 +191,24 @@ export const Fund = () => {
                     {headings?.heading11}
                   </h2>
                   <ul className="mt-3 text-lg font-medium text-[#5a5959] space-y-3">
-                    {text?.text8}
+                    {text?.text12}
                   </ul>
                   <h2 className='text-slate-400 text-[14px] mt-4'>
-                    {headings?.heading12}
+                    Документы
                   </h2>
+                  <img src={'/fund1.png'} alt="" />
                   <p className='underline cursor-pointer text-primary-500'>
- 
-                      <a href={'/fund.pdf'} target='_blank'>
-                        {qq(`Программу Эндаумент фонда, Свидетельства, Сертификат `, `Мемлекеттік тіркеу куәлік`)} asd
-                      </a>
+                    <div className='flex gap-4 flex-wrap my-3'>
+                      <img src={fund1} alt="" className='max-w-[280px] mx-auto'/>
+                      {/* <img src={fund2} alt="" className='max-w-[280px] mx-auto'/> */}
+                    </div>
+                    <a href={'/fund.pdf'} target='_blank'>
+                      {qq(`Программу Эндаумент фонда, Свидетельства, Сертификат.pdf `, `Мемлекеттік тіркеу куәлік.pdf`)}
+                    </a>
                   </p>
                 </div>
               </div>
             </section>
-
           </div>
         </div>
       </div>

@@ -55,7 +55,7 @@ export const Rights = () => {
             <Image
               record={images}
               index={1}
-              className="w-full max-w-[400px] mx-auto max-h-[400px] rounded-primary object-cover object-top"
+              className="w-full max-w-[300px] mx-auto max-h-[300px] rounded-primary object-cover object-top"
             />
             <h2 className="text-center pt-2 font-head text-2xl px-6 ">
               {headings?.heading1}
