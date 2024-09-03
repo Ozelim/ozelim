@@ -69,7 +69,7 @@ export const Fund = () => {
                   {headings?.heading3} 
                 </h1>
                 <div className='grid gap-8 mt-5 max-w-3xl mx-auto'>
-                  <p className="text text-left underline">{text?.text3}</p>
+                  <p className="tracking-wider text-left underline text-primary-500">{text?.text3}</p>
                 </div>
               </div>
               <div className='grid lg:grid-cols-3 mt-4 gap-4'>
