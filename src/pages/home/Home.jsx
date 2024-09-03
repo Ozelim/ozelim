@@ -244,8 +244,7 @@ export const Home = () => {
         </div>
         <div className='text-center mt-8'>
           <h1 className="text-3xl lg:text-4xl font-bold mt-1 text-primary-500">
-            {/* {headings[7]} */}
-            Lorem ipsum dolor sit.
+            {headings?.[7]}
           </h1>
           <p className="text-[#888888] text">
             {text?.[23]}
