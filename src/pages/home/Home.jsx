@@ -46,7 +46,7 @@ export const Home = () => {
       {/* <Franchise /> */}
       <div className="w-full">
         <div className="container">
-          <div className="bg-gradient-to-b from-teal-600 to-teal-500 shadow-md rounded-primary">
+          <div>
             <img
               src={Kazmap}
               alt=""
@@ -59,9 +59,9 @@ export const Home = () => {
               <p className="mt-5 text-xl lg:text-2xl text-white ">
                 {qq(headings?.main2, headings?.main2_kz)}
               </p>
-              <Button component={RouterLink} to="/resorts" size="md" className='mt-4'>
+              {/* <Button component={RouterLink} to="/resorts" size="md" className='mt-4'>
                 {qq(`Сотрудничество`, `Серiктестiк`)}
-              </Button>
+              </Button> */}
             </div>
 
           </div>
@@ -125,13 +125,16 @@ export const Home = () => {
       </section> */}
       
       <section className='mt-8 container'>
-        <div className="grid lg:grid-cols-2 mt-4 gap-8">
+        <div className=" mt-4 gap-8 flex items-center flex-col">
+        <h1 className="text-center text-2xl md:text-3xl font-bold font-head text-teal-500 flex justify-center items-center h-full">
+            {headings?.[2]}
+            asdasdasd
+          </h1>
           <Image
             record={images}
             index={4}
             className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 rounded-primary max-h-96 object-cover"
           />
-          
           {/* {getImageUrl(images, images?.[1]) ? (
             <img
               className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0"
@@ -142,10 +145,7 @@ export const Home = () => {
           ) : (
             <div className="lg:max-w-xl w-full m-auto bg-zinc-200" />
           )} */}
-          <h1 className="text-center text-2xl md:text-3xl font-bold font-head text-teal-500 flex justify-center items-center h-full">
-            {headings?.[2]}
-            {/* Преимущества и возможности Ассоциации */}
-          </h1>
+
         </div>
         <div className="grid lg:grid-cols-5 gap-6 mt-8">
           <p className=' border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>

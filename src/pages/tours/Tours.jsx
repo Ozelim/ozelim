@@ -88,25 +88,30 @@ export const Tours = () => {
 
   useAnimationOffsetEffect(embla, 200)
 
+  const [col, setCol] = React.useState(null)
+
   return (
     <>
       <div className='w-full'>
         <div className="container">
-          <div className="flex flex-col lg:flex-row mt-4 gap-8">
-            <Image
-              record={images}
-              index={1}
-              className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 rounded-primary max-h-96 object-cover"
-            />
-            <div className="w-full lg:text-left text-center">
-              <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
-                {headings?.heading1}
-              </h1>
+          <div>
+            <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500 text-center">
+              {headings?.heading1}
+            </h1>
+            <div className="grid lg:grid-cols-2 mt-4 gap-8">
+              <Image
+                record={images}
+                index={1}
+                className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 rounded-primary max-h-96 object-cover"
+              />
+              <div className="w-full lg:text-left text-center">
 
-              <div className="mt-6 text-lg font-medium text-[#5a5959]">
-                {text?.text2}
+
+                <div className="mt-6 text-lg font-medium text-[#5a5959]">
+                  {text?.text2}
+                </div>
+
               </div>
-
             </div>
           </div>
         </div>
@@ -215,11 +220,11 @@ export const Tours = () => {
         
         <div className="container mt-10">
         <div className="w-full">
-          <h1 className="text-center head text-primary-500">
+          {/* <h1 className="text-center head text-primary-500">
             {kz ? `Санаторийлер` : `Санатории`}
-          </h1>
+          </h1> */}
           <div className="mt-4">
-            <div className="max-w-xs lg:max-w-full overflow-hidden lg:mx-0 mx-auto">
+            <div className="max-w-xs lg:max-w-full lg:mx-0 mx-auto">
               <Carousel
                 slideSize={'25%'}
                 align={'start'}
@@ -234,14 +239,20 @@ export const Tours = () => {
                 {resorts
                   .map((resort, i) => {
                     return (
-                      <div className='py-4 px-2 shrink-0 max-w-[315px] relative' key={i} >
-                        <img src={getImageUrl(resort, resort?.image)} alt="" className='object-cover aspect-square' />
-                        <div className='absolute bottom-7 left-5 text-white pr-2 font-bold'>
-                          <Text lineClamp={1} className='!text-lg'>{resort?.name}</Text>
-                          <Text lineClamp={2} className='mt-2'>
-                            {resort?.description}
-                          </Text>
+                      <div>
+                        <div className='py-2 px-2 shrink-0 max-w-[315px] relative' key={i} >
+                          <img src={getImageUrl(resort, resort?.image)} alt="" className='object-cover aspect-square' />
+                          <div className='absolute bottom-7 left-5 text-white pr-2 font-bold'>
+                            <Text lineClamp={1} className='!text-lg'>{resort?.name} Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores fugiat cum natus officiis aut molestias, quam placeat? Architecto quidem est libero ducimus repudiandae id fugit ipsam modi perferendis esse reiciendis aspernatur accusamus molestias corporis beatae nesciunt aperiam, dicta dignissimos non tenetur unde numquam deleniti commodi. Atque iure ea id voluptas recusandae consequatur perferendis cumque facere harum reiciendis obcaecati optio molestiae soluta et ratione, pariatur aspernatur ad, quae ut. Voluptas repudiandae, incidunt impedit mollitia explicabo amet quas consequatur iure eligendi molestiae ad error? Neque laudantium adipisci quas odit debitis asperiores repellat nulla obcaecati nesciunt earum incidunt dolore, expedita libero quaerat dolorum?</Text>
+                          </div>
                         </div>
+                        <Text lineClamp={col === i ? 99 : 5} className='mt-1 pl-2'>
+                          {resort?.description}
+                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet explicabo vitae itaque esse atque ratione, hic quibusdam quas, placeat perspiciatis molestias fugiat eum sed ea exercitationem architecto suscipit quae error illum. Aliquam voluptas voluptatibus laudantium cumque pariatur omnis, atque enim molestiae deleniti eveniet cum, architecto fuga ad iure ullam, libero quasi corrupti. Dolore cumque maiores fugit tempora corrupti tenetur adipisci saepe, similique voluptas voluptatum est voluptate quod, ea provident placeat eveniet dolores quos ex repellendus, nam quibusdam odit? Nihil omnis ipsa exercitationem est ab ipsam corporis praesentium quasi laborum ad. Quia quos odio libero nobis maiores quo sit aut similique!
+                        </Text>
+                        {/* <Button variant='subtle' size='xs' onClick={() => setCol(i)}>
+                          Развернуть
+                        </Button> */}
                       </div>
                     )
                   })

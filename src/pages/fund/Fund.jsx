@@ -28,7 +28,7 @@ export const Fund = () => {
                 <Image
                   className="max-w-2xl w-full rounded-primary max-h-80 object-cover"
                   record={images}
-                  index={4}
+                  index={1}
                 />
                 <div>
                   <ul className="mt-3 text-lg font-medium text-[#5a5959] space-y-3">
@@ -69,7 +69,7 @@ export const Fund = () => {
                   {headings?.heading3} 
                 </h1>
                 <div className='grid gap-8 mt-5 max-w-3xl mx-auto'>
-                  <p className="tracking-wider text-left underline text-primary-500">{text?.text3}</p>
+                  <p className="tracking-wider text-left underline text-primary-500 text-xl">{text?.text3}</p>
                 </div>
               </div>
               <div className='grid lg:grid-cols-3 mt-4 gap-4'>
