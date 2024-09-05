@@ -128,7 +128,6 @@ export const Home = () => {
         <div className=" mt-4 gap-8 flex items-center flex-col">
         <h1 className="text-center text-2xl md:text-3xl font-bold font-head text-teal-500 flex justify-center items-center h-full">
             {headings?.[2]}
-            asdasdasd
           </h1>
           <Image
             record={images}

@@ -118,15 +118,15 @@ export const Tours = () => {
         <section className="w-full mt-40">
           <div className="container">
             <div className="">
-              <h1 className="text-4xl text-primary-500 font-bold">
+              <h1 className="text-4xl text-primary-500 font-bold text-center">
                 {headings?.heading2}
               </h1>
               <div className='flex flex-col md:flex-row gap-8 mt-6'>
-                <Image
+                {/* <Image
                   className="max-w-2xl w-full rounded-primary max-h-[448px] object-cover"
                   record={images}
                   index={2}
-                />
+                /> */}
                 <div className='space-y-4 mx-auto border gap-4 rounded-primary overflow-hidden min-w-[300px]'>
                   <div className='flex flex-col w-full p-3'>
                     <div className='flex flex-col gap-2 bg-white p-3 w-full'>
@@ -239,21 +239,16 @@ export const Tours = () => {
                 {resorts
                   .map((resort, i) => {
                     return (
-                      <div>
-                        <div className='py-2 px-2 shrink-0 max-w-[315px] relative' key={i} >
+                        <div className='py-2 px-2 shrink-0 max-w-[300px] relative' key={i} >
                           <img src={getImageUrl(resort, resort?.image)} alt="" className='object-cover aspect-square' />
-                          <div className='absolute bottom-7 left-5 text-white pr-2 font-bold'>
+                          <div className='pl-2 mt-3 font-bold'>
                             <Text lineClamp={1} className='!text-lg'>{resort?.name} Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores fugiat cum natus officiis aut molestias, quam placeat? Architecto quidem est libero ducimus repudiandae id fugit ipsam modi perferendis esse reiciendis aspernatur accusamus molestias corporis beatae nesciunt aperiam, dicta dignissimos non tenetur unde numquam deleniti commodi. Atque iure ea id voluptas recusandae consequatur perferendis cumque facere harum reiciendis obcaecati optio molestiae soluta et ratione, pariatur aspernatur ad, quae ut. Voluptas repudiandae, incidunt impedit mollitia explicabo amet quas consequatur iure eligendi molestiae ad error? Neque laudantium adipisci quas odit debitis asperiores repellat nulla obcaecati nesciunt earum incidunt dolore, expedita libero quaerat dolorum?</Text>
                           </div>
+                          <Text lineClamp={5} className='mt-1 pl-2 !text-[15px] tracking-wide'>
+                              {resort?.description}
+                          </Text>
                         </div>
-                        <Text lineClamp={col === i ? 99 : 5} className='mt-1 pl-2'>
-                          {resort?.description}
-                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet explicabo vitae itaque esse atque ratione, hic quibusdam quas, placeat perspiciatis molestias fugiat eum sed ea exercitationem architecto suscipit quae error illum. Aliquam voluptas voluptatibus laudantium cumque pariatur omnis, atque enim molestiae deleniti eveniet cum, architecto fuga ad iure ullam, libero quasi corrupti. Dolore cumque maiores fugit tempora corrupti tenetur adipisci saepe, similique voluptas voluptatum est voluptate quod, ea provident placeat eveniet dolores quos ex repellendus, nam quibusdam odit? Nihil omnis ipsa exercitationem est ab ipsam corporis praesentium quasi laborum ad. Quia quos odio libero nobis maiores quo sit aut similique!
-                        </Text>
-                        {/* <Button variant='subtle' size='xs' onClick={() => setCol(i)}>
-                          Развернуть
-                        </Button> */}
-                      </div>
+         
                     )
                   })
                 }
