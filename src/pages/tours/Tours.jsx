@@ -108,18 +108,42 @@ export const Tours = () => {
 
 
                 <div className="mt-6 text-lg font-medium text-[#5a5959]">
-                  {text?.text2}
+                  {text?.text1}
                 </div>
 
               </div>
             </div>
           </div>
         </div>
-        <section className="w-full mt-40">
+
+        <section className="w-full mt-20">
+          <div className="container">
+            <div className="grid lg:grid-cols-2 mt-4 gap-8">
+
+              <div className="w-full lg:text-left text-center">
+                <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
+                  {headings?.heading2}
+                </h1>
+
+                <div className="mt-3 text-lg font-medium text-[#5a5959] ">
+                  {text?.text2}
+                </div>
+
+              </div>
+              <Image
+                record={images}
+                index={2}
+                className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 rounded-primary max-h-96 object-cover"
+              />
+            </div>
+          </div>
+        </section>
+
+        <section className="w-full mt-20">
           <div className="container">
             <div className="">
               <h1 className="text-4xl text-primary-500 font-bold text-center">
-                {headings?.heading2}
+                {headings?.heading3}
               </h1>
               <div className='flex flex-col md:flex-row gap-8 mt-6'>
                 {/* <Image
@@ -239,16 +263,15 @@ export const Tours = () => {
                 {resorts
                   .map((resort, i) => {
                     return (
-                        <div className='py-2 px-2 shrink-0 max-w-[300px] relative' key={i} >
-                          <img src={getImageUrl(resort, resort?.image)} alt="" className='object-cover aspect-square' />
-                          <div className='pl-2 mt-3 font-bold'>
-                            <Text lineClamp={1} className='!text-lg'>{resort?.name} Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores fugiat cum natus officiis aut molestias, quam placeat? Architecto quidem est libero ducimus repudiandae id fugit ipsam modi perferendis esse reiciendis aspernatur accusamus molestias corporis beatae nesciunt aperiam, dicta dignissimos non tenetur unde numquam deleniti commodi. Atque iure ea id voluptas recusandae consequatur perferendis cumque facere harum reiciendis obcaecati optio molestiae soluta et ratione, pariatur aspernatur ad, quae ut. Voluptas repudiandae, incidunt impedit mollitia explicabo amet quas consequatur iure eligendi molestiae ad error? Neque laudantium adipisci quas odit debitis asperiores repellat nulla obcaecati nesciunt earum incidunt dolore, expedita libero quaerat dolorum?</Text>
-                          </div>
-                          <Text lineClamp={5} className='mt-1 pl-2 !text-[15px] tracking-wide'>
-                              {resort?.description}
-                          </Text>
+                      <div className='py-2 px-2 shrink-0 max-w-[300px] relative' key={i} >
+                        <img src={getImageUrl(resort, resort?.image)} alt="" className='object-cover aspect-square' />
+                        <div className='pl-2 mt-3 font-bold'>
+                          <Text lineClamp={1} className='!text-lg'>{resort?.name}</Text>
                         </div>
-         
+                        <Text lineClamp={7} className='mt-1 pl-2 !text-[15px] tracking-wide'>
+                          {resort?.description}
+                        </Text>
+                      </div>
                     )
                   })
                 }

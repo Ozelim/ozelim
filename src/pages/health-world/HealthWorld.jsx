@@ -223,9 +223,9 @@ export const HealthWorld = () => {
 
       <div className="container mt-10">
         <div className="w-full">
-          <h1 className="text-center head text-primary-500">
+          {/* <h1 className="text-center head text-primary-500">
             {kz ? `Санаторийлер` : `Санатории`}
-          </h1>
+          </h1> */}
           <div className="mt-4">
             <div className="max-w-xs lg:max-w-full overflow-hidden lg:mx-0 mx-auto">
               <Carousel
