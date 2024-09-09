@@ -53,10 +53,10 @@ export const Home = () => {
               className="max-w-full mx-auto lg:mx-0 rounded-r-primary object-cove"
             />
             <div className='text-center py-8'>
-              <p className="text-2xl lg:text-4xl mt-2 text-white">
+              <p className="text-2xl lg:text-4xl mt-2">
                 {qq(headings?.main, headings?.main2_kz)}
               </p>
-              <p className="mt-5 text-xl lg:text-2xl text-white ">
+              <p className="mt-5 text-xl lg:text-2xl">
                 {qq(headings?.main2, headings?.main2_kz)}
               </p>
               {/* <Button component={RouterLink} to="/resorts" size="md" className='mt-4'>
@@ -147,21 +147,36 @@ export const Home = () => {
 
         </div>
         <div className="grid lg:grid-cols-5 gap-6 mt-8">
-          <p className=' border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>
-            {text?.[4]}
-          </p>
-          <p className=' border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>
-            {text?.[5]}
-          </p>
-          <p className=' border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>
-            {text?.[6]}
-          </p>
-          <p className=' border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>
-            {text?.[7]}
-          </p>
-          <p className=' border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>
-            {text?.[8]}
-          </p>
+          <div>
+            <h2 className='text-2xl text-primary-500'>{headings?.z1}</h2>
+            <p className='mt-2 border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>
+              {text?.[4]}
+            </p>
+          </div>
+          <div>
+            <h2 className='text-2xl text-primary-500'>{headings?.z2}</h2>
+            <p className='mt-2 border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>
+              {text?.[5]}
+            </p>
+          </div>
+          <div>
+            <h2 className='text-2xl text-primary-500'>{headings?.z3}</h2>
+            <p className='mt-2 border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>
+              {text?.[6]}
+            </p>
+          </div>
+          <div>
+            <h2 className='text-2xl text-primary-500'>{headings?.z4}</h2>
+            <p className='mt-2 border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>
+              {text?.[7]}
+            </p>
+          </div>
+          <div>
+            <h2 className='text-2xl text-primary-500'>{headings?.z5}</h2>
+            <p className='mt-2 border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>
+              {text?.[8]}
+            </p>
+          </div>
         </div>
       </section>
 
@@ -186,7 +201,7 @@ export const Home = () => {
         </div>
       </section>
 
-      <section className='mt-6 lg:mt-10 container'>
+      {/* <section className='mt-6 lg:mt-10 container'>
         <Image
           className="max-w-2xl w-full rounded-primary max-h-80 object-cover mx-auto"
           record={images}
@@ -209,7 +224,7 @@ export const Home = () => {
             {text?.[16]}
           </p>
         </div>
-      </section>
+      </section> */}
       
       <section className='mt-10 container'>
         <h1 className="text-3xl lg:text-4xl font-bold mt-1 text-primary-500">
@@ -253,9 +268,10 @@ export const Home = () => {
       <section className="mt-10 lg:mt-24">
         <div className="container">
           <div className="text-center">
-            <h1 className="text-4xl font-medium text-primary-500">
+            {/* <h1 className="text-4xl font-medium text-primary-500">
               {headings?.[4]} 
-            </h1>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            </h1> */}
             <div className='grid gap-8 mt-5 max-w-3xl mx-auto'>
               <p className="text text-left">{text?.[24]}</p>
             </div>
