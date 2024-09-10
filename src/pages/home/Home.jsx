@@ -387,6 +387,16 @@ export const Home = () => {
                 })
                 .then(() => {
                   handlers.close()
+                  showNotification({
+                    title: 'Заявка',
+                    color: 'green',
+                    message: 'Заявка успешно отправлена'
+                  })
+                  setQ({
+                    email: '',
+                    name: '',
+                    phone: ''
+                  })
                 })
               }}
             >

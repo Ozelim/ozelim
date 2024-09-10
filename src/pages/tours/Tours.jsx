@@ -64,7 +64,11 @@ export const Tours = () => {
 
   async function send () {
     console.log(data, 'a');
-    await pb.collection('tours_bids').create(...data)
+    await pb.collection('tours_bids').create({
+      date_picked: data?.datePicked ?? [],
+      ...data,
+      resort: data?.resort
+    })
     .then(res => {
       setData({
         datePicked: [],
@@ -72,7 +76,7 @@ export const Tours = () => {
         adults: 1,
         child: 0,
         phone: '',
-        resort: ''
+        resort: {}
       })
       showNotification({
         title: 'Заявка',
@@ -87,8 +91,6 @@ export const Tours = () => {
   const autoplay = React.useRef(Autoplay({ delay: 3000 }))
 
   useAnimationOffsetEffect(embla, 200)
-
-  const [col, setCol] = React.useState(null)
 
   return (
     <>
@@ -262,7 +264,7 @@ export const Tours = () => {
                         />
                       </div>
                       <div className='p-3'>
-                        <Button fullWidth onClick={send} disabled>
+                        <Button fullWidth onClick={send} disabled={!data?.resort || !data?.phone || !data?.datePicked}>
                           Оставить заявку
                         </Button>
                       </div>
@@ -276,8 +278,6 @@ export const Tours = () => {
             </div>
           </div>
         </section>
-        
-
       </div>
       <Modal
         opened={opened}

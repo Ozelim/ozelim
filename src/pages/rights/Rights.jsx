@@ -1,4 +1,5 @@
 import { Button, Select, TextInput } from '@mantine/core'
+import { showNotification } from '@mantine/notifications'
 import React from 'react'
 import { pb } from 'shared/api'
 import { usePageData } from 'shared/hooks'
@@ -26,18 +27,20 @@ export const Rights = () => {
   const [data, setData] = React.useState({
     name: '',
     phone: '',
-    type
   })
 
   async function send () {
     console.log(data, 'a');
-    await pb.collection('righs_bids').create(...data)
+    await pb.collection('rights_bids').create({
+      ...data, 
+      type: type,
+    })
     .then(res => {
       setData({
         name: '',
         phone: '',
-        type: ''
       })
+      setType('')
       showNotification({
         title: 'Заявка',
         color: 'green',
@@ -193,23 +196,28 @@ export const Rights = () => {
             placeholder='Ваше имя'
             className='mt-3'
             variant='filled'
+            value={data?.name}
+            onChange={e => setData({...data, name: e?.currentTarget?.value})}
           />
           <TextInput
             label='Контактный номер'
             placeholder='Ваш номер'
             className='mt-3'
             variant='filled'
+            value={data?.phone}
+            onChange={e => setData({...data, phone: e?.currentTarget?.value})}
           />
           <Select
             label='Вид услуги'
             placeholder='Выберите вид услуги'
-            data={[]}
+            data={types ?? []}
             className='mt-3'
             variant='filled'
+            onChange={e => setType(e)}
           />
           <div className='flex justify-center mt-6'>
             <Button 
-              disabled
+              disabled={!data?.name || !data?.phone || !type}
               onClick={send}
             >
               Оставить заявку
