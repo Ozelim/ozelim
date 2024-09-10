@@ -12,6 +12,8 @@ import { useLangContext } from 'app/langContext'
 
 export const CourseHeader = ({ headings, images, text }) => {
 
+  const {pathanme} = useLocation()
+
   const {kz} = useLangContext()
 
   const {pathname} = useLocation()
@@ -123,14 +125,25 @@ export const CourseHeader = ({ headings, images, text }) => {
                 </div>
               </div>
             </div>
-            <Button size="lg" className="mt-10">
-              <a href={text?.link} target='_blank'>
-                <span className='break-words'>
-                  {kz ? `Курс бағдарламасын қарау` : `Смотреть программу курса`}
-                </span>
-                <FiYoutube size={25} className="inline ml-2" />
-              </a>
-            </Button>
+            {pathanme?.includes('dual') ? (
+              <Button size="lg" className="mt-10">
+                <a href={text?.link} target='_blank'>
+                  <span className='break-words'>
+                    {kz ? `Қарау` : `Смотреть`}
+                  </span>
+                  <FiYoutube size={25} className="inline ml-2" />
+                </a>
+              </Button>
+            ): (
+              <Button size="lg" className="mt-10">
+                <a href={text?.link} target='_blank'>
+                  <span className='break-words'>
+                    {kz ? `Курс бағдарламасын қарау` : `Смотреть программу курса`}
+                  </span>
+                  <FiYoutube size={25} className="inline ml-2" />
+                </a>
+              </Button>
+            )}
           </div>
           <Image
             record={images}

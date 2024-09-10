@@ -200,6 +200,47 @@ export const Home = () => {
           </div>
         </div>
       </section>
+      
+      <section className="w-full mt-8">
+        <div className="container">
+          {/* <h1 className="text-3xl max-w-3xl m-auto font-bold text-center font-head">
+            <span className="text-primary-500">{headings?.heading}</span>
+          </h1> */}
+          <div className="flex flex-col lg:flex-row mt-4 gap-8">
+            <Image
+              record={images}
+              index={9}
+              className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 rounded-primary max-h-96 object-cover"
+            />
+            
+            {/* {getImageUrl(images, images?.[1]) ? (
+              <img
+                className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0"
+                src={getImageUrl(images, images?.[1])}
+                loading="lazy"
+                alt="travel"
+              />
+            ) : (
+              <div className="lg:max-w-xl w-full m-auto bg-zinc-200" />
+            )} */}
+            <div className="w-full lg:text-left text-center">
+              <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
+                {headings?.x1}
+              </h1>
+              {/* <img
+                className="max-w-2xl w-full block lg:hidden mt-4"
+                src={FitnessIcon}
+                alt="fitness"
+              /> */}
+              <ul className="mt-3 text-lg font-medium text-[#5a5959] ">
+                <li>
+                  {text?.x1}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* <section className='mt-6 lg:mt-10 container'>
         <Image
@@ -239,10 +280,10 @@ export const Home = () => {
           <p className=' border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>{text?.[19]}</p>
         </div>
         <div className='flex flex-col justify-center items-center mt-8'>
-          <Button>
+          {/* <Button>
             Оставить заявку
-          </Button>
-          <p className='text-sm text-slate-400'>
+          </Button> */}
+          <p className='text-2xl text-primary-500'>
             {headings?.[6]}
           </p>
         </div>
@@ -253,7 +294,7 @@ export const Home = () => {
         </div>
         <div className='flex flex-col justify-center items-center mt-8'>
           <Button>
-            Хочу стать агентом
+            Оставить заявку
           </Button>
         </div>
         <div className='text-center mt-8'>
