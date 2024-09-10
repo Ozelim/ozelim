@@ -10,8 +10,8 @@ import { Parasha } from './Parasha'
 import { useLangContext } from 'app/langContext'
 import { Image } from 'shared/ui'
 import { usePageData } from 'shared/hooks'
-import { useMediaQuery } from '@mantine/hooks'
-import { Button } from '@mantine/core'
+import { useDisclosure, useMediaQuery } from '@mantine/hooks'
+import { Button, Modal, TextInput } from '@mantine/core'
 import { FaTiktok } from 'react-icons/fa'
 import { AiOutlineInstagram, AiOutlineYoutube } from 'react-icons/ai'
 import { RiTiktokFill } from 'react-icons/ri'
@@ -40,6 +40,14 @@ export const Home = () => {
       console.log(err, 'err');
     })
   }, [])
+
+  const [opened, handlers] = useDisclosure(false)
+
+  const [q, setQ] = React.useState({
+    name: '',
+    email: '',
+    phone: '',
+  })
 
   return (
     <>
@@ -293,7 +301,7 @@ export const Home = () => {
           <p className=' border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>{text?.[22]}</p>
         </div>
         <div className='flex flex-col justify-center items-center mt-8'>
-          <Button>
+          <Button onClick={() => handlers.open()}>
             Оставить заявку
           </Button>
         </div>
@@ -348,6 +356,45 @@ export const Home = () => {
           </div>
         </div>
       </section>
+      <Modal
+        centered
+        opened={opened}
+        onClose={() => handlers.close()}
+        title='Оставить заявку'
+      >
+        <div>
+          <TextInput
+            label='Наименование организации'
+            value={q?.name}
+            onChange={e => setQ({...q, name: e?.currentTarget?.value})}
+          />
+          <TextInput
+            label='Эл. почта'
+            value={q?.email}
+            onChange={e => setQ({...q, email: e?.currentTarget?.value})}
+          />
+          <TextInput
+            label='Контактный номер'
+            value={q?.phone}
+            onChange={e => setQ({...q, phone: e?.currentTarget?.value})}
+          />
+          <div className='flex justify-center mt-4'>
+            <Button
+              disabled={!q?.name || !q?.email || !q?.phone}
+              onClick={async () => {
+                await pb.collection('123').create({
+                  ...q
+                })
+                .then(() => {
+                  handlers.close()
+                })
+              }}
+            >
+              Оптравить
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </>
   ) 
 }

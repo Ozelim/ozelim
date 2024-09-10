@@ -105,8 +105,6 @@ export const Tours = () => {
                 className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 rounded-primary max-h-96 object-cover"
               />
               <div className="w-full lg:text-left text-center">
-
-
                 <div className="mt-6 text-lg font-medium text-[#5a5959]">
                   {text?.text1}
                 </div>
@@ -118,27 +116,64 @@ export const Tours = () => {
 
         <section className="w-full mt-20">
           <div className="container">
-            <div className="grid lg:grid-cols-2 mt-4 gap-8">
+            <div className="mt-4 gap-8">
 
               <div className="w-full lg:text-left text-center">
-                <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
+                <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500 text-center">
                   {headings?.heading2}
                 </h1>
-
+{/* 
                 <div className="mt-3 text-lg font-medium text-[#5a5959] ">
                   {text?.text2}
-                </div>
+                </div> */}
 
               </div>
-              <Image
+              {/* <Image
                 record={images}
                 index={2}
                 className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 rounded-primary max-h-96 object-cover"
-              />
+              /> */}
             </div>
           </div>
         </section>
-
+        <div className="container mt-10">
+          <div className="w-full">
+            {/* <h1 className="text-center head text-primary-500">
+              {kz ? `Санаторийлер` : `Санатории`}
+            </h1> */}
+            <div className="mt-4">
+              <div className="max-w-xs lg:max-w-full lg:mx-0 mx-auto">
+                <Carousel
+                  slideSize={'25%'}
+                  align={'start'}
+                  height={'100%'}
+                  loop
+                  withControls={false}
+                  getEmblaApi={setEmbla}
+                  plugins={[autoplay.current]}
+                  onMouseEnter={autoplay.current.stop}
+                  onMouseLeave={autoplay.current.reset}
+                >
+                  {resorts
+                    .map((resort, i) => {
+                      return (
+                        <div className='py-2 px-2 shrink-0 max-w-[300px] relative' key={i} >
+                          <img src={getImageUrl(resort, resort?.image)} alt="" className='object-cover aspect-square' />
+                          <div className='pl-2 mt-3 font-bold'>
+                            <Text lineClamp={1} className='!text-lg'>{resort?.name}</Text>
+                          </div>
+                          <Text lineClamp={7} className='mt-1 pl-2 !text-[15px] tracking-wide'>
+                            {resort?.description}
+                          </Text>
+                        </div>
+                      )
+                    })
+                  }
+                </Carousel>
+              </div>
+            </div>
+          </div>
+        </div>
         <section className="w-full mt-20">
           <div className="container">
             <div className="">
@@ -242,44 +277,7 @@ export const Tours = () => {
           </div>
         </section>
         
-        <div className="container mt-10">
-        <div className="w-full">
-          {/* <h1 className="text-center head text-primary-500">
-            {kz ? `Санаторийлер` : `Санатории`}
-          </h1> */}
-          <div className="mt-4">
-            <div className="max-w-xs lg:max-w-full lg:mx-0 mx-auto">
-              <Carousel
-                slideSize={'25%'}
-                align={'start'}
-                height={'100%'}
-                loop
-                withControls={false}
-                getEmblaApi={setEmbla}
-                plugins={[autoplay.current]}
-                onMouseEnter={autoplay.current.stop}
-                onMouseLeave={autoplay.current.reset}
-              >
-                {resorts
-                  .map((resort, i) => {
-                    return (
-                      <div className='py-2 px-2 shrink-0 max-w-[300px] relative' key={i} >
-                        <img src={getImageUrl(resort, resort?.image)} alt="" className='object-cover aspect-square' />
-                        <div className='pl-2 mt-3 font-bold'>
-                          <Text lineClamp={1} className='!text-lg'>{resort?.name}</Text>
-                        </div>
-                        <Text lineClamp={7} className='mt-1 pl-2 !text-[15px] tracking-wide'>
-                          {resort?.description}
-                        </Text>
-                      </div>
-                    )
-                  })
-                }
-              </Carousel>
-            </div>
-          </div>
-        </div>
-      </div>
+
       </div>
       <Modal
         opened={opened}
