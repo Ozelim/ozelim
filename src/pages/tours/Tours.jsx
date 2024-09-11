@@ -116,7 +116,28 @@ export const Tours = () => {
           </div>
         </div>
 
-        <section className="w-full mt-20">
+        <div className="container mt-4 lg:mt-20">
+          <div>
+            <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500 text-center">
+              {headings?.headingx}
+            </h1>
+            <div className="grid lg:grid-cols-2 mt-4 gap-8">
+              <Image
+                record={images}
+                index={9}
+                className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 rounded-primary max-h-96 object-cover"
+              />
+              <div className="w-full lg:text-left text-center">
+                <div className="mt-6 text-lg font-medium text-[#5a5959]">
+                  {text?.textx}
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <section className="w-full mt-4 lg:mt-20">
           <div className="container">
             <div className="mt-4 gap-8">
 
@@ -124,17 +145,10 @@ export const Tours = () => {
                 <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500 text-center">
                   {headings?.heading2}
                 </h1>
-{/* 
-                <div className="mt-3 text-lg font-medium text-[#5a5959] ">
-                  {text?.text2}
-                </div> */}
+
 
               </div>
-              {/* <Image
-                record={images}
-                index={2}
-                className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 rounded-primary max-h-96 object-cover"
-              /> */}
+
             </div>
           </div>
         </section>
