@@ -12,8 +12,6 @@ import { useLangContext } from 'app/langContext'
 
 export const CourseHeader = ({ headings, images, text }) => {
 
-  const {pathanme} = useLocation()
-
   const {kz} = useLangContext()
 
   const {pathname} = useLocation()
@@ -125,7 +123,7 @@ export const CourseHeader = ({ headings, images, text }) => {
                 </div>
               </div>
             </div>
-            {pathanme?.includes('dual') ? (
+            {pathname?.includes('dual') ? (
               <Button size="lg" className="mt-10">
                 <a href={text?.link} target='_blank'>
                   <span className='break-words'>
