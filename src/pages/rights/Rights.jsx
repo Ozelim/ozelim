@@ -287,7 +287,9 @@ export const Rights = () => {
             {acc.map((q, i) => {
               return (
                 <Accordion.Item value={`${i}`}>
-                  <Accordion.Control className='!text-xl !font-bold !text-primary-500'>{i + 1}. {q?.label}</Accordion.Control>
+                  <Accordion.Control className='!text-xl !font-bold '>{i + 1}. 
+                    <span className='text-primary-500'>{q?.label}</span>
+                  </Accordion.Control>
                   <Accordion.Panel className='p-4'>
                     {q?.description}
                   </Accordion.Panel>
