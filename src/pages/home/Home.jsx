@@ -61,7 +61,7 @@ export const Home = () => {
               className="max-w-full mx-auto lg:mx-0 rounded-r-primary object-cove"
             />
             <div className='text-center py-8'>
-              <p className="text-2xl lg:text-4xl mt-2">
+              <p className="text-2xl lg:text-4xl mt-2 text-primary-500">
                 {qq(headings?.main, headings?.main2_kz)}
               </p>
               <p className="mt-5 text-xl lg:text-2xl">

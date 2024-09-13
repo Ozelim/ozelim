@@ -76,7 +76,7 @@ export const HealthWorld = () => {
                 index={1}
                 className="w-full max-w-[300px] mx-auto max-h-[300px] rounded-primary object-cover object-top"
               />
-              <h2 className="text-center pt-2 font-head text-2xl px-6 ">
+              <h2 className="text-center pt-2 font-head text-2xl px-6 text-primary-500">
                 {headings?.heading3}
               </h2>
               <p className="px-4 text-center text">
