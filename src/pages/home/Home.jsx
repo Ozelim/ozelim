@@ -244,6 +244,9 @@ export const Home = () => {
                   {text?.x1}
                 </li>
               </ul>
+              <a href={'/home-1.pdf'} target='_blank' className='text-primary-500 mt-4 block'>
+                {qq(`Справка о Гос. Рег.`)}
+              </a>
             </div>
           </div>
         </div>
