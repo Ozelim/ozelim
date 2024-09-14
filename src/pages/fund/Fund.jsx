@@ -175,6 +175,18 @@ export const Fund = () => {
               </div>
             </section>
 
+            <section className="mt-10 lg:mt-16">
+              <div className="text-center">
+                <h1 className="text-4xl font-medium text-primary-500">
+                  {headings?.heading99} 
+                </h1>
+                <div className='grid gap-8 mt-5 max-w-3xl mx-auto'>
+                  <p className="text text-left">{text?.text99}</p>
+                </div>
+              </div>
+            </section>
+
+
             <section className='mt-8'>
               <h1 className="text-4xl text-primary-500 font-bold text-center">
                 {headings?.heading10}
@@ -186,7 +198,7 @@ export const Fund = () => {
                   index={6}
                 />
                 <div>
-                  <h2 className='font-semibold text-[20px]'>
+                  <h2 className='font-semibold text-[20px] text-primary-500'>
                     {headings?.heading11}
                   </h2>
                   <ul className="mt-3 text-lg font-medium text-[#5a5959] space-y-3">

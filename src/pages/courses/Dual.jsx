@@ -66,6 +66,11 @@ export const Dual = () => {
                     {text?.z1}
                   </li>
                 </ul>
+                <a href={'/dual-1.pdf'} target='_blank' className='block mt-3'>
+                  <Button>
+                    АТТЕСТАТ на право проведения работ в области промышленной безопасности
+                  </Button>
+                </a>
               </div>
             </div>
           </div>
@@ -115,6 +120,11 @@ export const Dual = () => {
                     {text?.x1}
                   </li>
                 </ul>
+                <a href={'/dual-2.pdf'} target='_blank' className='block mt-3'>
+                  <Button>
+                    АТТЕСТАТ на право проведения работ в области промышленной безопасности
+                  </Button>
+                </a>
               </div>
             </div>
           </div>
@@ -130,11 +140,11 @@ export const Dual = () => {
             </Button>
           </div>
         </div>
-        <div className='text-center mt-10'>
+        {/* <div className='text-center mt-10'>
           <Link to={'/price'} className='text-blue-500 underline'>
             {kz ? `Бағалар туралы көбірек біліңіз` : `Узнать подробнее о ценах`}
           </Link>
-        </div>
+        </div> */}
       </main>
       <Modal
         opened={opened}

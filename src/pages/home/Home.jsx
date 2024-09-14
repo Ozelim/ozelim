@@ -249,6 +249,13 @@ export const Home = () => {
                   {qq(`Справка о Гос. Регистрации`)}
                 </a>
               </Button>
+              <div>
+                <Button className='mt-4'>
+                  <a href={'/home-1.pdf'} target='_blank'>
+                    {qq(`Устав`)}
+                  </a>
+                </Button>
+              </div>
             </div>
           </div>
         </div>

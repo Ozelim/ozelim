@@ -173,7 +173,7 @@ export const Tours = () => {
                   {resorts
                     .map((resort, i) => {
                       return (
-                        <div className='py-2 px-2 shrink-0 max-w-[300px] relative' key={i} >
+                        <div className='py-2 px-2 shrink-0 relative' key={i} >
                           <img src={getImageUrl(resort, resort?.image)} alt="" className='object-cover aspect-square' />
                           <div className='pl-2 mt-3 font-bold'>
                             <Text lineClamp={1} className='!text-lg'>{resort?.name}</Text>

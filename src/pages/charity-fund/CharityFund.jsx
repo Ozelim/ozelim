@@ -25,7 +25,7 @@ export const CharityFund = () => {
               </p>
             </div>
             <img
-              className="aspect-video mt-10 lg:mt-0 w-full max-w-xl mx-auto lg:max-w-full lg:mx-0 object-cover rounded-primary"
+              className="aspect-video mt-10 lg:mt-0 w-full max-w-xl mx-auto lg:max-w-full lg:mx-0 object-contain rounded-primary"
               src={getImageUrl(images, images?.[1])}
               alt="kid"
             />
@@ -35,28 +35,45 @@ export const CharityFund = () => {
         <h1 className="heading mt-10 text-primary-500">{headings?.grid}</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-x-8 gap-y-4 md:gap-y-6 mt-5 md:mt-10">
           <div className="p-6 rounded-primary shadow-md bg-white">
-            <h4 className="text-2xl font-semibold font-head text-[#2a2a2a]">
+            <h4 className="text-2xl font-semibold font-head text-primary-500">
               {headings?.card1}
             </h4>
             <p className="paragraph mt-2">{text?.card1}</p>
           </div>
           <div className="p-6 rounded-primary shadow-md bg-white">
-            <h4 className="text-2xl font-semibold font-head text-[#2a2a2a]">
+            <h4 className="text-2xl font-semibold font-head text-primary-500">
               {headings?.card2}
             </h4>
             <p className="paragraph mt-2">{text?.card2}</p>
           </div>
           <div className="p-6 rounded-primary shadow-md bg-white">
-            <h4 className="text-2xl font-semibold font-head text-[#2a2a2a]">
+            <h4 className="text-2xl font-semibold font-head text-primary-500">
               {headings?.card3}
             </h4>
-            <p className="paragraph mt-2">{text?.card3}</p>
+            <ul className="mt-3 text-lg font-medium paragraph list-disc">
+              <li>
+                {text?.card3}
+              </li>
+              <li>{text?.card31}</li>
+              <li>{text?.card32}</li>
+              <li>{text?.card33}</li>
+            </ul>
           </div>
           <div className="p-6 rounded-primary shadow-md bg-white">
-            <h4 className="text-2xl font-semibold font-head text-[#2a2a2a]">
+            <h4 className="text-2xl font-semibold font-head text-primary-500">
               {headings?.card4}
             </h4>
-            <p className="paragraph mt-2">{text?.card4}</p>
+            <ul className="mt-3 text-lg font-medium paragraph list-disc">
+              <li>
+                {text?.card4}
+              </li>
+              <li>{text?.card41}</li>
+              <li>{text?.card42}</li>
+              <li>{text?.card43}</li>
+              <li>{text?.card44}</li>
+              <li>{text?.card45}</li>
+            </ul>
+            <p className='paragraph mt-2'>{text?.card46}  </p>
           </div>
         </div>
     
@@ -71,6 +88,12 @@ export const CharityFund = () => {
               {headings?.help}
             </h1>
             <p className="mt-2 ">{text?.help}</p>
+
+            <a href={'/insurance-1.pdf'} target='_blank'>
+              <Button>
+                Страховая памятка
+              </Button>
+            </a>
           </div>
         </section>
         <h1 className="text-5xl font-bold text-center mt-10 text-primary-500">
