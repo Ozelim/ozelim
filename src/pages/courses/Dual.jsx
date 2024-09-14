@@ -8,7 +8,7 @@ import { pb } from 'shared/api'
 import { usePageData } from 'shared/hooks'
 import { BsBag, BsFillBagHeartFill } from 'react-icons/bs'
 import { Image } from 'shared/ui'
-import { Button, Modal, Select, TextInput } from '@mantine/core'
+import { Accordion, Button, Modal, Select, TextInput } from '@mantine/core'
 import { Link } from 'react-router-dom'
 import { useLangContext } from 'app/langContext'
 import { useDisclosure } from '@mantine/hooks'
@@ -16,6 +16,10 @@ import { showNotification } from '@mantine/notifications'
 
 async function getServices () {
   return await pb.collection('dual_data').getFullList()
+}
+
+async function getVacas () {
+  return await pb.collection('dual_vacas').getFullList()
 }
 
 export const Dual = () => {
@@ -27,6 +31,7 @@ export const Dual = () => {
   const [opened, handlers] = useDisclosure()
 
   const [services, setServices] = React.useState([])
+  const [vacas, setVacas] = React.useState([])
 
   const [data, setData] = React.useState({
     email: '',
@@ -38,6 +43,10 @@ export const Dual = () => {
     getServices()
     .then(res => {
       setServices(res?.[0]?.services)
+    })
+    getVacas()
+    .then(res => {
+      setVacas(res?.[0]?.vacas)
     })
   }, [])
 
@@ -146,6 +155,29 @@ export const Dual = () => {
           </Link>
         </div> */}
       </main>
+
+      <section className='container mt-8'>
+        <h1 className='font-bold text-4xl text-primary-500 text-center'>Открытые вакансии</h1>
+        <Accordion
+          variant='separated'
+          className='my-10'
+          defaultValue='0'
+        >
+          {vacas.map((q, i) => {
+            return (
+              <Accordion.Item value={`${i}`}>
+                <Accordion.Control className='!text-xl !font-bold '>{i + 1}. 
+                  <span className='text-primary-500'>{q?.name}</span>
+                </Accordion.Control>
+                <Accordion.Panel className='p-4'>
+                  {q?.desc}
+                </Accordion.Panel>
+              </Accordion.Item>
+            )
+          })}
+        </Accordion>
+      </section>
+
       <Modal
         opened={opened}
         onClose={() => handlers.close()}
