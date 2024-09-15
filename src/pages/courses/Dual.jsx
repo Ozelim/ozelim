@@ -163,7 +163,7 @@ export const Dual = () => {
           className='my-10'
           defaultValue='0'
         >
-          {vacas.map((q, i) => {
+          {vacas?.map((q, i) => {
             return (
               <Accordion.Item value={`${i}`}>
                 <Accordion.Control className='!text-xl !font-bold '>{i + 1}. 

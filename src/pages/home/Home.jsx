@@ -252,7 +252,7 @@ export const Home = () => {
               <div>
                 <Button className='mt-4'>
                   <a href={'/home-1.pdf'} target='_blank'>
-                    {qq(`Устав`)}
+                    {qq(`Устав Ассоциации туристов Казахстана "Oz Elim"`)}
                   </a>
                 </Button>
               </div>

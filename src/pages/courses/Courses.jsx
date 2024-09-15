@@ -87,11 +87,11 @@ export const Courses = () => {
             })}
         </div>
       </div>
-      <div className='text-center mt-10'>
+      {/* <div className='text-center mt-10'>
         <Link to={'/price'} className='text-blue-500 underline'>
           {kz ? `Бағалар туралы көбірек біліңіз` : `Узнать подробнее о ценах`}
         </Link>
-      </div>
+      </div> */}
     </main>
   )
 }
