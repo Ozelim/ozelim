@@ -179,9 +179,13 @@ export const Fund = () => {
               <div className="text-center">
                 <h1 className="text-4xl font-medium text-primary-500">
                   {headings?.heading99} 
+                  Lorem ipsum dolor sit amet.
                 </h1>
-                <div className='grid gap-8 mt-5 max-w-3xl mx-auto'>
-                  <p className="text text-left">{text?.text99}</p>
+                <div className='mt-5 max-w-3xl mx-auto'>
+                  <p className="text text-left">{text?.text99} Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates dolores dignissimos animi laudantium. Libero quidem consequatur natus suscipit, veritatis nesciunt. </p>
+                  <h2 className='text-slate-400 text-[14px] mt-4'>
+                    Документы
+                  </h2>
                   <img src={'/fund1.png'} alt="" />
                   <p className='underline cursor-pointer text-primary-500'>
                     <div className='flex gap-4 flex-wrap my-3'>
@@ -214,9 +218,7 @@ export const Fund = () => {
                   <ul className="mt-3 text-lg font-medium text-[#5a5959] space-y-3">
                     {text?.text12}
                   </ul>
-                  <h2 className='text-slate-400 text-[14px] mt-4'>
-                    Документы
-                  </h2>
+
                 </div>
               </div>
             </section>
