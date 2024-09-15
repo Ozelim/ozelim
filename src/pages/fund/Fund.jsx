@@ -182,6 +182,16 @@ export const Fund = () => {
                 </h1>
                 <div className='grid gap-8 mt-5 max-w-3xl mx-auto'>
                   <p className="text text-left">{text?.text99}</p>
+                  <img src={'/fund1.png'} alt="" />
+                  <p className='underline cursor-pointer text-primary-500'>
+                    <div className='flex gap-4 flex-wrap my-3'>
+                      <img src={fund1} alt="" className='max-w-[280px] mx-auto'/>
+                      {/* <img src={fund2} alt="" className='max-w-[280px] mx-auto'/> */}
+                    </div>
+                    <a href={'/fund.pdf'} target='_blank'>
+                      {qq(`Программу Эндаумент фонда, Свидетельства, Сертификат.pdf `, `Мемлекеттік тіркеу куәлік.pdf`)}
+                    </a>
+                  </p>
                 </div>
               </div>
             </section>
@@ -207,16 +217,6 @@ export const Fund = () => {
                   <h2 className='text-slate-400 text-[14px] mt-4'>
                     Документы
                   </h2>
-                  <img src={'/fund1.png'} alt="" />
-                  <p className='underline cursor-pointer text-primary-500'>
-                    <div className='flex gap-4 flex-wrap my-3'>
-                      <img src={fund1} alt="" className='max-w-[280px] mx-auto'/>
-                      {/* <img src={fund2} alt="" className='max-w-[280px] mx-auto'/> */}
-                    </div>
-                    <a href={'/fund.pdf'} target='_blank'>
-                      {qq(`Программу Эндаумент фонда, Свидетельства, Сертификат.pdf `, `Мемлекеттік тіркеу куәлік.pdf`)}
-                    </a>
-                  </p>
                 </div>
               </div>
             </section>
