@@ -186,20 +186,18 @@ export const Fund = () => {
                     <img src={fund1} alt="" className='max-w-[280px] mx-auto'/>
                     {/* <img src={fund2} alt="" className='max-w-[280px] mx-auto'/> */}
                   </div>
-                <a href={'/fund.pdf'} target='_blank'>
+                {/* <a href={'/fund.pdf'} target='_blank'>
                     {qq(`Программу Эндаумент фонда, Свидетельства, Сертификат.pdf `, `Мемлекеттік тіркеу куәлік.pdf`)}
-                  </a>
+                  </a> */}
                 </p>
               </div>
               <div className="text-center flex justify-center items-center flex-col">
                 <h1 className="text-4xl font-medium text-primary-500">
                   {headings?.heading99} 
-                  Lorem ipsum dolor sit.
                 </h1>
                 <div className='mt-5 max-w-3xl mx-auto'>
                   <p className="text text-left">
                     {text?.text99}
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur quo distinctio porro tempora assumenda ad natus voluptates maiores placeat modi.
                   </p>
            
                 </div>
