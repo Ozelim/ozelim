@@ -11,7 +11,7 @@ export const TourOperators = ({ images, text }) => {
             .fill(1)
             .map((img, i) => {
               return (
-                <div className='flex justify-center items-center h-60 max-w-sm mx-auto object-cover w-full text-3xl flex-col'>
+                <div key={i} className='flex justify-center items-center h-60 max-w-sm mx-auto object-cover w-full text-3xl flex-col'>
                   <img
                     src={getImageUrl(images, images?.[i + 2])}
                     alt=""

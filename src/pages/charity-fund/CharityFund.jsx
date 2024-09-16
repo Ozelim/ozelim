@@ -1,15 +1,56 @@
 import React from 'react'
-import { Button } from '@mantine/core'
+import { Button, Select, TextInput } from '@mantine/core'
 import { TourOperators } from 'modules/TourOperators'
 import { pb } from 'shared/api'
 import { getImageUrl } from 'shared/lib'
 import { ImgSkeleton } from 'shared/ui/ImgSkeleton'
 import { usePageData } from 'shared/hooks'
+import { Image } from 'shared/ui'
+import { showNotification } from '@mantine/notifications'
+
+async function getRights () {
+  return await pb.collection('insurance_data').getFullList()
+}
 
 
 export const CharityFund = () => {
 
   const {images, headings, text} = usePageData('insurance')
+
+  const [data, setData] = React.useState({
+    name: '',
+    phone: '',
+  })
+
+  const [types, setTypes] = React.useState([])
+
+  const [type, setType] = React.useState('')
+
+  React.useEffect(() => {
+    getRights()
+    .then(res => {
+      setTypes(res?.[0]?.types)
+    })
+  }, [])
+
+  async function send () {
+    await pb.collection('insurance_bids').create({
+      ...data, 
+      type: type,
+    })
+    .then(res => {
+      setData({
+        name: '',
+        phone: '',
+      })
+      setType('')
+      showNotification({
+        title: 'Заявка',
+        color: 'green',
+        message: 'Заявка успешно отправлена'
+      })
+    })
+  }
 
   return (
     <div className="w-full">
@@ -100,6 +141,102 @@ export const CharityFund = () => {
           {headings?.history}
         </h1>
         <TourOperators images={images} text={text} />
+        <div>
+          <h1 className="text-4xl text-primary-500 font-bold text-center">
+            {headings?.q}
+          </h1>
+          <div className='grid lg:grid-cols-[70%_auto] mt-8 gap-4'>
+            <div>
+              <h2 className='text-center text-primary-500 text-2xl'>
+                {headings?.w}
+              </h2>
+              <p className='mt-2'>
+                {text?.e}
+              </p>
+              
+              <h2 className='text-center text-primary-500 text-2xl'>
+                {headings?.r}
+              </h2>
+              <p className='mt-2'>
+                {text?.t}
+              </p>
+              
+            </div>
+            <Image
+              record={images}
+              index={6}
+              className='mx-auto'
+            />
+          </div>
+
+          <h2 className='text-center text-primary-500 text-2xl mt-6'>
+            {headings?.y}
+          </h2>
+          <p className='mt-2'>
+            {text?.u}
+          </p>
+          
+          <h2 className='text-center text-primary-500 text-2xl mt-8'>{headings?.i}</h2>
+
+        </div>
+
+        <div className='mt-8'>
+          <h1 className="text-4xl text-primary-500 font-bold text-center">
+            {headings?.o}
+          </h1>
+          <Image
+            record={images}
+            index={6}
+            className='mx-auto mt-5'
+          />
+
+          <h2 className='text-center text-primary-500 text-2xl mt-6'>{headings?.p}</h2>
+
+          <ul className="mt-3 text-lg font-medium paragraph list-disc">
+            <li>{text?.a}</li>
+            <li>{text?.s}</li>
+            <li>{text?.d}</li>
+            <li>{text?.f}</li>
+          </ul>
+          
+        </div>
+
+        <section className='max-w-md mx-auto mt-8 border p-4 shadow-lg bg-white'>
+          <h1 className='text-center text-xl '>Оставить заявку</h1>
+          <TextInput
+            label='Имя'
+            placeholder='Ваше имя'
+            className='mt-3'
+            variant='filled'
+            value={data?.name}
+            onChange={e => setData({...data, name: e?.currentTarget?.value})}
+          />
+          <TextInput
+            label='Контактный номер'
+            placeholder='Ваш номер'
+            className='mt-3'
+            variant='filled'
+            value={data?.phone}
+            onChange={e => setData({...data, phone: e?.currentTarget?.value})}
+          />
+          <Select
+            label='Вид услуги'
+            placeholder='Выберите вид услуги'
+            data={types ?? []}
+            className='mt-3'
+            variant='filled'
+            onChange={e => setType(e)}
+          />
+          <div className='flex justify-center mt-6'>
+            <Button 
+              disabled={!data?.name || !data?.phone || !type}
+              onClick={send}
+            >
+              Оставить заявку
+            </Button>
+          </div>
+        </section>
+
       </div>
     </div>
   )

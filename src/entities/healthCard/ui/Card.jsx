@@ -2,7 +2,7 @@ import React from 'react'
 import { getImageUrl } from 'shared/lib'
 import { Image } from 'shared/ui'
 
-export const Card = ({ card, images, }) => {
+export const HealthCard = ({ card, images, }) => {
   return (
     <div className="grid md:grid-cols-2 rounded-primary overflow-hidden shadow-md bg-white max-w-4xl w-full mx-auto">
       {card?.flow === 'left' ? (

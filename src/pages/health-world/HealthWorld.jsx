@@ -30,22 +30,22 @@ export const HealthWorld = () => {
   const array = [
     {
       flow: 'left',
-      text: text?.text16,
+      text: text?.text15,
       index: 3,
     },
     {
       flow: 'right',
-      text: text?.text17,
+      text: text?.text16,
       index: 4,
     },
     {
       flow: 'left',
-      text: text?.text18,
+      text: text?.text17,
       index: 5,
     },
     {
       flow: 'right',
-      text: text?.text19,
+      text: text?.text18,
       index: 6,
     },
   ]

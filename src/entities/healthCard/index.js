@@ -1,1 +1,1 @@
-export { Card as HealthCard } from './ui/Card'
+export { HealthCard } from './ui/Card'

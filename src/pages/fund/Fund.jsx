@@ -175,27 +175,33 @@ export const Fund = () => {
               </div>
             </section>
 
-            <section className="mt-10 lg:mt-16">
-              <div className="text-center">
-                <h1 className="text-4xl font-medium text-primary-500">
-                  {headings?.heading99} 
-                  Lorem ipsum dolor sit amet.
-                </h1>
-                <div className='mt-5 max-w-3xl mx-auto'>
-                  <p className="text text-left">{text?.text99} Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates dolores dignissimos animi laudantium. Libero quidem consequatur natus suscipit, veritatis nesciunt. </p>
-                  <h2 className='text-slate-400 text-[14px] mt-4'>
+            <section className="mt-10 lg:mt-16 grid grid-cols-2">
+              <div className='text-center'>
+                  <h2 className='text-slate-400 text-[14px]'>
                     Документы
                   </h2>
-                  <img src={'/fund1.png'} alt="" />
-                  <p className='underline cursor-pointer text-primary-500'>
-                    <div className='flex gap-4 flex-wrap my-3'>
-                      <img src={fund1} alt="" className='max-w-[280px] mx-auto'/>
-                      {/* <img src={fund2} alt="" className='max-w-[280px] mx-auto'/> */}
-                    </div>
-                    <a href={'/fund.pdf'} target='_blank'>
-                      {qq(`Программу Эндаумент фонда, Свидетельства, Сертификат.pdf `, `Мемлекеттік тіркеу куәлік.pdf`)}
-                    </a>
+                <img src={'/fund1.png'} alt="" />
+                <p className='underline cursor-pointer text-primary-500'>
+                  <div className='flex gap-4 flex-wrap my-3'>
+                    <img src={fund1} alt="" className='max-w-[280px] mx-auto'/>
+                    {/* <img src={fund2} alt="" className='max-w-[280px] mx-auto'/> */}
+                  </div>
+                <a href={'/fund.pdf'} target='_blank'>
+                    {qq(`Программу Эндаумент фонда, Свидетельства, Сертификат.pdf `, `Мемлекеттік тіркеу куәлік.pdf`)}
+                  </a>
+                </p>
+              </div>
+              <div className="text-center flex justify-center items-center flex-col">
+                <h1 className="text-4xl font-medium text-primary-500">
+                  {headings?.heading99} 
+                  Lorem ipsum dolor sit.
+                </h1>
+                <div className='mt-5 max-w-3xl mx-auto'>
+                  <p className="text text-left">
+                    {text?.text99}
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur quo distinctio porro tempora assumenda ad natus voluptates maiores placeat modi.
                   </p>
+           
                 </div>
               </div>
             </section>
