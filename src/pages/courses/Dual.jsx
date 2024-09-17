@@ -38,6 +38,11 @@ export const Dual = () => {
     phone: '',
     service: ''
   })
+  const [d, setD] = React.useState({
+    name: '',
+    phone: '',
+    vaca: ''
+  })
 
   React.useEffect(() => {
     getServices()
@@ -177,6 +182,59 @@ export const Dual = () => {
           })}
         </Accordion>
       </section>
+
+      <section className='max-w-md mx-auto mt-8 border p-4 shadow-lg bg-white'>
+          <h1 className='text-center text-xl '>Оставить заявку</h1>
+          <TextInput
+            label='Имя'
+            placeholder='Ваше имя'
+            className='mt-3'
+            variant='filled'
+            value={d?.name}
+            onChange={e => setD({...d, name: e?.currentTarget?.value})}
+          />
+          <TextInput
+            label='Контактный номер'
+            placeholder='Ваш номер'
+            className='mt-3'
+            variant='filled'
+            value={d?.phone}
+            onChange={e => setD({...d, phone: e?.currentTarget?.value})}
+          />
+          <Select
+            label='Вакансия'
+            placeholder='Выберите вид услуги'
+            data={vacas?.map(e => {return {label: e?.name, value: e?.name}}) ?? []}
+            className='mt-3'
+            variant='filled'
+            onChange={e => setD({...d, vaca: e})}
+          />
+          <div className='flex justify-center mt-6'>
+            <Button 
+              disabled={!d?.name || !d?.phone || !d?.vaca}
+              onClick={async () => {
+                  await pb.collection('vaca_bids').create({
+                    ...d
+                  })
+                  .then(() => {
+                    showNotification({
+                      title: 'Заявка',
+                      color: 'green',
+                      message: 'Заявка успешно отправлена'
+                    })
+                    setD({
+                      name: '',
+                      vaca: '',
+                      phone: ''
+                    })
+                  })
+                }
+              }
+            >
+              Оставить заявку
+            </Button>
+          </div>
+        </section>
 
       <Modal
         opened={opened}

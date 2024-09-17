@@ -137,6 +137,7 @@ export const CharityFund = () => {
             </a>
           </div>
         </section>
+
         <h1 className="text-5xl font-bold text-center mt-10 text-primary-500">
           {headings?.history}
         </h1>
@@ -200,6 +201,26 @@ export const CharityFund = () => {
           </ul>
           
         </div>
+
+        <section className="mt-8 lg:mt-16 flex flex-col lg:flex-row gap-10">
+          <img
+            className="aspect-video object-cover rounded-primary w-full mx-auto lg:mx-0 max-w-xl"
+            src={getImageUrl(images, images?.[8])}
+            alt="kid"
+          />
+          <div className="w-full">
+            <h1 className="text-3xl  font-semibold text-primary-500">
+              {headings?.zz}
+            </h1>
+            <p className="mt-2 ">{text?.zz}</p>
+
+            <a href={'/insurance-1.pdf'} target='_blank'>
+              <Button>
+                Страховая лицензия
+              </Button>
+            </a>
+          </div>
+        </section>
 
         <section className='max-w-md mx-auto mt-8 border p-4 shadow-lg bg-white'>
           <h1 className='text-center text-xl '>Оставить заявку</h1>
