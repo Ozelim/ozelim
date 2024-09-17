@@ -181,7 +181,7 @@ export const HealthWorld = () => {
 
 
       <div className="container">
-        <div className="grid grid-cols-1 gap-6 mt-10">
+        <div className="space-y-6 mt-10">
           {array.map((val, i) => {
             return <HealthCard card={val} key={i} images={images}/>
           })}

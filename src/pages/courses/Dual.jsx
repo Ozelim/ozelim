@@ -50,8 +50,6 @@ export const Dual = () => {
     })
   }, [])
 
-  console.log(services, 'zxc');
-
   return (
     <>
       <main className="w-full">

@@ -186,7 +186,7 @@ export const CharityFund = () => {
           </h1>
           <Image
             record={images}
-            index={6}
+            index={7}
             className='mx-auto mt-5'
           />
 
