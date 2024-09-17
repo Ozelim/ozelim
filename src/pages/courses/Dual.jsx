@@ -202,6 +202,7 @@ export const Dual = () => {
             data={services ?? []}
             onChange={(e) => setData({...data, service: e})}
             variant='filled'
+            dropdownPosition='bottom'
           />
           <div className='flex justify-center mt-4'>
             <Button
