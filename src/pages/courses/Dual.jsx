@@ -29,6 +29,7 @@ export const Dual = () => {
   const {headings, text, images} = usePageData('dual')
 
   const [opened, handlers] = useDisclosure()
+  const [opened1, handlers1] = useDisclosure()
 
   const [services, setServices] = React.useState([])
   const [vacas, setVacas] = React.useState([])
@@ -182,9 +183,22 @@ export const Dual = () => {
           })}
         </Accordion>
       </section>
-
-      <section className='max-w-md mx-auto mt-8 border p-4 shadow-lg bg-white'>
-          <h1 className='text-center text-xl '>Оставить заявку</h1>
+      <div className="container mt-8">
+        <div className='flex justify-center'>
+          <Button 
+            onClick={() => handlers1.open()}
+          >
+            Откликнуться на вакансию 
+          </Button>
+        </div>
+      </div>
+      <Modal
+        opened={opened1}
+        onClose={() => handlers1.close()}
+        centered
+        title='Отклик на вакансию'
+      >
+        <section className='max-w-md mx-auto border p-4 shadow-lg bg-white'>
           <TextInput
             label='Имя'
             placeholder='Ваше имя'
@@ -231,10 +245,11 @@ export const Dual = () => {
                 }
               }
             >
-              Оставить заявку
+              Откликнуться на вакансию 
             </Button>
           </div>
         </section>
+      </Modal>
 
       <Modal
         opened={opened}

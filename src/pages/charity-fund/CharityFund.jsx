@@ -7,6 +7,7 @@ import { ImgSkeleton } from 'shared/ui/ImgSkeleton'
 import { usePageData } from 'shared/hooks'
 import { Image } from 'shared/ui'
 import { showNotification } from '@mantine/notifications'
+import ins from 'shared/assets/images/insurance-1.png'
 
 async function getRights () {
   return await pb.collection('insurance_data').getFullList()
@@ -213,8 +214,7 @@ export const CharityFund = () => {
               {headings?.zz}
             </h1>
             <p className="mt-2 ">{text?.zz}</p>
-
-            <a href={'/insurance-1.pdf'} target='_blank'>
+            <a href={'/insurance-1.png'} target='_blank'>
               <Button>
                 Страховая лицензия
               </Button>
