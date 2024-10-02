@@ -241,6 +241,7 @@ export const Dual = () => {
                       vaca: '',
                       phone: ''
                     })
+                    handlers1.close()
                   })
                 }
               }
