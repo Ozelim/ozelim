@@ -312,17 +312,17 @@ export const Home = () => {
           <p className=' border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>{text?.[22]}</p>
         </div>
         <div className='grid lg:grid-cols-3 gap-6 mt-4'>
-          <p className='underline cursor-pointer text-primary-500' onClick={matches ? open : () => {}}>
+          <p className='underline cursor-pointer text-primary-500'>
             <a href={'/home-11.pdf'} target='_blank'>
               Положение о членстве в Ассоциации
             </a>
           </p>
-          <p className='underline cursor-pointer text-primary-500' onClick={matches ? open : () => {}}>
+          <p className='underline cursor-pointer text-primary-500'>
             <a href={'/home-2.pdf'} target='_blank'>
               Договор о членстве в Ассоциации
             </a>
           </p>
-          <p className='underline cursor-pointer text-primary-500' onClick={matches ? open : () => {}}>
+          <p className='underline cursor-pointer text-primary-500'>
               <a href={'/home-3.pdf'} target='_blank'>
                 Заявление на вступление в Ассоциацию
               </a>
