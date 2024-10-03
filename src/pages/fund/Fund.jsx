@@ -5,6 +5,7 @@ import { usePageData } from 'shared/hooks'
 import { Image } from 'shared/ui'
 import fund1 from 'shared/assets/images/fund-01.png'
 import fund2 from 'shared/assets/images/fund-37.png'
+import { Button } from '@mantine/core'
 
 export const Fund = () => {
 
@@ -32,7 +33,7 @@ export const Fund = () => {
                 />
                 <div>
                   <ul className="mt-3 text-lg font-medium text-[#5a5959] space-y-3">
-                    {text?.text1}
+                    {text?.text1}cha
                   </ul>
                 </div>
               </div>
@@ -167,16 +168,26 @@ export const Fund = () => {
                   record={images}
                   index={5}
                 />
-                <div>
+                <div className='flex flex-col'>
                   <ul className="mt-3 text-lg font-medium text-[#5a5959] space-y-3">
                     {text?.text11}
                   </ul>
+                  <a href={'/fund-1-2.pdf'} target='_blank'>
+                    <Button className='mt-4'>
+                      Свидетельство о авторском праве
+                    </Button>
+                  </a>
+                  <a href={'/fund-3-37.pdf'} target='_blank'>
+                    <Button className='mt-4'>
+                    ⁠Авторская система создания и управления Эндаумент фондами в Казахстане
+                    </Button>
+                  </a>
                 </div>
               </div>
             </section>
 
-            <section className="mt-10 lg:mt-16 grid grid-cols-2">
-              <div className='text-center'>
+            <section className="mt-10 lg:mt-16">
+              {/* <div className='text-center'>
                   <h2 className='text-slate-400 text-[14px]'>
                     Документы
                   </h2>
@@ -184,23 +195,25 @@ export const Fund = () => {
                 <p className='underline cursor-pointer text-primary-500'>
                   <div className='flex gap-4 flex-wrap my-3'>
                     <img src={fund1} alt="" className='max-w-[280px] mx-auto'/>
-                    {/* <img src={fund2} alt="" className='max-w-[280px] mx-auto'/> */}
                   </div>
-                {/* <a href={'/fund.pdf'} target='_blank'>
-                    {qq(`Программу Эндаумент фонда, Свидетельства, Сертификат.pdf `, `Мемлекеттік тіркеу куәлік.pdf`)}
-                  </a> */}
+
                 </p>
-              </div>
+              </div> */}
               <div className="text-center flex justify-center items-center flex-col">
                 <h1 className="text-4xl font-medium text-primary-500">
                   {headings?.heading99} 
                 </h1>
-                <div className='mt-5 max-w-3xl mx-auto'>
-                  <p className="text text-left">
-                    {text?.text99}
-                  </p>
-           
-                </div>
+
+                <ul className="mt-5 font-medium paragraph list-disc max-w-3xl mx-auto">
+                  <li className='text'>{text?.text991}</li>
+                  <li className='text'>{text?.text992}</li>
+                  <li className='text'>{text?.text993}</li>
+                  <li className='text'>{text?.text994}</li>
+                  <li className='text'>{text?.text995}</li>
+                  <li className='text'>{text?.text996}</li>
+                  <li className='text'>{text?.text997}</li>
+                  <li className='text'>{text?.text998}</li>
+                </ul>
               </div>
             </section>
 
