@@ -1,6 +1,6 @@
 import React from 'react'
 import { useLangContext } from 'app/langContext'
-import { Button } from '@mantine/core'
+import { Accordion, Button, Modal, Select, TextInput } from '@mantine/core'
 import { Link as RouterLink } from 'react-router-dom'
 
 import Kazmap from 'shared/assets/images/map-kz.png'
@@ -12,6 +12,8 @@ import { Carousel, useAnimationOffsetEffect } from '@mantine/carousel'
 import Autoplay from 'embla-carousel-autoplay'
 import { pb } from 'shared/api'
 import { ResortCard } from 'entities/resort'
+import { useDisclosure } from '@mantine/hooks'
+import { showNotification } from '@mantine/notifications'
 
 async function getResorts() {
   return await pb.collection('resorts').getFullList({
@@ -19,13 +21,21 @@ async function getResorts() {
   })
 }
 
+async function getRes () {
+  return await pb.collection('health_data').getFullList()
+}
+
 export const HealthWorld = () => {
 
   const {kz} = useLangContext()
 
+  const [opened1, handlers1] = useDisclosure()
+
   const {headings, text, images} = usePageData('health-world')
 
   const [resorts, setResorts] = React.useState([])
+
+  const [r, setR] = React.useState([])
 
   const array = [
     {
@@ -56,6 +66,11 @@ export const HealthWorld = () => {
     .catch(err => {
       console.log(err, 'err');
     })
+
+    getRes()
+    .then(res => {
+      setR(res?.[0]?.resorts)
+    })
   }, [])
 
   const [embla, setEmbla] = React.useState(null)
@@ -63,6 +78,12 @@ export const HealthWorld = () => {
   const autoplay = React.useRef(Autoplay({ delay: 2000 }))
 
   useAnimationOffsetEffect(embla, 200)
+
+  const [d, setD] = React.useState({
+    name: '',
+    phone: '',
+    resort: ''
+  })
 
   return (
     <div className='w-full'>
@@ -253,6 +274,98 @@ export const HealthWorld = () => {
           </div>
         </div>
       </div>
+
+      <section className='container mt-8'>
+        <h1 className='font-bold text-4xl text-primary-500 text-center'>Санатории</h1>
+        <Accordion
+          variant='separated'
+          className='my-10'
+          defaultValue='0'
+        >
+          {r?.map((q, i) => {
+            return (
+              <Accordion.Item value={`${i}`}>
+                <Accordion.Control className='!text-xl !font-bold '>{i + 1}. 
+                  <span className='text-primary-500'>{q?.name}</span>
+                </Accordion.Control>
+                <Accordion.Panel className='p-4'>
+                  <div className='health-wrld' dangerouslySetInnerHTML={{__html: q?.desc ?? <></>}}/>
+                </Accordion.Panel>
+              </Accordion.Item>
+            )
+          })}
+        </Accordion>
+
+        <div className='flex justify-center mt-4'>
+          <Button
+            onClick={() => handlers1.open()}
+          >
+            {kz ? 'Өтініш қалдыру' : `Оставить заявку`}
+          </Button>
+        </div>
+      </section>
+          
+      
+      <Modal
+        opened={opened1}
+        onClose={() => handlers1.close()}
+        centered
+        title='Оставить заявку'
+      >
+        <section className='max-w-md mx-auto border p-4 shadow-lg bg-white'>
+          <TextInput
+            label='Имя'
+            placeholder='Ваше имя'
+            className='mt-3'
+            variant='filled'
+            value={d?.name}
+            onChange={e => setD({...d, name: e?.currentTarget?.value})}
+          />
+          <TextInput
+            label='Контактный номер'
+            placeholder='Ваш номер'
+            className='mt-3'
+            variant='filled'
+            value={d?.phone}
+            onChange={e => setD({...d, phone: e?.currentTarget?.value})}
+          />
+          <Select
+            label='Санатории'
+            placeholder='Выберите санаторий'
+            data={r?.map(e => {return {label: e?.name, value: e?.name}}) ?? []}
+            className='mt-3'
+            variant='filled'
+            onChange={e => setD({...d, resort: e})}
+          />
+          <div className='flex justify-center mt-6'>
+            <Button 
+              disabled={!d?.name || !d?.phone || !d?.resort}
+              onClick={async () => {
+                  await pb.collection('health_bids').create({
+                    ...d
+                  })
+                  .then(() => {
+                    showNotification({
+                      title: 'Заявка',
+                      color: 'green',
+                      message: 'Заявка успешно отправлена'
+                    })
+                    setD({
+                      name: '',
+                      phone: '',
+                      resort: '',
+                    })
+                    handlers1.close()
+                  })
+                }
+              }
+            >
+              Оставить заявку
+            </Button>
+          </div>
+        </section>
+      </Modal>
+
     </div>
   )
 }

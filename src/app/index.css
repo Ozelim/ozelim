@@ -26,3 +26,13 @@
         @apply text-sm text-[#545454] font-body tracking-wider
     }
 }
+
+.health-wrld ul {
+    list-style: disc !important;
+    margin-left: 15px;
+}
+
+.health-wrld ol {
+    list-style: disc !important;
+    margin-left: 15px;
+}

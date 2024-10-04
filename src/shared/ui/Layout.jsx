@@ -6,7 +6,7 @@ import { CgProfile } from 'react-icons/cg'
 import { useAuth } from 'shared/hooks'
 import { getImageUrl } from 'shared/lib'
 
-import mobileLogo from 'shared/assets/images/logo.svg'
+import mobileLogo from 'shared/assets/images/logo1.png'
 import { AiOutlineWhatsApp } from 'react-icons/ai'
 
 export const Layout = ({subheaderSlot,  headerSlot, footerSlot}) => {

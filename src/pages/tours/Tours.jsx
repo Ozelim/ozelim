@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Collapse, Modal, NumberInput, Select, Text, TextInput } from '@mantine/core'
+import { Accordion, Button, Collapse, Modal, NumberInput, Select, Text, TextInput } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { pb } from 'shared/api'
 import { usePageData } from 'shared/hooks'
@@ -17,11 +17,24 @@ async function getResots () {
   return await pb.collection('resorts_data').getFullList()
 }
 
+async function getTours () {
+  return await pb.collection('tours_data').getFullList()
+}
+
 export const Tours = () => {
 
   const {kz} = useLangContext()
 
   const {images, text, headings} = usePageData('tours')
+
+  const [tours, setTours] = React.useState([])
+
+  React.useEffect(() => {
+    getTours()
+    .then(res => {
+      setTours(res?.[0]?.tours)
+    })
+  }, [])
 
   const [opened, handlers] = useDisclosure(false);
   const [collapse, collapseHandler] = useDisclosure(false);
@@ -292,6 +305,29 @@ export const Tours = () => {
             </div>
           </div>
         </section>
+
+        <section className='container mt-8'>
+          <h1 className='font-bold text-4xl text-primary-500 text-center'>Туры</h1>
+          <Accordion
+            variant='separated'
+            className='my-10'
+            defaultValue='0'
+          >
+            {tours?.map((q, i) => {
+              return (
+                <Accordion.Item value={`${i}`} key={i}>
+                  <Accordion.Control className='!text-xl !font-bold '>{i + 1}. 
+                    <span className='text-primary-500'>{q?.name}</span>
+                  </Accordion.Control>
+                  <Accordion.Panel className='p-4'>
+                    <div className='health-wrld' dangerouslySetInnerHTML={{__html: q?.desc ?? <></>}}/>
+                  </Accordion.Panel>
+                </Accordion.Item>
+              )
+            })}
+          </Accordion>
+        </section>
+
       </div>
       <Modal
         opened={opened}

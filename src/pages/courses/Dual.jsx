@@ -217,7 +217,7 @@ export const Dual = () => {
           />
           <Select
             label='Вакансия'
-            placeholder='Выберите вид услуги'
+            placeholder='Выберите вакансию'
             data={vacas?.map(e => {return {label: e?.name, value: e?.name}}) ?? []}
             className='mt-3'
             variant='filled'

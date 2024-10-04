@@ -26,7 +26,7 @@ export const Header = () => {
   return (
     <div className="w-full relative py-3">
       <div className="w-full relative flex justify-center items-center">
-        <div className="">
+        <div>
           <nav className="space-x-6 font-head">
             {array.map((val, i) => {
               return (

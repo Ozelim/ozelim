@@ -204,7 +204,7 @@ export const Fund = () => {
                   {headings?.heading99} 
                 </h1>
 
-                <ul className="mt-5 font-medium paragraph list-disc max-w-3xl mx-auto">
+                <ul className="mt-5 font-medium paragraph list-disc max-w-3xl ">
                   <li className='text'>{text?.text991}</li>
                   <li className='text'>{text?.text992}</li>
                   <li className='text'>{text?.text993}</li>
