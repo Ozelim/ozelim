@@ -33,7 +33,7 @@ export const Fund = () => {
                 />
                 <div>
                   <ul className="mt-3 text-lg font-medium text-[#5a5959] space-y-3">
-                    {text?.text1}cha
+                    {text?.text1}
                   </ul>
                 </div>
               </div>
@@ -199,20 +199,60 @@ export const Fund = () => {
 
                 </p>
               </div> */}
-              <div className="text-center flex justify-center items-center flex-col">
-                <h1 className="text-4xl font-medium text-primary-500">
+              <div>
+                <h1 className="text-4xl font-medium text-primary-500 text-center">
                   {headings?.heading99} 
                 </h1>
 
-                <ul className="mt-5 font-medium paragraph list-disc max-w-3xl ">
-                  <li className='text'>{text?.text991}</li>
-                  <li className='text'>{text?.text992}</li>
-                  <li className='text'>{text?.text993}</li>
-                  <li className='text'>{text?.text994}</li>
-                  <li className='text'>{text?.text995}</li>
-                  <li className='text'>{text?.text996}</li>
-                  <li className='text'>{text?.text997}</li>
-                  <li className='text'>{text?.text998}</li>
+                <ul className="space-y-4 mt-5">
+                  <li className="flex gap-4">
+                    <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                    <p className="text">
+                      {text?.text991}
+                    </p>
+                  </li>
+                  <li className="flex gap-4">
+                    <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                    <p className="text">
+                      {text?.text992}
+                    </p>
+                  </li>
+                  <li className="flex gap-4">
+                    <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                    <p className="text">
+                      {text?.text993}
+                    </p>
+                  </li>
+                  <li className="flex gap-4">
+                    <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                  <p className="text">
+                      {text?.text994}
+                    </p>
+                  </li>
+                  <li className="flex gap-4">
+                    <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                  <p className="text">
+                      {text?.text995}
+                    </p>
+                  </li>
+                  <li className="flex gap-4">
+                    <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                  <p className="text">
+                      {text?.text996}
+                    </p>
+                  </li>
+                  <li className="flex gap-4">
+                    <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                  <p className="text">
+                      {text?.text997}
+                    </p>
+                  </li>
+                  <li className="flex gap-4">
+                    <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                  <p className="text">
+                      {text?.text998}
+                    </p>
+                  </li>
                 </ul>
               </div>
             </section>
