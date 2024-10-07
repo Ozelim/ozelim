@@ -1,5 +1,7 @@
-import { Accordion, Button, Select, TextInput } from '@mantine/core'
+import { Accordion, Button, Modal, Select, TextInput } from '@mantine/core'
+import { useDisclosure } from '@mantine/hooks'
 import { showNotification } from '@mantine/notifications'
+import { useLangContext } from 'app/langContext'
 import React from 'react'
 import { pb } from 'shared/api'
 import { usePageData } from 'shared/hooks'
@@ -92,9 +94,9 @@ const acc = [
     <>
       <p>Члены Ассоциации могут получать юридическую помощь по вопросам международного сотрудничества и трансграничных сделок. В сфере туризма часто возникает необходимость взаимодействия с иностранными партнерами, и Ассоциация помогает в этом процессе:</p>
       <ul className='list-disc px-6 mt-4'>
-        <p>Подготовка и сопровождение международных контрактов;</p>
-        <p>Консультации по вопросам правового регулирования трансграничной деятельности;</p>
-        <p>Сопровождение международных сделок и договоров с иностранными туристическими компаниями.</p>
+        <li>Подготовка и сопровождение международных контрактов;</li>
+        <li>Консультации по вопросам правового регулирования трансграничной деятельности;</li>
+        <li>Сопровождение международных сделок и договоров с иностранными туристическими компаниями.</li>
       </ul>
       <p className='font-bold mt-4'>Преимущества:</p>
       <p>Международное правовое сопровождение позволяет членам Ассоциации расширить свою деятельность на международный рынок, минимизируя юридические риски и сложности, связанные с трансграничными операциями.</p>
@@ -106,9 +108,9 @@ const acc = [
     <>
       <p>Юридическая помощь в сфере трудовых отношений также важна для членов Ассоциации, особенно в случае конфликтов с сотрудниками или необходимости составления трудовых договоров:</p>
       <ul className='list-disc px-6 mt-4'>
-        <p>Подготовка трудовых договоров и коллективных соглашений;</p>
-        <p>Консультирование по вопросам увольнения, дисциплинарных взысканий и других аспектов трудового законодательства;</p>
-        <p>Представление интересов членов Ассоциации в трудовых спорах.</p>
+        <li>Подготовка трудовых договоров и коллективных соглашений;</li>
+        <li>Консультирование по вопросам увольнения, дисциплинарных взысканий и других аспектов трудового законодательства;</li>
+        <li>Представление интересов членов Ассоциации в трудовых спорах.</li>
       </ul>
       <p className='font-bold mt-4'>Преимущества:</p>
       <p>Грамотное управление трудовыми вопросами помогает членам Ассоциации избежать конфликтов с сотрудниками и соответствовать требованиям трудового законодательства.</p>
@@ -120,9 +122,9 @@ const acc = [
     <>
       <p>Ассоциация активно поддерживает своих членов в реализации проектов, направленных на развитие туристической инфраструктуры и повышение качества предоставляемых услуг. В рамках этой услуги предлагается:</p>
       <ul className='list-disc px-6 mt-4'>
-        <p>Юридическое сопровождение инвестиционных проектов, связанных с развитием туристических объектов;</p>
-        <p>Консультации по правовым вопросам, связанным с участием в государственных программах поддержки туризма;</p>
-        <p>Помощь в разработке правовых стратегий для реализации проектов по улучшению туристических услуг.</p>
+        <li>Юридическое сопровождение инвестиционных проектов, связанных с развитием туристических объектов;</li>
+        <li>Консультации по правовым вопросам, связанным с участием в государственных программах поддержки туризма;</li>
+        <li>Помощь в разработке правовых стратегий для реализации проектов по улучшению туристических услуг.</li>
       </ul>
       <p className='font-bold mt-4'>Преимущества:</p>
       <p>Юридическая поддержка проектов позволяет членам Ассоциации эффективно развивать свои бизнесы, получая правовую защиту и советы на каждом этапе реализации.</p>
@@ -134,9 +136,9 @@ const acc = [
     <>
       <p>Эндаумент-фонд играют важную роль в поддержке долгосрочных проектов, и Ассоциация предлагает помощь в их создании и управлении. Услуги включают:</p>
       <ul className='list-disc px-6 mt-4'>
-        <p>Регистрация эндаумент-фонд для финансирования туристических инициатив;</p>
-        <p>Сопровождение деятельности фонд и обеспечение их соответствия законодательству;</p>
-        <p>Привлечение доноров и управление активами фонд.</p>
+        <li>Регистрация эндаумент-фонд для финансирования туристических инициатив;</li>
+        <li>Сопровождение деятельности фонд и обеспечение их соответствия законодательству;</li>
+        <li>Привлечение доноров и управление активами фонд.</li>
       </ul>
       <p className='font-bold mt-4'>Преимущества:</p>
       <p>Эндаумент-фонд позволяют членам Ассоциации финансировать долгосрочные проекты и обеспечивать устойчивое развитие туристической отрасли.</p>
@@ -148,9 +150,9 @@ const acc = [
     <>
       <p>Ассоциация также предлагает юридические услуги по защите прав потребителей в туристической отрасли. Это включает:</p>
       <ul className='list-disc px-6 mt-4'>
-        <p>Консультирование по вопросам прав туристов;</p>
-        <p>Представление интересов членов Ассоциации в случаях жалоб и претензий со стороны клиентов;</p>
-        <p>Сопровождение дел в суде, связанных с нарушением прав потребителей.</p>
+        <li>Консультирование по вопросам прав туристов;</li>
+        <li>Представление интересов членов Ассоциации в случаях жалоб и претензий со стороны клиентов;</li>
+        <li>Сопровождение дел в суде, связанных с нарушением прав потребителей.</li>
       </ul>
       <p className='font-bold mt-4'>Преимущества:</p>
       <p>Защита прав потребителей помогает членам Ассоциации соблюдать законодательство и поддерживать высокий уровень доверия со стороны клиентов.</p>
@@ -165,6 +167,10 @@ export const Rights = () => {
   const [types, setTypes] = React.useState([])
 
   const [type, setType] = React.useState('')
+
+  const [opened1, handlers1] = useDisclosure()
+
+  const {kz} = useLangContext()
 
   React.useEffect(() => {
     getRights()
@@ -198,171 +204,196 @@ export const Rights = () => {
   }
 
   return (
-    <div className='w-full'>
-      <div className="container">
+    <>
+      <div className='w-full'>
+        <div className="container">
 
-        <div className="grid lg:grid-cols-2 mt-6 gap-10">
-          <div>
-            <Image
-              record={images}
-              index={1}
-              className="w-full max-w-[300px] mx-auto max-h-[300px] rounded-primary object-cover object-center"
-            />
-            <h2 className="text-center pt-2 font-head text-2xl px-6 text-primary-500">
-              {headings?.heading1}
-            </h2>
-            <p className="px-4 text-center text">
-              {text?.text1}
-            </p>
-            <div className='text-center'>
-              <a href={headings?.link} target="_blank" className="underline text-blue-300">
-                Перейти по ссылке
-              </a>
+          <div className="grid lg:grid-cols-2 mt-6 gap-10">
+            <div>
+              <Image
+                record={images}
+                index={1}
+                className="w-full max-w-[300px] mx-auto max-h-[300px] rounded-primary object-cover object-center"
+              />
+              <h2 className="text-center pt-2 font-head text-2xl px-6 text-primary-500">
+                {headings?.heading1}
+              </h2>
+              <p className="px-4 text-center text">
+                {text?.text1}
+              </p>
+              <div className='text-center'>
+                <a href={headings?.link} target="_blank" className="underline text-blue-300">
+                  Перейти по ссылке
+                </a>
+              </div>
+              {/* <p className='mt-2 text-lg text-center'>{headings?.name}</p> */}
             </div>
-            {/* <p className='mt-2 text-lg text-center'>{headings?.name}</p> */}
+            <div>
+              <h1 className="text-2xl lg:text-4xl font-semibold font-head text-teal-500">
+                {headings?.heading2}
+              </h1>
+              <p className="text mt-5">
+                {text?.text2}
+              </p>
+              {/* <ul className="space-y-4 mt-8">
+                <li className="flex gap-4">
+                  <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                </li>
+                <li className="flex gap-4">
+                  <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                  <p className="text">
+                    {text?.text3}
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum, enim!
+                  </p>
+                </li>
+                <li className="flex gap-4">
+                  <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                  <p className="text">
+                    {text?.text4}
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum, enim!
+                  </p>
+                </li>
+                <li className="flex gap-4">
+                  <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                <p className="text">
+                    {text?.text5}
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum, enim!
+                  </p>
+                </li>
+              </ul> */}
+            </div>
           </div>
-          <div>
-            <h1 className="text-2xl lg:text-4xl font-semibold font-head text-teal-500">
-              {headings?.heading2}
+
+          <section className="w-full mt-4">
+            <h1 className="text-4xl text-primary-500 font-bold">
+              {headings?.heading3}
             </h1>
-            <p className="text mt-5">
-              {text?.text2}
-            </p>
-            {/* <ul className="space-y-4 mt-8">
-              <li className="flex gap-4">
-                <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
-              </li>
-              <li className="flex gap-4">
-                <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
-                <p className="text">
+            <div className='flex flex-col md:flex-row gap-8 mt-6'>
+              <Image
+                className="max-w-2xl w-full rounded-primary max-h-80 object-cover"
+                record={images}
+                index={2}
+              />
+              <div>
+                <ul className="mt-3 text-lg font-medium text-[#5a5959] space-y-3">
                   {text?.text3}
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum, enim!
+                  {/* Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, veniam. */}
+                </ul>
+              </div>
+            </div>
+          </section>
+
+
+
+
+          <div className='grid gap-8 mt-5 max-w-3xl mx-auto'>
+            <p className="text-left">{text?.text4} </p>
+          </div>
+
+          <div>
+            <h2 className='font-semibold text-[20px] mt-5 text-primary-500'>
+              {headings?.heading4}
+              {/* Lorem, ipsum dolor. */}
+            </h2>
+            <ul className="space-y-4 px-4 mt-5">
+              <li className="flex gap-4">
+                <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                <p className="text">
+                  {text?.text5}
+                </p>
+                <p className="text-left mt-3">{text?.text55} </p>
+              </li>
+              <li className="flex gap-4">
+                <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                <p className="text">
+                  {text?.text6}
+                  <p className="text-left mt-3">{text?.text66} </p>
                 </p>
               </li>
               <li className="flex gap-4">
                 <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
                 <p className="text">
-                  {text?.text4}
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum, enim!
+                  {text?.text7}
+                  <p className="text-left mt-3">{text?.text77} </p>
                 </p>
               </li>
               <li className="flex gap-4">
                 <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
-              <p className="text">
-                  {text?.text5}
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum, enim!
+                <p className="text">
+                  {text?.text8}
+                  <p className="text-left mt-3">{text?.text88} </p>
                 </p>
               </li>
-            </ul> */}
+              <li className="flex gap-4">
+                <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                <p className="text">
+                  {text?.text9}
+                  <p className="text-left mt-3">{text?.text99} </p>
+                </p>
+              </li>
+            </ul>
           </div>
-        </div>
 
-        <section className="w-full mt-4">
-          <h1 className="text-4xl text-primary-500 font-bold">
-            {headings?.heading3}
-          </h1>
-          <div className='flex flex-col md:flex-row gap-8 mt-6'>
-            <Image
-              className="max-w-2xl w-full rounded-primary max-h-80 object-cover"
-              record={images}
-              index={2}
-            />
-            <div>
-              <ul className="mt-3 text-lg font-medium text-[#5a5959] space-y-3">
-                {text?.text3}
-                {/* Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, veniam. */}
-              </ul>
+          <section className='mt-10'>
+            <h1 className='font-bold text-4xl text-primary-500 text-center'>Юридические услуги для членов Ассоциации «ÖZ ELİM»</h1>
+            {/* <p className='mt-4 max-w-4xl text-center mx-auto'>Члены Ассоциации «ÖZ ELİM» получают доступ к широкому спектру юридических услуг, которые направлены на защиту их прав, поддержку туристических проектов, а также содействие развитию туристической отрасли в Казахстане. Рассмотрим эти услуги более подробно:</p> */}
+            <Accordion
+              variant='separated'
+              className='my-10'
+              defaultValue='0'
+            >
+              {acc.map((q, i) => {
+                return (
+                  <Accordion.Item value={`${i}`}>
+                    <Accordion.Control className='!text-xl !font-bold '>{i + 1}. 
+                      <span className='text-primary-500'>{q?.label}</span>
+                    </Accordion.Control>
+                    <Accordion.Panel className='p-4'>
+                      {q?.description}
+                    </Accordion.Panel>
+                  </Accordion.Item>
+                )
+              })}
+            </Accordion>
+          </section>
+
+          <section className="w-full mt-4">
+            <h1 className="text-4xl text-primary-500 font-bold">
+            {headings?.heading5}
+            </h1>
+            <div className='flex flex-col md:flex-row gap-8 mt-6'>
+              <Image
+                className="max-w-2xl w-full rounded-primary max-h-80 object-cover"
+                record={images}
+                index={3}
+              />
+              <div>
+                <ul className="mt-3 text-lg font-medium text-[#5a5959] space-y-3">
+                  {text?.text10}
+                </ul>
+              </div>
             </div>
+          </section>
+
+          <div className='flex justify-center mt-4'>
+            <Button
+              onClick={() => handlers1.open()}
+            >
+              {kz ? 'Өтініш қалдыру' : `Оставить заявку`}
+            </Button>
           </div>
-        </section>
-
-        <section className='mt-10'>
-          <h1 className='font-bold text-4xl text-primary-500 text-center'>Юридические услуги для членов Ассоциации «ÖZ ELİM»</h1>
-          {/* <p className='mt-4 max-w-4xl text-center mx-auto'>Члены Ассоциации «ÖZ ELİM» получают доступ к широкому спектру юридических услуг, которые направлены на защиту их прав, поддержку туристических проектов, а также содействие развитию туристической отрасли в Казахстане. Рассмотрим эти услуги более подробно:</p> */}
-          <Accordion
-            variant='separated'
-            className='my-10'
-            defaultValue='0'
-          >
-            {acc.map((q, i) => {
-              return (
-                <Accordion.Item value={`${i}`}>
-                  <Accordion.Control className='!text-xl !font-bold '>{i + 1}. 
-                    <span className='text-primary-500'>{q?.label}</span>
-                  </Accordion.Control>
-                  <Accordion.Panel className='p-4'>
-                    {q?.description}
-                  </Accordion.Panel>
-                </Accordion.Item>
-              )
-            })}
-          </Accordion>
-        </section>
 
 
-        <div className='grid gap-8 mt-5 max-w-3xl mx-auto'>
-          <p className="text-left">{text?.text4} </p>
+
         </div>
-
-        <div>
-          <h2 className='font-semibold text-[20px] mt-5'>
-            {headings?.heading4}
-            {/* Lorem, ipsum dolor. */}
-          </h2>
-          <ul className="space-y-4 px-4 mt-5">
-            <li className="flex gap-4">
-              <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
-              <p className="text">
-                {text?.text5}
-              </p>
-            </li>
-            <li className="flex gap-4">
-              <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
-              <p className="text">
-                {text?.text6}
-              </p>
-            </li>
-            <li className="flex gap-4">
-              <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
-              <p className="text">
-                {text?.text7}
-              </p>
-            </li>
-            <li className="flex gap-4">
-              <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
-              <p className="text">
-                {text?.text8}
-              </p>
-            </li>
-            <li className="flex gap-4">
-              <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
-              <p className="text">
-                {text?.text9}
-              </p>
-            </li>
-          </ul>
-        </div>
-
-        <section className="w-full mt-4">
-          <h1 className="text-4xl text-primary-500 font-bold">
-          {headings?.heading5}
-          </h1>
-          <div className='flex flex-col md:flex-row gap-8 mt-6'>
-            <Image
-              className="max-w-2xl w-full rounded-primary max-h-80 object-cover"
-              record={images}
-              index={3}
-            />
-            <div>
-              <ul className="mt-3 text-lg font-medium text-[#5a5959] space-y-3">
-                {text?.text10}
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <section className='max-w-md mx-auto mt-8 border p-4 shadow-lg bg-white'>
-          <h1 className='text-center text-xl '>Оставить заявку</h1>
+      </div>
+      <Modal
+        opened={opened1}
+        onClose={() => handlers1.close()}
+        centered
+        title='Оставить заявку'
+      >
+        <section className='max-w-md mx-auto border px-4 pb-4 shadow-lg bg-white'>
           <TextInput
             label='Имя'
             placeholder='Ваше имя'
@@ -396,8 +427,7 @@ export const Rights = () => {
             </Button>
           </div>
         </section>
-
-      </div>
-    </div>
+      </Modal>
+    </>
   )
 }

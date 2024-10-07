@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Select, TextInput } from '@mantine/core'
+import { Button, Modal, Select, TextInput } from '@mantine/core'
 import { TourOperators } from 'modules/TourOperators'
 import { pb } from 'shared/api'
 import { getImageUrl } from 'shared/lib'
@@ -8,6 +8,8 @@ import { usePageData } from 'shared/hooks'
 import { Image } from 'shared/ui'
 import { showNotification } from '@mantine/notifications'
 import ins from 'shared/assets/images/insurance-1.png'
+import { useDisclosure } from '@mantine/hooks'
+import { useLangContext } from 'app/langContext'
 
 async function getRights () {
   return await pb.collection('insurance_data').getFullList()
@@ -17,6 +19,10 @@ async function getRights () {
 export const CharityFund = () => {
 
   const {images, headings, text} = usePageData('insurance')
+
+  const {kz} = useLangContext()
+
+  const [opened1, handlers1] = useDisclosure()
 
   const [data, setData] = React.useState({
     name: '',
@@ -222,8 +228,21 @@ export const CharityFund = () => {
           </div>
         </section>
 
-        <section className='max-w-md mx-auto mt-8 border p-4 shadow-lg bg-white'>
-          <h1 className='text-center text-xl '>Оставить заявку</h1>
+        <div className='flex justify-center mt-4'>
+          <Button
+            onClick={() => handlers1.open()}
+          >
+            {kz ? 'Өтініш қалдыру' : `Оставить заявку`}
+          </Button>
+        </div>
+
+        <Modal
+          opened={opened1}
+          onClose={() => handlers1.close()}
+          centered
+          title='Оставить заявку'
+        >
+        <section className='max-w-md mx-auto border p-4 shadow-lg bg-white'>
           <TextInput
             label='Имя'
             placeholder='Ваше имя'
@@ -257,7 +276,7 @@ export const CharityFund = () => {
             </Button>
           </div>
         </section>
-
+        </Modal>
       </div>
     </div>
   )

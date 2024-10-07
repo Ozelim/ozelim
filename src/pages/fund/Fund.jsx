@@ -1,11 +1,13 @@
 import React from 'react'
-import { useMediaQuery } from '@mantine/hooks'
+import { useDisclosure, useMediaQuery } from '@mantine/hooks'
 import { useLangContext } from 'app/langContext'
 import { usePageData } from 'shared/hooks'
 import { Image } from 'shared/ui'
 import fund1 from 'shared/assets/images/fund-01.png'
 import fund2 from 'shared/assets/images/fund-37.png'
-import { Button } from '@mantine/core'
+import { Button, Modal, TextInput } from '@mantine/core'
+import { pb } from 'shared/api'
+import { showNotification } from '@mantine/notifications'
 
 export const Fund = () => {
 
@@ -13,7 +15,15 @@ export const Fund = () => {
 
   const matches = useMediaQuery(`(min-width: 767px)`)
 
-  const { qq } = useLangContext()
+  const { qq, kz } = useLangContext()
+
+  const [opened1, handlers1] = useDisclosure()
+
+  const [d, setD] = React.useState({
+    name: '',
+    phone: '',
+    resort: ''
+  })
 
   return (
     <>
@@ -275,13 +285,80 @@ export const Fund = () => {
                   <ul className="mt-3 text-lg font-medium text-[#5a5959] space-y-3">
                     {text?.text12}
                   </ul>
-
+                  <div className="flex mt-4">
+                  <Button
+                    onClick={() => handlers1.open()}
+                  >
+                    {kz ? 'Өтініш қалдыру' : `Оставить заявку`}
+                  </Button>
+                  </div>
                 </div>
               </div>
             </section>
+            
           </div>
         </div>
       </div>
+
+      <Modal
+        opened={opened1}
+        onClose={() => handlers1.close()}
+        centered
+        title='Оставить заявку'
+      >
+        <section className='max-w-md mx-auto border px-4 pb-4 shadow-lg bg-white'>
+          <TextInput
+            label='Имя'
+            placeholder='Ваше имя'
+            className='mt-3'
+            variant='filled'
+            value={d?.name}
+            onChange={e => setD({...d, name: e?.currentTarget?.value})}
+          />
+          <TextInput
+            label='Контактный номер'
+            placeholder='Ваш номер'
+            className='mt-3'
+            variant='filled'
+            value={d?.phone}
+            onChange={e => setD({...d, phone: e?.currentTarget?.value})}
+          />
+          {/* <Select
+            label='Санатории'
+            placeholder='Выберите санаторий'
+            data={r?.map(e => {return {label: e?.name, value: e?.name}}) ?? []}
+            className='mt-3'
+            variant='filled'
+            onChange={e => setD({...d, resort: e})}
+          /> */}
+          <div className='flex justify-center mt-6'>
+            <Button 
+              disabled={!d?.name || !d?.phone}
+              onClick={async () => {
+                  await pb.collection('fund_bids').create({
+                    ...d
+                  })
+                  .then(() => {
+                    showNotification({
+                      title: 'Заявка',
+                      color: 'green',
+                      message: 'Заявка успешно отправлена'
+                    })
+                    setD({
+                      name: '',
+                      phone: '',
+                      resort: '',
+                    })
+                    handlers1.close()
+                  })
+                }
+              }
+            >
+              Оставить заявку
+            </Button>
+          </div>
+        </section>
+      </Modal>
     </>
   )
 }
