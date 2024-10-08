@@ -347,7 +347,6 @@ export const Fund = () => {
                     setD({
                       name: '',
                       phone: '',
-                      resort: '',
                     })
                     handlers1.close()
                   })
