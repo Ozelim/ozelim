@@ -299,7 +299,7 @@ export const Rights = () => {
               <li>
                 <div className='flex gap-4'>
                   <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
-                  <p className="text-lg">
+                  <p className="text-lg text-primary-500">
                     {text?.text5}
                   </p>
                 </div>
@@ -308,7 +308,7 @@ export const Rights = () => {
               <li>
                 <div className='flex gap-4'>
                   <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
-                  <p className="text-lg">
+                  <p className="text-lg text-primary-500">
                     {text?.text6}
                   </p>
                 </div>
@@ -317,7 +317,7 @@ export const Rights = () => {
               <li>
                 <div className='flex gap-4'>
                   <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
-                  <p className="text-lg">
+                  <p className="text-lg text-primary-500">
                     {text?.text7}
                   </p>
                 </div>
@@ -326,7 +326,7 @@ export const Rights = () => {
               <li>
                 <div className='flex gap-4'>
                   <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
-                  <p className="text-lg">
+                  <p className="text-lg text-primary-500">
                     {text?.text8}
                   </p>
                 </div>
@@ -335,7 +335,7 @@ export const Rights = () => {
               <li>
                 <div className='flex gap-4'>
                   <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
-                  <p className="text-lg">
+                  <p className="text-lg text-primary-500">
                     {text?.text9}
                   </p>
                 </div>
@@ -345,7 +345,9 @@ export const Rights = () => {
           </div>
 
           <section className='mt-10'>
-            <h1 className='font-bold text-4xl text-primary-500 text-center'>Юридические услуги для членов Ассоциации «ÖZ ELİM»</h1>
+            <h1 className='font-bold text-4xl text-primary-500 text-center'>
+              Предлагаемые юридические услуги
+            </h1>
             {/* <p className='mt-4 max-w-4xl text-center mx-auto'>Члены Ассоциации «ÖZ ELİM» получают доступ к широкому спектру юридических услуг, которые направлены на защиту их прав, поддержку туристических проектов, а также содействие развитию туристической отрасли в Казахстане. Рассмотрим эти услуги более подробно:</p> */}
             <Accordion
               variant='separated'
