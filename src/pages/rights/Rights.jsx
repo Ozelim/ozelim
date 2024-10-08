@@ -296,39 +296,49 @@ export const Rights = () => {
               {/* Lorem, ipsum dolor. */}
             </h2>
             <ul className="space-y-4 px-4 mt-5">
-              <li className="flex gap-4">
-                <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
-                <p className="text-lg">
-                  {text?.text5}
-                </p>
+              <li className="space-x-4">
+                <div className='flex gap-4'>
+                  <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                  <p className="text-lg">
+                    {text?.text5}
+                  </p>
+                </div>
                 <p className="text-left mt-3 text">{text?.text55} </p>
               </li>
-              <li className="flex gap-4">
-                <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
-                <p className="text-lg">
-                  {text?.text6}
-                </p>
+              <li className="space-x-4">
+                <div className='flex gap-4'>
+                  <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                  <p className="text-lg">
+                    {text?.text6}
+                  </p>
+                </div>
                 <p className="text-left mt-3 text">{text?.text66} </p>
               </li>
-              <li className="flex gap-4">
-                <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
-                <p className="text-lg">
-                  {text?.text7}
-                </p>
+              <li className="space-x-4">
+                <div className='flex gap-4'>
+                  <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                  <p className="text-lg">
+                    {text?.text7}
+                  </p>
+                </div>
                 <p className="text-left mt-3 text">{text?.text77} </p>
               </li>
-              <li className="flex gap-4">
-                <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
-                <p className="text-lg">
-                  {text?.text8}
-                </p>
+              <li className="space-x-4">
+                <div className='flex gap-4'>
+                  <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                  <p className="text-lg">
+                    {text?.text8}
+                  </p>
+                </div>
                 <p className="text-left mt-3 text">{text?.text88} </p>
               </li>
-              <li className="flex gap-4">
-                <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
-                <p className="text-lg">
-                  {text?.text9}
-                </p>
+              <li className="space-x-4">
+                <div className='flex gap-4'>
+                  <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
+                  <p className="text-lg">
+                    {text?.text9}
+                  </p>
+                </div>
                 <p className="text-left mt-3 text">{text?.text99} </p>
               </li>
             </ul>
