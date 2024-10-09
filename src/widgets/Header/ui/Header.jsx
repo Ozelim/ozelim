@@ -16,9 +16,9 @@ const array = [
 
 const array2 = [
   {labelru: 'Фонд', link: '/fund'},
-  {labelru: 'Мир здоровье', link: '/health-world'},
+  {labelru: 'Мир здоровья', link: '/health-world'},
   {labelru: 'Дуальное обучение', link: '/dual'},
-  {labelru: 'Туры с Ozelim', link: '/tours'},
+  {labelru: 'Туры с OzElim', link: '/tours'},
   {labelru: 'Страхование', link: '/insurance'},
   {labelru: 'Правовая защита', link: '/rights'},
 ] 
