@@ -36,7 +36,7 @@ export const Header = () => {
     <div className="w-full relative py-3">
       <div className="w-full relative flex justify-center items-center">
         <div>
-          <nav className="space-x-6 font-head">
+          {/* <nav className="space-x-6 font-head">
             {array.map((val, i) => {
               return (
                 <Link
@@ -56,41 +56,15 @@ export const Header = () => {
             >
               {kz ? 'Санаториялар' : `Санатории`}
             </Link>
-            {/* <Popover
-              classNames={{
-                dropdown: 'grid grid-cols-3 gap-4 border p-4 rounded-primary',
-              }}
-            >
-              <Popover.Target>
-                <span className="whitespace-nowrap text-teal-500 hover:text-yellow-400 text-sm lg:text-xl cursor-pointer">
-                  {kz ? 'Санаторийлер' : `Санатории`}
-                  <RiArrowDownSLine className="inline text-xl" />
-                </span>
-              </Popover.Target>
-              <Popover.Dropdown>
-                {regions.map((region, i) => {
-                  return (
-                    <Link to={`/resorts?region=${region}`} key={i}>
-                      <span
-                        className="hover:text-yellow-400 text-sm cursor-pointer text-teal-500"
-                        // onClick={() => handleRegionClick(city)}
-                      >
-                        {region}
-                      </span>
-                    </Link>
-                  )
-                })}
-              </Popover.Dropdown>
-            </Popover> */}
             <Link
               className="text-teal-500 hover:text-yellow-400 text-sm lg:text-xl cursor-pointer hidden md:inline-block"
               to={'/price'}
             >
               {kz ? 'Қызметтер' : 'Услуги'}
             </Link>
-          </nav>
+          </nav> */}
           {/* <ContactInfo/> */}
-          <nav className='space-x-6 font-head mt-4'>
+          <nav className='space-x-6 font-head'>
             {array2.map((val, i) => {
               return (
                 <Link
