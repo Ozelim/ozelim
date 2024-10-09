@@ -14,6 +14,15 @@ const array = [
   {labelkz: `Туристік курстар`, labelru: 'Курсы по туризму', link: '/courses'},
 ]
 
+const array2 = [
+  {labelru: 'Фонд', link: '/fund'},
+  {labelru: 'Мир здоровье', link: '/health-world'},
+  {labelru: 'Дуальное обучение', link: '/dual'},
+  {labelru: 'Туры с Ozelim', link: '/tours'},
+  {labelru: 'Страхование', link: '/insurance'},
+  {labelru: 'Правовая защита', link: '/rights'},
+] 
+
 export const Header = () => {
 
   const { lang, kz, handleLang } = useLangContext()
@@ -81,6 +90,21 @@ export const Header = () => {
             </Link>
           </nav>
           {/* <ContactInfo/> */}
+          <nav className='space-x-6 font-head mt-4'>
+            {array2.map((val, i) => {
+              return (
+                <Link
+                  key={i}
+                  className="text-teal-500 hover:text-yellow-400 text-sm lg:text-xl hidden md:inline-block"
+                  to={val.link}
+                >
+                  {lang === 'kz' 
+                    ? val?.labelkz ?? val.labelru
+                    : val.labelru}
+                </Link>
+              )
+            })}
+          </nav>
         </div>
         <div className="ml-6">
           <BurgerMenu />

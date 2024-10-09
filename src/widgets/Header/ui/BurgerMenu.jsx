@@ -5,12 +5,17 @@ import { Link } from 'react-router-dom'
 import { useLangContext } from 'app/langContext'
 
 const array = [
+  { labelru: 'фонд', link: '/fund'},
+  { labelru: 'Мир здоровье', link: '/health-world'},
+  { labelru: 'Дуальное обучение', link: '/dual'},
+  { labelru: 'Туры с Ozelim', link: '/tours'},
+  { labelkz: `Сақтандыру`, labelru: 'Страхование', link: '/insurance'},
+  { labelru: 'Правовая защита', link: '/rights'},
   { labelkz: `Жаңалықтар`, labelru: 'Новости', link: '/news' },
   { labelkz: `Біздің туристер`, labelru: 'Наши туристы', link: '/partners', disabled: true },
   { labelkz: `Серiктестiк бағдарлама`, labelru: 'Партнерская программа', link: '/program' },
   { labelkz: `Тестирование`, labelru: 'Тестирование', link: '/test-1&7-results', },
   { labelkz: `Біздің команда`, labelru: 'Наша команда', link: '/our-team', },
-  { labelkz: `Сақтандыру`, labelru: 'Страхование', link: '/insurance', disabled: true},
 ]
 
 const array2 = [

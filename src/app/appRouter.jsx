@@ -1,4 +1,4 @@
-import { Navigate, createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import { About, 
   Bids, 
   CharityFund, 
@@ -31,7 +31,7 @@ import { ProfileCourse } from "pages/profile/ProfileCourse";
 
 const appRouter = createBrowserRouter([
   {element: baseLayout, children: [
-    {path: '/', element: <Navigate to={'/health'}/>},
+    {path: '/', element: <Home/>},
     {path: '/insurance', element: <CharityFund/>},
     {path: '/profile', element: <Profile/>},
     {path: '/profile-courses', element: <ProfileCourse/>},
