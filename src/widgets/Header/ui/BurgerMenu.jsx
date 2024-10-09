@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { useLangContext } from 'app/langContext'
 
 const array = [
-  { labelru: 'фонд', link: '/fund'},
+  { labelru: 'Фонд', link: '/fund'},
   { labelru: 'Мир здоровье', link: '/health-world'},
   { labelru: 'Дуальное обучение', link: '/dual'},
   { labelru: 'Туры с Ozelim', link: '/tours'},
