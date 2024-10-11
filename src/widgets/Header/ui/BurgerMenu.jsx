@@ -22,10 +22,10 @@ const array = [
 ]
 
 const array2 = [
-  {labelkz: `Компания туралы`, labelru: 'О компании', link: '/about' },
-  {labelkz: `Сенің денсаулығың`, labelru: 'Твое здоровье', link: '/health' },
-  {labelkz: `Туристік курстар`, labelru: 'Курсы по туризму', link: '/courses' },
-  {labelkz: `Санаторилар`, labelru: 'Санатории', link: '/resorts' },
+  // {labelkz: `Компания туралы`, labelru: 'О компании', link: '/about' },
+  // {labelkz: `Сенің денсаулығың`, labelru: 'Твое здоровье', link: '/health' },
+  // {labelkz: `Туристік курстар`, labelru: 'Курсы по туризму', link: '/courses' },
+  // {labelkz: `Санаторилар`, labelru: 'Санатории', link: '/resorts' },
   {labelkz: `Қызметтер`, labelru: 'Услуги', link: '/price' },
 ]
 
