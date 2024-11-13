@@ -24,12 +24,10 @@ import { About,
   Rights,
   Home,
   Tourist,
-  // AgentsProfile
 } from "pages";
 import { baseLayout } from "./layouts/baseLayout";
 import { Test } from "pages/test/Test";
 import { ProfileCourse } from "pages/profile/ProfileCourse";
-// import { profileLayout } from "./layouts/profileLayout";
 
 const appRouter = createBrowserRouter([
   {element: baseLayout, children: [
