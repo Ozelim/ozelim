@@ -4,7 +4,6 @@ import { About,
   CharityFund, 
   Courses, 
   Health, 
-  // Home, 
   News,
   OurTeam, 
   Partners, 
@@ -24,15 +23,13 @@ import { About,
   Dual,
   Rights,
   Home,
-  Market,
   Tourist,
-  AgentsProfile
+  // AgentsProfile
 } from "pages";
 import { baseLayout } from "./layouts/baseLayout";
 import { Test } from "pages/test/Test";
 import { ProfileCourse } from "pages/profile/ProfileCourse";
-import { marketLayout } from "./layouts/marketLayout";
-import { profileLayout } from "./layouts/profileLayout";
+// import { profileLayout } from "./layouts/profileLayout";
 
 const appRouter = createBrowserRouter([
   {element: baseLayout, children: [
@@ -72,9 +69,9 @@ const appRouter = createBrowserRouter([
   //   {path: 'market', element: <Market/>},
   // ]},
 
-  {element: profileLayout, children: [
-    {path: 'aprofile', element: <AgentsProfile/>},
-  ]}
+  // {element: profileLayout, children: [
+  //   {path: 'aprofile', element: <AgentsProfile/>},
+  // ]}
 ])
 
 export { appRouter }
