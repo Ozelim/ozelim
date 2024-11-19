@@ -217,7 +217,7 @@ export const AgentsProfile = () => {
         MERCHANT:'110-R-113431490',
         TERMINAL: '11371491',
         NONCE: randomNumber + 107,
-        DESC: 'Оплата',
+        DESC: 'Оплата верификация (Агент)',
         CLIENT_ID: user?.id,
         DESC_ORDER: 'Оплата верификация (Агент)', 
         EMAIL: user?.email,
