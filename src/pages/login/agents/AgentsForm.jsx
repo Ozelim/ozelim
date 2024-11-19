@@ -41,7 +41,7 @@ export const AgentsForm = ({onComplete}) => {
         })
         .then(async res => {
           await pb.collection('agents').update(sponsor?.id, {
-            creeps: [...sponsor?.creeps, res?.id]
+            creeps: [...sponsor?.creeps ?? [], res?.id]
           })
           await pb.collection('agents').authWithPassword(data?.email, data?.password)
           .then(() => {
