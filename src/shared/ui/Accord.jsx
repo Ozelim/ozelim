@@ -2,6 +2,8 @@ import { Accordion } from '@mantine/core'
 import React from 'react'
 
 export const Accord = ({data}) => {
+
+  console.log(data, 'data');
   return (
     <Accordion
       variant='separated'
@@ -15,7 +17,7 @@ export const Accord = ({data}) => {
             <span className='text-primary-500'>{q?.name}</span>
           </Accordion.Control>
           <Accordion.Panel>
-            <div dangerouslySetInnerHTML={{__html: q?.desc ?? <></>}} className="accordion-body" />
+            <div dangerouslySetInnerHTML={{__html: q?.desc || q?.description || <></>}} className="accordion-body" />
           </Accordion.Panel>
         </Accordion.Item>
       )})}

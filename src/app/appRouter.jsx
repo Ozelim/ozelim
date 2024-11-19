@@ -60,7 +60,7 @@ const appRouter = createBrowserRouter([
     {path: '/tours', element: <Tours/>},
     {path: '/dual', element: <Dual/>},
     {path: '/rights', element: <Rights/>},
-    // {path: '/tourist', element: <Tourist/>},
+    {path: '/tourist', element: <Tourist/>},
     // {path: '/home', element: <Home/>},
     {path: '/test-1&7-results', element: <Tester/>},
     

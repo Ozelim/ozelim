@@ -63,7 +63,7 @@ export const Tourist = () => {
     <>
       <div className="w-full">
         <div className="container">
-          <section className="grid grid-cols-[60%_auto] mt-4 gap-8 rounded-primary overflow-hidden">
+          <section className="grid grid-cols-[60%_auto] mt-4 gap-4 rounded-primary overflow-hidden">
             <Carousel
               slideSize="98%"
               slideGap="md"
@@ -106,7 +106,7 @@ export const Tourist = () => {
           </section>
 
           <section>
-            <div className="grid lg:grid-cols-[60%_auto] gap-4 mt-8">
+            <div className="grid lg:grid-cols-[60%_auto] gap-4 mt-10">
               <Image
                 record={images}
                 index={7}
@@ -116,7 +116,7 @@ export const Tourist = () => {
                 <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
                   {headings?.q1}
                 </h1>
-                <div className="space-y-4">
+                <div className="space-y-4 mt-3">
                   <div>
                     <p className="text-lg text-primary-500">{text?.q2}</p>
                     <p>{text?.q2}</p>
@@ -131,6 +131,23 @@ export const Tourist = () => {
                   </div>
                 </div>
               </div>
+            </div>
+          </section>
+
+          <section className="grid grid-cols-[60%_auto] mt-10 gap-4 rounded-primary overflow-hidden">
+            <Image
+              record={images}
+              index={4}
+              className="min-w-full rounded-primary object-cover aspect-video"
+            />
+            <div className="w-full lg:text-left text-center">
+              <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
+                {headings?.q1}
+              </h1>
+
+              <ul className="mt-3 text-lg font-medium text-[#5a5959] ">
+                <li>{text?.q1}</li>
+              </ul>
             </div>
           </section>
 
@@ -169,7 +186,7 @@ export const Tourist = () => {
             </ul>
           </section> */}
 
-          <section>
+          <section className='mt-10'>
             <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
               {headings?.q3}
             </h1>
@@ -188,7 +205,7 @@ export const Tourist = () => {
             <p className="mt-2 text-lg font-medium">{text?.q8}</p>
           </section>
 
-          <section className="flex flex-col lg:flex-row mt-4 gap-8">
+          <section className="flex flex-col lg:flex-row mt-10 gap-8">
             <Image
               record={images}
               index={6}

@@ -310,7 +310,7 @@ export const AgentsProfile = () => {
   }
 
   React.useEffect(() => {
-    // checkPaymentStatus()
+    checkPaymentStatus()
   }, [])
 
   const [viewModal, setViewModal] = React.useState({

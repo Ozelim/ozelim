@@ -5,7 +5,7 @@ import { usePageData } from 'shared/hooks'
 import { Image } from 'shared/ui'
 import fund1 from 'shared/assets/images/fund-01.png'
 import fund2 from 'shared/assets/images/fund-37.png'
-import { Button, Modal, TextInput } from '@mantine/core'
+import { Button, Modal, Select, TextInput } from '@mantine/core'
 import { pb } from 'shared/api'
 import { showNotification } from '@mantine/notifications'
 

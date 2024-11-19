@@ -348,7 +348,26 @@ export const Rights = () => {
             <h1 className='font-bold text-4xl text-primary-500 text-center'>
               Предлагаемые юридические услуги
             </h1>
-            <Accord data={acc}/>
+
+            <Accordion
+              variant='separated'
+              className='my-10'
+              defaultValue='0'
+            >
+              {acc.map((q, i) => {
+                return (
+                  <Accordion.Item value={`${i}`}>
+                    <Accordion.Control className='!text-xl !font-bold '>{i + 1}. 
+                      <span className='text-primary-500'> {q?.label}</span>
+                    </Accordion.Control>
+                    <Accordion.Panel className='accordion-body px-4 pb-4'>
+                      {q?.description}
+                    </Accordion.Panel>
+                  </Accordion.Item>
+                )
+              })}
+            </Accordion>
+            {/* <Accord data={acc}/> */}
           </section>
 
           <section className="w-full mt-4">
