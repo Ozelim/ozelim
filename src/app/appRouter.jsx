@@ -24,10 +24,14 @@ import { About,
   Rights,
   Home,
   Tourist,
+  AgentsProfile,
+  Market
 } from "pages";
 import { baseLayout } from "./layouts/baseLayout";
 import { Test } from "pages/test/Test";
 import { ProfileCourse } from "pages/profile/ProfileCourse";
+import { profileLayout } from "./layouts/profileLayout";
+import { marketLayout } from "./layouts/marketLayout";
 
 const appRouter = createBrowserRouter([
   {element: baseLayout, children: [
@@ -63,7 +67,13 @@ const appRouter = createBrowserRouter([
     // {path: '/market', element: <Market/>},
   ]},
 
+  {element: marketLayout, children: [
+    {path: 'market', element: <Market/>},
+  ]},
 
+  {element: profileLayout, children: [
+    {path: 'aprofile', element: <AgentsProfile/>},
+  ]}
 ])
 
 export { appRouter }

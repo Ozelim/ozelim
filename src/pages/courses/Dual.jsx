@@ -7,7 +7,7 @@ import { TeachComfort } from './ui/TeachComfort'
 import { pb } from 'shared/api'
 import { usePageData } from 'shared/hooks'
 import { BsBag, BsFillBagHeartFill } from 'react-icons/bs'
-import { Image } from 'shared/ui'
+import { Accord, Image } from 'shared/ui'
 import { Accordion, Button, Modal, Select, TextInput } from '@mantine/core'
 import { Link } from 'react-router-dom'
 import { useLangContext } from 'app/langContext'
@@ -164,24 +164,7 @@ export const Dual = () => {
 
       <section className='container mt-8'>
         <h1 className='font-bold text-4xl text-primary-500 text-center'>Открытые вакансии</h1>
-        <Accordion
-          variant='separated'
-          className='my-10'
-          defaultValue='0'
-        >
-          {vacas?.map((q, i) => {
-            return (
-              <Accordion.Item value={`${i}`}>
-                <Accordion.Control className='!text-xl !font-bold '>{i + 1}. 
-                  <span className='text-primary-500'>{q?.name}</span>
-                </Accordion.Control>
-                <Accordion.Panel className='p-4'>
-                  {q?.desc}
-                </Accordion.Panel>
-              </Accordion.Item>
-            )
-          })}
-        </Accordion>
+        <Accord data={vacas} />
       </section>
       <div className="container mt-8">
         <div className='flex justify-center'>

@@ -1,11 +1,9 @@
 import React from 'react'
-import { Referal } from './Referal'
-import { referapsApi } from '../api/referalsApi'
 import { useAuth } from 'shared/hooks'
 import { Button, Group, Modal, Radio } from '@mantine/core'
 import dayjs from 'dayjs'
 
-import market from 'shared/assets/images/marketing2.png'
+import market from 'shared/assets/images/agent.png'
 import { useMediaQuery } from '@mantine/hooks'
 import { openConfirmModal } from '@mantine/modals'
 import { pb } from 'shared/api'
@@ -17,53 +15,21 @@ import level3 from 'shared/assets/images/3level.png'
 import axios from 'axios'
 import { getImageUrl } from 'shared/lib'
 import { useLangContext } from 'app/langContext'
+import { FaUserGroup } from 'react-icons/fa6'
+import { FaUsers } from 'react-icons/fa'
+import { Avatar } from 'shared/ui'
 
-async function checkSponsors (user) {
 
-  if (user?.referals?.length < 3) return 
-
-  return await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/sponsors`, {
-    id: user?.id
-  })
-}
-
-export const ReferalsList = ({level, setCount}) => {
+export const AgentsList = ({level, setCount}) => {
 
   const {kz} = useLangContext()
 
   const {user} = useAuth()
 
-  const [referals, setReferals] = React.useState([])
-
-  async function getReferals () {
-    await referapsApi.getReferals(user?.id)
-    .then(res => {
-      setReferals(res)
-    })
-  }
-  
-  const [friki, setFriki] = React.useState(0)
-
-  React.useEffect(() => {
-    checkSponsors(user)
-    .then(e => {
-      setFriki(e?.data?.overall ?? 0)
-    })
-  }, [])
-
-  React.useEffect(() => {
-    getReferals()
-  }, [])
-
   const [modal, setModal] = React.useState(false)
 
   const [referal, setReferal] = React.useState({})
 
-  function handleReferal (val) {
-    setReferal(val)
-    setModal(true)
-  }
- 
   const [shitModal, setShitModal] = React.useState(false)
 
   const [bidModal, setBidModal] = React.useState(false)
@@ -148,117 +114,68 @@ export const ReferalsList = ({level, setCount}) => {
     onConfirm: () => levelBids(level - 1)
   })
 
+  const secondLine = user?.expand?.creeps?.map(q => {return q?.expand?.creeps})?.filter(w => {return w != undefined})?.flat(1)
+  const thirdLine = secondLine?.map(q => {return q?.expand?.creeps})?.filter(w => {return w != undefined})?.flat(1)
+
   return (
     <>
       <div className='w-full'>
-        <div className='flex flex-col md:flex-row gap-3 items-center'>
-          <Button
-            onClick={() => setShitModal(true)}
-          >
-            {kz ? `Бағдарлама` : `Программа`}
-          </Button>
-          <div className='flex gap-1'>
-            <p 
-              className='text' 
-              // onClick={() => setCount(q => q + 1)}
-            >
-              {kz ? `Серіктестер` : `Партнеры`}:
-            </p>
-            <p>{referals.length}</p>
+        <div className='flex justify-between gap-3 '>
+          <div>
+            <Button onClick={() => setShitModal(true)}>
+              Вознаграждения
+            </Button>
+            {user?.expand?.sponsor && (
+              <div className='w-fit mt-4'>
+                <p className='text-sm ml-2'>Агент-наставник:</p>
+                <div className='flex mt-2'>
+                  <Avatar
+                    src={user?.expand?.sponsor?.avatar}
+                    className='aspect-square !w-16 !h-16 mx-auto'
+                    radius='xl'
+                    record={user?.expand?.sponsor}
+                  />
+                  <div className='flex flex-col justify-center ml-2'>
+                    <p className='text-lg font-head'>
+                      {user?.expand?.sponsor?.fio}
+                    </p>
+                    <p className='mt-1 text'>
+                      {dayjs(user?.expand?.sponsor?.created).format('DD.MM.YYYY')}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
-          {(user?.bin) && (
-            <div className='flex gap-1'>
-              <p className='text'>
-                {kz ? 'Орындалу денгейi:' : `Уровень в процессе:`}
-              </p>
-              <p>
-                {(level === '0' || !level) && '1'}
-                {(level === '1') && `2`}
-                {(level === '2') && `3`}
-                {(level === '3') && `4`}
-                {(level === '4.1' || level === '4.2') && 5}
-                {level === '5' && 6}
-                {level === '6' && 6}
-                {/* {level === '6' && 6} */}
-                {/* {!user?.cock && ( */}
-                  <>
-                    {level === '2' && (
-                      <Button
-                        compact
-                        variant='outline'
-                        ml={16}
-                        onClick={() => setThreeModal(true)}
-                        disabled={user.cock}
-                      >
-                        {kz ? `4 деңгей алу` : `Перейти на 4 ур.`}
-                      </Button>
-                    )}
-                    {level === '3' && (
-                      <Button
-                        compact
-                        variant='outline'
-                        ml={16}
-                        onClick={() => setBidModal(true)}
-                        disabled={user.cock}
-                      >
-                        {kz ? `Қызметті алу` : `Получить услугу`}
-                      </Button>
-                    )}
-                    {(level === '4.1' || level === '4.2') && (
-                      <Button
-                        compact
-                        variant='outline'
-                        ml={16}
-                        onClick={() => levelbid(6)}
-                        disabled={user.cock}
-                      > 
-                        {kz ? `500 000 Сыйлық алу` : `Получить 500 000`}
-                      </Button>
-                    )}
-                    {(level == '5') && (
-                      <Button
-                        compact
-                        variant='outline'
-                        ml={16}
-                        onClick={() => levelbid(7)}
-                        disabled={user.cock}
-                      > 
-                        {kz ? `1 000 000 алу` : `Получить 1 000 000`}
-                      </Button>
-                    )}
-                    {(level == '6') && (
-                      <Button
-                        compact
-                        variant='outline'
-                        ml={16}
-                        onClick={() => levelbid(7)}
-                        disabled={user.cock}
-                      > 
-                        {kz ? `Сыйлық алу` : `Получить вознаграждение`}
-                      </Button>
-                    )}
-                  </>
-                {/* )} */}
-              </p>
-            </div>
-          )}
-          {user?.bin && (
-            <div className='flex gap-1'>
+          <div className='flex flex-col items-end'>
+            <div className='flex gap-1 items-center border-b-2'>
               <p className='text' onClick={() => setCount(q => q + 1)}>Статистика:</p>
-              <p>{friki}</p>
+              <FaUsers size={20} color='green' />
+              <p>({((user?.creeps?.length ?? 0) + (secondLine?.length ?? 0) + (thirdLine?.length ?? 0))})</p>
             </div>
-          )}
-        </div>
-        <div className='flex gap-4 overflow-x-auto pb-2 mt-4'>
-          {referals.map((referal, i) => {
-            return (
-              <Referal 
-                referal={referal} 
-                key={i}
-                onReferalClick={handleReferal}
-              />
-            )
-          })}
+            <div className='flex gap-1 items-center border-b-2'>
+              <p className='text' >
+                1-линия: 
+              </p>
+              <FaUserGroup size={20} color='green'/>
+              <p className='text-bold'>({user?.creeps?.length}) </p>
+            </div>
+            <div className='flex gap-1 items-center border-b-2'>
+              <p className='text'>
+                2-линия: 
+              </p>
+              <FaUserGroup size={20} color='green'/>
+              <p className='text-bold'>({secondLine?.length}) </p>
+            </div>
+            <div className='flex gap-1 items-center border-b-2'>
+              <p className='text'>
+                3-линия: 
+              </p>
+              <FaUserGroup size={20} color='green'/>
+              <p className='text-bold'>({thirdLine?.length}) </p>
+            </div>
+          </div>
+
         </div>
       </div>
       <Modal
@@ -408,12 +325,6 @@ export const ReferalsList = ({level, setCount}) => {
             }
           </p>
           <img src={level3} alt="" className='!mx-0 w-full' />
-          <p className='text-center my-4 text-slate-400'>
-            {/* {kz 
-              ? `Қайырымдылыққа арналған сома (5000 тг) сіздің жеке кабинетіңіздегі баланстан алынады`
-              : `Сумма (5000 тг) на благотворительность будет списана с вашего баланса в личном кабинете`
-            } */}
-          </p>
           <div className='flex justify-center gap-4'>
             <Button 
               variant='outline'

@@ -15,7 +15,6 @@ async function getRights () {
   return await pb.collection('insurance_data').getFullList()
 }
 
-
 export const CharityFund = () => {
 
   const {images, headings, text} = usePageData('insurance')

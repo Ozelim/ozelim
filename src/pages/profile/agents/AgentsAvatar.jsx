@@ -2,11 +2,12 @@ import React from 'react'
 import { Button, FileButton, Popover } from '@mantine/core';
 import { useAuth } from 'shared/hooks'
 import { getImageUrl } from 'shared/lib';
-import { userDataApi } from '../api/userDataApi';
+import { agentsDataApi } from './model/agentDataApi';
+// import { userDataApi } from '../api/userDataApi';
 
-export const UserAvatar = () => {
+export const AgentsAvatar = () => {
 
-  const { user } = useAuth()
+  const { user } = useAuth('agents')
 
   const [opened, setOpened] = React.useState(false)
   const [showSave, setShowSave] = React.useState(false)
@@ -37,13 +38,13 @@ export const UserAvatar = () => {
 
   async function changeAvatar () {
     if (avatar) {
-      userDataApi.changeAvatar(user?.id, avatar)
+      agentsDataApi.changeAvatar(user?.id, avatar)
       .then(res => {
         setShowSave(false)
       })
     } 
     if (!image) {
-      userDataApi.changeAvatar(user?.id, null)
+      agentsDataApi.changeAvatar(user?.id, null)
       .then(res => {
         setShowSave(false)
       })
@@ -52,7 +53,7 @@ export const UserAvatar = () => {
 
   return (
     <div className='w-full h-full'>
-      <div className='relative w-72 h-72 rounded-full overflow-hidden mx-auto'>
+      <div className='relative w-36 h-36 rounded-full overflow-hidden mx-auto'>
         {avatar && (
           <img 
             className='object-cover w-full h-full mx-auto'
@@ -69,7 +70,9 @@ export const UserAvatar = () => {
         )}
         <div className='object-cover w-full h-full mx-auto bg-slate-200'/>
 
-        <div className='absolute bottom-1 left-1/2 -translate-x-1/2'>
+      </div>
+        {/* <div className='absolute bottom-1 left-1/2 -translate-x-1/2'> */}
+        <div className='flex justify-center mt-2'>
           <Popover
             opened={opened}
             onChange={setOpened}
@@ -106,7 +109,6 @@ export const UserAvatar = () => {
             </Popover.Dropdown>
           </Popover>
         </div>
-      </div>
       {showSave && (
         <div className='mt-2'>
           <Button

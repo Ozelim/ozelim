@@ -5,8 +5,9 @@ import { loginSchema } from '../model/loginSchema'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { loginWithEmail } from '../model/login'
 import { Link } from 'react-router-dom'
+import { pb } from 'shared/api'
 
-export const LoginForm = ({onComplete}) => {
+export const LoginForm = ({auth, onComplete}) => {
 
   const [loading, setLoading] = React.useState(false)
 
@@ -41,7 +42,7 @@ export const LoginForm = ({onComplete}) => {
       <h1 className='text-center font-head text-lg'>Вход</h1>
       <form 
         className='grid grid-cols-1 gap-2'
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(auth ? auth : onSubmit)}
       >
         <Controller
           name='email'
@@ -81,6 +82,7 @@ export const LoginForm = ({onComplete}) => {
           type='submit'
           fullWidth
           loading={loading}
+          color={auth ? 'orange' : 'teal'}
         >
           Войти
         </Button>

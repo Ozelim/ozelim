@@ -3,7 +3,7 @@ import { Accordion, Button, Collapse, Modal, NumberInput, Select, Text, TextInpu
 import { useDisclosure } from '@mantine/hooks'
 import { pb } from 'shared/api'
 import { usePageData } from 'shared/hooks'
-import { Image } from 'shared/ui'
+import { Accord, Image } from 'shared/ui'
 import { DatePicker } from '@mantine/dates'
 import 'dayjs/locale/ru';
 import { FaMinus, FaPlus } from 'react-icons/fa'
@@ -25,7 +25,6 @@ export const Tours = () => {
 
   const {kz} = useLangContext()
 
-
   const {images, text, headings} = usePageData('tours')
 
   const [tours, setTours] = React.useState([])
@@ -33,7 +32,7 @@ export const Tours = () => {
   React.useEffect(() => {
     getTours()
     .then(res => {
-      setTours(res?.[0]?.tours)
+      setTours(res?.[0])
     })
   }, [])
 
@@ -317,24 +316,7 @@ export const Tours = () => {
 
         <section className='container mt-8'>
           <h1 className='font-bold text-4xl text-primary-500 text-center'>Туры</h1>
-          <Accordion
-            variant='separated'
-            className='my-10'
-            defaultValue='0'
-          >
-            {tours?.map((q, i) => {
-              return (
-                <Accordion.Item value={`${i}`} key={i}>
-                  <Accordion.Control className='!text-xl !font-bold '>{i + 1}. 
-                    <span className='text-primary-500'>{q?.name}</span>
-                  </Accordion.Control>
-                  <Accordion.Panel className='p-4'>
-                    <div className='health-wrld' dangerouslySetInnerHTML={{__html: q?.desc ?? <></>}}/>
-                  </Accordion.Panel>
-                </Accordion.Item>
-              )
-            })}
-          </Accordion>
+          <Accord data={tours?.tours}/>
         </section>
 
         <div className='flex justify-center mt-4'>
@@ -404,8 +386,8 @@ export const Tours = () => {
           />
           <Select
             label='Туры'
-            placeholder='Выберите neh'
-            data={resorts?.map(e => {return {label: e?.name, value: e?.name}}) ?? []}
+            placeholder='Выберите тур'
+            data={tours?.tours_bid?.map(e => {return {label: e, value: e}}) ?? []}
             className='mt-3'
             variant='filled'
             onChange={e => setD({...d, tour: e})}

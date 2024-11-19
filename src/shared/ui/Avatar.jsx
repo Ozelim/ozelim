@@ -1,8 +1,8 @@
 import React from 'react'
-import { Avatar as Avatr} from '@mantine/core';
+import { Avatar as Avatr, clsx} from '@mantine/core';
 import { getImageUrl } from 'shared/lib';
 
-export const Avatar = ({src, record, ...rest}) => {
+export const Avatar = ({src, record, cl, ...rest}) => {
 
   const [url, setUrl] = React.useState(null)
 
@@ -21,7 +21,7 @@ export const Avatar = ({src, record, ...rest}) => {
       alt='avatar'
       {...rest}
     >
-      <div className='aspect-square h-full bg-slate-300 rounded-full'/>
+      <div className={clsx('aspect-square h-full bg-slate-300 rounded-full', cl)}/>
     </Avatr>
   )
 }

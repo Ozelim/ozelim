@@ -4,32 +4,29 @@ import { useLangContext } from 'app/langContext'
 import { Image } from 'shared/ui'
 import { usePageData } from 'shared/hooks'
 import { useDisclosure, useMediaQuery } from '@mantine/hooks'
-import { Button, Modal, TextInput } from '@mantine/core'
+import { Button, Modal, Select, TextInput } from '@mantine/core'
 import { AiOutlineInstagram, AiOutlineYoutube } from 'react-icons/ai'
 import { RiTiktokFill } from 'react-icons/ri'
-import { Link as RouterLink } from 'react-router-dom'
 import Kazmap from 'shared/assets/images/hero.jpg'
 
-async function getResorts() {
-  return await pb.collection('resorts').getFullList({
-    filter: `status = 'good'`,
-  })
+async function getServices() {
+  return await pb.collection('home_data').getFullList()
 }
 
 export const Home = () => {
 
   const {kz, qq} = useLangContext()
 
-  const [resorts, setResorts] = React.useState([])
-
   const { headings, images, text } = usePageData('home')
 
   const matches = useMediaQuery(`(min-width: 767px)`)
 
+  const [services, setServices] = React.useState({})
+
   React.useEffect(() => {
-    getResorts().then((res) => setResorts(res))
-    .catch(err => {
-      console.log(err, 'err');
+    getServices()
+    .then(res => {
+      setServices(res?.[0])
     })
   }, [])
 
@@ -39,6 +36,7 @@ export const Home = () => {
     name: '',
     email: '',
     phone: '',
+    service: ''
   })
 
   return (
@@ -244,7 +242,7 @@ export const Home = () => {
               <div>
                   <a href={'/ustav.pdf'} target='_blank'>
                     <Button className='mt-4'>
-                    `Устав Ассоциации туристов Казахстана "Oz Elim"
+                     Устав Ассоциации туристов Казахстана "Oz Elim"
                     </Button>
                   </a>
               </div>
@@ -387,16 +385,27 @@ export const Home = () => {
             label='Наименование организации'
             value={q?.name}
             onChange={e => setQ({...q, name: e?.currentTarget?.value})}
+            variant='filled'
           />
           <TextInput
             label='Эл. почта'
             value={q?.email}
             onChange={e => setQ({...q, email: e?.currentTarget?.value})}
+            variant='filled'
           />
           <TextInput
             label='Контактный номер'
             value={q?.phone}
             onChange={e => setQ({...q, phone: e?.currentTarget?.value})}
+            variant='filled'
+          />
+          <Select
+            label='Услуги'
+            placeholder='Выберите услугу'
+            data={services?.services?.map(e => {return {label: e, value: e}}) ?? []}
+            className='mt-3'
+            variant='filled'
+            onChange={e => setQ({...q, service: e})}
           />
           <div className='flex justify-center mt-4'>
             <Button

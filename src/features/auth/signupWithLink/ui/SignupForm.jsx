@@ -91,7 +91,6 @@ export const SignupForm = () => {
       > 
         <h1 className='text-center font-head text-lg'>Регистрация</h1>
         <form 
-          // onSubmit={handleSubmit(onSubmit)}
           className='grid grid-cols-1 gap-2'
         >
           <Controller

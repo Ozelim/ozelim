@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDisclosure } from '@mantine/hooks'
-import { Button, Group, LoadingOverlay, Modal, NumberInput, PinInput, Popover, Select, Tabs, TextInput, Textarea } from '@mantine/core'
+import { Button, Group, LoadingOverlay, Modal, NumberInput, PinInput, Popover, Select, TextInput, Textarea } from '@mantine/core'
 import { pb } from 'shared/api'
 import { openConfirmModal } from '@mantine/modals'
 import { useAuth } from 'shared/hooks'
@@ -26,20 +26,7 @@ async function getWaitingServices (id) {
   return await pb.collection('service_bids').getFullList({filter: `user = '${id}' && status = 'waiting'`})
 }
 
-async function getDogs () {
-  return await pb.collection('dogs').getFullList()
-}
-
 export const Withdraw = ({bonuses}) => {
-
-  const [dogs, setDogs] = React.useState([])
-
-  React.useEffect(() => {
-    getDogs()
-    .then(res => {
-      setDogs(res)
-    })
-  }, [])
 
   const {user} = useAuth()
 
@@ -66,18 +53,10 @@ export const Withdraw = ({bonuses}) => {
 
   const [withdraw, setWithdraw] = React.useState({
     sum: '',
-    owner: user?.fio ?? '',
+    owner: '',
     bank: null,
-    iban: user?.card || '',
-    iin: user?.iin ?? '',
-  })
-
-  const [dWithdraw, setDwithdraw] = React.useState({
-    sum: '',
-    phone: user?.phone ?? '',
-    city: user?.village ?? '',
-    fio: user?.fio ?? '',
-    dog: ''
+    iban: '',
+    iin: ''
   })
 
   const [card, setCard] = React.useState('')
@@ -87,37 +66,11 @@ export const Withdraw = ({bonuses}) => {
     await pb.collection('withdraws').create({
       ...withdraw,
       card: card,
-      ...(user?.collectionName === 'agents' ? {agent: user?.id} : {user: user?.id}),
+      user: user?.id,
       status: 'created',
     })
     .then(async res => {
-      await pb.collection(user?.collectionName).update(user?.id, {
-        balance: user?.balance - Number(withdraw?.sum)
-      })
-      .then(() => {
-        showNotification({
-          title: 'Уведомление',
-          message: 'Заявка на вывод подана',
-          color: 'green',
-        })
-        window.location.reload()
-      })
-    })
-    .catch(err => {
-      setLoading(false)
-    })
-  }
-
-  async function confirmWithdrawD () {
-    setLoading(true)
-    await pb.collection('withdraws').create({
-      dog: dWithdraw?.dog,
-      ...dWithdraw,
-      ...(user?.collectionName === 'agents' ? {agent: user?.id} : {user: user?.id}),
-      status: 'created',
-    })
-    .then(async res => {
-      await pb.collection(user?.collectionName).update(user?.id, {
+      await pb.collection('users').update(user?.id, {
         balance: user?.balance - Number(withdraw?.sum)
       })
       .then(() => {
@@ -144,19 +97,6 @@ export const Withdraw = ({bonuses}) => {
         <>Вы действительно хотите вывести средства?</>
       ),
       onConfirm: () => confirmWithdraw(),
-    })
-  }
-
-  const confirmD = () => {
-    close()
-    openConfirmModal({
-      title: 'Подвердить действие',
-      centered: true,
-      labels: { confirm: 'Да', cancel: 'Нет' },
-      children: (
-        <>Вы действительно хотите вывести средства?</>
-      ),
-      onConfirm: () => confirmWithdrawD(),
     })
   }
 
@@ -193,7 +133,7 @@ export const Withdraw = ({bonuses}) => {
   }
 
   const disabled =
-    (withdraw?.owner?.length > 3) &&
+    withdraw?.bank && (withdraw?.owner?.length > 3) &&
     (Number(withdraw?.sum) >= 100 && Number(withdraw?.sum) <= user?.balance) &&
     // card.length == 19
     ((withdraw?.iban?.toString()?.length > 10) && (withdraw?.iin?.toString()?.length > 6))
@@ -237,14 +177,14 @@ export const Withdraw = ({bonuses}) => {
     await pb.collection('service_bids').create({
       services: [...addedServices.map(q => q.id)],
       serv1ce: [...addedServices],      
-      ...(user?.collectionName === 'agents' ? {user: user?.id} : {agent: user?.id}),
+      user: user.id,
       name,
       status: 'created',
       total_cost: totalCost(addedServices),
       pay: null,
     })
     .then(async res => {
-      await pb.collection(user?.collectionName).update(user.id, {
+      await pb.collection('users').update(user.id, {
         'balance-': totalCost(addedServices)
       })
       .then(() => {
@@ -301,9 +241,10 @@ export const Withdraw = ({bonuses}) => {
     })
     .then(async res => {
       console.log(res, 'res');
+      console.log(res?.data, 'res data');
       const searchParams = new URLSearchParams(JSON.parse(res?.config?.data));
       await pb.collection('replenish').create({
-      ...(user?.collectionName === 'agents' ? {agent: user?.id} : {user: user?.id}),
+        user: user?.id,
         sum: fill.sum,
         status: 'created',
         pay: {
@@ -346,7 +287,7 @@ export const Withdraw = ({bonuses}) => {
             status: 'paid'
           })  
           .then(async res => {
-            await pb.collection(user?.collectionName).update(user?.id, {
+            await pb.collection('users').update(user?.id, {
               'balance+': Number(replenish?.pay?.AMOUNT),
             })
             .then(async res => {
@@ -521,8 +462,8 @@ export const Withdraw = ({bonuses}) => {
     await pb.collection('service_bids').create({
       services: [...addedServices.map(q => q.id)],
       comment,
-      ...(user?.collectionName === 'agents' ? {user: user?.id} : {agent: user?.id}),
       serv1ce: [...addedServices],      
+      user: user.id,
       name,
       status: 'created',
       total_cost: totalCost(addedServices),
@@ -530,7 +471,7 @@ export const Withdraw = ({bonuses}) => {
       bonuses: true
     })
     .then(async res => {
-      await pb.collection(user?.collectionName).update(user.id, {
+      await pb.collection('users').update(user.id, {
         'bonuses-': totalCost(addedServices)
       })
       .then(() => {
@@ -553,125 +494,67 @@ export const Withdraw = ({bonuses}) => {
         <LoadingOverlay visible={loading || serviceLoading} />
         <div className="space-y-2 mt-2">
           <Modal centered opened={opened} onClose={close} title="Вывод">
-            <Tabs defaultValue='card'>
-              <Tabs.List grow>
-                <Tabs.Tab value='card'>Банковская карта</Tabs.Tab>
-                <Tabs.Tab value='dir'>Региональный директор</Tabs.Tab>
-              </Tabs.List>
-              <Tabs.Panel value='card' pt={16}>
-                <div className="flex flex-col gap-2">
-                  <NumberInput
-                    description='Минимально 100 тг (все цифры слитно без пробелов)'
-                    placeholder="500"
-                    label="Сумма"
-                    variant="filled"
-                    name="sum"
-                    value={withdraw?.sum}
-                    onChange={(e) => handleWithdrawChange(e, 'sum')}
-                    hideControls
-                  />
-                  <Select
-                    data={banks}
-                    label='Банк:'
-                    value={withdraw?.bank}
-                    onChange={(e) => setWithdraw({...withdraw, bank: e})}
-                    placeholder='Выберите банк'
-                    variant='filled'
-                  />
-                  <TextInput
-                    value={withdraw?.iban}
-                    placeholder="KZ123456789123456789"
-                    label="Номер счета карты (IBAN)"
-                    variant="filled"
-                    name="iban"
-                    maxLength={20}
-                    onChange={handleWithdrawChange}
-                  />
-                  <TextInput
-                    value={withdraw?.owner}
-                    placeholder="ФИО"
-                    label="Владелец счета"
-                    variant="filled"
-                    name="owner"
-                    onChange={handleWithdrawChange}
-                  />
-                  <TextInput
-                    value={withdraw?.iin}
-                    placeholder="030627129340"
-                    label="ИИН"
-                    variant="filled"
-                    name="iin"
-                    maxLength={12}
-                    onChange={(e) => handleWithdrawChange(e, 'iin')}
-                  /> 
-                  <div className="mt-4">
-                    <Button 
-                      fullWidth 
-                      onClick={confirm} 
-                      disabled={!disabled}
-                    >
-                      Подтвердить
-                    </Button>
-                  </div>
-                </div>
-              </Tabs.Panel>
-              <Tabs.Panel value='dir' pt={16}>
-                <div className="flex flex-col gap-2">
-                <Select
-                  data={dogs?.map(q => {return {label: q?.name, value: q?.id}})}
-                  onChange={e => setDwithdraw({...dWithdraw, dog: e})}
-                  label='Региональный директор'
-                  placeholder='Выберите регионального директора'
-                  // variant='filled'
+            <div className="flex flex-col gap-2">
+              <NumberInput
+                description='Минимально 100 тг (все цифры слитно без пробелов)'
+                placeholder="500"
+                label="Сумма"
+                variant="filled"
+                name="sum"
+                value={withdraw?.sum}
+                onChange={(e) => handleWithdrawChange(e, 'sum')}
+                hideControls
               />
-                <TextInput
-                  value={dogs?.filter(q => q?.id == dWithdraw?.dog)?.[0]?.iban}
-                  placeholder="KZ123456789123456789"
-                  label="Номер счета карты (IBAN)"
-                  variant="filled"
-                  name="iban"
-                  maxLength={20}
-                  readOnly
-                />
-                <TextInput
-                  value={dogs?.filter(q => q?.id == dWithdraw?.dog)?.[0]?.name}
-                  placeholder="ФИО"
-                  label="Владелец счета"
-                  variant="filled"
-                  name="owner"
-                  readOnly
-                />
-                <TextInput
-                  value={dogs?.filter(q => q?.id == dWithdraw?.dog)?.[0]?.iin}
-                  placeholder="030627129340"
-                  label="ИИН"
-                  variant="filled"
-                  name="iin"
-                  maxLength={12}
-                  readOnly
-                /> 
-                <NumberInput
-                  description='Минимально 100 тг (все цифры слитно без пробелов)'
-                  placeholder="500"
-                  label="Сумма"
-                  // variant="filled"
-                  name="sum"
-                  value={dWithdraw?.sum ?? ''}
-                  onChange={(e) => setDwithdraw({...dWithdraw, sum: e})}
-                  hideControls
-                />
-                <div className="mt-4">
-                  <Button 
-                    fullWidth 
-                    onClick={confirmD} 
-                    disabled={!dWithdraw?.dog || !dWithdraw?.sum}
-                  >
-                    Подтвердить
-                  </Button>
-                </div>
+              <Select
+                data={banks}
+                label='Банк:'
+                value={withdraw?.bank}
+                onChange={(e) => setWithdraw({...withdraw, bank: e})}
+              />
+              {/* <TextInput
+                value={handleCardDisplay()}
+                onChange={(e) => setCard(e.currentTarget.value)}
+                maxLength={19}
+                placeholder="8888 8888 8888 8888"
+                label="Номер счета карты (IBAN)"
+                variant="filled"
+              /> */}
+              <TextInput
+                value={withdraw?.iban}
+                placeholder="KZ123456789123456789"
+                label="Номер счета карты (IBAN)"
+                variant="filled"
+                name="iban"
+                maxLength={20}
+                onChange={handleWithdrawChange}
+              />
+              <TextInput
+                value={withdraw?.owner}
+                placeholder="ФИО"
+                label="Владелец счета"
+                variant="filled"
+                name="owner"
+                onChange={handleWithdrawChange}
+              />
+              <TextInput
+                value={withdraw?.iin}
+                placeholder="030627129340"
+                label="ИИН"
+                variant="filled"
+                name="iin"
+                maxLength={12}
+                onChange={(e) => handleWithdrawChange(e, 'iin')}
+              /> 
+              <div className="mt-4">
+                <Button 
+                  fullWidth 
+                  onClick={confirm} 
+                  disabled={!disabled}
+                >
+                  Подтвердить
+                </Button>
               </div>
-              </Tabs.Panel>
-            </Tabs>
+            </div>
           </Modal>
           <Button fullWidth onClick={open}>
             {kz ? `шығару` : `Вывод`}
@@ -828,10 +711,10 @@ export const Withdraw = ({bonuses}) => {
         }}
       >
         <div className='border p-4 inline-block border-primary-500 rounded-primary'>
-          <div>
+          <p>
             <img src={cardImg} alt="" className='w-20'/>
             <p className='text-xl mt-3'>Банковская карта</p>
-          </div>
+          </p>
           <p className='text text-base'>
             Коммисия 0%
           </p>
@@ -841,6 +724,7 @@ export const Withdraw = ({bonuses}) => {
           inputMode='numeric'
           pattern="[0-9]"
           onChange={e => setFill({...fill, sum: e.currentTarget.value})}
+          hideControls
           label='Введите сумму пополнение'
           description='от 500 T до 1 000 000 T'
           placeholder='500'

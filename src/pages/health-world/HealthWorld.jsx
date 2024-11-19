@@ -5,7 +5,7 @@ import { Link as RouterLink } from 'react-router-dom'
 
 import Kazmap from 'shared/assets/images/map-kz.png'
 import { usePageData } from 'shared/hooks'
-import { Image } from 'shared/ui'
+import { Accord, Image } from 'shared/ui'
 import { HealthCard } from 'entities/healthCard'
 import { Quiz } from 'modules/Quiz'
 import { Carousel, useAnimationOffsetEffect } from '@mantine/carousel'
@@ -261,25 +261,7 @@ export const HealthWorld = () => {
 
         <section className='container mt-8'>
           <h1 className='font-bold text-4xl text-primary-500 text-center'>Санатории</h1>
-          <Accordion
-            variant='separated'
-            className='my-10'
-            defaultValue='0'
-          >
-            {r?.map((q, i) => {
-              return (
-                <Accordion.Item value={`${i}`}>
-                  <Accordion.Control className='!text-xl !font-bold '>{i + 1}. 
-                    <span className='text-primary-500'>{q?.name}</span>
-                  </Accordion.Control>
-                  <Accordion.Panel className='p-4'>
-                    <div className='health-wrld' dangerouslySetInnerHTML={{__html: q?.desc ?? <></>}}/>
-                  </Accordion.Panel>
-                </Accordion.Item>
-              )
-            })}
-          </Accordion>
-
+          <Accord data={r}/>
           <div className='flex justify-center mt-4'>
             <Button
               onClick={() => handlers1.open()}

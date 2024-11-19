@@ -25,7 +25,7 @@ export const SubHeader = () => {
             +7 747 051 2252
           </span>
         </a>
-        <Menu className='ml-6'>
+        <Menu className='ml-6' >
           <Menu.Target>
             <p className='text-sm md:text-base font-bold text-primary-500 cursor-pointer flex gap-2 items-center'>
               {kz ? 'Каз': 'Рус'}
@@ -36,9 +36,9 @@ export const SubHeader = () => {
             <Menu.Item onClick={() => changeLang('ru')}>
               Русский
             </Menu.Item>
-            <Menu.Item onClick={() => changeLang('kz')}>
+            {/* <Menu.Item onClick={() => changeLang('kz')}>
               Казахский
-            </Menu.Item>
+            </Menu.Item> */}
           </Menu.Dropdown>
         </Menu>
       </div>

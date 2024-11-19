@@ -1,10 +1,11 @@
 import React from 'react'
 import { pb } from '../api/pocketbase'
 
-async function getUser (userId) {
-  return await pb.collection('users').getOne(userId, {
-    expand: 'sponsor'
-  })
+async function getUser (userId, type) {
+  if (!userId) return 
+
+  if (type === 'users') return await pb.collection(type).getOne(userId, {expand: 'sponsor'})
+  if (type === 'agents') return await pb.collection(type).getOne(userId, {expand: `creeps.creeps.creeps, sponsor`})
 }
 
 export const useAuth = () => {
@@ -13,7 +14,7 @@ export const useAuth = () => {
   const [loading, setLoading] = React.useState(true)
 
   function handleUser () {
-    getUser(pb.authStore.model?.id)
+    getUser(pb.authStore.model?.id, pb.authStore?.model?.collectionName)
     .then((res) => {
       setUser(res)
     })
@@ -21,7 +22,7 @@ export const useAuth = () => {
 
   React.useEffect(() => {
     handleUser()
-    pb.collection("users").subscribe(pb.authStore.model?.id, (e) => {
+    pb.collection(pb.authStore?.model?.collectionName).subscribe(pb.authStore.model?.id, (e) => {
       // both operations will trigger the authStore.onChange listener
       if (e.action == "delete") {
           pb.authStore.clear();

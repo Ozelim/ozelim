@@ -5,7 +5,7 @@ import { useLangContext } from 'app/langContext'
 import React from 'react'
 import { pb } from 'shared/api'
 import { usePageData } from 'shared/hooks'
-import { Image } from 'shared/ui'
+import { Accord, Image } from 'shared/ui'
 
 async function getRights () {
   return await pb.collection('rights_data').getFullList()
@@ -348,25 +348,7 @@ export const Rights = () => {
             <h1 className='font-bold text-4xl text-primary-500 text-center'>
               Предлагаемые юридические услуги
             </h1>
-            {/* <p className='mt-4 max-w-4xl text-center mx-auto'>Члены Ассоциации «ÖZ ELİM» получают доступ к широкому спектру юридических услуг, которые направлены на защиту их прав, поддержку туристических проектов, а также содействие развитию туристической отрасли в Казахстане. Рассмотрим эти услуги более подробно:</p> */}
-            <Accordion
-              variant='separated'
-              className='my-10'
-              defaultValue='0'
-            >
-              {acc.map((q, i) => {
-                return (
-                  <Accordion.Item value={`${i}`}>
-                    <Accordion.Control className='!text-xl !font-bold '>{i + 1}. 
-                      <span className='text-primary-500'>{q?.label}</span>
-                    </Accordion.Control>
-                    <Accordion.Panel className='p-4'>
-                      {q?.description}
-                    </Accordion.Panel>
-                  </Accordion.Item>
-                )
-              })}
-            </Accordion>
+            <Accord data={acc}/>
           </section>
 
           <section className="w-full mt-4">

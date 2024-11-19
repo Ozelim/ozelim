@@ -1,22 +1,29 @@
 import React from 'react'
-import { UserData } from 'entities/useData'
 import dayjs from 'dayjs'
-import { ReferalsList } from 'entities/referalsList'
 import { pb } from 'shared/api'
-import { Button, Group, LoadingOverlay, Modal, NumberInput, Radio, Table, TextInput } from '@mantine/core'
+import { ActionIcon, Badge, Button, Group, LoadingOverlay, MantineProvider, Modal, NumberInput, Radio, Table, TextInput, createEmotionCache } from '@mantine/core'
 import { useAuth } from 'shared/hooks'
 
-import Tree from 'react-d3-tree'
-import { formatNumber, getImageUrl, totalCost } from 'shared/lib'
+import { formatNumber} from 'shared/lib'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import axios from 'axios'
 import { sha512 } from 'js-sha512'
 import { Avatar } from 'shared/ui'
-import { Referal } from 'entities/referalsList/ui/Referal'
-import { openConfirmModal } from '@mantine/modals'
 
 import { FaCircleXmark } from 'react-icons/fa6'
-import { ProfileCourse } from './ProfileCourse'
+import { AgentsData } from './AgentsData'
+import { useDisclosure } from '@mantine/hooks'
+import { MdKeyboardArrowLeft } from "react-icons/md";
+import { AgentsList } from './AgentsList'
+
+import visa from 'shared/assets/images/visa.png'
+import mastercard from 'shared/assets/images/mastercard.png'
+import { HiDocumentCheck } from 'react-icons/hi2'
+
+const cache = createEmotionCache({
+  key: 'profile-mantine',
+  prepend: false
+})
 
 async function getBonusesRecord (id) {
   return await pb.collection('user_bonuses').getOne(id)
@@ -58,113 +65,22 @@ async function getWithdraws (userId) {
 
 async function getTransfers (userId) {
   return await pb.collection('transfers').getFullList({
-    filter: `${currentMonthString} && user = '${userId}'`,
+    filter: `${currentMonthString} && agent = '${userId}'`,
   })
 }
 
 async function getServiceBids (id) {
   return await pb.collection('service_bids').getFullList({
-    filter: `user = '${id}' && status != 'waiting'`,
+    filter: `agent = '${id}' && status != 'waiting'`,
     sort: `-created`,
   })
 }
 
-function CustomNode({ nodeDatum, onNodeClick, sponsor, node }) {
-
-  const data = nodeDatum?.value;
-
-  function click (data) {
-    onNodeClick(data)
-  }
-
-  const isSponsor = data?.id && (data?.id === sponsor?.sponsor)
-
-  const selected = node?.id === data?.id 
-
-  return (
-    <g stroke="grey" fill="grey" strokeWidth="0.7" >
-      <circle
-        r={isSponsor ? 30 : 20}
-        fill={selected ? "lightgray" : "Aquamarine"}
-        onClick={() => data?.id && click(nodeDatum)}
-        // strokeWidth={selected ? 5 : 1}
-        stroke={selected ? 'gray' : 'black'}
-      />
-      <text
-        stroke="green"
-        x={-60}
-        y={-25}
-        style={{ fontSize: "12px" }}
-        textAnchor="start"
-      >
-        {data?.name} {data?.surname}
-      </text>
-      <text
-        stroke="green"
-        x={-48}
-        y={35}
-        style={{ fontSize: "13px" }}
-        textAnchor="start"
-      >
-        {data?.id && (
-          `ID: ${data?.id}`
-        )}
-      </text>
-
-      <text
-        stroke="grey"
-        x={-48}
-        y={50}
-        style={{ fontSize: "12px" }}
-        textAnchor="start"
-      >
-        {data?.created && (
-          dayjs(data?.created).format("YYYY-MM-DD hh:mm")
-        )}
-      </text>
-    </g>
-  );
-}
-
-async function getBinaryById (id, bin) {
-  if (bin === 2) {
-    return await pb.collection('binary2').getFirstListItem(`sponsor = '${id}'`, {
-      expand: 'sponsor, children'
-    })
-  }
-  if (bin === 3) {
-    return await pb.collection('binary3').getFirstListItem(`sponsor = '${id}'`, {
-      expand: 'sponsor, children'
-    })
-  }
-  return await pb.collection('binary').getFirstListItem(`sponsor = '${id}'`, {
-    expand: 'sponsor, children'
-  })
-}
-
-function findAndReplaceObjectById(obj, idToFind, replacementObject) {
-  if (obj?.value?.id === idToFind) {
-    return replacementObject;
-  }
-
-  for (const key in obj) {
-    if (typeof obj[key] === 'object') {
-      const result = findAndReplaceObjectById(obj[key], idToFind, replacementObject);
-      if (result !== null) {
-        obj[key] = result;
-      }
-    }
-  }
-  return obj;
-}
-
-export const Profile = () => {
+export const AgentsProfile = () => {
 
   const {user, setUser, loading} = useAuth()
 
   const navigate = useNavigate()
-
-  const [searchParams, setSearchParams] = useSearchParams()
 
   const [count, setCount] = React.useState(0) 
 
@@ -172,15 +88,19 @@ export const Profile = () => {
 
   const [balance, setBalance] = React.useState(0)
 
+  const [color, setColor] = React.useState('orange')
+
+  React.useEffect(() => {
+    if (user?.agent) setColor('green')
+  }, [user?.agent])
+
   React.useEffect(() => {
     if (!loading) {
       if (!user) {
         navigate('/login')
       } 
-    }
+    } 
   }, [loading])
-
-  
 
   const [bids, setBids] = React.useState([])
 
@@ -229,36 +149,10 @@ export const Profile = () => {
     }
   }, [])
 
-  const handleBeforeUnload = (event) => {
-    const message = "Are you sure you want to leave? Your changes may not be saved.";
-    event.returnValue = message; // Standard for most browsers
-    return message; // For some older browsers
-  };
-
-  const [binary, setBinary] = React.useState({})
-  const [node, setNode] = React.useState(null)
   const [withdraws, setWithdraws] = React.useState([])
   const [transfers, setTransfers] = React.useState([])
 
-  const [currentBinary, setCurrentBinary] = React.useState(1)
-
   React.useEffect(() => {
-    getBinaryById(user?.id)
-    .then(res => {
-      setBinary({
-        value: res?.expand?.sponsor,
-        children: [
-          {
-            value: res?.expand?.children?.[0],
-            children: []
-          },
-          {
-            value: res?.expand?.children?.[1],
-            children: []
-          },
-        ]
-      })
-    }, [])
     getWithdraws(user?.id)
     .then(res => {
       setWithdraws(res)
@@ -269,63 +163,6 @@ export const Profile = () => {
     })
   }, [])
 
-  React.useEffect(() => {
-    if (currentBinary === 1) {
-      getBinaryById(user?.id)
-      .then(res => {
-        setBinary({
-          value: res?.expand?.sponsor,
-          children: [
-            {
-              value: res?.expand?.children?.[0],
-              children: []
-            },
-            {
-              value: res?.expand?.children?.[1],
-              children: []
-            },
-          ]
-        })
-      }, [])
-    }
-    if (currentBinary === 2) {
-      getBinaryById(user?.id, currentBinary)
-      .then(res => {
-        setBinary({
-          value: res?.expand?.sponsor,
-          children: [
-            {
-              value: res?.expand?.children?.[0],
-              children: []
-            },
-            {
-              value: res?.expand?.children?.[1],
-              children: []
-            },
-          ]
-        })
-      }, [])
-    }
-    if (currentBinary === 3) {
-      getBinaryById(user?.id, currentBinary)
-      .then(res => {
-        setBinary({
-          value: res?.expand?.sponsor,
-          children: [
-            {
-              value: res?.expand?.children?.[0],
-              children: []
-            },
-            {
-              value: res?.expand?.children?.[1],
-              children: []
-            },
-          ]
-        })
-      }, [])
-    }
-  }, [currentBinary])
-
   const [level, setLevel] = React.useState(0)
 
   function signout () {
@@ -334,108 +171,33 @@ export const Profile = () => {
   }
 
   async function checkLevel () {
-    if ((binary?.children?.[0]?.value && binary?.children?.[1]?.value)) { 
-      if (user?.level == 0) {
-        pb.collection('users').update(user?.id, {
-          level: '1'
-        })
-      }
+    // if ((binary?.children?.[0]?.value && binary?.children?.[1]?.value)) { 
+    //   if (user?.level == 0) {
+    //     pb.collection('agents').update(user?.id, {
+    //       level: '1'
+    //     })
+    //   }
 
-      if (user?.level == 1) {
-        const child1 = await getBinaryById(binary?.children?.[0]?.value?.id)
-        const child2 = await getBinaryById(binary?.children?.[1]?.value?.id)
+    //   if (user?.level == 1) {
+    //     const child1 = await getBinaryById(binary?.children?.[0]?.value?.id)
+    //     const child2 = await getBinaryById(binary?.children?.[1]?.value?.id)
         
-        if (child1.children.length === 2 && child2.children.length === 2) {
-          pb.collection('users').update(user?.id, {
-            level: `2`
-          })
-        }
-      }
-    }
+    //     if (child1.children.length === 2 && child2.children.length === 2) {
+    //       pb.collection('agents').update(user?.id, {
+    //         level: `2`
+    //       })
+    //     }
+    //   }
+    // }
   } 
 
   React.useEffect(() => {
     checkLevel()
-  }, [binary])
+  }, [])
 
   React.useEffect(() => {
     setLevel((!user?.level || user?.level == '0') ? 0 : user?.level)
   }, [user])
-
-  async function handleNodeClick (data) {
-    if (currentBinary === 1) {
-      getBinaryById(data?.value?.id)
-      .then(async res => {
-        const slot = await pb.collection(`binary`).getOne(data?.value?.id, {expand: 'sponsor, children'}) 
-        setNode(slot)
-        const obj = findAndReplaceObjectById(binary, data?.value?.id, {
-          value: res?.expand?.sponsor,
-          children: [
-            {
-              value: res?.expand?.children?.[0],
-              children: []
-            },
-            {
-              value: res?.expand?.children?.[1],
-              children: []
-            },
-          ]
-        })
-        setBinary({...binary, ...obj})
-      })
-      .catch(err => {
-        console.log(err, 'err');
-      }) 
-    } 
-    if (currentBinary === 2) {
-      getBinaryById(data?.value?.id, 2)
-      .then(async res => {
-        const slot = await pb.collection(`binary2`).getOne(data?.value?.id, {expand: 'sponsor, children'}) 
-        setNode(slot)
-        const obj = findAndReplaceObjectById(binary, data?.value?.id, {
-          value: res?.expand?.sponsor,
-          children: [
-            {
-              value: res?.expand?.children?.[0],
-              children: []
-            },
-            {
-              value: res?.expand?.children?.[1],
-              children: []
-            },
-          ]
-        })
-        setBinary({...binary, ...obj})
-      })
-      .catch(err => {
-        console.log(err, 'err');
-      }) 
-    } 
-    if (currentBinary === 3) {
-      getBinaryById(data?.value?.id, 3)
-      .then(async res => {
-        const slot = await pb.collection(`binary3`).getOne(data?.value?.id, {expand: 'sponsor, children'}) 
-        setNode(slot)
-        const obj = findAndReplaceObjectById(binary, data?.value?.id, {
-          value: res?.expand?.sponsor,
-          children: [
-            {
-              value: res?.expand?.children?.[0],
-              children: []
-            },
-            {
-              value: res?.expand?.children?.[1],
-              children: []
-            },
-          ]
-        })
-        setBinary({...binary, ...obj})
-      })
-      .catch(err => {
-        console.log(err, 'err');
-      }) 
-    } 
-  } 
 
   const [paymentLoading, setPaymentLoading] = React.useState(false)
   const [verifyLoading, setVerifyLoading] = React.useState(false)
@@ -457,7 +219,7 @@ export const Profile = () => {
         NONCE: randomNumber + 107,
         DESC: 'Оплата',
         CLIENT_ID: user?.id,
-        DESC_ORDER: 'Оплата верификация',
+        DESC_ORDER: 'Оплата верификация (Агент)', 
         EMAIL: user?.email,
         BACKREF: `https://oz-elim.kz/profile`,
         Ucaf_Flag: '',
@@ -474,10 +236,8 @@ export const Profile = () => {
         P_SIGN: sign
       })
       .then(async res => {
-        console.log(res, 'res');
-        console.log(res?.data, 'res data');
         const searchParams = new URLSearchParams(JSON.parse(res?.config?.data));
-        await pb.collection('users').update(user?.id, {
+        await pb.collection('agents').update(user?.id, {
           pay: {
             ...JSON.parse(res?.config?.data),
             SHARED_KEY: token
@@ -500,11 +260,12 @@ export const Profile = () => {
 
   async function  verifyUser(userId) {
     setVerifyLoading(true)
-    await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/verify`, {
-      id: userId
+    await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/agents`, {
+      id: userId,
+      collectionName: user?.collectionName
     })
     .then(async res => {
-      await pb.collection('users').getOne(user.id, {expand: 'sponsor'})
+      await pb.collection('agents').getOne(user.id, {expand: 'sponsor, creeps.creeps.creeps'})
       .then(res => {
         setUser(res)
       })
@@ -513,59 +274,18 @@ export const Profile = () => {
     .finally(() => {
       setVerifyLoading(false)
     })
-
-    // await pb.admins.authWithPassword('helper@mail.ru', import.meta.env.VITE_APP_PASSWORD)
-    // .then(async res => {
-    //   await pb.collection("users").update(userId, {
-    //     verified: true,
-    //   })
-    //   .then(async res => {
-    //     const sponsor = await pb.collection('users').getOne(res?.sponsor)
-    //     await pb.collection('users').update(sponsor?.id, {
-    //       referals: [...sponsor?.referals, res?.id]
-    //     })
-      
-    //     const referals = await pb.collection('users').getFullList({filter: `sponsor = '${sponsor?.id}' && verified = true`})
-  
-    //     if (referals?.length === 1) {
-    //       await pb.collection('users').update(sponsor?.id, {
-    //         balance: sponsor?.balance + 30000            
-    //       })
-    //       .finally(async () => {
-    //         pb.authStore.clear()
-    //         window.location.reload()
-    //       })            
-    //     }
-
-    //     if (referals?.length >= 4) {
-    //       await pb.collection('users').update(sponsor?.id, {
-    //         balance: sponsor?.balance + 15000            
-    //       })
-    //       .finally(async () => {
-    //         pb.authStore.clear()
-    //         window.location.reload()
-    //       })            
-    //     }
-
-    //     pb.authStore.clear()
-    //     window.location.reload()
-    //     // setLoading(false)
-    //   })
-    //   .catch(err => {
-    //     // setLoading(false)
-    //   })
-    //   .finally(() => {
-    //     setVerifyLoading(false)
-    //   })
-    // })
-    // .finally(() => {
-    //   setVerifyLoading(false)
-    // })
   }
 
   async function checkPaymentStatus () {
-    const u = await pb.collection('users').getOne(user.id)
+    const u = await pb.collection('agents').getOne(user.id)
 
+    verifyUser(u?.id)
+    .catch(err => {
+      console.log(err, 'err');
+    })
+    .then(res => {
+      console.log(res, 'res');
+    })
     const token = import.meta.env.VITE_APP_SHARED_SECRET
     const string = `${u?.pay?.ORDER};${u?.pay?.MERCHANT}`
     const sign = sha512(token + string).toString()
@@ -590,47 +310,13 @@ export const Profile = () => {
   }
 
   React.useEffect(() => {
-    checkPaymentStatus()
+    // checkPaymentStatus()
   }, [])
-
-  const [modal, setModal] = React.useState(false)
-
-  function handleReferal () {
-    setModal(true)
-  }
 
   const [viewModal, setViewModal] = React.useState({
     modal: false,
     services: []
   })
-
-  const confirm = (bid) => openConfirmModal({
-    title: 'Отменить услугу',
-    centered: true,
-    labels: { confirm: 'Подтвердить', cancel: 'Отмена' },
-    onConfirm: async () => pb.collection('service_bids').delete(bid?.id)
-    .then(async res => {
-      await pb.collection('users').update(user?.id, {
-        'balance+': bid?.total_cost
-      })
-      .then(() => {
-        window.location.reload()
-      })
-    }) 
-  })
-
-  const [card, setCard] = React.useState('')
-
-  const handleCardDisplay = () => {
-    const rawText = [...card?.split(' ').join('')] // Remove old space
-    const creditCard = [] // Create card as array
-    rawText.forEach((t, i) => {
-      if (i % 4 === 0 && i !== 0) creditCard.push(' ') // Add space
-      creditCard.push(t)
-    })
-
-    return creditCard.join('') // Transform card array to string
-  }
 
   const [cancel, setCancel] = React.useState({
     modal: false,
@@ -656,7 +342,7 @@ export const Profile = () => {
         refunded_sum: com ? (bid?.total_cost - (bid?.total_cost * 0.05)).toFixed(0) : bid?.total_cost,
       })
       .then(async () => {
-        await pb.collection('users').update(user?.id, {
+        await pb.collection('agents').update(user?.id, {
           'balance+': com ? (bid?.total_cost - (bid?.total_cost * 0.05)).toFixed(0) : bid?.total_cost
         })
         .then(() => {
@@ -680,7 +366,7 @@ export const Profile = () => {
         refunded_sum: com ? (bid?.total_cost - (bid?.total_cost * 0.05)).toFixed(0) : bid?.total_cost,
       })
       .then(async () => {
-        await pb.collection('users').update(user?.id, {
+        await pb.collection('agents').update(user?.id, {
           'bonuses+': com ? (bid?.total_cost - (bid?.total_cost * 0.05)).toFixed(0) : bid?.total_cost
         })
         .then(() => {
@@ -721,17 +407,17 @@ export const Profile = () => {
 
   const [refundType, setRefundType] = React.useState('')
 
-  function handleCourseClick () {
-    setSearchParams({
-      course: user?.id
-    })
-  }
+  const [currentAgent, setCurrentAgent] = React.useState(user)
+
+  const [agentLoading, handlers] = useDisclosure(false)
+
+  React.useEffect(() => {
+    setCurrentAgent(user)
+  }, [user])
 
   if (loading) {
     return <></>
   }
-
-  // if (searchParams.get('course') === user?.id && user?.verified) return <ProfileCourse/>
 
   if (!user?.verified) {
     return (
@@ -751,32 +437,25 @@ export const Profile = () => {
                   Выйти
                 </Button>
             </div>
-              <p className='text-center mt-4 mb-4 font-bold'>Пожалуйста обратитесь в службу поддержки или выберите способ оплаты</p>
-              <div className='flex justify-between flex-col md:flex-row gap-4 mt-2'>
-                <div className='p-4 border rounded-primary shadow-md bg-white max-w-xs w-full text-center'>
-                  <p className='text'>Свяжитесь с менеджером для выставления счета на оплату</p>
-                  <p className='text-xl font-bold mt-2'>
-                    Kaspi Pay
-                  </p>
-                  <a href={`https://wa.me/77470512252?text=Здравствуйте! Хочу оплатить верификацию аккаунта с ID: ${user?.id}`} target="_blank" rel="noopener noreferrer">
-                    <Button className='mt-4'>
-                      Связаться
-                    </Button>
-                  </a>
+            <p className='text-center mt-4 font-bold'>Выберите способ оплаты</p>
+            <div className='mt-2'>
+              <div className='p-4 border rounded-primary shadow-md bg-white max-w-xs w-full text-center'>
+                <p className='text'>Онлайн оплата с помощью банковской карты</p>
+                <div className='flex justify-center items-center'>
+                  <img src={visa} alt="" className='max-w-[40px]' />
+                  <img src={mastercard} alt="" className='object-contain max-w-[40px]' />
                 </div>
-                <div className='p-4 border rounded-primary shadow-md bg-white max-w-xs w-full text-center'>
-                  <p className='text'>Онлайн оплата с помощью банковской карты</p>
-                  <p className='text-xl font-bold mt-2'>
-                    Visa/MasterCard
-                  </p>
-                  <Button 
-                    className='mt-4' 
-                    onClick={submit}  
-                  >
-                    Оплатить
-                  </Button>
-                </div>
+                <p className='text-xl font-bold mt-2'>
+                  Visa/MasterCard
+                </p>
+                <Button 
+                  className='mt-4' 
+                  onClick={submit}  
+                >
+                  Оплатить
+                </Button>
               </div>
+            </div>
           </div>
         </div>
       </>
@@ -784,106 +463,116 @@ export const Profile = () => {
   }
 
   return (
-    <>
+    <MantineProvider
+      withGlobalStyles
+      withCSSVariables
+      emotionCache={cache}
+      theme={{
+        primaryColor: color,
+        primaryShade: color == 'orange' ? 5 : 6,
+        defaultRadius: 'md',
+      }}
+    >
       <div className="w-full">
         <div className="container">
           <div className="w-full bg-white shadow-md rounded-primary p-4">
             <div className="grid lg:grid-cols-[25%_auto] gap-6">
-              <UserData count={count} setCount={setCount} balance={balance} bonuses={bonuses}/>
-       
+              <div className='mt-1'>
+
+                <AgentsData count={count} setCount={setCount} balance={balance} bonuses={bonuses}/>
+
+              </div>
               <div className="relative overflow-hidden">
 
-                <ReferalsList level={level} setCount={setCount} />
-                <div className="mt-10 overflow-auto">
-                  {user?.sponsor && (
-                    <div className='flex justify-between mb-4'>
-                      <div>
-                        <p>Спонсор:</p>
-                        <div className='flex mt-2'>
-                          <Referal
-                            referal={user?.expand?.sponsor}
-                            onReferalClick={() => {}}
-                            sponsor
-                          />
-                        </div>
-                      </div>
-                      <div>
+                {/* <ReferalsList level={level} setCount={setCount} /> */}
+                {user?.agent && (
+                  <AgentsList level={level} setCount={setCount} />
+                )}
+                <div className="overflow-auto">
+
+
+                  {user?.agent && (
+                    <div className='relative mt-20'>
+                      <LoadingOverlay visible={agentLoading} />
+                      <div className='grid grid-cols-[10%_auto_10%] items-end'>
+                        <Button
+                          onClick={async () => {
+                            setCurrentAgent(user)
+                          }}
+                          variant='light'
+                        >
+                          <MdKeyboardArrowLeft size={30}/>
+
+                        </Button>
                         
-                        <p>Бинар:</p>
-                        <div className='flex gap-4 items-center mt-2 mr-4'>
-                          {user?.binary === 2 && (
-                            <>
-                              <Button
-                                compact
-                                variant='outline'
-                                onClick={() => setCurrentBinary(1)}
-                              >
-                                1
-                              </Button>
-                              <Button 
-                                compact
-                                variant='outline'
-                                onClick={() => setCurrentBinary(2)}
-                              >
-                                2
-                              </Button>
-                            </>
-                          )}
-                          {user?.binary === 3 && (
-                            <>
-                            <Button
-                              compact
-                              variant='outline'
-                              onClick={() => setCurrentBinary(1)}
-                            >
-                              1
-                            </Button>
-                            <Button 
-                              compact
-                              variant='outline'
-                              onClick={() => setCurrentBinary(2)}
-                            >
-                              2
-                            </Button>
-                            <Button 
-                              compact
-                              variant='outline'
-                              onClick={() => setCurrentBinary(3)}
-                            >
-                              3
-                            </Button>
-                            </>
-                          )}
-                          {(user?.binary === 0 || user?.binary === 1) && (
-                            <Button
-                              compact
-                              variant='outline'
-                            >
-                              1
-                            </Button>
-                          )}
+                        <div className='flex mt-2 mx-auto w-fit max-[208px]'>
+                          <Avatar
+                            src={currentAgent?.avatar}
+                            className='aspect-square !w-16 !h-16 mx-auto'
+                            radius='xl'
+                            record={currentAgent}
+                            cl='border-4 border-primary-500'
+                          />
+                          <div className='flex flex-col justify-center ml-2'>
+                            <p className='text-lg font-head'>
+                              {currentAgent?.fio}
+                            </p>
+                            <p className='mt-1 text'>
+                              {dayjs(currentAgent?.created).format('DD.MM.YYYY')}
+                            </p>
+                          </div>
                         </div>
+                        <div></div>
+                      </div>
+
+                      <p className='mt-4'>Пользователей: {currentAgent?.expand?.creeps?.length ?? 0}</p>
+                      
+                      <div className='flex border p-4 space-x-8 overflow-x-scroll'>
+                        {(currentAgent?.expand?.creeps?.length == 0 || !currentAgent?.expand?.creeps?.length) ? (
+                          <p className='text-center'>Не найдено пользователей</p>
+                        ) : (
+                          <>
+                            {currentAgent?.expand?.creeps?.map(q => {
+                              return (
+                                <div 
+                                  className='flex cursor-pointer items-center '
+                                  onClick={async () => {
+                                    handlers.open()
+                                    await pb.collection('agents').getOne(q?.id, {expand: 'creeps'})
+                                    .then(res => {
+                                      setCurrentAgent(res)
+                                    })
+                                    .finally(() => {
+                                      handlers.close()
+                                    })
+                                  }}
+                                  key={q?.id}
+                                >
+                                  <div className='relative'>
+                                    {/* <div className='absolute left-1/2 bottom-1/2 h-16 w-0.5 bg-primary-500 z-10'/> */}
+                                    <Avatar
+                                      src={q?.avatar}
+                                      className='aspect-square !w-14 !h-14 mx-auto z-20'
+                                      radius='xl'
+                                      record={q}
+                                    />
+                                  </div>
+                                  <div className='flex flex-col justify-center ml-2'>
+                                    <p className='text-lg font-head w-fit max-[208px] overflow-hidden'>
+                                      {q?.fio}
+                                    </p>
+                                    <p className='mt-1 text'>
+                                      {dayjs(q?.created).format('DD.MM.YYYY')}
+                                    </p>
+                                  </div>
+                                </div>
+                              )
+                            })}
+                          </>
+                        )}
                       </div>
                     </div>
                   )}
-                  <div className="h-[70vh] border-2 border-primary-400 p-4 ">
-                    <Tree 
-                      data={binary ?? {}}
-                      orientation="vertical" 
-                      pathFunc="elbow"
-                      nodeSvgShape={{
-                        shape: "circle",
-                        shapeProps: { r: 20, fill: "green " },
-                      }}
-                      renderCustomNodeElement={(props) => (
-                        <CustomNode 
-                          {...props}
-                          onNodeClick={handleNodeClick}
-                          // node={node}
-                        />
-                      )}
-                    />
-                  </div>
        
                   {withdraws?.length !== 0 && (
                     <div className="mt-12 overflow-scroll">
@@ -909,7 +598,7 @@ export const Profile = () => {
                                 </td>
                                 <td>{formatNumber(withdraw?.sum)}</td>
                                 <td>{withdraw?.card}</td>
-                                <td>{withdraw?.owner}</td>
+                                <td>{withdraw?.owner ?? withdraw?.agent ? withdraw?.agent : withdraw?.user}</td>
                                 <td>
                                   {withdraw?.status === 'created' &&
                                     'В обработке'}
@@ -940,9 +629,7 @@ export const Profile = () => {
                             return (
                               <tr key={i} className="text">
                                 <td className='whitespace-nowrap'>
-                                  {dayjs(transfer?.created).format(
-                                    'YY-MM-DD, hh:mm'
-                                  )}
+                                  {dayjs(transfer?.created).format('YY-MM-DD, hh:mm')}
                                 </td>
                                 <td>{formatNumber(transfer?.sum)}</td>
                                 <td>{transfer?.user}</td>
@@ -972,7 +659,7 @@ export const Profile = () => {
                             return (
                               <tr key={i}>
                                 <td>{q.name}</td>
-                                <td>{q.total_cost} тг</td>
+                              <td>{q.total_cost} тг</td>
                                 <td>
                                   <Button
                                     variant='outline'
@@ -1221,6 +908,6 @@ export const Profile = () => {
           )}
         </div>
       </Modal>
-    </>
+    </MantineProvider>
   )
 }

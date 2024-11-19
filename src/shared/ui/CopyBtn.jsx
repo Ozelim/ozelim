@@ -2,9 +2,9 @@ import React from 'react'
 import { ActionIcon, CopyButton, Tooltip } from '@mantine/core'
 import { IconCheck, IconCopy } from '@tabler/icons-react'
 
-export const CopyBtn = ({value}) => {
+export const CopyBtn = ({value, rest}) => {
   return (
-    <CopyButton value={value} timeout={2000}>
+    <CopyButton value={value} timeout={2000} {...rest}>
       {({ copied, copy }) => (
         <Tooltip label={copied ? 'Скопировано' : 'Скопировать'} withArrow position="right">
           <ActionIcon color={copied ? 'teal' : 'gray'} onClick={copy}>
