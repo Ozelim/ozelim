@@ -9,11 +9,22 @@ import { Button, Modal, Select, TextInput } from '@mantine/core'
 import { pb } from 'shared/api'
 import { showNotification } from '@mantine/notifications'
 
-
+async function getFundData () {
+  return await pb.collection('fund_bids').getFullList()
+}
 
 export const Fund = () => {
 
   const { headings, images, text } = usePageData('fund')
+
+  const [r, setR] = React.useState({})
+
+  React.useEffect(() => {
+    getFundData()
+    .then(res => {
+      setR(res?.[0])
+    })
+  }, [])
 
   const matches = useMediaQuery(`(min-width: 767px)`)
 
@@ -24,7 +35,7 @@ export const Fund = () => {
   const [d, setD] = React.useState({
     name: '',
     phone: '',
-    resort: ''
+    service: ''
   })
 
   return (
@@ -326,12 +337,12 @@ export const Fund = () => {
             onChange={e => setD({...d, phone: e?.currentTarget?.value})}
           />
           <Select
-            label='Санатории'
-            placeholder='Выберите санаторий'
-            data={r?.map(e => {return {label: e?.name, value: e?.name}}) ?? []}
+            label='Услуга'
+            placeholder='Выберите услугу'
+            data={r?.services?.map(e => {return {label: e, value: e}}) ?? []}
             className='mt-3'
             variant='filled'
-            onChange={e => setD({...d, resort: e})}
+            onChange={e => setD({...d, service: e})}
           />
           <div className='flex justify-center mt-6'>
             <Button 
