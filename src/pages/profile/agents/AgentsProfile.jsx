@@ -280,13 +280,6 @@ export const AgentsProfile = () => {
   async function checkPaymentStatus () {
     const u = await pb.collection('agents').getOne(user.id)
 
-    verifyUser(u?.id)
-    .catch(err => {
-      console.log(err, 'err');
-    })
-    .then(res => {
-      console.log(res, 'res');
-    })
     const token = import.meta.env.VITE_APP_SHARED_SECRET
     const string = `${u?.pay?.ORDER};${u?.pay?.MERCHANT}`
     const sign = sha512(token + string).toString()
