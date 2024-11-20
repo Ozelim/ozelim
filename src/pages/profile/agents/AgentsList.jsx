@@ -233,10 +233,10 @@ export const AgentsList = ({ level, setCount }) => {
                 ){' '}
               </p>
             </div>
-
+{/* 
             <Button className="mt-2" compact variant="subtle" onClick={(e) => periodM_h.open()}>
               Отчет
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>
