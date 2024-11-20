@@ -228,6 +228,7 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
   }
 
   async function checkPaymentStatus () {
+    
     const u = await pb.collection('agents').getOne(user.id)
     const token = import.meta.env.VITE_APP_SHARED_SECRET
     const string = `${u?.agents_pay?.ORDER};${u?.agents_pay?.MERCHANT}`

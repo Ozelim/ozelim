@@ -367,11 +367,11 @@ export const Withdraw = ({bonuses}) => {
                   }
                 ]
               })
-            })
+            }) 
           })
           .finally(() => {
             setServiceLoading(false)
-          })
+          }) 
           // verifyUser(user?.id)
         }
       })
