@@ -10,7 +10,7 @@ import { pb } from 'shared/api'
 import { showNotification } from '@mantine/notifications'
 
 async function getFundData () {
-  return await pb.collection('fund_bids').getFullList()
+  return await pb.collection('fund_data').getFullList()
 }
 
 export const Fund = () => {
