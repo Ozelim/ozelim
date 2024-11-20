@@ -96,11 +96,11 @@ export const Tourist = () => {
 
             <div className="w-full lg:text-left text-center">
               <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
-                {headings?.q1}
+                {headings?.intro1}
               </h1>
 
               <ul className="mt-3 text-lg font-medium text-[#5a5959] ">
-                <li>{text?.q1}</li>
+                <li>{text?.intro2}</li>
               </ul>
             </div>
           </section>
@@ -109,25 +109,25 @@ export const Tourist = () => {
             <div className="grid lg:grid-cols-[60%_auto] gap-4 mt-10">
               <Image
                 record={images}
-                index={7}
+                index={6}
                 className="w-full rounded-primary object-cover aspect-video"
               />
               <div>
                 <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
-                  {headings?.q1}
+                  {headings?.info1}
                 </h1>
                 <div className="space-y-4 mt-3">
                   <div>
-                    <p className="text-lg text-primary-500">{text?.q2}</p>
-                    <p>{text?.q2}</p>
+                    <p className="text-lg text-primary-500 font-semibold">{text?.info2}</p>
+                    <p>{text?.info3}</p>
                   </div>
                   <div>
-                    <p className="text-lg text-primary-500">{text?.q3}</p>
-                    <p>{text?.q3}</p>
+                    <p className="text-lg text-primary-500 font-semibold">{text?.info4}</p>
+                    <p>{text?.info5}</p>
                   </div>
                   <div>
-                    <p className="text-lg text-primary-500">{text?.q4}</p>
-                    <p>{text?.q4}</p>
+                    <p className="text-lg text-primary-500 font-semibold">{text?.info6}</p>
+                    <p>{text?.info7}</p>
                   </div>
                 </div>
               </div>
@@ -137,146 +137,82 @@ export const Tourist = () => {
           <section className="grid grid-cols-[60%_auto] mt-10 gap-4 rounded-primary overflow-hidden">
             <Image
               record={images}
-              index={4}
+              index={7}
               className="min-w-full rounded-primary object-cover aspect-video"
             />
             <div className="w-full lg:text-left text-center">
               <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
-                {headings?.q1}
+                {headings?.memo1}
               </h1>
 
               <ul className="mt-3 text-lg font-medium text-[#5a5959] ">
-                <li>{text?.q1}</li>
+                <li>{text?.memo2}</li>
               </ul>
             </div>
           </section>
 
-          {/* <section>
-            <h2 className='font-semibold text-[20px] mt-5 text-primary-500'>
-              {headings?.q2}
-            </h2>
-            <ul className="space-y-4 px-4 mt-5">
-              <li>
-                <div className='flex gap-4'>
-                  <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
-                  <p className="text-lg text-primary-500">
-                    {text?.q2}
-                  </p>
-                </div>
-                <p className="text-left mt-3 text ml-4">{text?.q3} </p>
-              </li>
-              <li>
-                <div className='flex gap-4'>
-                  <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
-                  <p className="text-lg text-primary-500">
-                    {text?.q4}
-                  </p>
-                </div>
-                <p className="text-left mt-3 text ml-4">{text?.q5} </p>
-              </li>
-              <li>
-                <div className='flex gap-4'>
-                  <div className="bg-primary-500 w-4 h-4 rounded-full mt-1 flex-shrink-0" />
-                  <p className="text-lg text-primary-500">
-                    {text?.q6}
-                  </p>
-                </div>
-                <p className="text-left mt-3 text ml-4">{text?.q7} </p>
-              </li>
-            </ul>
-          </section> */}
 
-          <section className='mt-10'>
+          <section className='mt-10 text-center'>
             <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
-              {headings?.q3}
+              {headings?.services1}
             </h1>
-            <p className="text-xl font-medium mt-3">{headings?.q4}</p>
-            <p className="mt-2 text-lg font-medium">{text?.q8}</p>
-            <p className="mt-2 text-lg font-medium">{text?.q8}</p>
-            <p className="mt-2 text-lg font-medium">{text?.q8}</p>
-            <p className="mt-2 text-lg font-medium">{text?.q8}</p>
-            <p className="mt-2 text-lg font-medium">{text?.q8}</p>
-            <p className="mt-2 text-lg font-medium">{text?.q8}</p>
-            <p className="mt-2 text-lg font-medium">{text?.q8}</p>
-            <p className="mt-2 text-lg font-medium">{text?.q8}</p>
-            <p className="mt-2 text-lg font-medium">{text?.q8}</p>
-            <p className="mt-2 text-lg font-medium">{text?.q8}</p>
-            <p className="mt-2 text-lg font-medium">{text?.q8}</p>
-            <p className="mt-2 text-lg font-medium">{text?.q8}</p>
+            <p className="text-xl font-medium mt-3">{headings?.services2}</p>
+            {Array(12).fill(1).map((_, i) => {
+              return <p className="mt-2 font-medium">{text?.[`services${i + 3}`]}</p>
+            })}
           </section>
 
-          <section className="flex flex-col lg:flex-row mt-10 gap-8">
+          <section className="grid lg:grid-cols-[60%_auto] mt-10 gap-4">
+            <Image
+              record={images}
+              index={8}
+              className="w-full lg mx-auto lg:mx-0 rounded-primary object-cover aspect-video"
+            />
+
+            <div className="w-full lg:text-left text-center">
+              <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
+                {headings?.fund1}
+              </h1>
+
+              <p className="text-xl font-medium mt-3">{headings?.fund2}</p>
+              <p className="mt-2 text-lg font-medium">{text?.fund}</p>
+            </div>
+          </section>
+
+          <section className="grid lg:grid-cols-[60%_auto] mt-10 gap-4">
+            <Image
+              record={images}
+              index={9}
+              className="w-full lg mx-auto lg:mx-0 rounded-primary object-cover aspect-video"
+            />
+
+            <div className="w-full lg:text-left text-center">
+              <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
+                {headings?.dick1}
+              </h1>
+
+              <p className="mt-3 text-lg font-medium">{text?.dick2}</p>
+            </div>
+          </section>
+
+          <section className="grid lg:grid-cols-[60%_auto] mt-10 gap-4">
             <Image
               record={images}
               index={6}
-              className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 rounded-primary max-h-96 object-cover"
+              className="w-full lg mx-auto lg:mx-0 rounded-primary object-cover aspect-video"
             />
 
             <div className="w-full lg:text-left text-center">
               <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
                 {headings?.q3}
               </h1>
-
-              <p className="text-xl font-medium mt-3">{headings?.q4}</p>
-              <p className="mt-3 text-lg font-medium">{text?.q8}</p>
+              <h1 className="text-xl md:text-2xl font-bold font-head text-teal-500 mt-2">
+                {headings?.q3}
+              </h1>
+              {Array(12).fill(1).map((_, i) => {
+                return <p className="mt-2 font-medium">{text?.[`agent${i + 3}`]}</p>
+              })}
             </div>
-          </section>
-
-          <section className="w-full mt-5">
-            <div className="flex flex-col lg:flex-row mt-4 gap-8">
-              <Image
-                record={images}
-                index={7}
-                className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 rounded-primary max-h-96 object-cover"
-              />
-
-              <div className="w-full lg:text-left text-center">
-                <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
-                  {headings?.q5}
-                </h1>
-
-                <div className="mt-3 text-lg font-medium">{text?.q9}</div>
-              </div>
-            </div>
-          </section>
-
-          <section className="w-full mt-5">
-            <div className="flex flex-col lg:flex-row mt-4 gap-8">
-              <Image
-                record={images}
-                index={8}
-                className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 rounded-primary max-h-96 object-cover"
-              />
-
-              <div className="w-full lg:text-left text-center">
-                <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
-                  {headings?.q6}
-                </h1>
-                <h1 className="text-xl md:text-2xl font-bold font-head">{headings?.q7}</h1>
-
-                <div className="mt-3 text-lg font-medium">{text?.q10}</div>
-                <div className="mt-3 text-lg font-medium">{text?.q11}</div>
-                <div className="mt-3 text-lg font-medium">{text?.q12}</div>
-                <div className="mt-3 text-lg font-medium">{text?.q13}</div>
-                <div className="mt-3 text-lg font-medium">{text?.q14}</div>
-                <div className="mt-3 text-lg font-medium">{text?.q15}</div>
-                <div className="mt-3 text-lg font-medium">{text?.q16}</div>
-                <div className="mt-3 text-lg font-medium">{text?.q17}</div>
-                <div className="mt-3 text-lg font-medium">{text?.q18}</div>
-                <div className="mt-3 text-lg font-medium">{text?.q19}</div>
-                <div className="mt-3 text-lg font-medium">{text?.q20}</div>
-                <div className="mt-3 text-lg font-medium">{text?.q21}</div>
-              </div>
-            </div>
-          </section>
-
-          <section className="mt-8">
-            <h1 className="text-4xl text-primary-500 font-bold text-center">{headings?.q8}</h1>
-            <Image
-              record={images}
-              index={9}
-              className="mx-auto mt-5 w-full max-w-2xl max-h-[500px]"
-            />
           </section>
 
           <section className="mt-10">
