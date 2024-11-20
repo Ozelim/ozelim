@@ -198,7 +198,7 @@ export const Tourist = () => {
           <section className="grid lg:grid-cols-[60%_auto] mt-10 gap-4">
             <Image
               record={images}
-              index={6}
+              index={10}
               className="w-full lg mx-auto lg:mx-0 rounded-primary object-cover aspect-video"
             />
 
