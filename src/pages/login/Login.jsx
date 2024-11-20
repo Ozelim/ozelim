@@ -16,7 +16,7 @@ export const Login = () => {
   const [params, setParams] = useSearchParams()
 
   const navigate = useNavigate() 
-
+  
   React.useEffect(() => {
     if (!loading) {
       if (user) {

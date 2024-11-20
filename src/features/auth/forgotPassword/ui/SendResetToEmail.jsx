@@ -4,6 +4,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { sendPasswordReset } from '../model/actions'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useSearchParams } from 'react-router-dom'
 
 const emailSchema = yup.object({
   email: yup.string().email("Неверный формат почты").required("Заполните данное поле"),
@@ -18,6 +19,8 @@ export const SendResetToEmail = () => {
     resolver: yupResolver(emailSchema) 
   })
 
+  const [params] = useSearchParams()
+
   const [sended, setSended] = React.useState(false)
   const [loading, setLoading] = React.useState(false)
 
@@ -25,7 +28,7 @@ export const SendResetToEmail = () => {
 
   const onSubmit = data => {
     setLoading(true)
-    sendPasswordReset(data?.email)
+    sendPasswordReset(params.get('user') ? 'user' : 'agent', data?.email)
     .then(res => {
       console.log(res, 'res');
       // onComplete(res)

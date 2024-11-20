@@ -212,7 +212,7 @@ export const HealthWorld = () => {
           </div>
         </section>
 
-        <Quiz/>
+        {/* <Quiz/> */}
 
         <div className="container">
           <div className="py-6 px-4 text-center bg-gradient-to-tl from-teal-600 to-teal-500 shadow-md rounded-primary">

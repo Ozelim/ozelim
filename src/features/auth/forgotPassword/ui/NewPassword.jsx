@@ -31,6 +31,7 @@ export const NewPassword = () => {
   const onSubmit = data => {
     setLoading(true)
     resetPassword(
+      params.get('user') ? 'user' : 'agent',
       params?.get('token'), 
       data?.password, 
       data?.password, 

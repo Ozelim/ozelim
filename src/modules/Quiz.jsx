@@ -78,19 +78,19 @@ export const Quiz = () => {
   }
 
   return (
-    <div className="w-full px-4">
-      <div className="container bg-white rounded-primary py-8 shadow-md">
+    <div className="w-full">
+      <div className="bg-white rounded-primary py-8 shadow-md">
         <div className='w-full flex justify-center'>
           <div className="relative overflow-hidden space-y-2">
             <div className="mb-10">
-              <h1 className="text-center text-4xl mb-2 text-primary-500 max-w-4xl mx-auto">
+              <h1 className="text-center text-xl mb-2 text-primary-500 max-w-4xl mx-auto">
                 
                 {kz 
                   ? `Сіздің медициналық көрсеткіштеріңіз бойынша санатория таңдау`
                   : `Санаторно-курортные комплексы по Вашим медицинским показаниям`
                 }
               </h1>
-              <p className="text-center text text-black text-2xl font-bold">
+              <p className="text-center text text-black font-bold">
                 {kz 
                   ? `Сұрақтарға жауап беріп, кеңес күтіңіз`
                   : `Ответьте на вопросы и ожидайте консультацию`
@@ -119,9 +119,7 @@ export const Quiz = () => {
                     return (
                       <Stepper.Step key={key}>
                         <div
-                          className={
-                            'flex rounded-primary border border-zinc-200 justify-center items-center w-full h-full mt-4'
-                          }
+                          className={'flex rounded-primary border border-zinc-200 justify-center items-center w-full h-full mt-4'}
                         >
                           <div className="w-full p-4">
                             <p className="text-lg text-center text">

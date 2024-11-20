@@ -143,6 +143,9 @@ export const Withdraw = ({bonuses}) => {
       children: (
         <>Вы действительно хотите вывести средства?</>
       ),
+      confirmProps: {
+        color: 'green'
+      },
       onConfirm: () => confirmWithdraw(),
     })
   }
@@ -156,6 +159,9 @@ export const Withdraw = ({bonuses}) => {
       children: (
         <>Вы действительно хотите вывести средства?</>
       ),
+      confirmProps: {
+        color: 'green'
+      },
       onConfirm: () => confirmWithdrawD(),
     })
   }

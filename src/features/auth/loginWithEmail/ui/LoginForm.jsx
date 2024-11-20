@@ -4,12 +4,14 @@ import { Controller, useForm } from 'react-hook-form'
 import { loginSchema } from '../model/loginSchema'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { loginWithEmail } from '../model/login'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { pb } from 'shared/api'
 
 export const LoginForm = ({auth, onComplete}) => {
 
   const [loading, setLoading] = React.useState(false)
+
+  const [params, setParams] = useSearchParams()
 
   const { control, handleSubmit, formState: {errors, isSubmitting, isLoading} } = useForm({
     values: {
@@ -35,6 +37,12 @@ export const LoginForm = ({auth, onComplete}) => {
     .finally(() => {
       setLoading(false)
     })
+  }
+
+  function goToForgotPassword () {
+    params.set(auth ? 'agent' : 'user', true)
+    params.set('reset', true)
+    setParams(params)
   }
 
   return (
@@ -64,19 +72,19 @@ export const LoginForm = ({auth, onComplete}) => {
           control={control}
           render={({field}) => (
             <PasswordInput
-            {...field}
-            placeholder='Ваш пароль'
-            label='Пароль'
-            error={errors.password?.message}
-            variant='filled'
-            disabled={isSubmitting}
-          />
+              {...field}
+              placeholder='Ваш пароль'
+              label='Пароль'
+              error={errors.password?.message}
+              variant='filled'
+              disabled={isSubmitting}
+            />
           )}
         />
         {error && (
           <p className='text-red-500 text-sm mt-4'>{error}</p>
         )}
-        <Link to={'https://oz-elim.kz/login?reset=true'} className='underline text-gray-500 text-sm mt-4'>Восстановить пароль</Link>
+        <p onClick={goToForgotPassword} className='underline text-gray-500 text-sm mt-4'>Восстановить пароль</p>
         <Button 
           className='mt-4' 
           type='submit'

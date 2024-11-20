@@ -1,16 +1,16 @@
 import { pb } from 'shared/api'
 
-async function sendPasswordReset (email) {
+async function sendPasswordReset (user, email) {
   try {
-    return await pb.collection('users').requestPasswordReset(email)
+    return await pb.collection(user === 'user' ? 'users' : 'agents').requestPasswordReset(email)
   } catch (err) {
     throw err
   }
 }
 
-async function resetPassword (token, password, passwordConfirm) {
+async function resetPassword (user, token, password, passwordConfirm) {
   try {
-    return await pb.collection('users').confirmPasswordReset(token, password, passwordConfirm)
+    return await pb.collection(user === 'user' ? 'users' : 'agents').confirmPasswordReset(token, password, passwordConfirm)
   } catch (err) {
     throw err
   }
