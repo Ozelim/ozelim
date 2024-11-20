@@ -9,6 +9,8 @@ import { Button, Modal, Select, TextInput } from '@mantine/core'
 import { pb } from 'shared/api'
 import { showNotification } from '@mantine/notifications'
 
+
+
 export const Fund = () => {
 
   const { headings, images, text } = usePageData('fund')
@@ -323,14 +325,14 @@ export const Fund = () => {
             value={d?.phone}
             onChange={e => setD({...d, phone: e?.currentTarget?.value})}
           />
-          {/* <Select
+          <Select
             label='Санатории'
             placeholder='Выберите санаторий'
             data={r?.map(e => {return {label: e?.name, value: e?.name}}) ?? []}
             className='mt-3'
             variant='filled'
             onChange={e => setD({...d, resort: e})}
-          /> */}
+          />
           <div className='flex justify-center mt-6'>
             <Button 
               disabled={!d?.name || !d?.phone}

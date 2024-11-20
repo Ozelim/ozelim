@@ -204,10 +204,10 @@ export const Tourist = () => {
 
             <div className="w-full lg:text-left text-center">
               <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
-                {headings?.q3}
+                {headings?.agent1}
               </h1>
               <h1 className="text-xl md:text-2xl font-bold font-head text-teal-500 mt-2">
-                {headings?.q3}
+                {headings?.agent2}
               </h1>
               {Array(12).fill(1).map((_, i) => {
                 return <p className="mt-2 font-medium">{text?.[`agent${i + 3}`]}</p>

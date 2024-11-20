@@ -200,7 +200,6 @@ export const AgentsForm = ({onComplete}) => {
               error={errors.password?.message}
               variant='filled'
               disabled={isSubmitting}
-              type='password'
             />
           )}
         />
