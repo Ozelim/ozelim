@@ -489,7 +489,7 @@ export const Tourist = () => {
               handlers.open()
             }}>
               <img className='w-48 h-48 rounded-lg object-cover' src={bar1} alt="" loading='lazy'/>
-              <p className='text-primary-600'>Баравое 02.2024</p>
+              <p className='text-primary-600'>Боравое 02.2024</p>
             </div>
             <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={e => {
               setCurrentPicture(0)
@@ -505,7 +505,7 @@ export const Tourist = () => {
               handlers.open()
             }}>
               <img className='w-48 h-48 rounded-lg object-cover' src={fc1} alt="" loading='lazy'/>
-              <p className='text-primary-600'>Перввая конферееция</p>
+              <p className='text-primary-600'>Первая конференция</p>
             </div>
           </div>
           <div className="flex gap-4 mt-4 flex-wrap">
