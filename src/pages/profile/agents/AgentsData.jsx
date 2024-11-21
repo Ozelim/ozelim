@@ -633,7 +633,7 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
                   CLIENT_ID: user?.id,
                   DESC_ORDER: 'Агент по туризму',
                   EMAIL: user?.email,
-                  BACKREF: `https://oz-elim.kz/profile`,
+                  BACKREF: `https://oz-elim.kz/aprofile`,
                   Ucaf_Flag: '',
                   Ucaf_Authentication_Data: '',
                 }
@@ -667,7 +667,7 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
                     bid_id: num
                   })
                   await pb.collection('agents').update(user?.id, {
-                    agent_pay: {
+                    agents_pay: {
                       ...JSON.parse(res?.config?.data),
                       SHARED_KEY: token,
                     },
