@@ -575,8 +575,9 @@ export const AgentsProfile = () => {
                     </div>
                   </div>
                 )}
-
-                <Quiz/>
+                <div className='mt-6'>
+                  <Quiz/>
+                </div>
 
        
                 {withdraws?.length !== 0 && (
