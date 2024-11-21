@@ -265,11 +265,10 @@ export const AgentsProfile = () => {
     }
   }
 
-  async function  verifyUser(userId) {
+  async function  verifyUser(u) {
     setVerifyLoading(true)
     await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/agents`, {
-      id: userId,
-      collectionName: user?.collectionName
+      ...u,
     })
     .then(async res => {
       await pb.collection('agents').getOne(user.id, {expand: 'sponsor, creeps.creeps.creeps'})
