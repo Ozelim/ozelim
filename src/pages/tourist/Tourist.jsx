@@ -466,7 +466,7 @@ export const Tourist = () => {
             </div>
           </section>
 
-          <div className='flex gap-4 mt-8 flex-wrap'>
+          <div className='flex gap-4 lg:mt-8 flex-wrap'>
             <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={e => {
               setCurrentPicture(0)
               setPictures('ala')
