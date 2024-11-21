@@ -180,7 +180,12 @@ export const Profile = () => {
     }
   }, [loading])
 
-  
+  React.useEffect(() => {
+    if (user?.collectionName === 'agents') {
+      navigate('/')
+    }
+  }, [])
+
 
   const [bids, setBids] = React.useState([])
 

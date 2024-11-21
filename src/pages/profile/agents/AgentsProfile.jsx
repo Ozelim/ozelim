@@ -103,6 +103,12 @@ export const AgentsProfile = () => {
     } 
   }, [loading])
 
+  React.useEffect(() => {
+    if (user?.collectionName === 'users') {
+      navigate('/')
+    }
+  }, [])
+
   const [bids, setBids] = React.useState([])
 
   function sumBalance (record) {
