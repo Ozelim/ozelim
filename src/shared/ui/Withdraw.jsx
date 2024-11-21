@@ -401,7 +401,7 @@ export const Withdraw = ({bonuses}) => {
       CLIENT_ID: user?.id,
       DESC_ORDER: 'Покупка услуги',
       EMAIL: user?.email,
-      BACKREF: `https://oz-elim.kz/profile`,
+      BACKREF: user?.collectionName === 'agents' ? `https://oz-elim.kz/aprofile` : `https://oz-elim.kz/profile`,
       Ucaf_Flag: '',
       Ucaf_Authentication_Data: '',
     }

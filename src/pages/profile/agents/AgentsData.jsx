@@ -375,15 +375,14 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
           )}
             <TextInput
               defaultValue={referal}
-              // readOnly
               variant="filled"
               label={kz ? `Рефералдық сілтеме` : `Реферальная ссылка`}
               // rightSection={<CopyBtn value={referal} disabled={true} />}
               disabled={!user?.agent}
               classNames={{
-                description: '!text-red-500'
+                description: !user?.agent ? '!text-red-500' : '!text-green-500'
               }}
-              description={!user?.agent && 'Не активна'}
+              description={!user?.agent ? 'Не активна' : 'Активна'}
             />
           <div className="grid grid-cols-1 w-full gap-2 mt-5">
             <div className="border p-3  rounded-primary border-primary-500">
@@ -527,7 +526,7 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
         onClose={() => rModal_h.close()}
         title='Агент по туризму'
       >
-        <p className='text-center'>Причина отказа:</p>
+        <p className='text-center text-gray-500'>Причина отказа:</p>
         <p className='text-center'>
           {bid?.comment}
         </p>
