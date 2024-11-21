@@ -300,7 +300,7 @@ export const AgentsProfile = () => {
         console.log(res, 'response');
         console.log(res?.data?.includes('Обработано успешно'), 'res');
         if (res?.data?.includes('Обработано успешно')) {
-          verifyUser(u?.id)
+          verifyUser(u)
         }
       })
       .catch(err => {
