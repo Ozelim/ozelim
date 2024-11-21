@@ -274,7 +274,7 @@ export const AgentsProfile = () => {
       await pb.collection('agents').getOne(user.id, {expand: 'sponsor, creeps.creeps.creeps'})
       .then(res => {
         setUser(res)
-      })
+    })
       console.log(res, 'succ');
     })
     .finally(() => {

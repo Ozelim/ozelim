@@ -154,7 +154,6 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
   async function saveUser() {
     await pb.collection('agents').update(user?.id, {
       ...values, 
-      card: cardNumber
     })
     .then((res) => {
       console.log(res, 'res');
