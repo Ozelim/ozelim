@@ -455,18 +455,21 @@ export const Tourist = () => {
                 })}
             </Carousel>
 
-            <div className="w-full lg:text-left text-center">
+            <div className="w-full -mt-24 sm:mt-0 lg:text-left text-center">
               <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
                 {headings?.intro1}
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
               </h1>
 
               <ul className="mt-3 text-lg font-medium text-[#5a5959] ">
-                <li>{text?.intro2}</li>
+                <li>{text?.intro2}
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae quam molestias cumque accusantium iure cum voluptatum esse distinctio similique? Earum.
+                </li>
               </ul>
             </div>
           </section>
 
-          <div className='flex gap-4 lg:mt-8 flex-wrap'>
+          <div className='flex gap-4 mt-8 flex-wrap'>
             <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={e => {
               setCurrentPicture(0)
               setPictures('ala')
