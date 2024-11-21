@@ -17,6 +17,8 @@ import { sha512 } from 'js-sha512'
 import axios from 'axios'
 import { HiDocumentCheck } from 'react-icons/hi2'
 
+import market from 'shared/assets/images/agent.pdf'
+
 async function getAgentBid (id) {
   return (await pb.collection('agents_bids').getFullList({filter: `bid_id = '${id}'`}))?.[0]
 }
@@ -372,14 +374,18 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
               )}
             </>
           )}
-          <TextInput
-            defaultValue={referal}
-            // readOnly
-            variant="filled"
-            label={kz ? `Рефералдық сілтеме` : `Реферальная ссылка`}
-            // rightSection={<CopyBtn value={referal} disabled={true} />}
-            disabled={!user?.agent}
-          />
+            <TextInput
+              defaultValue={referal}
+              // readOnly
+              variant="filled"
+              label={kz ? `Рефералдық сілтеме` : `Реферальная ссылка`}
+              // rightSection={<CopyBtn value={referal} disabled={true} />}
+              disabled={!user?.agent}
+              classNames={{
+                description: '!text-red-500'
+              }}
+              description={!user?.agent && 'Не активна'}
+            />
           <div className="grid grid-cols-1 w-full gap-2 mt-5">
             <div className="border p-3  rounded-primary border-primary-500">
               <div className="flex gap-1 items-center ">
@@ -494,9 +500,9 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
         onClose={() => handlers.close()}
         centered
         title='Агент по туризму'
+        size='40%'
       >
-
-       <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit velit nesciunt, iusto fuga molestiae nihil a ducimus laboriosam aperiam cumque nemo aliquam vero dicta maxime? Qui, temporibus neque, explicabo sed magni accusantium optio necessitatibus dolore in quam iusto aut architecto dolor obcaecati quod ratione, atque delectus fugit mollitia reprehenderit. Aperiam, doloremque dolorum voluptates culpa dolores tenetur, accusamus sed expedita facere laudantium saepe exercitationem ipsum. Voluptates, ex aliquam minus quo excepturi quaerat? Modi iste perferendis a amet quas pariatur at error, enim voluptas officia dignissimos. Tenetur odio explicabo, fuga similique placeat atque sed dolorem iste illo totam iure neque numquam. Recusandae!</p>             
+      <iframe src={market} width='100%' height={700} />
       <Checkbox
         label='Ознакомлен(а)'
         checked={check}

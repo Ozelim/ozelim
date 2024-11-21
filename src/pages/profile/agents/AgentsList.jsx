@@ -162,9 +162,6 @@ export const AgentsList = ({ level, setCount }) => {
     to: new Date()
   })
 
-
-  
-
   return (
     <>
       <div className="w-full">
