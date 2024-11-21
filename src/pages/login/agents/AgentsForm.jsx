@@ -33,7 +33,8 @@ export const AgentsForm = ({onComplete}) => {
     setLoading(true)
     await pb.collection('agents').getOne(params.get('agent'))
     .then(sponsor => {
-      if (sponsor?.verfied && sponsor?.agent) {        
+      console.log(sponsor, 'sponsor');
+      if (sponsor?.verified && sponsor?.agent) {        
         signupAgent({
           ...data, 
           passwordConfirm: data?.password,
@@ -55,26 +56,9 @@ export const AgentsForm = ({onComplete}) => {
           setLoading(false)
         })
       } else {
-        setError('Неверные данные')
-      }
-    })
-    .catch(err => {
-      signupAgent({
-        ...data, 
-        passwordConfirm: data?.password,
-      })
-      .then(async res => {
-        await pb.collection('agents').authWithPassword(data?.email, data?.password)
-        .then(() => {
-          onComplete(res)
-        })
-      })
-      .catch(err => {
-        setError('Неверные данные')
-      })
-      .finally(() => {
+        setError('Реферальная ссылка недействительна')
         setLoading(false)
-      })
+      }
     })
   }
 
