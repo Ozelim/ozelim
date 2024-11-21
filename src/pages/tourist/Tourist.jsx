@@ -472,7 +472,7 @@ export const Tourist = () => {
               setPictures('ala')
               handlers.open()
             }}>
-              <img className='w-48 h-48 rounded-lg object-cover' src={ala1} alt="" />
+              <img className='w-48 h-48 rounded-lg object-cover' src={ala1} alt="" loading='lazy'/>
               <p className='text-primary-600'>Алматы 09.2024</p>
             </div>
             <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={e => {
@@ -480,7 +480,7 @@ export const Tourist = () => {
               setPictures('bay')
               handlers.open()
             }}>
-              <img className='w-48 h-48 rounded-lg object-cover' src={bay1} alt="" />
+              <img className='w-48 h-48 rounded-lg object-cover' src={bay1} alt="" loading='lazy' />
               <p className='text-primary-600'>Баянаул 06.2024</p>
             </div>
             <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={e => {
@@ -488,7 +488,7 @@ export const Tourist = () => {
               setPictures('bar')
               handlers.open()
             }}>
-              <img className='w-48 h-48 rounded-lg object-cover' src={bar1} alt="" />
+              <img className='w-48 h-48 rounded-lg object-cover' src={bar1} alt="" loading='lazy'/>
               <p className='text-primary-600'>Баравое 02.2024</p>
             </div>
             <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={e => {
@@ -496,7 +496,7 @@ export const Tourist = () => {
               setPictures('char')
               handlers.open()
             }}>
-              <img className='w-48 h-48 rounded-lg object-cover' src={char1} alt="" />
+              <img className='w-48 h-48 rounded-lg object-cover' src={char1} alt="" loading='lazy'/>
               <p className='text-primary-600'>Чарын 09.2024</p>
             </div>
             <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={e => {
@@ -504,7 +504,7 @@ export const Tourist = () => {
               setPictures('fc')
               handlers.open()
             }}>
-              <img className='w-48 h-48 rounded-lg object-cover' src={fc1} alt="" />
+              <img className='w-48 h-48 rounded-lg object-cover' src={fc1} alt="" loading='lazy'/>
               <p className='text-primary-600'>Перввая конферееция</p>
             </div>
           </div>
@@ -514,7 +514,7 @@ export const Tourist = () => {
               setPictures('fo')
               handlers.open()
             }}>
-              <img className='w-48 h-48 rounded-lg object-cover' src={fo1} alt="" />
+              <img className='w-48 h-48 rounded-lg object-cover' src={fo1} alt="" loading='lazy'/>
               <p className='text-primary-600 break-keep w-48'>Фестиваль национальных блюд</p>
             </div>
             <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={e => {
@@ -522,7 +522,7 @@ export const Tourist = () => {
               setPictures('kat')
               handlers.open()
             }}>
-              <img className='w-48 h-48 rounded-lg object-cover' src={kat1} alt="" />
+              <img className='w-48 h-48 rounded-lg object-cover' src={kat1} alt=""loading='lazy' />
               <p className='text-primary-600'>Катон-Карагай 07.2024</p>
             </div>
             <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={e => {
@@ -530,7 +530,7 @@ export const Tourist = () => {
               setPictures('kol')
               handlers.open()
             }}>
-              <img className='w-48 h-48 rounded-lg object-cover' src={kol1} alt="" />
+              <img className='w-48 h-48 rounded-lg object-cover' src={kol1} alt=""loading='lazy' />
               <p className='text-primary-600'>Кольсай 09.2024</p>
             </div>
             <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={e => {
@@ -538,7 +538,7 @@ export const Tourist = () => {
               setPictures('qay')
               handlers.open()
             }}>
-              <img className='w-48 h-48 rounded-lg object-cover' src={qay1} alt="" />
+              <img className='w-48 h-48 rounded-lg object-cover' src={qay1} alt="" loading='lazy'/>
               <p className='text-primary-600'>Кайынды 09.2024</p>
             </div>
           </div>
@@ -740,7 +740,7 @@ export const Tourist = () => {
           <div className='flex overflow-x-scroll mt-4 gap-4 pb-4 justify-center'>
             {pics?.[pictures]?.map((q, i) => {
               return (
-                <img src={q} className='object-cover w-16 h-16 cursor-pointer' onClick={e => setCurrentPicture(i)} />
+                <img src={q} className='object-cover w-16 h-16 cursor-pointer' onClick={e => setCurrentPicture(i)} loading='lazy' />
               )
             })}
           </div>
