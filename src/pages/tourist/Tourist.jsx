@@ -63,7 +63,7 @@ export const Tourist = () => {
     <>
       <div className="w-full">
         <div className="container">
-          <section className="grid grid-cols-[60%_auto] mt-4 gap-4 rounded-primary overflow-hidden">
+          <section className="grid lg:grid-cols-[60%_auto] mt-4 gap-4 rounded-primary overflow-hidden">
             <Carousel
               slideSize="98%"
               slideGap="md"
@@ -106,14 +106,19 @@ export const Tourist = () => {
           </section>
 
           <section>
+
+            
             <div className="grid lg:grid-cols-[60%_auto] gap-4 mt-10">
+              <h1 className="block lg:hidden text-2xl md:text-3xl font-bold font-head text-teal-500">
+                {headings?.info1}
+              </h1>
               <Image
                 record={images}
                 index={6}
                 className="w-full rounded-primary object-cover aspect-video"
               />
               <div>
-                <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
+                <h1 className="hidden lg:block text-2xl md:text-3xl font-bold font-head text-teal-500">
                   {headings?.info1}
                 </h1>
                 <div className="space-y-4 mt-3">
@@ -134,14 +139,17 @@ export const Tourist = () => {
             </div>
           </section>
 
-          <section className="grid grid-cols-[60%_auto] mt-10 gap-4 rounded-primary overflow-hidden">
+          <section className="grid lg:grid-cols-[60%_auto] mt-10 gap-4 rounded-primary overflow-hidden">
+            <h1 className="block lg:hidden text-2xl md:text-3xl font-bold font-head text-teal-500">
+              {headings?.memo1}
+            </h1>
             <Image
               record={images}
               index={7}
               className="min-w-full rounded-primary object-cover aspect-video"
             />
             <div className="w-full lg:text-left text-center">
-              <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
+              <h1 className="hidden lg:block text-2xl md:text-3xl font-bold font-head text-teal-500">
                 {headings?.memo1}
               </h1>
 
@@ -156,13 +164,16 @@ export const Tourist = () => {
             <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
               {headings?.services1}
             </h1>
-            <p className="text-xl font-medium mt-3">{headings?.services2}</p>
+            <p className="text-xl font-medium mt-3 text-primary-500">{headings?.services2}</p>
             {Array(12).fill(1).map((_, i) => {
               return <p className="mt-2 font-medium">{text?.[`services${i + 3}`]}</p>
             })}
           </section>
 
           <section className="grid lg:grid-cols-[60%_auto] mt-10 gap-4">
+            <h1 className="block lg:hidden text-2xl md:text-3xl font-bold font-head text-teal-500">
+              {headings?.fund1}
+            </h1>
             <Image
               record={images}
               index={8}
@@ -170,16 +181,19 @@ export const Tourist = () => {
             />
 
             <div className="w-full lg:text-left text-center">
-              <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
+              <h1 className="hidden lg:block text-2xl md:text-3xl font-bold font-head text-teal-500">
                 {headings?.fund1}
               </h1>
 
-              <p className="text-xl font-medium mt-3">{headings?.fund2}</p>
-              <p className="mt-2 text-lg font-medium">{text?.fund}</p>
+              <p className="text-xl font-medium mt-3 text-primary-500">{headings?.fund2}</p>
+              <p className="mt-2 text-lg font-medium">{text?.fund3}</p>
             </div>
           </section>
 
           <section className="grid lg:grid-cols-[60%_auto] mt-10 gap-4">
+            <h1 className="block lg:hidden text-2xl md:text-3xl font-bold font-head text-teal-500">
+              {headings?.dick1}
+            </h1>
             <Image
               record={images}
               index={9}
@@ -187,7 +201,7 @@ export const Tourist = () => {
             />
 
             <div className="w-full lg:text-left text-center">
-              <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
+              <h1 className="hidden lg:block text-2xl md:text-3xl font-bold font-head text-teal-500">
                 {headings?.dick1}
               </h1>
 
@@ -196,6 +210,9 @@ export const Tourist = () => {
           </section>
 
           <section className="grid lg:grid-cols-[60%_auto] mt-10 gap-4">
+            <h1 className="block lg:hidden text-2xl md:text-3xl font-bold font-head text-teal-500">
+                {headings?.agent1}
+              </h1>
             <Image
               record={images}
               index={10}
@@ -203,7 +220,7 @@ export const Tourist = () => {
             />
 
             <div className="w-full lg:text-left text-center">
-              <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
+              <h1 className="hidden lg:block text-2xl md:text-3xl font-bold font-head text-teal-500">
                 {headings?.agent1}
               </h1>
               <h1 className="text-xl md:text-2xl font-bold font-head text-teal-500 mt-2">
@@ -215,7 +232,7 @@ export const Tourist = () => {
             </div>
           </section>
 
-          <section className="mt-10">
+          {/* <section className="mt-10">
             <h1 className="font-bold text-4xl text-primary-500 text-center">Услуги</h1>
             <Accord data={types} />
           </section>
@@ -224,10 +241,10 @@ export const Tourist = () => {
             <Button onClick={() => handlers1.open()}>
               {kz ? 'Өтініш қалдыру' : `Оставить заявку`}
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
-      <Modal opened={opened1} onClose={() => handlers1.close()} centered title="Оставить заявку">
+      {/* <Modal opened={opened1} onClose={() => handlers1.close()} centered title="Оставить заявку">
         <section className="max-w-md mx-auto border px-4 pb-4 shadow-lg bg-white">
           <TextInput
             label="Имя"
@@ -265,7 +282,7 @@ export const Tourist = () => {
             </Button>
           </div>
         </section>
-      </Modal>
+      </Modal> */}
     </>
   )
 }
