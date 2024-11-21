@@ -222,7 +222,7 @@ export const AgentsProfile = () => {
         CLIENT_ID: user?.id,
         DESC_ORDER: 'Оплата верификация (Агент)', 
         EMAIL: user?.email,
-        BACKREF: `https://oz-elim.kz/profile`,
+        BACKREF: `https://oz-elim.kz/aprofile`,
         Ucaf_Flag: '',
         Ucaf_Authentication_Data: '',
       }
