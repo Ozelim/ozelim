@@ -7,7 +7,7 @@ import { loginWithEmail } from '../model/login'
 import { Link, useSearchParams } from 'react-router-dom'
 import { pb } from 'shared/api'
 
-export const LoginForm = ({auth, onComplete}) => {
+export const LoginForm = ({auth, onComplete, fail}) => {
 
   const [loading, setLoading] = React.useState(false)
 
@@ -81,6 +81,9 @@ export const LoginForm = ({auth, onComplete}) => {
             />
           )}
         />
+        {fail && (
+          <p className='text-red-500 text-sm mt-4'>{fail}</p>
+        )}
         {error && (
           <p className='text-red-500 text-sm mt-4'>{error}</p>
         )}

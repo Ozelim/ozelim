@@ -437,8 +437,8 @@ export const Tourist = () => {
               align="center"
               getEmblaApi={setEmbla}
               plugins={[autoplay.current]}
-              onMouseEnter={autoplay.current.stop}
-              onMouseLeave={autoplay.current.reset}
+              onMouseEnter={autoplay.current.stop()}
+              onMouseLeave={autoplay.current.reset()}
             >
               {Array(5)
                 .fill(1)
@@ -490,7 +490,7 @@ export const Tourist = () => {
               handlers.open()
             }}>
               <img className='w-48 h-48 rounded-lg object-cover' src={bar1} alt="" loading='lazy'/>
-              <p className='text-primary-600'>Боравое 02.2024</p>
+              <p className='text-primary-600'>Боровое 02.2024</p>
             </div>
             <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={e => {
               setCurrentPicture(0)

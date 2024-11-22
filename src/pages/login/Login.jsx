@@ -34,10 +34,16 @@ export const Login = () => {
     })
   }
 
+  const [err, setErr] = React.useState('')
+
   async function auth (data) {
     await pb.collection('agents').authWithPassword(data?.email, data?.password)
     .then(res => {
       onComplete(res)
+    })
+    .catch(err => {
+      console.log(err, 'err');
+      setErr('Неверные данные')
     })
   }
 
@@ -93,7 +99,7 @@ export const Login = () => {
             <div className='mt-4 text-center text-sm'>Еще нет аккаунта? <span onClick={goToSignup} className='text-primary-500 cursor-pointer'>Зарегистрироваться</span> </div>
           </Tabs.Panel>
           <Tabs.Panel value='user' pt={16}>
-            <LoginForm onComplete={onComplete} auth={auth} />
+            <LoginForm onComplete={onComplete} auth={auth} fail={err} />
             <div className='mt-4 text-center text-sm'>Еще нет аккаунта? <span onClick={goToSignup} className='text-primary-500 cursor-pointer'>Зарегистрироваться</span> </div>
           </Tabs.Panel>
         </Tabs>
