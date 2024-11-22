@@ -180,6 +180,8 @@ import qay4 from 'shared/assets/images/qayundy-09.2024/4.jpeg'
 import qay5 from 'shared/assets/images/qayundy-09.2024/5.jpeg'
 import qay6 from 'shared/assets/images/qayundy-09.2024/6.jpeg'
 import qay7 from 'shared/assets/images/qayundy-09.2024/7.jpeg'
+import { Link } from 'react-router-dom'
+import { getImageUrl } from 'shared/lib'
 
 
 async function getRights() {
@@ -424,7 +426,7 @@ export const Tourist = () => {
     <>
       <div className="w-full">
         <div className="container">
-          <section className="grid lg:grid-cols-[60%_auto] mt-4 gap-4 rounded-primary overflow-hidden">
+          <section className="grid lg:grid-cols-[60%_auto] mt-4 gap-4">
             <Carousel
               slideSize="100%"
               slideGap="md"
@@ -440,16 +442,13 @@ export const Tourist = () => {
               onMouseEnter={autoplay.current.stop()}
               onMouseLeave={autoplay.current.reset()}
             >
-              {Array(5)
-                .fill(1)
-                .map((q, i) => {
+              {images?.['11']?.map((q, i) => {
                   return (
-                    <Carousel.Slide key={i}>
-                      <Image
-                        record={images}
-                        index={i + 1}
-                        className="min-w-full rounded-primary object-cover aspect-video"
-                      />
+                    <Carousel.Slide 
+                      key={i}
+                      className='!w-full !aspect-video'
+                    >
+                      <img src={getImageUrl(images, q)} alt="" className='min-w-full object-cover aspect-video' />
                     </Carousel.Slide>
                   )
                 })}
@@ -604,8 +603,16 @@ export const Tourist = () => {
             {Array(12)
               .fill(1)
               .map((_, i) => {
-                return <p className="mt-2 font-medium">{text?.[`services${i + 3}`]}</p>
+                return <p key={i} className="mt-2 font-medium">{text?.[`services${i + 3}`]}</p>
               })}
+
+            <Button
+              className='mt-4'
+              component={Link}
+              to={'/login?signup=true&agent=111924111111111'}
+            >
+              Ознакомлен и согласен
+            </Button>
           </section>
 
           <section className="grid lg:grid-cols-[60%_auto] mt-10 gap-4">
@@ -624,7 +631,12 @@ export const Tourist = () => {
               </h1>
 
               <p className="text-xl font-medium mt-3 text-primary-500">{headings?.fund2}</p>
-              <p className="mt-2 text-lg font-medium">{text?.fund3}</p>
+              <p className="mt-2 text-lg font-medium">
+                {text?.fund3}
+              </p>
+              <Link to={'/'} className='underline text-primary-500 mt-4'>
+                Подробнее...
+              </Link>
             </div>
           </section>
 
@@ -643,7 +655,12 @@ export const Tourist = () => {
                 {headings?.dick1}
               </h1>
 
-              <p className="mt-3 text-lg font-medium">{text?.dick2}</p>
+              <p className="mt-3 text-lg font-medium">
+                {text?.dick2}
+              </p>
+              <Link to={'/fund'} className='underline text-primary-500 mt-4'>
+                Подробнее...
+              </Link>
             </div>
           </section>
 

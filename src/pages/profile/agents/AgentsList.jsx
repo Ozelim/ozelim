@@ -19,6 +19,7 @@ import { FaUserGroup } from 'react-icons/fa6'
 import { FaUsers } from 'react-icons/fa'
 import { Avatar } from 'shared/ui'
 import { DateInput } from '@mantine/dates'
+import { showNotification } from '@mantine/notifications'
 
 export const AgentsList = ({ level, setCount }) => {
   const { kz } = useLangContext()
@@ -34,9 +35,9 @@ export const AgentsList = ({ level, setCount }) => {
   const [bidModal, setBidModal] = React.useState(false)
   const [threeModal, setThreeModal] = React.useState(false)
 
-  const [report, setReport] = React.useState()
-
   const [periodM, periodM_h] = useDisclosure()
+
+  const [periodMLoading, periodMLoading_h] = useDisclosure(false)
 
   const matches = useMediaQuery(`(min-width: 767px)`)
 
@@ -151,16 +152,33 @@ export const AgentsList = ({ level, setCount }) => {
     })
     ?.flat(1)
 
-  
-
-  const allLines = user?.expand?.creeps?.concat(secondLine, thirdLine)
-
-  const [users, setUsers] = React.useState([])
-
   const [dates, setDates] = React.useState({
     from: new Date(),
     to: new Date()
   })
+
+
+  const allLines = user?.expand?.creeps?.concat(secondLine, thirdLine)
+
+  const firstLinePeriod = user?.expand?.creeps?.filter(q => {
+    return (
+      new Date(q?.agent_date)?.getTime() >= dates?.from?.getTime() && 
+      new Date(q?.agent_date)?.getTime() <= dates?.to?.getTime())
+  })
+  
+  const secondLinePeriod = secondLine?.filter(q => {
+    return (
+      new Date(q?.agent_date)?.getTime() >= dates?.from?.getTime() && 
+      new Date(q?.agent_date)?.getTime() <= dates?.to?.getTime())
+  })
+
+  const thirdLinePeriod = thirdLine?.filter(q => {
+    return (
+      new Date(q?.agent_date)?.getTime() >= dates?.from?.getTime() && 
+      new Date(q?.agent_date)?.getTime() <= dates?.to?.getTime())
+  })
+
+  const allLinesPeriod = firstLinePeriod?.concat(secondLinePeriod, thirdLinePeriod)
 
   return (
     <>
@@ -227,13 +245,12 @@ export const AgentsList = ({ level, setCount }) => {
               <p className="text-bold">
                 ({thirdLine?.length} /{' '}
                 <span className="text-green-400">{thirdLine?.filter((q) => q?.agent)?.length}</span>
-                ){' '}
+                )
               </p>
             </div>
-{/* 
             <Button className="mt-2" compact variant="subtle" onClick={(e) => periodM_h.open()}>
               Отчет
-            </Button> */}
+            </Button>
           </div>
         </div>
       </div>
@@ -241,13 +258,14 @@ export const AgentsList = ({ level, setCount }) => {
         opened={periodM} 
         onClose={(e) => periodM_h.close()} 
         centered
-        size='lg'
+        size='xl'
         title='Отчет'
         classNames={{
           title: '!text-xl'
         }}
+        
       >
-        <div className="h-96 gap-4">
+        <div className="gap-4 min-h-[400px]">
           <div className='flex items-center'>
             <p>За период </p>
             <DateInput 
@@ -257,6 +275,8 @@ export const AgentsList = ({ level, setCount }) => {
               valueFormat='DD/MM/YYYY' 
               value={dates?.from} 
               onChange={e => setDates({...dates, from: e})}
+              variant='filled'
+              disabled={periodMLoading}
             />
             <p>до</p>
             <DateInput 
@@ -266,8 +286,10 @@ export const AgentsList = ({ level, setCount }) => {
               valueFormat='DD/MM/YYYY' 
               value={dates?.to} 
               onChange={e => setDates({...dates, to: e})}
+              variant='filled'
+              disabled={periodMLoading}
             />
-            <Button 
+            {/* <Button 
               compact 
               variant='subtle'
               onClick={async () => {
@@ -285,56 +307,169 @@ export const AgentsList = ({ level, setCount }) => {
               }}
             >
               Подтвердить
+            </Button> */}
+          </div>
+          <div className='flex gap-1 mt-2'>
+            Общее: <span className='font-bold text-primary-500'>{allLinesPeriod?.length ?? 0}</span>
+          </div>
+          <div className='mt-3'>
+            <Button
+              compact
+              disabled={allLinesPeriod?.length === 0}
+              onClick={e => {
+                periodM_h.close()
+                openConfirmModal({
+                  title: 'Отчет',
+                  centered: true,
+                  labels: {confirm: 'Подтвердить', cancel: 'Отмена'},
+                  onConfirm: async () => {
+                    periodMLoading_h.open()
+                    await pb.collection('reports').create({
+                      agent: user?.id,
+                      data: {
+                        ...dates, 
+                        '1': firstLinePeriod,
+                        '2': secondLinePeriod,
+                        '3': thirdLinePeriod,
+                      }
+                    })
+                    .then(res => {
+                      showNotification({
+                        title: 'Отчет',
+                        color: 'green',
+                        message: 'Отчет отправлен успешно!'
+                      })
+                      periodMLoading_h.close()
+                      periodM_h.close()
+                    })
+                    .catch(err => {
+                      showNotification({
+                        title: 'Отчет',
+                        color: 'color',
+                        message: 'Не удалось отправить отчет, попробуйте еще раз позже'
+                      })
+                    })
+                    .finally(res => {
+                      periodMLoading_h.close()
+                    })
+                  },
+                  onCancel: () => {
+                    periodM_h.open()
+                  },
+                  children: 'Вы действительно хотите отправить отчет?',
+                  confirmProps: {
+                    color: 'green'
+                  }
+                })
+              }}
+              loading={periodMLoading}
+            >
+              Отправить отчет
             </Button>
           </div>
-          <div className='mt-4 flex justify-between gap-4'>
-            <div>
-              Общее: {users?.length ??  allLines?.length}
-            </div>
-          </div>
-          <Table>
-            <thead>
-              <tr>
-                <th>Фото</th>
-                <th>ФИО</th>
-                <th>ID</th>
-                <th>ID спонсора</th>
-                <th>Дата становления</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users?.map((q, i) => {
-                return (
-                  <tr key={i}>
-                    <td>
-                      <img src={getImageUrl(q, q?.avatar)} className='w-12 h-12 rounded-full' alt="" />
-                    </td>
-                    <td>{q?.fio}</td>
-                    <td>{q?.id}</td>
-                    <td>{q?.sponsor}</td>
-                    <td>{dayjs(q?.agent_date).format('DD/MM/YYYY')}</td>
+
+          <p className='text-sm text-center '>1-я линия: <span className='text-primary-500 font-bold'>{firstLinePeriod?.length ?? 0}</span></p>
+          {firstLinePeriod?.length !== 0 && (
+            <>
+              <Table>
+                <thead>
+                  <tr>
+                    <th className='!text-slate-500 !font-light'>Фото</th>
+                    <th className='!text-slate-500 !font-light'>ФИО</th>
+                    <th className='!text-slate-500 !font-light'>ID</th>
+                    <th className='!text-slate-500 !font-light'>ID спонсора</th>
+                    <th className='!text-slate-500 !font-light'>Дата становления</th>
                   </tr>
-                )
-              })}
-            </tbody>
-          </Table>
-        </div>
-        <div className='absolute bottom-4 right-4 z-10'>
-          <Button
-            compact
-            disabled={users?.length == 0}
-            onClick={async e => {
-              await pb.collection('reports').create({
-                agent: user?.id,
-                data: {
-                  ...dates, 
-                  users
-                }
-              })
-            }}
-          >
-            Отправить отчет
-          </Button>
+                </thead>
+                <tbody>
+                  {firstLinePeriod?.map((q, i) => {
+                    return (
+                      <tr key={i}>
+                        <td className='text-center font-bold'>
+                          {q?.avatar 
+                            ? <img src={getImageUrl(q, q?.avatar)} className='w-12 h-12 rounded-full' alt="" />
+                            : '-'
+                          }
+                        </td>
+                        <td>{q?.fio}</td>
+                        <td>{q?.id}</td>
+                        <td>{q?.sponsor}</td>
+                        <td>{dayjs(q?.agent_date).format('DD/MM/YYYY')}</td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </Table>
+            </>
+          )}
+          <p className='mt-6 text-sm text-center '>2-я линия: <span className='text-primary-500 font-bold'>{secondLinePeriod?.length ?? 0}</span></p>
+          {secondLinePeriod?.length !== 0 && (
+            <>
+              <Table>
+                <thead>
+                  <tr>
+                    <th className='!text-slate-500 !font-light'>Фото</th>
+                    <th className='!text-slate-500 !font-light'>ФИО</th>
+                    <th className='!text-slate-500 !font-light'>ID</th>
+                    <th className='!text-slate-500 !font-light'>ID спонсора</th>
+                    <th className='!text-slate-500 !font-light'>Дата становления</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {secondLinePeriod?.map((q, i) => {
+                    return (
+                      <tr key={i}>
+                        <td className='text-center font-bold'>
+                          {q?.avatar 
+                            ? <img src={getImageUrl(q, q?.avatar)} className='w-12 h-12 rounded-full' alt="" />
+                            : '-'
+                          }
+                        </td>
+                        <td>{q?.fio}</td>
+                        <td>{q?.id}</td>
+                        <td>{q?.sponsor}</td>
+                        <td>{dayjs(q?.agent_date).format('DD/MM/YYYY')}</td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </Table>
+            </>
+          )}
+          <p className='mt-6 text-sm text-center '>3-я линия: <span className='text-primary-500 font-bold'>{thirdLinePeriod?.length ?? 0}</span></p>
+          {thirdLinePeriod?.length !== 0 && (
+            <>
+              <Table>
+                <thead>
+                  <tr>
+                    <th className='!text-slate-500 !font-light'>Фото</th>
+                    <th className='!text-slate-500 !font-light'>ФИО</th>
+                    <th className='!text-slate-500 !font-light'>ID</th>
+                    <th className='!text-slate-500 !font-light'>ID спонсора</th>
+                    <th className='!text-slate-500 !font-light'>Дата становления</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {thirdLinePeriod?.map((q, i) => {
+                    return (
+                      <tr key={i}>
+                        <td className='text-center font-bold'>
+                          {q?.avatar 
+                            ? <img src={getImageUrl(q, q?.avatar)} className='w-12 h-12 rounded-full' alt="" />
+                            : '-'
+                          }
+                        </td>
+                        <td>{q?.fio}</td>
+                        <td>{q?.id}</td>
+                        <td>{q?.sponsor}</td>
+                        <td>{dayjs(q?.agent_date).format('DD/MM/YYYY')}</td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </Table>
+            </>
+          )}
         </div>
       </Modal>
       <Modal

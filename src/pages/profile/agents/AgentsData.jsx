@@ -59,6 +59,8 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
   const [rModal, rModal_h] = useDisclosure(false)
   const [rModalLoading, rModalLoading_h] = useDisclosure(false)
 
+  const [agentM, agentM_h] = useDisclosure(false)
+
   const [check, setCheck] = React.useState(false)
 
   const [d, setD] = React.useState({
@@ -329,6 +331,10 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
                 leftSection={<HiDocumentCheck size={20}/>}
                 fullWidth
                 aria-hidden={true}
+                className='!cursor-pointer'
+                onClick={() => {
+                  agentM_h.open()
+                }}
               >
                 <span className='text-xs'>
                   Агент по туризму
@@ -373,17 +379,22 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
               )}
             </>
           )}
+          <div>
             <TextInput
               defaultValue={referal}
               variant="filled"
               label={kz ? `Рефералдық сілтеме` : `Реферальная ссылка`}
-              // rightSection={<CopyBtn value={referal} disabled={true} />}
+              rightSection={user?.agent ? <CopyBtn value={referal} /> : <></>}
               disabled={!user?.agent}
               classNames={{
-                description: !user?.agent ? '!text-red-500' : '!text-green-500'
+                description: !user?.agent ? '!text-gray-500' : '!text-green-500',
               }}
               description={!user?.agent ? 'Не активна' : 'Активна'}
+              style={{
+                userSelect: !user?.agent ? 'none' : 'auto'
+              }}
             />
+          </div>
           <div className="grid grid-cols-1 w-full gap-2 mt-5">
             <div className="border p-3  rounded-primary border-primary-500">
               <div className="flex gap-1 items-center ">
@@ -492,6 +503,15 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
             {kz ? `Сұранысты өңдеуде...`: `Обработка запроса...`}
           </p>
         </div>
+      </Modal>
+      <Modal
+        opened={agentM}
+        onClose={() => agentM_h.close()}
+        withCloseButton={false}
+        centered
+        size='40%'
+      >
+        <iframe src={market} width='100%' height={700} />
       </Modal>
       <Modal
         opened={opened1}
