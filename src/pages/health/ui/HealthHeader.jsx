@@ -1,6 +1,7 @@
 import React from 'react'
 import { Image } from 'shared/ui'
 
+
 export const HealthHeader = ({ headings, images, text }) => {
 
   return (

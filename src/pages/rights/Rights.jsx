@@ -7,6 +7,9 @@ import { pb } from 'shared/api'
 import { usePageData } from 'shared/hooks'
 import { Accord, Image } from 'shared/ui'
 
+import q from 'shared/assets/images/rights/1.gif'
+import w from 'shared/assets/images/rights/2.jpg'
+
 async function getRights () {
   return await pb.collection('rights_data').getFullList()
 }
@@ -269,10 +272,9 @@ export const Rights = () => {
               {headings?.heading3}
             </h1>
             <div className='flex flex-col md:flex-row gap-8 mt-6'>
-              <Image
+              <img
                 className="max-w-2xl w-full rounded-primary max-h-80 object-cover"
-                record={images}
-                index={2}
+                src={q}
               />
               <div>
                 <ul className="mt-3 text-lg font-medium text-[#5a5959] space-y-3">
@@ -375,10 +377,9 @@ export const Rights = () => {
             {headings?.heading5}
             </h1>
             <div className='flex flex-col md:flex-row gap-8 mt-6'>
-              <Image
+              <img
                 className="max-w-2xl w-full rounded-primary max-h-80 object-cover"
-                record={images}
-                index={3}
+                src={w}
               />
               <div>
                 <ul className="mt-3 text-lg font-medium text-[#5a5959] space-y-3">

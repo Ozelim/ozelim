@@ -13,6 +13,8 @@ import Autoplay from 'embla-carousel-autoplay'
 import { Carousel, useAnimationOffsetEffect } from '@mantine/carousel'
 import { showNotification } from '@mantine/notifications'
 
+import q from 'shared/assets/images/tours/1.jpg'
+
 async function getResots () {
   return await pb.collection('resorts_data').getFullList()
 }
@@ -122,9 +124,8 @@ export const Tours = () => {
               {headings?.heading1}
             </h1>
             <div className="grid lg:grid-cols-2 mt-4 gap-8">
-              <Image
-                record={images}
-                index={1}
+              <img
+                src={q}
                 className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 rounded-primary max-h-96 object-cover"
               />
               <div className="w-full lg:text-left text-center">

@@ -9,13 +9,16 @@ import { AiOutlineInstagram, AiOutlineYoutube } from 'react-icons/ai'
 import { RiTiktokFill } from 'react-icons/ri'
 import Kazmap from 'shared/assets/images/hero.jpg'
 
+import q from 'shared/assets/images/home/1.png'
+import w from 'shared/assets/images/home/2.jpg'
+import e from 'shared/assets/images/home/3.jpg'
+
 async function getServices() {
   return await pb.collection('home_data').getFullList()
 }
 
 export const Home = () => {
-
-  const {kz, qq} = useLangContext()
+  const { kz, qq } = useLangContext()
 
   const { headings, images, text } = usePageData('home')
 
@@ -24,8 +27,7 @@ export const Home = () => {
   const [services, setServices] = React.useState({})
 
   React.useEffect(() => {
-    getServices()
-    .then(res => {
+    getServices().then((res) => {
       setServices(res?.[0])
     })
   }, [])
@@ -36,7 +38,7 @@ export const Home = () => {
     name: '',
     email: '',
     phone: '',
-    service: ''
+    service: '',
   })
 
   return (
@@ -50,29 +52,23 @@ export const Home = () => {
               alt=""
               className="max-w-full mx-auto lg:mx-0 rounded-r-primary object-cove"
             />
-            <div className='text-center py-8'>
+            <div className="text-center py-8">
               <p className="text-2xl lg:text-4xl mt-2 text-primary-500">
                 {qq(headings?.main, headings?.main2_kz)}
               </p>
-              <p className="mt-5 text-xl lg:text-2xl">
-                {qq(headings?.main2, headings?.main2_kz)}
-              </p>
+              <p className="mt-5 text-xl lg:text-2xl">{qq(headings?.main2, headings?.main2_kz)}</p>
               {/* <Button component={RouterLink} to="/resorts" size="md" className='mt-4'>
                 {qq(`Сотрудничество`, `Серiктестiк`)}
               </Button> */}
             </div>
-
           </div>
         </div>
       </div>
 
       <div className="container mt-8">
+        <h1 className="heading text-primary-500 ">{headings?.[1]}</h1>
 
-        <h1 className='heading text-primary-500 '>
-          {headings?.[1]}
-        </h1>
-
-        <div className='grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 '>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 ">
           <div>
             <Image
               record={images}
@@ -80,9 +76,7 @@ export const Home = () => {
               className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 rounded-primary max-h-96 object-cover"
             />
 
-            <p className='mt-2 md:mt-4 text text-xl'>
-              {text?.[1]}
-            </p>
+            <p className="mt-2 md:mt-4 text text-xl">{text?.[1]}</p>
           </div>
           <div>
             <Image
@@ -90,20 +84,15 @@ export const Home = () => {
               index={2}
               className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 rounded-primary max-h-96 object-cover"
             />
-            <p className='mt-2 md:mt-4 text text-xl'>
-              {text?.[2]}
-            </p>
+            <p className="mt-2 md:mt-4 text text-xl">{text?.[2]}</p>
           </div>
           <div>
-            <Image
-              record={images}
-              index={3}
+            <img 
+              src={q} 
+              alt="" 
               className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 rounded-primary max-h-96 object-cover"
             />
-
-            <p className='mt-2 md:mt-4 text text-xl'>
-              {text?.[3]}
-            </p>
+            <p className="mt-2 md:mt-4 text text-xl">{text?.[3]}</p>
           </div>
         </div>
       </div>
@@ -121,15 +110,14 @@ export const Home = () => {
           }
         </p>
       </section> */}
-      
-      <section className='mt-8 container'>
+
+      <section className="mt-8 container">
         <div className=" mt-4 gap-8 flex items-center flex-col">
-        <h1 className="text-center text-2xl md:text-3xl font-bold font-head text-teal-500 flex justify-center items-center h-full">
+          <h1 className="text-center text-2xl md:text-3xl font-bold font-head text-teal-500 flex justify-center items-center h-full">
             {headings?.[2]}
           </h1>
-          <Image
-            record={images}
-            index={4}
+          <img
+            src={w}
             className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 rounded-primary max-h-96 object-cover"
           />
           {/* {getImageUrl(images, images?.[1]) ? (
@@ -142,36 +130,35 @@ export const Home = () => {
           ) : (
             <div className="lg:max-w-xl w-full m-auto bg-zinc-200" />
           )} */}
-
         </div>
         <div className="grid lg:grid-cols-5 gap-6 mt-8">
           <div>
-            <h2 className='text-2xl text-primary-500'>{headings?.z1}</h2>
-            <p className='mt-2 border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>
+            <h2 className="text-2xl text-primary-500">{headings?.z1}</h2>
+            <p className="mt-2 border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider ">
               {text?.[4]}
             </p>
           </div>
           <div>
-            <h2 className='text-2xl text-primary-500'>{headings?.z2}</h2>
-            <p className='mt-2 border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>
+            <h2 className="text-2xl text-primary-500">{headings?.z2}</h2>
+            <p className="mt-2 border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider ">
               {text?.[5]}
             </p>
           </div>
           <div>
-            <h2 className='text-2xl text-primary-500'>{headings?.z3}</h2>
-            <p className='mt-2 border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>
+            <h2 className="text-2xl text-primary-500">{headings?.z3}</h2>
+            <p className="mt-2 border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider ">
               {text?.[6]}
             </p>
           </div>
           <div>
-            <h2 className='text-2xl text-primary-500'>{headings?.z4}</h2>
-            <p className='mt-2 border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>
+            <h2 className="text-2xl text-primary-500">{headings?.z4}</h2>
+            <p className="mt-2 border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider ">
               {text?.[7]}
             </p>
           </div>
           <div>
-            <h2 className='text-2xl text-primary-500'>{headings?.z5}</h2>
-            <p className='mt-2 border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>
+            <h2 className="text-2xl text-primary-500">{headings?.z5}</h2>
+            <p className="mt-2 border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider ">
               {text?.[8]}
             </p>
           </div>
@@ -183,11 +170,10 @@ export const Home = () => {
           {headings?.[3]}
           {/* Руководитель Ассоциации туристов Казахстана */}
         </h1>
-        <div className='flex flex-col md:flex-row gap-8 mt-5'>
-          <Image
+        <div className="flex flex-col md:flex-row gap-8 mt-5">
+          <img
             className="max-w-2xl w-full rounded-primary max-h-80 object-cover"
-            record={images}
-            index={5}
+            src={e}
           />
           <div>
             <ul className="mt-3 text-lg font-medium text-[#5a5959] space-y-3">
@@ -198,7 +184,7 @@ export const Home = () => {
           </div>
         </div>
       </section>
-      
+
       <section className="w-full mt-8">
         <div className="container">
           {/* <h1 className="text-3xl max-w-3xl m-auto font-bold text-center font-head">
@@ -230,21 +216,17 @@ export const Home = () => {
                 alt="fitness"
               /> */}
               <ul className="mt-3 text-lg font-medium text-[#5a5959] ">
-                <li>
-                  {text?.x1}
-                </li>
+                <li>{text?.x1}</li>
               </ul>
-              <Button className='mt-4'>
-                <a href={'/home-1.pdf'} target='_blank'>
+              <Button className="mt-4">
+                <a href={'/home-1.pdf'} target="_blank">
                   {qq(`Справка о Гос. Регистрации`)}
                 </a>
               </Button>
               <div>
-                  <a href={'/ustav.pdf'} target='_blank'>
-                    <Button className='mt-4'>
-                     Устав Ассоциации туристов Казахстана "Oz Elim"
-                    </Button>
-                  </a>
+                <a href={'/ustav.pdf'} target="_blank">
+                  <Button className="mt-4">Устав Ассоциации туристов Казахстана "Oz Elim"</Button>
+                </a>
               </div>
             </div>
           </div>
@@ -275,61 +257,61 @@ export const Home = () => {
           </p>
         </div>
       </section> */}
-      
-      <section className='mt-10 container'>
-        <h1 className="text-3xl lg:text-4xl font-bold mt-1 text-primary-500">
-          {headings?.[4]}
-        </h1>
-        <p>
-          {headings?.[5]}
-        </p>
+
+      <section className="mt-10 container">
+        <h1 className="text-3xl lg:text-4xl font-bold mt-1 text-primary-500">{headings?.[4]}</h1>
+        <p>{headings?.[5]}</p>
         <div className="grid lg:grid-cols-3 gap-6 mt-4">
-          <p className=' border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>{text?.[17]}</p>
-          <p className=' border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>{text?.[18]}</p>
-          <p className=' border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>{text?.[19]}</p>
+          <p className=" border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider ">
+            {text?.[17]}
+          </p>
+          <p className=" border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider ">
+            {text?.[18]}
+          </p>
+          <p className=" border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider ">
+            {text?.[19]}
+          </p>
         </div>
-        <div className='flex flex-col justify-center items-center mt-8'>
+        <div className="flex flex-col justify-center items-center mt-8">
           {/* <Button>
             Оставить заявку
           </Button> */}
-          <p className='text-2xl text-primary-500'>
-            {headings?.[6]}
+          <p className="text-2xl text-primary-500">{headings?.[6]}</p>
+        </div>
+        <div className="grid lg:grid-cols-3 gap-6 mt-4">
+          <p className=" border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider ">
+            {text?.[20]}
+          </p>
+          <p className=" border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider ">
+            {text?.[21]}
+          </p>
+          <p className=" border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider ">
+            {text?.[22]}
           </p>
         </div>
         <div className="grid lg:grid-cols-3 gap-6 mt-4">
-          <p className=' border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>{text?.[20]}</p>
-          <p className=' border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>{text?.[21]}</p>
-          <p className=' border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>{text?.[22]}</p>
-        </div>
-        <div className='grid lg:grid-cols-3 gap-6 mt-4'>
-          <p className='underline cursor-pointer text-primary-500'>
-            <a href={'/home-11.pdf'} target='_blank'>
+          <p className="underline cursor-pointer text-primary-500">
+            <a href={'/home-11.pdf'} target="_blank">
               Положение о членстве в Ассоциации
             </a>
           </p>
-          <p className='underline cursor-pointer text-primary-500'>
-            <a href={'/home-2.pdf'} target='_blank'>
+          <p className="underline cursor-pointer text-primary-500">
+            <a href={'/home-2.pdf'} target="_blank">
               Договор о членстве в Ассоциации
             </a>
           </p>
-          <p className='underline cursor-pointer text-primary-500'>
-              <a href={'/home-3.pdf'} target='_blank'>
-                Заявление на вступление в Ассоциацию
-              </a>
+          <p className="underline cursor-pointer text-primary-500">
+            <a href={'/home-3.pdf'} target="_blank">
+              Заявление на вступление в Ассоциацию
+            </a>
           </p>
         </div>
-        <div className='flex flex-col justify-center items-center mt-8'>
-          <Button onClick={() => handlers.open()}>
-            Оставить заявку
-          </Button>
+        <div className="flex flex-col justify-center items-center mt-8">
+          <Button onClick={() => handlers.open()}>Оставить заявку</Button>
         </div>
-        <div className='text-center mt-8'>
-          <h1 className="text-3xl lg:text-4xl font-bold mt-1 text-primary-500">
-            {headings?.[7]}
-          </h1>
-          <p className="text-[#888888] text">
-            {text?.[23]}
-          </p>
+        <div className="text-center mt-8">
+          <h1 className="text-3xl lg:text-4xl font-bold mt-1 text-primary-500">{headings?.[7]}</h1>
+          <p className="text-[#888888] text">{text?.[23]}</p>
         </div>
       </section>
       <section className="mt-10 lg:mt-24">
@@ -339,12 +321,12 @@ export const Home = () => {
               {headings?.[4]} 
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
             </h1> */}
-            <div className='grid gap-8 mt-5 max-w-3xl mx-auto'>
+            <div className="grid gap-8 mt-5 max-w-3xl mx-auto">
               <p className="text text-left">{text?.[24]}</p>
             </div>
             <div className="flex justify-center items-center gap-10 mt-6">
-              <a 
-                target='_blank'
+              <a
+                target="_blank"
                 href="https://www.instagram.com/oz_elim_kaz?igsh=MTBlbHc0YjJrZTU0cw=="
               >
                 <div className="border border-solid border-gray-300 rounded-full p-4 md:p-7 hover:bg-teal-600 transition-all ">
@@ -352,19 +334,13 @@ export const Home = () => {
                 </div>
                 <p className="text-primary-600 mt-2">Instagram</p>
               </a>
-              <a 
-                target='_blank'
-                href="https://wa.me/77470512252"
-              >
+              <a target="_blank" href="https://wa.me/77470512252">
                 <div className="border border-solid border-gray-300 rounded-full p-4 md:p-7 hover:bg-teal-600 transition-all ">
                   <RiTiktokFill className="text-4xl md:text-7xl flex-shrink-0 text-black hover:text-white" />
                 </div>
                 <p className="text-primary-600 mt-2">TikTok</p>
               </a>
-              <a  
-                href="https://www.youtube.com/channel/UCOm22rq5ELyWBJWNImiv3Ww"
-                target='_blank'
-              >
+              <a href="https://www.youtube.com/channel/UCOm22rq5ELyWBJWNImiv3Ww" target="_blank">
                 <div className="border border-solid border-gray-300 rounded-full p-4 md:p-7 hover:bg-teal-600 transition-all ">
                   <AiOutlineYoutube className="text-4xl md:text-7xl flex-shrink-0 text-red-600 hover:text-white" />
                 </div>
@@ -374,59 +350,60 @@ export const Home = () => {
           </div>
         </div>
       </section>
-      <Modal
-        centered
-        opened={opened}
-        onClose={() => handlers.close()}
-        title='Оставить заявку'
-      >
+      <Modal centered opened={opened} onClose={() => handlers.close()} title="Оставить заявку">
         <div>
           <TextInput
-            label='Наименование организации'
+            label="Наименование организации"
             value={q?.name}
-            onChange={e => setQ({...q, name: e?.currentTarget?.value})}
-            variant='filled'
+            onChange={(e) => setQ({ ...q, name: e?.currentTarget?.value })}
+            variant="filled"
           />
           <TextInput
-            label='Эл. почта'
+            label="Эл. почта"
             value={q?.email}
-            onChange={e => setQ({...q, email: e?.currentTarget?.value})}
-            variant='filled'
+            onChange={(e) => setQ({ ...q, email: e?.currentTarget?.value })}
+            variant="filled"
           />
           <TextInput
-            label='Контактный номер'
+            label="Контактный номер"
             value={q?.phone}
-            onChange={e => setQ({...q, phone: e?.currentTarget?.value})}
-            variant='filled'
+            onChange={(e) => setQ({ ...q, phone: e?.currentTarget?.value })}
+            variant="filled"
           />
           <Select
-            label='Услуги'
-            placeholder='Выберите услугу'
-            data={services?.services?.map(e => {return {label: e, value: e}}) ?? []}
-            className='mt-3'
-            variant='filled'
-            onChange={e => setQ({...q, service: e})}
+            label="Услуги"
+            placeholder="Выберите услугу"
+            data={
+              services?.services?.map((e) => {
+                return { label: e, value: e }
+              }) ?? []
+            }
+            className="mt-3"
+            variant="filled"
+            onChange={(e) => setQ({ ...q, service: e })}
           />
-          <div className='flex justify-center mt-4'>
+          <div className="flex justify-center mt-4">
             <Button
               disabled={!q?.name || !q?.email || !q?.phone}
               onClick={async () => {
-                await pb.collection('123').create({
-                  ...q
-                })
-                .then(() => {
-                  handlers.close()
-                  showNotification({
-                    title: 'Заявка',
-                    color: 'green',
-                    message: 'Заявка успешно отправлена'
+                await pb
+                  .collection('123')
+                  .create({
+                    ...q,
                   })
-                  setQ({
-                    email: '',
-                    name: '',
-                    phone: ''
+                  .then(() => {
+                    handlers.close()
+                    showNotification({
+                      title: 'Заявка',
+                      color: 'green',
+                      message: 'Заявка успешно отправлена',
+                    })
+                    setQ({
+                      email: '',
+                      name: '',
+                      phone: '',
+                    })
                   })
-                })
               }}
             >
               Оптравить
@@ -435,5 +412,5 @@ export const Home = () => {
         </div>
       </Modal>
     </>
-  ) 
+  )
 }

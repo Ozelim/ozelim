@@ -9,6 +9,8 @@ import { pb } from 'shared/api'
 import { usePageData } from 'shared/hooks'
 import { Image } from 'shared/ui'
 
+import w from 'shared/assets/images/program/2.jpg'
+
 export const Program = () => {
 
   const { headings, images, text } = usePageData('program')
@@ -25,9 +27,8 @@ export const Program = () => {
       <div className="w-full mt-8">
         <div className="container">
           <div className='grid lg:grid-cols-2 gap-4 lg:gap-8'>
-            <Image
-              record={images}
-              index={2}
+            <img
+              src={w}
               className='rounded-primary max-w-md w-full lg:max-w-full lg:mx-0 mx-auto'
             />
             <div>

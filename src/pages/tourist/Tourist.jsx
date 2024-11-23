@@ -183,6 +183,11 @@ import qay7 from 'shared/assets/images/qayundy-09.2024/7.jpeg'
 import { Link } from 'react-router-dom'
 import { getImageUrl } from 'shared/lib'
 
+import q from 'shared/assets/images/user/1.jpeg'
+import w from 'shared/assets/images/user/2.jpeg'
+import e from 'shared/assets/images/user/3.jpeg'
+import r from 'shared/assets/images/user/4.jpeg'
+import t from 'shared/assets/images/user/5.jpeg'
 
 async function getRights() {
   return await pb.collection('tourist_data').getFullList()
@@ -548,9 +553,8 @@ export const Tourist = () => {
               <h1 className="block lg:hidden text-2xl md:text-3xl font-bold font-head text-teal-500">
                 {headings?.info1}
               </h1>
-              <Image
-                record={images}
-                index={6}
+              <img
+                src={q}
                 className="w-full rounded-primary object-cover aspect-video"
               />
               <div>
@@ -579,9 +583,8 @@ export const Tourist = () => {
             <h1 className="block lg:hidden text-2xl md:text-3xl font-bold font-head text-teal-500">
               {headings?.memo1}
             </h1>
-            <Image
-              record={images}
-              index={7}
+            <img
+              src={w}
               className="min-w-full rounded-primary object-cover aspect-video"
             />
             <div className="w-full lg:text-left text-center">
@@ -619,9 +622,8 @@ export const Tourist = () => {
             <h1 className="block lg:hidden text-2xl md:text-3xl font-bold font-head text-teal-500">
               {headings?.fund1}
             </h1>
-            <Image
-              record={images}
-              index={8}
+            <img
+              src={e}
               className="w-full lg mx-auto lg:mx-0 rounded-primary object-cover aspect-video"
             />
 
@@ -644,9 +646,8 @@ export const Tourist = () => {
             <h1 className="block lg:hidden text-2xl md:text-3xl font-bold font-head text-teal-500">
               {headings?.dick1}
             </h1>
-            <Image
-              record={images}
-              index={9}
+            <img
+              src={r}
               className="w-full lg mx-auto lg:mx-0 rounded-primary object-cover aspect-video"
             />
 
@@ -668,9 +669,8 @@ export const Tourist = () => {
             <h1 className="block lg:hidden text-2xl md:text-3xl font-bold font-head text-teal-500">
               {headings?.agent1}
             </h1>
-            <Image
-              record={images}
-              index={10}
+            <img
+              src={t}
               className="w-full lg mx-auto lg:mx-0 rounded-primary object-cover aspect-video"
             />
 
@@ -696,7 +696,7 @@ export const Tourist = () => {
           </section>
 
           <div className="flex justify-center mt-4">
-            <Button onClick={() => handlers1.open()}>
+            <Button onClic  k={() => handlers1.open()}>
               {kz ? 'Өтініш қалдыру' : `Оставить заявку`}
             </Button>
           </div> */}

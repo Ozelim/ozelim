@@ -4,12 +4,16 @@ import { getId } from 'shared/lib'
 const userDataApi = {
   changeAvatar: async (userId, image) => {
     if (image) {
-      const formData = new FormData()
-      formData.append('avatar', image, getId(5))
-  
-      return await pb.collection('users').update(userId, formData)
-      .then(res => {
-        console.log(res, 'res');
+
+      compress(image, {quality: 0.1, maxWidth: 600, maxHeight: 600})
+      .then(async res => {
+        const formData = new FormData()
+        formData.append('avatar', res, getId(5))
+    
+        return await pb.collection('users').update(userId, formData)
+        .then(res => {
+          console.log(res, 'res');
+        })
       })
     }
 

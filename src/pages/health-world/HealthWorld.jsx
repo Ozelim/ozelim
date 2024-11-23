@@ -15,6 +15,13 @@ import { ResortCard } from 'entities/resort'
 import { useDisclosure } from '@mantine/hooks'
 import { showNotification } from '@mantine/notifications'
 
+import q from 'shared/assets/images/health/1.jpg'
+
+import w from 'shared/assets/images/health/2.jpg'
+import e from 'shared/assets/images/health/3.jpg'
+import y from 'shared/assets/images/health/4.jpg'
+import t from 'shared/assets/images/health/5.jpg'
+
 async function getResorts() {
   return await pb.collection('resorts').getFullList({
     filter: `status = 'good'`,
@@ -41,22 +48,22 @@ export const HealthWorld = () => {
     {
       flow: 'left',
       text: text?.text15,
-      index: 3,
+      index: w,
     },
     {
       flow: 'right',
       text: text?.text16,
-      index: 4,
+      index: e,
     },
     {
       flow: 'left',
       text: text?.text17,
-      index: 5,
+      index: y,
     },
     {
       flow: 'right',
       text: text?.text18,
-      index: 6,
+      index: t,
     },
   ]
 
@@ -168,9 +175,8 @@ export const HealthWorld = () => {
         <section className="bg-primary-500 py-4 lg:py-16 mt-10 lg:mt-20">
           <div className="container">
           <div className="flex flex-col lg:flex-row gap-10 w-full justify-between ">
-            <Image
-              record={images}
-              index={2}
+            <img
+              src={q}
               className={'rounded-primary lg:max-w-[50%] object-cover mx-auto'}
             />
             <div className="bg-white rounded-primary w-full text-teal-500 p-4 lg:p-8">
