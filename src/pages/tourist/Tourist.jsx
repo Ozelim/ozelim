@@ -639,12 +639,13 @@ export const Tourist = () => {
               <Link to={'/'} className='underline text-primary-500 mt-4'>
                 Подробнее...
               </Link>
-
-              <a href={'/user-11.pdf'} target='_blank'>
-                <Button className='mt-4'>
-                  Положение о членстве в Ассоциации
-                </Button>
-              </a>
+              <div className='flex mt-4'>
+                <a href={'/user-11.pdf'} target='_blank'>
+                  <Button>
+                    Положение о членстве в Ассоциации
+                  </Button>
+                </a>
+              </div>
             </div>
           </section>
 
