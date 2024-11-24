@@ -519,7 +519,7 @@ export const Tourist = () => {
               setPictures('fo')
               handlers.open()
             }}>
-              <img className='w-48 h-48 rounded-lg object-cover' src={fo1} alt="" loading='lazy'/>
+              <img className='w-48 h-48 rounded-lg object-cover' src={fo2} alt="" loading='lazy'/>
               <p className='text-primary-600 break-keep w-48'>Фестиваль национальных блюд</p>
             </div>
             <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={e => {
@@ -535,7 +535,7 @@ export const Tourist = () => {
               setPictures('kol')
               handlers.open()
             }}>
-              <img className='w-48 h-48 rounded-lg object-cover' src={kol1} alt=""loading='lazy' />
+              <img className='w-48 h-48 rounded-lg object-cover' src={kol14} alt=""loading='lazy' />
               <p className='text-primary-600'>Кольсай 09.2024</p>
             </div>
             <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={e => {
@@ -543,7 +543,7 @@ export const Tourist = () => {
               setPictures('qay')
               handlers.open()
             }}>
-              <img className='w-48 h-48 rounded-lg object-cover' src={qay1} alt="" loading='lazy'/>
+              <img className='w-48 h-48 rounded-lg object-cover' src={qay4} alt="" loading='lazy'/>
               <p className='text-primary-600'>Кайынды 09.2024</p>
             </div>
           </div>
@@ -639,6 +639,12 @@ export const Tourist = () => {
               <Link to={'/'} className='underline text-primary-500 mt-4'>
                 Подробнее...
               </Link>
+
+              <a href={'/user-11.pdf'} target='_blank'>
+                <Button className='mt-4'>
+                  Положение о членстве в Ассоциации
+                </Button>
+              </a>
             </div>
           </section>
 

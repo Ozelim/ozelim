@@ -17,7 +17,7 @@ import { sha512 } from 'js-sha512'
 import axios from 'axios'
 import { HiDocumentCheck } from 'react-icons/hi2'
 
-import market from 'shared/assets/images/agent.pdf'
+import market from 'shared/assets/images/user-1.pdf'
 
 async function getAgentBid (id) {
   return (await pb.collection('agents_bids').getFullList({filter: `bid_id = '${id}'`}))?.[0]

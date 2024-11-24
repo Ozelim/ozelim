@@ -8,6 +8,7 @@ export const Market = () => {
     return await pb.collection('users').getFullList()
     .then(async res => {
       res.forEach(async q => {
+        
         await pb.collection('users').update(q?.id, {
           avatar: null
         })
