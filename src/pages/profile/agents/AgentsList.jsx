@@ -186,7 +186,25 @@ export const AgentsList = ({ level, setCount }) => {
       <div className="w-full">
         <div className="flex justify-between gap-3 ">
           <div>
-            <Button onClick={() => setShitModal(true)}>Вознаграждения</Button>
+            {/* <Button onClick={() => setShitModal(true)}>Вознаграждения</Button> */}
+            <div className='!inline-block lg:!hidden'>
+              <Button
+                component={'a'}
+                href='/agent.pdf'
+                target='_blank'
+                aria-hidden
+              >
+                Вознаграждения
+              </Button>
+            </div>
+            <div className='!hidden lg:!inline-block'>
+              <Button 
+                onClick={() => setShitModal(true)}
+                aria-hidden
+              >
+                Вознаграждения
+              </Button>
+            </div>
             {user?.expand?.sponsor && (
               <div className="w-fit mt-4">
                 <p className="text-sm ml-2">Агент-наставник:</p>
