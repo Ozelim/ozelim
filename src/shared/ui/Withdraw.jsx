@@ -397,7 +397,7 @@ export const Withdraw = ({bonuses}) => {
       MERCHANT:'110-R-113431490',
       TERMINAL: '11371491',
       NONCE: randomNumber + 107,
-      DESC: 'Покупка услуги Ozelim',
+      DESC: 'Покупка услуги Ozelim (агент)',
       CLIENT_ID: user?.id,
       DESC_ORDER: 'Покупка услуги',
       EMAIL: user?.email,
@@ -424,7 +424,7 @@ export const Withdraw = ({bonuses}) => {
         service: [...addedServices.map(q => q.id)],
         comment,
         name,
-        user: user?.id,
+        ...(user?.collectionName === 'agents' ? {agent: user?.id} : {user: user?.id}),
         total_cost: data?.AMOUNT,
         status: 'waiting',
         pay: {

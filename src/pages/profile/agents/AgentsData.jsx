@@ -509,7 +509,7 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
         onClose={() => agentM_h.close()}
         withCloseButton={false}
         centered
-        size='40%'
+        size='90%'
       >
         <iframe src={market} width='100%' height={700} />
       </Modal>
@@ -518,7 +518,7 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
         onClose={() => handlers.close()}
         centered
         title='Агент по туризму'
-        size='40%'
+        size='90%'
       >
       <iframe src={market} width='100%' height={700} />
       <Checkbox
