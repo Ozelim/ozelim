@@ -23,7 +23,6 @@ import { Quiz } from 'modules/Quiz'
 
 import market from 'shared/assets/images/agent.png'
 
-
 const cache = createEmotionCache({
   key: 'profile-mantine',
   prepend: false
@@ -492,7 +491,22 @@ export const AgentsProfile = () => {
 
                 {/* <ReferalsList level={level} setCount={setCount} /> */}
                 {!user?.agent && (
-                  <Button onClick={() => setShitModal(true)}>Вознаграждения</Button>
+                  <>
+                    <Button
+                      className='!inline-block !lg:hidden'
+                      component={'a'}
+                      href='/agent.pdf'
+                      target='_blank'
+                    >
+                      Вознаграждения
+                    </Button>
+                    <Button 
+                      onClick={() => setShitModal(true)}
+                      className='!hidden !lg:inline-block'
+                    >
+                      Вознаграждения
+                    </Button>
+                  </>
                 )}
 
                 {user?.agent && (
@@ -589,8 +603,6 @@ export const AgentsProfile = () => {
                 <div className='mt-6'>
                   <Quiz/>
                 </div>
-
-       
                 {withdraws?.length !== 0 && (
                   <div className="mt-12 overflow-scroll">
                     <h2 className="text-center text-xl font-head">Выводы</h2>

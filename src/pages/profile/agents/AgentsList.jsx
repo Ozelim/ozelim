@@ -22,6 +22,7 @@ import { DateInput } from '@mantine/dates'
 import { showNotification } from '@mantine/notifications'
 
 export const AgentsList = ({ level, setCount }) => {
+  
   const { kz } = useLangContext()
 
   const { user } = useAuth()
@@ -277,6 +278,7 @@ export const AgentsList = ({ level, setCount }) => {
               onChange={e => setDates({...dates, from: e})}
               variant='filled'
               disabled={periodMLoading}
+              
             />
             <p>до</p>
             <DateInput 
@@ -288,6 +290,7 @@ export const AgentsList = ({ level, setCount }) => {
               onChange={e => setDates({...dates, to: e})}
               variant='filled'
               disabled={periodMLoading}
+              
             />
             {/* <Button 
               compact 

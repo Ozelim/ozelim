@@ -19,11 +19,20 @@ import { HiDocumentCheck } from 'react-icons/hi2'
 
 import market from 'shared/assets/images/user-1.pdf'
 
+import { Document, Page } from 'react-pdf';
+
 async function getAgentBid (id) {
   return (await pb.collection('agents_bids').getFullList({filter: `bid_id = '${id}'`}))?.[0]
 }
 
 export const AgentsData = ({count, setCount, balance, bonuses}) => {
+
+  const [numPages, setNumPages] = React.useState();
+  const [pageNumber, setPageNumber] = React.useState(1);
+
+  function onDocumentLoadSuccess() {
+    setNumPages(numPages);
+  }
 
   const {kz} = useLangContext()
 
@@ -332,11 +341,20 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
                 fullWidth
                 aria-hidden={true}
                 className='!cursor-pointer'
-                onClick={() => {
-                  agentM_h.open()
-                }}
+
               >
-                <span className='text-xs'>
+
+                <span className='block lg:hidden text-xs'>
+                  <a href="/user-1.pdf" target='_blank'>
+                    Агент по туризму
+                  </a>
+                </span>
+                <span 
+                  className='hidden lg:block text-xs'                 
+                  onClick={() => {
+                    agentM_h.open()
+                  }}
+                >
                   Агент по туризму
                 </span>
               </Badge>
@@ -509,8 +527,11 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
         onClose={() => agentM_h.close()}
         withCloseButton={false}
         centered
-        size='90%'
+        size='50%'
       >
+        {/* <Document file="/user-1.pdf" onLoadSuccess={onDocumentLoadSuccess}>
+          <Page pageNumber={pageNumber} />
+        </Document> */}
         <iframe src={market} width='100%' height={700} />
       </Modal>
       <Modal
