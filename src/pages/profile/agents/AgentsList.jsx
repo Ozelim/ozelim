@@ -370,7 +370,7 @@ export const AgentsList = ({ level, setCount }) => {
             </Button>
           </div>
 
-          <p className='text-sm text-center '>1-я линия: <span className='text-primary-500 font-bold'>{firstLinePeriod?.length ?? 0}</span></p>
+          <p className='text-sm text-center mt-4'>1-я линия: <span className='text-primary-500 font-bold'>{firstLinePeriod?.length ?? 0}</span></p>
           {firstLinePeriod?.length !== 0 && (
             <>
               <Table>
