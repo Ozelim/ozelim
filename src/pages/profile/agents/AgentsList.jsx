@@ -266,13 +266,13 @@ export const AgentsList = ({ level, setCount }) => {
         
       >
         <div className="gap-4 min-h-[400px]">
-          <div className='flex items-center'>
+          <div className='flex items-center gap-4'>
             <p>За период </p>
             <DateInput 
               maw={400} 
               mx="auto" 
               locale='ru' 
-              valueFormat='DD/MM/YYYY' 
+              valueFormat='DD.MM.YYYY' 
               value={dates?.from} 
               onChange={e => setDates({...dates, from: e})}
               variant='filled'
@@ -284,7 +284,7 @@ export const AgentsList = ({ level, setCount }) => {
               maw={400} 
               mx="auto" 
               locale='ru' 
-              valueFormat='DD/MM/YYYY' 
+              valueFormat='DD.MM.YYYY' 
               value={dates?.to} 
               onChange={e => setDates({...dates, to: e})}
               variant='filled'
@@ -396,7 +396,7 @@ export const AgentsList = ({ level, setCount }) => {
                         <td>{q?.fio}</td>
                         <td>{q?.id}</td>
                         <td>{q?.sponsor}</td>
-                        <td>{dayjs(q?.agent_date).format('DD/MM/YYYY')}</td>
+                        <td>{dayjs(q?.agent_date).format('DD.MM.YYYY')}</td>
                       </tr>
                     )
                   })}
