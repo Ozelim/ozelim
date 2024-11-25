@@ -492,20 +492,24 @@ export const AgentsProfile = () => {
                 {/* <ReferalsList level={level} setCount={setCount} /> */}
                 {!user?.agent && (
                   <>
-                    <Button
-                      className='!inline-block !lg:hidden'
-                      component={'a'}
-                      href='/agent.pdf'
-                      target='_blank'
-                    >
-                      Вознаграждения
-                    </Button>
-                    <Button 
-                      onClick={() => setShitModal(true)}
-                      className='!hidden !lg:inline-block'
-                    >
-                      Вознаграждения
-                    </Button>
+                    <div className='!inline-block lg:!hidden'>
+                      <Button
+                        component={'a'}
+                        href='/agent.pdf'
+                        target='_blank'
+                        aria-hidden
+                      >
+                        Вознаграждения
+                      </Button>
+                    </div>
+                    <div className='!hidden lg:!inline-block'>
+                      <Button 
+                        onClick={() => setShitModal(true)}
+                        aria-hidden
+                      >
+                        Вознаграждения
+                      </Button>
+                    </div>
                   </>
                 )}
 

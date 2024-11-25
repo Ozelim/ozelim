@@ -258,7 +258,6 @@ export const AgentsList = ({ level, setCount }) => {
       <Modal 
         opened={periodM} 
         onClose={(e) => periodM_h.close()} 
-        centered
         size='xl'
         title='Отчет'
         classNames={{

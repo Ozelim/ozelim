@@ -19,8 +19,6 @@ import { HiDocumentCheck } from 'react-icons/hi2'
 
 import market from 'shared/assets/images/user-1.pdf'
 
-import { Document, Page } from 'react-pdf';
-
 async function getAgentBid (id) {
   return (await pb.collection('agents_bids').getFullList({filter: `bid_id = '${id}'`}))?.[0]
 }
@@ -343,20 +341,9 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
                 className='!cursor-pointer'
 
               >
-
-                <span className='block lg:hidden text-xs'>
-                  <a href="/user-1.pdf" target='_blank'>
-                    Агент по туризму
-                  </a>
-                </span>
-                <span 
-                  className='hidden lg:block text-xs'                 
-                  onClick={() => {
-                    agentM_h.open()
-                  }}
-                >
+                <a href="/user-1.pdf" target='_blank'>
                   Агент по туризму
-                </span>
+                </a>
               </Badge>
             </div>
           ) : (
@@ -529,9 +516,6 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
         centered
         size='50%'
       >
-        {/* <Document file="/user-1.pdf" onLoadSuccess={onDocumentLoadSuccess}>
-          <Page pageNumber={pageNumber} />
-        </Document> */}
         <iframe src={market} width='100%' height={700} />
       </Modal>
       <Modal
@@ -541,7 +525,11 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
         title='Агент по туризму'
         size='90%'
       >
-      <iframe src={market} width='100%' height={700} />
+        <div className='!hidden lg:!block' >
+          <iframe src={market} width='100%' height={700} />
+        </div>
+      <p className='!block lg:!hidden'>Для подачи заявки на становление агентом, пожалуйста ознакомтесь с агентским договором. <a href="/user-1.pdf" className='underline text-primary-400' target='_blank'>Ознакомиться</a></p>
+      
       <Checkbox
         label='Ознакомлен(а)'
         checked={check}
