@@ -12,7 +12,7 @@ import { Avatar } from 'shared/ui'
 
 import { FaCircleXmark } from 'react-icons/fa6'
 import { AgentsData } from './AgentsData'
-import { useDisclosure } from '@mantine/hooks'
+import { useDisclosure, useMediaQuery } from '@mantine/hooks'
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { AgentsList } from './AgentsList'
 
@@ -20,6 +20,9 @@ import visa from 'shared/assets/images/visa.png'
 import mastercard from 'shared/assets/images/mastercard.png'
 import { HiDocumentCheck } from 'react-icons/hi2'
 import { Quiz } from 'modules/Quiz'
+
+import market from 'shared/assets/images/agent.png'
+
 
 const cache = createEmotionCache({
   key: 'profile-mantine',
@@ -414,6 +417,10 @@ export const AgentsProfile = () => {
     setCurrentAgent(user)
   }, [user])
 
+  const [shitModal, setShitModal] = React.useState(false)
+
+  const matches = useMediaQuery(`(min-width: 767px)`)
+
   if (loading) {
     return <></>
   }
@@ -484,6 +491,10 @@ export const AgentsProfile = () => {
               <div className="relative overflow-hidden">
 
                 {/* <ReferalsList level={level} setCount={setCount} /> */}
+                {!user?.agent && (
+                  <Button onClick={() => setShitModal(true)}>Вознаграждения</Button>
+                )}
+
                 {user?.agent && (
                   <AgentsList level={level} setCount={setCount} />
                 )}
@@ -913,6 +924,15 @@ export const AgentsProfile = () => {
             </div>
           )}
         </div>
+      </Modal>
+      <Modal
+        opened={shitModal}
+        onClose={() => setShitModal(false)}
+        centered
+        size="xl"
+        fullScreen={matches ? false : true}
+      >
+        <img src={market} alt="" className="h-full" />
       </Modal>
     </MantineProvider>
   )

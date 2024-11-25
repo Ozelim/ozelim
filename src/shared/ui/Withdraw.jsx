@@ -67,7 +67,7 @@ export const Withdraw = ({bonuses}) => {
   const [withdraw, setWithdraw] = React.useState({
     sum: '',
     owner: user?.fio ?? '',
-    bank: null,
+    bank: user?.bank ?? '',
     iban: user?.card || '',
     iin: user?.iin ?? '',
   })
