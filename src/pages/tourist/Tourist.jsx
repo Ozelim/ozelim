@@ -609,13 +609,19 @@ export const Tourist = () => {
                 return <p key={i} className="mt-2 font-medium">{text?.[`services${i + 3}`]}</p>
               })}
 
-            <Button
-              className='mt-4'
-              component={Link}
-              to={'/login?signup=true&agent=111924111111111'}
-            >
-              Ознакомлен и согласен
-            </Button>
+            <div className='flex justify-center mt-4'>
+              <a href="/agent-agreement.pdf" target='_blank' className='underline text-primary-500'>
+                Агенский договор.pdf
+              </a>
+            </div>
+            <div className='mt-2 flex gap-4 justify-center'>
+              <Button
+                component={Link}
+                to={'/login?signup=true&agent=111924111111111'}
+              >
+                Ознакомлен и согласен
+              </Button>
+            </div>
           </section>
 
           <section className="grid lg:grid-cols-[60%_auto] mt-10 gap-4">

@@ -18,6 +18,8 @@ import axios from 'axios'
 import { HiDocumentCheck } from 'react-icons/hi2'
 
 import market from 'shared/assets/images/user-1.pdf'
+import agreement from 'shared/assets/images/agent-agreement.pdf'
+
 
 async function getAgentBid (id) {
   return (await pb.collection('agents_bids').getFullList({filter: `bid_id = '${id}'`}))?.[0]
@@ -526,9 +528,9 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
         size='90%'
       >
         <div className='!hidden lg:!block' >
-          <iframe src={market} width='100%' height={700} />
+          <iframe src={agreement} width='100%' height={700} />
         </div>
-      <p className='!block lg:!hidden'>Для подачи заявки на становление агентом, пожалуйста ознакомтесь с агентским договором. <a href="/user-1.pdf" className='underline text-primary-400' target='_blank'>Ознакомиться</a></p>
+      <p className='!block lg:!hidden'>Для подачи заявки на становление агентом, пожалуйста ознакомтесь с агентским договором. <a href="/agent-agreement.pdf" className='underline text-primary-400' target='_blank'>Ознакомиться</a></p>
       
       <Checkbox
         label='Ознакомлен(а)'

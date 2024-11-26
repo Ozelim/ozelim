@@ -18,7 +18,6 @@ import { AgentsList } from './AgentsList'
 
 import visa from 'shared/assets/images/visa.png'
 import mastercard from 'shared/assets/images/mastercard.png'
-import { HiDocumentCheck } from 'react-icons/hi2'
 import { Quiz } from 'modules/Quiz'
 
 import market from 'shared/assets/images/agent.png'
@@ -172,41 +171,11 @@ export const AgentsProfile = () => {
     })
   }, [])
 
-  const [level, setLevel] = React.useState(0)
 
   function signout () {
     pb.authStore.clear()
     window.location.reload()
   }
-
-  async function checkLevel () {
-    // if ((binary?.children?.[0]?.value && binary?.children?.[1]?.value)) { 
-    //   if (user?.level == 0) {
-    //     pb.collection('agents').update(user?.id, {
-    //       level: '1'
-    //     })
-    //   }
-
-    //   if (user?.level == 1) {
-    //     const child1 = await getBinaryById(binary?.children?.[0]?.value?.id)
-    //     const child2 = await getBinaryById(binary?.children?.[1]?.value?.id)
-        
-    //     if (child1.children.length === 2 && child2.children.length === 2) {
-    //       pb.collection('agents').update(user?.id, {
-    //         level: `2`
-    //       })
-    //     }
-    //   }
-    // }
-  } 
-
-  React.useEffect(() => {
-    checkLevel()
-  }, [])
-
-  React.useEffect(() => {
-    setLevel((!user?.level || user?.level == '0') ? 0 : user?.level)
-  }, [user])
 
   const [paymentLoading, setPaymentLoading] = React.useState(false)
   const [verifyLoading, setVerifyLoading] = React.useState(false)
@@ -489,7 +458,6 @@ export const AgentsProfile = () => {
               </div>
               <div className="relative overflow-hidden">
 
-                {/* <ReferalsList level={level} setCount={setCount} /> */}
                 {!user?.agent && (
                   <>
                     <div className='!inline-block lg:!hidden'>
@@ -514,7 +482,7 @@ export const AgentsProfile = () => {
                 )}
 
                 {user?.agent && (
-                  <AgentsList level={level} setCount={setCount} />
+                  <AgentsList setCount={setCount} />
                 )}
                 <div className="overflow-auto">
 
