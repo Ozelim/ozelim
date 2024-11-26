@@ -189,7 +189,6 @@ export const AgentsList = ({ setCount }) => {
         classNames={{
           title: '!text-xl'
         }}
-        
       >
         <div className="gap-4 min-h-[400px]">
           <div className='flex items-center gap-4'>

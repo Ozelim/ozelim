@@ -1,7 +1,7 @@
 import React from 'react'
 import dayjs from 'dayjs'
 import { pb } from 'shared/api'
-import { ActionIcon, Badge, Button, Group, LoadingOverlay, MantineProvider, Modal, NumberInput, Radio, Table, TextInput, createEmotionCache } from '@mantine/core'
+import { ActionIcon, Badge, Button, Group, LoadingOverlay, MantineProvider, Modal, NumberInput, Radio, Table, TextInput, clsx, createEmotionCache } from '@mantine/core'
 import { useAuth } from 'shared/hooks'
 
 import { formatNumber} from 'shared/lib'
@@ -509,7 +509,6 @@ export const AgentsProfile = () => {
                           className='aspect-square !w-16 !h-16 mx-auto'
                           radius='xl'
                           record={currentAgent}
-                          cl='border-4 border-primary-400'
                         />
                         <div className='flex flex-col justify-center ml-2'>
                           <p className='text-lg font-head'>
@@ -533,7 +532,7 @@ export const AgentsProfile = () => {
                           {currentAgent?.expand?.creeps?.map(q => {
                             return (
                               <div 
-                                className='flex cursor-pointer items-center '
+                                className='flex cursor-pointer items-center'
                                 onClick={async () => {
                                   handlers.open()
                                   await pb.collection('agents').getOne(q?.id, {expand: 'creeps'})
@@ -550,16 +549,13 @@ export const AgentsProfile = () => {
                                   {/* <div className='absolute left-1/2 bottom-1/2 h-16 w-0.5 bg-primary-500 z-10'/> */}
                                   <Avatar
                                     src={q?.avatar}
-                                    className='aspect-square !w-14 !h-14 mx-auto z-20'
+                                    className={'aspect-square !w-14 !h-14 mx-auto z-20'}
                                     radius='xl'
                                     record={q}
-                                    cl={{
-                                      'border-4 border-green-400': q?.agent
-                                    }}
                                   />
                                 </div>
                                 <div className='flex flex-col justify-center ml-2'>
-                                  <p className='text-lg font-head w-fit max-[208px] overflow-hidden'>
+                                  <p className={clsx('text-lg font-head w-fit max-[208px] overflow-hidden', { })}>
                                     {q?.fio}
                                   </p>
                                   <p className='mt-1 text'>

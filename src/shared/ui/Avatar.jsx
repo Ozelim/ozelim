@@ -15,13 +15,28 @@ export const Avatar = ({src, record, cl, ...rest}) => {
     checkUrl(src)
   }, [])
 
+
+  if (record?.agent) return (
+    <div className='rounded-full border-4 border-green-500'>
+      <Avatr
+        src={url}
+        alt='avatar'
+        {...rest}
+      >
+        <div className={clsx('aspect-square h-full bg-slate-300 rounded-full', cl)}/>
+      </Avatr>
+    </div>
+  )
+
   return (
-    <Avatr
-      src={url}
-      alt='avatar'
-      {...rest}
-    >
-      <div className={clsx('aspect-square h-full bg-slate-300 rounded-full', cl)}/>
-    </Avatr>
+    <div className='rounded-full'>
+      <Avatr
+        src={url}
+        alt='avatar'
+        {...rest}
+      >
+        <div className={clsx('aspect-square h-full bg-slate-300 rounded-full', cl)}/>
+      </Avatr>
+    </div>
   )
 }
