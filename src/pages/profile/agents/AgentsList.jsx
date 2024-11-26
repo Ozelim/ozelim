@@ -76,6 +76,7 @@ export const AgentsList = ({ setCount }) => {
   const allLinesPeriod = firstLinePeriod?.concat(secondLinePeriod, thirdLinePeriod)
 
   async function checkOneYearSubsribtion () {
+    if (!user?.verified_date) return
     if (new Date().getTime() >= (new Date(user?.verified_date).getTime() + 31556926)) {
       return await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/subsribtion`, user)
     }
