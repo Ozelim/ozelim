@@ -10,6 +10,8 @@ import { Link, useLocation } from 'react-router-dom'
 import { Image } from 'shared/ui'
 import { useLangContext } from 'app/langContext'
 
+import q from 'shared/assets/images/dual/1.png'
+
 export const CourseHeader = ({ headings, images, text }) => {
 
   const {kz} = useLangContext()
@@ -143,9 +145,8 @@ export const CourseHeader = ({ headings, images, text }) => {
               </Button>
             )}
           </div>
-          <Image
-            record={images}
-            index={1}
+          <img
+            src={q}
             className='w-full max-h-[350px] object-cover lg:block hidden rounded-primary'
           />  
           

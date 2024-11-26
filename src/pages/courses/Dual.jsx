@@ -14,6 +14,10 @@ import { useLangContext } from 'app/langContext'
 import { useDisclosure } from '@mantine/hooks'
 import { showNotification } from '@mantine/notifications'
 
+import q from 'shared/assets/images/dual/2.jpg'
+import w from 'shared/assets/images/dual/3.jpg'
+import e from 'shared/assets/images/dual/4.jpg'
+
 async function getServices() {
   return await pb.collection('dual_data').getFullList()
 }
@@ -116,19 +120,16 @@ export const Dual = () => {
         <div className="w-full mt-10">
           <div className="container">
             <div className="grid md:grid-cols-3 gap-4">
-              <Image
-                record={images}
-                index={2}
+              <img
+                src={q}
                 className="rounded-primary w-full h-64 max-w-md mx-auto md:max-w-full"
               />
-              <Image
-                record={images}
-                index={3}
+              <img
+                src={w}
                 className="rounded-primary w-full h-64 max-w-md mx-auto md:max-w-full"
               />
-              <Image
-                record={images}
-                index={4}
+              <img
+                src={e}
                 className="rounded-primary w-full h-64 max-w-md mx-auto md:max-w-full"
               />
             </div>
