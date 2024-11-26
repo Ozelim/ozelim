@@ -412,7 +412,7 @@ export const AgentsProfile = () => {
               </Button>
             </div>
             <p className='text-center mt-4 font-bold'>
-              Выберите способ <span onClick={() => verifyUser(user)}>оплаты</span>
+              Выберите способ оплаты
             </p>
             <div className='mt-2'>
               <div className='p-4 border rounded-primary shadow-md bg-white max-w-xs w-full text-center'>
