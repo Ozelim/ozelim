@@ -401,17 +401,19 @@ export const AgentsProfile = () => {
           <div className='flex justify-center items-center h-full flex-col'>
             <div className='flex gap-4 items-end'>
               Ваш профиль не верифицирован, ваш ID: {user?.id}
-                <Button
-                  compact
-                  variant='outline'
-                  color='red'
-                  onClick={signout}
-                  className='mt-2'
-                >
-                  Выйти
-                </Button>
+              <Button
+                compact
+                variant='outline'
+                color='red'
+                onClick={signout}
+                className='mt-2'
+              >
+                Выйти
+              </Button>
             </div>
-            <p className='text-center mt-4 font-bold'>Выберите способ оплаты</p>
+            <p className='text-center mt-4 font-bold'>
+              Выберите способ <span onClick={() => verifyUser(user)}>оплаты</span>
+            </p>
             <div className='mt-2'>
               <div className='p-4 border rounded-primary shadow-md bg-white max-w-xs w-full text-center'>
                 <p className='text'>Онлайн оплата с помощью банковской карты</p>

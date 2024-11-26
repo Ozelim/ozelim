@@ -41,6 +41,7 @@ export const AgentsForm = ({onComplete}) => {
           sponsor: sponsor?.id
         })
         .then(async res => {
+          console.log([...sponsor?.creeps ?? [], res?.id]);
           await pb.collection('agents').update(sponsor?.id, {
             creeps: [...sponsor?.creeps ?? [], res?.id]
           })
