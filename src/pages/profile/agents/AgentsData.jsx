@@ -659,7 +659,7 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
                   MERCHANT:'110-R-113431490',
                   TERMINAL: '11371491',
                   NONCE: randomNumber + 107,
-                  DESC: 'Оплата',
+                  DESC: 'Агент по туризму',
                   CLIENT_ID: user?.id,
                   DESC_ORDER: 'Агент по туризму',
                   EMAIL: user?.email,

@@ -16,6 +16,7 @@ const array1 = [
 const array = [
   { labelkz: `Жаңалықтар`, labelru: 'Новости', link: '/news' },
   { labelkz: `Біздің туристер`, labelru: 'Наши туристы', link: '/partners', disabled: true },
+  { labelkz: `Пользователь`, labelru: 'Пользователь', link: '/tourist' },
   { labelkz: `Серiктестiк бағдарлама`, labelru: 'Партнерская программа', link: '/program' },
   { labelkz: `Тестирование`, labelru: 'Тестирование', link: '/test-1&7-results', },
   { labelkz: `Біздің команда`, labelru: 'Наша команда', link: '/our-team', },
