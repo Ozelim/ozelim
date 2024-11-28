@@ -69,6 +69,8 @@ const appRouter = createBrowserRouter([
 
   {element: marketLayout, children: [
     {path: 'market', element: <Market/>},
+    {path: 'market-profile', element: <Market/>},
+    {path: 'market-cart', element: <Market/>},
   ]},
 
   {element: profileLayout, children: [

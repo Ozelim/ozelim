@@ -1,27 +1,21 @@
 import React from 'react'
-import { Button, MantineProvider } from '@mantine/core'
-import { pb } from 'shared/api'
+import { Catalog } from './catalog/catalog'
+import { Sidebar } from './sidebar/sidebar'
+import { MarketCarousel } from './carousel/market-carousel'
 
 export const Market = () => {
 
-  async function getAllUsers () {
-    return await pb.collection('users').getFullList()
-    .then(async res => {
-      res.forEach(async q => {
-        
-        await pb.collection('users').update(q?.id, {
-          avatar: null
-        })
-      })
-    })
-  }
-
-
   return (
-      <Button
-        onClick={getAllUsers}
-      >
-        Button
-      </Button>
+    <div className='max-w-[1280px] mx-auto px-4'>
+      <div className='grid grid-cols-[20%_auto] gap-4'>
+        <Sidebar/>
+        <div> 
+          <MarketCarousel/>
+          <div className='mt-8'>
+            <Catalog/>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }

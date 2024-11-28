@@ -197,7 +197,7 @@ export const AgentsProfile = () => {
         NONCE: randomNumber + 107,
         DESC: 'Верификация (Пользователь)',
         CLIENT_ID: user?.id,
-        DESC_ORDER: 'Верификация (Пользователь)', 
+        DESC_ORDER: 'Верификация (Пользователь) 1', 
         EMAIL: user?.email,
         BACKREF: `https://oz-elim.kz/aprofile`,
         Ucaf_Flag: '',
