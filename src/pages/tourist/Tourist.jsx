@@ -652,6 +652,13 @@ export const Tourist = () => {
                   </Button>
                 </a>
               </div>
+              <div className='flex mt-2'>
+                <a href={'/services-asosiation.pdf'} target='_blank'>
+                  <Button>
+                    Услуги членам Ассоциации
+                  </Button>
+                </a>
+              </div>
             </div>
           </section>
 

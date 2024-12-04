@@ -46,7 +46,8 @@
     "react-router-dom": "^6.14.0",
     "react-scroll": "^1.8.9",
     "react-tree-graph": "^8.0.1",
-    "yup": "^1.2.0"
+    "yup": "^1.2.0",
+    "zustand": "^5.0.1"
   },
   "devDependencies": {
     "@hookform/resolvers": "^3.1.1",

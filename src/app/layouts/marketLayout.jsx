@@ -31,6 +31,7 @@ export const marketLayout = (
       theme={{
         primaryColor: 'violet',
         primaryShade: 5,
+        fontFamily: 'Sofia Sans Semi Condensed, sans-serif'
       }}
     >
         <ModalsProvider 

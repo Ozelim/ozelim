@@ -25,7 +25,10 @@ import { About,
   Home,
   Tourist,
   AgentsProfile,
-  Market
+  Market,
+  MarketCart,
+  MarketProfile,
+  ProductPage
 } from "pages";
 import { baseLayout } from "./layouts/baseLayout";
 import { Test } from "pages/test/Test";
@@ -67,10 +70,11 @@ const appRouter = createBrowserRouter([
     // {path: '/market', element: <Market/>},
   ]},
 
-  {element: marketLayout, children: [
-    {path: 'market', element: <Market/>},
-    {path: 'market-profile', element: <Market/>},
-    {path: 'market-cart', element: <Market/>},
+  {element: marketLayout, path: '/market', children: [
+    {index: true, element: <Market/>},
+    {path: 'profile', element: <MarketProfile/>},
+    {path: 'cart', element: <MarketCart/>},
+    {path: 'product/:id', element: <ProductPage/>}
   ]},
 
   {element: profileLayout, children: [

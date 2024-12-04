@@ -10,6 +10,7 @@ export default {
       fontFamily: {
         head: ['Monsterrat', 'sans-serif'],
         body: ['Roboto', 'sans-serif'],
+        market: ['Sofia Sans Semi Condensed', 'sans-serif']
       },
       container: {
         center: true,

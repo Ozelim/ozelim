@@ -1,26 +1,45 @@
 import React from 'react'
 import { Accordion, Button } from '@mantine/core'
 import { useSearchParams } from 'react-router-dom'
+import { pb } from 'shared/api'
+
+async function getCategories () {
+  return (await pb.collection('categories').getFullList())?.[0]
+}
+
 
 export const Sidebar = () => {
 
   const [params, setParams] = useSearchParams()
 
+  const [categories, setCategories] = React.useState({})
+
+  async function handleCategories () {
+    await getCategories()
+    .then(res => {
+      setCategories(res)
+    })
+  }
+
+  React.useEffect(() => {
+    handleCategories()
+  }, [])
+
   return (
     <div>
-      <div className='flex flex-col gap-4 border shadow-md'>
-      {Array(10).fill(1).map((q, i) => {
+      <div className='flex flex-col border shadow-md'>
+      {categories?.categories?.map((q, i) => {
         return (
-          <div className='p-3 border-t-2'>
+          <div className='p-3 border-t-2' key={i}>
             <button>
-              Lorem, ipsum.
+              {q?.label}
             </button>
             <ul className='ml-2 space-y-2 mt-2'>
-              {Array(5).fill(1).map((q, i) => {
+              {q?.subs?.map((q, i) => {
                 return (
-                  <li>
+                  <li key={i}>
                     <button className='text-sm'>
-                      Lorem, ipsum dolor.
+                      {q?.label}
                     </button>
                   </li>
                 ) 
