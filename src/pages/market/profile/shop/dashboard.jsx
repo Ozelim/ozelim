@@ -15,7 +15,7 @@ export const Dashboard = () => {
 
   const [params, setParams] = useSearchParams()
 
-  const { shop, getShopById } = useShopStore()
+  const { getShopById } = useShopStore()
 
   const {user} = useAuth()
 

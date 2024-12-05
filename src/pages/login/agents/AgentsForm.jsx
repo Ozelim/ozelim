@@ -37,6 +37,7 @@ export const AgentsForm = ({onComplete}) => {
       if (sponsor?.verified && sponsor?.agent) {        
         signupAgent({
           ...data, 
+          password: data?.password,
           passwordConfirm: data?.password,
           sponsor: sponsor?.id
         })
