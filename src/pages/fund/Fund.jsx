@@ -57,13 +57,12 @@ export const Fund = () => {
                 <div>
                   <ul className="mt-3 text-lg font-medium text-[#5a5959] space-y-3">
                     {text?.text1}
-
-                    <a href={'/fund-ustav.pdf'} target='_blank'>
-                      <Button className='mt-4'>
-                        Устав Фонда
-                      </Button>
-                    </a>
                   </ul>
+                  <a href={'/fund-ustav.pdf'} target='_blank'>
+                    <Button className='mt-4'>
+                      Устав Фонда
+                    </Button>
+                  </a>
 
                   
                 </div>
