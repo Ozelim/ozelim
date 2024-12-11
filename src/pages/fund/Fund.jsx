@@ -63,8 +63,6 @@ export const Fund = () => {
                       Устав Фонда
                     </Button>
                   </a>
-
-                  
                 </div>
               </div>
             </section>

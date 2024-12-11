@@ -19,6 +19,7 @@ import { HiDocumentCheck } from 'react-icons/hi2'
 
 import market from 'shared/assets/images/user-1.pdf'
 import agreement from 'shared/assets/images/agent-agreement.pdf'
+import dayjs from 'dayjs'
 
 
 async function getAgentBid (id) {
@@ -316,6 +317,10 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
     "Нурбанк"
   ]
 
+  const expireDate =  dayjs(new Date(user?.verified_date).getTime() + 31556926667).format('DD.MM.YYYY')
+
+  const showDate = (((new Date(user?.verified_date).getTime() + 31556926667) - 2592000) <= new Date().getTime())
+
   return (
     <>
       <div className="w-full">
@@ -386,6 +391,12 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
               )}
             </>
           )}
+          {showDate && (
+            <p className='text-sm text-slate-500'>
+            Срок активации заканчивается {expireDate}
+            </p>
+          )}
+          
           <div>
             <TextInput
               defaultValue={referal}

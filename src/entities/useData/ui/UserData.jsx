@@ -209,13 +209,13 @@ export const UserData = ({count, setCount, balance, bonuses}) => {
             readOnly
             rightSection={<CopyBtn value={values?.id} />}
           />
-          <TextInput
+          {/* <TextInput
             value={referal}
             readOnly
             variant="filled"
             label={kz ? `Рефералдық сілтеме` : `Реферальная ссылка`}
             rightSection={<CopyBtn value={referal} />}
-          />
+          /> */}
           <div className="grid grid-cols-1 w-full gap-2 mt-5">
             <div className="border p-3  rounded-primary border-primary-500">
               <div className="flex gap-1 items-center ">

@@ -28,8 +28,20 @@ export const Avatar = ({src, record, cl, ...rest}) => {
     </div>
   )
 
+  if (record?.verified) return (
+    <div className='rounded-full border-4 border-orange-500'>
+      <Avatr
+        src={url}
+        alt='avatar'
+        {...rest}
+      >
+        <div className={clsx('aspect-square h-full bg-slate-300 rounded-full', cl)}/>
+      </Avatr>
+    </div>
+  )
+
   return (
-    <div className='rounded-full'>
+    <div className='rounded-full border-4 border-slate-300'>
       <Avatr
         src={url}
         alt='avatar'
