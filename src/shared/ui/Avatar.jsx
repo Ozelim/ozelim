@@ -1,6 +1,7 @@
 import React from 'react'
 import { Avatar as Avatr, clsx} from '@mantine/core';
 import { getImageUrl } from 'shared/lib';
+import { useLocation } from 'react-router-dom';
 
 export const Avatar = ({src, record, cl, ...rest}) => {
 
@@ -11,12 +12,15 @@ export const Avatar = ({src, record, cl, ...rest}) => {
     if (record) setUrl(getImageUrl(record, url))
   }
 
+  const {pathname} = useLocation()
+
+  
+
   React.useEffect(() => {
     checkUrl(src)
   }, [])
 
-
-  if (record?.agent) return (
+  if (record?.agent && pathname.includes('aprofile')) return (
     <div className='rounded-full border-4 border-green-500'>
       <Avatr
         src={url}
@@ -28,7 +32,7 @@ export const Avatar = ({src, record, cl, ...rest}) => {
     </div>
   )
 
-  if (record?.verified) return (
+  if (record?.verified && pathname.includes('aprofile')) return (
     <div className='rounded-full border-4 border-orange-500'>
       <Avatr
         src={url}
@@ -41,7 +45,7 @@ export const Avatar = ({src, record, cl, ...rest}) => {
   )
 
   return (
-    <div className='rounded-full border-4 border-slate-300'>
+    <div className='rounded-full'>
       <Avatr
         src={url}
         alt='avatar'
