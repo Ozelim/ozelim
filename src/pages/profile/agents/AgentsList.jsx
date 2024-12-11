@@ -123,6 +123,7 @@ export const AgentsList = ({ setCount }) => {
               component='a'
               href='https://t.me/+HB5KDI15ajZlYzJi'
               target='_blank'
+              color='cyan'
             >
               Телеграм чат
             </Button>
