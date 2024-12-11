@@ -1,22 +1,27 @@
-import { Button, Text } from '@mantine/core'
 import React from 'react'
+import { Button, Text } from '@mantine/core'
 import { Link } from 'react-router-dom'
+import { formatNumber, getImageUrl } from 'shared/lib'
 
-export const Product = () => {
+export const Product = ({product}) => {
 
   return (
-    <div className='flex flex-col shadow-lg border p-2 h-min'>
+    <div className='flex flex-col shadow-lg border p-2 h-min max-w-[268px]'>
       <div>
-        <Link to={`/market/product/${'111'}`}>
+        <Link to={`/market/product/${product?.id}`}>
           <img 
-            src="https://people.com/thmb/NDasPbZOWfpi2vryTpDta_MJwIY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(602x285:604x287)/newjeans-111023-1-c7ed1acdd72e4f2eb527cc38144aa2d4.jpg" 
+            src={getImageUrl(product, product?.pics?.[0])}
             alt="" 
             className='aspect-square object-cover'
           />
         </Link>
-        <Text className=' mt-3' lineClamp={2}>Lorem ipsum dolor sit amet.</Text>
-        <Text className=' mt-2 !text-[15px]' lineClamp={3}>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio, fuga.</Text>
-        <p className='mt-2 font-bold '>10 000 ₸</p>
+        <Text className=' mt-3' lineClamp={2}>
+          {product?.name}
+        </Text>
+        <Text className=' mt-2 !text-[15px]' lineClamp={3}>
+          {product?.description}
+        </Text>
+        <p className='mt-2 font-bold '>{formatNumber(product?.price)} ₸</p>
       </div>
       <Button
         fullWidth

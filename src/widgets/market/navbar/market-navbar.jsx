@@ -11,7 +11,7 @@ import { useAuth } from 'shared/hooks';
 export const MarketNavbar = () => {
 
   return (
-    <div className='max-w-[1280px] mx-auto px-4 flex items-center gap-4 justify-between w-full mb-4 market'>
+    <div className='container-market flex items-center gap-4 justify-between w-full market'>
       <Link to={'/market'}>
         <img
           className="max-w-[100px] ml-2 lg:ml-6 w-full min-w-[50px]"

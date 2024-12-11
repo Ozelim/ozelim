@@ -6,8 +6,8 @@ import { MarketCarousel } from './carousel/market-carousel'
 export const Market = () => {
 
   return (
-    <div className='container-market market'>
-      <div className='grid grid-cols-[17%_auto] gap-4'>
+    <div className='market'>
+      <div className='grid grid-cols-[12%_auto] gap-4'>
         <Sidebar/>
         <div> 
           <MarketCarousel/>

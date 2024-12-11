@@ -46,7 +46,7 @@ export const Dashboard = () => {
         primaryShade: 6,
       }}
     >
-      <div className='container-market market'>
+      <div className=' market'>
         <div className='grid grid-cols-[200px_auto]'>
           <div className='flex flex-col border shadow-md bg-pink-600'>
             {array.map((page, i) => {
