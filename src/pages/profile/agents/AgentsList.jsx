@@ -17,6 +17,8 @@ import { DateInput } from '@mantine/dates'
 import { showNotification } from '@mantine/notifications'
 import axios from 'axios'
 
+import { BiLogoTelegram } from "react-icons/bi";
+
 export const AgentsList = ({ setCount }) => {
   
   const { kz } = useLangContext()
@@ -114,6 +116,17 @@ export const AgentsList = ({ setCount }) => {
                 Вознаграждения
               </Button>
             </div>
+
+            <Button 
+              className='mt-2 lg:mt-0 lg:ml-4' 
+              rightIcon={<BiLogoTelegram size={20}/>}
+              component='a'
+              href='https://t.me/+HB5KDI15ajZlYzJi'
+              target='_blank'
+            >
+              Телеграм чат
+            </Button>
+            
             {user?.expand?.sponsor && (
               <div className="w-fit mt-4">
                 <p className="text-sm ml-2">Агент-наставник:</p>
