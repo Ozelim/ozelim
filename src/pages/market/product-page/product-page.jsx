@@ -7,7 +7,9 @@ import { pb } from 'shared/api'
 import { formatNumber, getImageUrl } from 'shared/lib'
 
 async function getProductById (id) {
-  return await pb.collection('products').getOne(id)
+  return await pb.collection('products').getOne(id, {
+    expand: 'agent, market_id'
+  })
 }
 
 export const ProductPage = ({preview}) => {
@@ -36,7 +38,8 @@ export const ProductPage = ({preview}) => {
   const [picsModal, picsModal_h] = useDisclosure(false)
 
   function viewPic (index) {
-    const newPic = product?.pics?.filter((_, i) => i === index)?.[0]
+    const newPic = product?.pics?.filter((_, i) => i == index)?.[0]
+    console.log(newPic, 'newPic');
     setCurrentPic(newPic)
   }
 
@@ -53,19 +56,25 @@ export const ProductPage = ({preview}) => {
                     <img 
                       src={URL.createObjectURL(q)}
                       alt="" 
-                      className='aspect-square object-cover cursor-pointer'
+                      className={clsx('aspect-square object-cover cursor-pointer', {
+                        'border-4 p-0.5': currentPic === q
+                      })}
                       key={i}
                       onClick={() => viewPic(i)}
                     />
                   ) 
                 } else {
-                  <img 
-                    src={getImageUrl(product, q)}
-                    alt="" 
-                    className='aspect-square object-cover cursor-pointer'
-                    key={i}
-                    onClick={() => viewPic(i)}
-                  />
+                  return (
+                    <img 
+                      src={getImageUrl(product, q)}
+                      alt="" 
+                      className={clsx('aspect-square object-cover cursor-pointer', {
+                        'border-4 p-0.5': currentPic === q
+                      })}
+                      key={i}
+                      onClick={() => viewPic(i)}
+                    />
+                  )
                 }
               })}
               {/* {Array(11).fill(1).map((q, i) => {
@@ -91,7 +100,7 @@ export const ProductPage = ({preview}) => {
               </>
               :
                 <img 
-                  src={getImageUrl(product, product?.pics?.[0])}
+                  src={getImageUrl(product, currentPic)}
                   alt="" 
                   className='aspect-square object-cover'
                   onClick={() => picsModal_h.open()}
@@ -204,15 +213,17 @@ export const ProductPage = ({preview}) => {
                   />
                 ) 
               } else {
-                <img 
-                  src={getImageUrl(product, q)}
-                  alt="" 
-                  className={clsx('aspect-square object-cover w-24', {
-                    'border-4 p-0.5': currentPic === q
-                  })}
-                  key={i}
-                  onClick={() => viewPic(i)}
-                />
+                return (
+                  <img 
+                    src={getImageUrl(product, q)}
+                    alt="" 
+                    className={clsx('aspect-square object-cover w-24', {
+                      'border-4 p-0.5': currentPic === q
+                    })}
+                    key={i}
+                    onClick={() => viewPic(i)}
+                  />
+                )
               }
             })}
           </div>
@@ -228,7 +239,7 @@ export const ProductPage = ({preview}) => {
                   /> 
                 :
                   <img 
-                    src="https://people.com/thmb/NDasPbZOWfpi2vryTpDta_MJwIY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(602x285:604x287)/newjeans-111023-1-c7ed1acdd72e4f2eb527cc38144aa2d4.jpg" 
+                    src={getImageUrl(product, currentPic)}
                     alt="" 
                     className='aspect-square object-cover mx-auto max-w-full max-h-[90vh]'
                     onClick={() => picsModal_h.open()}

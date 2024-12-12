@@ -2,8 +2,13 @@ import React from 'react'
 import { Catalog } from './catalog/catalog'
 import { Sidebar } from './sidebar/sidebar'
 import { MarketCarousel } from './carousel/market-carousel'
+import { useCartStore } from './cart/cartStore'
 
 export const Market = () => {
+
+  const {cartItems} = useCartStore()
+
+  console.log(cartItems, 'items');
 
   return (
     <div className='market'>

@@ -180,6 +180,24 @@ import qay4 from 'shared/assets/images/qayundy-09.2024/4.jpeg'
 import qay5 from 'shared/assets/images/qayundy-09.2024/5.jpeg'
 import qay6 from 'shared/assets/images/qayundy-09.2024/6.jpeg'
 import qay7 from 'shared/assets/images/qayundy-09.2024/7.jpeg'
+
+import ast1 from 'shared/assets/images/astana-10.2024/1.jpeg'
+import ast2 from 'shared/assets/images/astana-10.2024/2.jpg'
+import ast3 from 'shared/assets/images/astana-10.2024/3.jpg'
+import ast4 from 'shared/assets/images/astana-10.2024/4.jpg'
+import ast5 from 'shared/assets/images/astana-10.2024/5.jpg'
+import ast6 from 'shared/assets/images/astana-10.2024/6.jpg'
+import ast7 from 'shared/assets/images/astana-10.2024/7.jpg'
+import ast8 from 'shared/assets/images/astana-10.2024/8.jpg'
+import ast9 from 'shared/assets/images/astana-10.2024/9.jpg'
+import ast10 from 'shared/assets/images/astana-10.2024/10.jpg'
+import ast11 from 'shared/assets/images/astana-10.2024/11.jpeg'
+import ast12 from 'shared/assets/images/astana-10.2024/12.jpeg'
+import ast13 from 'shared/assets/images/astana-10.2024/13.jpeg'
+import ast14 from 'shared/assets/images/astana-10.2024/14.jpeg'
+import ast15 from 'shared/assets/images/astana-10.2024/15.jpeg'
+
+
 import { Link } from 'react-router-dom'
 import { getImageUrl } from 'shared/lib'
 
@@ -391,6 +409,23 @@ export const Tourist = () => {
       qay5,
       qay6,
       qay7,
+    ],
+    ast: [
+      ast1,
+      ast2,
+      ast3,
+      ast4,
+      ast5,
+      ast6,
+      ast7,
+      ast8,
+      ast9,
+      ast10,
+      ast11,
+      ast12,
+      ast13,
+      ast14,
+      ast15,
     ]
   }
 
@@ -545,6 +580,14 @@ export const Tourist = () => {
             }}>
               <img className='w-48 h-48 rounded-lg object-cover' src={qay4} alt="" loading='lazy'/>
               <p className='text-primary-600'>Кайынды 09.2024</p>
+            </div>
+            <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={e => {
+              setCurrentPicture(0)
+              setPictures('ast')
+              handlers.open()
+            }}>
+              <img className='w-48 h-48 rounded-lg object-cover' src={ast1} alt="" loading='lazy'/>
+              <p className='text-primary-600'>Астана, ноябрь 2024</p>
             </div>
           </div>
 

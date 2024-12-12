@@ -2,8 +2,11 @@ import React from 'react'
 import { Button, Text } from '@mantine/core'
 import { Link } from 'react-router-dom'
 import { formatNumber, getImageUrl } from 'shared/lib'
+import { useCartStore } from '../cart/cartStore'
 
 export const Product = ({product}) => {
+
+  const { addToCart } = useCartStore()
 
   return (
     <div className='flex flex-col shadow-lg border p-2 h-min max-w-[268px]'>
@@ -26,6 +29,7 @@ export const Product = ({product}) => {
       <Button
         fullWidth
         className='mt-3 flex-shrink'
+        onClick={() => addToCart(product)}
       >
         В корзину
       </Button>

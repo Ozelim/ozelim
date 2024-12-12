@@ -201,14 +201,14 @@ export const UserData = ({count, setCount, balance, bonuses}) => {
       <div className="w-full">
         <div>
           <UserAvatar />
-          {/* <TextInput
+          <TextInput
             label="ID"
             variant="filled"
             value={values.id ?? ''}
             onChange={handleValuesChange}
             readOnly
             rightSection={<CopyBtn value={values?.id} />}
-          /> */}
+          />
           {/* <TextInput
             value={referal}
             readOnly
