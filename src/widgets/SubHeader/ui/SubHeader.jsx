@@ -17,14 +17,16 @@ export const SubHeader = () => {
   return (
     <div className="w-full">
       <div className="flex justify-center py-3 border-b">
-        <a href="https://wa.me/77470512252" className="flex items-center">
-          <p className="mr-4 text-sm md:text-base text-zinc-400">{kz ? `Бізбен байланысыңыз`: 'Свяжитесь с нами'}:</p>
-          <BsWhatsapp className="text-xl flex-shrink-0" color="green" />
-          {/* <img src={WhatsApp} className="w-6" /> */}
-          <span className="ml-2 hover:text-yellow-400 text-md hidden md:block ">
-            +7 747 051 2252
-          </span>
-        </a>
+        <div>
+          <a href="https://wa.me/77470512252" className="flex items-center">
+            <p className="mr-4 text-sm md:text-base text-zinc-400">{kz ? `Бізбен байланысыңыз`: 'Служба поддержки'}:</p>
+            <BsWhatsapp className="text-xl flex-shrink-0" color="green" />
+            <span className="ml-2 hover:text-yellow-400 text-md hidden md:block ">
+              +7 747 051 2252
+            </span>
+          </a>
+          <p className='text-center text-[13px] text-slate-500 -mt-0.5'>Понедельник-пятница, 09:00 - 18:00</p>
+        </div>
         <Menu className='ml-6' >
           <Menu.Target>
             <p className='text-sm md:text-base font-bold text-primary-500 cursor-pointer flex gap-2 items-center'>
