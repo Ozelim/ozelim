@@ -21,7 +21,7 @@ export const Avatar = ({src, record, cl, ...rest}) => {
   }, [])
 
   if (record?.agent && pathname.includes('aprofile')) return (
-    <div className='rounded-full border-4 border-green-500'>
+    <div className='rounded-full border-4 border-green-500 w-fit h-fit'>
       <Avatr
         src={url}
         alt='avatar'
@@ -33,7 +33,7 @@ export const Avatar = ({src, record, cl, ...rest}) => {
   )
 
   if (record?.verified && pathname.includes('aprofile')) return (
-    <div className='rounded-full border-4 border-orange-500'>
+    <div className='rounded-full border-4 border-orange-500 w-fit h-fit'>
       <Avatr
         src={url}
         alt='avatar'
