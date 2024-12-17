@@ -9,12 +9,11 @@
   font-family: 'Roboto', sans-serif;
 }
 
-.market {
-  * {
+.market * {
     font-family: 'Sofia Sans Semi Condensed', sans-serif;
     font-weight: 600;
-  }
 }
+
 
 .container-market {
   max-width: 1400px;
@@ -92,22 +91,21 @@ h4 {
   margin-bottom: 7px;
 }
 
-.market-scrollbar {
-  ::-webkit-scrollbar {
+.market-scrollbar ::-webkit-scrollbar {
     width: 5px;
   }
 
-  ::-webkit-scrollbar-track {
+  .market-scrollbar ::-webkit-scrollbar-track {
     background: #f1f1f1;
     border-radius: 6px;
   }
 
-  ::-webkit-scrollbar-thumb {
+.market-scrollbar ::-webkit-scrollbar-thumb {
     background: #a855f7;
     border-radius: 6px;
   }
 
-  ::-webkit-scrollbar-thumb:hover {
+.market-scrollbar ::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
-}
+

@@ -8,8 +8,6 @@ export const Market = () => {
 
   const {cartItems} = useCartStore()
 
-  console.log(cartItems, 'items');
-
   return (
     <div className='market'>
       <div className='grid grid-cols-[12%_auto] gap-4'>

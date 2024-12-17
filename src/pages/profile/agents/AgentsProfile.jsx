@@ -1,7 +1,7 @@
 import React from 'react'
 import dayjs from 'dayjs'
 import { pb } from 'shared/api'
-import { ActionIcon, Badge, Button, Group, LoadingOverlay, MantineProvider, Modal, NumberInput, Radio, Table, TextInput, clsx, createEmotionCache } from '@mantine/core'
+import { ActionIcon, Badge, Button, Group, LoadingOverlay, MantineProvider, Modal, NumberInput, Radio, ScrollArea, Table, TextInput, clsx, createEmotionCache } from '@mantine/core'
 import { useAuth } from 'shared/hooks'
 
 import { formatNumber} from 'shared/lib'
@@ -691,6 +691,9 @@ export const AgentsProfile = () => {
                   </div>
                 )}
 
+                <ScrollArea
+                  maw={'100%'}
+                >
                   <div className="mt-12 overflow-scroll">
                     <h2 className="text-center text-xl font-head">История</h2>
                     <Table className="border mt-4">
@@ -776,6 +779,7 @@ export const AgentsProfile = () => {
                       </tbody>
                     </Table>
                   </div>
+                </ScrollArea>
                 </div>
               </div>
             </div>

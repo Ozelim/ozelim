@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "start:dev": "concurrently \"npm run dev\" \"npm run serve\"",
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
@@ -46,6 +46,7 @@
     "react-router-dom": "^6.14.0",
     "react-scroll": "^1.8.9",
     "react-tree-graph": "^8.0.1",
+    "vite-plugin-qrcode": "^0.2.3",
     "yup": "^1.2.0",
     "zustand": "^5.0.1"
   },

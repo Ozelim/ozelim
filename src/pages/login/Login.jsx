@@ -42,7 +42,9 @@ export const Login = () => {
       onComplete(res)
     })
     .catch(err => {
+      debugger
       console.log(err, 'err');
+
       setErr('Неверные данные')
     })
   }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAuth } from 'shared/hooks'
-import { Button, Group, Modal, Radio, Table } from '@mantine/core'
+import { Button, Group, Modal, Radio, ScrollArea, Table } from '@mantine/core'
 import dayjs from 'dayjs'
 
 import market from 'shared/assets/images/agent.png'
@@ -95,38 +95,39 @@ export const AgentsList = ({ setCount }) => {
   return (
     <>
       <div className="w-full">
-        <div className="flex justify-between gap-3 ">
+        <div className="flex flex-col md:flex-row justify-between gap-3 ">
           <div>
             {/* <Button onClick={() => setShitModal(true)}>Вознаграждения</Button> */}
-            <div className='!inline-block lg:!hidden'>
-              <Button
-                component={'a'}
-                href='/agent.pdf'
-                target='_blank'
-                aria-hidden
-              >
-                Вознаграждения
-              </Button>
-            </div>
-            <div className='!hidden lg:!inline-block'>
-              <Button 
-                onClick={() => setShitModal(true)}
-                aria-hidden
-              >
-                Вознаграждения
-              </Button>
-            </div>
+            <div className='flex gap-4'>
+              <div className='!inline-block lg:!hidden'>
+                <Button
+                  component={'a'}
+                  href='/agent.pdf'
+                  target='_blank'
+                  aria-hidden
+                >
+                  Вознаграждения
+                </Button>
+              </div>
+              <div className='!hidden lg:!inline-block'>
+                <Button 
+                  onClick={() => setShitModal(true)}
+                  aria-hidden
+                >
+                  Вознаграждения
+                </Button>
+              </div>
 
-            <Button 
-              className='mt-2 lg:mt-0 lg:ml-4' 
-              rightIcon={<BiLogoTelegram size={20}/>}
-              component='a'
-              href='https://t.me/+HB5KDI15ajZlYzJi'
-              target='_blank'
-              color='cyan'
-            >
-              Телеграм чат
-            </Button>
+              <Button 
+                rightIcon={<BiLogoTelegram size={20}/>}
+                component='a'
+                href='https://t.me/+HB5KDI15ajZlYzJi'
+                target='_blank'
+                color='cyan'
+              >
+                Телеграм чат
+              </Button>
+            </div>
             
             {user?.expand?.sponsor && (
               <div className="w-fit mt-4">
@@ -149,12 +150,12 @@ export const AgentsList = ({ setCount }) => {
             )}
           </div>
           <div className="flex flex-col items-end">
-            <div className="flex gap-1 items-center border-b-2">
+            <div className="flex gap-1 items-center border-b-2 whitespace-nowrap">
               <p className="text" onClick={() => setCount((q) => q + 1)}>
                 Статистика:
               </p>
               <FaUsers size={20} color="green" />
-              <p>
+              <p className='whitespace-nowrap'>
                 ({allLines?.length ?? 0} /{' '}
                 <span className="text-green-400">{allLines?.filter((q) => q?.agent)?.length}</span>)
               </p>
@@ -162,10 +163,10 @@ export const AgentsList = ({ setCount }) => {
             <div className="flex gap-1 items-center border-b-2">
               <p className="text">1-линия:</p>
               <FaUserGroup size={20} color="green" />
-              <p className="text-bold">
+              <p className="text-bold whitespace-nowrap" >
                 ({user?.creeps?.length} /{' '}
                 <span className="text-green-400">
-                  {user?.expand?.creeps?.filter((q) => q?.agent)?.length}
+                  {user?.expand?.creeps?.filter((q) => q?.agent)?.length ?? 0}
                 </span>
                 ){' '}
               </p>
@@ -173,10 +174,10 @@ export const AgentsList = ({ setCount }) => {
             <div className="flex gap-1 items-center border-b-2">
               <p className="text">2-линия:</p>
               <FaUserGroup size={20} color="green" />
-              <p className="text-bold">
+              <p className="text-bold whitespace-nowrap">
                 ({secondLine?.length} /{' '}
                 <span className="text-green-400">
-                  {secondLine?.filter((q) => q?.agent)?.length}
+                  {secondLine?.filter((q) => q?.agent)?.length ?? 0}
                 </span>
                 ){' '}
               </p>
@@ -184,15 +185,15 @@ export const AgentsList = ({ setCount }) => {
             <div className="flex gap-1 items-center border-b-2">
               <p className="text">3-линия:</p>
               <FaUserGroup size={20} color="green" />
-              <p className="text-bold">
+              <p className="text-bold whitespace-nowrap">
                 ({thirdLine?.length} /{' '}
-                <span className="text-green-400">{thirdLine?.filter((q) => q?.agent)?.length}</span>
+                <span className="text-green-400">{thirdLine?.filter((q) => q?.agent)?.length ?? 0}</span>
                 )
               </p>
             </div>
-            <Button className="mt-2" compact variant="subtle" onClick={(e) => periodM_h.open()}>
+            {/* <Button className="mt-2" compact variant="subtle" onClick={(e) => periodM_h.open()}>
               Отчет
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>
@@ -206,19 +207,23 @@ export const AgentsList = ({ setCount }) => {
         }}
       >
         <div className="gap-4 min-h-[400px]">
-          <div className='flex items-center gap-4'>
+          <div className='flex flex-col md:flex-row items-center gap-4'>
             <p>За период </p>
-            <DateInput 
-              maw={400} 
-              mx="auto" 
-              locale='ru' 
-              valueFormat='DD.MM.YYYY' 
-              value={dates?.from} 
-              onChange={e => setDates({...dates, from: e})}
-              variant='filled'
-              disabled={periodMLoading}
-              
-            />
+            <div>
+              <DateInput 
+                maw={400} 
+                mx="auto" 
+                locale='ru' 
+                valueFormat='DD.MM.YYYY' 
+                value={dates?.from} 
+                onChange={e => setDates({...dates, from: e})}
+                variant='filled'
+                disabled={periodMLoading}
+              />
+              <Button>
+                Выбрать дату
+              </Button>
+            </div>
             <p>до</p>
             <DateInput 
               maw={400} 
@@ -312,7 +317,7 @@ export const AgentsList = ({ setCount }) => {
 
           <p className='text-sm text-center mt-4'>1-я линия: <span className='text-primary-500 font-bold'>{firstLinePeriod?.length ?? 0}</span></p>
           {firstLinePeriod?.length !== 0 && (
-            <>
+            <ScrollArea>
               <Table>
                 <thead>
                   <tr>
@@ -342,11 +347,11 @@ export const AgentsList = ({ setCount }) => {
                   })}
                 </tbody>
               </Table>
-            </>
+            </ScrollArea>
           )}
           <p className='mt-6 text-sm text-center '>2-я линия: <span className='text-primary-500 font-bold'>{secondLinePeriod?.length ?? 0}</span></p>
           {secondLinePeriod?.length !== 0 && (
-            <>
+            <ScrollArea>
               <Table>
                 <thead>
                   <tr>
@@ -376,11 +381,11 @@ export const AgentsList = ({ setCount }) => {
                   })}
                 </tbody>
               </Table>
-            </>
+            </ScrollArea>
           )}
           <p className='mt-6 text-sm text-center '>3-я линия: <span className='text-primary-500 font-bold'>{thirdLinePeriod?.length ?? 0}</span></p>
           {thirdLinePeriod?.length !== 0 && (
-            <>
+            <ScrollArea>
               <Table>
                 <thead>
                   <tr>
@@ -410,7 +415,7 @@ export const AgentsList = ({ setCount }) => {
                   })}
                 </tbody>
               </Table>
-            </>
+            </ScrollArea>
           )}
         </div>
       </Modal>
