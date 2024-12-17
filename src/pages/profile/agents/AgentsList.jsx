@@ -164,7 +164,7 @@ export const AgentsList = ({ setCount }) => {
               <p className="text">1-линия:</p>
               <FaUserGroup size={20} color="green" />
               <p className="text-bold whitespace-nowrap" >
-                ({user?.creeps?.length} /{' '}
+                ({user?.creeps?.length ?? 0} /{' '}
                 <span className="text-green-400">
                   {user?.expand?.creeps?.filter((q) => q?.agent)?.length ?? 0}
                 </span>
@@ -175,7 +175,7 @@ export const AgentsList = ({ setCount }) => {
               <p className="text">2-линия:</p>
               <FaUserGroup size={20} color="green" />
               <p className="text-bold whitespace-nowrap">
-                ({secondLine?.length} /{' '}
+                ({secondLine?.length ?? 0} /{' '}
                 <span className="text-green-400">
                   {secondLine?.filter((q) => q?.agent)?.length ?? 0}
                 </span>
@@ -186,14 +186,14 @@ export const AgentsList = ({ setCount }) => {
               <p className="text">3-линия:</p>
               <FaUserGroup size={20} color="green" />
               <p className="text-bold whitespace-nowrap">
-                ({thirdLine?.length} /{' '}
+                ({thirdLine?.length ?? 0} /{' '}
                 <span className="text-green-400">{thirdLine?.filter((q) => q?.agent)?.length ?? 0}</span>
                 )
               </p>
             </div>
-            {/* <Button className="mt-2" compact variant="subtle" onClick={(e) => periodM_h.open()}>
+            <Button className="mt-2" compact variant="subtle" onClick={(e) => periodM_h.open()}>
               Отчет
-            </Button> */}
+            </Button>
           </div>
         </div>
       </div>
