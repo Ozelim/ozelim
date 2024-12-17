@@ -59,20 +59,20 @@ export const AgentsList = ({ setCount }) => {
 
   const firstLinePeriod = user?.expand?.creeps?.filter(q => {
     return (
-      new Date(q?.agent_date)?.getTime() >= dates?.from?.getTime() && 
-      new Date(q?.agent_date)?.getTime() <= dates?.to?.getTime())
+      new Date(q?.agent_date)?.getTime() >= new Date(dates?.from)?.getTime() && 
+      new Date(q?.agent_date)?.getTime() <= new Date(dates?.to)?.getTime())
   })
   
   const secondLinePeriod = secondLine?.filter(q => {
     return (
-      new Date(q?.agent_date)?.getTime() >= dates?.from?.getTime() && 
-      new Date(q?.agent_date)?.getTime() <= dates?.to?.getTime())
+      new Date(q?.agent_date)?.getTime() >= new Date(dates?.from)?.getTime() && 
+      new Date(q?.agent_date)?.getTime() <= new Date(dates?.to)?.getTime())
   })
 
   const thirdLinePeriod = thirdLine?.filter(q => {
     return (
-      new Date(q?.agent_date)?.getTime() >= dates?.from?.getTime() && 
-      new Date(q?.agent_date)?.getTime() <= dates?.to?.getTime())
+      new Date(q?.agent_date)?.getTime() >= new Date(dates?.from)?.getTime() && 
+      new Date(q?.agent_date)?.getTime() <= new Date(dates?.to)?.getTime())
   })
 
   const allLinesPeriod = firstLinePeriod?.concat(secondLinePeriod, thirdLinePeriod)
@@ -210,31 +210,29 @@ export const AgentsList = ({ setCount }) => {
           <div className='flex flex-col md:flex-row items-center gap-4'>
             <p>За период </p>
             <div>
-              <DateInput 
-                maw={400} 
-                mx="auto" 
-                locale='ru' 
-                valueFormat='DD.MM.YYYY' 
+              <input 
+                type='date'
+                // maw={400} 
+                // mx="auto" 
+                // locale='ru' 
+                // valueFormat='DD.MM.YYYY' 
                 value={dates?.from} 
-                onChange={e => setDates({...dates, from: e})}
-                variant='filled'
+                onChange={e => setDates({...dates, from: e?.currentTarget?.value})}
+                // variant='filled'
                 disabled={periodMLoading}
               />
-              <Button>
-                Выбрать дату
-              </Button>
             </div>
             <p>до</p>
-            <DateInput 
-              maw={400} 
-              mx="auto" 
-              locale='ru' 
-              valueFormat='DD.MM.YYYY' 
+            <input 
+              type='date'
+              // maw={400} 
+              // mx="auto" 
+              // locale='ru' 
+              // valueFormat='DD.MM.YYYY' 
               value={dates?.to} 
-              onChange={e => setDates({...dates, to: e})}
-              variant='filled'
+              onChange={e => setDates({...dates, to: e?.currentTarget?.value})}
+              // variant='filled'
               disabled={periodMLoading}
-              
             />
             {/* <Button 
               compact 
@@ -321,7 +319,6 @@ export const AgentsList = ({ setCount }) => {
               <Table>
                 <thead>
                   <tr>
-                    <th className='!text-slate-500 !font-light'>Фото</th>
                     <th className='!text-slate-500 !font-light'>ФИО</th>
                     <th className='!text-slate-500 !font-light'>ID</th>
                     <th className='!text-slate-500 !font-light'>ID спонсора</th>
@@ -332,12 +329,7 @@ export const AgentsList = ({ setCount }) => {
                   {firstLinePeriod?.map((q, i) => {
                     return (
                       <tr key={i}>
-                        <td className='text-center font-bold'>
-                          {q?.avatar 
-                            ? <img src={getImageUrl(q, q?.avatar)} className='w-12 h-12 rounded-full' alt="" />
-                            : '-'
-                          }
-                        </td>
+
                         <td>{q?.fio}</td>
                         <td>{q?.id}</td>
                         <td>{q?.sponsor}</td>
@@ -366,7 +358,7 @@ export const AgentsList = ({ setCount }) => {
                   {secondLinePeriod?.map((q, i) => {
                     return (
                       <tr key={i}>
-                        <td className='text-center font-bold'>
+                        <td className='text-center font-bold w-min'>
                           {q?.avatar 
                             ? <img src={getImageUrl(q, q?.avatar)} className='w-12 h-12 rounded-full' alt="" />
                             : '-'
