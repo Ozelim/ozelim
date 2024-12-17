@@ -157,7 +157,7 @@ export const AgentsList = ({ setCount }) => {
               <FaUsers size={20} color="green" />
               <p className='whitespace-nowrap'>
                 ({allLines?.length ?? 0} /{' '}
-                <span className="text-green-400">{allLines?.filter((q) => q?.agent)?.length}</span>)
+                <span className="text-green-400">{allLines?.filter((q) => q?.agent)?.length ?? 0}</span>)
               </p>
             </div>
             <div className="flex gap-1 items-center border-b-2">
