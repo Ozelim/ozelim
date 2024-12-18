@@ -732,10 +732,18 @@ export const Tourist = () => {
             <h1 className="block lg:hidden text-2xl md:text-3xl font-bold font-head text-teal-500">
               {headings?.agent1}
             </h1>
-            <img
-              src={t}
-              className="w-full lg mx-auto lg:mx-0 rounded-primary object-cover aspect-video"
-            />
+            <div>
+              <img
+                src={t}
+                className="w-full lg mx-auto lg:mx-0 rounded-primary object-cover aspect-video"
+              />
+
+              <a href={'/agents.pdf'} target='_blank' className='block mt-4 text-center'>
+                <Button>
+                  Положение о Агенстве
+                </Button>
+              </a>
+            </div>
 
             <div className="w-full lg:text-left text-center">
               <h1 className="hidden lg:block text-2xl md:text-3xl font-bold font-head text-teal-500">
