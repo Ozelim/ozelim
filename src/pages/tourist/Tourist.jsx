@@ -652,7 +652,7 @@ export const Tourist = () => {
                 return <p key={i} className="mt-2 font-medium">{text?.[`services${i + 3}`]}</p>
               })}
 
-            <div className='flex justify-center mt-4'>
+            {/* <div className='flex justify-center mt-4'>
               <a href="/agent-agreement.pdf" target='_blank' className='underline text-primary-500'>
                 Агенский договор.pdf
               </a>
@@ -664,7 +664,7 @@ export const Tourist = () => {
               >
                 Ознакомлен и согласен
               </Button>
-            </div>
+            </div> */}
           </section>
 
           <section className="grid lg:grid-cols-[60%_auto] mt-10 gap-4">
