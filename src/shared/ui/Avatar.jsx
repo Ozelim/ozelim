@@ -14,11 +14,9 @@ export const Avatar = ({src, record, cl, ...rest}) => {
 
   const {pathname} = useLocation()
 
-  
-
   React.useEffect(() => {
     checkUrl(src)
-  }, [])
+  }, [record])
 
   if (record?.agent && pathname.includes('aprofile')) return (
     <div className='rounded-full border-4 border-green-500 w-min h-min'>

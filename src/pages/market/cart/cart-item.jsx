@@ -6,13 +6,13 @@ import { ActionIcon, Button, CloseButton, Text } from '@mantine/core'
 
 export const CartItem = ({product}) => {
 
-  const total = product?.count * product.price
+  const total = product?.count * product?.price
 
   const { addToCart, removeFromCart, removeItem } = useCartStore()
   
   return (
     <div className="relative">
-      <div className='border p-3 flex justify-between items-center shadow-md'>
+      <div className='border p-3 flex flex-col md:flex-row justify-between items-center shadow-md gap-3'>
         <div className='flex gap-4 max-w-md max-h-[120px] overflow-hidden flex-grow'>
           <img 
             src={getImageUrl(product, product.pics?.[0])} 
@@ -28,28 +28,43 @@ export const CartItem = ({product}) => {
             </Text>
           </div>
         </div>
-        <p className='font-semibold text-lg ' >
-          {product.price}$
-        </p>
-        <div className='flex gap-4'>
-          <button onClick={() => removeFromCart(product)} className='text-xl' disabled={product?.count === 1}>
-            <AiOutlineMinus/>
-          </button>
+        {/* <p className='font-semibold text-lg ' >
+          {product.price} ₸
+        </p> */}
+        <div className='flex gap-3 items-center'>
+          <ActionIcon 
+            onClick={() => removeFromCart(product)} 
+            className='text-xl' 
+            disabled={product?.count === 1}
+            variant='filled'
+            bg='gray.2'
+            size='md'
+          >
+            <AiOutlineMinus className='text-black' size={10}/>
+          </ActionIcon>
           <span>
             {product.count}
           </span>
-          <button onClick={() => addToCart(product)} className='text-xl' >
-            <AiOutlinePlus/>
-          </button>
+          <ActionIcon 
+            onClick={() => addToCart(product)} 
+            className='text-xl'
+            variant='filled'
+            bg='gray.2'
+            size='md'
+          >
+            <AiOutlinePlus className='text-black' size={10}/>
+          </ActionIcon>
         </div>
         <div className='font-semibold text-lg'>
-          {total}$
+          {total} ₸
         </div>
       </div>
-      <div className='absolute top-2 right-2 z-10'>
+      <div className='absolute top-1 right-1 z-10'>
         <CloseButton
           onClick={() => removeItem(product)}
-          size={35}
+          size={20}
+          className='text-black'
+          bg='gray.2'
         />
       </div>
     </div>

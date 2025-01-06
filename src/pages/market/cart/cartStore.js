@@ -55,7 +55,9 @@ const useCartStore = create(persist((set, get) => ({
 
     removeItem: (product) => {
       set((state) => {
-        const newCartItems = state.cartItems?.filter((q) => {q?.id !== product?.id})
+        const newCartItems = state.cartItems?.filter((q) => {
+          return q?.id !== product?.id
+        })
         
         return { cartItems: newCartItems}
       })

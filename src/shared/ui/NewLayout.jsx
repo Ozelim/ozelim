@@ -8,6 +8,7 @@ import { getImageUrl } from 'shared/lib'
 
 import mobileLogo from 'shared/assets/images/logo1.png'
 import { AiOutlineWhatsApp } from 'react-icons/ai'
+import { useCategoriesStore } from 'pages/market/categoriesStore'
 
 export const NewLayout = ({headerSlot, footerSlot}) => {
 
@@ -15,7 +16,11 @@ export const NewLayout = ({headerSlot, footerSlot}) => {
 
   const {pathname} = useLocation()
 
-  
+  const {getCategories} = useCategoriesStore()
+
+  React.useEffect(() => {
+    getCategories()
+  }, [])
 
   return (
     <div className="grid grid-rows-[auto_1fr_auto] min-h-screen market-scrollbar">

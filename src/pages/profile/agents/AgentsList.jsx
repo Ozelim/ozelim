@@ -41,6 +41,13 @@ export const AgentsList = ({ setCount }) => {
       return w != undefined
     })
     ?.flat(1)
+
+  secondLine?.map(q => {
+    if (q?.agent && !q?.agent_date) {
+      return console.log(q, 'q');
+    }
+  })
+
   const thirdLine = secondLine
     ?.map((q) => {
       return q?.expand?.creeps
@@ -49,6 +56,12 @@ export const AgentsList = ({ setCount }) => {
       return w != undefined
     })
     ?.flat(1)
+
+    thirdLine?.map(q => {
+      if (q?.agent && !q?.agent_date) {
+        return console.log(q, 'w');
+      }
+    })
 
   const [dates, setDates] = React.useState({
     from: new Date(),
@@ -157,7 +170,7 @@ export const AgentsList = ({ setCount }) => {
               <FaUsers size={20} color="green" />
               <p className='whitespace-nowrap'>
                 ({allLines?.length ?? 0} /{' '}
-                <span className="text-green-400">{allLines?.filter((q) => q?.agent)?.length ?? 0}</span>)
+                <span className="text-green-400">{allLines?.filter((q) => {return q?.agent})?.length ?? 0}</span>)
               </p>
             </div>
             <div className="flex gap-1 items-center border-b-2">
@@ -333,7 +346,7 @@ export const AgentsList = ({ setCount }) => {
                         <td>{q?.fio}</td>
                         <td>{q?.id}</td>
                         <td>{q?.sponsor}</td>
-                        <td>{dayjs(q?.agent_date).format('DD.MM.YYYY')}</td>
+                        <td>{dayjs(q?.agent_date).format('DD.MM.YYYY, HH:mm')}</td>
                       </tr>
                     )
                   })}
@@ -347,7 +360,6 @@ export const AgentsList = ({ setCount }) => {
               <Table>
                 <thead>
                   <tr>
-                    <th className='!text-slate-500 !font-light'>Фото</th>
                     <th className='!text-slate-500 !font-light'>ФИО</th>
                     <th className='!text-slate-500 !font-light'>ID</th>
                     <th className='!text-slate-500 !font-light'>ID спонсора</th>
@@ -358,16 +370,11 @@ export const AgentsList = ({ setCount }) => {
                   {secondLinePeriod?.map((q, i) => {
                     return (
                       <tr key={i}>
-                        <td className='text-center font-bold w-min'>
-                          {q?.avatar 
-                            ? <img src={getImageUrl(q, q?.avatar)} className='w-12 h-12 rounded-full' alt="" />
-                            : '-'
-                          }
-                        </td>
+
                         <td>{q?.fio}</td>
                         <td>{q?.id}</td>
                         <td>{q?.sponsor}</td>
-                        <td>{dayjs(q?.agent_date).format('DD/MM/YYYY')}</td>
+                        <td>{dayjs(q?.agent_date).format('DD.MM.YYYY, HH:mm')}</td>
                       </tr>
                     )
                   })}
@@ -381,7 +388,6 @@ export const AgentsList = ({ setCount }) => {
               <Table>
                 <thead>
                   <tr>
-                    <th className='!text-slate-500 !font-light'>Фото</th>
                     <th className='!text-slate-500 !font-light'>ФИО</th>
                     <th className='!text-slate-500 !font-light'>ID</th>
                     <th className='!text-slate-500 !font-light'>ID спонсора</th>
@@ -392,16 +398,11 @@ export const AgentsList = ({ setCount }) => {
                   {thirdLinePeriod?.map((q, i) => {
                     return (
                       <tr key={i}>
-                        <td className='text-center font-bold'>
-                          {q?.avatar 
-                            ? <img src={getImageUrl(q, q?.avatar)} className='w-12 h-12 rounded-full' alt="" />
-                            : '-'
-                          }
-                        </td>
+
                         <td>{q?.fio}</td>
                         <td>{q?.id}</td>
                         <td>{q?.sponsor}</td>
-                        <td>{dayjs(q?.agent_date).format('DD/MM/YYYY')}</td>
+                        <td>{dayjs(q?.agent_date).format('DD.MM.YYYY, HH:mm')}</td>
                       </tr>
                     )
                   })}

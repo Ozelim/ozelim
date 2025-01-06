@@ -1,29 +1,32 @@
 import React from 'react'
-import { Product } from './product'
 import { pb } from 'shared/api'
-
-async function getAllProducts () {
-  return await pb.collection('products').getFullList()
-}
+import { Product } from '../product'
+import { useProductsStore } from './producsStore'
+import { Pagination } from '@mantine/core'
 
 export const Catalog = () => {
 
-  const [products, setProducts] = React.useState([])
+  const {products, getAllProducts} = useProductsStore()
 
   React.useEffect(() => {
     getAllProducts()
-    .then(res => {
-      setProducts(res)
-    })
   }, [])
 
   return (
-    <div className='grid grid-cols-6 gap-4'>
-      {products?.map((q, i) => {
-        return (
-          <Product key={i} product={q} />
-        )
-      })}
+    <div className='px-4 mb-4'>
+      <div className='grid grid-cols-5 gap-4'>
+        {products?.items?.map((q, i) => {
+          return (
+            <Product key={i} product={q} />
+          )
+        })}
+      </div>
+      <div className='flex justify-center mt-4'>
+        <Pagination
+          total={products?.totalPages}
+          value={products?.page}
+        />
+      </div>
     </div>
   )
 }

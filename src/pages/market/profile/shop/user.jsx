@@ -24,12 +24,21 @@ export const User = () => {
         label='Название'
         value={store?.name}
         onChange={e => setStore({...store, name: e?.currentTarget?.value})}
+        variant='filled'
       />
       <TextInput
         label='Описание'
         value={store?.description}
         onChange={e => setStore({...store, description: e?.currentTarget?.value})}
+        variant='filled'
       />
+      <TextInput
+        label='Контакты'
+        value={store?.description}
+        onChange={e => setStore({...store, description: e?.currentTarget?.value})}
+        variant='filled'
+      />
+      
       <div className='flex gap-4 items-end'>
         <FileInput
           label='Выбрать картинку'

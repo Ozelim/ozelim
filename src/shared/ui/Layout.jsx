@@ -10,6 +10,7 @@ import mobileLogo from 'shared/assets/images/logo1.png'
 import { AiOutlineWhatsApp } from 'react-icons/ai'
 
 export const Layout = ({ subheaderSlot, headerSlot, footerSlot }) => {
+  
   const { user } = useAuth()
 
   const { pathname } = useLocation()

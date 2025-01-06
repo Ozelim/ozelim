@@ -438,6 +438,8 @@ export const AgentsProfile = () => {
     ) 
   }
 
+  console.log(currentAgent, 'agent');
+
   return (
     <MantineProvider
       withGlobalStyles

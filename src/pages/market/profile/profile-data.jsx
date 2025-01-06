@@ -1,7 +1,8 @@
-import { Button, FileButton, Popover } from '@mantine/core'
 import React from 'react'
+import { Button, FileButton, Popover } from '@mantine/core'
 import { Link } from 'react-router-dom'
 import { useAuth } from 'shared/hooks'
+import { getImageUrl } from 'shared/lib'
 
 export const ProfileData = () => {
   
@@ -50,24 +51,26 @@ export const ProfileData = () => {
   const {user} = useAuth()
   
   return (
-    <div className='market'>
-      
+    <div className='market mt-4'>
       <div className='relative mx-auto'>
-        {avatar && (
+        {(avatar && !image) && (
           <img 
             className='object-cover w-full h-full mx-auto aspect-square'
             src={URL.createObjectURL(avatar)}
             alt="" 
           />
         )}
-        {image && (
+        {(image && !avatar) && (
           <img
             src={getImageUrl(user, image)} 
             className='object-cover w-full h-full mx-auto aspect-square'
             alt="" 
           />
         )}
-        <div className='aspect-square w-full h-full mx-auto bg-slate-100'/>
+
+        {(!avatar && !image) && (
+          <div className='aspect-square w-full h-full mx-auto bg-slate-100'/>
+        )}
         <div className="flex justify-center mt-4"> 
           <Popover
             opened={opened}

@@ -17,6 +17,8 @@ import 'dayjs/locale/ru'
 
 dayjs.locale('ru')
 
+import '../../app/index.css'
+
 const cache = createEmotionCache({
   key: 'market',
   prepend: false
@@ -29,9 +31,10 @@ export const marketLayout = (
       withCSSVariables
       emotionCache={cache}
       theme={{
-        primaryColor: 'violet',
-        primaryShade: 5,
-        fontFamily: 'Sofia Sans Semi Condensed, sans-serif'
+        primaryColor: 'red',
+        primaryShade: 8,
+        fontFamily: 'Comfortaa, sans-serif',
+        defaultRadius: 'lg'
       }}
     >
         <ModalsProvider 
