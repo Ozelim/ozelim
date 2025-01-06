@@ -19,7 +19,7 @@ const useCartStore = create(persist((set, get) => ({
           return { cartItems: updatedCartItems, count: state.count + 1 };
         } else {
           // Add new product to the cart
-          const newProduct = { ...product, count: 1 };
+          const newProduct = { ...product, count: product?.count || 1 };
           return {
             cartItems: [...state.cartItems, newProduct],
             count: state.count + 1,

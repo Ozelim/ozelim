@@ -4,6 +4,7 @@ import {
   FileButton,
   FileInput,
   Modal,
+  MultiSelect,
   Select,
   Text,
   TextInput,
@@ -25,6 +26,7 @@ import Quill from "quill";
 
 import "react-quill/dist/quill.snow.css";
 import { FaPlus } from 'react-icons/fa'
+import { set } from 'react-hook-form'
 
 export const Shop = () => {
 
@@ -35,14 +37,13 @@ export const Shop = () => {
   const [preview, preview_h] = useDisclosure(false)
   const [optionsModal, optionsModal_h] = useDisclosure(false)
 
-  const [option, setOption] = React.useState('')
-  const [variant, setVariant] = React.useState('')
-
-  const [options, setOptions] = React.useState({
-    options: '',
-    id: randomId(),
-    variants: [],
+  const [option, setOption] = React.useState({
+    name: '',
+    creatable: false
   })
+  const [variants, setVariants] = React.useState([])
+
+  const [options, setOptions] = React.useState([])
 
   const [product, setProduct] = React.useState({
     name: '',
@@ -56,12 +57,10 @@ export const Shop = () => {
 
   const modules = {
     toolbar: [
-      [{ header: [1, 2, false] }], // Headers
+      [{ header: [1, 2, 3, 4, false] }], // Headers
       ["bold", "italic", "underline", "strike"], // Text styles
       [{ align: [] }], // Alignment buttons (left, center, right, justify)
       [{ list: "ordered" }, { list: "bullet" }], // Lists
-      ["blockquote", "code-block"], // Block styles
-      ["link", "image"], // Media
       [{ color: [] }, { background: [] }], // Colors
       ["clean"], // Remove formatting
     ],
@@ -96,6 +95,7 @@ export const Shop = () => {
   }
 
   async function createProduct() {
+
     const formData = new FormData()
 
     const createdProduct = await pb.collection('products').create({
@@ -105,7 +105,8 @@ export const Shop = () => {
       status: 'created',
       category: category.main,
       sub_category: category.sub, 
-      content
+      content,
+      options,
     })
 
     for (let q of pics) {
@@ -122,11 +123,24 @@ export const Shop = () => {
         await pb.collection('markets').update(shop?.id, {
           products: [...shop?.products, res?.id],
         })
+        .then(() => {
+          console.log('Product created')
+          setProduct({})
+          setOptions([])  
+          setContent('')
+        })
       })
   }
 
   function addOption() {
-    setOptions({ ...options, variants: [...options?.variants, options?.options] })
+    setOption({...option, creatable: true})
+  }
+
+  function saveoption () {
+    setOptions([...options, {option: option?.name, id: randomId(), variants}])
+    setOption({name: '', creatable: false})
+    setVariants([])
+    optionsModal_h.close()
   }
 
   return (
@@ -194,15 +208,35 @@ export const Shop = () => {
               onChange={(e) => setProduct({ ...product, description: e?.currentTarget?.value })}
               variant="filled"
               className="mt-4"
+              autosize
             />
 
             <Button
               rightIcon={<FaPlus />}
               className='mt-4'
               onClick={() => optionsModal_h.open()}
+              disabled={options?.length >= 2}
             >
               Добавить опции
             </Button>
+            <p className='text-xs text-slate-400 mt-1'>Максимум 2 опции</p>
+
+            {options?.map((q) => {
+              return (
+                <div key={q?.id} className='mt-4'>
+                  {q?.option}:
+                  <div className="flex gap-4 flex-wrap mt-2">
+                    {q?.variants?.map((e) => {
+                      return (
+                        <Button variant='outline'>
+                          {e}
+                        </Button>
+                      )
+                    })}
+                  </div>
+                </div>
+              )
+            })}
             
             <TextInput
               label="Цена"
@@ -264,26 +298,48 @@ export const Shop = () => {
         title="Добавление опций"  
         centered
       >
-        <div className="flex gap-4 items-end">
+        <div className="grid grid-cols-2 gap-4 items-end">
           <TextInput
             label='Опция'
             variant='filled'
-            value={options?.options}
-          />
-          <TextInput
-            label='Вариант'
-            variant='filled'
-            value={options?.options}
+            value={option?.name ?? ''}
+            onChange={e => setOption({...option, name: e?.currentTarget?.value})}
+            
           />
           <Button
             variant='outline'
+            onClick={addOption}
+            disabled={option?.creatable}  
           >
-            Добавить
+            Добавить опцию
           </Button>
         </div>
+
+        {option?.creatable && ( 
+          <>
+            Опция: {option?.name}
+            <MultiSelect
+              data={[]}
+              label='Добавление варианта'
+              variant='filled'
+              // onChange={e => setVariant(e?.currentTarget?.value)}
+              onCreate={(query) => {
+                setVariants((current) => [...current, query]);
+                return query;
+              }}
+              creatable
+              searchable
+              clearable
+              getCreateLabel={(query) => `+ добавить ${query}`}
+              onChange={e => setVariants(e)}
+            />
+          </>
+        )}
+
+        {console.log(variants)}
         
         <div className="flex justify-center mt-4">
-          <Button>
+          <Button onClick={saveoption}>
             Сохранить
           </Button>
         </div>

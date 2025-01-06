@@ -64,12 +64,10 @@ export const EditProduct = ({product, handlePreviewModal}) => {
 
   const modules = {
     toolbar: [
-      [{ header: [1, 2, false] }], // Headers
+      [{ header: [1, 2, 3, 4, false] }], // Headers
       ["bold", "italic", "underline", "strike"], // Text styles
       [{ align: [] }], // Alignment buttons (left, center, right, justify)
       [{ list: "ordered" }, { list: "bullet" }], // Lists
-      ["blockquote", "code-block"], // Block styles
-      ["link", "image"], // Media
       [{ color: [] }, { background: [] }], // Colors
       ["clean"], // Remove formatting
     ],
@@ -220,7 +218,24 @@ export const EditProduct = ({product, handlePreviewModal}) => {
             onChange={(e) => setChangedProduct({ ...changedProduct, description: e?.currentTarget?.value })}
             variant="filled"
             className="mt-4"
+            autosize
           />
+          {changedProduct?.options?.map((q) => {
+            return (
+              <div key={q?.id} className='mt-4'>
+                {q?.option}:
+                <div className="flex gap-4 flex-wrap mt-2">
+                  {q?.variants?.map((e) => {
+                    return (
+                      <Button variant='outline'>
+                        {e}
+                      </Button>
+                    )
+                  })}
+                </div>
+              </div>
+            )
+          })}
           <TextInput
             label="Цена"
             value={changedProduct?.price ?? ''}

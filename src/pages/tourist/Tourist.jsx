@@ -702,19 +702,7 @@ export const Tourist = () => {
                   </Button>
                 </a>
               </div>
-              <div className='flex mt-4'>
-              <a href="/agent-agreement.pdf" target='_blank' className='underline text-primary-500'>
-                Агенский договор.pdf
-              </a>
-            </div>
-              <div className='mt-2 flex gap-4'>
-                <Button
-                  component={Link}
-                  to={'/login?signup=true&agent=111924111111111'}
-                >
-                  Ознакомлен и согласен
-                </Button>
-              </div>
+
             </div>
           </section>
 
@@ -756,6 +744,20 @@ export const Tourist = () => {
                   Положение о Агенстве
                 </Button>
               </a>
+
+              <div className='flex mt-4'>
+                <a href="/agent-agreement.pdf" target='_blank' className='underline text-primary-500'>
+                  Агенский договор.pdf
+                </a>
+              </div>
+              <div className='mt-2 flex gap-4'>
+                <Button
+                  component={Link}
+                  to={'/login?signup=true&agent=111924111111111'}
+                >
+                  Ознакомлен и согласен
+                </Button>
+              </div>
             </div>
 
             <div className="w-full lg:text-left text-center">

@@ -9,6 +9,7 @@ import { pb } from 'shared/api'
 import { formatNumber, getImageUrl } from 'shared/lib'
 
 import 'react-quill/dist/quill.snow.css';
+import { useCartStore } from '../cart/cartStore'
 
 async function getProductById (id) {
   return await pb.collection('products').getOne(id, {
@@ -21,6 +22,10 @@ export const ProductPage = ({preview}) => {
   const {id} = useParams()
 
   const [product, setProduct] = React.useState({})
+
+  const { addToCart, cartItems } = useCartStore()
+
+  console.log(cartItems, 'items');
 
   React.useEffect(() => {
     if (preview) {
@@ -45,6 +50,33 @@ export const ProductPage = ({preview}) => {
     const newPic = product?.pics?.filter((_, i) => i == index)?.[0]
     console.log(newPic, 'newPic');
     setCurrentPic(newPic)
+  }
+
+  const [selectedOptions, setSelectedOptions] = React.useState({})
+  const [amount, setAmount] = React.useState(1) 
+
+  function increment () {
+    if (amount == product?.amount) return
+    setAmount(amount + 1)
+  }
+
+  function decrement () { 
+    if (amount === 1) return
+    setAmount(amount - 1)
+  }
+
+  function selectOption (option, variant) {
+    if (selectedOptions[option] === variant) {
+      setSelectedOptions({
+        ...selectedOptions,
+        [option]: null
+      })
+      return
+    }
+    setSelectedOptions({
+      ...selectedOptions,
+      [option]: variant
+    })
   }
 
   return (
@@ -82,16 +114,6 @@ export const ProductPage = ({preview}) => {
                   )
                 }
               })}
-              {/* {Array(11).fill(1).map((q, i) => {
-                return (
-                  <img 
-                    src="https://people.com/thmb/NDasPbZOWfpi2vryTpDta_MJwIY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(602x285:604x287)/newjeans-111023-1-c7ed1acdd72e4f2eb527cc38144aa2d4.jpg" 
-                    alt="" 
-                    className='aspect-square object-cover'
-                    key={i}
-                  />
-                )
-              })} */}
             </div>
 
             {(currentPic instanceof File || currentPic instanceof Blob) 
@@ -131,23 +153,53 @@ export const ProductPage = ({preview}) => {
               <p className='text-xl tracking-wide'>
                 {product?.description}
               </p>
+
+              <div className='mt-4'>
+                <p className='text-lg'>
+                  Количество: {formatNumber(product?.amount) ?? 1} шт.
+                </p>
+              </div>
+              <div className='mt-4'>
+                {product?.options?.map((q) => {
+                  return ( 
+                    <div key={q?.id} className='mt-4'>
+                      {q?.option}:
+                      <div className="flex gap-4 flex-wrap mt-2">
+                        {q?.variants?.map((e, i) => {
+                          return (
+                            <Button 
+                              variant={selectedOptions[q?.option] === e ? 'filled' : 'outline'}
+                              color={selectedOptions[q?.option] === e ? 'pink.6' : 'gray'}
+                              size='sm'
+                              onClick={() => selectOption(q?.option, e)}
+                              key={i}
+                            >
+                              {e}
+                            </Button>
+                          )
+                        })}
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
               
               <div className='mt-4 flex gap-4 border-y py-4'>
 
                 <div className='flex gap-3 items-center'>
                   <ActionIcon
-                    // onClick={() => removeFromCart(product)} 
-                    className='text-xl !border !border-slate-200 ' 
+                    onClick={decrement}
+                    className='text-xl !border !border-slate-200' 
                     disabled={product?.count === 1}
                     size='md'
                   >
                     <AiOutlineMinus color='black' size={15}/>
                   </ActionIcon>
                   <p className='border px-4 py-1'>
-                    1
+                    {amount}
                   </p>
                   <ActionIcon 
-                    // onClick={() => addToCart(product)} 
+                    onClick={increment}
                     className='text-xl !border !border-slate-200 '
                     size='md'
                   >
@@ -155,7 +207,14 @@ export const ProductPage = ({preview}) => {
                   </ActionIcon>
                 </div>
 
-                <Button size='lg'>
+                <Button 
+                  size='lg'
+                  onClick={() => addToCart({
+                    ...product, 
+                    count: amount, 
+                    selectedOptions,
+                  })}
+                >
                   Добавить в корзину
                 </Button>
 
