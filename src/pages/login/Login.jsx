@@ -49,11 +49,11 @@ export const Login = () => {
     })
   }
 
-  if (params.get('id')) return (
-    <div className='max-w-sm mx-auto'>
-      <SignupForm onComplete={onComplete}/>
-    </div>
-  )
+  // if (params.get('id')) return (
+  //   <div className='max-w-sm mx-auto'>
+  //     <SignupForm onComplete={onComplete}/>
+  //   </div>
+  // )
 
   if (params.get('token')) return (
     <div className='max-w-sm mx-auto'>
