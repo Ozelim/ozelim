@@ -707,14 +707,14 @@ export const Tourist = () => {
                 Агенский договор.pdf
               </a>
             </div>
-              {/* <div className='mt-2 flex gap-4'>
+              <div className='mt-2 flex gap-4'>
                 <Button
                   component={Link}
                   to={'/login?signup=true&agent=111924111111111'}
                 >
                   Ознакомлен и согласен
                 </Button>
-              </div> */}
+              </div>
             </div>
           </section>
 
