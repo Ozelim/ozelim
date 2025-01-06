@@ -738,25 +738,29 @@ export const Tourist = () => {
                 src={t}
                 className="w-full lg mx-auto lg:mx-0 rounded-primary object-cover aspect-video"
               />
-
-              <a href={'/agents.pdf'} target='_blank' className='block mt-4 text-center'>
-                <Button>
-                  Положение о Агенстве
-                </Button>
-              </a>
-
-              <div className='flex mt-4'>
-                <a href="/agent-agreement.pdf" target='_blank' className='underline text-primary-500'>
-                  Агенский договор.pdf
+              <div className='grid  lg:grid-cols-3'>
+                <div></div>
+                <a href={'/agents.pdf'} target='_blank' className='block mt-4 text-center'>
+                  <Button>
+                    Положение о Агенстве
+                  </Button>
                 </a>
-              </div>
-              <div className='mt-2 flex gap-4'>
-                <Button
-                  component={Link}
-                  to={'/login?signup=true&agent=111924111111111'}
-                >
-                  Ознакомлен и согласен
-                </Button>
+
+                <div className='mx-auto'>
+                  <div className='flex mt-4'>
+                    <a href="/agent-agreement.pdf" target='_blank' className='underline text-primary-500'>
+                      Агенский договор.pdf
+                    </a>
+                  </div>
+                  <div className='mt-2 flex gap-4'>
+                    <Button
+                      component={Link}
+                      to={'/login?signup=true&agent=111924111111111'}
+                    >
+                      Ознакомлен и согласен
+                    </Button>
+                  </div>
+                </div>
               </div>
             </div>
 
