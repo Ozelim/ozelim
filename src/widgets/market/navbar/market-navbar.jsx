@@ -1,5 +1,5 @@
 import React from 'react'
-import { ActionIcon, Divider, Menu, Avatar as Avatr, TextInput } from '@mantine/core'
+import { ActionIcon, Divider, Menu, Avatar as Avatr, TextInput, Indicator } from '@mantine/core'
 import { Link } from 'react-router-dom'
 import mobileLogo from 'shared/assets/images/logo1.png'
 import { PiShoppingCartFill } from 'react-icons/pi'
@@ -11,10 +11,14 @@ import { useAuth } from 'shared/hooks'
 import { FaRegHeart, FaRegBell } from 'react-icons/fa'
 import { LuShoppingBag } from "react-icons/lu";
 import { Avatar } from 'shared/ui'
+import { useCartStore } from 'pages/market/cart/cartStore'
+import { formatNumber } from 'shared/lib'
 
 export const MarketNavbar = () => {
 
   const {user} = useAuth()
+
+  const {cartItems} = useCartStore()
 
   return (
     <div className="w-full">
@@ -55,14 +59,29 @@ export const MarketNavbar = () => {
           <ActionIcon className='!border !border-slate-200 !p-3 !h-12 !w-12 !rounded-full'>
             <FaRegBell size={'100%'} color='black' />
           </ActionIcon>
-          <ActionIcon className='!border !border-slate-200 !p-3 !h-12 !w-12 !rounded-full'>
-            <FaRegHeart size={'100%'} color='black' />
-          </ActionIcon>
-          <Link to={'/market/cart'}>
-            <ActionIcon className='!border !border-slate-200 !p-3 !h-12 !w-12 !rounded-full'>
-              <LuShoppingBag size={'100%'} color='black' />
-            </ActionIcon>
+          <Link to={'/market/favorites'}>
+            <Indicator 
+              label={user?.favorites?.length} 
+              size={18} 
+              disabled={user?.favorites?.length === 0}
+            >
+              <ActionIcon className='!border !border-slate-200 !p-3 !h-12 !w-12 !rounded-full'>
+                <FaRegHeart size={'100%'} color='black' />
+              </ActionIcon>
+            </Indicator>
           </Link>
+          <Indicator 
+            label={cartItems?.length} 
+            size={18} 
+            disabled={cartItems?.length === 0}
+            processing
+          >  
+            <Link to={'/market/cart'}>
+              <ActionIcon className='!border !border-slate-200 !p-3 !h-12 !w-12 !rounded-full'>
+                <LuShoppingBag size={'100%'} color='black' />
+              </ActionIcon>
+            </Link>
+          </Indicator>
 
           <Divider orientation="vertical" />
 
@@ -70,8 +89,9 @@ export const MarketNavbar = () => {
             <Link to={'/market/profile'}>
               <div className='flex items-center gap-4'>
                 <div>
-                  <p className='text-lg text-right'>{user?.balance} ₸</p>
+                  <p className='text-lg text-right'>{formatNumber(user?.balance)} ₸</p>
                   <p className='text-xl text-right -mt-1'>{user?.fio}</p>
+                  <p className='text-xs text-slate-400 -mt-1.5 text-right'>{formatNumber(user?.bonuses)} бонусов</p>
                 </div>
                 <Avatar
                   record={user}

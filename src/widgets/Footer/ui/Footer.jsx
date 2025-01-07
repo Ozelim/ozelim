@@ -6,7 +6,7 @@ import { Menu, Modal, UnstyledButton } from '@mantine/core'
 import { useDisclosure, useMediaQuery } from '@mantine/hooks'
 
 import test from 'shared/assets/images/policy.pdf'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import dog from 'shared/assets/images/dogone.pdf'
 import { useLangContext } from 'app/langContext'
 import { IoIosArrowDown } from 'react-icons/io'
@@ -14,6 +14,8 @@ import { IoIosArrowDown } from 'react-icons/io'
 const date = new Date()
 
 export const Footer = () => {
+
+  const {pathname} = useLocation()
 
   const {kz, changeLang} = useLangContext()
 
@@ -31,6 +33,8 @@ export const Footer = () => {
       window.scrollTo(0, 0)
     }, 100)
   }
+
+  if (pathname.includes('chat')) return null
 
   return (
     <>

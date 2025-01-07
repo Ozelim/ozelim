@@ -8,7 +8,7 @@ import { useShopStore } from './shopStore'
 import { Products } from '../products/products'
 import { Reviews } from './reviews'
 import { Messages } from './messages'
-import { Stats } from './Stats'
+import { Stats } from './stats'
 
 const cache = createEmotionCache({
   key: 'mantine',

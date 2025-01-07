@@ -28,7 +28,10 @@ import { About,
   Market,
   MarketCart,
   MarketProfile,
-  ProductPage
+  ProductPage,
+  Favorites,
+  Weare,
+  Chat
 } from "pages";
 import { baseLayout } from "./layouts/baseLayout";
 import { Test } from "pages/test/Test";
@@ -74,7 +77,10 @@ const appRouter = createBrowserRouter([
     {index: true, element: <Market/>},
     {path: 'profile', element: <MarketProfile/>},
     {path: 'cart', element: <MarketCart/>},
-    {path: 'product/:id', element: <ProductPage/>}
+    {path: 'favorites', element: <Favorites/>},
+    {path: 'weare', element: <Weare/>},
+    {path: 'chat/:id', element: <Chat/>},
+    {path: 'product/:id', element: <ProductPage/>},
   ]},
 
   {element: profileLayout, children: [

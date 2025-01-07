@@ -3,6 +3,7 @@ import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 import { useCartStore } from './cartStore'
 import { getImageUrl } from 'shared/lib'
 import { ActionIcon, Button, CloseButton, Text } from '@mantine/core'
+import { Link } from 'react-router-dom'
 
 export const CartItem = ({product}) => {
 
@@ -14,11 +15,13 @@ export const CartItem = ({product}) => {
     <div className="relative">
       <div className='border p-3 flex flex-col md:flex-row justify-between items-center shadow-md gap-3'>
         <div className='flex gap-4 max-w-md max-h-[120px] overflow-hidden flex-grow'>
-          <img 
-            src={getImageUrl(product, product.pics?.[0])} 
-            alt={product.title} 
-            className='aspect-square max-w-[120px] object-contain' 
-          />
+          <Link to={`/market/product/${product.id}`}>
+            <img 
+              src={getImageUrl(product, product.pics?.[0])} 
+              alt={product.title} 
+              className='aspect-square max-w-[120px] object-contain' 
+            />
+          </Link>
           <div className='flex flex-col'>
             <p className='font-semibold text-xl'>
               {product.name}
@@ -36,7 +39,7 @@ export const CartItem = ({product}) => {
             onClick={() => removeFromCart(product)} 
             className='text-xl' 
             disabled={product?.count === 1}
-            variant='filled'
+            variant='light'
             bg='gray.2'
             size='md'
           >
@@ -48,7 +51,7 @@ export const CartItem = ({product}) => {
           <ActionIcon 
             onClick={() => addToCart(product)} 
             className='text-xl'
-            variant='filled'
+            variant='light'
             bg='gray.2'
             size='md'
           >

@@ -6,7 +6,9 @@ import { useCartStore } from './cart/cartStore'
 
 export const Product = ({product, preview, buttons}) => {
 
-  const { addToCart } = useCartStore()
+  const { addToCart, cartItems } = useCartStore()
+
+  const addedToCart = cartItems?.find((q) => q?.id === product?.id)
 
   if (preview) {
     return (
@@ -64,13 +66,24 @@ export const Product = ({product, preview, buttons}) => {
       <div className='flex gap-2 items-center mt-1'>
         <Rating size='xs' value={4.5} fractions={2}/> <span className='text-xs text-slate-400'>(25)</span>
       </div>
-      <Button
-        fullWidth
-        className='mt-3'
-        onClick={() => addToCart(product)}
-      >
-        В корзину
-      </Button>
+      {addedToCart ? (
+        <Button
+          fullWidth
+          className='mt-3'
+          component={Link}
+          to={'/market/cart'}
+        >
+          Перейти в корзину
+        </Button>
+      ) : (
+        <Button
+          fullWidth
+          className='mt-3'
+          onClick={() => addToCart(product)}
+        >
+          В корзину
+        </Button>
+      )}
     </div>
   )
 }

@@ -1,15 +1,20 @@
-import { ActionIcon, Button, Modal, Rating, SegmentedControl, Tabs, Textarea, clsx } from '@mantine/core'
+import React from 'react'
+import { ActionIcon, Button, Indicator, LoadingOverlay, Modal, Pagination, Rating, SegmentedControl, Tabs, Textarea, clsx } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import dayjs from 'dayjs'
-import React from 'react'
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 import { FaRegHeart } from 'react-icons/fa'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { pb } from 'shared/api'
 import { formatNumber, getImageUrl } from 'shared/lib'
 
-import 'react-quill/dist/quill.snow.css';
 import { useCartStore } from '../cart/cartStore'
+import { useAuth } from 'shared/hooks'
+import { showNotification } from '@mantine/notifications'
+
+import 'react-quill/dist/quill.snow.css';
+import { Avatar } from 'shared/ui'
+import { FaShop } from 'react-icons/fa6'
 
 async function getProductById (id) {
   return await pb.collection('products').getOne(id, {
@@ -17,24 +22,74 @@ async function getProductById (id) {
   })
 }
 
+async function getReviewsByProductId (id, page = 1) {
+  return await pb.collection('reviews').getList(page, 20, {
+    filter: `product_id = '${id}' && status = 'posted'`,
+    expand: 'user',
+    sort: '-created'
+  })
+}
+
+async function getReviewsByUser (id, userId) {
+  return await pb.collection('reviews').getFullList({
+    filter: `product_id = '${id}' && status = 'created' && user = '${userId}'`,
+    expand: 'user',
+    sort: '-created'
+  })
+}
+
 export const ProductPage = ({preview}) => {
+
+  const {user} = useAuth()
 
   const {id} = useParams()
 
   const [product, setProduct] = React.useState({})
 
-  const { addToCart, cartItems } = useCartStore()
+  const {addToCart, cartItems} = useCartStore()
 
-  console.log(cartItems, 'items');
+  const addedToCart = cartItems?.find((q) => q?.id === product?.id)
 
+  const [waitingReviews, setWaitingReviews] = React.useState([])
+
+  const [reviews, setReviews] = React.useState([])
+  const [page, setPage] = React.useState(1)
+
+  async function handleProductData () {
+    await getProductById(id)
+    .then(res => {
+      setProduct(res)
+    })
+  }
+
+  async function handleReviewsData (page = 1) {
+    await getReviewsByProductId(id, page)
+    .then(res => { 
+      setReviews(res)
+      setPage(res?.page)
+    })
+    .catch(err => { 
+      console.log(err?.response, 'err');
+    })
+  }
+
+  async function handleUserReviews () {
+    await getReviewsByUser(id, user?.id)
+    .then(res => { 
+      setWaitingReviews(res)
+    })
+    .catch(err => { 
+      console.log(err?.response, 'err');
+    })
+  }
+  
   React.useEffect(() => {
     if (preview) {
       setProduct(preview)
     } else {
-      getProductById(id)
-      .then(res => {
-        setProduct(res)
-      })
+      handleProductData()
+      handleReviewsData(1)
+      handleUserReviews()
     }
   }, [])
 
@@ -48,12 +103,63 @@ export const ProductPage = ({preview}) => {
 
   function viewPic (index) {
     const newPic = product?.pics?.filter((_, i) => i == index)?.[0]
-    console.log(newPic, 'newPic');
     setCurrentPic(newPic)
   }
 
+  const [loading, loading_h] = useDisclosure(false)
+
   const [selectedOptions, setSelectedOptions] = React.useState({})
   const [amount, setAmount] = React.useState(1) 
+
+  const [review, setReview] = React.useState({
+    comment: '',
+    rating: 0
+  })
+
+  function calculateRating () {
+    const sum = reviews?.items?.reduce((a, b) => a + b?.rating, 0)
+    return sum / reviews?.items?.length
+  }
+
+  async function addReview () {
+    loading_h.open()
+
+    if (waitingReviews?.length >= 1) {
+      showNotification({
+        title: 'Отзыв',
+        message: 'Вы можете оставить только один отзыв',
+        color: 'red'
+      })
+      setReview({ comment: '', rating: 1 })
+      loading_h.close()
+      return 
+    }
+
+    await pb.collection('reviews').create({
+      ...review,
+      product_id: product?.id,
+      market_id: product?.market_id,
+      ...(user?.id && {user: user?.id}),
+      status: 'created'
+    })
+    .then(() => {
+      setReview({
+        comment: '',
+        rating: 1
+      })
+      handleReviewsData()
+      handleUserReviews()
+      showNotification({
+        title: 'Отзыв',
+        message: 'Отзыв будет добавлен после проверки',
+        color: 'green'
+      })
+    })
+    .finally(() => {
+      loading_h.close() 
+    })
+  }
+  
 
   function increment () {
     if (amount == product?.amount) return
@@ -79,6 +185,48 @@ export const ProductPage = ({preview}) => {
     })
   }
 
+  async function addToFavorites () {
+
+    if (user?.favorites?.includes(product?.id)) {
+      await pb.collection('agents').update(user?.id, {
+        favorites: user?.favorites?.filter((q) => q !== product?.id)
+      })
+      .then(() => {
+        showNotification({
+          title: 'Избранное',
+          message: 'Товар удален из избранного',
+          color: 'green'
+        })
+      })
+      .catch(() => {
+        showNotification({
+          title: 'Избранное',
+          message: 'Не удалось удалить товар из избранного',
+          color: 'red'
+        })
+      })
+      return
+    }
+
+    await pb.collection('agents').update(user?.id, {
+      favorites: [...user?.favorites ?? [], product?.id]
+    })
+    .then(() => {
+      showNotification({
+        title: 'Избранное',
+        message: 'Товар добавлен в избранное',
+        color: 'green'
+      })
+    })
+    .catch(() => {
+      showNotification({
+        title: 'Избранное',
+        message: 'Не удалось добавить товар в избранное',
+        color: 'red'
+      })
+    })
+  }
+
   return (
     <>
       <div className='container-market market'>
@@ -86,7 +234,6 @@ export const ProductPage = ({preview}) => {
         <div className="grid grid-cols-2 gap-4">
           <div className='grid grid-cols-[15%_auto] gap-4 overflow-hidden h-[558px]'>
             <div className="flex flex-col gap-4 w-full overflow-y-auto">
-
               {product?.pics?.map((q, i) => {
                 if (q instanceof File) {
                   return (
@@ -145,9 +292,8 @@ export const ProductPage = ({preview}) => {
                 {formatNumber(product?.price)} ₸
               </p>
 
-              <Rating className='mt-4' size='lg' value={1}/>
+              <Rating className='mt-4' size='lg' value={calculateRating()} readOnly fractions={3} />
             </div>
-
 
             <div className='mt-4'>
               <p className='text-xl tracking-wide'>
@@ -171,6 +317,7 @@ export const ProductPage = ({preview}) => {
                               variant={selectedOptions[q?.option] === e ? 'filled' : 'outline'}
                               color={selectedOptions[q?.option] === e ? 'pink.6' : 'gray'}
                               size='sm'
+                              className={'!border-slate-300'}
                               onClick={() => selectOption(q?.option, e)}
                               key={i}
                             >
@@ -206,26 +353,49 @@ export const ProductPage = ({preview}) => {
                     <AiOutlinePlus color='black' size={15}/>
                   </ActionIcon>
                 </div>
+                {addedToCart ? (
+                  <Button 
+                    size='lg'
+                    component={Link}
+                    to={'/market/cart'}
+                  >
+                    Перейти в корзину
+                  </Button>
+                ) : (
+                  <Button 
+                    size='lg'
+                    onClick={() => addToCart({
+                      ...product, 
+                      count: amount, 
+                      selectedOptions,
+                    })}
+                  >
+                    Добавить в корзину
+                  </Button>
+                )}
 
                 <Button 
+                  rightIcon={<FaShop size={22} />} 
                   size='lg'
-                  onClick={() => addToCart({
-                    ...product, 
-                    count: amount, 
-                    selectedOptions,
-                  })}
+                  component={Link}
+                  to={`/market/chat/${product?.market_id}`}
                 >
-                  Добавить в корзину
+                  Чат с магазиом
                 </Button>
 
-                <ActionIcon className='!border !border-slate-200 !p-3 !h-12 !w-12 !rounded-full'>
-                  <FaRegHeart size={'100%'} color='black' />
+                <ActionIcon 
+                  className={clsx('!border !border-slate-200 !p-3 !h-12 !w-12 !rounded-full', {
+                    '!bg-red-600': user?.favorites?.includes(product?.id)
+                  })}
+                  onClick={addToFavorites}
+                >
+                  <FaRegHeart size={'100%'} color={user?.favorites?.includes(product?.id) ? 'white' : 'black'}  />
                 </ActionIcon>
+
               </div>
             </div>
           </div>
         </div>
-
 
         <Tabs
           className='mt-8'
@@ -233,57 +403,130 @@ export const ProductPage = ({preview}) => {
         >
           <Tabs.List>
             <Tabs.Tab value='description'>Описание</Tabs.Tab>
-            <Tabs.Tab value='reviews'>Отзывы</Tabs.Tab>
+            <Tabs.Tab 
+              value='reviews'
+            >
+              Отзывы ({reviews?.items?.length})
+            </Tabs.Tab>
           </Tabs.List>
           
           <Tabs.Panel value='description' p={16}>
             <div dangerouslySetInnerHTML={{__html: product?.content}} className='reset max-w-[700px] mx-auto' />
           </Tabs.Panel>
-          <Tabs.Panel value='reviews'>
+
+          <Tabs.Panel 
+            value='reviews'
+            className='relative'
+          >
+            <LoadingOverlay
+              visible={loading}
+              opacity={0.7}
+              color='gray'
+              zIndex={100}
+            />
             {!preview && (
               <div className='max-w-[860px] mx-auto mt-8'>
                 <p className='text-2xl '>
-                  Отзывы ({product?.reviews?.length ?? '123'})
+                  Отзывы
                 </p>
                 <div className='mt-4'>
                   <div className='gap-4 items-center'>
                     <Textarea
-                      label='Отзыв'
+                      label='Комментарий'
+                      value={review.comment}
+                      onChange={(e) => setReview({...review, comment: e.currentTarget.value})}
+                      variant='filled'
                     />
-                    <div className='flex justify-end mt-4'>
-                      <Button>
+                    <div className='flex justify-between mt-4'>
+                      <div>
+                        <p className='text-sm'>Оценка</p>
+                        <Rating
+                          size='md'
+                          value={review.rating}
+                          onChange={(e) => setReview({...review, rating: e})}
+                        />
+                      </div>
+                      <Button
+                        onClick={addReview}
+                      >
                         Оставить отзыв
                       </Button>
                     </div>
                   </div>
                   <div className='flex flex-col gap-6 mt-4'> 
-                    {Array(5).fill(1).map((q, i) => {
+
+                    {waitingReviews?.map((q, i) => {
                       return (
                         <div 
                           key={i}
                           className='flex gap-4 border-t-2 first:border-none pt-6'
                         >
-                          <img 
-                            alt="" 
-                            src="https://people.com/thmb/NDasPbZOWfpi2vryTpDta_MJwIY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(602x285:604x287)/newjeans-111023-1-c7ed1acdd72e4f2eb527cc38144aa2d4.jpg" 
-                            className='w-20 h-20 aspect-square object-cover'
-                          />
+                          {q?.expand?.user?.avatar && (
+                            <img 
+                              alt="avatar" 
+                              src={getImageUrl(q?.expand?.user, q?.expand?.user?.avatar)}
+                              className='w-20 h-20 aspect-square object-cover rounded-full'
+                            />
+                          )}
+                          {!q?.expand?.user?.avatar && (
+                            <div 
+                              className='w-20 h-20 aspect-square object-cover rounded-full bg-slate-300'
+                            />
+                          )}
                           <div>
-                            <p>Lorem, ipsum.</p>
+                            <p>{q?.expand?.user?.fio}</p>
                             <div className='mt-1 flex gap-4'>
-                              <Rating size='sm'/>
-                              <p>{dayjs(new Date()).format('DD MMMM YYYY')}</p>
+                              <Rating size='sm' readOnly value={q?.rating} />
+                              <p>{dayjs(q?.created).format('DD MMMM YYYY')}</p>
                             </div>
-
                             <p className='mt-2'>
-                              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit delectus eius tempora corrupti nostrum modi id. Qui consequuntur asperiores laudantium. Eligendi numquam at corrupti nemo repellat quis adipisci optio cum!
-                              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat nulla libero perferendis minus suscipit ipsam quo id saepe maxime recusandae, animi asperiores esse, dolore vero quam optio molestiae illo inventore!
+                              {q?.comment}
                             </p>
 
                           </div>
                         </div>
                       )
                     })}
+
+                    {reviews?.items?.map((q, i) => {
+                      return (
+                        <div 
+                          key={i}
+                          className='flex gap-4 border-t-2 first:border-none pt-6'
+                        >
+                          {q?.expand?.user?.avatar && (
+                            <img 
+                              alt="avatar" 
+                              src={getImageUrl(q?.expand?.user, q?.expand?.user?.avatar)}
+                              className='w-20 h-20 aspect-square object-cover rounded-full'
+                            />
+                          )}
+                          {!q?.expand?.user?.avatar && (
+                            <div 
+                              className='w-20 h-20 aspect-square object-cover rounded-full bg-slate-300'
+                            />
+                          )}
+                          <div>
+                            <p>{q?.expand?.user?.fio}</p>
+                            <div className='mt-1 flex gap-4'>
+                              <Rating size='sm' readOnly value={q?.rating} />
+                              <p>{dayjs(q?.created).format('DD MMMM YYYY')}</p>
+                            </div>
+                            <p className='mt-2'>
+                              {q?.comment}
+                            </p>
+
+                          </div>
+                        </div>
+                      )
+                    })}
+                    <div className='flex justify-center my-4'> 
+                      <Pagination
+                        value={page}
+                        onChange={(e) => handleReviewsData(e)}
+                        total={reviews?.totalPages ?? 1}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>

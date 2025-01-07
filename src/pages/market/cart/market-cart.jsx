@@ -22,30 +22,6 @@ export const MarketCart = () => {
   const [paymentLoading, paymentLoading_h] = useDisclosure()
 
   async function buy () {
-
-    const options = {
-      method: 'GET',
-      url: 'https://sms136.p.rapidapi.com/send-sms',
-      params: {
-        provider: 'TelekomSlovenije',
-        username: 'your_provider_username',
-        password: 'your_provider_password',
-        from: '040123123',
-        phone_number: '87064299146',
-        sms: 'Test SMS message.'
-      },
-      headers: {
-        'x-rapidapi-key': '11b1f0dd21msh33eef7ef74a6cfap1d68e0jsn24448ae83dd1',
-        'x-rapidapi-host': 'sms136.p.rapidapi.com'
-      }
-    };
-    
-    try {
-      const response = await axios.request(options);
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-    }
     // try {
     //   paymentLoading_h.open()
 

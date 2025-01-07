@@ -2,18 +2,19 @@ import React from 'react'
 import { pb } from 'shared/api'
 import { Product } from '../product'
 import { useProductsStore } from './producsStore'
-import { Pagination } from '@mantine/core'
+import { LoadingOverlay, Pagination } from '@mantine/core'
 
 export const Catalog = () => {
 
-  const {products, getAllProducts} = useProductsStore()
+  const {products, productsLoading, getAllProducts, getProductsByCategory, getProductsBySubCategory} = useProductsStore()
 
   React.useEffect(() => {
     getAllProducts()
   }, [])
 
   return (
-    <div className='px-4 mb-4'>
+    <div className='px-4 mb-4 relative'>
+      <LoadingOverlay visible={productsLoading}/>
       <div className='grid grid-cols-5 gap-4'>
         {products?.items?.map((q, i) => {
           return (
