@@ -42,12 +42,6 @@ export const AgentsList = ({ setCount }) => {
     })
     ?.flat(1)
 
-  secondLine?.map(q => {
-    if (q?.agent && !q?.agent_date) {
-      return console.log(q, 'q');
-    }
-  })
-
   const thirdLine = secondLine
     ?.map((q) => {
       return q?.expand?.creeps
@@ -57,18 +51,12 @@ export const AgentsList = ({ setCount }) => {
     })
     ?.flat(1)
 
-    thirdLine?.map(q => {
-      if (q?.agent && !q?.agent_date) {
-        return console.log(q, 'w');
-      }
-    })
-
   const [dates, setDates] = React.useState({
     from: new Date(),
     to: new Date()
   })
 
-  const allLines = user?.expand?.creeps?.concat(secondLine, thirdLine)
+  const allLines = user?.expand?.creeps?.concat(secondLine, thirdLine)?.filter(q => {q?.verified})
 
   const firstLinePeriod = user?.expand?.creeps?.filter(q => {
     return (
@@ -289,6 +277,10 @@ export const AgentsList = ({ setCount }) => {
                         '1': firstLinePeriod,
                         '2': secondLinePeriod,
                         '3': thirdLinePeriod,
+                      },
+                      dates: {
+                        from: dates?.from,
+                        to: dates?.to
                       }
                     })
                     .then(res => {
