@@ -167,7 +167,7 @@ export const AgentsList = ({ setCount }) => {
               <p className="text">1-линия:</p>
               <FaUserGroup size={20} color="green" />
               <p className="text-bold whitespace-nowrap" >
-                ({user?.creeps?.filter(q => q?.verified) ?? 0} /{' '}
+                ({user?.expand?.creeps?.filter(q => q?.verified) ?? 0} /{' '}
                 <span className="text-green-400">
                   {user?.expand?.creeps?.filter((q) => q?.agent)?.length ?? 0}
                 </span>
