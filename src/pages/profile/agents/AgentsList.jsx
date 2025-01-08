@@ -62,11 +62,27 @@ export const AgentsList = ({ setCount }) => {
 
   const firstLinePeriod = user?.expand?.creeps?.filter(q => {
     return (
+      q?.verified && 
+      new Date(q?.verified_date)?.getTime() >= new Date(dates?.from)?.getTime() && 
+      new Date(q?.verified_date)?.getTime() <= new Date(dates?.to)?.getTime()
+    )
+  })
+
+  const firstLinePeriodAgents = firstLinePeriod?.filter(q => {
+    return (
       new Date(q?.agent_date)?.getTime() >= new Date(dates?.from)?.getTime() && 
-      new Date(q?.agent_date)?.getTime() <= new Date(dates?.to)?.getTime())
+      new Date(q?.agent_date)?.getTime() <= new Date(dates?.to)?.getTime()
+    )
   })
   
   const secondLinePeriod = secondLine?.filter(q => {
+    return (
+      new Date(q?.verified_date)?.getTime() >= new Date(dates?.from)?.getTime() && 
+      new Date(q?.verified_date)?.getTime() <= new Date(dates?.to)?.getTime()
+    )
+  })
+  
+  const secondLinePeriodAgents = secondLinePeriod?.filter(q => {
     return (
       new Date(q?.agent_date)?.getTime() >= new Date(dates?.from)?.getTime() && 
       new Date(q?.agent_date)?.getTime() <= new Date(dates?.to)?.getTime())
@@ -74,11 +90,19 @@ export const AgentsList = ({ setCount }) => {
 
   const thirdLinePeriod = thirdLine?.filter(q => {
     return (
+      new Date(q?.verified_date)?.getTime() >= new Date(dates?.from)?.getTime() && 
+      new Date(q?.verified_date)?.getTime() <= new Date(dates?.to)?.getTime()
+    )
+  })
+
+  const thirdLinePeriodAgents = thirdLine?.filter(q => {
+    return (
       new Date(q?.agent_date)?.getTime() >= new Date(dates?.from)?.getTime() && 
       new Date(q?.agent_date)?.getTime() <= new Date(dates?.to)?.getTime())
   })
 
   const allLinesPeriod = firstLinePeriod?.concat(secondLinePeriod, thirdLinePeriod)
+  const allLinesPeriodAgents = firstLinePeriodAgents?.concat(secondLinePeriodAgents, thirdLinePeriodAgents)
 
   async function checkOneYearSubsribtion () {
     if (!user?.verified_date) return
@@ -258,7 +282,7 @@ export const AgentsList = ({ setCount }) => {
             </Button> */}
           </div>
           <div className='flex gap-1 mt-2'>
-            Общее: <span className='font-bold text-primary-500'>{allLinesPeriod?.length ?? 0}</span>
+            Общее: <span className='font-bold text-primary-500'>{allLinesPeriod?.length ?? 0} {allLinesPeriodAgents?.length ?? 0}</span>
           </div>
           <div className='mt-3'>
             <Button
@@ -320,7 +344,13 @@ export const AgentsList = ({ setCount }) => {
             </Button>
           </div>
 
-          <p className='text-sm text-center mt-4'>1-я линия: <span className='text-primary-500 font-bold'>{firstLinePeriod?.length ?? 0}</span></p>
+          <p 
+            className='text-sm text-center mt-4'
+          >1-я линия: <span className='text-primary-500 font-bold'>
+            {firstLinePeriod?.length ?? 0} {firstLinePeriodAgents?.length ?? 0}
+            {/* {firstLinePeriod?.filter(q => q?.verified)} */}
+            </span>
+          </p>
           {firstLinePeriod?.length !== 0 && (
             <ScrollArea>
               <Table>
@@ -348,7 +378,10 @@ export const AgentsList = ({ setCount }) => {
               </Table>
             </ScrollArea>
           )}
-          <p className='mt-6 text-sm text-center '>2-я линия: <span className='text-primary-500 font-bold'>{secondLinePeriod?.length ?? 0}</span></p>
+          <p className='mt-6 text-sm text-center '>2-я линия: <span className='text-primary-500 font-bold'>
+            {secondLinePeriod?.length ?? 0} {secondLinePeriodAgents?.length ?? 0}
+            </span>
+          </p>
           {secondLinePeriod?.length !== 0 && (
             <ScrollArea>
               <Table>
@@ -376,7 +409,10 @@ export const AgentsList = ({ setCount }) => {
               </Table>
             </ScrollArea>
           )}
-          <p className='mt-6 text-sm text-center '>3-я линия: <span className='text-primary-500 font-bold'>{thirdLinePeriod?.length ?? 0}</span></p>
+          <p className='mt-6 text-sm text-center '>3-я линия: <span className='text-primary-500 font-bold'>
+            {thirdLinePeriod?.length ?? 0} {thirdLinePeriodAgents?.length ?? 0}
+            </span>
+          </p>
           {thirdLinePeriod?.length !== 0 && (
             <ScrollArea>
               <Table>
