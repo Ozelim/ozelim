@@ -29,7 +29,7 @@ const array2 = [
   // {labelkz: `Санаторилар`, labelru: 'Санатории', link: '/resorts' },
   {labelkz: `Қызметтер`, labelru: 'Услуги', link: '/price' },
 ]
-
+ 
 export const BurgerMenu = () => {
 
   const {kz} = useLangContext()
