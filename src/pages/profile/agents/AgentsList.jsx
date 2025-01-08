@@ -41,6 +41,7 @@ export const AgentsList = ({ setCount }) => {
       return w != undefined
     })
     ?.flat(1)
+    ?.filter(q => q?.verified)
 
   const thirdLine = secondLine
     ?.map((q) => {
@@ -50,6 +51,7 @@ export const AgentsList = ({ setCount }) => {
       return w != undefined
     })
     ?.flat(1)
+    ?.filter(q => q?.verified)
 
   const [dates, setDates] = React.useState({
     from: new Date(),
@@ -165,7 +167,7 @@ export const AgentsList = ({ setCount }) => {
               <p className="text">1-линия:</p>
               <FaUserGroup size={20} color="green" />
               <p className="text-bold whitespace-nowrap" >
-                ({user?.creeps?.length ?? 0} /{' '}
+                ({user?.creeps?.filter(q => q?.verified) ?? 0} /{' '}
                 <span className="text-green-400">
                   {user?.expand?.creeps?.filter((q) => q?.agent)?.length ?? 0}
                 </span>
