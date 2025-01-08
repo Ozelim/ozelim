@@ -56,7 +56,7 @@ export const AgentsList = ({ setCount }) => {
     to: new Date()
   })
 
-  const allLines = user?.expand?.creeps?.concat(secondLine, thirdLine)?.filter(q => {q?.verified})
+  const allLines = user?.expand?.creeps?.concat(secondLine, thirdLine)?.filter(q => q?.verified)
 
   const firstLinePeriod = user?.expand?.creeps?.filter(q => {
     return (
