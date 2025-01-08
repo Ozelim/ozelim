@@ -68,11 +68,13 @@ export const AgentsList = ({ setCount }) => {
     )
   })
 
-  const firstLinePeriodAgents = firstLinePeriod?.filter(q => {
-    return (
+  const firstLinePeriodAgents = firstLinePeriod?.map(q => {
+
+    if (
       new Date(q?.agent_date)?.getTime() >= new Date(dates?.from)?.getTime() && 
       new Date(q?.agent_date)?.getTime() <= new Date(dates?.to)?.getTime()
-    )
+    ) return q
+     
   })
   
   const secondLinePeriod = secondLine?.filter(q => {
@@ -82,10 +84,11 @@ export const AgentsList = ({ setCount }) => {
     )
   })
   
-  const secondLinePeriodAgents = secondLinePeriod?.filter(q => {
-    return (
+  const secondLinePeriodAgents = secondLinePeriod?.map(q => {
+    if (
       new Date(q?.agent_date)?.getTime() >= new Date(dates?.from)?.getTime() && 
-      new Date(q?.agent_date)?.getTime() <= new Date(dates?.to)?.getTime())
+      new Date(q?.agent_date)?.getTime() <= new Date(dates?.to)?.getTime()
+    ) return q
   })
 
   const thirdLinePeriod = thirdLine?.filter(q => {
@@ -96,9 +99,10 @@ export const AgentsList = ({ setCount }) => {
   })
 
   const thirdLinePeriodAgents = thirdLine?.filter(q => {
-    return (
+    if (
       new Date(q?.agent_date)?.getTime() >= new Date(dates?.from)?.getTime() && 
-      new Date(q?.agent_date)?.getTime() <= new Date(dates?.to)?.getTime())
+      new Date(q?.agent_date)?.getTime() <= new Date(dates?.to)?.getTime()
+    ) return q
   })
 
   const allLinesPeriod = firstLinePeriod?.concat(secondLinePeriod, thirdLinePeriod)
