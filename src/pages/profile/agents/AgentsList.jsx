@@ -22,6 +22,7 @@ import { BiLogoTelegram } from 'react-icons/bi'
 async function getReports(id) {
   return await pb.collection('reports').getFullList({
     filter: `agent = '${id}'`,
+    sort: '-created',
   })
 }
 
@@ -497,72 +498,87 @@ export const AgentsList = ({ setCount }) => {
       <Modal
         opened={reportsM}
         centered
-        title='Отчеты'
+        title="Отчеты"
         onClose={() => reportsM_h.close()}
-        size='70%'
+        size="70%"
       >
-      <Table className="mt-4">
-        <thead>
-          <tr>
-            <th>Дата</th>
-            <th>Фото</th>
-            <th>ID агента</th>
-            <th>ФИО</th>
-            <th>За период</th>
-            <th>Линии</th>
-          </tr>
-        </thead>
-        <tbody>
-          {reports.map((q, i) => {
-            return (
-              <tr key={i}>
-                <td>{dayjs(q.created).format(`DD.MM.YY, HH:mm`)}</td>
-                <td>
-                  <img src={getImageUrl(q?.expand?.agent, q?.expand?.agent?.avatar)} alt="" className='rounded-full w-20 h-20' />
-                </td>
-                <td>{q?.agent}</td>
-                <td>{q?.expand?.agent?.fio}</td>
-                <td>{dayjs(q?.dates?.from).format('DD.MM.YYYY')} - {dayjs(q?.dates?.to).format('DD.MM.YYYY')}</td>
-                <td>
-                  <Button
-                    onClick={() => {
-                      setReport(q)
-                      reportsM_h.close()
-                      reportM_h.open()
-                    }}
-                  >
-                    Линии
-                  </Button>
-                </td>
-              </tr>
-            )
-          })}
-        </tbody>
-      </Table>
+        <Table className="mt-4">
+          <thead>
+            <tr>
+              <th>Дата</th>
+              <th>Фото</th>
+              <th>ID агента</th>
+              <th>ФИО</th>
+              <th>За период</th>
+              <th>Линии</th>
+            </tr>
+          </thead>
+          <tbody>
+            {reports.map((q, i) => {
+              return (
+                <tr key={i}>
+                  <td>{dayjs(q.created).format(`DD.MM.YY, HH:mm`)}</td>
+                  <td>
+                    <img
+                      src={getImageUrl(q?.expand?.agent, q?.expand?.agent?.avatar)}
+                      alt=""
+                      className="rounded-full w-20 h-20"
+                    />
+                  </td>
+                  <td>{q?.agent}</td>
+                  <td>{q?.expand?.agent?.fio}</td>
+                  <td>
+                    {dayjs(q?.dates?.from).format('DD.MM.YYYY')} -{' '}
+                    {dayjs(q?.dates?.to).format('DD.MM.YYYY')}
+                  </td>
+                  <td>
+                    <Button
+                      onClick={() => {
+                        setReport(q)
+                        reportsM_h.close()
+                        reportM_h.open()
+                      }}
+                    >
+                      Линии
+                    </Button>
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </Table>
       </Modal>
-      <Modal
-        opened={reportM}
-        onClose={() => reportM_h.close()}
-        centered
-        title='Отчет'
-        size='70%'
-      >
-        <ul className='space-y-2'>
-          <li className='grid grid-cols-[20%_auto]'><span className='text-slate-500'>ФИО:</span> {report?.expand?.agent?.fio}</li>
-          <li className='grid grid-cols-[20%_auto]'><span className='text-slate-500'>ID:</span> {report?.expand?.agent?.id}</li>
-          <li className='grid grid-cols-[20%_auto]'><span className='text-slate-500'>Email:</span> {report?.expand?.agent?.email}</li>
-          <li className='grid grid-cols-[20%_auto]'><span className='text-slate-500'>Телефон:</span> {report?.expand?.agent?.phone}</li>
-          <li className='grid grid-cols-[20%_auto]'><span className='text-slate-500'>За период:</span> {dayjs(report?.dates?.from).format('DD.MM.YYYY')} - {dayjs(report?.dates?.to).format('DD.MM.YYYY')}</li>
+      <Modal opened={reportM} onClose={() => reportM_h.close()} centered title="Отчет" size="70%">
+        <ul className="space-y-2">
+          <li className="grid grid-cols-[20%_auto]">
+            <span className="text-slate-500">ФИО:</span> {report?.expand?.agent?.fio}
+          </li>
+          <li className="grid grid-cols-[20%_auto]">
+            <span className="text-slate-500">ID:</span> {report?.expand?.agent?.id}
+          </li>
+          <li className="grid grid-cols-[20%_auto]">
+            <span className="text-slate-500">Email:</span> {report?.expand?.agent?.email}
+          </li>
+          <li className="grid grid-cols-[20%_auto]">
+            <span className="text-slate-500">Телефон:</span> {report?.expand?.agent?.phone}
+          </li>
+          <li className="grid grid-cols-[20%_auto]">
+            <span className="text-slate-500">За период:</span>{' '}
+            {dayjs(report?.dates?.from).format('DD.MM.YYYY')} -{' '}
+            {dayjs(report?.dates?.to).format('DD.MM.YYYY')}
+          </li>
         </ul>
         <div className="flex justify-end gap-1">
-          Общее: верифиц - <span className='font-bold text-primary-500'>{allLinesPeriod?? 0}</span> / 
-          <span className='font-bold text-primary-500'>{allLinesPeriodAgents ?? 0}</span> - агентов 
+          Общее: верифиц -{' '}
+          <span className="font-bold text-primary-500">{report?.data?.allLineVerified ?? 0}</span> /
+          <span className="font-bold text-primary-500">{report?.data?.allLineAgents ?? 0}</span> -
+          агентов
         </div>
         <p className="text-sm">
-            1-я линия: верифиц - <span className='text-primary-500 font-bold'> {report?.data?.fistLineVerified ?? 0} 
-            </span> / <span className='text-primary-500 font-bold'>
-              {report?.data?.fistLineAgents ?? 0}
-             </span> - агентов 
+          1-я линия: верифиц -{' '}
+          <span className="text-primary-500 font-bold"> {report?.data?.fistLineVerified ?? 0}</span>{' '}
+          / <span className="text-primary-500 font-bold">{report?.data?.fistLineAgents ?? 0}</span>{' '}
+          - агентов
         </p>
         {report?.data?.['1']?.length !== 0 && (
           <>
@@ -591,10 +607,14 @@ export const AgentsList = ({ setCount }) => {
           </>
         )}
         <p className="mt-6 text-sm">
-          2-я линия: верифиц - <span className='text-primary-500 font-bold'> {report?.data?.secondLineVerified ?? 0} 
-            </span> / <span className='text-primary-500 font-bold'>
-              {report?.data?.secondLineAgents ?? 0}
-             </span> - агентов 
+          2-я линия: верифиц -{' '}
+          <span className="text-primary-500 font-bold">
+            {' '}
+            {report?.data?.secondLineVerified ?? 0}
+          </span>{' '}
+          /{' '}
+          <span className="text-primary-500 font-bold">{report?.data?.secondLineAgents ?? 0}</span>{' '}
+          - агентов
         </p>
         {report?.data?.['2']?.length !== 0 && (
           <>
@@ -623,10 +643,10 @@ export const AgentsList = ({ setCount }) => {
           </>
         )}
         <p className="mt-6 text-sm">
-          3-я линия: верифиц - <span className='text-primary-500 font-bold'> {report?.data?.thirdVerified ?? 0} 
-            </span> / <span className='text-primary-500 font-bold'>
-              {report?.data?.thirdAgents ?? 0}
-             </span> - агентов 
+          3-я линия: верифиц -{' '}
+          <span className="text-primary-500 font-bold"> {report?.data?.thirdVerified ?? 0}</span> /{' '}
+          <span className="text-primary-500 font-bold">{report?.data?.thirdAgents ?? 0}</span> -
+          агентов
         </p>
         {report?.data?.['3']?.length !== 0 && (
           <>
