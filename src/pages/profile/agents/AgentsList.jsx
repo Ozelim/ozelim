@@ -499,6 +499,7 @@ export const AgentsList = ({ setCount }) => {
         centered
         title='Отчеты'
         onClose={() => reportsM_h.close()}
+        size='70%'
       >
       <Table className="mt-4">
         <thead>
@@ -526,7 +527,8 @@ export const AgentsList = ({ setCount }) => {
                   <Button
                     onClick={() => {
                       setReport(q)
-                      reportsM_h.open()
+                      reportsM_h.close()
+                      reportM_h.open()
                     }}
                   >
                     Линии
@@ -538,7 +540,13 @@ export const AgentsList = ({ setCount }) => {
         </tbody>
       </Table>
       </Modal>
-      <Modal>
+      <Modal
+        opened={reportM}
+        onClose={() => reportM_h.close()}
+        centered
+        title='Отчет'
+        size='70%'
+      >
         <ul className='space-y-2'>
           <li className='grid grid-cols-[20%_auto]'><span className='text-slate-500'>ФИО:</span> {report?.expand?.agent?.fio}</li>
           <li className='grid grid-cols-[20%_auto]'><span className='text-slate-500'>ID:</span> {report?.expand?.agent?.id}</li>
