@@ -98,7 +98,7 @@ export const AgentsList = ({ setCount }) => {
     )
   })
 
-  const thirdLinePeriodAgents = thirdLine?.filter(q => {
+  const thirdLinePeriodAgents = thirdLinePeriod?.filter(q => {
     return (
       q?.agent_date &&
       new Date(q?.agent_date)?.getTime() >= new Date(dates?.from)?.getTime() && 
@@ -200,7 +200,7 @@ export const AgentsList = ({ setCount }) => {
                 <span className="text-green-400">
                   {user?.expand?.creeps?.filter((q) => q?.agent)?.length ?? 0}
                 </span>
-                ){' '}
+                )
               </p>
             </div>
             <div className="flex gap-1 items-center border-b-2">
@@ -211,7 +211,7 @@ export const AgentsList = ({ setCount }) => {
                 <span className="text-green-400">
                   {secondLine?.filter((q) => q?.agent)?.length ?? 0}
                 </span>
-                ){' '}
+                )
               </p>
             </div>
             <div className="flex gap-1 items-center border-b-2">
@@ -287,7 +287,8 @@ export const AgentsList = ({ setCount }) => {
             </Button> */}
           </div>
           <div className='flex gap-1 mt-2'>
-            Общее: <span className='font-bold text-primary-500'>{allLinesPeriod?.length ?? 0} {allLinesPeriodAgents?.length ?? 0}</span>
+            Общее: верифиц - <span className='font-bold text-primary-500'>{allLinesPeriod?.length ?? 0}</span> / 
+              <span className='font-bold text-primary-500'>{allLinesPeriodAgents?.length ?? 0}</span> - агентов 
           </div>
           <div className='mt-3'>
             <Button
@@ -304,15 +305,19 @@ export const AgentsList = ({ setCount }) => {
                     await pb.collection('reports').create({
                       agent: user?.id,
                       data: {
-                        ...dates, 
-                        '1': firstLinePeriod,
-                        '2': secondLinePeriod,
-                        '3': thirdLinePeriod,
+                        '1': firstLinePeriodAgents,
+                        '2': secondLinePeriodAgents,
+                        '3': thirdLinePeriodAgents,
+                        allLineVerified: allLinesPeriod?.length,
+                        fistLineVerified: firstLinePeriod?.length,  
+                        secondLineVerified: secondLinePeriod?.length,
+                        thirdVerified: thirdLinePeriod?.length,
+                        allLineAgents: allLinesPeriodAgents?.length,
+                        fistLineAgents: firstLinePeriodAgents?.length,
+                        secondLineAgents: secondLinePeriodAgents?.length,
+                        thirdAgents: thirdLinePeriodAgents?.length,
                       },
-                      dates: {
-                        from: dates?.from,
-                        to: dates?.to
-                      }
+                      dates
                     })
                     .then(res => {
                       showNotification({
@@ -351,12 +356,13 @@ export const AgentsList = ({ setCount }) => {
 
           <p 
             className='text-sm text-center mt-4'
-          >1-я линия: <span className='text-primary-500 font-bold'>
-            {firstLinePeriod?.length ?? 0} {firstLinePeriodAgents?.length ?? 0}
-            {/* {firstLinePeriod?.filter(q => q?.verified)} */}
-            </span>
+          >
+            1-я линия: верифиц - <span className='text-primary-500 font-bold'> {firstLinePeriod?.length ?? 0} 
+            </span> / <span className='text-primary-500 font-bold'>
+              {firstLinePeriodAgents?.length ?? 0}
+             </span> - агентов 
           </p>
-          {firstLinePeriod?.length !== 0 && (
+          {firstLinePeriodAgents?.length !== 0 && (
             <ScrollArea>
               <Table>
                 <thead>
@@ -368,7 +374,7 @@ export const AgentsList = ({ setCount }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {firstLinePeriod?.map((q, i) => {
+                  {firstLinePeriodAgents?.map((q, i) => {
                     return (
                       <tr key={i}>
 
@@ -383,11 +389,15 @@ export const AgentsList = ({ setCount }) => {
               </Table>
             </ScrollArea>
           )}
-          <p className='mt-6 text-sm text-center '>2-я линия: <span className='text-primary-500 font-bold'>
-            {secondLinePeriod?.length ?? 0} {secondLinePeriodAgents?.length ?? 0}
-            </span>
+          <p 
+            className='text-sm text-center mt-4'
+          >
+            2-я линия: верифиц - <span className='text-primary-500 font-bold'> {secondLinePeriod?.length ?? 0} 
+            </span> / <span className='text-primary-500 font-bold'>
+              {secondLinePeriodAgents?.length ?? 0}
+             </span> - агентов 
           </p>
-          {secondLinePeriod?.length !== 0 && (
+          {secondLinePeriodAgents?.length !== 0 && (
             <ScrollArea>
               <Table>
                 <thead>
@@ -399,7 +409,7 @@ export const AgentsList = ({ setCount }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {secondLinePeriod?.map((q, i) => {
+                  {secondLinePeriodAgents?.map((q, i) => {
                     return (
                       <tr key={i}>
 
@@ -414,11 +424,15 @@ export const AgentsList = ({ setCount }) => {
               </Table>
             </ScrollArea>
           )}
-          <p className='mt-6 text-sm text-center '>3-я линия: <span className='text-primary-500 font-bold'>
-            {thirdLinePeriod?.length ?? 0} {thirdLinePeriodAgents?.length ?? 0}
-            </span>
+          <p 
+            className='text-sm text-center mt-4'
+          >
+            3-я линия: верифиц - <span className='text-primary-500 font-bold'> {thirdLinePeriod?.length ?? 0} 
+            </span> / <span className='text-primary-500 font-bold'>
+              {thirdLinePeriodAgents?.length ?? 0}
+             </span> - агентов 
           </p>
-          {thirdLinePeriod?.length !== 0 && (
+          {thirdLinePeriodAgents?.length !== 0 && (
             <ScrollArea>
               <Table>
                 <thead>
@@ -430,7 +444,7 @@ export const AgentsList = ({ setCount }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {thirdLinePeriod?.map((q, i) => {
+                  {thirdLinePeriodAgents?.map((q, i) => {
                     return (
                       <tr key={i}>
 

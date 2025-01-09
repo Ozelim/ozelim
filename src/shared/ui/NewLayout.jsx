@@ -18,8 +18,6 @@ export const NewLayout = ({headerSlot, footerSlot}) => {
 
   const {getCategories} = useCategoriesStore()
 
-  
-
   React.useEffect(() => {
     getCategories()
   }, [])

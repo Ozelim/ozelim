@@ -122,7 +122,9 @@ export const Chat = () => {
                 />
                 <div>
                   <Text lineClamp={1}>{q?.expand?.market_id?.name}</Text>
-                  <Text lineClamp={1} size='sm' color={chat?.id === q?.id ? 'white' : 'gray.6'}>Последнее сообщение</Text>
+                  <Text lineClamp={1} size='sm' color={chat?.id === q?.id ? 'white' : 'gray.6'}>
+                    {chat?.messages?.[chat?.messages?.length]?.message}
+                  </Text>
                 </div>
               </div>
             )
