@@ -25,12 +25,12 @@ export const Test = () => {
 
   return (
     <div className='flex justify-center items-center h-full'>
-        <Button
+        {/* <Button
           type='submit'
           onClick={submit}
         >
           Кнопка
-        </Button>
+        </Button> */}
     </div>
   )
 }
