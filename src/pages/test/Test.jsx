@@ -19,26 +19,18 @@ export const Test = () => {
     setVal({...val, [name]: value})
   }
 
+  async function submit () {
+    await pb.collection('agents').requestPasswordReset('aldiyar1012@gmail.com');
+  } 
+
   return (
     <div className='flex justify-center items-center h-full'>
-      <form 
-        className='container'
-        action='https://ecom.jysanbank.kz/ecom/api'
-        method='post'
-        onSubmit={submit}
-      >
-        <TextInput
-          value={val?.order}
-          name='order'
-          onChange={handleInputChange}
-        />
         <Button
           type='submit'
-          // onClick={submit}
+          onClick={submit}
         >
-          Оплатить
+          Кнопка
         </Button>
-      </form>
     </div>
   )
 }

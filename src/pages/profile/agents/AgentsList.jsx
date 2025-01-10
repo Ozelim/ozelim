@@ -506,9 +506,6 @@ export const AgentsList = ({ setCount }) => {
           <thead>
             <tr>
               <th>Дата</th>
-              <th>Фото</th>
-              <th>ID агента</th>
-              <th>ФИО</th>
               <th>За период</th>
               <th>Линии</th>
             </tr>
@@ -518,15 +515,6 @@ export const AgentsList = ({ setCount }) => {
               return (
                 <tr key={i}>
                   <td>{dayjs(q.created).format(`DD.MM.YY, HH:mm`)}</td>
-                  <td>
-                    <img
-                      src={getImageUrl(q?.expand?.agent, q?.expand?.agent?.avatar)}
-                      alt=""
-                      className="rounded-full w-20 h-20"
-                    />
-                  </td>
-                  <td>{q?.agent}</td>
-                  <td>{q?.expand?.agent?.fio}</td>
                   <td>
                     {dayjs(q?.dates?.from).format('DD.MM.YYYY')} -{' '}
                     {dayjs(q?.dates?.to).format('DD.MM.YYYY')}
@@ -550,32 +538,15 @@ export const AgentsList = ({ setCount }) => {
       </Modal>
       <Modal opened={reportM} onClose={() => reportM_h.close()} centered title="Отчет" size="70%">
         <ul className="space-y-2">
-          <li className="grid grid-cols-[20%_auto]">
-            <span className="text-slate-500">ФИО:</span> {report?.expand?.agent?.fio}
-          </li>
-          <li className="grid grid-cols-[20%_auto]">
-            <span className="text-slate-500">ID:</span> {report?.expand?.agent?.id}
-          </li>
-          <li className="grid grid-cols-[20%_auto]">
-            <span className="text-slate-500">Email:</span> {report?.expand?.agent?.email}
-          </li>
-          <li className="grid grid-cols-[20%_auto]">
-            <span className="text-slate-500">Телефон:</span> {report?.expand?.agent?.phone}
-          </li>
-          <li className="grid grid-cols-[20%_auto]">
-            <span className="text-slate-500">За период:</span>{' '}
-            {dayjs(report?.dates?.from).format('DD.MM.YYYY')} -{' '}
-            {dayjs(report?.dates?.to).format('DD.MM.YYYY')}
-          </li>
         </ul>
         <div className="flex justify-end gap-1">
-          Общее: верифиц -{' '}
+          Общее: верифиц -
           <span className="font-bold text-primary-500">{report?.data?.allLineVerified ?? 0}</span> /
           <span className="font-bold text-primary-500">{report?.data?.allLineAgents ?? 0}</span> -
           агентов
         </div>
         <p className="text-sm">
-          1-я линия: верифиц -{' '}
+          1-я линия: верифиц -
           <span className="text-primary-500 font-bold"> {report?.data?.fistLineVerified ?? 0}</span>{' '}
           / <span className="text-primary-500 font-bold">{report?.data?.fistLineAgents ?? 0}</span>{' '}
           - агентов
@@ -607,12 +578,12 @@ export const AgentsList = ({ setCount }) => {
           </>
         )}
         <p className="mt-6 text-sm">
-          2-я линия: верифиц -{' '}
+          2-я линия: верифиц -
           <span className="text-primary-500 font-bold">
-            {' '}
+            
             {report?.data?.secondLineVerified ?? 0}
-          </span>{' '}
-          /{' '}
+          </span>
+          /
           <span className="text-primary-500 font-bold">{report?.data?.secondLineAgents ?? 0}</span>{' '}
           - агентов
         </p>
@@ -643,7 +614,7 @@ export const AgentsList = ({ setCount }) => {
           </>
         )}
         <p className="mt-6 text-sm">
-          3-я линия: верифиц -{' '}
+          3-я линия: верифиц -
           <span className="text-primary-500 font-bold"> {report?.data?.thirdVerified ?? 0}</span> /{' '}
           <span className="text-primary-500 font-bold">{report?.data?.thirdAgents ?? 0}</span> -
           агентов
