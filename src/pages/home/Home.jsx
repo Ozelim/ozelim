@@ -228,7 +228,7 @@ export const Home = () => {
                   <Button className="mt-4">Устав Ассоциации туристов Казахстана "Oz Elim"</Button>
                 </a>
               </div>
-              <div>
+              <div className='mt-4'>
                 <a href={'/services-asosiation.pdf'} target='_blank'>
                   <Button>
                     Услуги членам Ассоциации
