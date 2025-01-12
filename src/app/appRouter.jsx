@@ -31,7 +31,6 @@ import { About,
   ProductPage,
   Favorites,
   Weare,
-  Chat
 } from "pages";
 import { baseLayout } from "./layouts/baseLayout";
 import { Test } from "pages/test/Test";
@@ -79,7 +78,7 @@ const appRouter = createBrowserRouter([
     {path: 'cart', element: <MarketCart/>},
     {path: 'favorites', element: <Favorites/>},
     {path: 'weare', element: <Weare/>},
-    {path: 'chat/:id', element: <Chat/>},
+    // {path: 'chat/:id', element: <Chat/>},
     {path: 'product/:id', element: <ProductPage/>},
   ]},
 

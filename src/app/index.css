@@ -33,7 +33,7 @@
 
 
 .container-market {
-  max-width: 1500px;
+  max-width: 1650px;
   margin: 0 auto 0;
   padding: 0 16px 0;
   width: 100%;
@@ -118,7 +118,7 @@ h4 {
   }
 
 .market-scrollbar ::-webkit-scrollbar-thumb {
-    background: #ff2e2e;
+    background: #05ffea;
     border-radius: 5px;
   }
 

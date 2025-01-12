@@ -15,10 +15,13 @@ export const Catalog = () => {
   return (
     <div className='px-4 mb-4 relative'>
       <LoadingOverlay visible={productsLoading}/>
-      <div className='grid grid-cols-5 gap-4'>
+
+      <div className='grid grid-cols-6 gap-4'>
         {products?.items?.map((q, i) => {
           return (
-            <Product key={i} product={q} />
+            <div className="mx-auto" key={i}>
+              <Product product={q} />
+            </div>
           )
         })}
       </div>

@@ -142,7 +142,19 @@ export const ProductPage = ({preview}) => {
       ...(user?.id && {user: user?.id}),
       status: 'created'
     })
-    .then(() => {
+    .then(async () => {
+
+      const revs = await pb.collection('reviews').getFullList({
+        fields: 'rating',
+      })
+
+      const sum = revs?.reduce((a, b) => a + b?.rating, 0)
+      const overallRating = sum / revs?.length
+      
+      await pb.collection('products').update(product?.id, {
+        rating: overallRating,
+        reviews_count: revs?.length
+      })
       setReview({
         comment: '',
         rating: 1
@@ -378,7 +390,7 @@ export const ProductPage = ({preview}) => {
                   rightIcon={<FaShop size={22} />} 
                   size='lg'
                   component={Link}
-                  to={`/market/chat/${product?.market_id}`}
+                  to={`/market/profile/?segment=messages&chatId=${product?.market_id}`}
                 >
                   Чат с магазиом
                 </Button>
@@ -454,7 +466,6 @@ export const ProductPage = ({preview}) => {
                     </div>
                   </div>
                   <div className='flex flex-col gap-6 mt-4'> 
-
                     {waitingReviews?.map((q, i) => {
                       return (
                         <div 
@@ -492,7 +503,7 @@ export const ProductPage = ({preview}) => {
                       return (
                         <div 
                           key={i}
-                          className='flex gap-4 border-t-2 first:border-none pt-6'
+                          className='flex gap-4 border-t-2 first:border-none pt-6 relative'
                         >
                           {q?.expand?.user?.avatar && (
                             <img 
@@ -517,6 +528,15 @@ export const ProductPage = ({preview}) => {
                             </p>
 
                           </div>
+                            {(i === 1 || i === 3) && (
+                              <Button
+                                size='sm'
+                                variant='subtle'
+                                className='ml-auto mt-auto'
+                              >
+                                Посмотреть ответ
+                              </Button>
+                            )}
                         </div>
                       )
                     })}

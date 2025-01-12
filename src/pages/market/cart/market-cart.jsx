@@ -7,6 +7,7 @@ import { Button, Checkbox, clsx } from '@mantine/core'
 import { useAuth } from 'shared/hooks'
 import { useDisclosure } from '@mantine/hooks'
 import axios from 'axios'
+import { pb } from 'shared/api'
 
 export const MarketCart = () => {
 
@@ -76,6 +77,15 @@ export const MarketCart = () => {
     //   paymentLoading_h.close()
     //   console.log(err, 'err')
     // }
+
+    await pb.collection('orders').create({
+      total_cost: totalCost, 
+      total_amount: totalAmount,
+      products: cartItems,
+      status: 'created',
+      total_payed: totalCost,
+      
+    })
   }
 
   async function buyBefore () {

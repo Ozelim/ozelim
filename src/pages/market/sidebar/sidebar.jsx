@@ -27,14 +27,14 @@ export const Sidebar = () => {
   }
 
   return (
-    <div className='border border-r-0 sticky top-0 left-0 h-[100vh] overflow-y-scroll'>
-      <p className='text-lg ml-3 uppercase py-4'>
-        Категории
-      </p>
+    <div className='sticky top-0 left-0 h-[61vh] overflow-y-scroll'>
+      {/* <p className='text-lg ml-3 uppercase py-4'>
+        все Категории
+      </p> */}
       <div className='flex flex-col'>
         {categories?.map((q, i) => {
           return (
-            <div className='p-3 border-t' key={i}>
+            <div className='p-3 ' key={i}>
               <button 
                 onClick={() => handleCategory(q?.label)}
                 className={clsx('text-sm', {

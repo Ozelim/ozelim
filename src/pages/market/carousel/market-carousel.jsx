@@ -6,9 +6,9 @@ import w from 'shared/assets/images/dual/2.jpg'
 import e from 'shared/assets/images/dual/3.jpg'
 
 const array = [
-  'https://images4.alphacoders.com/137/1373669.jpeg', 
-  'https://pbs.twimg.com/media/GV4Rqt2XEAAQotY?format=jpg&name=4096x4096', 
-  'https://pbs.twimg.com/media/F04xYoVaYAAmchT.jpg:large'
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCtyCd0PDZzNCZ49xSe1ioZFzaNkuQ0J7E_w&s',
+  'https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV53Gedj3kBD5aPBivZCiPrqUlH3nSmt4-oDknVdqOKSjYLGzmJIhnyomoSd6lOf5DykA&usqp=CAU',
 ]
 
 export const MarketCarousel = () => {

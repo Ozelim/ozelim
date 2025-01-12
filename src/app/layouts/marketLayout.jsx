@@ -31,8 +31,8 @@ export const marketLayout = (
       withCSSVariables
       emotionCache={cache}
       theme={{
-        primaryColor: 'red',
-        primaryShade: 8,
+        primaryColor: 'teal',
+        primaryShade: 6,
         fontFamily: 'Comfortaa, sans-serif',
         defaultRadius: 'lg'
       }}

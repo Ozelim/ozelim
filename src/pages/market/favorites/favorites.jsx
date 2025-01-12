@@ -29,7 +29,7 @@ export const Favorites = () => {
 
   return (
     <div className='container-market market'>
-      <p>Избранные</p>
+      <p className='mt-4'>Избранные</p>
       <div className="grid grid-cols-5 gap-4 mt-4">
         {favorites?.map((q, i) => {
           return (

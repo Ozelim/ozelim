@@ -6,7 +6,7 @@ import { Menu, Modal, UnstyledButton } from '@mantine/core'
 import { useDisclosure, useMediaQuery } from '@mantine/hooks'
 
 import test from 'shared/assets/images/policy.pdf'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import dog from 'shared/assets/images/dogone.pdf'
 import { useLangContext } from 'app/langContext'
 import { IoIosArrowDown } from 'react-icons/io'
@@ -16,6 +16,8 @@ const date = new Date()
 export const Footer = () => {
 
   const {pathname} = useLocation()
+
+  const [params] = useSearchParams()
 
   const {kz, changeLang} = useLangContext()
 
@@ -34,7 +36,7 @@ export const Footer = () => {
     }, 100)
   }
 
-  if (pathname.includes('chat')) return null
+  if (pathname.includes('chat') || params.get('chatId') || pathname.includes('market')) return null
 
   return (
     <>

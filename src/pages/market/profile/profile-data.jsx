@@ -55,7 +55,7 @@ export const ProfileData = () => {
       <div className='relative mx-auto'>
         {(avatar && !image) && (
           <img 
-            className='object-cover w-full h-full mx-auto aspect-square'
+            className='object-cover w-full h-full mx-auto aspect-square rounded-full'
             src={URL.createObjectURL(avatar)}
             alt="" 
           />
@@ -63,13 +63,13 @@ export const ProfileData = () => {
         {(image && !avatar) && (
           <img
             src={getImageUrl(user, image)} 
-            className='object-cover w-full h-full mx-auto aspect-square'
+            className='object-cover w-full h-full mx-auto aspect-square rounded-full'
             alt="" 
           />
         )}
 
         {(!avatar && !image) && (
-          <div className='aspect-square w-full h-full mx-auto bg-slate-100'/>
+          <div className='aspect-square w-full h-full mx-auto bg-slate-100 rounded-full'/>
         )}
         <div className="flex justify-center mt-4"> 
           <Popover
