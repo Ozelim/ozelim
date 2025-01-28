@@ -7,10 +7,8 @@ import { User } from './user'
 import { useShopStore } from './shopStore'
 import { Products } from '../products/products'
 import { Reviews } from './reviews'
-import { Chat } from './chat'
 import { Statuses } from '../products/statuses'
 import { Orders } from './orders'
-import { Stats } from './stats'
 
 const cache = createEmotionCache({
   key: 'mantine',
@@ -71,7 +69,7 @@ export const Dashboard = () => {
             })}
           </div>
           <div className="p-4">
-            {params.get('tab') === 'stats' && <Stats/>}
+            {params.get('tab') === 'stats' && <></>}
             {params.get('tab') === 'user' && <User />}
             {params.get('tab') === 'add-product' && <AddProduct />}
             {params.get('tab') === 'products' && <Products />}
