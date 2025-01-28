@@ -188,7 +188,7 @@ export const AgentsProfile = () => {
 
       const data = {
         ORDER: randomNumber,
-        AMOUNT: user?.email === `spinner_g@mail.ru` ? 5 : 30000,
+        AMOUNT: user?.email === `kurama.zxc@mail.ru` ? 5 : 30000,
         // AMOUNT: 30000,
         CURRENCY: 'KZT',
         MERCHANT:'110-R-113431490',
