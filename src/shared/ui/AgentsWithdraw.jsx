@@ -244,7 +244,7 @@ export const Withdraw = ({bonuses}) => {
       console.log(res?.data, 'res data');
       const searchParams = new URLSearchParams(JSON.parse(res?.config?.data));
       await pb.collection('replenish').create({
-        user: user?.id,
+        ...(user?.collectionName === 'users') ? {user: user?.id} : {agent: user?.id},
         sum: fill.sum,
         status: 'created',
         pay: {
