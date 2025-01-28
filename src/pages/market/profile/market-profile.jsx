@@ -7,7 +7,7 @@ import { Dashboard } from './shop/dashboard'
 import { Chat } from './shop/chat'
 import { UserReviews } from './user/user-reviews'
 import { OrderHistory } from './user/order-history'
-import { Orders } from './user/orders'
+import { UserOrders } from './user/user-orders'
 
 export const MarketProfile = () => {
 
@@ -72,7 +72,7 @@ export const MarketProfile = () => {
               )} */}
             {params.get('segment') === 'reviews' && <UserReviews/>}
             {params.get('segment') === 'history' && <OrderHistory/>}
-            {params.get('segment') === 'orders' && <Orders/>}
+            {params.get('segment') === 'orders' && <UserOrders/>}
           </>
         </div>
         

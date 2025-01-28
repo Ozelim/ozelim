@@ -32,7 +32,7 @@ export const NewPassword = () => {
     setLoading(true)
     resetPassword(
       params.get('user') ? 'user' : 'agent',
-      params?.get('token'), 
+      params.get('token'), 
       data?.password, 
       data?.password, 
     )

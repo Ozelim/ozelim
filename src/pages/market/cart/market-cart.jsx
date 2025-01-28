@@ -15,12 +15,14 @@ export const MarketCart = () => {
 
   const {cartItems} = useCartStore()
 
+  const [payment, payment_h] = useDisclosure(false)
+
   const totalCost = cartItems.reduce((q, w) => q + (w.count * w.price), 0)
   const totalAmount = cartItems.reduce((q, w) => q + w.count, 0)
 
   const [terms, terms_h] = useDisclosure(false)
 
-  const [paymentLoading, paymentLoading_h] = useDisclosure()
+  const [paymentLoading, paymentLoading_h] = useDisclosure(false)
 
   async function buy () {
     // try {
@@ -78,18 +80,26 @@ export const MarketCart = () => {
     //   console.log(err, 'err')
     // }
 
-    await pb.collection('orders').create({
-      total_cost: totalCost, 
-      total_amount: totalAmount,
-      products: cartItems,
-      status: 'created',
-      total_payed: totalCost,
+    // await pb.collection('orders').create({
+    //   total_cost: totalCost, 
+    //   total_amount: totalAmount,
+    //   products: cartItems,
+    //   status: 'created',
+    //   total_payed: totalCost,
       
-    })
+    // })
   }
 
   async function buyBefore () {
     
+  }
+
+  if (payment) {
+    return (
+      <div className='container-market market'>
+        asd
+      </div>
+    )
   }
 
   return (
@@ -124,7 +134,7 @@ export const MarketCart = () => {
             fullWidth
             className='mt-4'
             disabled={!terms}
-            onClick={buy}
+            onClick={() => payment_h.open()}
           >
             Заказать
           </Button>

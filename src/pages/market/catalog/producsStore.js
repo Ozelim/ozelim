@@ -1,10 +1,24 @@
 import { pb } from 'shared/api';
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware'
 
-const useProductsStore = create(persist((set, get) => ({
+const useProductsStore = create((set, get) => ({
     products: [],
     productsLoading: false,
+    searched: '',
+    clearSearched: () => {
+      set(() => ({searched: ''}))
+    },
+    getProductsBySearch: async (name) => {
+      set(() => ({productsLoading: true}))
+      await pb.collection('products').getList(1, 20, {
+        sort: '-created',
+        expand: 'agent, market_id',
+        filter: `status = 'posted' && (name ?~ '${name}' || name ?~ '${name}')`
+      })
+      .then(res => {
+        set(() => ({products: res, productsLoading: false, searched: name}))
+      })
+    },
     getProductsByCategory: async (page = 1, category) => {
       set(() => ({productsLoading: true}))
       await pb.collection('products').getList(page, 25, {
@@ -21,7 +35,7 @@ const useProductsStore = create(persist((set, get) => ({
       await pb.collection('products').getList(page = 1, 25, {
         sort: '-created',
         expand: 'agent, market_id',
-        filter: `status = 'posted' && sub_category = '${category}'`
+        filter : `status = 'posted' && sub_category = '${category}'`
       })
       .then(res => {
         set(() => ({products: res, productsLoading: false}))
@@ -40,10 +54,7 @@ const useProductsStore = create(persist((set, get) => ({
     },
     filterProducts: (option) => {
 
-    },
-    }),
-    {name: 'duken-store'}
-  )
+    }})
 );
 
 export {useProductsStore}

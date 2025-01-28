@@ -224,11 +224,11 @@ export const Rights = () => {
               <p className="px-4 text-center text">
                 {text?.text1}
               </p>
-              <div className='text-center'>
+              {/* <div className='text-center'>
                 <a href={headings?.link} target="_blank" className="underline text-blue-300">
                   Перейти по ссылке
                 </a>
-              </div>
+              </div> */}
               {/* <p className='mt-2 text-lg text-center'>{headings?.name}</p> */}
             </div>
             <div>

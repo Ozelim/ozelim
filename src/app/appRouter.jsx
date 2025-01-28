@@ -37,6 +37,7 @@ import { Test } from "pages/test/Test";
 import { ProfileCourse } from "pages/profile/ProfileCourse";
 import { profileLayout } from "./layouts/profileLayout";
 import { marketLayout } from "./layouts/marketLayout";
+import { Catalog } from "pages/market/catalog/catalog";
 
 const appRouter = createBrowserRouter([
   {element: baseLayout, children: [
@@ -78,6 +79,7 @@ const appRouter = createBrowserRouter([
     {path: 'cart', element: <MarketCart/>},
     {path: 'favorites', element: <Favorites/>},
     {path: 'weare', element: <Weare/>},
+    {path: 'catalog', element: <Catalog/>},
     // {path: 'chat/:id', element: <Chat/>},
     {path: 'product/:id', element: <ProductPage/>},
   ]},

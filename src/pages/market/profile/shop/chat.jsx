@@ -7,24 +7,15 @@ import { pb } from 'shared/api'
 import { useAuth } from 'shared/hooks'
 import { getImageUrl } from 'shared/lib'
 
-async function getChatsByUser(id) {
+async function getNotificationsChat (id) {
   return await pb.collection('chats').getFullList({
-    filter: `users ?~ "${id}"`,
-    expand: 'market_id',
+    filter: `type = 'notifications'`
   })
 }
 
-async function getChatsByMarket(id) {
+async function getMainChat (id) {
   return await pb.collection('chats').getFullList({
-    filter: `market_id = "${id}"`,
-    expand: 'market_id',
-  })
-}
-
-async function getChatById(id) {
-  return await pb.collection('chats').getFullList({
-    filter: `market_id = "${id}"`,
-    expand: 'market_id',
+    filter: `type = 'default' && user = '${id}'`
   })
 }
 
@@ -33,6 +24,7 @@ async function createChat(data) {
 }
 
 export const Chat = () => {
+
   const [params, setParams] = useSearchParams()
 
   const chatId = params.get('chatId')
@@ -45,62 +37,53 @@ export const Chat = () => {
 
   const messagesRef = React.useRef(null)
 
-  const selectedChat = chats?.filter((q) => q?.market_id === chatId)?.[0]
+  const selectedChat = chats?.filter((q) => q?.id === chatId)?.[0]
 
   async function handleChat() {
-    if (!user?.duken) {
-      let userChats = []
 
-      await getChatsByUser(user?.id).then((res) => {
-        setChats(res)
-        // userChats = res
+    const newChats = []
+
+      await getNotificationsChat().then(async (res) => {
+        newChats.push(res?.[0])
+
+        await getMainChat(user?.id)
+        .then(q => {
+          if (q?.length === 0) {
+            createChat({
+              user: user?.id,
+              type: 'default',
+            })
+            .then(res => {
+              newChats.push(res)
+              setChats(newChats)
+            })
+          }
+          newChats.push(q?.[0])
+          setChats(newChats)
+        })
+        .catch(err => {
+          console.log(err?.response, 'err');
+        })
       })
-      // .finally(() => {
-      //   getChatById(chatId)
-      //   .then(res => {
-      //     userChats.push(res)
-      //     setChats(userChats)
-      //   })
-      //   .catch(err => {
-      //     if (err?.response?.status === 404) {
-      //       createChat({market_id: chatId, users: [user?.id]})
-      //       .then(res => {
-      //         userChats.push(res)
-      //         setChats(userChats)
-      //       })
-      //     }
-      //   })
-      // })
-      return
-    }
-
-    getChatsByMarket(chatId).then((res) => {
-      setChats(res)
-    })
   }
 
   async function subscribeToChats() {
-    await pb.collection('chats').subscribe('*', function ({ action, record }) {
-      const updatedChats = chats?.map((item) => {
-        return item?.market_id == record?.market_id ? record : item
-      })
+    // await pb.collection('chats').subscribe('*', function ({ action, record }) {
+    //   const updatedChats = chats?.map((item) => {
+    //     return item?.id == record?.id ? record : item
+    //   })
 
-      console.log(chats, 'chats')
-      console.log(record, 'record')
-      console.log(updatedChats, 'updated')
-      if (updatedChats?.length !== 0) {
-        setChats(updatedChats)
-      }
-    })
+    //   if (updatedChats?.length !== 0) {
+    //     setChats(updatedChats)
+    //   }
+    // })
 
     // return pb.collection('chats').unsubscribe('*')
   }
 
-  console.log(chats, 'chats');
-  
 
   function selectChat(q) {
-    params.set('chatId', q?.market_id)
+    params.set('chatId', q?.id)
     setParams(params)
   }
 
@@ -142,7 +125,6 @@ export const Chat = () => {
 
   return (
     <div className="market ">
-      {/* <p>Чат с магазином</p> */}
       <div className="grid lg:grid-cols-[30%_auto] border mt-4 rounded-xl overflow-hidden min-h-[45vh]">
         <div className="flex flex-col overflow-y-auto">
           {chats?.map((q, i) => {
@@ -151,19 +133,27 @@ export const Chat = () => {
                 className={clsx(
                   'flex gap-2 items-center border-t p-3 pr-0 first:border-t-0 cursor-pointer',
                   {
-                    'bg-red-600 text-white': selectedChat?.market_id === q?.market_id,
+                    'bg-red-600 text-white': selectedChat?.id === q?.id,
                   }
                 )}
                 key={i}
                 onClick={() => selectChat(q)}
               >
-                <img
-                  src={getImageUrl(q?.expand?.market_id, q?.expand?.market_id?.image)}
-                  alt=""
-                  className="w-14 h-14 object-cover rounded-full"
-                />
+                {q?.image ? (
+                  <img
+                    src={getImageUrl(q, q?.image)}
+                    alt=""
+                    className="w-14 h-14 object-cover rounded-full"
+                  />
+                ) : (
+                  <img
+                    src={'https://pbs.twimg.com/media/GV4Rqt2XEAAQotY?format=jpg&name=4096x4096'}
+                    alt=""
+                    className="w-14 h-14 object-cover rounded-full"
+                  />
+                )}
                 <div>
-                  <Text lineClamp={1}>{q?.expand?.market_id?.name}</Text>
+                  <Text lineClamp={1}>{q?.name ? q?.name : 'Чат со службой поддержки'}</Text>
                   <Text
                     lineClamp={1}
                     size="sm"
@@ -180,16 +170,16 @@ export const Chat = () => {
           <div className="flex gap-4 justify-center items-center mt-3 border-b pb-3">
             <img
               src={getImageUrl(
-                selectedChat?.expand?.market_id,
-                selectedChat?.expand?.market_id?.image
+                selectedChat,
+                selectedChat?.image
               )}
               alt=""
               className="w-14 h-14 object-cover rounded-full"
             />
             <div className="flex flex-col justify-center">
-              <p>{selectedChat?.expand?.market_id?.name}</p>
+              <p>{selectedChat?.name}</p>
               <Text lineClamp={1} size="sm" color="gray.6" className="max-w-xs">
-                {selectedChat?.expand?.market_id?.description}
+                {selectedChat?.description}
               </Text>
             </div>
           </div>
@@ -226,10 +216,11 @@ export const Chat = () => {
               value={message ?? ''}
               onChange={(e) => setMessage(e.currentTarget.value)}
               rightSection={
-                <ActionIcon onClick={sendMessage}>
+                <ActionIcon onClick={sendMessage} disabled={selectedChat?.type === 'notifications'}>
                   <AiOutlineSend size={30} />
                 </ActionIcon>
               }
+              disabled={selectedChat?.type === 'notifications'}
               // classNames={{
               //   input: 'h-full w-full'
               // }}

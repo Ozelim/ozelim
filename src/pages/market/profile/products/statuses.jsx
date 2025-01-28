@@ -4,20 +4,13 @@ import { Product } from 'pages/market/product'
 import {
   ActionIcon,
   Button,
-  CloseButton,
-  FileButton,
   LoadingOverlay,
   Modal,
-  Rating,
-  Select,
-  Text,
-  TextInput,
-  Textarea,
 } from '@mantine/core'
 
 import { useDisclosure } from '@mantine/hooks'
 import { ProductPage } from 'pages'
-import { cities, formatNumber, getImageUrl } from 'shared/lib'
+import { cities, getImageUrl } from 'shared/lib'
 import { openConfirmModal } from '@mantine/modals'
 import { useCategoriesStore } from 'pages/market/categoriesStore'
 import { useShopStore } from '../shop/shopStore'
@@ -30,7 +23,7 @@ import { showNotification } from '@mantine/notifications'
 import { useSearchParams } from 'react-router-dom'
 import { EditProduct } from './edit-product'
 
-export const Products = () => {
+export const Statuses = () => {
   
   const [params, setParams] = useSearchParams()
 
@@ -189,7 +182,7 @@ export const Products = () => {
           </div>
         </div> */}
 
-        {/* <div className="space-y-2">
+        <div className="space-y-2">
           <p className="text-lg">На модерации</p>
           <div className="grid grid-cols-5 gap-x-4 gap-y-6">
             {onModeration?.map((q, i) => {
@@ -200,9 +193,9 @@ export const Products = () => {
               )
             })}
           </div>
-        </div> */}
+        </div>
 
-        {/* <div className="mt-8 space-y-2">
+        <div className="mt-8 space-y-2">
           <p className="text-lg">Ожидающие</p>
           <div className="grid grid-cols-5 gap-x-4 gap-y-6">
             {waiting?.map((q, i) => {
@@ -228,36 +221,15 @@ export const Products = () => {
               )
             })}
           </div>
-        </div> */}
+        </div>
 
-        <div className="space-y-2">
-          <p className="text-lg">Все товары</p>
-          <div className="flex flex-col gap-x-4 gap-y-6">
+        <div className="mt-8 space-y-2">
+          <p className="text-lg">Опубликованные</p>
+          <div className="grid grid-cols-5 gap-x-4 gap-y-6">
             {posted?.map((q, i) => {
               return (
-                <div className="flex gap-4 border p-3" key={i}>
-                  <div className='flex gap-3'>
-                    <img src={getImageUrl(q, q?.pics?.[0])} alt="" className="w-40 h-40 object-cover" />
-                    <div className='max-w-sm space-y-2 my-auto'>
-                      <Text>{q?.name}</Text>
-                      <Text lineClamp={2} weight={400}>{q?.description}</Text>
-                      <p>{formatNumber(q?.price)} ₸</p>
-                      <div className='flex gap-3'>
-                        <Rating readOnly value={q?.rating} fractions={3} /> ({q?.reviews_count})
-                      </div>
-                    </div>
-                  </div>
-                  <div className='grid grid-cols-2 gap-3 max-w-sm w-full'>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                  </div>
-                  <div className='ml-auto flex flex-col gap-3'>
-                    <Button compact>Добавить в скидку</Button>
-                    <Button compact>Редактировать</Button>
-                  </div>
-                  {/* <Product
+                <div className="mx-auto" key={i}>
+                  <Product
                     product={q}
                     preview
                     buttons={
@@ -273,7 +245,7 @@ export const Products = () => {
                         </ActionIcon>
                       </div>
                     }
-                  /> */}
+                  />
                 </div>
               )
             })}

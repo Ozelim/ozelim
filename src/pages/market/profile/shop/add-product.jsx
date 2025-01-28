@@ -28,7 +28,7 @@ import "react-quill/dist/quill.snow.css";
 import { FaPlus } from 'react-icons/fa'
 import { set } from 'react-hook-form'
 
-export const Shop = () => {
+export const AddProduct = () => {
 
   const { user } = useAuth()
   const { shop } = useShopStore()
@@ -336,8 +336,6 @@ export const Shop = () => {
           </>
         )}
 
-        {console.log(variants)}
-        
         <div className="flex justify-center mt-4">
           <Button onClick={saveoption}>
             Сохранить

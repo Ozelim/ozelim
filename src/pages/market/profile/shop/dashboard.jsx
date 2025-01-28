@@ -2,12 +2,15 @@ import React from 'react'
 import { MantineProvider, clsx, createEmotionCache } from '@mantine/core'
 import { useSearchParams } from 'react-router-dom'
 import { useAuth } from 'shared/hooks'
-import { Shop } from './shop'
+import { AddProduct } from './add-product'
 import { User } from './user'
 import { useShopStore } from './shopStore'
 import { Products } from '../products/products'
 import { Reviews } from './reviews'
 import { Chat } from './chat'
+import { Statuses } from '../products/statuses'
+import { Stats } from './stats'
+import { Orders } from './orders'
 
 const cache = createEmotionCache({
   key: 'mantine',
@@ -28,10 +31,11 @@ export const Dashboard = () => {
   const array = [
     { label: 'Общее', path: 'stats' },
     { label: 'Профиль', path: 'user' },
-    { label: 'Магазин', path: 'shop' },
+    { label: 'Добавление товара', path: 'add-product' },
+    { label: 'Статусы', path: 'statuses' },
     { label: 'Товары', path: 'products' },
     { label: 'Отзывы', path: 'reviews' },
-    { label: 'Сообщения', path: 'messages' },
+    { label: 'Заказы', path: 'orders' },
   ]
 
   function handleTab(e) {
@@ -51,7 +55,7 @@ export const Dashboard = () => {
     >
       <div className=" market">
         <div className="grid grid-cols-[200px_auto]">
-          <div className="flex flex-col border shadow-md bg-pink-600 h-screen">
+          <div className="flex flex-col border bg-pink-600 h-screen">
             {array.map((page, i) => {
               return (
                 <div
@@ -67,12 +71,13 @@ export const Dashboard = () => {
             })}
           </div>
           <div className="p-4">
-            {params.get('tab') === 'stats' && <></>}
+            {params.get('tab') === 'stats' && <Stats/>}
             {params.get('tab') === 'user' && <User />}
-            {params.get('tab') === 'shop' && <Shop />}
+            {params.get('tab') === 'add-product' && <AddProduct />}
             {params.get('tab') === 'products' && <Products />}
+            {params.get('tab') === 'statuses' && <Statuses />}
             {params.get('tab') === 'reviews' && <Reviews/>}
-            {params.get('tab') === 'messages' && <Chat/>}
+            {params.get('tab') === 'orders' && <Orders/>}
           </div>
         </div>
       </div>

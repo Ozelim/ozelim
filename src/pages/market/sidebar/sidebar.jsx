@@ -37,7 +37,7 @@ export const Sidebar = () => {
             <div className='p-3 ' key={i}>
               <button 
                 onClick={() => handleCategory(q?.label)}
-                className={clsx('text-sm', {
+                className={clsx('text-sm text-left', {
                   'text-pink-600': params?.get('cat') === q?.label
                 })}
               >
@@ -48,12 +48,14 @@ export const Sidebar = () => {
                   return (
                     <li key={i}>
                       <button 
-                        className={clsx('text-sm', {  
+                        className={clsx('text-sm !text-left', {  
                           'text-pink-600': params?.get('sub') === w?.label
                         })} 
                         onClick={() => handleSubCategory(q?.label, w?.label)}
                       >
-                        {w?.label}
+                        <span className='!text-left'>
+                          {w?.label}
+                        </span>
                       </button>
                     </li>
                   ) 

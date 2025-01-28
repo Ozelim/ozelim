@@ -1,0 +1,1 @@
+export {MarketFooter} from './market-footer'

@@ -4,19 +4,25 @@ import { Sidebar } from './sidebar/sidebar'
 import { MarketCarousel } from './carousel/market-carousel'
 import { useCartStore } from './cart/cartStore'
 import { useCategoriesStore } from './categoriesStore'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import { useProductsStore } from './catalog/producsStore'
+import { Product } from './product'
 
 export const Market = () => {
 
+  const {products, clearSearched} = useProductsStore()
+
+  
+
   return (
     <div className='w-full '>
-      <div className="border-b w-full ">
+      <div className="border-b w-full">
         <div className='grid grid-cols-[13%_auto] mx-auto container-market market'>
           <p className='text-lg ml-3 uppercase py-4 border-r'>
             все Категории
           </p>
           <div className='px-6 flex gap-4 text-lg py-4 uppercase'>
-            <p>Каталог</p>
+            <Link to={'/market/catalog'}>Каталог</Link>
             <Link to={'/market/weare'}>О нас</Link>
             <p>Доставка</p>
             <p>Гарантия</p>
@@ -31,8 +37,22 @@ export const Market = () => {
           </div>
         </div>
       </div>
-      <div className='mt-8 '>
-        <Catalog/>
+      <div className='grid grid-cols-6 gap-4 mt-8'>
+        {products?.items?.map((q, i) => {
+          return (
+            <div className="mx-auto" key={i}>
+              <Product product={q} />
+            </div>
+          )
+        })}
+      </div>
+      <div className="w-full bg-primary-500 py-8">
+        <div className="container-market text-white market">
+          <div className="grid grid-cols-2 gap-4">
+            <div className='text-2xl'>Подпишитесь на наши обновления</div>
+            <div></div>
+          </div>
+        </div>
       </div>
     </div>
   )

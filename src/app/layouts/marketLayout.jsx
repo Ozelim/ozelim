@@ -12,6 +12,7 @@ import dayjs from 'dayjs'
 import { ImageModal } from 'shared/ui'
 import { LangProvider } from "app/langContext";
 import { MarketNavbar } from 'widgets/market/navbar';
+import { MarketFooter } from 'widgets/market/footer';
 
 import 'dayjs/locale/ru'
 
@@ -42,7 +43,7 @@ export const marketLayout = (
         >
         <NewLayout
           headerSlot={<MarketNavbar/>}
-          footerSlot={<Footer/>}
+          footerSlot={<MarketFooter/>}
         />
         <Notifications position='top-right'/>
       </ModalsProvider>
