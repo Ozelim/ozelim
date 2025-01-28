@@ -431,6 +431,8 @@ export const Withdraw = ({bonuses}) => {
   React.useEffect(() => {
     getReplenishes(user?.id)
     .then(res => {
+      console.log(res, 'res replenish');
+      
       if (res.length === 0) return
       res.map(async (q, i) => {
         await checkReplenishStatus(q)
