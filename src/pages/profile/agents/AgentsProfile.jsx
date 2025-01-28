@@ -171,7 +171,6 @@ export const AgentsProfile = () => {
     })
   }, [])
 
-
   function signout () {
     pb.authStore.clear()
     window.location.reload()
