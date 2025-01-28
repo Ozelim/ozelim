@@ -713,7 +713,7 @@ export const AgentsProfile = () => {
                                   'YY-MM-DD, hh:mm'
                                 )}
                               </td>
-                              <td className="text-black">Система</td>
+                              <td className="text-black">Реферал</td>
                               <td>{q?.referal}</td>
                               <td className='text-green-500'>+ {formatNumber(q?.sum)}</td>
                             </tr>
