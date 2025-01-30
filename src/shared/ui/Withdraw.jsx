@@ -913,7 +913,7 @@ export const Withdraw = ({bonuses}) => {
         title='Услуги'
       >
         <div>
-          {bids.map((bid, i) => {
+          {bids?.map((bid, i) => {
             return bid?.serv1ce?.map((service, index) => {
               return ( 
                 <div 
@@ -931,11 +931,12 @@ export const Withdraw = ({bonuses}) => {
               )            
             })
           })}
-          <p className='mt-4'>Общая стоиомсть: {totalCost(bids, 'total_cost')}</p>
+          <p className='mt-4'>Общая стоиомсть: {totalCost(bids, 'total_cost')} тг</p>
+          <p className='mt-4'>{bids?.[0]?.cost?.bonuses !== 0 && 'Потрачено бонусов'}: {totalCost(bids, 'total_cost')} тг</p>
           <div className='flex mt-5 gap-4 justify-center'>
             <Popover position="bottom" withArrow shadow="md">
               <Popover.Target>
-                <Button color='red' variant='outline'>Отменить </Button>
+                <Button color='red' variant='outline'>Отменить</Button>
               </Popover.Target>
               <Popover.Dropdown>
                 <Button onClick={async () => {
