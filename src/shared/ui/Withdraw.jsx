@@ -260,7 +260,8 @@ export const Withdraw = ({bonuses}) => {
     })
     .then(async res => {
       await pb.collection(user?.collectionName).update(user.id, {
-        'balance-': payBonuses ? totalCost(addedServices) - user?.bonuses : totalCost(addedServices)
+        'balance-': payBonuses ? totalCost(addedServices) - user?.bonuses : totalCost(addedServices),
+        'bonuses-': user?.bonuses,
       })
       .then(() => {
         setServiceLoading(false)
