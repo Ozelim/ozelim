@@ -841,7 +841,7 @@ export const AgentsProfile = () => {
               Сумма возврата:
             </span> 
             <span className='font-bold'>
-              {(cancel?.bid?.total_cost - (cancel?.bid?.total_cost)).toFixed(0)} тг
+              {(cancel?.bid?.total_cost - (cancel?.bid?.total_cost))?.toFixed(0)} тг
             </span>
           </p>
           <p className='flex gap-2 mt-4 text-lg'>
@@ -849,7 +849,7 @@ export const AgentsProfile = () => {
               Карта:
             </span> 
             <span className='font-bold'>
-              {(cancel?.bid?.costs?.card).toFixed(0)} тг
+              {(cancel?.bid?.costs?.card)?.toFixed(0)} тг
             </span>
           </p>
           {cancel?.bid?.pay_bonuses && (
@@ -858,7 +858,7 @@ export const AgentsProfile = () => {
                 Бонусы:
               </span> 
               <span className='font-bold'>
-                {(cancel?.bid?.costs?.bonuses).toFixed(0)} тг
+                {(cancel?.bid?.costs?.bonuses)?.toFixed(0)} тг
               </span>
             </p>
           )}
