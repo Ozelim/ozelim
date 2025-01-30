@@ -443,7 +443,6 @@ export const Withdraw = ({bonuses}) => {
         costs: {
           bonuses: payBonuses ? user?.bonuses : 0,
           card: totalCost(addedServices) - user?.bonuses,
-          total_cost: totalCost(addedServices),
         },
         pay_bonuses: payBonuses,
         status: 'waiting',
@@ -933,7 +932,10 @@ export const Withdraw = ({bonuses}) => {
           })}
           <p className='mt-4'>Общая стоиомсть: {formatNumber(totalCost(bids, 'total_cost'))} тг</p>
           {bids?.[0]?.pay_bonuses && (
-            <p className='mt-1'>Потрачено бонусов: {formatNumber(bids?.[0]?.costs?.bonuses)} тг</p>
+            <>
+              <p className='mt-1'>Потрачено бонусов: {formatNumber(bids?.[0]?.costs?.bonuses)} тг</p>
+              <p className='mt-1'>К оплате: {formatNumber(bids?.[0]?.costs?.total_cost)} тг</p>
+            </>
           )}
           <div className='flex mt-5 gap-4 justify-center'>
             <Popover position="bottom" withArrow shadow="md">
