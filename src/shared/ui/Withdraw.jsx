@@ -253,7 +253,7 @@ export const Withdraw = ({bonuses}) => {
       pay: null,
       costs: {
         bonuses: payBonuses ? user?.bonuses : 0,
-        balance: totalCost(addedServices) - user?.bonuses,
+        balance: payBonuses ? totalCost(addedServices) - user?.bonuses : totalCost(addedServices),
         total_cost: totalCost(addedServices),
       },
       pay_bonuses: payBonuses
