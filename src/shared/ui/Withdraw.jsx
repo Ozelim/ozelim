@@ -934,7 +934,7 @@ export const Withdraw = ({bonuses}) => {
           {bids?.[0]?.pay_bonuses && (
             <>
               <p className='mt-1'>Потрачено бонусов: {formatNumber(bids?.[0]?.costs?.bonuses)} тг</p>
-              <p className='mt-1'>К оплате: {formatNumber(bids?.[0]?.costs?.total_cost)} тг</p>
+              <p className='mt-1'>К оплате: {formatNumber(bids?.[0]?.costs?.card)} тг</p>
             </>
           )}
           <div className='flex mt-5 gap-4 justify-center'>
