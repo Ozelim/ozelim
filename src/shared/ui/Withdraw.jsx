@@ -258,12 +258,15 @@ export const Withdraw = ({bonuses}) => {
         window.location.reload()
       })
       .catch(() => {
+        console.log(err, 'balance err');
         setServiceLoading(false)
       })
     })
-    .catch(() => {
+    .catch((err) => {
       setServiceLoading(false)
-      window.location.reload()
+      console.log(err, 'creation err');
+      
+      // window.location.reload()
     })
   }
 

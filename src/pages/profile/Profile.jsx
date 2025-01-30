@@ -763,6 +763,8 @@ export const Profile = () => {
     return <></>
   }
 
+  if (user?.collectionName === 'merchants') return
+
   // if (searchParams.get('course') === user?.id && user?.verified) return <ProfileCourse/>
 
   if (!user?.verified) {

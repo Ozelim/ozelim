@@ -31,6 +31,7 @@ import { About,
   ProductPage,
   Favorites,
   Weare,
+  Club,
 } from "pages";
 import { baseLayout } from "./layouts/baseLayout";
 import { Test } from "pages/test/Test";
@@ -69,8 +70,6 @@ const appRouter = createBrowserRouter([
     {path: '/tourist', element: <Tourist/>},
     // {path: '/home', element: <Home/>},
     {path: '/test-1&7-results', element: <Tester/>},
-    
-    // {path: '/market', element: <Market/>},
   ]},
 
   {element: marketLayout, path: '/market', children: [
@@ -80,6 +79,7 @@ const appRouter = createBrowserRouter([
     {path: 'favorites', element: <Favorites/>},
     {path: 'weare', element: <Weare/>},
     {path: 'catalog', element: <Catalog/>},
+    {path: 'join-club', element: <Club/>},
     // {path: 'chat/:id', element: <Chat/>},
     {path: 'product/:id', element: <ProductPage/>},
   ]},

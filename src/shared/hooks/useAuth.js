@@ -6,15 +6,16 @@ async function getUser (userId, type) {
 
   if (type === 'users') return await pb.collection(type).getOne(userId, {expand: 'sponsor'})
   if (type === 'agents') return await pb.collection(type).getOne(userId, {expand: `creeps.creeps.creeps, sponsor`})
+  if (type === 'merchants') return await pb.collection(type).getOne(userId, {expand: `creeps.creeps.creeps, sponsor`})
 }
 
 export const useAuth = () => {
 
-  const [user, setUser] = React.useState(pb.authStore.model ?? null)
+  const [user, setUser] = React.useState(pb.authStore.record ?? null)
   const [loading, setLoading] = React.useState(true)
 
   function handleUser () {
-    getUser(pb.authStore.model?.id, pb.authStore?.model?.collectionName)
+    getUser(pb.authStore.record?.id, pb.authStore?.record?.collectionName)
     .then((res) => {
       setUser(res)
     })
@@ -22,7 +23,7 @@ export const useAuth = () => {
 
   React.useEffect(() => {
     handleUser()
-    pb.collection(pb.authStore?.model?.collectionName).subscribe(pb.authStore.model?.id, (e) => {
+    pb.collection(pb.authStore?.record?.collectionName).subscribe(pb.authStore.record?.id, (e) => {
       // both operations will trigger the authStore.onChange listener
       if (e.action == "delete") {
           pb.authStore.clear();
