@@ -572,9 +572,10 @@ export const Withdraw = ({bonuses}) => {
         setServiceLoading(false)
       })
     })
-    .catch(() => {
+    .catch((err) => {
       setServiceLoading(false)
-      window.location.reload()
+      console.log(err, 'creation error');
+      // window.location.reload()
     })
   }
 
