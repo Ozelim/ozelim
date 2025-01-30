@@ -841,9 +841,27 @@ export const AgentsProfile = () => {
               Сумма возврата:
             </span> 
             <span className='font-bold'>
-              {(cancel?.bid?.total_cost - (cancel?.bid?.total_cost * 0.05)).toFixed(0)} тг
+              {(cancel?.bid?.total_cost - (cancel?.bid?.total_cost)).toFixed(0)} тг
             </span>
           </p>
+          <p className='flex gap-2 mt-4 text-lg'>
+            <span>
+              Карта:
+            </span> 
+            <span className='font-bold'>
+              {(cancel?.bid?.costs?.card).toFixed(0)} тг
+            </span>
+          </p>
+          {cancel?.bid?.pay_bonuses && (
+            <p className='flex gap-2 mt-4 text-lg'>
+              <span>
+                Бонусы:
+              </span> 
+              <span className='font-bold'>
+                {(cancel?.bid?.costs?.bonuses).toFixed(0)} тг
+              </span>
+            </p>
+          )}
           <Radio.Group
             label="Выберите куда вернуть средства"
             withAsterisk
