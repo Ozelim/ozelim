@@ -21,6 +21,7 @@ import mastercard from 'shared/assets/images/mastercard.png'
 import { Quiz } from 'modules/Quiz'
 
 import market from 'shared/assets/images/agent.png'
+import { openConfirmModal } from '@mantine/modals'
 
 const cache = createEmotionCache({
   key: 'profile-mantine',
