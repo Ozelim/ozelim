@@ -932,7 +932,9 @@ export const Withdraw = ({bonuses}) => {
             })
           })}
           <p className='mt-4'>Общая стоиомсть: {formatNumber(totalCost(bids, 'total_cost'))} тг</p>
-          <p className='mt-1'>{bids?.[0]?.costs?.bonuses !== 0 && 'Потрачено бонусов'}: {formatNumber(bids?.[0]?.costs?.bonuses)} тг</p>
+          {bids?.[0]?.pay_bonuses && (
+            <p className='mt-1'>Потрачено бонусов: {formatNumber(bids?.[0]?.costs?.bonuses)} тг</p>
+          )}
           <div className='flex mt-5 gap-4 justify-center'>
             <Popover position="bottom" withArrow shadow="md">
               <Popover.Target>
