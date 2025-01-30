@@ -452,9 +452,14 @@ export const Withdraw = ({bonuses}) => {
           pay_url: `https://jpay.jysanbank.kz/ecom/api?${searchParams}`,
         }
       })
-      .then(() => {
-        setServiceLoading(false)
-        window.location.href = `https://jpay.jysanbank.kz/ecom/api?${searchParams}`;
+      .then(async () => {
+        await pb.collection(user?.collectionName).update(user?.id, {
+          bonuses: 0 
+        })
+        .then(() => {
+          setServiceLoading(false)
+          window.location.href = `https://jpay.jysanbank.kz/ecom/api?${searchParams}`;
+        })
       })
       .catch(() => {
         setServiceLoading(false)
