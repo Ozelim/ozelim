@@ -299,7 +299,7 @@ export const AgentsProfile = () => {
     iin: '',
   })
 
-  const confirmRefundBalance = (bid, onclose, com) => openConfirmModal({
+  const confirmRefundBalance = (bid, onclose) => openConfirmModal({
     title: 'Подтвердите действие',
     centered: true,
     children: 'Отменить услугу и вернуть средства на баланс?',
@@ -307,13 +307,14 @@ export const AgentsProfile = () => {
     onConfirm: async () => {
       await pb.collection('service_bids').update(bid?.id, {
         status: 'cancelled',
-        total_cost2: (bid?.total_cost - (bid?.total_cost * 0.05)).toFixed(0),
+        total_cost2: bid?.total_cost,
         refunded: true,
-        refunded_sum: com ? (bid?.total_cost - (bid?.total_cost * 0.05)).toFixed(0) : bid?.total_cost,
+        refunded_sum: bid?.total_cost - bid?.cost?.bonuses ?? 0,
       })
       .then(async () => {
         await pb.collection('agents').update(user?.id, {
-          'balance+': com ? (bid?.total_cost - (bid?.total_cost * 0.05)).toFixed(0) : bid?.total_cost
+          'balance+': bid?.total_cost - bid?.costs?.bonuses ?? 0,
+          'bonuses+': bid?.costs?.bonuses ?? 0
         })
         .then(() => {
           window.location.reload()
@@ -323,7 +324,7 @@ export const AgentsProfile = () => {
     onClose: onclose ? () => {setCancel({...cancel, modal: true})} : () => {}
   })
 
-  const confirmRefundBonuses = (bid, onclose, com) => openConfirmModal({
+  const confirmRefundBonuses = (bid, onclose) => openConfirmModal({
     title: 'Подтвердите действие',
     centered: true,
     children: 'Отменить услугу и вернуть бонусы?',
@@ -331,13 +332,13 @@ export const AgentsProfile = () => {
     onConfirm: async () => {
       await pb.collection('service_bids').update(bid?.id, {
         status: 'cancelled',
-        total_cost2: (bid?.total_cost - (bid?.total_cost * 0.05)).toFixed(0),
+        total_cost2: bid?.total_cost,
         refunded: true,
-        refunded_sum: com ? (bid?.total_cost - (bid?.total_cost * 0.05)).toFixed(0) : bid?.total_cost,
+        refunded_sum: bid?.total_cost - bid?.costs?.bonuses ?? 0,
       })
       .then(async () => {
         await pb.collection('agents').update(user?.id, {
-          'bonuses+': com ? (bid?.total_cost - (bid?.total_cost * 0.05)).toFixed(0) : bid?.total_cost
+          'bonuses+': bid?.costs?.bonuses ?? 0
         })
         .then(() => {
           window.location.reload()
@@ -355,7 +356,7 @@ export const AgentsProfile = () => {
     onConfirm: async () => {
       await pb.collection('service_bids').update(cancel?.bid?.id, {
         status: 'refunded',
-        total_cost2: (cancel?.bid?.total_cost - (cancel?.bid?.total_cost * 0.05)).toFixed(0),
+        total_cost2: cancel?.bid?.costs?.card,
         refund_data: {...refund}
       })
       .then(() => {
