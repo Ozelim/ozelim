@@ -558,7 +558,12 @@ export const Withdraw = ({bonuses}) => {
       status: 'created',
       total_cost: totalCost(addedServices),
       pay: null,
-      bonuses: true
+      bonuses: true,
+      costs: {
+        bonuses: totalCost(addedServices),
+        balance: 0,
+        total_cost: totalCost(addedServices),
+      },
     })
     .then(async res => {
       await pb.collection(user?.collectionName).update(user.id, {

@@ -337,7 +337,7 @@ export const AgentsProfile = () => {
         refunded_sum: bid?.total_cost - bid?.costs?.bonuses ?? 0,
       })
       .then(async () => {
-        await pb.collection('agents').update(user?.id, {
+        await pb.collection(user?.collectionName).update(user?.id, {
           'bonuses+': bid?.costs?.bonuses ?? 0
         })
         .then(() => {
