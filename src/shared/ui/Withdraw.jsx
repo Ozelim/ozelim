@@ -439,7 +439,7 @@ export const Withdraw = ({bonuses}) => {
         comment,
         name,
         ...(user?.collectionName === 'agents' ? {agent: user?.id} : {user: user?.id}),
-        total_cost: data?.AMOUNT,
+        total_cost: totalCost(addedServices),
         costs: {
           bonuses: payBonuses ? user?.bonuses : 0,
           card: totalCost(addedServices) - user?.bonuses,
