@@ -243,7 +243,7 @@ export const Withdraw = ({bonuses}) => {
     await pb.collection('service_bids').create({
       services: [...addedServices.map(q => q.id)],
       serv1ce: [...addedServices],      
-      ...(user?.collectionName === 'agents' ? {user: user?.id} : {agent: user?.id}),
+      ...(user?.collectionName === 'agents' ? {agent: user?.id} : {user: user?.id}),
       name,
       status: 'created',
       total_cost: totalCost(addedServices),
