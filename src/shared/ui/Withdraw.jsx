@@ -1,11 +1,11 @@
 import React from 'react'
 import { useDisclosure } from '@mantine/hooks'
-import { Button, Group, LoadingOverlay, Modal, NumberInput, PinInput, Popover, Select, Tabs, TextInput, Textarea } from '@mantine/core'
+import { Button, Checkbox, Group, LoadingOverlay, Modal, NumberInput, PinInput, Popover, Select, Tabs, TextInput, Textarea } from '@mantine/core'
 import { pb } from 'shared/api'
 import { openConfirmModal } from '@mantine/modals'
 import { useAuth } from 'shared/hooks'
 import { showNotification } from '@mantine/notifications'
-import { arraysContainSameItemsById, totalCost } from 'shared/lib'
+import { arraysContainSameItemsById, formatNumber, totalCost } from 'shared/lib'
 import { sha512 } from 'js-sha512'
 import axios from 'axios'
 
@@ -222,6 +222,8 @@ export const Withdraw = ({bonuses}) => {
 
   const [serviceLoading, setServiceLoading] = React.useState(false)
 
+  const [payBonuses, payBonuses_h] = useDisclosure()
+
   function handleServiceAdd () {
     setModals({...modals, confirm: false, services: true})
   }
@@ -229,6 +231,7 @@ export const Withdraw = ({bonuses}) => {
   function handleServiceClose () {
     setModals({...modals, confirm: false})
     setAddedServices([])
+    payBonuses_h.close()
   }
 
   React.useEffect(() => {
@@ -248,10 +251,16 @@ export const Withdraw = ({bonuses}) => {
       status: 'created',
       total_cost: totalCost(addedServices),
       pay: null,
+      costs: {
+        bonuses: payBonuses ? user?.bonuses : 0,
+        balance: totalCost(addedServices) - user?.bonuses,
+        total_cost: totalCost(addedServices),
+      },
+      pay_bonuses: payBonuses
     })
     .then(async res => {
       await pb.collection(user?.collectionName).update(user.id, {
-        'balance-': totalCost(addedServices)
+        'balance-': payBonuses ? totalCost(addedServices) - user?.bonuses : totalCost(addedServices)
       })
       .then(() => {
         setServiceLoading(false)
@@ -393,9 +402,11 @@ export const Withdraw = ({bonuses}) => {
     const randomNumber = Math.floor(Math.random() * 100000000)
     const token = import.meta.env.VITE_APP_SHARED_SECRET
 
+    const AMOUNT = payBonuses ? totalCost(addedServices) - user?.bonuses : totalCost(addedServices)
+
     const data = {
       ORDER: randomNumber,
-      AMOUNT: totalCost(addedServices),
+      AMOUNT: AMOUNT,
       CURRENCY: 'KZT',
       MERCHANT:'110-R-113431490',
       TERMINAL: '11371491',
@@ -429,6 +440,12 @@ export const Withdraw = ({bonuses}) => {
         name,
         ...(user?.collectionName === 'agents' ? {agent: user?.id} : {user: user?.id}),
         total_cost: data?.AMOUNT,
+        costs: {
+          bonuses: payBonuses ? user?.bonuses : 0,
+          card: totalCost(addedServices) - user?.bonuses,
+          total_cost: totalCost(addedServices),
+        },
+        pay_bonuses: payBonuses,
         status: 'waiting',
         pay: {
           ...data,
@@ -777,7 +794,25 @@ export const Withdraw = ({bonuses}) => {
             onChange={e => setName(e.currentTarget.value)}
             description='Обязательное поле'
           />
-          <p className='mt-4'>Общая стоимость: {totalCost(addedServices)}</p>
+          <div className='flex gap-3 items-center mt-4 justify-between'>
+            <p> <span className='text-gray-500 text-sm'>Общая стоимость:</span>  {formatNumber(totalCost(addedServices))} тг</p>
+              {user?.bonuses < totalCost(addedServices) && (
+                <div className='flex gap-2'>
+                  <Checkbox  id='c' name='c' checked={payBonuses} onChange={() => payBonuses_h.toggle()} />
+                  <label onClick={() => payBonuses_h.toggle()} htmlFor='ccc' className='text-gray-500 text-sm'>потратить бонусы</label>
+                </div>
+              )}
+          </div>
+          {payBonuses && (
+            <>
+              <p className='flex gap-3 items-center mt-1'>
+                <span className='text-gray-500 text-sm'>
+                  Потрачено бонусов:</span> - {formatNumber(user?.bonuses)} тг
+              </p>
+              <p><span className='text-gray-500 text-sm'>К оплате</span>: {formatNumber(payBonuses ? totalCost(addedServices) - user?.bonuses : totalCost(addedServices))} тг</p>
+            </>
+          )}
+
           <Textarea
             className='mt-4'
             label='Комментарий'
@@ -789,19 +824,21 @@ export const Withdraw = ({bonuses}) => {
             <div className='p-2 flex flex-col  border rounded-primary shadow-md bg-white max-w-xs w-full text-center'>
               {/* <p className='text'>Онлайн оплата с помощью баланса в профиле</p> */}
               <p className='text-lg font-bold mt-2 grow'>
-                Баланс: <br className='md:block hidden'/><span className='font-normal'>{user?.balance}</span> 
+                Баланс: <br className='md:block hidden'/><span className='font-normal'>{formatNumber(user?.balance)}</span> 
               </p>
               <Button 
                 className='mt-4 flex-shrink'
                 onClick={buyServiceWithBalance}
-                disabled={(totalCost(addedServices) > user?.balance) || (name.length < 2) || addedServices.length === 0 || bids?.length == 1}
+                disabled={((totalCost(addedServices) - (payBonuses ? user?.bonuses : 0)) > user?.balance) || (name.length < 2) || addedServices.length === 0 || bids?.length == 1}
               >
                 Оплатить
               </Button>
             </div>
             <div className='p-2 flex flex-col  border rounded-primary shadow-md bg-white max-w-xs w-full text-center'>
               <p className='text-lg font-bold mt-2 grow'>
-                Бонусы: <span className='font-normal'>{user?.bonuses}</span> 
+                Бонусы: <br className='md:block hidden'/> <span className='font-normal'>
+                  {formatNumber(payBonuses ? 0 : user?.bonuses)}
+                </span> 
               </p>
               <Button 
                 className='mt-4 flex-shrink'
