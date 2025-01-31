@@ -248,6 +248,7 @@ export const Withdraw = ({bonuses}) => {
       serv1ce: [...addedServices],      
       ...(user?.collectionName === 'agents' ? {agent: user?.id} : {user: user?.id}),
       name,
+      comment,
       status: 'created',
       total_cost: totalCost(addedServices),
       pay: null,
