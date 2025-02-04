@@ -7,16 +7,15 @@ import ReactQuill from 'react-quill'
 import { useSearchParams } from 'react-router-dom'
 import { pb } from 'shared/api'
 import { openConfirmModal } from '@mantine/modals'
-import { useDisclosure } from '@mantine/hooks'
+import { randomId, useDisclosure } from '@mantine/hooks'
 import { useShopStore } from '../shop/shopStore'
 import { useAuth } from 'shared/hooks'
 import { showNotification } from '@mantine/notifications'
 
-export const EditProduct = ({product, handlePreviewModal}) => {
+export const EditProduct = ({ product, handlePreviewModal }) => {
+  const { shop, getShopById } = useShopStore()
 
-  const {shop, getShopById} = useShopStore()
-
-  const {user} = useAuth()
+  const { user } = useAuth()
 
   const [params, setParams] = useSearchParams()
 
@@ -41,92 +40,108 @@ export const EditProduct = ({product, handlePreviewModal}) => {
     setContent(product?.content)
     setChangedProduct(product)
   }, [])
-  
-  async function deletePic (q) {
 
+  async function deletePic(q) {
     if (q instanceof File || q instanceof Blob) {
-      const newPics = pics?.filter(p => q !== p)
+      const newPics = pics?.filter((p) => q !== p)
       setPics(newPics)
+      return
     }
 
-    setDeletedPics([...deletedPics, q])
+    const newPics = pics?.filter((p) => q !== p)
+    setPics(newPics)
 
+    setDeletedPics([...deletedPics, q])
   }
 
   const subCats = categories
-  ?.filter((q) => q?.label === product?.category)?.[0]
-  ?.subs?.map((e) => {
-    return {
-      label: e?.label,
-      value: e?.label,
-    }
-  })
+    ?.filter((q) => q?.label === product?.category)?.[0]
+    ?.subs?.map((e) => {
+      return {
+        label: e?.label,
+        value: e?.label,
+      }
+    })
 
   const modules = {
     toolbar: [
       [{ header: [1, 2, 3, 4, false] }], // Headers
-      ["bold", "italic", "underline", "strike"], // Text styles
+      ['bold', 'italic', 'underline', 'strike'], // Text styles
       [{ align: [] }], // Alignment buttons (left, center, right, justify)
-      [{ list: "ordered" }, { list: "bullet" }], // Lists
+      [{ list: 'ordered' }, { list: 'bullet' }], // Lists
       [{ color: [] }, { background: [] }], // Colors
-      ["clean"], // Remove formatting
+      ['clean'], // Remove formatting
     ],
-  };
+  }
 
   async function updateProduct() {
 
     const formData = new FormData()
 
-    pics.forEach(q => {
+    const files = []
+
+    pics.forEach(async (q) => {
       if (q instanceof File || q instanceof Blob) {
-        return formData.append('pics+', q)
-      } 
+        // return formData.append('pics+', q)
+        await compress(q, { quality: 0.5, maxWidth: 1500, maxHeight: 1500 }).then(async (res) => {
+          const file = new File([res], randomId().replace('mantine-', ''))
+          files.push(file)
+          return formData.append(`pics`, file)
+        })
+      }
     })
 
     openConfirmModal({
       title: 'Изменение товара',
       centered: true,
       children: 'Сохранить изменение товара?',
-      labels: {confirm: 'Сохранить', cancel: 'Назад'},
+      labels: { confirm: 'Сохранить', cancel: 'Назад' },
       onConfirm: async () => {
         loading_h.open()
-        await pb.collection('products').update(product?.id, formData)
-        .catch(() => {
-          loading_h.close()
-        })
-        pb.collection('products').update(product?.id, {
-          status: 'waiting',
-          p_saved: changedProduct,
-          ...changedProduct
-        })
-        .then(async () => {
-          showNotification({
-            title: 'Товар',
-            message: 'Товар ожидает потдверждения!',
-            color: 'green'
+        await pb
+          .collection('products')
+          .update(product?.id, formData)
+          .then(res => {
+            console.log(res, 'files res');
           })
-          getShopById(user?.id)
-        })
-        .catch(err => {
-          showNotification({
-            title: 'Товар',
-            message: 'Не удалось применить изменение',
-            color: 'red'
+          .catch(() => {
+            loading_h.close()
           })
-        })
-        .finally(() => {
-          loading_h.close()
-        })
+        await pb
+          .collection('products')
+          .update(product?.id, {
+            p_saved: changedProduct,
+            ...changedProduct,
+            status: 'moderation',
+          })
+          .then(async () => {
+            showNotification({
+              title: 'Товар',
+              message: 'Товар ожидает потдверждения!',
+              color: 'green',
+            })
+            getShopById(user?.id)
+          })
+          .catch((err) => {
+            showNotification({
+              title: 'Товар',
+              message: 'Не удалось применить изменение',
+              color: 'red',
+            })
+          })
+          .finally(() => {
+            loading_h.close()
+          })
       },
       onCancel: () => {
         // edit_h.open()
         loading_h.close()
       },
-      "aria-hidden": true
+      'aria-hidden': true,
     })
   }
 
-  function stopEditing () {
+  function stopEditing() {
     params.delete('edit')
     setParams(params)
   }
@@ -135,16 +150,16 @@ export const EditProduct = ({product, handlePreviewModal}) => {
     <div>
       <div className="flex gap-4 items-center">
         <p>Редактирование товара</p>
-        <Button onClick={stopEditing}>
-          Назад
-        </Button>
+        <Button onClick={stopEditing}>Назад</Button>
       </div>
       <div className="grid grid-cols-[320px_700px_auto] gap-4 mt-4">
         <div className="max-w-xs w-full">
           <TextInput
             label="Название"
             value={changedProduct?.name ?? ''}
-            onChange={(e) => setChangedProduct({ ...changedProduct, name: e?.currentTarget?.value })}
+            onChange={(e) =>
+              setChangedProduct({ ...changedProduct, name: e?.currentTarget?.value })
+            }
             variant="filled"
           />
           <Select
@@ -215,22 +230,20 @@ export const EditProduct = ({product, handlePreviewModal}) => {
           <Textarea
             label="Краткое описание"
             value={changedProduct?.description ?? ''}
-            onChange={(e) => setChangedProduct({ ...changedProduct, description: e?.currentTarget?.value })}
+            onChange={(e) =>
+              setChangedProduct({ ...changedProduct, description: e?.currentTarget?.value })
+            }
             variant="filled"
             className="mt-4"
             autosize
           />
           {changedProduct?.options?.map((q) => {
             return (
-              <div key={q?.id} className='mt-4'>
+              <div key={q?.id} className="mt-4">
                 {q?.option}:
                 <div className="flex gap-4 flex-wrap mt-2">
                   {q?.variants?.map((e) => {
-                    return (
-                      <Button variant='outline'>
-                        {e}
-                      </Button>
-                    )
+                    return <Button key={e} variant="outline">{e}</Button>
                   })}
                 </div>
               </div>
@@ -239,7 +252,9 @@ export const EditProduct = ({product, handlePreviewModal}) => {
           <TextInput
             label="Цена"
             value={changedProduct?.price ?? ''}
-            onChange={(e) => setChangedProduct({ ...changedProduct, price: e?.currentTarget?.value })}
+            onChange={(e) =>
+              setChangedProduct({ ...changedProduct, price: e?.currentTarget?.value })
+            }
             variant="filled"
             disabled
           />
@@ -254,32 +269,32 @@ export const EditProduct = ({product, handlePreviewModal}) => {
             <Button onClick={updateProduct}>Сохранить</Button>
           </div>
         </div>
-        
+
         <div className="mx-auto h-full w-full">
           <ReactQuill
-            value={content} 
-            onChange={setContent} 
-            theme="snow" 
-            modules={modules} 
-            className='h-full w-full pb-16'
+            value={content}
+            onChange={setContent}
+            theme="snow"
+            modules={modules}
+            className="h-full w-full pb-16"
           />
         </div>
 
         <div className="w-fit mx-auto h-fit">
-          <p className='mb-3'>Карточка товара</p>
+          <p className="mb-3">Карточка товара</p>
           <Product
             product={{
-              ...product,
+              ...changedProduct,
               category: category?.main,
               sub_category: category?.sub,
               pics,
             }}
             preview
             buttons={
-              <Button 
-                fullWidth 
-                className="mt-3 flex-shrink" 
-                onClick={() => handlePreviewModal({...changedProduct, pics})}
+              <Button
+                fullWidth
+                className="mt-3 flex-shrink"
+                onClick={() => handlePreviewModal({ ...changedProduct, pics })}
               >
                 Предпросмотр
               </Button>

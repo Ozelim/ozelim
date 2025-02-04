@@ -9,7 +9,6 @@ import { FaUserTie } from 'react-icons/fa6'
 import { useAuth } from 'shared/hooks'
 
 import { FaRegHeart, FaRegBell } from 'react-icons/fa'
-import { LuShoppingBag } from "react-icons/lu";
 import { Avatar } from 'shared/ui'
 import { useCartStore } from 'pages/market/cart/cartStore'
 import { formatNumber } from 'shared/lib'
@@ -42,7 +41,7 @@ export const MarketNavbar = () => {
   const {pathname} = useLocation()
 
   React.useEffect(()  => {
-    if (pathname === '/market') {
+    if (pathname === '/duken') {
       setSearch('')
     }
   }, [pathname])
@@ -50,7 +49,7 @@ export const MarketNavbar = () => {
   async function searchProducts (name) {
     delay_h.open()
     if (name)  {
-      navigate('/market/catalog')
+      navigate('/duken/catalog')
       getProductsBySearch(name)
     } else {
       getAllProducts()
@@ -66,7 +65,7 @@ export const MarketNavbar = () => {
 
   return (
     <div className="w-full border-b">
-      <div className="w-full bg-black py-5 px-6">
+      <div className="w-full bg-gray-800 py-5 px-6">
         <div className="container-market flex justify-end market gap-10">
           <div className='flex items-center gap-3'>
             <p className='text-white'>Поддержка ПН - ПТ (09:00 - 18:00) </p>
@@ -77,7 +76,7 @@ export const MarketNavbar = () => {
             <Menu.Target>
               <button className="text-sm cursor-pointer flex gap-1 items-center text-white">
                 рус
-                <IoIosArrowDown />
+              <IoIosArrowDown />
               </button>
             </Menu.Target>
             <Menu.Dropdown>
@@ -89,7 +88,7 @@ export const MarketNavbar = () => {
       </div>
 
       <div className="container-market flex items-center gap-4 justify-between w-full market !py-4">
-        <Link to={'/market'}>
+        <Link to={'/duken'}>
           <div className='flex gap-3 items-center'>
             <img className="max-w-[70px] w-full min-w-[50px] " src={mobileLogo} />
             <b className='text-2xl !font-extrabold'>DUKEN</b>
@@ -128,7 +127,7 @@ export const MarketNavbar = () => {
         <div className="flex items-center gap-4">
           {!user?.duken && (
             <>
-              <Link to={`/market/profile?segment=messages`}>
+              <Link to={`/duken/profile?segment=messages`}>
                 <Indicator 
                   label={notifications} 
                   size={18} 
@@ -139,7 +138,7 @@ export const MarketNavbar = () => {
                   </ActionIcon>
                 </Indicator>
               </Link>
-              <Link to={'/market/favorites'}>
+              <Link to={'/duken/favorites'}>
                 <Indicator 
                   label={user?.favorites?.length} 
                   size={18} 
@@ -156,7 +155,7 @@ export const MarketNavbar = () => {
                 disabled={cartItems?.length === 0}
                 processing
               >  
-                <Link to={'/market/cart'}>
+                <Link to={'/duken/cart'}>
                   <ActionIcon className='!border !border-slate-200 !p-3 !h-12 !w-12 !rounded-full'>
                     <FiShoppingCart size={'100%'} color='black' />
                   </ActionIcon>
@@ -167,8 +166,8 @@ export const MarketNavbar = () => {
             </>
           )}
 
-          {user?.id ? (
-            <Link to={'/market/profile'}>
+          {user?.id  ? (
+            <Link to={'/duken/profile'}>
               <div className='flex items-center gap-4'>
                 <div>
                   <p className='text-xl text-right'>{user?.fio}</p>
@@ -193,12 +192,6 @@ export const MarketNavbar = () => {
               size='lg'
             />
           )}
-          
-          {/* <Link to={'/market/profile'}>
-            <ActionIcon>
-              <p className="text-sm">Профиль</p>
-            </ActionIcon>
-          </Link> */}
         </div>
       </div>
     </div>

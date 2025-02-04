@@ -15,18 +15,18 @@ import { pb } from 'shared/api'
 import { useAuth } from 'shared/hooks'
 import { useShopStore } from './shopStore'
 
-import { cities, compress, formatNumber } from 'shared/lib'
+import { cities, compress } from 'shared/lib'
 import { randomId, useDisclosure } from '@mantine/hooks'
 import { ProductPage } from 'pages'
 import { Product } from 'pages/market/product'
 import { useCategoriesStore } from 'pages/market/categoriesStore'
 
 import ReactQuill from "react-quill";
-import Quill from "quill";
 
 import "react-quill/dist/quill.snow.css";
 import { FaPlus } from 'react-icons/fa'
 import { set } from 'react-hook-form'
+import { openConfirmModal } from '@mantine/modals'
 
 export const AddProduct = () => {
 
@@ -94,15 +94,35 @@ export const AddProduct = () => {
     setPics(newPics)
   }
 
+  async function beforeCreateProduct() {
+    openConfirmModal({
+      title: 'Создание товара',
+      children: 'Вы уверены что хотите создать товар?',
+      onConfirm: async () => await createProduct(),
+      centered: true,
+      labels: {confirm: 'Создать', cancel: 'Отмена'}
+    })
+  }
+
   async function createProduct() {
+
+    if (!product?.name || !product?.description || !product?.price || !product?.city || !category?.main || !category?.sub || !content) {
+      openConfirmModal({
+        title: 'Ошибка',
+        children: 'Заполните все поля',
+        centered: true,
+        labels: {confirm: 'Ок', cancel: 'Отмена'}
+      })
+      return
+    }
 
     const formData = new FormData()
 
     const createdProduct = await pb.collection('products').create({
       ...product,
       market_id: shop?.id,
-      agent: user?.id,
-      status: 'created',
+      merchant: user?.id,
+      status: 'moderation',
       category: category.main,
       sub_category: category.sub, 
       content,
@@ -126,8 +146,10 @@ export const AddProduct = () => {
         .then(() => {
           console.log('Product created')
           setProduct({})
-          setOptions([])  
+          setOptions([])
           setContent('')
+          setPics([])
+          setCategory({})
         })
       })
   }
@@ -259,7 +281,7 @@ export const AddProduct = () => {
               variant="filled"
             />
             <div className="flex justify-center mt-4">
-              <Button onClick={createProduct}>Добавить товар</Button>
+              <Button onClick={beforeCreateProduct}>Добавить товар</Button>
             </div>
           </div>
           

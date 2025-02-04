@@ -10,6 +10,8 @@ export const Product = ({product, preview, buttons}) => {
 
   const addedToCart = cartItems?.find((q) => q?.id === product?.id)
 
+  const productRating = product?.rating !== '' ? product?.rating : 0
+
   if (preview) {
     return (
       <div className='flex flex-col border h-full w-[277px]'>
@@ -30,16 +32,22 @@ export const Product = ({product, preview, buttons}) => {
               className='aspect-square object-cover w-[277px] h-[308px]'
             />
         }
-        <div className="p-3">
-          <Text className='mt-3' lineClamp={2}>
-            {product?.name}
+        <div className="p-3 flex flex-col h-full">
+          <Text lineClamp={2}>
+            <p className='!market'>
+              {product?.name}
+            </p>
           </Text>
-          <Text className='mt-2 !text-[15px] grow' lineClamp={3}>
-            {product?.description}
+          <Text className='mt-2 !text-[15px]' lineClamp={3}>
+            <p className='!market'>
+              {product?.description}
+            </p>
           </Text>
-          <p className='mt-2 font-bold '>{formatNumber(product?.price)} ₸</p>
-          <div className='flex gap-2 items-center mt-1'>
-            <Rating size='xs' value={4.5} fractions={2}/> <span className='text-xs text-slate-400'>(25)</span>
+          <div className="mt-auto">
+            <p className='mt-3.5 font-bold'>{formatNumber(product?.price)} ₸</p>
+            <div className='flex gap-2 items-center mt-1'>
+              <Rating size='xs' value={productRating} fractions={2}/> <span className='text-xs text-slate-400'>({productRating})</span>
+            </div>
           </div>
           {buttons}
         </div>
@@ -49,7 +57,7 @@ export const Product = ({product, preview, buttons}) => {
 
   return (
     <div className='flex flex-col border h-full w-[277px] shadow-sm'>
-      <Link to={`/market/product/${product?.id}`}>
+      <Link to={`/duken/product/${product?.id}`}>
         <img 
           src={getImageUrl(product, product?.pics?.[0])}
           alt="" 
@@ -57,23 +65,29 @@ export const Product = ({product, preview, buttons}) => {
         />
       </Link>
   
-      <div className="p-3">
-        <Text className='mt-3' lineClamp={2}>
-          {product?.name}
+      <div className="p-3 flex flex-col h-full">
+        <Text lineClamp={2}>
+          <p className='market'>
+            {product?.name}
+          </p>
         </Text>
-        <Text className='mt-2 !text-[15px] grow' lineClamp={3}>
-          {product?.description}
+        <Text className='mt-2 !text-[15px] ' lineClamp={3}>
+          <p className='market'>
+            {product?.description}
+          </p>
         </Text>
-        <p className='mt-2 font-bold'>{formatNumber(product?.price)} ₸</p>
-        <div className='flex gap-2 items-center mt-1'>
-          <Rating size='xs' value={4.5} fractions={2}/> <span className='text-xs text-slate-400'>(25)</span>
+        <div className='mt-auto'>
+          <p className='mt-3.5 font-bold'>{formatNumber(product?.price)} ₸</p>
+          <div className='flex gap-2 items-center mt-1'>
+            <Rating size='xs' readOnly value={productRating} fractions={2}/> <span className='text-xs text-slate-400'>({productRating})</span>
+          </div>
         </div>
         {addedToCart ? (
           <Button
             fullWidth
             className='mt-3'
             component={Link}
-            to={'/market/cart'}
+            to={'/duken/cart'}
           >
             Перейти в корзину
           </Button>

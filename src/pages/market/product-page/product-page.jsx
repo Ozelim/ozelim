@@ -4,7 +4,7 @@ import { useDisclosure } from '@mantine/hooks'
 import dayjs from 'dayjs'
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 import { FaRegHeart } from 'react-icons/fa'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useSearchParams } from 'react-router-dom'
 import { pb } from 'shared/api'
 import { formatNumber, getImageUrl } from 'shared/lib'
 
@@ -43,6 +43,8 @@ export const ProductPage = ({preview}) => {
   const {user} = useAuth()
 
   const {id} = useParams()
+
+  const [searchParams, setSearchParams] = useSearchParams()
 
   const [product, setProduct] = React.useState({})
 
@@ -369,7 +371,7 @@ export const ProductPage = ({preview}) => {
                   <Button 
                     size='lg'
                     component={Link}
-                    to={'/market/cart'}
+                    to={'/duken/cart'}
                   >
                     Перейти в корзину
                   </Button>
@@ -390,7 +392,7 @@ export const ProductPage = ({preview}) => {
                   rightIcon={<FaShop size={22} />} 
                   size='lg'
                   component={Link}
-                  to={`/market/profile/?segment=messages&chatId=${product?.market_id}`}
+                  to={`/duken/profile/?segment=messages&chatId=${product?.market_id}`}
                 >
                   Чат с магазиом
                 </Button>

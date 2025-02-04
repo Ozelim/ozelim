@@ -8,6 +8,7 @@ import { useAuth } from 'shared/hooks'
 import { useDisclosure } from '@mantine/hooks'
 import axios from 'axios'
 import { pb } from 'shared/api'
+import { formatNumber } from 'shared/lib'
 
 export const MarketCart = () => {
 
@@ -106,10 +107,10 @@ export const MarketCart = () => {
     <div className='container-market market'>
       <div className={'grid grid-cols-[auto_23%] w-full  h-full gap-3 mt-4 mb-4'}>
         <div className='flex flex-col gap-4'>
-          {cartItems?.map((item) => {
+          {cartItems?.map((item, i) => {
             return (
               <CartItem 
-                key={item.id}
+                key={`${item.id}-${i}`}
                 product={item}
               />
             )
@@ -127,7 +128,7 @@ export const MarketCart = () => {
           <p>Товары, {totalAmount} шт.</p>
           <div className='flex justify-between gap-4'>
             <p>Итого</p>
-            <p>{totalCost} тг.</p>
+            <p>{formatNumber(totalCost)} тг.</p>
           </div>
 
           <Button

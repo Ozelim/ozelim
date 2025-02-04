@@ -593,7 +593,7 @@ export const AgentsProfile = () => {
                             <tr key={i} className="text">
                               <td className='whitespace-nowrap'>
                                 {dayjs(withdraw?.created).format(
-                                  'YY-MM-DD, hh:mm'
+                                  'YY-MM-DD, HH:mm'
                                 )}
                               </td>
                               <td>{formatNumber(withdraw?.sum)}</td>
@@ -629,7 +629,7 @@ export const AgentsProfile = () => {
                           return (
                             <tr key={i} className="text">
                               <td className='whitespace-nowrap'>
-                                {dayjs(transfer?.created).format('YY-MM-DD, hh:mm')}
+                                {dayjs(transfer?.created).format('YY-MM-DD, HH:mm')}
                               </td>
                               <td>{formatNumber(transfer?.sum)}</td>
                               <td>{transfer?.user}</td>
@@ -712,7 +712,7 @@ export const AgentsProfile = () => {
                             <tr key={i} className="text">
                               <td className='whitespace-nowrap'>
                                 {dayjs(q?.created).format(
-                                  'YY-MM-DD, hh:mm'
+                                  'YY-MM-DD, HH:mm'
                                 )}
                               </td>
                               <td className="text-black">Реферал</td>
@@ -721,12 +721,12 @@ export const AgentsProfile = () => {
                             </tr>
                           )
                         })}
-                        {bonuses?.bonuses?.map((q, i) => {
+                        {bonuses?.bonuses?.sort((q, w) => q?.created < w?.created)?.map((q, i) => {
                           return (
                             <tr key={i} className="text">
                               <td className='whitespace-nowrap'>
                                 {dayjs(q?.created).format(
-                                  'YY-MM-DD, hh:mm'
+                                  'YY-MM-DD, HH:mm'
                                 )}
                               </td>
                               <td className="text-black">Бонус</td>
@@ -740,7 +740,7 @@ export const AgentsProfile = () => {
                             <tr key={i} className="text">
                               <td className='whitespace-nowrap'>
                                 {dayjs(q?.created).format(
-                                  'YY-MM-DD, hh:mm'
+                                  'YY-MM-DD, HH:mm'
                                 )}
                               </td>
                               <td className="text-black">Пополнение</td>
@@ -754,7 +754,7 @@ export const AgentsProfile = () => {
                             <tr key={i} className="text">
                               <td className='whitespace-nowrap'>
                                 {dayjs(q?.created).format(
-                                  'YY-MM-DD, hh:mm'
+                                  'YY-MM-DD, HH:mm'
                                 )}
                               </td>
                               <td className="text-black">Вывод</td>
@@ -768,7 +768,7 @@ export const AgentsProfile = () => {
                             <tr key={i} className="text">
                               <td className='whitespace-nowrap'>
                                 {dayjs(q?.created).format(
-                                  'YY-MM-DD, hh:mm'
+                                  'YY-MM-DD, HH:mm'
                                 )}
                               </td>
                               <td className="text-black">Услуга</td>

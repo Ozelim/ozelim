@@ -801,7 +801,7 @@ export const Withdraw = ({bonuses}) => {
           </div>
           <TextInput 
             label='ФИО'
-            placeholder='Для кого вы приобретяете услугу'
+            placeholder='Для кого вы приобретаете услугу'
             value={name}
             onChange={e => setName(e.currentTarget.value)}
             description='Обязательное поле'

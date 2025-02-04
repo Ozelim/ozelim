@@ -1,13 +1,17 @@
 import React from 'react'
 import { Button, CloseButton, FileButton, Text, Textarea, TextInput } from '@mantine/core'
-import { useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { pb } from 'shared/api'
 import { useAuth } from 'shared/hooks'
 import * as yup from 'yup'
 import { Controller, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { compress } from 'shared/lib'
-import { randomId } from '@mantine/hooks'
+import { randomId, useDisclosure } from '@mantine/hooks'
+import axios from 'axios'
+import { showNotification } from '@mantine/notifications'
+import { FiCheck } from 'react-icons/fi'
+
 
 async function verifyEmail(token) {
   return await pb.collection('merchants').confirmVerification(token)
@@ -22,7 +26,9 @@ const shopSchema = yup.object({
 
 export const ShopForm = () => {
 
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
+
+  const [sent, sent_h] = useDisclosure(false)
 
   const {user} = useAuth()
 
@@ -41,8 +47,6 @@ export const ShopForm = () => {
   const [files, setFiles] = React.useState([])
 
   function handleFiles (file) {
-    console.log(file, 'a');
-    
     setFiles([...files, file])
   }
 
@@ -54,9 +58,6 @@ export const ShopForm = () => {
   async function verify () {
     if (user?.verified) return
     await verifyEmail(token)
-    .then(res => {
-      console.log(res)
-    })
   }
 
   async function submit () {
@@ -75,6 +76,15 @@ export const ShopForm = () => {
     }
 
     await pb.collection('markets').update(createdMarket?.id, formData)
+    .then(() => {
+      showNotification({
+        title: 'Заявка отправлена',
+        message: 'Ваша заявка на создание магазина была отправлена',
+        color: 'teal',
+      })
+      sent_h.open()
+    })
+    // await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/change-password`, )
   }
 
   function handleChange (name, val) {
@@ -86,6 +96,32 @@ export const ShopForm = () => {
   React.useEffect(() => {
     verify()
   }, [])
+
+  if (sent) return (
+    <div className='w-full h-full'>
+      <div className="container-market !mt-8 market">
+        <h1 className='text-2xl text-center'>Заявка отправлена</h1>
+        <div className='h-full flex justify-center items-center flex-col mt-4'>
+          <div className='max-w-sm flex flex-col items-center gap-3 border p-4 w-full rounded-primary'>
+          <FiCheck size={20} className='border p-2.5 w-12 h-12 rounded-full ' color='teal' />
+            <p className='text-center'>
+              Ваша заявка на создание магазина была отправлена. Ожидайте связи с менеджером и активации аккаунта продавца. 
+            </p>
+            <Link to={'/market'} className='w-full'>
+              <div className="flex justify-center">
+                <Button
+                  className='w-full'
+                  variant='subtle'
+                >
+                  Вернуться на главную
+                </Button>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 
   return (
     <div className='w-full h-full'>
@@ -160,10 +196,11 @@ export const ShopForm = () => {
               )}
             />
             <div className='w-full'>
-              <div className='flex justify-center mt-2'>
+              <div className='flex flex-col items-center mt-2'>
                 <FileButton onChange={handleFiles} accept="image/png,image/jpeg" variant='outline' compact>
                   {(props) => <Button {...props}>Загрузить документ</Button>}
                 </FileButton>
+                <p className='text-xs text-gray-400 mt-1'>размер файла не больше 5 мб</p>
               </div>
               <div className='flex flex-col gap-2 mt-3 w-full'>
                 {files?.map((file, i) => ( 

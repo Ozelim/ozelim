@@ -39,6 +39,7 @@ import { ProfileCourse } from "pages/profile/ProfileCourse";
 import { profileLayout } from "./layouts/profileLayout";
 import { marketLayout } from "./layouts/marketLayout";
 import { Catalog } from "pages/market/catalog/catalog";
+import { MarketLogin } from "pages/market/login/market-login";
 
 const appRouter = createBrowserRouter([
   {element: baseLayout, children: [
@@ -72,7 +73,7 @@ const appRouter = createBrowserRouter([
     {path: '/test-1&7-results', element: <Tester/>},
   ]},
 
-  {element: marketLayout, path: '/market', children: [
+  {element: marketLayout, path: '/duken', children: [
     {index: true, element: <Market/>},
     {path: 'profile', element: <MarketProfile/>},
     {path: 'cart', element: <MarketCart/>},
@@ -82,6 +83,8 @@ const appRouter = createBrowserRouter([
     {path: 'join-club', element: <Club/>},
     // {path: 'chat/:id', element: <Chat/>},
     {path: 'product/:id', element: <ProductPage/>},
+    {path: '*', element: <NotFound/>},
+    {path: 'login', element: <MarketLogin/>},
   ]},
 
   {element: profileLayout, children: [

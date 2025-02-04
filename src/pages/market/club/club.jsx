@@ -26,16 +26,20 @@ export const Club = () => {
   return (
     <div className='w-full'>
       <div className="container-market !mt-8">
-        <div className=''>
-          <p className='cursor-pointer '>
+        <div className='max-w-2xl mx-auto'>
+          <p className='cursor-pointer open-sans'>
+            Текст для проверки
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium repellendus aspernatur explicabo voluptas, error ea alias reiciendis nobis ipsa reprehenderit? Eum, recusandae dicta? Atque commodi possimus mollitia accusamus, rerum voluptate molestiae cum eius nesciunt harum quia blanditiis quos sapiente maxime eligendi adipisci iste pariatur iure, necessitatibus ut non sit reprehenderit doloremque nihil. Fuga eum cupiditate rerum cumque consectetur iste, placeat delectus. Suscipit expedita saepe ea minus odio nemo dolorem culpa accusamus ut fugit mollitia, enim doloremque quaerat sunt tempore voluptate aut non impedit totam hic rerum odit tenetur facilis. Assumenda velit minima harum repellat, nisi ex placeat sapiente eius doloribus!
           </p>
-          <Checkbox className='mt-3' checked={checked} onChange={() => checked_h.toggle()} label="I agree to the terms and conditions" />
+          <div className='flex justify-center'>
+            <Checkbox className='mt-3' checked={checked} onChange={() => checked_h.toggle()} label="I agree to the terms and conditions" />
+          </div>
         </div>
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-center mt-4 market">
           <Button
             disabled={!checked} 
             onClick={() => emailVer_h.open()}
+            variant='light'
           >
             Продолжить
           </Button>

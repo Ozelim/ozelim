@@ -205,16 +205,14 @@ export const Statuses = () => {
                     product={q}
                     preview
                     buttons={
-                      <>
-                        <p className="mt-2 shrink">Ожидает подтверждения</p>
-                        <Button
-                          fullWidth
-                          className="mt-3 flex-shrink"
-                          onClick={() => handlePreviewModal({ ...q})}
-                        >
-                          Предпросмотр
-                        </Button>
-                      </>
+                      <div className='flex justify-between gap-2 mt-2'>
+                        <ActionIcon color="green" onClick={() => handlePreviewModal(q)}>
+                          <FaEye size={40} />
+                        </ActionIcon>
+                        <ActionIcon color="blue" onClick={() => handleEdit(q)}>
+                          <FaEdit size={40} />
+                        </ActionIcon>
+                      </div>
                     }
                   />
                 </div>

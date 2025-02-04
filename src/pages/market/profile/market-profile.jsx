@@ -27,12 +27,19 @@ export const MarketProfile = () => {
     }
   }, [])
 
+  if (!user?.posted) return (
+    <div className='container-market market'>
+      <div className="flex justify-center items-center w-full h-full">
+        Магазин еще не создан
+      </div>
+    </div>
+  )
+
   if (user?.duken) return <Dashboard/>
 
   return (
     <div className='container-market market'>
       <div className='gap-4 py-4'>
-        {/* <ProfileData/> */}
         <div className='market'>
           <SegmentedControl
             data={[
@@ -62,14 +69,8 @@ export const MarketProfile = () => {
               Lorem, ipsum dolor.
             </div>
           </div> */}
-
           <>
             {params.get('segment') === 'messages' && <Chat/>}
-            {/* {params.get('segment') === 'cart' && (
-              <div className='-mx-8'>
-                <MarketCart/>
-              </div>
-              )} */}
             {params.get('segment') === 'reviews' && <UserReviews/>}
             {params.get('segment') === 'history' && <OrderHistory/>}
             {params.get('segment') === 'orders' && <UserOrders/>}

@@ -45,7 +45,7 @@ const useProductsStore = create((set, get) => ({
       set(() => ({productsLoading: true}))
       await pb.collection('products').getList(page = 1, 25, {
         sort: '-created',
-        expand: 'agent, market_id',
+        expand: 'merchant, market_id',
         filter: `status = 'posted'`
       })
       .then(res => {

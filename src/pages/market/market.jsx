@@ -10,9 +10,11 @@ import { Product } from './product'
 
 export const Market = () => {
 
-  const {products, clearSearched} = useProductsStore()
+  const {products, getAllProducts} = useProductsStore()
 
-  
+  React.useEffect(() => {
+    getAllProducts()
+  }, [])
 
   return (
     <div className='w-full '>
@@ -22,8 +24,8 @@ export const Market = () => {
             все Категории
           </p>
           <div className='px-6 flex gap-4 text-lg py-4 uppercase'>
-            <Link to={'/market/catalog'}>Каталог</Link>
-            <Link to={'/market/weare'}>О нас</Link>
+            <Link to={'/duken/catalog'}>Каталог</Link>
+            <Link to={'/duken/weare'}>О нас</Link>
             <p>Доставка</p>
             <p>Гарантия</p>
           </div>
@@ -46,7 +48,7 @@ export const Market = () => {
           )
         })}
       </div>
-      <div className="w-full bg-primary-500 py-8">
+      <div className="w-full bg-primary-500 py-8 mt-8">
         <div className="container-market text-white market">
           <div className="grid grid-cols-2 gap-4">
             <div className='text-2xl'>Подпишитесь на наши обновления</div>

@@ -3,13 +3,15 @@ import { Button, LoadingOverlay, PasswordInput, TextInput } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { pb } from 'shared/api'
 import { showNotification } from '@mantine/notifications'
+import { useNavigate } from 'react-router-dom'
 
-export const EmailVerification = () => {
+export const MarketLogin = () => {
+
+  const navigate = useNavigate()
 
   const [data, setData] = React.useState({
     email: '',
     password: '',
-    passwordConfirm: ''
   })
 
   function handleInputChange (e) {
@@ -24,14 +26,9 @@ export const EmailVerification = () => {
 
   const [loading, loading_h] = useDisclosure(false)
 
-  async function sendVerification() {
+  async function submit() {
 
-    if (data?.password !== data?.passwordConfirm) {
-      setError('Пароли не совпадают')
-      return
-    }
-
-    if (!data?.email || !data?.password || !data?.passwordConfirm) {
+    if (!data?.email || !data?.password) {
       setError('Заполните все поля')
       return
     }
@@ -47,24 +44,15 @@ export const EmailVerification = () => {
     }
 
     loading_h.open()
-    const tempPassword = Math.random().toString(36).slice(-8)
 
-    await pb.collection('merchants').create({
-      email: data?.email,
-      password: tempPassword,
-      passwordConfirm: tempPassword,
-      emailVisibility: true,
-      duken: true,
-    })
-    .then(async res => {
-      await pb.collection('merchants').requestVerification(data?.email)
-      await pb.collection('merchants').authWithPassword(data?.email, data?.password)
-
+    await pb.collection('merchants').authWithPassword(data?.email, data?.password)
+    .then(() => { 
       showNotification({
-        title: 'Подтверждение почты',
-        message: 'Письмо с подтверждением отправлено на вашу почту',
+        title: 'Вход в магазин',
+        message: 'Вход выполнен успешно',
         color: 'teal',
       })
+      navigate('/market')
     })
     .catch(err => {
       console.log(err?.response)
@@ -85,7 +73,7 @@ export const EmailVerification = () => {
     <div className='w-full h-full'>
       <LoadingOverlay visible={loading}/>
       <div className="container-market !mt-8 market">
-        <h1 className='text-2xl text-center'>Подтверждение почты</h1>
+        <h1 className='text-2xl text-center'>Вход в магазин</h1>
         <div className='h-full flex justify-center items-center flex-col mt-4'>
           <div className='max-w-sm flex flex-col items-center gap-3 border p-4 w-full rounded-primary'>
             <TextInput
@@ -102,19 +90,10 @@ export const EmailVerification = () => {
               variant='filled'
               className='w-full'
               label='Пароль'
-              placeholder='Придумайте пароль'
+              placeholder='********'
               value={data?.password}
               onChange={handleInputChange}
               name='password'
-            />
-            <PasswordInput
-              variant='filled'
-              className='w-full'
-              label='Подтверждение пароля'
-              placeholder='Повторите пароль'
-              value={data?.passwordConfirm}
-              onChange={handleInputChange}
-              name='passwordConfirm'
             />
             {error && (
               <div className='flex justify-start w-full'>
@@ -124,10 +103,10 @@ export const EmailVerification = () => {
               </div>
             )}
             <Button
-              onClick={async () => await sendVerification()}
+              onClick={async () => await submit()}
               variant='light'
             >
-              Отправить
+              Войти
             </Button>
           </div>
         </div>

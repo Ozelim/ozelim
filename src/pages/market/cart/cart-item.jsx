@@ -1,8 +1,8 @@
 import React from 'react'
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 import { useCartStore } from './cartStore'
-import { getImageUrl } from 'shared/lib'
-import { ActionIcon, Button, CloseButton, Text } from '@mantine/core'
+import { formatNumber, getImageUrl } from 'shared/lib'
+import { ActionIcon, CloseButton, Text } from '@mantine/core'
 import { Link } from 'react-router-dom'
 
 export const CartItem = ({product}) => {
@@ -59,7 +59,7 @@ export const CartItem = ({product}) => {
           </ActionIcon>
         </div>
         <div className='font-semibold text-lg'>
-          {total} ₸
+          {formatNumber(total)} ₸
         </div>
       </div>
       <div className='absolute top-1 right-1 z-10'>
