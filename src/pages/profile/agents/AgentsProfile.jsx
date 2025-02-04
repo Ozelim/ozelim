@@ -712,7 +712,7 @@ export const AgentsProfile = () => {
                             <tr key={i} className="text">
                               <td className='whitespace-nowrap'>
                                 {dayjs(q?.created).format(
-                                  'YY-MM-DD, HH:mm'
+                                  'DD.MM.YYYY, HH:mm'
                                 )}
                               </td>
                               <td className="text-black">Реферал</td>
@@ -726,7 +726,7 @@ export const AgentsProfile = () => {
                             <tr key={i} className="text">
                               <td className='whitespace-nowrap'>
                                 {dayjs(q?.created).format(
-                                  'YY-MM-DD, HH:mm'
+                                  'DD.MM.YYYY, HH:mm'
                                 )}
                               </td>
                               <td className="text-black">Бонус</td>
@@ -740,7 +740,7 @@ export const AgentsProfile = () => {
                             <tr key={i} className="text">
                               <td className='whitespace-nowrap'>
                                 {dayjs(q?.created).format(
-                                  'YY-MM-DD, HH:mm'
+                                  'DD.MM.YYYY, HH:mm'
                                 )}
                               </td>
                               <td className="text-black">Пополнение</td>
@@ -754,7 +754,7 @@ export const AgentsProfile = () => {
                             <tr key={i} className="text">
                               <td className='whitespace-nowrap'>
                                 {dayjs(q?.created).format(
-                                  'YY-MM-DD, HH:mm'
+                                  'DD.MM.YYYY, HH:mm'
                                 )}
                               </td>
                               <td className="text-black">Вывод</td>
@@ -768,7 +768,7 @@ export const AgentsProfile = () => {
                             <tr key={i} className="text">
                               <td className='whitespace-nowrap'>
                                 {dayjs(q?.created).format(
-                                  'YY-MM-DD, HH:mm'
+                                  'DD.MM.YYYY, HH:mm'
                                 )}
                               </td>
                               <td className="text-black">Услуга</td>
