@@ -63,6 +63,8 @@ export const MarketNavbar = () => {
     return q?.status === 'new'
   })?.length ?? 0
 
+  if (pathname.includes('profile')) return 
+
   return (
     <div className="w-full border-b">
       <div className="w-full bg-gray-800 py-5 px-6">

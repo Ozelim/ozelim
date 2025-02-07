@@ -31,13 +31,16 @@
   font-style: normal;
 }
 
+.market-head {
+  font-family: 'Roboto', sans-serif;
+}
+
 .market * {
   font-family: "Comfortaa", serif;
   font-optical-sizing: auto;
   font-weight: 500;
   font-style: normal;
 }
-
 
 .container-market {
   max-width: 1650px;

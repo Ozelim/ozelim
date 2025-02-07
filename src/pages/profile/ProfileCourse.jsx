@@ -1,7 +1,7 @@
 import { Accordion, BackgroundImage, Button, Modal, Text, clsx } from '@mantine/core'
 import { openConfirmModal } from '@mantine/modals'
 import React from 'react'
-import ReactPlayer from 'react-player'
+import ReactPlayer from 'react-player/lazy'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { pb } from 'shared/api'
 import { getImageUrl } from 'shared/lib'

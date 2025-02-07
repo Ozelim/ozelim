@@ -715,7 +715,9 @@ export const AgentsProfile = () => {
                                   'DD.MM.YYYY, HH:mm'
                                 )}
                               </td>
-                              <td className="text-black">Реферал</td>
+                              <td className="text-black">
+                                Реферал
+                              </td>
                               <td>{q?.referal}</td>
                               <td className='text-green-500'>+ {formatNumber(q?.sum)}</td>
                             </tr>

@@ -16,7 +16,7 @@ import { useAuth } from 'shared/hooks'
 import { useShopStore } from './shopStore'
 
 import { cities, compress } from 'shared/lib'
-import { randomId, useDisclosure } from '@mantine/hooks'
+import { randomId, useDisclosure, useMediaQuery } from '@mantine/hooks'
 import { ProductPage } from 'pages'
 import { Product } from 'pages/market/product'
 import { useCategoriesStore } from 'pages/market/categoriesStore'
@@ -30,6 +30,8 @@ import { openConfirmModal } from '@mantine/modals'
 
 export const AddProduct = () => {
 
+  const media = useMediaQuery('(min-width: 1366px)')
+
   const { user } = useAuth()
   const { shop } = useShopStore()
   const { categories } = useCategoriesStore()
@@ -41,6 +43,7 @@ export const AddProduct = () => {
     name: '',
     creatable: false
   })
+
   const [variants, setVariants] = React.useState([])
 
   const [options, setOptions] = React.useState([])
@@ -169,7 +172,7 @@ export const AddProduct = () => {
     <>
       <div>
         <p>Создание товара:</p>
-        <div className="grid grid-cols-[320px_700px_auto] gap-4 mt-4">
+        <div className="flex flex-wrap gap-4 mt-4">
           <div className="max-w-xs w-full">
             <TextInput
               label="Название"
@@ -284,8 +287,8 @@ export const AddProduct = () => {
               <Button onClick={beforeCreateProduct}>Добавить товар</Button>
             </div>
           </div>
-          
-          <div className="mx-auto h-full w-full">
+
+          <div className="max-w-[700px] mx-auto h-full w-full">
             <ReactQuill 
               value={content} 
               onChange={setContent} 
@@ -294,6 +297,7 @@ export const AddProduct = () => {
               className='h-full w-full'
             />
           </div>
+            
 
           <div className="w-fit mx-auto h-fit">
             <p className='mb-3'>Карточка товара</p>

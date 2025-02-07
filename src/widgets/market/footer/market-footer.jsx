@@ -1,7 +1,11 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 export const MarketFooter = () => {
+
+  const {pathname} = useLocation()
+
+  if (pathname.includes('profile')) return 
 
   return (
     <div className='w-full mt-6 border-t pt-6'>
