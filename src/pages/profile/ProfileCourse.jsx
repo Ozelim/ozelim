@@ -120,7 +120,7 @@ export const ProfileCourse = () => {
                 <div className='flex gap-4 justify-center'>
                   {/* <span className='font-bold'> №{course?.test?.index}: </span>  */}
                   <div className='relative text-center'>
-                    <Button component={Link} to={`/test-1&7-results?test=${course?.test?.id}`} className='underline'>
+                    <Button component={Link} to={`/test-ozelim-2025?test=${course?.test?.id}`} className='underline'>
                       ПРОЙТИ ТЕСТИРОВАНИЕ
                     </Button>
                     {/* <p className='text-sm mt-2'>(ссылка на тестирование)</p> */}
