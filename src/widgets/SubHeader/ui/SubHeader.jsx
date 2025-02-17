@@ -38,9 +38,9 @@ export const SubHeader = () => {
             <Menu.Item onClick={() => changeLang('ru')}>
               Русский
             </Menu.Item>
-            {/* <Menu.Item onClick={() => changeLang('kz')}>
+            <Menu.Item onClick={() => changeLang('kz')}>
               Казахский
-            </Menu.Item> */}
+            </Menu.Item>
           </Menu.Dropdown>
         </Menu>
       </div>
