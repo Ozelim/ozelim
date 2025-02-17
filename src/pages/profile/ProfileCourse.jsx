@@ -16,12 +16,11 @@ async function getCourses () {
 export const ProfileCourse = () => {
 
   const {user} = useAuth()
+  const navigate = useNavigate()
 
   React.useEffect(() => {
     if (!user.verified) navigate('/')
   }, [user])
-
-  const navigate = useNavigate()
 
   const [searchParams, setSearchParams] = useSearchParams()
 

@@ -1,11 +1,9 @@
 import React from 'react'
 import { ActionIcon, Divider, Menu, Avatar as Avatr, TextInput, Indicator, Text, Autocomplete, clsx } from '@mantine/core'
-import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import mobileLogo from 'shared/assets/images/logo1.png'
-import { PiShoppingCartFill } from 'react-icons/pi'
 import { IoIosArrowDown } from 'react-icons/io'
 import { FaMagnifyingGlass } from 'react-icons/fa6'
-import { FaUserTie } from 'react-icons/fa6'
 import { useAuth } from 'shared/hooks'
 
 import { FaRegHeart, FaRegBell } from 'react-icons/fa'
@@ -16,29 +14,22 @@ import { FiShoppingCart } from "react-icons/fi";
 
 
 import { FaWhatsapp } from "react-icons/fa";
-import { useChatStore } from 'pages/market/profile/user/chatStore'
 import { useProductsStore } from 'pages/market/catalog/producsStore'
 import { useDisclosure } from '@mantine/hooks'
+import { useNotificationStore } from 'pages/market/profile/user/notificationStore'
 
 export const MarketNavbar = () => {
 
   const navigate = useNavigate()
+  const {pathname} = useLocation()
   
   const {user} = useAuth()
-  
-  const [params] = useSearchParams()
-  
-  const {products, clearSearched, getProductsBySearch, getAllProducts} = useProductsStore()
-
-  const [delay, delay_h] = useDisclosure(false)
-
-  const [search, setSearch] = React.useState('')
-
+  const {getProductsBySearch, getAllProducts} = useProductsStore()
+  const {nots} = useNotificationStore()
   const {cartItems} = useCartStore()
-
-  const {discounts} = useChatStore()
-
-  const {pathname} = useLocation()
+  
+  const [search, setSearch] = React.useState('')
+  const [delay, delay_h] = useDisclosure(false)
 
   React.useEffect(()  => {
     if (pathname === '/duken') {
@@ -59,14 +50,12 @@ export const MarketNavbar = () => {
     }, 1000);
   }
 
-  const notifications = discounts?.messages?.filter(q => {
-    return q?.status === 'new'
-  })?.length ?? 0
+  const notifications = nots?.order || nots?.offer || nots?.messages
 
-  if (pathname.includes('profile')) return 
+  if (pathname.includes('profile') && user?.collectionName === 'merchants') return 
 
   return (
-    <div className="w-full border-b">
+    <div className="w-full border-b bg-white">
       <div className="w-full bg-gray-800 py-5 px-6">
         <div className="container-market flex justify-end market gap-10">
           <div className='flex items-center gap-3'>
@@ -131,9 +120,8 @@ export const MarketNavbar = () => {
             <>
               <Link to={`/duken/profile?segment=messages`}>
                 <Indicator 
-                  label={notifications} 
                   size={18} 
-                  disabled={notifications === 0}
+                  disabled={!notifications}
                 >
                   <ActionIcon className='!border !border-slate-200 !p-3 !h-12 !w-12 !rounded-full'>
                     <FaRegBell size={'100%'} color='black' />

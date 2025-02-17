@@ -1,9 +1,9 @@
+import React from 'react'
 import { Layout } from "shared/ui";
 import { Footer } from "widgets/Footer";
 import { Header } from "widgets/Header";
 import { SubHeader } from "widgets/SubHeader";
 
-import React from 'react'
 import { MantineProvider, createEmotionCache } from '@mantine/core'
 import { ModalsProvider } from '@mantine/modals'
 import { Notifications } from '@mantine/notifications'
@@ -33,9 +33,9 @@ export const baseLayout = (
         defaultRadius: 'md',
       }}
     >
-        <ModalsProvider 
-          modals={{image: ImageModal}}
-        >
+      <ModalsProvider 
+        modals={{image: ImageModal}}
+      >
         <Layout
           subheaderSlot={<SubHeader/>}
           headerSlot={<Header/>}

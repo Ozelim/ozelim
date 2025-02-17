@@ -6,6 +6,7 @@ import {
   Button,
   LoadingOverlay,
   Modal,
+  Tabs,
 } from '@mantine/core'
 
 import { useDisclosure } from '@mantine/hooks'
@@ -146,10 +147,99 @@ export const Statuses = () => {
       </>
     )
 
+  
+
   return (
     <>
       <LoadingOverlay visible={loading} />
       <div className="w-full h-full">
+
+        <Tabs
+          defaultValue='moderation'
+          variant='default'
+        >
+          <Tabs.List
+            grow
+          >
+            <Tabs.Tab value='moderation'>На модерации</Tabs.Tab>
+            <Tabs.Tab value='waiting'>Ожидающие</Tabs.Tab>
+            <Tabs.Tab value='posted'>Опубликованные</Tabs.Tab>
+          </Tabs.List>
+          <Tabs.Panel value='moderation' pt={20}>
+            {onModeration?.length > 0 && (
+              <div className="space-y-2">
+                <div className="flex flex-wrap gap-x-4 gap-y-6">
+                  {onModeration?.map((q, i) => {
+                    return (
+                      <div key={i}>
+                        <Product product={q} preview />
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
+          </Tabs.Panel>
+          <Tabs.Panel value='waiting' pt={20}>
+            {waiting?.length > 0 && (
+              <div className="space-y-2">
+                <div className="flex flex-wrap gap-x-4 gap-y-6">
+                  {waiting?.map((q, i) => {
+                    return (
+                      <div key={i}>
+                        <Product
+                          product={q}
+                          preview
+                          buttons={
+                            <div className='flex justify-between gap-2 mt-2'>
+                              <ActionIcon color="green" onClick={() => handlePreviewModal(q)}>
+                                <FaEye size={40} />
+                              </ActionIcon>
+                              <ActionIcon color="blue" onClick={() => handleEdit(q)}>
+                                <FaEdit size={40} />
+                              </ActionIcon>
+                            </div>
+                          }
+                        />
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
+          </Tabs.Panel>
+          <Tabs.Panel value='posted' pt={20}>
+            {posted?.length > 0 && (
+              <div className="space-y-2">
+                <div className="flex flex-wrap gap-x-4 gap-y-6">
+                  {posted?.map((q, i) => {
+                    return (
+                      <div key={i}>
+                        <Product
+                          product={q}
+                          preview
+                          buttons={
+                            <div className="flex justify-between gap-2 mt-2">
+                              <ActionIcon color="green" onClick={() => handlePreviewModal(q)}>
+                                <FaEye size={40} />
+                              </ActionIcon>
+                              <ActionIcon color="blue" onClick={() => handleEdit(q)}>
+                                <FaEdit size={40} />
+                              </ActionIcon>
+                              <ActionIcon color="pink" onClick={() => handleDeleteModal(q)}>
+                                <FaDeleteLeft size={40} />
+                              </ActionIcon>
+                            </div>
+                          }
+                        />
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
+          </Tabs.Panel>
+        </Tabs>
         {/* <div className="space-y-2">
           <p className="text-lg">Черновики</p>
           <div className="grid grid-cols-5 gap-x-4 gap-y-6">
@@ -181,74 +271,6 @@ export const Statuses = () => {
             })}
           </div>
         </div> */}
-
-        <div className="space-y-2">
-          <p className="text-lg">На модерации</p>
-          <div className="grid grid-cols-5 gap-x-4 gap-y-6">
-            {onModeration?.map((q, i) => {
-              return (
-                <div className="mx-auto" key={i}>
-                  <Product product={q} preview />
-                </div>
-              )
-            })}
-          </div>
-        </div>
-
-        <div className="mt-8 space-y-2">
-          <p className="text-lg">Ожидающие</p>
-          <div className="grid grid-cols-5 gap-x-4 gap-y-6">
-            {waiting?.map((q, i) => {
-              return (
-                <div className="mx-auto" key={i}>
-                  <Product
-                    product={q}
-                    preview
-                    buttons={
-                      <div className='flex justify-between gap-2 mt-2'>
-                        <ActionIcon color="green" onClick={() => handlePreviewModal(q)}>
-                          <FaEye size={40} />
-                        </ActionIcon>
-                        <ActionIcon color="blue" onClick={() => handleEdit(q)}>
-                          <FaEdit size={40} />
-                        </ActionIcon>
-                      </div>
-                    }
-                  />
-                </div>
-              )
-            })}
-          </div>
-        </div>
-
-        <div className="mt-8 space-y-2">
-          <p className="text-lg">Опубликованные</p>
-          <div className="grid grid-cols-5 gap-x-4 gap-y-6">
-            {posted?.map((q, i) => {
-              return (
-                <div className="mx-auto" key={i}>
-                  <Product
-                    product={q}
-                    preview
-                    buttons={
-                      <div className="flex justify-between gap-2 mt-2">
-                        <ActionIcon color="green" onClick={() => handlePreviewModal(q)}>
-                          <FaEye size={40} />
-                        </ActionIcon>
-                        <ActionIcon color="blue" onClick={() => handleEdit(q)}>
-                          <FaEdit size={40} />
-                        </ActionIcon>
-                        <ActionIcon color="pink" onClick={() => handleDeleteModal(q)}>
-                          <FaDeleteLeft size={40} />
-                        </ActionIcon>
-                      </div>
-                    }
-                  />
-                </div>
-              )
-            })}
-          </div>
-        </div>
       </div>
       <Modal
         fullScreen

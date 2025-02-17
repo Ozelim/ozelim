@@ -69,7 +69,7 @@ export const Login = () => {
 
   function goToSignup () {
     params.set('signup', true)
-    params.set('agent', 111924111111111)
+    // params.set('agent', 111924111111111)
     setParams(params)
   }
 

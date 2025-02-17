@@ -4,10 +4,12 @@ import { SegmentedControl, Tabs } from '@mantine/core'
 import { useSearchParams } from 'react-router-dom'
 import { useAuth } from 'shared/hooks'
 import { Dashboard } from './shop/dashboard'
-import { Chat } from './shop/chat'
+import { Chat } from './user/chat'
 import { UserReviews } from './user/user-reviews'
 import { OrderHistory } from './user/order-history'
 import { UserOrders } from './user/user-orders'
+import { useNotificationStore } from './user/notificationStore'
+import { readNotification } from 'shared/lib'
 
 export const MarketProfile = () => {
 
@@ -15,19 +17,29 @@ export const MarketProfile = () => {
 
   const [params, setParams] = useSearchParams()
 
-  function handleSegment (e) {
+  const {nots} = useNotificationStore()
+
+  async function handleSegment (e) {
     params.set('segment', e)
     setParams(params)
+
+    if (e === 'orders' && nots?.order) {
+      await readNotification(nots?.id, 'order')
+    }
+    
+    if (e === 'messages' && nots?.messages) {
+      await readNotification(nots?.id, 'messages')
+    }
   }
 
   React.useEffect(() => {
     if (!params.get('segment')) {
-      params.set('segment', 'messages')
+      params.set('segment', 'orders')
       setParams(params)
     }
   }, [])
 
-  if (!user?.posted) return (
+  if (user?.collectionName === 'merchants' && !user?.posted) return (
     <div className='container-market market'>
       <div className="flex justify-center items-center w-full h-full">
         Магазин еще не создан
@@ -38,20 +50,24 @@ export const MarketProfile = () => {
   if (user?.duken) return <Dashboard/>
 
   return (
-    <div className='container-market market'>
-      <div className='gap-4 py-4'>
-        <div className='market'>
-          <SegmentedControl
-            data={[
-              { label: 'Заказы', value: 'orders' },
-              { label: 'Сообщения', value: 'messages' },
-              { label: 'Отзывы', value: 'reviews' },
-              { label: 'История покупок', value: 'history' },
-            ]}
-            value={params.get('segment') ?? 'messages'}
-            onChange={(e) => handleSegment(e)}
-            fullWidth
-          />
+    <>
+      <div className='container-market market h-full'>
+        <div className='market h-full mt-8'>
+          <div className='bg-white p-3 border shadow-sm rounded-primary'>
+            <SegmentedControl
+              data={[
+                { label: <span>Заказы {nots?.order && <div className='bg-primary-500 w-4 h-4 rounded-full absolute right-2 top-2'/>}</span>, value: 'orders' },
+                { label: <span>Сообщения {nots?.messages && <div className='bg-primary-500 w-4 h-4 rounded-full absolute right-2 top-2'/>}</span>, value: 'messages' },
+                { label: 'Отзывы', value: 'reviews' },
+                { label: 'История покупок', value: 'history' },
+              ]}
+              value={params.get('segment') ?? 'orders'}
+              onChange={(e) => handleSegment(e)}
+              fullWidth
+              color='teal.6'
+              radius='md'
+            />
+          </div>
 
           {/* <div className='flex justify-between items-center gap-4 border shadow-md p-3 mt-4'>
             <div className='flex items-center gap-4'>
@@ -76,8 +92,7 @@ export const MarketProfile = () => {
             {params.get('segment') === 'orders' && <UserOrders/>}
           </>
         </div>
-        
       </div>
-    </div>
+    </>
   )
 }

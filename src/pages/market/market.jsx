@@ -18,7 +18,7 @@ export const Market = () => {
 
   return (
     <div className='w-full '>
-      <div className="border-b w-full">
+      <div className="bg-white border-b w-full">
         <div className='grid grid-cols-[13%_auto] mx-auto container-market market'>
           <p className='text-lg ml-3 uppercase py-4 border-r'>
             все Категории
@@ -39,7 +39,7 @@ export const Market = () => {
           </div>
         </div>
       </div>
-      <div className='grid grid-cols-6 gap-4 mt-8'>
+      <div className='container-market grid grid-cols-5 gap-x-4 gap-y-8 !mt-8'>
         {products?.items?.map((q, i) => {
           return (
             <div className="mx-auto" key={i}>

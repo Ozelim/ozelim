@@ -1,14 +1,17 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { useAuth } from 'shared/hooks'
 
 export const MarketFooter = () => {
 
   const {pathname} = useLocation()
 
-  if (pathname.includes('profile')) return 
+  const {user} = useAuth()
+
+  if (pathname.includes('profile') && user?.collectionName === 'merchants') return 
 
   return (
-    <div className='w-full mt-6 border-t pt-6'>
+    <div className='w-full mt-6 border-t pt-6 bg-white'>
       <div className="container-market market">
         <div className="grid grid-cols-3 gap-4">
           <div>

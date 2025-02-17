@@ -14,13 +14,13 @@ export const Product = ({product, preview, buttons}) => {
 
   if (preview) {
     return (
-      <div className='flex flex-col border h-full w-[277px]'>
+      <div className='flex flex-col border h-full w-[277px] bg-white shadow-sm'>
         {(product?.pics?.[0] instanceof File || product?.pics?.[0] instanceof Blob) 
           ?
             <img
               src={product?.pics?.[0] && URL.createObjectURL(product?.pics?.[0])}
               alt=""
-              className="aspect-square object-cover w-[277px] h-[308px]"
+              className="aspect-square object-cover w-[277px] h-[308px] rounded-primary"
             />
           : 
             !product?.pics?.[0] ? (
@@ -29,7 +29,7 @@ export const Product = ({product, preview, buttons}) => {
             <img 
               src={getImageUrl(product, product?.pics?.[0])}
               alt="" 
-              className='aspect-square object-cover w-[277px] h-[308px]'
+              className='aspect-square object-cover w-[277px] h-[308px] rounded-primary'
             />
         }
         <div className="p-3 flex flex-col h-full">
@@ -56,12 +56,12 @@ export const Product = ({product, preview, buttons}) => {
   }
 
   return (
-    <div className='flex flex-col border h-full w-[277px] shadow-sm'>
+    <div className='flex flex-col border h-full w-[277px] bg-white shadow-sm rounded-primary'>
       <Link to={`/duken/product/${product?.id}`}>
         <img 
           src={getImageUrl(product, product?.pics?.[0])}
           alt="" 
-          className='aspect-auto object-cover w-[277px] h-[308px]'
+          className='aspect-auto object-cover w-[277px] h-[308px] rounded-t-primary'
         />
       </Link>
   

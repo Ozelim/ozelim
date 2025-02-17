@@ -20,8 +20,16 @@ export const Favorites = () => {
 
   React.useEffect(() => {
     if (user?.favorites) {
+      if (user?.favorites?.length === 0) return
       getFavorites(user?.favorites)
-      .then(res => {
+      .then(async res => {
+        if (res?.length !== user?.favorites?.length) {
+          const newFavories = user?.favorites.filter(id => res.some(q => q.id === id))
+
+          await pb.collection('agents').update(user?.id, {
+            favorites: newFavories
+          })
+        }
         setFavorites(res)
       })  
     }

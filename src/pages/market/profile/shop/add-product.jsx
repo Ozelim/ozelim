@@ -1,11 +1,14 @@
 import {
   Button,
   CloseButton,
+  Collapse,
   FileButton,
   FileInput,
   Modal,
   MultiSelect,
   Select,
+  Slider,
+  Switch,
   Text,
   TextInput,
   Textarea,
@@ -27,6 +30,7 @@ import "react-quill/dist/quill.snow.css";
 import { FaPlus } from 'react-icons/fa'
 import { set } from 'react-hook-form'
 import { openConfirmModal } from '@mantine/modals'
+import { showNotification } from '@mantine/notifications'
 
 export const AddProduct = () => {
 
@@ -38,6 +42,14 @@ export const AddProduct = () => {
 
   const [preview, preview_h] = useDisclosure(false)
   const [optionsModal, optionsModal_h] = useDisclosure(false)
+
+  const [takeout, takeout_h] = useDisclosure(false)
+  const [cityDelivery, cityDelivery_h] = useDisclosure(false)
+  const [allDelivery, allDelivery_h] = useDisclosure(false)
+  const [betweenCities, betweenCities_h] = useDisclosure(false)
+
+  const [deliveryCities, setDeliveryCities] = React.useState('')
+  const [takeoutAddress, setTakeoutAddress] = React.useState('')
 
   const [option, setOption] = React.useState({
     name: '',
@@ -114,7 +126,8 @@ export const AddProduct = () => {
         title: 'Ошибка',
         children: 'Заполните все поля',
         centered: true,
-        labels: {confirm: 'Ок', cancel: 'Отмена'}
+        labels: {confirm: 'Ок', cancel: 'Отмена'},
+        "aria-hidden": true
       })
       return
     }
@@ -130,6 +143,10 @@ export const AddProduct = () => {
       sub_category: category.sub, 
       content,
       options,
+      takeout: takeout ? takeoutAddress : '',
+      city_delivery: cityDelivery,
+      between_cities: deliveryCities,
+      everywhere: allDelivery,
     })
 
     for (let q of pics) {
@@ -153,6 +170,11 @@ export const AddProduct = () => {
           setContent('')
           setPics([])
           setCategory({})
+          showNotification({
+            title: 'Товар создан',
+            message: 'Товар успешно создан и отправлен на модерацию',
+            color: 'green',
+          })
         })
       })
   }
@@ -168,17 +190,23 @@ export const AddProduct = () => {
     optionsModal_h.close()
   }
 
+  function handlePicsUpload (e) {
+    if (!e) return
+    setPics([...pics, e])
+  }
+
   return (
     <>
       <div>
         <p>Создание товара:</p>
         <div className="flex flex-wrap gap-4 mt-4">
-          <div className="max-w-xs w-full">
+          <div className="max-w-xs w-full bg-white p-3 rounded-primary shadow-sm border">
             <TextInput
               label="Название"
               value={product?.name ?? ''}
               onChange={(e) => setProduct({ ...product, name: e?.currentTarget?.value })}
               variant="filled"
+              required
             />
             <Select
               data={cats ?? []}
@@ -186,6 +214,7 @@ export const AddProduct = () => {
               label="Категория"
               value={category?.main ?? ''}
               variant="filled"
+              required
             />
 
             <Select
@@ -194,11 +223,12 @@ export const AddProduct = () => {
               onChange={(e) => setCategory({ ...category, sub: e })}
               value={category?.sub ?? ''}
               variant="filled"
+              required
             />
             <div>
               <div className="flex gap-4 items-end">
                 <FileButton
-                  onChange={(e) => setPics([...pics, e])}
+                  onChange={handlePicsUpload}
                   label="Выбрать картинку"
                   variant="filled"
                   accept="image/png,image/jpeg"
@@ -210,7 +240,7 @@ export const AddProduct = () => {
               <div className="flex gap-4 flex-wrap">
                 {pics?.map((q, i) => {
                   return (
-                    <div className="relative">
+                    <div className="relative" key={i}>
                       <CloseButton
                         className="absolute top-5 -right-[75px]"
                         size={22}
@@ -234,8 +264,8 @@ export const AddProduct = () => {
               variant="filled"
               className="mt-4"
               autosize
+              required
             />
-
             <Button
               rightIcon={<FaPlus />}
               className='mt-4'
@@ -269,12 +299,14 @@ export const AddProduct = () => {
               onChange={(e) => setProduct({ ...product, price: e?.currentTarget?.value })}
               variant="filled"
               className='mt-2'
+              required
             />
             <TextInput
               label="Количество"
               value={product?.amount ?? ''}
               onChange={(e) => setProduct({ ...product, amount: e?.currentTarget?.value })}
               variant="filled"
+              required
             />
             <Select
               label="Город"
@@ -282,13 +314,72 @@ export const AddProduct = () => {
               value={product?.city ?? ''}
               onChange={(e) => setProduct({ ...product, city: e })}
               variant="filled"
+              required
             />
+            <Switch
+              label='Самовывоз'
+              className='mt-3'
+              checked={takeout}
+              onChange={e => takeout_h.toggle()}
+            />
+
+            <Collapse
+              in={takeout}
+            >
+              <TextInput
+                label='Адрес самовывоза'
+                value={takeoutAddress}
+                onChange={e => setTakeoutAddress(e?.currentTarget?.value)}
+                variant='filled'
+                className='mt-2'
+                required
+              />
+            </Collapse>
+
+            <Switch
+              label='Доставка по городу'
+              className='mt-3'
+              checked={cityDelivery}
+              onChange={e => cityDelivery_h.toggle()}
+            />
+
+            <Switch
+              label='Доставка в другие города'
+              className='mt-3'
+              checked={betweenCities}
+              onChange={e => betweenCities_h.toggle()}
+            />
+            <Collapse
+              in={betweenCities}
+            >
+              <MultiSelect
+                label='Города доставки'
+                placeholder='Выберите города'
+                value={deliveryCities}
+                onChange={e => setDeliveryCities(e)}
+                variant='filled'
+                className='mt-2'
+                required
+                data={cities}
+              />
+            </Collapse>
+
+            <Switch
+              label='Доставка всему Казахстану'
+              className='mt-3'
+              checked={allDelivery}
+              onChange={e => {
+                allDelivery_h.toggle()
+                betweenCities_h.close()
+              }}
+            />
+
             <div className="flex justify-center mt-4">
               <Button onClick={beforeCreateProduct}>Добавить товар</Button>
             </div>
           </div>
 
-          <div className="max-w-[700px] mx-auto h-full w-full">
+          <div className="max-w-[700px] mx-auto h-full w-full bg-white">
             <ReactQuill 
               value={content} 
               onChange={setContent} 

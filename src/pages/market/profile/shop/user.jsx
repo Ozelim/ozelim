@@ -19,7 +19,7 @@ export const User = () => {
   }
 
   return (
-    <div className='max-w-xs'>
+    <div className='max-w-xs p-3 border shadow-sm rounded-primary bg-white'>
       <TextInput
         label='Название'
         value={store?.name}
@@ -56,7 +56,6 @@ export const User = () => {
           Создать магазин
         </Button>
       </div>
-      
     </div>
   )
 }

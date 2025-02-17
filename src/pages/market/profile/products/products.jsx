@@ -162,7 +162,7 @@ export const Products = () => {
           <div className="flex flex-col gap-x-4 gap-y-6">
             {posted?.map((q, i) => {
               return (
-                <div className="flex gap-4 border p-3" key={i}>
+                <div className="flex gap-4 border p-3 bg-white rounded-primary shadow-sm" key={i}>
                   <div className='flex gap-3'>
                     <img src={getImageUrl(q, q?.pics?.[0])} alt="" className="w-40 h-40 object-cover" />
                     <div className='max-w-sm space-y-2 my-auto'>

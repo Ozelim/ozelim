@@ -18,9 +18,6 @@ export const Catalog = () => {
     getAllProducts()
   }, [])
 
-  console.log('catalog,');
-  
-
   const temp = [
     {title: 'Главная', link: '/duken'},
     {title: 'Каталог', link: '/duken/catalog'},

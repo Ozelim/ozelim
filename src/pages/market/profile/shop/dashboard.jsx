@@ -1,6 +1,6 @@
 import React from 'react'
 import { ActionIcon, Divider, Indicator, MantineProvider, clsx, createEmotionCache } from '@mantine/core'
-import { useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { useAuth } from 'shared/hooks'
 import { AddProduct } from './add-product'
 import { User } from './user'
@@ -21,6 +21,8 @@ import { FaGripVertical } from "react-icons/fa6";
 import { MdRateReview } from "react-icons/md";
 import { FaClipboardList } from "react-icons/fa6";
 import { FiShoppingCart } from 'react-icons/fi'
+import { SiWechat } from "react-icons/si";
+
 import { Avatar } from 'shared/ui'
 
 
@@ -30,7 +32,7 @@ const cache = createEmotionCache({
 })
 
 export const Dashboard = () => {
-  
+
   const [params, setParams] = useSearchParams()
 
   const { getShopById } = useShopStore()
@@ -77,6 +79,11 @@ export const Dashboard = () => {
       path: 'orders',
       icon: <FaClipboardList size={25}/>
     },
+    { 
+      label: 'Сообщения', 
+      path: 'messages',
+      icon: <SiWechat size={25}/>
+    },
   ]
 
   function handleTab(e) {
@@ -92,13 +99,16 @@ export const Dashboard = () => {
       theme={{
         primaryColor: 'pink',
         primaryShade: 7,
+        defaultRadius: 'md'
       }}
     >
       <div className=" market">
-        <div className="grid grid-cols-[280px_auto]">
+        <div className="grid grid-cols-[300px_auto]">
           <div className="bg-pink-700">
             <div className='py-4 px-12 h-32 flex flex-col justify-center'>
-              <img src={dukenLogoWhite} alt="" className='w-24'  />
+              <Link to={'/duken'}>
+                <img src={dukenLogoWhite} alt="" className='w-24'  />
+              </Link>
             </div>
             <div className="flex flex-col h-screen pl-5">
               {array.map((page, i) => {
@@ -132,42 +142,21 @@ export const Dashboard = () => {
                   {params.get('tab') === 'statuses' && <>Статусы</>}
                   {params.get('tab') === 'reviews' && <>Отзывы</>}
                   {params.get('tab') === 'orders' && <>Заказы</>}
+                  {params.get('tab') === 'messages' && <>Сообщения</>}
                 </p>
                 <div className='flex items-center gap-4'>
-                  {/* <Link to={`/duken/profile?segment=messages`}> */}
-                    <Indicator 
-                      // label={notifications} 
-                      size={20} 
-                      // disabled={notifications === 0}
-                    >
-                      <ActionIcon className='!border !border-slate-200 !p-3 !h-12 !w-12 !rounded-full'>
-                        <FaRegBell size={'100%'} color='black' />
-                      </ActionIcon>
-                    </Indicator>
-                  {/* </Link> */}
-                  {/* <Link to={'/duken/favorites'}> */}
-                    <Indicator 
-                      label={user?.favorites?.length} 
-                      size={20} 
-                      disabled={user?.favorites?.length === 0}
-                    >
-                      <ActionIcon className='!border !border-slate-200 !p-3 !h-12 !w-12 !rounded-full'>
-                        <FaRegHeart size={'100%'} color='black' />
-                      </ActionIcon>
-                    </Indicator>
-                  {/* </Link> */}
-                  <Indicator 
-                    // label={cartItems?.length} 
-                    size={20} 
-                    // disabled={cartItems?.length === 0}
-                    processing
-                  >  
-                    {/* <Link to={'/duken/cart'}> */}
-                      <ActionIcon className='!border !border-slate-200 !p-3 !h-12 !w-12 !rounded-full'>
-                        <FiShoppingCart size={'100%'} color='black' />
-                      </ActionIcon>
-                    {/* </Link> */}
-                  </Indicator>
+
+                  <ActionIcon className='!border !border-slate-200 !p-3 !h-12 !w-12 !rounded-full'>
+                    <FaRegBell size={'100%'} color='black' />
+                  </ActionIcon>
+
+                  <ActionIcon className='!border !border-slate-200 !p-3 !h-12 !w-12 !rounded-full'>
+                    <FaRegHeart size={'100%'} color='black' />
+                  </ActionIcon>
+
+                  <ActionIcon className='!border !border-slate-200 !p-3 !h-12 !w-12 !rounded-full'>
+                    <FiShoppingCart size={'100%'} color='black' />
+                  </ActionIcon>
 
                   <Divider orientation="vertical" />
 
@@ -182,7 +171,6 @@ export const Dashboard = () => {
                       )} 
                     </div>
                     <Avatar
-                      
                       record={user}
                       src={user?.avatar}
                       radius='xl'

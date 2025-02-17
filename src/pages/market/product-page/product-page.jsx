@@ -388,14 +388,14 @@ export const ProductPage = ({preview}) => {
                   </Button>
                 )}
 
-                <Button 
+                {/* <Button 
                   rightIcon={<FaShop size={22} />} 
                   size='lg'
                   component={Link}
                   to={`/duken/profile/?segment=messages&chatId=${product?.market_id}`}
                 >
                   Чат с магазиом
-                </Button>
+                </Button> */}
 
                 <ActionIcon 
                   className={clsx('!border !border-slate-200 !p-3 !h-12 !w-12 !rounded-full', {

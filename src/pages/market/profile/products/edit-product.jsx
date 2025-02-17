@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, CloseButton, FileButton, Select, Textarea, TextInput } from '@mantine/core'
+import { Button, CloseButton, FileButton, MultiSelect, Select, Switch, Textarea, TextInput } from '@mantine/core'
 import { useCategoriesStore } from 'pages/market/categoriesStore'
 import { Product } from 'pages/market/product'
 import { cities, compress, formatNumber, getImageUrl } from 'shared/lib'
@@ -152,7 +152,7 @@ export const EditProduct = ({ product, handlePreviewModal }) => {
         <p>Редактирование товара</p>
         <Button onClick={stopEditing}>Назад</Button>
       </div>
-      <div className="grid grid-cols-[320px_700px_auto] gap-4 mt-4">
+      <div className="flex flex-wrap gap-4 mt-4">
         <div className="max-w-xs w-full">
           <TextInput
             label="Название"
@@ -265,12 +265,64 @@ export const EditProduct = ({ product, handlePreviewModal }) => {
             onChange={(e) => setChangedProduct({ ...changedProduct, city: e })}
             variant="filled"
           />
+
+            <Switch
+              label='Самовывоз'
+              className='mt-3'
+              checked={product?.takeout}
+              disabled
+            />
+
+            {product?.takeout && (
+              <TextInput
+                label='Адрес самовывоза'
+                value={product?.takeout}
+                variant='filled'
+                className='mt-2'
+                disabled
+              />
+            )}
+
+            <Switch
+              label='Доставка по городу'
+              className='mt-3'
+              checked={product?.city_delivery}
+              disabled
+            />
+
+            <Switch
+              label='Доставка в другие города'
+              className='mt-3'
+              checked={product?.between_cities}
+              disabled
+            />
+            
+            {product?.between_cities && (
+              <MultiSelect
+                label='Города доставки'
+                placeholder='Выберите города'
+                value={product?.between_cities}
+                variant='filled'
+                className='mt-2'
+                required
+                data={[]}
+                readOnly
+              />
+            )}
+
+            <Switch
+              label='Доставка всему Казахстану'
+              className='mt-3'
+              checked={product?.everywhere}
+              disabled
+            />
+
           <div className="flex justify-center mt-4">
             <Button onClick={updateProduct}>Сохранить</Button>
           </div>
         </div>
 
-        <div className="mx-auto h-full w-full">
+        <div className="rounded-primary overflow-hidden shadow-sm border max-w-[700px] mx-auto h-full w-full bg-white">
           <ReactQuill
             value={content}
             onChange={setContent}

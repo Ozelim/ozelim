@@ -178,14 +178,14 @@ export const AgentsForm = ({onComplete}) => {
           <p className='text-red-500 text-sm mt-4'>{error}</p>
         )}
         {/* <Link to={'https://oz-elim.kz/login?reset=true'} className='underline text-gray-500 text-sm mt-4'>Восстановить пароль</Link> */}
-        <Button 
+        {/* <Button 
           className='mt-4' 
           type='submit'
           fullWidth
           loading={loading}
         >
           Зарегистрироваться
-        </Button>
+        </Button> */}
       </form>
     </div>
   )

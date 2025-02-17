@@ -1,14 +1,19 @@
 import React from 'react'
 import { useShopStore } from './shopStore'
 import { getImageUrl } from 'shared/lib'
-import { Button, Collapse, Rating, Table, Text, Textarea } from '@mantine/core'
+import { Button, clsx, Collapse, Pagination, Rating, Table, Text, Textarea } from '@mantine/core'
 import { pb } from 'shared/api'
 import dayjs from 'dayjs'
+import { Link } from 'react-router-dom'
+import { openConfirmModal } from '@mantine/modals'
 
-async function getReviewsByProduct (id, page = 1) {
+async function getReviewsByProduct (prods, page = 1) {
+
+  const filterQuery = prods?.map(id => `product_id = "${id}" && status = 'posted'`).join(" || ")
+
   return await pb.collection('reviews').getList(page, 20, {
-    filter: `product_id = '${id}'`,
-    expand: 'user'
+    filter: filterQuery,
+    expand: 'user, product_id'
   })
 }
 
@@ -21,115 +26,203 @@ export const Reviews = () => {
   const [review, setReview] = React.useState({})
 
   const [reply, setReply] = React.useState('')
+  const [reason, setReason] = React.useState('')
 
   const [reviews, setReviews] = React.useState([])
+
+  const [options, setOptions] = React.useState({
+    reply: false,
+    delete: false
+  })
+
+  function handleOptionsClick (type, q) {
+    if (type === 'reply') setOptions({...options, reply: !options?.reply, delete: false})
+    if (type === 'delete') setOptions({...options, delete: !options?.delete, reply: false})
+  }
 
   function handleReviewReply (r) {
     if (review?.id === r?.id) setReview({})
     else setReview(r)
   }
 
+  const products = shop?.expand?.products
+
+  const prods = products?.map(p => p?.id)
+
   async function handleReviews (q) {
-    getReviewsByProduct(q?.id)
-    .then(res => {
-      setReviews(res)
-      setSelected(q)
+    // getReviewsByProduct(prods)
+    // .then(res => {
+    //   setReviews(res)
+    //   setSelected(q)
+    // })
+  }
+
+  function handleReviewSelect (q) {
+    if (selected?.id === q?.id) return setSelected({})
+    setSelected(q)
+    setOptions({
+      reply: false,
+      delete: false
+    })
+    setReply('')
+    setReason('')
+  }
+
+  async function replyToReview () {
+    openConfirmModal({
+      centered: true,
+      title: 'Ответ на отзыв',
+      labels: { confirm: 'Отправить', cancel: 'Отмена' },
+      children: 'Вы действительно хотите отправить ответ на отзыв?',
+      onConfirm: async () => {
+        await pb.collection('reviews').update(selected?.id, {
+          reply
+        })
+      },
+      'aria-hidden': true,
     })
   }
 
-  const products = shop?.expand?.products
+  async function deleteReview () {
+    openConfirmModal({
+      centered: true,
+      title: 'Удаление отзыва',
+      labels: { confirm: 'Удалить', cancel: 'Отмена' },
+      children: 'Вы действительно хотите удалить отзыв?',
+      onConfirm: async () => {
+        await pb.collection('reviews').update(selected?.id, {
+          status: 'deleted',
+        })
+      },
+      'aria-hidden': true,
+    })
+  }
+
+  React.useEffect(() => { 
+    getReviewsByProduct(prods)
+    .then(res => {
+      setReviews(res)
+    })
+  }, [])
 
   return (
-    <div className='grid grid-cols-2 gap-4'>
-      {products?.map((q, i) => {
-        return (
-          <div className='border p-3 h-fit' key={i}>
-            <div className='grid grid-cols-[13%_auto_20%] gap-3'>
-              <img
-                alt="avatar"
-                src={getImageUrl(q, q?.pics?.[0])}
-                className="w-20 h-20 aspect-square object-cover"
-              />
-              <div>
-                <Text lineClamp={1}>{q?.name}</Text>
-                <Text lineClamp={2}>{q?.description}</Text>
-              </div>
-              <div className='flex flex-col justify-between items-end'>
-                <Button 
-                  onClick={() => handleReviews(q)}
-                >
-                  Отзывов {(q?.reviews_count)}
-                </Button>
-                <Rating fractions={3} readOnly value={3.3} />
+    <div className='grid grid-cols-[75%_auto] gap-4'>
+      <div className='flex flex-col gap-4'>
+        {reviews?.items?.map((q, i) => {
+          const p = q?.expand?.product_id
+          return (
+            <div 
+              key={i} 
+              className={clsx("cursor-pointer mx-auto w-full border rounded-primary flex gap-4 p-3 bg-white shadow-sm", {
+                'border-2 border-red-500': selected?.id === q?.id
+              })}
+              onClick={() => handleReviewSelect(q)}
+            >
+              {q?.expand?.user?.avatar && (
+                <img
+                  alt="avatar"
+                  src={getImageUrl(q?.expand?.user, q?.expand?.user?.avatar)}
+                  className="w-20 h-20 aspect-square object-cover rounded-full"
+                />
+              )}
+              {!q?.expand?.user?.avatar && (
+                <div className="w-20 h-20 aspect-square object-cover rounded-full bg-slate-300" />
+              )}
+              <div className='relative w-full'>
+                <p>{q?.expand?.user?.fio}</p>
+                <div className="mt-1 flex gap-4">
+                  <Rating size="sm" readOnly value={q?.rating} />
+                  <p>{dayjs(q?.created).format('DD MMMM YYYY, HH:mm')}</p>
+                </div>
+                
+                <p className="mt-2">{q?.comment}</p>
+                <div className='flex justify-end gap-3'>
+                  <Link
+                    to={`/duken/product/${p?.id}`}
+                  >
+                    <span className='underline'>
+                      {p?.name}
+                    </span>
+                  </Link>
+                </div>
               </div>
             </div>
-            <Collapse 
-              in={selected?.id === q?.id}
-            >
-              <Table>
-                <thead>
-                  <tr>
-                    <th>Дата</th>
-                    <th>Имя</th>
-                    <th>Оценка</th>
-                    <th>Комментарий</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {reviews?.items?.map((r) => {
+          )
+        })}
+        <div className="flex justify-center">
+          <Pagination
 
-                    const u = r?.expand?.user
-
-                    return (
-                      <tr key={r?.id}>
-                        <td>{dayjs(r?.created).format(`DD.MM.YYYY`)}</td>
-                        <td className='break-words max-w-[100px]'>{u?.fio}</td>
-                        <td className='flex flex-col gap-2 items-center '>
-                          <p>
-                            {r?.rating}
-                          </p>
-                          <Rating readOnly value={r?.rating} />
-                        </td>
-                        <td>
-                          {r?.comment}
-                          <Button
-                            compact
-                            variant='subtle'
-                            onClick={() => handleReviewReply(r)}
-                          >
-                            {review?.id === r?.id ? 'Свернуть' : 'Ответить'}
-                          </Button>
-                          <Collapse
-                            in={review?.id === r?.id}
-                          >
-                            <Textarea
-                              label='Комментарий'
-                              variant='filled'
-                              classNames={{
-                                label: '!font-bold',
-                                input: '!font-normal'
-                              }}
-                              autosize
-                            />
-                            <div className='flex justify-end mt-2'>
-                              <Button
-                                compact
-                                variant='outline'
-                              >
-                                Ответить
-                              </Button>
-                            </div>
-                          </Collapse>
-                        </td>
-                      </tr>
-                    )
-                  })}
-                </tbody>
-              </Table>
-            </Collapse>
-          </div>
-        )
-      })}
+          />
+        </div>
+      </div>
+      <div className='bg-white p-3 shadow-sm rounded-primary border'>
+        <div className='flex flex-col space-y-3'>
+          <Button
+            disabled={!selected?.id}
+            onClick={() => handleOptionsClick('reply')}
+            variant={options?.reply && !options?.delete ? 'filled' : 'outline'}
+          >
+            Ответить
+          </Button>
+          <Button
+            disabled={!selected?.id}
+            onClick={() => handleOptionsClick('delete')}
+            variant={options?.delete && !options?.reply ? 'filled' : 'outline'}
+          >
+            Удалить отзыв
+          </Button>
+        </div>
+          <Collapse
+            in={options?.reply && selected?.id}
+          >
+            <div className="mt-4">
+              <Textarea
+                label='Ответ на отзыв'
+                value={reply}
+                onChange={(e) => setReply(e?.currentTarget?.value)}
+                autosize 
+                minRows={4}
+                placeholder='Введите ответ на отзыв'
+                classNames={{
+                  input: '!font-normal'
+                }}
+                variant='filled'
+              />
+              <Button 
+                className='mt-3'
+                disabled={!reply}
+                onClick={replyToReview}
+              >
+                Отправить ответ
+              </Button>
+            </div>
+          </Collapse>
+          <Collapse
+            in={options?.delete && selected?.id}
+          >
+            <div className="mt-4">
+              <Textarea
+                label='Причина удаления'
+                value={reason}
+                onChange={(e) => setReason(e?.currentTarget?.value)}
+                autosize 
+                minRows={4}
+                variant='filled'
+                placeholder='Укажите причину удаления отзыв'
+                classNames={{
+                  input: '!font-normal'
+                }}
+              />
+              <Button 
+                className='mt-3'
+                disabled={!reason}
+                onClick={deleteReview}
+              >
+                Отправить
+              </Button>
+            </div>
+          </Collapse>
+      </div>
     </div>
   )
 }

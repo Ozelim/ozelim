@@ -75,7 +75,7 @@ export const MarketLogin = () => {
       <div className="container-market !mt-8 market">
         <h1 className='text-2xl text-center'>Вход в магазин</h1>
         <div className='h-full flex justify-center items-center flex-col mt-4'>
-          <div className='max-w-sm flex flex-col items-center gap-3 border p-4 w-full rounded-primary'>
+          <div className='bg-white max-w-sm flex flex-col items-center gap-3 border p-4 w-full rounded-primary shadow-sm'>
             <TextInput
               variant='filled'
               label='Email'
