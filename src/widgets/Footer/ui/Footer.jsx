@@ -54,7 +54,7 @@ export const Footer = () => {
             </div>
             <div className='text text-gray-400 text-left mb-4 md:mb-0'>
               <p>
-                ТОО «Saigu Travel»
+                ТОО «OzElim»
               </p>
               <p>
                 БИН: 221140000992
