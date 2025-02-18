@@ -9,9 +9,14 @@ import { AiOutlineInstagram, AiOutlineYoutube } from 'react-icons/ai'
 import { RiTiktokFill } from 'react-icons/ri'
 import Kazmap from 'shared/assets/images/hero.jpg'
 
+import home2kz from 'shared/assets/images/home/home2kz.jpeg'
+import home1kz from 'shared/assets/images/home/home1kz.jpeg'
+
 import q from 'shared/assets/images/home/1.png'
 import w from 'shared/assets/images/home/2.jpg'
 import e from 'shared/assets/images/home/3.jpg'
+
+
 
 async function getServices() {
   return await pb.collection('home_data').getFullList()
@@ -47,11 +52,19 @@ export const Home = () => {
       <div className="w-full">
         <div className="container">
           <div>
-            <img
-              src={Kazmap}
-              alt=""
-              className="max-w-full mx-auto lg:mx-0 rounded-r-primary object-cove"
-            />
+            {kz ? (  
+              <img
+                src={home2kz}
+                alt=""
+                className="max-w-full mx-auto lg:mx-0 rounded-r-primary object-cove"
+              />
+            ) : (
+              <img
+                src={Kazmap}
+                alt=""
+                className="max-w-full mx-auto lg:mx-0 rounded-r-primary object-cove"
+              />
+            )}
             <div className="text-center py-8">
               <p className="text-2xl lg:text-4xl mt-2 text-primary-500">
                 {qq(headings?.main, headings?.main2_kz)}
@@ -116,10 +129,17 @@ export const Home = () => {
           <h1 className="text-center text-2xl md:text-3xl font-bold font-head text-teal-500 flex justify-center items-center h-full">
             {headings?.[2]}
           </h1>
-          <img
-            src={w}
-            className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 rounded-primary max-h-96 object-cover"
-          />
+          {kz ? (
+            <img
+              src={home1kz}
+              className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 rounded-primary max-h-96 object-cover"
+            />
+          ) : (
+            <img
+              src={w}
+              className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 rounded-primary max-h-96 object-cover"
+            />
+          )}
           {/* {getImageUrl(images, images?.[1]) ? (
             <img
               className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0"
