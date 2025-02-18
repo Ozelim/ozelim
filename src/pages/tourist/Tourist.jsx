@@ -207,6 +207,12 @@ import e from 'shared/assets/images/user/3.jpeg'
 import r from 'shared/assets/images/user/4.jpeg'
 import t from 'shared/assets/images/user/5.jpeg'
 
+import t1kz from 'shared/assets/images/tourist1kz.jpeg'
+import t2kz from 'shared/assets/images/tourist2kz.jpeg'
+
+import t1 from 'shared/assets/images/tourist1.jpeg'
+import t2 from 'shared/assets/images/tourist2.jpeg'
+
 async function getRights() {
   return await pb.collection('tourist_data').getFullList()
 }
@@ -626,10 +632,21 @@ export const Tourist = () => {
             <h1 className="block lg:hidden text-2xl md:text-3xl font-bold font-head text-teal-500">
               {headings?.memo1}
             </h1>
-            <img
+            {kz ? (
+              <img
+                src={t1kz}
+                className="min-w-full rounded-primary object-cover aspect-video"
+              />
+            ) : (
+              <img
+                src={t1}
+                className="min-w-full rounded-primary object-cover aspect-video"
+              />
+            )}
+            {/* <img
               src={w}
               className="min-w-full rounded-primary object-cover aspect-video"
-            />
+            /> */}
             <div className="w-full lg:text-left text-center">
               <h1 className="hidden lg:block text-2xl md:text-3xl font-bold font-head text-teal-500">
                 {headings?.memo1}
@@ -710,11 +727,17 @@ export const Tourist = () => {
             <h1 className="block lg:hidden text-2xl md:text-3xl font-bold font-head text-teal-500">
               {headings?.dick1}
             </h1>
-            <img
-              src={r}
-              className="w-full lg mx-auto lg:mx-0 rounded-primary object-cover aspect-video"
-            />
-
+            {kz ? 
+              <img
+                src={t2kz}
+                className="w-full lg mx-auto lg:mx-0 rounded-primary object-contain aspect-video"
+              />
+              : 
+              <img
+                src={t2}
+                className="w-full lg mx-auto lg:mx-0 rounded-primary object-cover aspect-video"
+              />
+            }
             <div className="w-full lg:text-left text-center">
               <h1 className="hidden lg:block text-2xl md:text-3xl font-bold font-head text-teal-500">
                 {headings?.dick1}
