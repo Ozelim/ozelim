@@ -27,7 +27,7 @@ async function getVacas() {
 }
 
 export const Dual = () => {
-  const { kz } = useLangContext()
+  const { kz, qq } = useLangContext()
 
   const { headings, text, images } = usePageData('dual')
 
@@ -182,7 +182,9 @@ export const Dual = () => {
       </main>
 
       <section className="container mt-8">
-        <h1 className="font-bold text-4xl text-primary-500 text-center">Открытые вакансии</h1>
+        <h1 className="font-bold text-4xl text-primary-500 text-center">
+          {qq('Открытые вакансии', 'Бос жұмыс орындары')}
+        </h1>
         <Accord data={vacas} />
       </section>
       <div className="container mt-8">
@@ -244,7 +246,7 @@ export const Dual = () => {
                   })
               }}
             >
-              Откликнуться на вакансию
+              {qq('Откликнуться на вакансию', 'Жұмысқа өтініш қалдыру')}
             </Button>
           </div>
         </section>

@@ -5,6 +5,7 @@ import { showNotification } from '@mantine/notifications'
 
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useLangContext } from 'app/langContext'
 
 const schema = yup.object({
   name: yup.string().required('Заполните данное поле'),
@@ -13,6 +14,8 @@ const schema = yup.object({
 })
 
 export function Modal({ children, onSubmit, buttonProps, data, resort }) {
+
+  const {qq} = useLangContext()
 
   const [opened, { open, close }] = useDisclosure(false)
 
@@ -132,7 +135,7 @@ export function Modal({ children, onSubmit, buttonProps, data, resort }) {
             type="submit" 
             fullWidth
           >
-            Оставить заявку
+            {qq('Отправить', 'Жіберу')}
           </Button>
         </form>
       </ModalM>

@@ -173,7 +173,7 @@ export const Rights = () => {
 
   const [opened1, handlers1] = useDisclosure()
 
-  const {kz} = useLangContext()
+  const {kz, qq} = useLangContext()
 
   React.useEffect(() => {
     getRights()
@@ -348,7 +348,7 @@ export const Rights = () => {
 
           <section className='mt-10'>
             <h1 className='font-bold text-4xl text-primary-500 text-center'>
-              Предлагаемые юридические услуги
+              {qq('Предлагаемые юридические услуги', 'Ұсынылған заң қызметтері')}
             </h1>
 
             <Accordion

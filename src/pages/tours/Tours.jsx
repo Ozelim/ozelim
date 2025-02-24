@@ -25,7 +25,7 @@ async function getTours () {
 
 export const Tours = () => {
 
-  const {kz} = useLangContext()
+  const {kz, qq} = useLangContext()
 
   const {images, text, headings} = usePageData('tours')
 
@@ -301,7 +301,7 @@ export const Tours = () => {
                       </div>
                       <div className='p-3'>
                         <Button fullWidth onClick={send} disabled={!data?.resort || !data?.phone || !data?.datePicked}>
-                          Оставить заявку
+                          {qq('Оставить заявку', 'Өтініш қалдыру')}
                         </Button>
                       </div>
                     </Collapse>
@@ -316,7 +316,9 @@ export const Tours = () => {
         </section>
 
         <section className='container mt-8'>
-          <h1 className='font-bold text-4xl text-primary-500 text-center'>Туры</h1>
+          <h1 className='font-bold text-4xl text-primary-500 text-center'>
+            {qq('Туры', 'Турлар')}
+          </h1>
           <Accord data={tours?.tours}/>
         </section>
 
@@ -416,7 +418,7 @@ export const Tours = () => {
                 }
               }
             >
-              Оставить заявку
+              {qq('Оставить заявку', 'Өтініш қалдыру')}
             </Button>
           </div>
         </section>

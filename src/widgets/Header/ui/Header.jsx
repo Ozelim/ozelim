@@ -15,12 +15,12 @@ const array = [
 ]
 
 const array2 = [
-  {labelru: 'Фонд', link: '/fund'},
-  {labelru: 'Мир здоровья', link: '/health-world'},
-  {labelru: 'Дуальное обучение', link: '/dual'},
-  {labelru: 'Туры с OzElim', link: '/tours'},
-  {labelru: 'Страхование', link: '/insurance'},
-  {labelru: 'Правовая защита', link: '/rights'},
+  {labelkz: 'Қор', labelru: 'Фонд', link: '/fund'},
+  {labelkz: '⁠Денсаулық әлемі', labelru: 'Мир здоровья', link: '/health-world'},
+  {labelkz: 'Дуальді оқыту', labelru: 'Дуальное обучение', link: '/dual'},
+  {labelkz: '⁠OzElim турлары', labelru: 'Туры с OzElim', link: '/tours'},
+  {labelkz: '⁠Сақтандыру', labelru: 'Страхование', link: '/insurance'},
+  {labelkz: '⁠Құқықтық көмек', labelru: 'Правовая защита', link: '/rights'},
 ] 
 
 export const Header = () => {

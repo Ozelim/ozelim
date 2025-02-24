@@ -1,16 +1,13 @@
 import React from 'react'
 
-import { BsWhatsapp } from 'react-icons/bs'
-import { MdOutlineMailOutline } from 'react-icons/md'
-import { CgPhone } from 'react-icons/cg'
-import { HealthLink } from 'shared/ui/HealthLink'
-import { pb } from 'shared/api'
-import { getImageUrl } from 'shared/lib'
 import { Image } from 'shared/ui'
 import { Button } from '@mantine/core'
+import { useLangContext } from 'app/langContext'
 
 
 export const CourseCurrator = ({ images, text, headings, }) => {
+
+  const {qq} = useLangContext()
 
   return (
     <div className="w-full">
@@ -60,7 +57,7 @@ export const CourseCurrator = ({ images, text, headings, }) => {
               <div className='flex justify-center w-full mt-5'>
                 <a href="https://wa.me/77051769699" target="_blank" rel="noopener noreferrer">
                   <Button>
-                    Оставить заявку
+                    {qq('Оставить заявку', 'Өтініш қалдыру')}
                   </Button>
                 </a>
               </div>

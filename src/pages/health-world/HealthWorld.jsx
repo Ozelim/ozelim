@@ -34,7 +34,7 @@ async function getRes () {
 
 export const HealthWorld = () => {
 
-  const {kz} = useLangContext()
+  const {kz, qq} = useLangContext()
 
   const [opened1, handlers1] = useDisclosure()
 
@@ -332,7 +332,7 @@ export const HealthWorld = () => {
                 }
               }
             >
-              Оставить заявку
+              {qq('Отправить заявку', 'Өтініш жіберу')}
             </Button>
           </div>
         </section>

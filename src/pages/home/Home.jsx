@@ -9,7 +9,7 @@ import { AiOutlineInstagram, AiOutlineYoutube } from 'react-icons/ai'
 import { RiTiktokFill } from 'react-icons/ri'
 import Kazmap from 'shared/assets/images/hero.jpg'
 
-import home2kz from 'shared/assets/images/home/home2kz.jpeg'
+import home2kz from 'shared/assets/images/home/home2kz.jpg'
 import home1kz from 'shared/assets/images/home/home1kz.jpeg'
 
 import q from 'shared/assets/images/home/1.png'
@@ -240,18 +240,21 @@ export const Home = () => {
               </ul>
               <Button className="mt-4">
                 <a href={'/home-1.pdf'} target="_blank">
-                  {qq(`Справка о Гос. Регистрации`)}
+                  {qq(`Справка о Гос. Регистрации`, `Мемлекеттік тіркеу куәлігі`)}
                 </a>
               </Button>
               <div>
                 <a href={'/ustav.pdf'} target="_blank">
-                  <Button className="mt-4">Устав Ассоциации туристов Казахстана "Oz Elim"</Button>
+                  <Button className="mt-4">
+                    {qq(`Устав Ассоциации туристов Казахстана "Oz Elim"`, `Қазақстан туристер Қауымдастығының Жарғысы "Oz Elim"`)}
+                    {/* Устав Ассоциации туристов Казахстана "Oz Elim" */}
+                  </Button>
                 </a>
               </div>
               <div className='mt-4'>
                 <a href={'/services-asosiation.pdf'} target='_blank'>
                   <Button>
-                    Услуги членам Ассоциации
+                    {qq('Услуги членам Ассоциации', 'Қауымдастық мүшелеріне ұсынылатын қызметтер тізім')}
                   </Button>
                 </a>
               </div>
@@ -334,7 +337,9 @@ export const Home = () => {
           </p>
         </div>
         <div className="flex flex-col justify-center items-center mt-8">
-          <Button onClick={() => handlers.open()}>Оставить заявку</Button>
+          <Button onClick={() => handlers.open()}>
+            {qq('Оставить заявку', 'Өтініш қалдыру')}
+          </Button>
         </div>
         <div className="text-center mt-8">
           <h1 className="text-3xl lg:text-4xl font-bold mt-1 text-primary-500">{headings?.[7]}</h1>

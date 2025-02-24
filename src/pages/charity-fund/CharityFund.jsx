@@ -19,7 +19,7 @@ export const CharityFund = () => {
 
   const {images, headings, text} = usePageData('insurance')
 
-  const {kz} = useLangContext()
+  const {kz, qq} = useLangContext()
 
   const [opened1, handlers1] = useDisclosure()
 
@@ -138,7 +138,7 @@ export const CharityFund = () => {
 
             <a href={'/insurance-1.pdf'} target='_blank'>
               <Button>
-                Страховая памятка
+                {qq('Страховая памятка', 'Сақтандыру ережелері')}
               </Button>
             </a>
           </div>
@@ -221,7 +221,7 @@ export const CharityFund = () => {
             <p className="mt-2 ">{text?.zz}</p>
             <a href={'/insurance-1.png'} target='_blank'>
               <Button>
-                Страховая лицензия
+                {qq('Страховая лицензия', 'Сақтандыру лицензиясы')}
               </Button>
             </a>
           </div>
