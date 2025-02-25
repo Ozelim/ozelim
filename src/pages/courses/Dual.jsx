@@ -189,7 +189,10 @@ export const Dual = () => {
       </section>
       <div className="container mt-8">
         <div className="flex justify-center">
-          <Button onClick={() => handlers1.open()}>Откликнуться на вакансию</Button>
+          <Button onClick={() => handlers1.open()}>
+            {qq("Откликнуться на вакансию", "Жұмысқа өтініш қалдыру")}
+            
+          </Button>
         </div>
       </div>
       <Modal opened={opened1} onClose={() => handlers1.close()} centered title="Отклик на вакансию">

@@ -1,6 +1,6 @@
+import React from 'react'
 import { useLangContext } from 'app/langContext'
 import { HealthHeader } from 'pages/health/ui/HealthHeader'
-import React from 'react'
 import { pb } from 'shared/api'
 import { usePageData } from 'shared/hooks'
 import { TeamCard } from 'shared/ui/TeamCard'
