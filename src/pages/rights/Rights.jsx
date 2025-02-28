@@ -165,7 +165,7 @@ const acc = [
 
 export const Rights = () => {
 
-  const [accData, setAccData] = React.useState({})
+  const [accData, setAccData] = React.useState([])
 
   const {headings, text, images} = usePageData('rights')
 
@@ -250,7 +250,7 @@ export const Rights = () => {
 
   const renderDescription = (description) => {
     return description?.content.map((item, sectionIndex) => {
-      if (item.type === 'p') {
+      if (item?.type === 'p') {
         return (
           <p key={sectionIndex + 100}>
             {item?.text}
@@ -260,7 +260,7 @@ export const Rights = () => {
       if (item.type === 'ul') {
         return (
           <ul className='list-disc px-6 mt-4' key={sectionIndex + Math.random()}>
-            {item.items.map((li, liIndex) => (
+            {item?.items.map((li, liIndex) => (
               <li key={liIndex + 300}>
                 {li}
               </li>
@@ -423,7 +423,7 @@ export const Rights = () => {
                 className='my-10'
                 defaultValue='0'
               >
-                {accData.map((q, i) => {
+                {accData?.map((q, i) => {
                   return (
                     <Accordion.Item value={`${i}`}
                       key={i + Math.random()}
@@ -444,7 +444,7 @@ export const Rights = () => {
                 className='my-10'
                 defaultValue='0'
               >
-                {accData.map((q, i) => {
+                {accData?.map((q, i) => {
                   return (
                     <Accordion.Item value={`${i}`}
                       key={i}
