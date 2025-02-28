@@ -165,6 +165,8 @@ const acc = [
 
 export const Rights = () => {
 
+  const [accData, setAccData] = React.useState({})
+
   const {headings, text, images} = usePageData('rights')
 
   const [types, setTypes] = React.useState([])
@@ -180,6 +182,46 @@ export const Rights = () => {
     .then(res => {
       setTypes(res?.[0]?.types)
     })
+
+    const fetchData = async () => {
+      try {
+        const records = await pb.collection('rights_accordion').getFullList();
+        const formattedData = records.map((record) => {
+          const description = record.description;
+          const descriptionKz = record.description_kz;
+
+          // Check if the description is a string, then parse it
+          let formattedDescription = {};
+          let formattedDescriptionKz = {};
+
+          try {
+            if (typeof description === 'string') {
+              formattedDescription = JSON.parse(description); // Parse string to JSON
+              formattedDescriptionKz = JSON.parse(descriptionKz); // Parse string to JSON
+            } else {
+              formattedDescription = description; // It's already an object
+              formattedDescriptionKz = descriptionKz; // It's already an object
+            }
+          } catch (error) {
+            console.error('Error parsing description:', error);
+          }
+
+          return {
+            ...record,
+            label: record?.label,
+            label_kz: record?.label_kz,
+            description: formattedDescription,
+            description_kz: record?.formattedDescriptionKz,
+          };
+        });
+
+        setAccData(formattedData); // Set the fetched data into state
+      } catch (error) {
+        console.error('Error fetching data from PocketBase:', error);
+      }
+    };
+
+    fetchData();
   }, [])
 
   const [data, setData] = React.useState({
@@ -205,6 +247,30 @@ export const Rights = () => {
       })
     })
   }
+
+  const renderDescription = (description) => {
+    return description?.content.map((item, sectionIndex) => {
+      if (item.type === 'p') {
+        return (
+          <p key={sectionIndex + 100}>
+            {item?.text}
+          </p>
+        );
+      }
+      if (item.type === 'ul') {
+        return (
+          <ul className='list-disc px-6 mt-4' key={sectionIndex + Math.random()}>
+            {item.items.map((li, liIndex) => (
+              <li key={liIndex + 300}>
+                {li}
+              </li>
+            ))}
+          </ul>
+        );
+      }
+      return null;
+    });
+  };
 
   return (
     <>
@@ -351,27 +417,49 @@ export const Rights = () => {
               {qq('Предлагаемые юридические услуги', 'Ұсынылған заң қызметтері')}
             </h1>
 
-            <Accordion
-              variant='separated'
-              className='my-10'
-              defaultValue='0'
-            >
-              {acc.map((q, i) => {
-                return (
-                  <Accordion.Item value={`${i}`}
-                    key={i}
-                  >
-                    <Accordion.Control className='!text-xl !font-bold '>{i + 1}. 
-                      <span className='text-primary-500'> {q?.label}</span>
-                    </Accordion.Control>
-                    <Accordion.Panel className='accordion-body px-4 pb-4'>
-                      {q?.description}
-                    </Accordion.Panel>
-                  </Accordion.Item>
-                )
-              })}
-            </Accordion>
-            {/* <Accord data={acc}/> */}
+            {kz ? 
+              <Accordion
+                variant='separated'
+                className='my-10'
+                defaultValue='0'
+              >
+                {accData.map((q, i) => {
+                  return (
+                    <Accordion.Item value={`${i}`}
+                      key={i + Math.random()}
+                    >
+                      <Accordion.Control className='!text-xl !font-bold '>{i + 1}. 
+                        <span className='text-primary-500'> {q?.label}</span>
+                      </Accordion.Control>
+                      <Accordion.Panel className='accordion-body px-4 pb-4'>
+                        {renderDescription(q.description, i)}
+                      </Accordion.Panel>
+                    </Accordion.Item>
+                  )
+                })}
+              </Accordion>
+              : 
+              <Accordion
+                variant='separated'
+                className='my-10'
+                defaultValue='0'
+              >
+                {acc.map((q, i) => {
+                  return (
+                    <Accordion.Item value={`${i}`}
+                      key={i}
+                    >
+                      <Accordion.Control className='!text-xl !font-bold '>{i + 1}. 
+                        <span className='text-primary-500'> {q?.label_kz}</span>
+                      </Accordion.Control>
+                      <Accordion.Panel className='accordion-body px-4 pb-4'>
+                        {renderDescription(q.description_kz, i)}
+                      </Accordion.Panel>
+                    </Accordion.Item>
+                  )
+                })}
+              </Accordion>
+            }
           </section>
 
           <section className="w-full mt-4">
@@ -398,8 +486,6 @@ export const Rights = () => {
               {kz ? 'Өтініш қалдыру' : `Оставить заявку`}
             </Button>
           </div>
-
-
 
         </div>
       </div>
