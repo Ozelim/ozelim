@@ -432,7 +432,7 @@ export const Rights = () => {
                         <span className='text-primary-500'> {q?.label_kz}</span>
                       </Accordion.Control>
                       <Accordion.Panel className='accordion-body px-4 pb-4'>
-                        {renderDescription(q.description_kz, i)}
+                        {renderDescription(q?.description_kz, i)}
                       </Accordion.Panel>
                     </Accordion.Item>
                   )
@@ -464,7 +464,7 @@ export const Rights = () => {
 
           <section className="w-full mt-4">
             <h1 className="text-4xl text-primary-500 font-bold">
-            {headings?.heading5}
+              {headings?.heading5}
             </h1>
             <div className='flex flex-col md:flex-row gap-8 mt-6'>
               <img
