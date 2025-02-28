@@ -252,7 +252,7 @@ export const Rights = () => {
     return description?.content.map((item, sectionIndex) => {
       if (item?.type === 'p') {
         return (
-          <p key={sectionIndex + 100}>
+          <p key={sectionIndex + 100} className='mt-4'>
             {item?.text}
           </p>
         );
