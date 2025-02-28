@@ -429,10 +429,10 @@ export const Rights = () => {
                       key={i + Math.random()}
                     >
                       <Accordion.Control className='!text-xl !font-bold '>{i + 1}. 
-                        <span className='text-primary-500'> {q?.label}</span>
+                        <span className='text-primary-500'> {q?.label_kz}</span>
                       </Accordion.Control>
                       <Accordion.Panel className='accordion-body px-4 pb-4'>
-                        {renderDescription(q.description, i)}
+                        {renderDescription(q.description_kz, i)}
                       </Accordion.Panel>
                     </Accordion.Item>
                   )
@@ -450,10 +450,10 @@ export const Rights = () => {
                       key={i}
                     >
                       <Accordion.Control className='!text-xl !font-bold '>{i + 1}. 
-                        <span className='text-primary-500'> {q?.label_kz}</span>
+                        <span className='text-primary-500'> {q?.label}</span>
                       </Accordion.Control>
                       <Accordion.Panel className='accordion-body px-4 pb-4'>
-                        {renderDescription(q.description_kz, i)}
+                        {renderDescription(q.description, i)}
                       </Accordion.Panel>
                     </Accordion.Item>
                   )
