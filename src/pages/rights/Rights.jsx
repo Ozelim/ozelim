@@ -211,7 +211,7 @@ export const Rights = () => {
             label: record?.label,
             label_kz: record?.label_kz,
             description: formattedDescription,
-            description_kz: record?.formattedDescriptionKz,
+            description_kz: formattedDescriptionKz,
           };
         });
 
@@ -271,6 +271,8 @@ export const Rights = () => {
       return null;
     });
   };
+
+  console.log(accData, 'accData');
 
   return (
     <>
