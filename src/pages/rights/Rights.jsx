@@ -444,7 +444,7 @@ export const Rights = () => {
                 className='my-10'
                 defaultValue='0'
               >
-                {acc.map((q, i) => {
+                {accData.map((q, i) => {
                   return (
                     <Accordion.Item value={`${i}`}
                       key={i}
