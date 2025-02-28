@@ -213,6 +213,8 @@ import t2kz from 'shared/assets/images/tourist2kz.jpeg'
 import t1 from 'shared/assets/images/tourist1.jpeg'
 import t2 from 'shared/assets/images/tourist2.jpeg'
 
+import t3kz from 'shared/assets/images/tourist3kz.jpeg'
+
 async function getRights() {
   return await pb.collection('tourist_data').getFullList()
 }
@@ -220,7 +222,7 @@ async function getRights() {
 export const Tourist = () => {
 
   const { headings, text, images } = usePageData('tourist')
-  const { kz } = useLangContext()
+  const { kz, qq } = useLangContext()
 
   const [opened1, handlers1] = useDisclosure()
 
@@ -635,12 +637,12 @@ export const Tourist = () => {
             {kz ? (
               <img
                 src={t1kz}
-                className="min-w-full rounded-primary object-cover aspect-video"
+                className="min-w-full rounded-primary object-contain aspect-video"
               />
             ) : (
               <img
                 src={t1}
-                className="min-w-full rounded-primary object-cover aspect-video"
+                className="min-w-full rounded-primary object-contain aspect-video"
               />
             )}
             {/* <img
@@ -708,14 +710,14 @@ export const Tourist = () => {
               <div className='flex mt-4'>
                 <a href={'/user-11.pdf'} target='_blank'>
                   <Button>
-                    Положение о членстве в Ассоциации
+                    {qq('Положение о членстве в Ассоциации', 'Қауымдастыққа мүшелік туралы ереже')}
                   </Button>
                 </a>
               </div>
               <div className='flex mt-2'>
                 <a href={'/services-asosiation.pdf'} target='_blank'>
                   <Button>
-                    Услуги членам Ассоциации
+                    {qq('Услуги членам Ассоциации', '⁠Қауымдастық мүшелеріне ұсынылған қызметтер')}
                   </Button>
                 </a>
               </div>
@@ -747,7 +749,8 @@ export const Tourist = () => {
                 {text?.dick2}
               </p>
               <Link to={'/fund'} className='underline text-primary-500 mt-4'>
-                Подробнее...
+              {qq("Подробнее...","Толығырақ...")}
+                
               </Link>
             </div>
           </section>
@@ -757,15 +760,22 @@ export const Tourist = () => {
               {headings?.agent1}
             </h1>
             <div>
-              <img
-                src={t}
-                className="w-full lg mx-auto lg:mx-0 rounded-primary object-cover aspect-video"
-              />
+              {kz ?
+                <img
+                  src={t3kz}
+                  className="w-full lg mx-auto lg:mx-0 rounded-primary object-cover aspect-video"
+                />
+                : 
+                <img
+                  src={t}
+                  className="w-full lg mx-auto lg:mx-0 rounded-primary object-cover aspect-video"
+                />
+              }
               <div className='grid  lg:grid-cols-3'>
                 <div></div>
                 <a href={'/agents.pdf'} target='_blank' className='block mt-4 text-center'>
                   <Button>
-                    Положение о Агенстве
+                    {qq("Положение о Агенстве", "Агент ережелері")}
                   </Button>
                 </a>
 
