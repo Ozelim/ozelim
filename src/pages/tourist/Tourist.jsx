@@ -205,7 +205,7 @@ import q from 'shared/assets/images/user/1.jpeg'
 import w from 'shared/assets/images/user/2.jpeg'
 import e from 'shared/assets/images/user/3.jpeg'
 import r from 'shared/assets/images/user/4.jpeg'
-import t from 'shared/assets/images/user/5.jpeg'
+import t from 'shared/assets/images/user/5.png'
 
 import t1kz from 'shared/assets/images/tourist1kz.jpeg'
 import t2kz from 'shared/assets/images/tourist2kz.jpeg'
