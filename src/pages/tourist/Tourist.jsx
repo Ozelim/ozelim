@@ -204,7 +204,7 @@ import { getImageUrl } from 'shared/lib'
 import q from 'shared/assets/images/user/1.jpeg'
 import w from 'shared/assets/images/user/2.jpeg'
 import e from 'shared/assets/images/user/3.jpeg'
-import eKz from 'shared/assets/images/user/3kz.jpeg'
+import eKz from 'shared/assets/images/3kz.jpeg'
 import r from 'shared/assets/images/user/4.jpeg'
 import t from 'shared/assets/images/user/5.png'
 
