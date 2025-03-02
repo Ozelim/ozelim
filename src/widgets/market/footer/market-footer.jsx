@@ -26,10 +26,18 @@ export const MarketFooter = () => {
           <div>
             <p className='font-bold'>Полезные ссылки</p>
             <div className="space-y-3 text-slate-500 cursor-pointer mt-6">
-              <p>Lorem, ipsum dolor.</p>
-              <p>Lorem, ipsum dolor.</p>
-              <p>Lorem, ipsum dolor.</p>
-              <p>Lorem, ipsum dolor.</p>
+              <p>
+                Lorem, ipsum dolor.
+              </p>
+              <p>
+                Lorem, ipsum dolor.
+              </p>
+              <p>
+                Lorem, ipsum dolor.
+              </p>
+              <p>
+                Lorem, ipsum dolor.
+              </p>
             </div>
           </div>
           <div>

@@ -204,6 +204,7 @@ import { getImageUrl } from 'shared/lib'
 import q from 'shared/assets/images/user/1.jpeg'
 import w from 'shared/assets/images/user/2.jpeg'
 import e from 'shared/assets/images/user/3.jpeg'
+import eKz from 'shared/assets/images/user/3kz.jpeg'
 import r from 'shared/assets/images/user/4.jpeg'
 import t from 'shared/assets/images/user/5.png'
 
@@ -213,7 +214,7 @@ import t2kz from 'shared/assets/images/tourist2kz.jpeg'
 import t1 from 'shared/assets/images/tourist1.jpeg'
 import t2 from 'shared/assets/images/tourist2.jpeg'
 
-import t3kz from 'shared/assets/images/tourist3kz.jpeg'
+import t3kz from 'shared/assets/images/t3kz.jpeg'
 
 async function getRights() {
   return await pb.collection('tourist_data').getFullList()
@@ -690,10 +691,17 @@ export const Tourist = () => {
             <h1 className="block lg:hidden text-2xl md:text-3xl font-bold font-head text-teal-500">
               {headings?.fund1}
             </h1>
-            <img
-              src={e}
-              className="w-full lg mx-auto lg:mx-0 rounded-primary object-cover aspect-video"
-            />
+            {kz ? 
+              <img
+                src={eKz}
+                className="w-full lg mx-auto lg:mx-0 rounded-primary object-cover aspect-video"
+              />
+              : 
+              <img
+                src={e}
+                className="w-full lg mx-auto lg:mx-0 rounded-primary object-cover aspect-video"
+              />
+            }
 
             <div className="w-full lg:text-left text-center">
               <h1 className="hidden lg:block text-2xl md:text-3xl font-bold font-head text-teal-500">
@@ -705,7 +713,7 @@ export const Tourist = () => {
                 {text?.fund3}
               </p>
               <Link to={'/'} className='underline text-primary-500 mt-4'>
-                Подробнее...
+                {qq("Подробнее...","Толығырақ...")}
               </Link>
               <div className='flex mt-4'>
                 <a href={'/user-11.pdf'} target='_blank'>
