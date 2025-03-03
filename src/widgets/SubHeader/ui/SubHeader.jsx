@@ -12,7 +12,7 @@ import { IoIosArrowDown } from "react-icons/io";
 
 export const SubHeader = () => {
 
-  const {kz, changeLang} = useLangContext()
+  const {kz, changeLang, qq} = useLangContext()
 
   return (
     <div className="w-full">
@@ -25,7 +25,9 @@ export const SubHeader = () => {
               +7 747 051 2252
             </span>
           </a>
-          <p className='text-center text-[13px] text-slate-500 -mt-0.5'>Понедельник-пятница, 09:00 - 18:00</p>
+          <p className='text-center text-[13px] text-slate-500 -mt-0.5'>
+            {qq('Понедельник-пятница, 09:00 - 18:00', 'Дүйсенбі-жұма, 09:00 - 18:00')}
+          </p>
         </div>
         <Menu className='ml-6' >
           <Menu.Target>
