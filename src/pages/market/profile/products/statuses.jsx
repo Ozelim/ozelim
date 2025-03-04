@@ -147,8 +147,6 @@ export const Statuses = () => {
       </>
     )
 
-  
-
   return (
     <>
       <LoadingOverlay visible={loading} />

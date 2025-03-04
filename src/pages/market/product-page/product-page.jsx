@@ -344,6 +344,41 @@ export const ProductPage = ({preview}) => {
                   )
                 })}
               </div>
+
+              <div className="mt-4 flex flex-col gap-2 border-t pt-4">
+                <div className='flex gap-4'>
+                  <p>Город:</p>
+                  <p>{product?.city}</p>
+                </div>
+                {product?.takeout && (
+                  <div className='flex gap-4'>
+                    <p>Самовывоз:</p>
+                    <p>Да</p>
+                  </div>
+                )}
+                <div className='flex gap-4'>
+                  <p>Доставка по городу:</p>
+                  <p>{product?.city_delivery ? 'Да' : 'Нет'}</p>
+                </div>
+
+                <div className='flex gap-4'>
+                  <p>Доставка по всему Казахстану:</p>
+                  <p>{product?.everywhere ? 'Да' : 'Нет'}</p>
+                </div>
+                
+                {(!product?.everywhere && product?.between_cities) && (
+                  <div className='flex gap-4'>
+                    <p>Доставка в другие города:</p>
+                    <div className='flex gap-2 flex-wrap gap-3'>
+                      {product?.between_cities && product?.between_cities?.map((q, i) => {
+                        return (
+                          <p key={i} className='px-2 py-1 border rounded-full'>{q}</p>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
               
               <div className='mt-4 flex gap-4 border-y py-4'>
 
@@ -528,7 +563,6 @@ export const ProductPage = ({preview}) => {
                             <p className='mt-2'>
                               {q?.comment}
                             </p>
-
                           </div>
                             {(i === 1 || i === 3) && (
                               <Button

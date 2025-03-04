@@ -134,6 +134,8 @@ export const AddProduct = () => {
 
     const formData = new FormData()
 
+    console.log(product, 'produ');
+
     const createdProduct = await pb.collection('products').create({
       ...product,
       market_id: shop?.id,
@@ -278,7 +280,7 @@ export const AddProduct = () => {
 
             {options?.map((q) => {
               return (
-                <div key={q?.id} className='mt-4'>
+                <div key={Math.random()} className='mt-4'>
                   {q?.option}:
                   <div className="flex gap-4 flex-wrap mt-2">
                     {q?.variants?.map((e) => {

@@ -2,7 +2,7 @@ import React from 'react'
 import { useCartStore } from './cartStore'
 
 import { CartItem } from './cart-item'
-import { Button, Checkbox, clsx, LoadingOverlay, Select, TextInput } from '@mantine/core'
+import { Button, Checkbox, clsx, LoadingOverlay, Select, TextInput, Collapse } from '@mantine/core'
 import { useAuth } from 'shared/hooks'
 import { useDisclosure } from '@mantine/hooks'
 import axios from 'axios'
@@ -26,11 +26,13 @@ export const MarketCart = () => {
   const [terms, terms_h] = useDisclosure(false)
   const [payment, payment_h] = useDisclosure(false)
   const [paymentLoading, paymentLoading_h] = useDisclosure(false)
+  const [addDelivery, addDelivery_h] = useDisclosure(false)
+  const [addDeliveryLoading, addDeliveryLoading_h] = useDisclosure(false)
 
   const [deliveryData, setDeliveryData] = React.useState({
-    city: user?.city,
-    address: user?.region,
-    phone: user?.phone,
+    city: user?.delivery_address?.city,
+    address: user?.delivery_address?.address,
+    phone: user?.delivery_address?.phone,
   })
 
   const [takeoutData, setTakeoutData] = React.useState({
@@ -249,15 +251,34 @@ export const MarketCart = () => {
   
     updateCartItems(newItems);
   }
-  
+
+  async function addDeliveryAddress () {
+    await pb.collection('agents').update(user?.id, {
+      delivery_address: {...deliveryData}
+    })
+    .then(() => {
+      addDelivery_h.close()
+      showNotification({
+        title: 'Адрес доставка',
+        message: 'Адрес доставки успешно изменен',
+        color: 'green'
+      })
+    })
+  }
 
   return (
     <>
       <LoadingOverlay
         visible={paymentLoading}
       />
-      <div className='container-market market'>
-        <div className={'grid grid-cols-[auto_23%] w-full  h-full gap-3 mt-4 mb-4'}>
+      <div className='container-market market mt-4'>
+        <div className='mt-8   flex gap-4'>
+          <p className='text-[15px]'>
+            Обратите внимание что самовывоз и доставка могут осуществляться только в определенные города 
+          </p>
+          <Checkbox label='Ознакомлен'/>
+        </div>
+        <div className={'grid grid-cols-[auto_23%] w-full h-full gap-3 mb-4 mt-4'}>
           <div className='flex flex-col gap-4'>
             {cartItems?.map((item, i) => {
               return (
@@ -324,7 +345,7 @@ export const MarketCart = () => {
                       onClick={buyWithCard}
                     >
                       Оплатить картой
-                    </Button>
+                  </Button>
                   </div>
                 )}
 
@@ -348,7 +369,90 @@ export const MarketCart = () => {
               </div>
 
               <p className='py-3 border-t mt-3'>Данные доставки</p>
-              {cartItems?.some((q) => q?.between_cities || q?.everywhere) && (  
+
+              {!user?.delivery_address?.city && (
+                <Button
+                  onClick={() => addDelivery_h.toggle()}
+                  mb={4}
+                >
+                  Добавить адрес доставки
+                </Button>
+              )}
+
+              <Select
+                data={cities}
+                label='Город'
+                placeholder='Ваш город'
+                required
+                onChange={(e) => setDeliveryData({...deliveryData, city: e})}
+                value={deliveryData?.city}
+              />
+              <TextInput
+                label='Адрес доставки'
+                placeholder='Улица, дом, квартира'
+                required
+                value={deliveryData?.address}
+                onChange={(e) => setDeliveryData({...deliveryData, address: e?.currentTarget?.value})}
+              />
+              <TextInput
+                label='Номер телефона'
+                placeholder='+7 (___) ___-__-__'
+                required
+                value={deliveryData?.phone}
+                onChange={(e) => setDeliveryData({...deliveryData, phone: e?.currentTarget?.value})}
+              />
+
+              {(
+                (user?.delivery_address?.city !== deliveryData?.city) || 
+                (user?.delivery_address?.phone !== deliveryData?.phone) || 
+                (user?.delivery_address?.address !== deliveryData?.address) 
+              ) && (  
+                <div className='flex justify-center mt-4'>
+                  <Button
+                    loading={addDeliveryLoading}
+                    onClick={addDeliveryAddress}
+                    fullWidth
+                  >
+                    Сохранить
+                  </Button>
+                </div>
+              )}
+              <Collapse
+                in={addDelivery}
+              >
+                <Select
+                  data={cities}
+                  label='Город'
+                  placeholder='Ваш город'
+                  required
+                  onChange={(e) => setDeliveryData({...deliveryData, city: e})}
+                  value={deliveryData?.city}
+                />
+                <TextInput
+                  label='Адрес доставки'
+                  placeholder='Улица, дом, квартира'
+                  required
+                  value={deliveryData?.address}
+                  onChange={(e) => setDeliveryData({...deliveryData, address: e?.currentTarget?.value})}
+                />
+                <TextInput
+                  label='Номер телефона'
+                  placeholder='+7 (___) ___-__-__'
+                  required
+                  value={deliveryData?.phone}
+                  onChange={(e) => setDeliveryData({...deliveryData, phone: e?.currentTarget?.value})}
+                />
+                <div className='flex justify-center mt-3 mb-2'>
+                  <Button
+                    loading={addDeliveryLoading}
+                    onClick={addDeliveryAddress}
+                  >
+                    Сохранить
+                  </Button>
+                </div>
+              </Collapse>
+
+              {/* {cartItems?.some((q) => q?.between_cities || q?.everywhere) && (  
                 <Select
                   data={cities}
                   label='Город'
@@ -375,7 +479,7 @@ export const MarketCart = () => {
                     onChange={(e) => setDeliveryData({...deliveryData, phone: e?.currentTarget?.value})}
                   />
                 </div>
-              )}
+              )} */}
               {cartItems?.some((q) => q?.takeout) && (
                 <div className='space-y-1 mt-4'>
                   <p className='py-3 border-t mt-4'>Данные самовывоза</p>
