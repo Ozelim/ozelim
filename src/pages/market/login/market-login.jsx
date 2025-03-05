@@ -52,7 +52,7 @@ export const MarketLogin = () => {
         message: 'Вход выполнен успешно',
         color: 'teal',
       })
-      navigate('/market')
+      navigate('/duken')
     })
     .catch(err => {
       console.log(err?.response)

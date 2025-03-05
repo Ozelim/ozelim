@@ -2,12 +2,12 @@ import React from 'react'
 import { useCartStore } from './cartStore'
 
 import { CartItem } from './cart-item'
-import { Button, Checkbox, clsx, LoadingOverlay, Select, TextInput, Collapse } from '@mantine/core'
+import { Button, Checkbox, clsx, LoadingOverlay, Select, TextInput, Collapse, Modal } from '@mantine/core'
 import { useAuth } from 'shared/hooks'
 import { useDisclosure } from '@mantine/hooks'
 import axios from 'axios'
 import { pb } from 'shared/api'
-import { cities, formatNumber, getId } from 'shared/lib'
+import { cities, formatNumber, generateSixDigitCode, getId } from 'shared/lib'
 import { openConfirmModal } from '@mantine/modals'
 import { sha512 } from 'js-sha512'
 import { showNotification } from '@mantine/notifications'
@@ -28,6 +28,13 @@ export const MarketCart = () => {
   const [paymentLoading, paymentLoading_h] = useDisclosure(false)
   const [addDelivery, addDelivery_h] = useDisclosure(false)
   const [addDeliveryLoading, addDeliveryLoading_h] = useDisclosure(false)
+
+  const [deliveryTerms, deliveryTems_h] = useDisclosure(false)
+
+  const [betweenCitiesModal, setBetweenCitiesModal] = React.useState({
+    cities: [],
+    modal: false
+  })
 
   const [deliveryData, setDeliveryData] = React.useState({
     city: user?.delivery_address?.city,
@@ -68,7 +75,8 @@ export const MarketCart = () => {
               total_payed: item?.price * item?.count,
               product_id: item?.id,
               bonuses_spent: item?.bonuses_spent,
-              pay_type: 'bonuses'
+              pay_type: 'bonuses',
+              takeout_code: generateSixDigitCode()
             })
           })
 
@@ -133,7 +141,8 @@ export const MarketCart = () => {
               total_payed: item?.price * item?.count,
               product_id: item?.id,
               pay_type: 'card',
-              bonuses_spent: item?.bonuses_spent
+              bonuses_spent: item?.bonuses_spent,
+              takeout_code: generateSixDigitCode()
             })
           })
           window.location.href = `https://jpay.jysanbank.kz/ecom/api?${searchParams}`;
@@ -172,7 +181,8 @@ export const MarketCart = () => {
               market_id: item?.market_id,
               product_id: item?.id,
               pay_type: 'balance',
-              bonuses_spent: item?.bonuses_spent
+              bonuses_spent: item?.bonuses_spent,
+              takeout_code: generateSixDigitCode()
             })
           })
 
@@ -253,6 +263,7 @@ export const MarketCart = () => {
   }
 
   async function addDeliveryAddress () {
+    addDeliveryLoading_h.open()
     await pb.collection('agents').update(user?.id, {
       delivery_address: {...deliveryData}
     })
@@ -263,6 +274,14 @@ export const MarketCart = () => {
         message: 'Адрес доставки успешно изменен',
         color: 'green'
       })
+    })
+    addDeliveryLoading_h.close()
+  }
+
+  function handleBetweenCities (q) {
+    setBetweenCitiesModal({
+      cities: q,
+      modal: true
     })
   }
 
@@ -276,7 +295,7 @@ export const MarketCart = () => {
           <p className='text-[15px]'>
             Обратите внимание что самовывоз и доставка могут осуществляться только в определенные города 
           </p>
-          <Checkbox label='Ознакомлен'/>
+          <Checkbox checked={deliveryTerms} label='Ознакомлен' onChange={() => deliveryTems_h.toggle()}/>
         </div>
         <div className={'grid grid-cols-[auto_23%] w-full h-full gap-3 mb-4 mt-4'}>
           <div className='flex flex-col gap-4'>
@@ -286,6 +305,7 @@ export const MarketCart = () => {
                   key={`${item.id}-${i}`}
                   product={item}
                   handleUseBonuses={handleUseBonuses}
+                  handleBetweenCities={handleBetweenCities}
                 />
               )
             })}
@@ -503,7 +523,7 @@ export const MarketCart = () => {
               <Button
                 fullWidth
                 className='mt-4'
-                disabled={!terms}
+                disabled={!terms || !deliveryTerms}
                 onClick={() => payment_h.open()}
               >
                 Перейти к оплате
@@ -520,6 +540,26 @@ export const MarketCart = () => {
           )}
         </div>
       </div>
+      <Modal
+        centered
+        title='Список городов'
+        opened={betweenCitiesModal?.modal}
+        onClose={() => {
+          setBetweenCitiesModal({
+            cities: [],
+            modal: false
+          })
+        }}
+      >
+        <p className='text-center'>Список городов в которые возможна доставка этого товара</p>
+        <div className='flex flex-wrap gap-3 mt-4'>
+          {betweenCitiesModal?.cities?.map((q) => {
+            return (
+              <div key={Math.random()} className='border p-3 rounded-full inline-block w-fit'>{q}</div>
+            )
+          })}
+        </div>
+      </Modal>
     </>
   )
 }

@@ -246,15 +246,15 @@ export const ProductPage = ({preview}) => {
       <div className='container-market market'>
         <p className='text-xl my-4'>Детали товара</p>
         <div className="grid grid-cols-2 gap-4">
-          <div className='grid grid-cols-[15%_auto] gap-4 overflow-hidden h-[558px]'>
-            <div className="flex flex-col gap-4 w-full overflow-y-auto">
+          <div className='grid grid-cols-[15%_auto] gap-4 overflow-hidden max-h-[60vh]'>
+            <div className="flex flex-col gap-4 w-full overflow-y-auto bg-white p-2 rounded-primary border h-fit">
               {product?.pics?.map((q, i) => {
                 if (q instanceof File) {
                   return (
                     <img 
                       src={URL.createObjectURL(q)}
                       alt="" 
-                      className={clsx('aspect-square object-cover cursor-pointer', {
+                      className={clsx('aspect-square object-cover cursor-pointer rounded-primary', {
                         'border-4 p-0.5': currentPic === q
                       })}
                       key={i}
@@ -266,7 +266,7 @@ export const ProductPage = ({preview}) => {
                     <img 
                       src={getImageUrl(product, q)}
                       alt="" 
-                      className={clsx('aspect-square object-cover cursor-pointer', {
+                      className={clsx('aspect-square object-cover cursor-pointer rounded-primary', {
                         'border-4 p-0.5': currentPic === q
                       })}
                       key={i}
@@ -282,7 +282,7 @@ export const ProductPage = ({preview}) => {
                 <img 
                   src={URL.createObjectURL(currentPic)} 
                   alt="" 
-                  className='aspect-square object-cover cursor-pointer'
+                  className='aspect-square object-cover cursor-pointer rounded-primary max-h-[60vh] w-full'
                   onClick={() => picsModal_h.open()}
                 /> 
               </>
@@ -290,13 +290,13 @@ export const ProductPage = ({preview}) => {
                 <img 
                   src={getImageUrl(product, currentPic)}
                   alt="" 
-                  className='aspect-square object-cover cursor-pointer'
+                  className='aspect-square object-cover cursor-pointer rounded-primary max-h-[60vh] w-full'
                   onClick={() => picsModal_h.open()}
                 />
             }
 
           </div>
-          <div>
+          <div className='bg-white p-3 rounded-primary border'>
             <h1 className='text-3xl font-bold'>
               {product?.name ?? 'Название '}
             </h1>
@@ -345,7 +345,7 @@ export const ProductPage = ({preview}) => {
                 })}
               </div>
 
-              <div className="mt-4 flex flex-col gap-2 border-t pt-4">
+              <div className="mt-4 flex flex-col gap-2 border-t pt-4 mb-auto">
                 <div className='flex gap-4'>
                   <p>Город:</p>
                   <p>{product?.city}</p>
@@ -368,8 +368,8 @@ export const ProductPage = ({preview}) => {
                 
                 {(!product?.everywhere && product?.between_cities) && (
                   <div className='flex gap-4'>
-                    <p>Доставка в другие города:</p>
-                    <div className='flex gap-2 flex-wrap gap-3'>
+                    <p className='whitespace-nowrap'>Доставка в другие города:</p>
+                    <div className='flex flex-wrap gap-2'>
                       {product?.between_cities && product?.between_cities?.map((q, i) => {
                         return (
                           <p key={i} className='px-2 py-1 border rounded-full'>{q}</p>
@@ -460,7 +460,7 @@ export const ProductPage = ({preview}) => {
           </Tabs.List>
           
           <Tabs.Panel value='description' p={16}>
-            <div dangerouslySetInnerHTML={{__html: product?.content}} className='reset max-w-[700px] mx-auto' />
+            <div dangerouslySetInnerHTML={{__html: product?.content}} className='reset max-w-[700px] mx-auto bg-white p-3 rounded-primary border' />
           </Tabs.Panel>
 
           <Tabs.Panel 
@@ -480,14 +480,16 @@ export const ProductPage = ({preview}) => {
                 </p>
                 <div className='mt-4'>
                   <div className='gap-4 items-center'>
-                    <Textarea
-                      label='Комментарий'
-                      value={review.comment}
-                      onChange={(e) => setReview({...review, comment: e.currentTarget.value})}
-                      variant='filled'
-                    />
+                    <div className='bg-white p-3 rounded-primary border'>
+                      <Textarea
+                        label='Комментарий'
+                        value={review.comment}
+                        onChange={(e) => setReview({...review, comment: e.currentTarget.value})}
+                        variant='filled'
+                      />
+                    </div>
                     <div className='flex justify-between mt-4'>
-                      <div>
+                      <div className='bg-white p-3 border rounded-primary'>
                         <p className='text-sm'>Оценка</p>
                         <Rating
                           size='md'

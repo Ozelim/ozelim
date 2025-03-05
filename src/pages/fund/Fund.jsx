@@ -46,7 +46,7 @@ export const Fund = () => {
 
             <section className="w-full mt-4">
               <h1 className="text-4xl text-primary-500 font-bold">
-                Эндаумент фонд
+                {qq('Эндаумент фонд', 'Эндаумент қоры')}
               </h1>
               <div className='flex flex-col md:flex-row gap-8 mt-6'>
                 <Image

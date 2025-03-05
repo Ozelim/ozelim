@@ -17,3 +17,7 @@ export function arraysContainSameItemsById(array1, array2) {
 export function totalCost (array, property) {
   return array.reduce((sum, item) => sum + item?.[property ?? 'cost'], 0)
 }
+
+export function generateSixDigitCode() {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+}
