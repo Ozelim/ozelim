@@ -1,5 +1,5 @@
 import React from 'react'
-import { ActionIcon, clsx, Indicator, Text, Textarea } from '@mantine/core'
+import { ActionIcon, clsx, Text, Textarea } from '@mantine/core'
 import dayjs from 'dayjs'
 import { AiOutlineSend } from 'react-icons/ai'
 import { pb } from 'shared/api'
@@ -25,12 +25,13 @@ async function createChat(data) {
 export const Chat = () => {
 
   const { user } = useAuth()
+  const {nots} = useNotificationStore()
 
   const [offerChat, setOfferChat] = React.useState({})
   const [supportChat, setSupportChat] = React.useState({})
   const [selectedChat, setSelectedChat] = React.useState({})
 
-  const {nots} = useNotificationStore()
+  const chats = [supportChat, offerChat]
 
   const [message, setMessage] = React.useState('')
   const [delay, delay_h] = useDisclosure(false)
@@ -45,8 +46,6 @@ export const Chat = () => {
       await readNotification(nots?.id, 'offer')
     }
   }
-
-  const chats = [supportChat, offerChat]
 
   const messagesRef = React.useRef(null)
 
@@ -85,6 +84,8 @@ export const Chat = () => {
     // if (selectedChat?.id !== supportChat?.id) return
 
     await pb.collection('chats').subscribe(user?.id, function ({ record }) {
+      console.log(record, 'record');
+      
       setSupportChat(record)
       
       if (selectedChat?.id === record?.id) {
@@ -93,16 +94,12 @@ export const Chat = () => {
     })
   }
 
-  async function unsubscribeToChats() {
-    return pb.collection('chats').unsubscribe(user?.id)
-  }
-
   React.useEffect(() => {
     subscribeToChats()
 
-    return () => {
-      unsubscribeToChats()
-    }
+    // return () => {
+    //   unsubscribeToChats()
+    // }
   }, [selectedChat, supportChat])
 
   React.useEffect(() => {
@@ -132,7 +129,7 @@ export const Chat = () => {
           },
         ],
       })
-      .then((res) => {
+      .then(() => {
         setMessage('')
         delay_h.open()
         setTimeout(() => {
@@ -213,19 +210,18 @@ export const Chat = () => {
 
           <div className="flex flex-col gap-3 grow p-3 overflow-y-auto chat-font relative">
             {selectedChat?.messages &&
-              selectedChat?.messages?.map((q, i) => {
+              selectedChat?.messages?.slice(-25)?.map((q, i) => {
                 return (
                   <div
                     key={i}
                     className={clsx('bg-primary-500 max-w-[264px] p-2 rounded-xl text-white w-fit', {
                       'ml-auto': q?.user === user?.id,
-                      // 'bg-gray-100': q?.user !== user?.id
                     })}
                   >
                     <div ref={messagesRef} className="relative flex items-end">
                       <p>{q?.message}</p>
                       <p className="text-xs -mb-[5px] ml-2 text-slate-100">
-                        {dayjs(q?.date).format('H:mm')}
+                        {dayjs(q?.date).format('HH:mm')}
                       </p>
                     </div>
                   </div>

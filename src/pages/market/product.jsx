@@ -14,22 +14,22 @@ export const Product = ({product, preview, buttons}) => {
 
   if (preview) {
     return (
-      <div className='flex flex-col border h-full w-[277px] bg-white shadow-sm'>
+      <div className='flex flex-col border h-full bg-white shadow-sm max-w-[308px]'>
         {(product?.pics?.[0] instanceof File || product?.pics?.[0] instanceof Blob) 
           ?
             <img
               src={product?.pics?.[0] && URL.createObjectURL(product?.pics?.[0])}
               alt=""
-              className="aspect-square object-cover w-[277px] h-[308px] rounded-primary"
+              className="aspect-square object-cover rounded-primary"
             />
           : 
             !product?.pics?.[0] ? (
-              <div className='aspect-square bg-slate-200 w-[277px] h-[308px]'/>
+              <div className='aspect-square bg-slate-200'/>
             ) : 
             <img 
               src={getImageUrl(product, product?.pics?.[0])}
               alt="" 
-              className='aspect-square object-cover w-[277px] h-[308px] rounded-primary'
+              className='aspect-square object-cover rounded-primary'
             />
         }
         <div className="p-3 flex flex-col h-full">
@@ -48,7 +48,7 @@ export const Product = ({product, preview, buttons}) => {
             <div className='flex gap-2 items-center mt-1'>
               <Rating size='xs' value={productRating} fractions={2}/> <span className='text-xs text-slate-400'>({productRating})</span>
             </div>
-          </div>
+        </div>
           {buttons}
         </div>
       </div>
@@ -56,12 +56,12 @@ export const Product = ({product, preview, buttons}) => {
   }
 
   return (
-    <div className='flex flex-col border h-full w-[277px] bg-white shadow-sm rounded-primary'>
+    <div className='flex flex-col border h-full bg-white shadow-sm rounded-primary'>
       <Link to={`/duken/product/${product?.id}`}>
         <img 
           src={getImageUrl(product, product?.pics?.[0])}
           alt="" 
-          className='aspect-auto object-cover w-[277px] h-[308px] rounded-t-primary'
+          className='aspect-auto object-cover h-[308px] rounded-t-primary mx-auto'
         />
       </Link>
   

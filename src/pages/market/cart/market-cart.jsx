@@ -2,7 +2,7 @@ import React from 'react'
 import { useCartStore } from './cartStore'
 
 import { CartItem } from './cart-item'
-import { Button, Checkbox, clsx, LoadingOverlay, Select, TextInput, Collapse, Modal } from '@mantine/core'
+import { Button, Checkbox, LoadingOverlay, Select, TextInput, Collapse, Modal } from '@mantine/core'
 import { useAuth } from 'shared/hooks'
 import { useDisclosure } from '@mantine/hooks'
 import axios from 'axios'
@@ -12,13 +12,13 @@ import { openConfirmModal } from '@mantine/modals'
 import { sha512 } from 'js-sha512'
 import { showNotification } from '@mantine/notifications'
 
-import empty from 'shared/assets/images/empty-cart.png'
+import { Link } from 'react-router-dom'
 
 export const MarketCart = () => {
 
   const {user} = useAuth()
 
-  const {cartItems, updateCartItems} = useCartStore()
+  const {cartItems, updateCartItems, clearCart} = useCartStore()
 
   const totalCost = cartItems.reduce((q, w) => q + (w.count * w.price), 0)
   const totalAmount = cartItems.reduce((q, w) => q + w.count, 0)
@@ -62,7 +62,7 @@ export const MarketCart = () => {
             bonuses: user?.bonuses - bonuses(),
           })
 
-          cartItems.forEach(async (item, i) => {
+          cartItems.forEach(async (item) => {
             await pb.collection('orders').create({
               id: getId(),
               product: {...item},
@@ -80,6 +80,8 @@ export const MarketCart = () => {
             })
           })
 
+          clearCart()
+          back()
           paymentLoading_h.close()
         }
         catch (err) {
@@ -124,7 +126,7 @@ export const MarketCart = () => {
         })
         .then(async (res) => {
           const searchParams = new URLSearchParams(JSON.parse(res?.config?.data))
-          cartItems.forEach(async (item, i) => {
+          cartItems.forEach(async (item) => {
             await pb.collection('orders').create({
               
               id: getId(),
@@ -145,7 +147,9 @@ export const MarketCart = () => {
               takeout_code: generateSixDigitCode()
             })
           })
-          window.location.href = `https://jpay.jysanbank.kz/ecom/api?${searchParams}`;
+            clearCart()
+            back()
+            window.location.href = `https://jpay.jysanbank.kz/ecom/api?${searchParams}`;
           })
         .finally(() => {
           paymentLoading_h.close()
@@ -167,7 +171,7 @@ export const MarketCart = () => {
         try {
           paymentLoading_h.open()
 
-          cartItems.forEach(async (item, i) => {
+          cartItems.forEach(async (item) => {
 
             await pb.collection('orders').create({
               id: getId(),
@@ -191,6 +195,8 @@ export const MarketCart = () => {
             balance: user?.balance - finalCost()
           })
 
+          clearCart()
+          back()
           paymentLoading_h.close()
         } catch (err) {
           paymentLoading_h.close()
@@ -232,9 +238,9 @@ export const MarketCart = () => {
       return;
     }
   
-    let availableBonuses = user?.bonuses; // Get the actual available bonuses
+    let availableBonuses = user?.bonuses;
     let totalSpentBonuses = cartItems.reduce((sum, item) => sum + item.bonuses_spent, 0);
-  
+    
     const newItems = cartItems.map((item) => {
       if (item?.id === q?.id) {
         const itemTotal = item?.price * item?.count;
@@ -291,13 +297,17 @@ export const MarketCart = () => {
         visible={paymentLoading}
       />
       <div className='container-market market mt-4'>
-        <div className='mt-8   flex gap-4'>
-          <p className='text-[15px]'>
-            Обратите внимание что самовывоз и доставка могут осуществляться только в определенные города 
-          </p>
-          <Checkbox checked={deliveryTerms} label='Ознакомлен' onChange={() => deliveryTems_h.toggle()}/>
+        <div className='mt-8 flex flex-col sm:flex-row gap-4'>
+          {cartItems?.length > 0 && (
+            <>
+              <p className='text-[15px]'>
+                Обратите внимание что самовывоз и доставка могут осуществляться только в определенные города 
+              </p>
+              <Checkbox checked={deliveryTerms} label='Ознакомлен' onChange={() => deliveryTems_h.toggle()}/>
+            </>
+          )}
         </div>
-        <div className={'grid grid-cols-[auto_23%] w-full h-full gap-3 mb-4 mt-4'}>
+        <div className={'grid grid-cols-1 lg:grid-cols-[auto_23%] w-full h-full gap-3 mb-4 mt-4'}>
           <div className='flex flex-col gap-4'>
             {cartItems?.map((item, i) => {
               return (
@@ -310,18 +320,16 @@ export const MarketCart = () => {
               )
             })}
             {cartItems.length === 0 && (
-              <div className='flex justify-center items-center'>
-                <div className='flex flex-col gap-4'>
-                  <img src={empty} alt="" className='max-w-xl' />
+              <div className='flex justify-center items-center w-full h-full'>
+                <div>
                   <p className='text-center'>Корзина пуста</p>
+                  <Link to='/duken/catalog' className='text-center text-blue-500'>Перейти в каталог</Link>
                 </div>
               </div>
             )}
           </div>
-
           {payment ? (
-            <div className='border shadow-sm p-3 bg-white relative rounded-primary h-fit'>
-
+            <div className='border shadow-sm p-3 bg-white relative rounded-primary h-fit w-full lg:w-auto'>
               <p>Товары, {totalAmount} шт.</p>
               <div className='flex justify-between gap-4'>
                 <p>Итого</p>
@@ -337,18 +345,12 @@ export const MarketCart = () => {
                 <p>К оплате</p>
                 <p>{formatNumber(finalCost())} тг.</p>
               </div>
-              
-
-              {/* <div className='flex gap-3 mt-4'>
-                <Checkbox checked={payBonuses} onChange={handlePaybonusesToggle}/>
-                <p className='cursor-pointer' onClick={handlePaybonusesToggle}>Потратить бонусы</p>          
-              </div> */}
-
 
                 {bonusesSpent - totalCost == 0 ? (
                   <div className="mt-3">
                     <Button 
                       onClick={buyWithBonuses}
+                      fullWidth
                     >
                       Оплатить бонусами
                     </Button>
@@ -358,14 +360,16 @@ export const MarketCart = () => {
                     <Button
                       onClick={buyWithBalance}
                       disabled={finalCost() > user?.balance}
+                      fullWidth
                     >
                       Оплатить балансом
                     </Button>
                     <Button
                       onClick={buyWithCard}
+                      fullWidth
                     >
                       Оплатить картой
-                  </Button>
+                    </Button>
                   </div>
                 )}
 
@@ -381,8 +385,10 @@ export const MarketCart = () => {
               </div>
             </div>
           ) : (
-            <div className='border shadow-sm p-3 h-fit bg-white rounded-primary'>
-              <p>Товары, {totalAmount} шт.</p>
+            <div className='border shadow-sm p-3 h-fit bg-white rounded-primary w-full lg:w-auto'>
+              <p>Баланс: {formatNumber(user?.balance)} тг.</p>
+              <p>Бонусы: {formatNumber(user?.bonuses)} тг.</p>
+              <p>Товары: {totalAmount} шт.</p>
               <div className='flex justify-between gap-4'>
                 <p>Итого</p>
                 <p>{formatNumber(totalCost)} тг.</p>
@@ -394,6 +400,7 @@ export const MarketCart = () => {
                 <Button
                   onClick={() => addDelivery_h.toggle()}
                   mb={4}
+                  fullWidth
                 >
                   Добавить адрес доставки
                 </Button>
@@ -406,6 +413,7 @@ export const MarketCart = () => {
                 required
                 onChange={(e) => setDeliveryData({...deliveryData, city: e})}
                 value={deliveryData?.city}
+                className='w-full'
               />
               <TextInput
                 label='Адрес доставки'
@@ -413,6 +421,7 @@ export const MarketCart = () => {
                 required
                 value={deliveryData?.address}
                 onChange={(e) => setDeliveryData({...deliveryData, address: e?.currentTarget?.value})}
+                className='w-full'
               />
               <TextInput
                 label='Номер телефона'
@@ -420,6 +429,7 @@ export const MarketCart = () => {
                 required
                 value={deliveryData?.phone}
                 onChange={(e) => setDeliveryData({...deliveryData, phone: e?.currentTarget?.value})}
+                className='w-full'
               />
 
               {(
@@ -447,6 +457,7 @@ export const MarketCart = () => {
                   required
                   onChange={(e) => setDeliveryData({...deliveryData, city: e})}
                   value={deliveryData?.city}
+                  className='w-full'
                 />
                 <TextInput
                   label='Адрес доставки'
@@ -454,6 +465,7 @@ export const MarketCart = () => {
                   required
                   value={deliveryData?.address}
                   onChange={(e) => setDeliveryData({...deliveryData, address: e?.currentTarget?.value})}
+                  className='w-full'
                 />
                 <TextInput
                   label='Номер телефона'
@@ -461,45 +473,19 @@ export const MarketCart = () => {
                   required
                   value={deliveryData?.phone}
                   onChange={(e) => setDeliveryData({...deliveryData, phone: e?.currentTarget?.value})}
+                  className='w-full'
                 />
                 <div className='flex justify-center mt-3 mb-2'>
                   <Button
                     loading={addDeliveryLoading}
                     onClick={addDeliveryAddress}
+                    fullWidth
                   >
                     Сохранить
                   </Button>
                 </div>
               </Collapse>
 
-              {/* {cartItems?.some((q) => q?.between_cities || q?.everywhere) && (  
-                <Select
-                  data={cities}
-                  label='Город'
-                  placeholder='Ваш город'
-                  required
-                  onChange={(e) => setDeliveryData({...deliveryData, city: e})}
-                  value={deliveryData?.city}
-                />
-              )}
-              {cartItems?.some((q) => q?.city_delivery) && (
-                <div className='space-y-1 mt-1'>
-                  <TextInput
-                    label='Адрес доставки'
-                    placeholder='Улица, дом, квартира'
-                    required
-                    value={deliveryData?.address}
-                    onChange={(e) => setDeliveryData({...deliveryData, address: e?.currentTarget?.value})}
-                  />
-                  <TextInput
-                    label='Номер телефона'
-                    placeholder='+7 (___) ___-__-__'
-                    required
-                    value={deliveryData?.phone}
-                    onChange={(e) => setDeliveryData({...deliveryData, phone: e?.currentTarget?.value})}
-                  />
-                </div>
-              )} */}
               {cartItems?.some((q) => q?.takeout) && (
                 <div className='space-y-1 mt-4'>
                   <p className='py-3 border-t mt-4'>Данные самовывоза</p>
@@ -509,6 +495,7 @@ export const MarketCart = () => {
                     required
                     value={takeoutData?.name}
                     onChange={(e) => setTakeoutData({...takeoutData, name: e?.currentTarget?.value})}
+                    className='w-full'
                   />
                   <TextInput
                     label='Номер телефона'
@@ -516,6 +503,7 @@ export const MarketCart = () => {
                     required
                     value={takeoutData?.phone}
                     onChange={(e) => setTakeoutData({...takeoutData, phone: e?.currentTarget?.value})}
+                    className='w-full'
                   />
                 </div>
               )}

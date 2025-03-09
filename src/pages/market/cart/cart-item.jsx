@@ -2,10 +2,9 @@ import React from 'react'
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 import { useCartStore } from './cartStore'
 import { formatNumber, getImageUrl } from 'shared/lib'
-import { ActionIcon, Button, CloseButton, Collapse, Switch, Text } from '@mantine/core'
+import { ActionIcon, Button, CloseButton, Switch, Text } from '@mantine/core'
 import { Link } from 'react-router-dom'
 
-import { FaRegCheckCircle } from "react-icons/fa";
 
 export const CartItem = ({ product, handleUseBonuses, handleBetweenCities }) => {
 
@@ -15,21 +14,21 @@ export const CartItem = ({ product, handleUseBonuses, handleBetweenCities }) => 
 
   return (
     <div className="relative bg-white">
-      <div className="border flex shadow-sm gap-3 rounded-primary overflow-hidden">
+      <div className="border flex flex-col sm:flex-row shadow-sm gap-3 rounded-primary overflow-hidden">
 
-        <div className="flex max-w-md w-full max-h-[150px] overflow-hidden flex-grow flex-shrink-0">
-          <Link to={`/duken/product/${product.id}`}>
+        <div className="flex flex-col sm:flex-row max-w-full sm:max-w-md w-full max-h-full sm:max-h-[150px] overflow-hidden flex-grow flex-shrink-0">
+          <Link to={`/duken/product/${product.id}`} className="w-full sm:w-auto">
             <img
               src={getImageUrl(product, product.pics?.[0])}
               alt={product.title}
-              className="aspect-square max-w-[150px] object-cover"
+              className="w-full sm:w-[150px] h-full aspect-auto object-cover"
             />
           </Link>
           <div className="flex flex-col p-3 w-full">
             
-            <p className="font-semibold text-xl line-clamp-2">{product.name}</p>
-            <p>Город: {product?.city}</p>
-            <div className="flex mt-2 justify-between">
+            <p className="font-semibold text-lg sm:text-xl line-clamp-2">{product.name}</p>
+            <p className="text-sm sm:text-base">Город: {product?.city}</p>
+            <div className="flex flex-col sm:flex-row mt-2 gap-2 sm:gap-0 sm:justify-between">
               <div className="flex gap-3">
                 <ActionIcon
                   onClick={
@@ -64,7 +63,7 @@ export const CartItem = ({ product, handleUseBonuses, handleBetweenCities }) => 
                   <AiOutlinePlus className="text-black" size={10} />
                 </ActionIcon>
               </div>
-              <div className="font-semibold text-lg ml-auto text-right">
+              <div className="font-semibold text-lg sm:ml-auto text-left sm:text-right">
                 {formatNumber(total)} ₸
                 {product?.bonuses_spent > 0 && (
                   <Text color="green" size="sm" className='-mt-1'>
@@ -78,22 +77,22 @@ export const CartItem = ({ product, handleUseBonuses, handleBetweenCities }) => 
 
 
         <div className="flex p-3">
-          <div className="flex flex-col">
+          <div className="flex flex-col w-full gap-2">
             {product?.takeout && (
                 <Text color="red" size="sm">
                   Самовывоз в городе: {product?.city}
                 </Text>
               )}
             {product?.city_delivery && (
-              <div className='flex gap-2 items-center'>
+              <div className='flex gap-2 items-center whitespace-nowrap'>
                 <Text color="green" size="sm">
-                  Доставка по городу 
+                  Доставка по городу: {product?.city}
                 </Text>
               </div>
             )}
 
             {product?.between_cities && (
-              <div className='flex gap-1'>
+              <div className='flex flex-col sm:flex-row gap-1 whitespace-nowrap'>
                 <Text color="green" size="sm">
                   Доставка в другие города 
                 </Text>
@@ -102,6 +101,7 @@ export const CartItem = ({ product, handleUseBonuses, handleBetweenCities }) => 
                   variant='ligth'
                   color='black'
                   onClick={() => handleBetweenCities(product?.between_cities)}
+                  className="w-full sm:w-auto"
                 >
                   Посмотреть города
                 </Button>
@@ -114,8 +114,6 @@ export const CartItem = ({ product, handleUseBonuses, handleBetweenCities }) => 
               </Text>
             )}
           </div>
-          
-
         </div>
 
       </div>
@@ -127,11 +125,12 @@ export const CartItem = ({ product, handleUseBonuses, handleBetweenCities }) => 
           bg="gray.2"
         />
       </div>
-      <div className="absolute bottom-2 right-2">
+      <div className="absolute -bottom-7 right-2 sm:bottom-2 sm:right-2">
         <Switch
           label="Потратить бонусы"
           checked={product?.using_bonuses}
           onChange={() => handleUseBonuses(product)}
+          className="text-sm sm:text-base"
         />
       </div>
     </div>

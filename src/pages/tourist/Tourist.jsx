@@ -1,11 +1,8 @@
 import React from 'react'
-import { Accordion, Button, Modal, Portal, Select, TextInput } from '@mantine/core'
+import { Button, Modal } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
-import { pb } from 'shared/api'
 import { usePageData } from 'shared/hooks'
-import { Accord, Image } from 'shared/ui'
 import { useLangContext } from 'app/langContext'
-import { showNotification } from '@mantine/notifications'
 import { Carousel } from '@mantine/carousel'
 import Autoplay from 'embla-carousel-autoplay'
 
@@ -202,10 +199,8 @@ import { Link } from 'react-router-dom'
 import { getImageUrl } from 'shared/lib'
 
 import q from 'shared/assets/images/user/1.jpeg'
-import w from 'shared/assets/images/user/2.jpeg'
 import e from 'shared/assets/images/user/3.jpeg'
 import eKz from 'shared/assets/images/3kz.jpeg'
-import r from 'shared/assets/images/user/4.jpeg'
 import t from 'shared/assets/images/user/5.png'
 
 import t1kz from 'shared/assets/images/tourist1kz.jpeg'
@@ -216,25 +211,10 @@ import t2 from 'shared/assets/images/tourist2.jpeg'
 
 import t3kz from 'shared/assets/images/t3kz.jpeg'
 
-async function getRights() {
-  return await pb.collection('tourist_data').getFullList()
-}
-
 export const Tourist = () => {
 
   const { headings, text, images } = usePageData('tourist')
   const { kz, qq } = useLangContext()
-
-  const [opened1, handlers1] = useDisclosure()
-
-  const [data, setData] = React.useState({
-    name: '',
-    phone: '',
-  })
-
-  const [types, setTypes] = React.useState([])
-
-  const [type, setType] = React.useState('')
 
   const [pictures, setPictures] = React.useState('')
   const [currentPicture, setCurrentPicture] = React.useState(0)
@@ -440,35 +420,6 @@ export const Tourist = () => {
 
   const [modal, handlers] = useDisclosure(false)
 
-  React.useEffect(() => {
-    getRights().then((res) => {
-      setTypes(res?.[0]?.types)
-    })
-  }, [])
-
-  async function send() {
-    await pb
-      .collection('tourist_bids')
-      .create({
-        ...data,
-        type: type,
-      })
-      .then((res) => {
-        setData({
-          name: '',
-          phone: '',
-        })
-        setType('')
-        showNotification({
-          title: 'Заявка',
-          color: 'green',
-          message: 'Заявка успешно отправлена',
-        })
-        handlers1.close()
-      })
-  }
-
-  const [embla, setEmbla] = React.useState(null)
   const autoplay = React.useRef(Autoplay({ delay: 5000 }))
 
   return (
@@ -486,7 +437,6 @@ export const Tourist = () => {
               loop
               w={'100%'}
               align="center"
-              getEmblaApi={setEmbla}
               plugins={[autoplay.current]}
               onMouseEnter={autoplay.current.stop()}
               onMouseLeave={autoplay.current.reset()}
@@ -516,7 +466,7 @@ export const Tourist = () => {
           </section>
 
           <div className='flex gap-4 mt-8 flex-wrap'>
-            <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={e => {
+            <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={() => {
               setCurrentPicture(0)
               setPictures('ala')
               handlers.open()
@@ -524,7 +474,7 @@ export const Tourist = () => {
               <img className='w-48 h-48 rounded-lg object-cover' src={ala1} alt="" loading='lazy'/>
               <p className='text-primary-600'>Алматы 09.2024</p>
             </div>
-            <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={e => {
+            <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={() => {
               setCurrentPicture(0)
               setPictures('bay')
               handlers.open()
@@ -532,7 +482,7 @@ export const Tourist = () => {
               <img className='w-48 h-48 rounded-lg object-cover' src={bay1} alt="" loading='lazy' />
               <p className='text-primary-600'>Баянаул 06.2024</p>
             </div>
-            <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={e => {
+            <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={() => {
               setCurrentPicture(0)
               setPictures('bar')
               handlers.open()
@@ -540,7 +490,7 @@ export const Tourist = () => {
               <img className='w-48 h-48 rounded-lg object-cover' src={bar1} alt="" loading='lazy'/>
               <p className='text-primary-600'>Боровое 02.2024</p>
             </div>
-            <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={e => {
+            <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={() => {
               setCurrentPicture(0)
               setPictures('char')
               handlers.open()
@@ -548,7 +498,7 @@ export const Tourist = () => {
               <img className='w-48 h-48 rounded-lg object-cover' src={char1} alt="" loading='lazy'/>
               <p className='text-primary-600'>Чарын 09.2024</p>
             </div>
-            <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={e => {
+            <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={() => {
               setCurrentPicture(0)
               setPictures('fc')
               handlers.open()
@@ -558,7 +508,7 @@ export const Tourist = () => {
             </div>
           </div>
           <div className="flex gap-4 mt-4 flex-wrap">
-            <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={e => {
+            <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={() => {
               setCurrentPicture(0)
               setPictures('fo')
               handlers.open()
@@ -566,7 +516,7 @@ export const Tourist = () => {
               <img className='w-48 h-48 rounded-lg object-cover' src={fo2} alt="" loading='lazy'/>
               <p className='text-primary-600 break-keep w-48'>Фестиваль национальных блюд</p>
             </div>
-            <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={e => {
+            <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={() => {
               setCurrentPicture(0)
               setPictures('kat')
               handlers.open()
@@ -574,7 +524,7 @@ export const Tourist = () => {
               <img className='w-48 h-48 rounded-lg object-cover' src={kat1} alt=""loading='lazy' />
               <p className='text-primary-600'>Катон-Карагай 07.2024</p>
             </div>
-            <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={e => {
+            <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={() => {
               setCurrentPicture(0)
               setPictures('kol')
               handlers.open()
@@ -582,7 +532,7 @@ export const Tourist = () => {
               <img className='w-48 h-48 rounded-lg object-cover' src={kol14} alt=""loading='lazy' />
               <p className='text-primary-600'>Кольсай 09.2024</p>
             </div>
-            <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={e => {
+            <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={() => {
               setCurrentPicture(0)
               setPictures('qay')
               handlers.open()
@@ -590,7 +540,7 @@ export const Tourist = () => {
               <img className='w-48 h-48 rounded-lg object-cover' src={qay4} alt="" loading='lazy'/>
               <p className='text-primary-600'>Кайынды 09.2024</p>
             </div>
-            <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={e => {
+            <div className='text-center space-y-2 cursor-pointer w-48 mx-auto sm:mx-0' onClick={() => {
               setCurrentPicture(0)
               setPictures('ast')
               handlers.open()
@@ -716,14 +666,14 @@ export const Tourist = () => {
                 {qq("Подробнее...","Толығырақ...")}
               </Link>
               <div className='flex mt-4'>
-                <a href={'/user-11.pdf'} target='_blank'>
+                <a href={'/user-11.pdf'} target='_blank' rel="noreferrer">
                   <Button>
                     {qq('Положение о членстве в Ассоциации', 'Қауымдастыққа мүшелік туралы ереже')}
                   </Button>
                 </a>
               </div>
               <div className='flex mt-2'>
-                <a href={'/services-asosiation.pdf'} target='_blank'>
+                <a href={'/services-asosiation.pdf'} target='_blank' rel="noreferrer">
                   <Button>
                     {qq('Услуги членам Ассоциации', '⁠Қауымдастық мүшелеріне ұсынылған қызметтер')}
                   </Button>
@@ -781,7 +731,7 @@ export const Tourist = () => {
               }
               <div className='grid  lg:grid-cols-3'>
                 <div></div>
-                <a href={'/agents.pdf'} target='_blank' className='block mt-4 text-center'>
+                <a href={'/agents.pdf'} target='_blank' className='block mt-4 text-center' rel="noreferrer">
                   <Button>
                     {qq("Положение о Агенстве", "Агент ережелері")}
                   </Button>
@@ -815,7 +765,7 @@ export const Tourist = () => {
               {Array(11)
                 .fill(1)
                 .map((_, i) => {
-                  return <p className="mt-2 font-medium">{text?.[`agent${i + 3}`]}</p>
+                  return <p key={Math.random()} className="mt-2 font-medium">{text?.[`agent${i + 3}`]}</p>
                 })}
               <p className="mt-2 font-medium text-primary-500">{text?.agent14}</p>
             </div>
@@ -875,7 +825,7 @@ export const Tourist = () => {
       <Modal
         centered
         opened={modal}
-        onClose={e => handlers.close()}
+        onClose={() => handlers.close()}
         withCloseButton={false}
         classNames={{
           body: '!p-0 !relative !border-none',
@@ -889,7 +839,7 @@ export const Tourist = () => {
           <div className='flex overflow-x-scroll mt-4 gap-4 pb-4 justify-center'>
             {pics?.[pictures]?.map((q, i) => {
               return (
-                <img src={q} className='object-cover w-16 h-16 cursor-pointer' onClick={e => setCurrentPicture(i)} loading='lazy' />
+                <img key={Math.random()} src={q} className='object-cover w-16 h-16 cursor-pointer' onClick={() => setCurrentPicture(i)} loading='lazy' />
               )
             })}
           </div>

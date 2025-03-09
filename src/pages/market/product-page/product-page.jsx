@@ -1,10 +1,10 @@
 import React from 'react'
-import { ActionIcon, Button, Indicator, LoadingOverlay, Modal, Pagination, Rating, SegmentedControl, Tabs, Textarea, clsx } from '@mantine/core'
+import { ActionIcon, Button, LoadingOverlay, Modal, Pagination, Rating, Tabs, Textarea, clsx } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import dayjs from 'dayjs'
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 import { FaRegHeart } from 'react-icons/fa'
-import { Link, useParams, useSearchParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { pb } from 'shared/api'
 import { formatNumber, getImageUrl } from 'shared/lib'
 
@@ -13,8 +13,7 @@ import { useAuth } from 'shared/hooks'
 import { showNotification } from '@mantine/notifications'
 
 import 'react-quill/dist/quill.snow.css';
-import { Avatar } from 'shared/ui'
-import { FaShop } from 'react-icons/fa6'
+import { Product } from '../product'
 
 async function getProductById (id) {
   return await pb.collection('products').getOne(id, {
@@ -38,15 +37,22 @@ async function getReviewsByUser (id, userId) {
   })
 }
 
+async function getProductsFromThisShop (id) {
+  return await pb.collection('products').getList(1, 10, {
+    filter: `market_id = '${id}'`,
+    expand: 'market_id'
+  })
+}
+
 export const ProductPage = ({preview}) => {
 
   const {user} = useAuth()
 
   const {id} = useParams()
 
-  const [searchParams, setSearchParams] = useSearchParams()
-
   const [product, setProduct] = React.useState({})
+
+  const [productsFromThisShop, setProductsFromThisShop] = React.useState([])
 
   const {addToCart, cartItems} = useCartStore()
 
@@ -84,7 +90,14 @@ export const ProductPage = ({preview}) => {
       console.log(err?.response, 'err');
     })
   }
-  
+
+  async function handleProductsFromThisShop () {
+    await getProductsFromThisShop(product?.market_id)
+    .then(res => {
+      setProductsFromThisShop(res)
+    })
+  }
+
   React.useEffect(() => {
     if (preview) {
       setProduct(preview)
@@ -92,6 +105,7 @@ export const ProductPage = ({preview}) => {
       handleProductData()
       handleReviewsData(1)
       handleUserReviews()
+      handleProductsFromThisShop()
     }
   }, [])
 
@@ -245,16 +259,16 @@ export const ProductPage = ({preview}) => {
     <>
       <div className='container-market market'>
         <p className='text-xl my-4'>Детали товара</p>
-        <div className="grid grid-cols-2 gap-4">
-          <div className='grid grid-cols-[15%_auto] gap-4 overflow-hidden max-h-[60vh]'>
-            <div className="flex flex-col gap-4 w-full overflow-y-auto bg-white p-2 rounded-primary border h-fit">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div className='grid grid-cols-1 md:grid-cols-[15%_auto] gap-4 overflow-hidden md:max-h-[60vh]'>
+            <div className="flex md:flex-col gap-4 w-full overflow-x-auto sm:overflow-y-auto bg-white p-2 rounded-primary border h-fit">
               {product?.pics?.map((q, i) => {
                 if (q instanceof File) {
                   return (
                     <img 
                       src={URL.createObjectURL(q)}
                       alt="" 
-                      className={clsx('aspect-square object-cover cursor-pointer rounded-primary', {
+                      className={clsx('w-20 md:w-full aspect-square object-cover cursor-pointer rounded-primary', {
                         'border-4 p-0.5': currentPic === q
                       })}
                       key={i}
@@ -266,7 +280,7 @@ export const ProductPage = ({preview}) => {
                     <img 
                       src={getImageUrl(product, q)}
                       alt="" 
-                      className={clsx('aspect-square object-cover cursor-pointer rounded-primary', {
+                      className={clsx('w-20 md:w-full aspect-square object-cover cursor-pointer rounded-primary', {
                         'border-4 p-0.5': currentPic === q
                       })}
                       key={i}
@@ -282,7 +296,7 @@ export const ProductPage = ({preview}) => {
                 <img 
                   src={URL.createObjectURL(currentPic)} 
                   alt="" 
-                  className='aspect-square object-cover cursor-pointer rounded-primary max-h-[60vh] w-full'
+                  className='aspect-square object-cover cursor-pointer rounded-primary md:max-h-[60vh] w-full'
                   onClick={() => picsModal_h.open()}
                 /> 
               </>
@@ -290,158 +304,152 @@ export const ProductPage = ({preview}) => {
                 <img 
                   src={getImageUrl(product, currentPic)}
                   alt="" 
-                  className='aspect-square object-cover cursor-pointer rounded-primary max-h-[60vh] w-full'
+                  className='aspect-square object-cover cursor-pointer rounded-primary md:max-h-[60vh] w-full'
                   onClick={() => picsModal_h.open()}
                 />
             }
 
           </div>
-          <div className='bg-white p-3 rounded-primary border'>
-            <h1 className='text-3xl font-bold'>
-              {product?.name ?? 'Название '}
-            </h1>
+          <div className='bg-white p-3 rounded-primary border flex flex-col'>
+            <div className="flex-1">
+              <h1 className='text-2xl sm:text-3xl font-bold'>
+                {product?.name ?? 'Название '}
+              </h1>
 
-            <div className='flex justify-between gap-4 items-center'>
-              <p className='mt-4 text-3xl'>
-                {formatNumber(product?.price)} ₸
-              </p>
-
-              <Rating className='mt-4' size='lg' value={calculateRating()} readOnly fractions={3} />
-            </div>
-
-            <div className='mt-4'>
-              <p className='text-xl tracking-wide'>
-                {product?.description}
-              </p>
-
-              <div className='mt-4'>
-                <p className='text-lg'>
-                  Количество: {formatNumber(product?.amount) ?? 1} шт.
+              <div className='flex flex-col sm:flex-row sm:justify-between gap-4 items-start sm:items-center'>
+                <p className='mt-4 text-2xl sm:text-3xl'>
+                  {formatNumber(product?.price)} ₸
                 </p>
+
+                <Rating className='mt-4' size='lg' value={calculateRating()} readOnly fractions={3} />
               </div>
+
               <div className='mt-4'>
-                {product?.options?.map((q) => {
-                  return ( 
-                    <div key={q?.id} className='mt-4'>
-                      {q?.option}:
-                      <div className="flex gap-4 flex-wrap mt-2">
-                        {q?.variants?.map((e, i) => {
+                <p className='text-base sm:text-xl tracking-wide'>
+                  {product?.description}
+                </p>
+
+                <div className='mt-4'>
+                  <p className='text-base sm:text-lg'>
+                    Количество: {formatNumber(product?.amount) ?? 1} шт.
+                  </p>
+                </div>
+                <div className='mt-4'>
+                  {product?.options?.map((q) => {
+                    return ( 
+                      <div key={q?.id} className='mt-4'>
+                        {q?.option}:
+                        <div className="flex flex-wrap gap-4 mt-2">
+                          {q?.variants?.map((e, i) => {
+                            return (
+                              <Button 
+                                variant={selectedOptions[q?.option] === e ? 'filled' : 'outline'}
+                                color={selectedOptions[q?.option] === e ? 'pink.6' : 'gray'}
+                                size='sm'
+                                className={'!border-slate-300'}
+                                onClick={() => selectOption(q?.option, e)}
+                                key={i}
+                              >
+                                {e}
+                              </Button>
+                            )
+                          })}
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+
+                <div className="mt-4 flex flex-col gap-2 border-t pt-4">
+                  <div className='flex gap-4'>
+                    <p>Город:</p>
+                    <p>{product?.city}</p>
+                  </div>
+                  {product?.takeout && (
+                    <div className='flex gap-4'>
+                      <p>Самовывоз:</p>
+                      <p>Да</p>
+                    </div>
+                  )}
+                  <div className='flex gap-4'>
+                    <p>Доставка по городу:</p>
+                    <p>{product?.city_delivery ? 'Да' : 'Нет'}</p>
+                  </div>
+
+                  <div className='flex gap-4'>
+                    <p>Доставка по всему Казахстану:</p>
+                    <p>{product?.everywhere ? 'Да' : 'Нет'}</p>
+                  </div>
+                  
+                  {(!product?.everywhere && product?.between_cities) && (
+                    <div className='flex flex-col sm:flex-row gap-4'>
+                      <p className='whitespace-nowrap'>Доставка в другие города:</p>
+                      <div className='flex flex-wrap gap-2'>
+                        {product?.between_cities && product?.between_cities?.map((q, i) => {
                           return (
-                            <Button 
-                              variant={selectedOptions[q?.option] === e ? 'filled' : 'outline'}
-                              color={selectedOptions[q?.option] === e ? 'pink.6' : 'gray'}
-                              size='sm'
-                              className={'!border-slate-300'}
-                              onClick={() => selectOption(q?.option, e)}
-                              key={i}
-                            >
-                              {e}
-                            </Button>
+                            <p key={i} className='px-2 py-1 border rounded-full'>{q}</p>
                           )
                         })}
                       </div>
                     </div>
-                  )
-                })}
-              </div>
-
-              <div className="mt-4 flex flex-col gap-2 border-t pt-4 mb-auto">
-                <div className='flex gap-4'>
-                  <p>Город:</p>
-                  <p>{product?.city}</p>
+                  )}
                 </div>
-                {product?.takeout && (
-                  <div className='flex gap-4'>
-                    <p>Самовывоз:</p>
-                    <p>Да</p>
-                  </div>
-                )}
-                <div className='flex gap-4'>
-                  <p>Доставка по городу:</p>
-                  <p>{product?.city_delivery ? 'Да' : 'Нет'}</p>
-                </div>
-
-                <div className='flex gap-4'>
-                  <p>Доставка по всему Казахстану:</p>
-                  <p>{product?.everywhere ? 'Да' : 'Нет'}</p>
-                </div>
-                
-                {(!product?.everywhere && product?.between_cities) && (
-                  <div className='flex gap-4'>
-                    <p className='whitespace-nowrap'>Доставка в другие города:</p>
-                    <div className='flex flex-wrap gap-2'>
-                      {product?.between_cities && product?.between_cities?.map((q, i) => {
-                        return (
-                          <p key={i} className='px-2 py-1 border rounded-full'>{q}</p>
-                        )
-                      })}
-                    </div>
-                  </div>
-                )}
               </div>
               
-              <div className='mt-4 flex gap-4 border-y py-4'>
-
-                <div className='flex gap-3 items-center'>
-                  <ActionIcon
-                    onClick={decrement}
-                    className='text-xl !border !border-slate-200' 
-                    disabled={product?.count === 1}
-                    size='md'
-                  >
-                    <AiOutlineMinus color='black' size={15}/>
-                  </ActionIcon>
-                  <p className='border px-4 py-1'>
-                    {amount}
-                  </p>
-                  <ActionIcon 
-                    onClick={increment}
-                    className='text-xl !border !border-slate-200 '
-                    size='md'
-                  >
-                    <AiOutlinePlus color='black' size={15}/>
-                  </ActionIcon>
-                </div>
-                {addedToCart ? (
-                  <Button 
-                    size='lg'
-                    component={Link}
-                    to={'/duken/cart'}
-                  >
-                    Перейти в корзину
-                  </Button>
-                ) : (
-                  <Button 
-                    size='lg'
-                    onClick={() => addToCart({
-                      ...product, 
-                      count: amount, 
-                      selectedOptions,
-                    })}
-                  >
-                    Добавить в корзину
-                  </Button>
-                )}
-
-                {/* <Button 
-                  rightIcon={<FaShop size={22} />} 
+            </div>
+            <div className='mt-4 flex flex-col sm:flex-row gap-4 border-y py-4'>
+              <div className='flex gap-3 items-center'>
+                <ActionIcon
+                  onClick={decrement}
+                  className='text-xl !border !border-slate-200' 
+                  disabled={product?.count === 1}
+                  size='md'
+                >
+                  <AiOutlineMinus color='black' size={15}/>
+                </ActionIcon>
+                <p className='border px-4 py-1'>
+                  {amount}
+                </p>
+                <ActionIcon 
+                  onClick={increment}
+                  className='text-xl !border !border-slate-200 '
+                  size='md'
+                >
+                  <AiOutlinePlus color='black' size={15}/>
+                </ActionIcon>
+              </div>
+              {addedToCart ? (
+                <Button 
                   size='lg'
                   component={Link}
-                  to={`/duken/profile/?segment=messages&chatId=${product?.market_id}`}
+                  to={'/duken/cart'}
+                  className='w-full sm:w-auto'
                 >
-                  Чат с магазиом
-                </Button> */}
-
-                <ActionIcon 
-                  className={clsx('!border !border-slate-200 !p-3 !h-12 !w-12 !rounded-full', {
-                    '!bg-red-600': user?.favorites?.includes(product?.id)
+                  Перейти в корзину
+                </Button>
+              ) : (
+                <Button 
+                  size='lg'
+                  onClick={() => addToCart({
+                    ...product, 
+                    count: amount, 
+                    selectedOptions,
                   })}
-                  onClick={addToFavorites}
+                  className='w-full sm:w-auto'
                 >
-                  <FaRegHeart size={'100%'} color={user?.favorites?.includes(product?.id) ? 'white' : 'black'}  />
-                </ActionIcon>
+                  Добавить в корзину
+                </Button>
+              )}
 
-              </div>
+              <ActionIcon 
+                className={clsx('!border !border-slate-200 !p-3 !h-12 !w-12 !rounded-full mx-auto md:mx-0', {
+                  '!bg-red-600': user?.favorites?.includes(product?.id)
+                })}
+                onClick={addToFavorites}
+              >
+                <FaRegHeart size={'100%'} color={user?.favorites?.includes(product?.id) ? 'white' : 'black'}  />
+              </ActionIcon>
+
             </div>
           </div>
         </div>
@@ -460,7 +468,7 @@ export const ProductPage = ({preview}) => {
           </Tabs.List>
           
           <Tabs.Panel value='description' p={16}>
-            <div dangerouslySetInnerHTML={{__html: product?.content}} className='reset max-w-[700px] mx-auto bg-white p-3 rounded-primary border' />
+            <div dangerouslySetInnerHTML={{__html: product?.content}} className='reset max-w-[700px] mx-auto bg-white p-3 rounded-primary border overflow-hidden break-words' />
           </Tabs.Panel>
 
           <Tabs.Panel 
@@ -488,7 +496,7 @@ export const ProductPage = ({preview}) => {
                         variant='filled'
                       />
                     </div>
-                    <div className='flex justify-between mt-4'>
+                    <div className='flex flex-col sm:flex-row justify-between mt-4 gap-4'>
                       <div className='bg-white p-3 border rounded-primary'>
                         <p className='text-sm'>Оценка</p>
                         <Rating
@@ -499,6 +507,7 @@ export const ProductPage = ({preview}) => {
                       </div>
                       <Button
                         onClick={addReview}
+                        className='w-full sm:w-auto'
                       >
                         Оставить отзыв
                       </Button>
@@ -509,7 +518,7 @@ export const ProductPage = ({preview}) => {
                       return (
                         <div 
                           key={i}
-                          className='flex gap-4 border-t-2 first:border-none pt-6'
+                          className='flex flex-col sm:flex-row gap-4 border-t-2 first:border-none pt-6'
                         >
                           {q?.expand?.user?.avatar && (
                             <img 
@@ -525,7 +534,7 @@ export const ProductPage = ({preview}) => {
                           )}
                           <div>
                             <p>{q?.expand?.user?.fio}</p>
-                            <div className='mt-1 flex gap-4'>
+                            <div className='mt-1 flex flex-wrap gap-4'>
                               <Rating size='sm' readOnly value={q?.rating} />
                               <p>{dayjs(q?.created).format('DD MMMM YYYY')}</p>
                             </div>
@@ -542,7 +551,7 @@ export const ProductPage = ({preview}) => {
                       return (
                         <div 
                           key={i}
-                          className='flex gap-4 border-t-2 first:border-none pt-6 relative'
+                          className='flex flex-col sm:flex-row gap-4 border-t-2 first:border-none pt-6 relative'
                         >
                           {q?.expand?.user?.avatar && (
                             <img 
@@ -556,9 +565,9 @@ export const ProductPage = ({preview}) => {
                               className='w-20 h-20 aspect-square object-cover rounded-full bg-slate-300'
                             />
                           )}
-                          <div>
+                          <div className='flex-1'>
                             <p>{q?.expand?.user?.fio}</p>
-                            <div className='mt-1 flex gap-4'>
+                            <div className='mt-1 flex flex-wrap gap-4'>
                               <Rating size='sm' readOnly value={q?.rating} />
                               <p>{dayjs(q?.created).format('DD MMMM YYYY')}</p>
                             </div>
@@ -570,7 +579,7 @@ export const ProductPage = ({preview}) => {
                               <Button
                                 size='sm'
                                 variant='subtle'
-                                className='ml-auto mt-auto'
+                                className='w-full sm:w-auto mt-2 sm:mt-auto'
                               >
                                 Посмотреть ответ
                               </Button>
@@ -592,6 +601,21 @@ export const ProductPage = ({preview}) => {
           </Tabs.Panel>
         </Tabs>
 
+        {!preview && (
+          <div className='mt-8'>
+            <p className='text-base sm:text-lg md:text-xl'>Другие товары этого магазина</p>
+            <div className='container-market'>
+              <div className='grid sm:grid-cols-2 min-[1024px]:grid-cols-3 min-[1200px]:grid-cols-4 min-[1450px]:grid-cols-5 gap-x-2 md:gap-x-4 gap-y-4 md:gap-y-8 !mt-4 md:!mt-8'>
+              {productsFromThisShop?.items?.map((q) => {
+                return (
+                  <Product key={q?.id} product={q} />
+                )
+                })}
+              </div>
+            </div>
+          </div>
+        )}
+
       </div>
       
       <Modal
@@ -600,15 +624,15 @@ export const ProductPage = ({preview}) => {
         centered={true}
         fullScreen
       >
-        <div className='grid grid-cols-[10%_auto]'>
-          <div className='flex flex-col gap-4 mt-4'>
+        <div className='grid grid-cols-1 md:grid-cols-[10%_auto] gap-4'>
+          <div className='flex flex-row md:flex-col gap-4 mt-4 overflow-x-auto md:overflow-x-hidden'>
             {product?.pics?.map((q, i) => {
               if (q instanceof File) {
                 return (
                   <img 
                     src={URL.createObjectURL(q)}
                     alt="" 
-                    className={clsx('aspect-square object-cover w-24', {
+                    className={clsx('aspect-square object-cover w-16 md:w-24 flex-shrink-0', {
                       'border-4 p-0.5': currentPic === q
                     })}
                     key={i}
@@ -620,7 +644,7 @@ export const ProductPage = ({preview}) => {
                   <img 
                     src={getImageUrl(product, q)}
                     alt="" 
-                    className={clsx('aspect-square object-cover w-24', {
+                    className={clsx('aspect-square object-cover w-16 md:w-24 flex-shrink-0', {
                       'border-4 p-0.5': currentPic === q
                     })}
                     key={i}
@@ -630,21 +654,21 @@ export const ProductPage = ({preview}) => {
               }
             })}
           </div>
-          <div className='max-w-full h-auto'>
+          <div className='max-w-full h-auto mt-4 md:mt-0'>
             {currentPic && (
               currentPic instanceof File 
                 ? 
                   <img 
                     src={URL.createObjectURL(currentPic)} 
                     alt="" 
-                    className='aspect-square object-cover mx-auto max-w-full max-h-[90vh]'
+                    className='aspect-auto object-contain mx-auto max-w-full md:max-h-[90vh]'
                     onClick={() => picsModal_h.open()}
                   /> 
                 :
                   <img 
                     src={getImageUrl(product, currentPic)}
                     alt="" 
-                    className='aspect-square object-cover mx-auto max-w-full max-h-[90vh]'
+                    className='aspect-auto object-contain mx-auto max-w-full md:max-h-[90vh]'
                     onClick={() => picsModal_h.open()}
                   />
             )}

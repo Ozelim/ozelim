@@ -1,8 +1,8 @@
 import React from 'react'
-import { Button, CloseButton, FileButton, MultiSelect, Select, Switch, Textarea, TextInput } from '@mantine/core'
+import { Button, CloseButton, FileButton, LoadingOverlay, MultiSelect, Select, Switch, Textarea, TextInput } from '@mantine/core'
 import { useCategoriesStore } from 'pages/market/categoriesStore'
 import { Product } from 'pages/market/product'
-import { cities, compress, formatNumber, getImageUrl } from 'shared/lib'
+import { cities, compress, getImageUrl } from 'shared/lib'
 import ReactQuill from 'react-quill'
 import { useSearchParams } from 'react-router-dom'
 import { pb } from 'shared/api'
@@ -12,8 +12,10 @@ import { useShopStore } from '../shop/shopStore'
 import { useAuth } from 'shared/hooks'
 import { showNotification } from '@mantine/notifications'
 
+// eslint-disable-next-line react/prop-types
 export const EditProduct = ({ product, handlePreviewModal }) => {
-  const { shop, getShopById } = useShopStore()
+  
+  const { getShopById } = useShopStore()
 
   const { user } = useAuth()
 
@@ -123,6 +125,7 @@ export const EditProduct = ({ product, handlePreviewModal }) => {
             getShopById(user?.id)
           })
           .catch((err) => {
+            console.log(err, 'err');
             showNotification({
               title: 'Товар',
               message: 'Не удалось применить изменение',
@@ -147,7 +150,8 @@ export const EditProduct = ({ product, handlePreviewModal }) => {
   }
 
   return (
-    <div>
+    <>
+      <LoadingOverlay visible={loading} />
       <div className="flex gap-4 items-center">
         <p>Редактирование товара</p>
         <Button onClick={stopEditing}>Назад</Button>
@@ -313,6 +317,7 @@ export const EditProduct = ({ product, handlePreviewModal }) => {
             <Switch
               label='Доставка всему Казахстану'
               className='mt-3'
+              // eslint-disable-next-line react/prop-types
               checked={product?.everywhere}
               disabled
             />
@@ -354,6 +359,6 @@ export const EditProduct = ({ product, handlePreviewModal }) => {
           />
         </div>
       </div>
-    </div>
+    </>
   )
 }

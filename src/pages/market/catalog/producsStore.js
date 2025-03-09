@@ -1,10 +1,32 @@
 import { pb } from 'shared/api';
 import { create } from 'zustand';
 
-const useProductsStore = create((set, get) => ({
+const useProductsStore = create((set) => ({
     products: [],
     productsLoading: false,
-    searched: '',
+    searched: '',    
+    rareProducts: [],
+    discountProducts: [],
+    getRareProducts: async () => {
+      await pb.collection('products').getFullList({
+        sort: '-created',
+        expand: 'market_id',
+        filter: `status = 'posted' && rare = true`
+      })
+      .then(res => {
+        set(() => ({rareProducts: res}))
+      })
+    },
+    getDiscountProducts: async () => {
+      await pb.collection('products').getFullList({
+        sort: '-created',
+        expand: 'market_id',
+        filter: `status = 'posted' && discount.status = 'active'`
+      })
+      .then(res => {
+        set(() => ({discountProducts: res}))
+      })
+    },
     clearSearched: () => {
       set(() => ({searched: ''}))
     },
@@ -41,9 +63,9 @@ const useProductsStore = create((set, get) => ({
         set(() => ({products: res, productsLoading: false}))
       })
     },
-    getAllProducts: async (page) => {
+    getAllProducts: async (page = 1) => {
       set(() => ({productsLoading: true}))
-      await pb.collection('products').getList(page = 1, 25, {
+      await pb.collection('products').getList(page, 25, {
         sort: '-created',
         expand: 'merchant, market_id',
         filter: `status = 'posted'`
@@ -52,7 +74,7 @@ const useProductsStore = create((set, get) => ({
         set(() => ({products: res, productsLoading: false}))
       })
     },
-    filterProducts: (option) => {
+    filterProducts: () => {
 
     }})
 );

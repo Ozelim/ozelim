@@ -6,7 +6,7 @@ import { formatNumber, getImageUrl } from 'shared/lib'
 import { Button, Tabs, Text, TextInput } from '@mantine/core'
 import { openConfirmModal } from '@mantine/modals'
 import { useDisclosure } from '@mantine/hooks'
-
+import { OrderItem } from './order-item'
 async function getOrders (id) {
   return await pb.collection('orders').getFullList({
     filter: `user = '${id}' && status != 'canceled' && status != 'delivered' && status != 'received'`,
@@ -196,166 +196,55 @@ export const UserOrders = () => {
           <Tabs.Tab value='canceled'>Отмененные</Tabs.Tab>
         </Tabs.List>
         <Tabs.Panel value='orders' pt={20}>
+          {orders?.length === 0 && (
+            <div className='flex justify-center items-center h-full'>
+              <p className='text-lg'>У вас нет активных заказов</p>
+            </div>
+          ) }
           <div className="flex flex-col gap-4 mt-4">
             {orders?.map((q, i) => {  
-              
-              const p = q?.expand?.product_id
-              const statusToCancel = q?.status === 'paid' || q?.status === 'waiting' || q?.status === 'processing'
-
               return (
-                <div key={i} className='flex gap-4 bg-white border shadow-sm rounded-primary overflow-hidden'>
-                  <img 
-                    src={getImageUrl(p, p?.pics?.[0])} 
-                    alt={''} 
-                    className='w-28 h-28 object-cover my-auto'
-                  />
-                  <div className='space-y-1 py-2 max-w-xs w-full overflow-hidden'>
-                    <Text lineClamp={1}>{p?.name}</Text>
-                    <p className='text-sm'>Количество: {q?.product?.count}</p>
-                    <p className='text-sm'>Потрачено бонусов: {formatNumber(q?.bonuses_spent)}</p>
-                    {q?.pay_type === 'balance' && (
-                      <p className='text-sm'>Оплачено балансом: {formatNumber(q?.total_cost - q?.bonuses_spent)}</p>
-                    )}
-                    {q?.pay_type === 'card' && (
-                      <p className='text-sm'>Оплачено картой: {formatNumber(q?.total_cost - q?.bonuses_spent)}</p>
-                    )}
-                    {q?.pay_type === 'bonuses' && (
-                      <p className='text-sm'>Оплачено бонусами: {formatNumber(q?.bonuses_spent)}</p>
-                    )}
-                  </div>
-                  <div className='py-2 ml-4 space-y-1'>
-                    <p className='text-sm space-x-2'> 
-                      <span className='text-base'>
-                        Заказ: 
-                      </span>
-                      <span className='tracking-wider text-base'>
-                        {q?.id}
-                      </span>
-                    </p>
-                    <p className='text-sm space-x-2'> 
-                      <span>
-                        Дата:
-                      </span>
-                      <span>
-                        {dayjs(q?.created).format('DD.MM.YYYY')}
-                      </span>
-                    </p>
-                    <p className='text-sm'> 
-                      <span>
-                        Статус:
-                      </span>
-                      <Button
-                        compact
-                        variant='subtle'
-                      >
-                        {statuses[q?.status]}
-                      </Button>
-                    </p>
-                    <p className='text-sm space-x-2'> 
-                      <span>
-                        Оплачено:
-                      </span>
-                      <span>
-                        {formatNumber(q?.product?.price * q?.product?.count)} ₸
-                      </span>
-                    </p>
-                  </div>
-                  {statusToCancel && (
-                    <div className='ml-auto flex items-end'>
-                      <Button
-                        compact
-                        size='sm'
-                        variant='white'
-                        onClick={() => handleCancelOrder(q)}
-                      >
-                        Отменить заказ
-                      </Button>
-                    </div>
-                  )}
-                </div>
+                <OrderItem
+                  key={i}
+                  order={q}
+                  handleCancelOrder={handleCancelOrder}
+                />
             )})}
           </div>
         </Tabs.Panel>
-        <Tabs.Panel value='ended' pt={20}></Tabs.Panel>
-        <Tabs.Panel value='canceled' pt={20}>
-
-          {canceledOrders?.items?.map((q, i) => {  
-                
-            const p = q?.expand?.product_id
-            const statusToCancel = q?.status === 'paid' || q?.status === 'waiting' || q?.status === 'processing'
-
-            return (
-              <div key={i} className='flex gap-4 bg-white border shadow-sm rounded-primary overflow-hidden'>
-                <div key={i} className='max-w-[400px] w-full flex gap-4'>
-                  <img 
-                    src={getImageUrl(p, p?.pics?.[0])} 
-                    alt={''} 
-                    className='w-24 h-24 object-cover'
-                  />
-                  <div>
-                    <Text lineClamp={1}>{p?.name}</Text>
-                    <p className='text-sm'>Количество: {q?.product?.count}</p>
-                    <p className='text-sm'>Потрачено бонусов: {formatNumber(q?.bonuses_spent)}</p>
-                    {q?.pay_type === 'balance' && (
-                      <p className='text-sm'>Оплачено балансом: {formatNumber(q?.bonuses_spent)}</p>
-                    )}
-                    {q?.pay_type === 'card' && (
-                      <p className='text-sm'>Оплачено картой: {formatNumber(q?.total_cost - q?.bonuses_spent)}</p>
-                    )}
-                    {q?.pay_type === 'bonuses' && (
-                      <p className='text-sm'>Оплачено бонусами: {formatNumber(q?.bonuses_spent)}</p>
-                    )}
-                  </div>
-                </div>
-                <div className='max-w-[280px] w-full'>
-                  <p className='grid grid-cols-[30%_auto] gap-3'> 
-                    <span className='text-[15px]'>
-                      Заказ 
-                    </span>
-                    <span className='tracking-wide text-sm'>
-                    {q?.id}
-                    </span>
-                </p>
-                  <p className='grid grid-cols-[30%_auto] gap-3'> 
-                    <span className='text-[15px]'>
-                      Дата:
-                    </span>
-                    <span className='tracking-wide text-sm'>
-                    {dayjs(q?.created).format('DD.MM.YYYY')}
-                    </span>
-                  </p>
-                  <p className='grid grid-cols-[30%_auto] gap-3'> 
-                    <span className='text-[15px]'>
-                      Статус:
-                    </span>
-                    <Button>
-                      {statuses[q?.status]}
-                    </Button>
-                  </p>
-                  <p className='grid grid-cols-[30%_auto] gap-3'> 
-                    <span className='text-[15px]'>
-                      Оплачено:
-                    </span>
-                    <span className='tracking-wide text-sm'>
-                    {formatNumber(q?.product?.price * q?.product?.count)} ₸
-                    </span>
-                  </p>
-                </div>
-                {statusToCancel && (
-                  <div className='ml-auto flex items-end'>
-                    <Button
-                      compact
-                      size='sm'
-                      variant='white'
-                      onClick={() => handleCancelOrder(q)}
-                    >
-                      Отменить заказ
-                    </Button>
-                  </div>
-                )}
-              </div>
-            )}
+        <Tabs.Panel value='ended' pt={20}>
+          {endedOrders?.items?.length === 0 && (
+            <div className='flex justify-center items-center h-full'>
+              <p className='text-lg'>У вас нет завершенных заказов</p>
+            </div>
           )}
+          <div className="flex flex-col gap-4 mt-4">
+            {endedOrders?.items?.map((q, i) => {  
+              return (
+                <OrderItem
+                  key={i}
+                  order={q}
+                  handleCancelOrder={handleCancelOrder}
+                />
+            )})}
+          </div>
+        </Tabs.Panel>
+        <Tabs.Panel value='canceled' pt={20}>
+          {canceledOrders?.items?.length === 0 && (
+            <div className='flex justify-center items-center h-full'>
+              <p className='text-lg'>У вас нет отмененных заказов</p>
+            </div>
+          ) }
+          <div className="flex flex-col gap-4 mt-4">
+            {canceledOrders?.items?.map((q, i) => {  
+              return (
+                <OrderItem
+                  key={i}
+                  order={q}
+                  handleCancelOrder={handleCancelOrder}
+                />
+            )})}
+          </div>
         </Tabs.Panel>
       </Tabs>
     </div>

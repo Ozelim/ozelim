@@ -1,7 +1,6 @@
 import React from 'react'
-import { Accordion, Button, clsx } from '@mantine/core'
+import { clsx } from '@mantine/core'
 import { useSearchParams } from 'react-router-dom'
-import { pb } from 'shared/api'
 import { useCategoriesStore } from '../categoriesStore'
 import { useProductsStore } from '../catalog/producsStore'
 
@@ -27,7 +26,7 @@ export const Sidebar = () => {
   }
 
   return (
-    <div className='sticky top-0 left-0 h-[61vh] overflow-y-scroll'>
+    <div className='sticky top-0 left-0 h-[60vh] overflow-y-scroll'>
       {/* <p className='text-lg ml-3 uppercase py-4'>
         все Категории
       </p> */}

@@ -1,15 +1,13 @@
 import React from 'react'
 import ozelimlogo from 'shared/assets/images/logo.svg'
 import dayjs from 'dayjs'
-import { BsInstagram, BsTelegram, BsTiktok, BsYoutube } from 'react-icons/bs'
-import { Menu, Modal, UnstyledButton } from '@mantine/core'
+import { Menu, Modal } from '@mantine/core'
 import { useDisclosure, useMediaQuery } from '@mantine/hooks'
 
 import test from 'shared/assets/images/policy.pdf'
-import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import dog from 'shared/assets/images/dogone.pdf'
 import { useLangContext } from 'app/langContext'
-import { IoIosArrowDown } from 'react-icons/io'
 
 const date = new Date()
 
@@ -152,7 +150,7 @@ export const Footer = () => {
                     <span onClick={matches ? open : () => {}} className="hover:underline">
                       {matches 
                         ? kz ? `Құпия саясаты` : 'Политика конфиденциальности'
-                        : <a href={'/policy.pdf'} target='_blank'>{kz ? `Құпиялылық саясаты` : `Политика конфиденциальности`} </a>
+                        : <a href={'/policy.pdf'} target='_blank' rel='noreferrer'>{kz ? `Құпиялылық саясаты` : `Политика конфиденциальности`} </a>
                       }
                     </span>
                   </li>
@@ -206,7 +204,7 @@ export const Footer = () => {
         <iframe 
           className="w-full h-screen" 
           src={test} 
-          frameborder="0" 
+          frameBorder="0" 
         />
       </Modal>
       <Modal
@@ -218,7 +216,7 @@ export const Footer = () => {
         <iframe 
           className="w-full h-screen" 
           src={dog} 
-          frameborder="0" 
+          frameBorder="0" 
         />
       </Modal>
     </>

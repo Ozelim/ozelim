@@ -1,29 +1,28 @@
 import React from 'react'
-import { ActionIcon, Divider, Indicator, MantineProvider, clsx, createEmotionCache } from '@mantine/core'
+import { ActionIcon, Divider, MantineProvider, clsx, createEmotionCache } from '@mantine/core'
 import { Link, useSearchParams } from 'react-router-dom'
 import { useAuth } from 'shared/hooks'
 import { AddProduct } from './add-product'
 import { User } from './user'
 import { useShopStore } from './shopStore'
-import { Products } from '../products/products'
 import { Reviews } from './reviews'
-import { Statuses } from '../products/statuses'
 import { Orders } from './orders'
 
-import dukenLogo from 'shared/assets/images/duken.png'
 import dukenLogoWhite from 'shared/assets/images/duken-white.png'
 
 import { FaChartLine } from "react-icons/fa6";
 import { FaRegBell, FaRegHeart, FaUser } from "react-icons/fa";
 import { MdAddBox } from "react-icons/md";
 import { FaHive } from "react-icons/fa6";
-import { FaGripVertical } from "react-icons/fa6";
+// import { FaGripVertical } from "react-icons/fa6";
 import { MdRateReview } from "react-icons/md";
 import { FaClipboardList } from "react-icons/fa6";
 import { FiShoppingCart } from 'react-icons/fi'
 import { SiWechat } from "react-icons/si";
 
 import { Avatar } from 'shared/ui'
+import { formatNumber } from 'shared/lib'
+import { Products } from '../products/products'
 
 
 const cache = createEmotionCache({
@@ -60,14 +59,9 @@ export const Dashboard = () => {
       icon: <MdAddBox size={25} />
     },
     { 
-      label: 'Статусы', 
-      path: 'statuses',
-      icon: <FaHive size={25}/>
-    },
-    { 
       label: 'Товары', 
       path: 'products',
-      icon: <FaGripVertical size={25} />
+      icon: <FaHive size={25}/>
     },
     { 
       label: 'Отзывы', 
@@ -139,7 +133,6 @@ export const Dashboard = () => {
                   {params.get('tab') === 'user' && <>Магазин</>}
                   {params.get('tab') === 'add-product' && <>Добавление товара</>}
                   {params.get('tab') === 'products' && <>Товары</>}
-                  {params.get('tab') === 'statuses' && <>Статусы</>}
                   {params.get('tab') === 'reviews' && <>Отзывы</>}
                   {params.get('tab') === 'orders' && <>Заказы</>}
                   {params.get('tab') === 'messages' && <>Сообщения</>}
@@ -185,7 +178,6 @@ export const Dashboard = () => {
               {params.get('tab') === 'user' && <User />}
               {params.get('tab') === 'add-product' && <AddProduct />}
               {params.get('tab') === 'products' && <Products />}
-              {params.get('tab') === 'statuses' && <Statuses />}
               {params.get('tab') === 'reviews' && <Reviews/>}
               {params.get('tab') === 'orders' && <Orders/>}
             </div>

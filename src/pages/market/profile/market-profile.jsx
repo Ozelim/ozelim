@@ -1,6 +1,4 @@
 import React from 'react'
-import { ProfileData } from './profile-data'
-import { SegmentedControl, Tabs } from '@mantine/core'
 import { useSearchParams } from 'react-router-dom'
 import { useAuth } from 'shared/hooks'
 import { Dashboard } from './shop/dashboard'
@@ -10,8 +8,12 @@ import { OrderHistory } from './user/order-history'
 import { UserOrders } from './user/user-orders'
 import { useNotificationStore } from './user/notificationStore'
 import { readNotification } from 'shared/lib'
+import { SegmentedControl } from '@mantine/core'
+import { useMediaQuery } from '@mantine/hooks'
 
 export const MarketProfile = () => {
+
+  const mediaQuery = useMediaQuery('(max-width: 878px)')
 
   const {user} = useAuth()
 
@@ -19,8 +21,8 @@ export const MarketProfile = () => {
 
   const {nots} = useNotificationStore()
 
-  async function handleSegment (e) {
-    params.set('segment', e)
+  async function handletab (e) {
+    params.set('tab', e)
     setParams(params)
 
     if (e === 'orders' && nots?.order) {
@@ -33,8 +35,8 @@ export const MarketProfile = () => {
   }
 
   React.useEffect(() => {
-    if (!params.get('segment')) {
-      params.set('segment', 'orders')
+    if (!params.get('tab')) {
+      params.set('tab', 'orders')
       setParams(params)
     }
   }, [])
@@ -61,11 +63,12 @@ export const MarketProfile = () => {
                 { label: 'Отзывы', value: 'reviews' },
                 { label: 'История покупок', value: 'history' },
               ]}
-              value={params.get('segment') ?? 'orders'}
-              onChange={(e) => handleSegment(e)}
+              value={params.get('tab') ?? 'orders'}
+              onChange={(e) => handletab(e)}
               fullWidth
               color='teal.6'
               radius='md'
+              orientation={mediaQuery ? 'vertical' : 'horizontal'}
             />
           </div>
 
@@ -86,10 +89,10 @@ export const MarketProfile = () => {
             </div>
           </div> */}
           <>
-            {params.get('segment') === 'messages' && <Chat/>}
-            {params.get('segment') === 'reviews' && <UserReviews/>}
-            {params.get('segment') === 'history' && <OrderHistory/>}
-            {params.get('segment') === 'orders' && <UserOrders/>}
+            {params.get('tab') === 'messages' && <Chat/>}
+            {params.get('tab') === 'reviews' && <UserReviews/>}
+            {params.get('tab') === 'history' && <OrderHistory/>}
+            {params.get('tab') === 'orders' && <UserOrders/>}
           </>
         </div>
       </div>

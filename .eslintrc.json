@@ -16,5 +16,9 @@
         "react"
     ],
     "rules": {
+        "react/prop-types": "off",
+        "react/react-in-jsx-scope": "off",
+        "react/no-unescaped-entities": "off",
+        "unused-imports/no-unused-imports": "off"
     }
 }

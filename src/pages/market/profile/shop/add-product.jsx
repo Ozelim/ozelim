@@ -3,13 +3,10 @@ import {
   CloseButton,
   Collapse,
   FileButton,
-  FileInput,
   Modal,
   MultiSelect,
   Select,
-  Slider,
   Switch,
-  Text,
   TextInput,
   Textarea,
 } from '@mantine/core'
@@ -19,7 +16,7 @@ import { useAuth } from 'shared/hooks'
 import { useShopStore } from './shopStore'
 
 import { cities, compress } from 'shared/lib'
-import { randomId, useDisclosure, useMediaQuery } from '@mantine/hooks'
+import { randomId, useDisclosure } from '@mantine/hooks'
 import { ProductPage } from 'pages'
 import { Product } from 'pages/market/product'
 import { useCategoriesStore } from 'pages/market/categoriesStore'
@@ -28,13 +25,10 @@ import ReactQuill from "react-quill";
 
 import "react-quill/dist/quill.snow.css";
 import { FaPlus } from 'react-icons/fa'
-import { set } from 'react-hook-form'
 import { openConfirmModal } from '@mantine/modals'
 import { showNotification } from '@mantine/notifications'
 
 export const AddProduct = () => {
-
-  const media = useMediaQuery('(min-width: 1366px)')
 
   const { user } = useAuth()
   const { shop } = useShopStore()
@@ -134,12 +128,8 @@ export const AddProduct = () => {
 
     const formData = new FormData()
 
-    console.log(product, 'produ');
-
     const createdProduct = await pb.collection('products').create({
       ...product,
-      market_id: shop?.id,
-      merchant: user?.id,
       status: 'moderation',
       category: category.main,
       sub_category: category.sub, 
@@ -149,6 +139,8 @@ export const AddProduct = () => {
       city_delivery: cityDelivery,
       between_cities: deliveryCities,
       everywhere: allDelivery,
+      market_id: shop?.id,
+      merchant: user?.id,
     })
 
     for (let q of pics) {
@@ -163,7 +155,7 @@ export const AddProduct = () => {
       .update(createdProduct?.id, formData)
       .then(async (res) => {
         await pb.collection('markets').update(shop?.id, {
-          products: [...shop?.products, res?.id],
+          products: [...shop?.products ?? [], res?.id],
         })
         .then(() => {
           console.log('Product created')
@@ -285,7 +277,7 @@ export const AddProduct = () => {
                   <div className="flex gap-4 flex-wrap mt-2">
                     {q?.variants?.map((e) => {
                       return (
-                        <Button variant='outline'>
+                        <Button variant='outline' key={Math.random()}>
                           {e}
                         </Button>
                       )
@@ -322,7 +314,7 @@ export const AddProduct = () => {
               label='Самовывоз'
               className='mt-3'
               checked={takeout}
-              onChange={e => takeout_h.toggle()}
+              onChange={() => takeout_h.toggle()}
             />
 
             <Collapse
@@ -342,14 +334,14 @@ export const AddProduct = () => {
               label='Доставка по городу'
               className='mt-3'
               checked={cityDelivery}
-              onChange={e => cityDelivery_h.toggle()}
+              onChange={() => cityDelivery_h.toggle()}
             />
 
             <Switch
               label='Доставка в другие города'
               className='mt-3'
               checked={betweenCities}
-              onChange={e => betweenCities_h.toggle()}
+              onChange={() => betweenCities_h.toggle()}
             />
             <Collapse
               in={betweenCities}
@@ -370,7 +362,7 @@ export const AddProduct = () => {
               label='Доставка всему Казахстану'
               className='mt-3'
               checked={allDelivery}
-              onChange={e => {
+              onChange={() => {
                 allDelivery_h.toggle()
                 betweenCities_h.close()
               }}
@@ -469,15 +461,17 @@ export const AddProduct = () => {
         centered
         title="Предпросмотр"
       >
-        <ProductPage
-          preview={{
-            ...product,
-            category: category?.main,
-            sub_category: category?.sub,
-            pics,
-            content
-          }}
-        />
+        <div className='bg-slate-50 pt-4'>
+          <ProductPage
+            preview={{
+              ...product,
+              category: category?.main,
+              sub_category: category?.sub,
+              pics,
+              content
+            }}
+          />
+        </div>
       </Modal>
     </>
   )
