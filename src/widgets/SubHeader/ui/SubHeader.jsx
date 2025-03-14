@@ -1,11 +1,9 @@
 import React from 'react'
-import { Menu, Switch } from '@mantine/core'
-
+import { Menu } from '@mantine/core'
 import {
   BsWhatsapp,
 } from 'react-icons/bs'
 import { useLangContext } from 'app/langContext'
-import { Button } from '@mantine/core'
 
 import { IoIosArrowDown } from "react-icons/io";
 
@@ -19,9 +17,10 @@ export const SubHeader = () => {
       <div className="flex justify-center py-3 border-b">
         <div>
           <a href="https://wa.me/77470512252" className="flex items-center">
-            <p className="mr-4 text-sm md:text-base text-zinc-400">{kz ? `Бізбен байланысыңыз`: 'Служба поддержки'}:</p>
-            <BsWhatsapp className="text-xl flex-shrink-0" color="green" />
-            <span className="ml-2 hover:text-yellow-400 text-md hidden md:block ">
+            <p className="text-sm md:text-base text-zinc-400">{kz ? `Бізбен байланысыңыз`: 'Служба поддержки'}:</p>
+            <p className='text-sm md:text-base text-zinc-400 ml-1'>напишите на Whatsapp</p>
+            <BsWhatsapp className="text-xl flex-shrink-0 ml-3" color="green" />
+            <span className="ml-2 hover:text-yellow-400 text-md hidden md:block">
               +7 747 051 2252
             </span>
           </a>
@@ -29,7 +28,7 @@ export const SubHeader = () => {
             {qq('Понедельник-пятница, 09:00 - 18:00', 'Дүйсенбі-жұма, 09:00 - 18:00')}
           </p>
         </div>
-        <Menu className='ml-6' >
+        <Menu className='ml-12' >
           <Menu.Target>
             <p className='text-sm md:text-base font-bold text-primary-500 cursor-pointer flex gap-2 items-center'>
               {kz ? 'Каз': 'Рус'}

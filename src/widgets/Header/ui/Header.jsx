@@ -1,18 +1,14 @@
 import React from 'react'
-import { ContactInfo } from './ContactInfo'
 import { BurgerMenu } from './BurgerMenu'
-import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
-import { Popover, Switch, Tooltip } from '@mantine/core'
-import { cities, regions } from 'shared/lib'
+import { Link } from 'react-router-dom'
 
-import { RiArrowDownSLine } from 'react-icons/ri'
 import { useLangContext } from 'app/langContext'
 
-const array = [
-  {labelkz: `Компания туралы`, labelru: 'О компании', link: '/about'},
-  {labelkz: `Денсаулық әлемі  `, labelru: 'Твое здоровье', link: '/health'},
-  {labelkz: `Туристік курстар`, labelru: 'Курсы по туризму', link: '/courses'},
-]
+// const array = [
+//   {labelkz: `Компания туралы`, labelru: 'О компании', link: '/about'},
+//   {labelkz: `Денсаулық әлемі  `, labelru: 'Твое здоровье', link: '/health'},
+//   {labelkz: `Туристік курстар`, labelru: 'Курсы по туризму', link: '/courses'},
+// ]
 
 const array2 = [
   {labelkz: 'Қор', labelru: 'Фонд', link: '/fund'},
@@ -25,7 +21,7 @@ const array2 = [
 
 export const Header = () => {
 
-  const { lang, kz, handleLang } = useLangContext()
+  const { lang } = useLangContext()
 
   // function handleRegionClick (val) {
   //   console.log(val);
