@@ -1,12 +1,7 @@
 import React from 'react'
-import { Button, Chip, Modal, TextInput } from '@mantine/core'
-import { FcInfo } from 'react-icons/fc'
-import { formatNumber } from 'shared/lib'
+import { Button, Modal, TextInput } from '@mantine/core'
 
 import WhatsApp from 'shared/assets/icons/WhatsApp.svg'
-import Instagram from 'shared/assets/icons/Instagram.svg'
-import { useUtils } from 'shared/hooks'
-import { HealthLink } from 'shared/ui/HealthLink'
 import { pb } from 'shared/api'
 
 export const ResortDetails = ({resort}) => {
@@ -39,30 +34,14 @@ export const ResortDetails = ({resort}) => {
               )
             })}
           </div>
-          {/* <div>
-            {resort?.duration}
-          </div>
-          <div>
-            {resort?.diet}
-          </div>
-          <div>
-            {resort?.from}
-          </div> */}
+
         </div>
         <hr className="mt-5" />
-        {/* <span className="text-3xl font-bold">
-          {formatNumber(resort?.cost)} 
-        </span> */}
+
 
         <div className='mt-10'>
           <div>Уточнить детали тура</div>
           <div className="flex flex-col">
-            {/* <a href={`https://www.instagram.com/${resort?.inst}`} target="_blank">
-              <div className="flex items-center gap-2">
-                <img src={Instagram} className="w-10" />
-                <p>Instagram</p>
-              </div>
-            </a> */}
             <a href={`https://wa.me/${resort?.whats}`} target="_blank">
               <div className="flex items-center gap-2 mt-4">
                 <img src={WhatsApp} className="w-10" />
@@ -72,16 +51,6 @@ export const ResortDetails = ({resort}) => {
 
           </div>
         </div>
-        {/* <div className="w-full mb-4">
-          <HealthLink 
-            label={'Отправить заявку'} 
-            buttonProps={{
-              fullWidth: true,
-            }}
-            onSubmit={submit}
-            data={resort?.id}
-          />
-        </div> */}
       </div>
       <Modal centered title="Заявка" opened={modal} onClose={setModal}>
         <div className="space-y-4">

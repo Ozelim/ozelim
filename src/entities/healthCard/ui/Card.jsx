@@ -1,7 +1,4 @@
 import React from 'react'
-import { getImageUrl } from 'shared/lib'
-import { Image } from 'shared/ui'
-
 
 export const HealthCard = ({ card, images, }) => {
   return (

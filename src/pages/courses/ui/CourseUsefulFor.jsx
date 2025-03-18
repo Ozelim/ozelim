@@ -1,10 +1,7 @@
 import React from 'react'
-import { Button, Checkbox, Modal } from '@mantine/core'
+import { Modal } from '@mantine/core'
 import { useDisclosure, useMediaQuery } from '@mantine/hooks'
-import { usePageData } from 'shared/hooks'
-import { getImageUrl } from 'shared/lib'
 import { Image } from 'shared/ui'
-import { HealthLink } from 'shared/ui/HealthLink'
 import { pb } from 'shared/api'
 
 import test from 'shared/assets/images/policy.pdf'

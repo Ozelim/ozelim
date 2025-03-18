@@ -1,8 +1,5 @@
 import React from 'react'
-import { Button } from '@mantine/core'
-import { Link } from 'react-router-dom'
 import { Modal } from 'shared/ui/Modal'
-import { pb } from 'shared/api'
 
 export const HealthLink = ({ onSubmit, label, heading, buttonProps, data, resort }) => {
 

@@ -1,5 +1,4 @@
 import React from 'react'
-import { pb } from 'shared/api'
 import { formatNumber } from 'shared/lib'
 
 export const PriceList = ({list}) => {

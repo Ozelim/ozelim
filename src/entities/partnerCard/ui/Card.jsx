@@ -4,7 +4,6 @@ import Autoplay from "embla-carousel-autoplay";
 import { Button, Textarea } from "@mantine/core";
 import { getImageUrl } from "shared/lib";
 
-
 import { GrDocumentPdf } from 'react-icons/gr'
 
 export const PartnersCard = ({

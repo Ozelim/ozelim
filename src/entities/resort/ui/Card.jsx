@@ -1,11 +1,7 @@
 import React from 'react'
 import { Button } from '@mantine/core'
 import { Link } from 'react-router-dom'
-import { LiaCalendarAlt, LiaConciergeBellSolid } from 'react-icons/lia'
-import { CiPlane } from 'react-icons/ci'
-import { formatNumber, getImageUrl } from 'shared/lib'
-
-// max-w-[300px]
+import { getImageUrl } from 'shared/lib'
 
 export const Card = ({ resort }) => {
   return (
@@ -32,27 +28,6 @@ export const Card = ({ resort }) => {
             ) 
           })}
         </div>
-        {/* <ul className="mt-4">
-          <li className="flex items-center gap-2">
-            <LiaCalendarAlt className="text-xl text-slate-400" />
-            <span className="text">
-              {resort?.duration}
-            </span>
-          </li>
-          <li className="flex items-center gap-2">
-            <LiaConciergeBellSolid className="text-xl text-slate-400" />
-            <span className="text">{resort?.diet}</span>
-          </li>
-          <li className="flex items-center gap-2">
-            <CiPlane className="text-xl text-slate-400" />
-            <span className="text">{resort?.from}</span>
-          </li>
-        </ul> */}
-        {/* <div className="mt-4">
-          <span className="text-xl text-primary-600">
-            {formatNumber(resort?.cost)} 
-          </span>
-        </div> */}
         <div className="mt-4 ">
           <Link to={`/resort/${resort?.id}`}>
             <Button fullWidth>Подробнее</Button>

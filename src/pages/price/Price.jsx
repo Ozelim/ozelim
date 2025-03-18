@@ -1,5 +1,4 @@
 import React from 'react'
-import { PriceList } from 'modules/PriceList'
 import { CourseUsefulFor } from 'pages/courses/ui/CourseUsefulFor'
 import { pb } from 'shared/api'
 import { usePageData } from 'shared/hooks'
@@ -110,10 +109,6 @@ export const Price = () => {
                               className='underline cursor-pointer' 
                               onClick={matches ? open : () => {}}
                             >
-                              {/* {matches 
-                                ? 'условия пользовательского соглашения'
-                                : <a href={'/policy.pdf'} target='_blank'> условия пользовательского соглашения</a>
-                              } */}
                             </span> <span
                               className='underline cursor-pointer' 
                               onClick={matches ? () => setA(true) : () => {}}
@@ -135,16 +130,11 @@ export const Price = () => {
                       disabled: isChecked !== price?.id
                     }}
                   />
-                  {/* <Button size="lg">Записаться на курс</Button> */}
                 </div>
               </div>
             )
           })}
         </div>
-        {/* <div className='mt-10 lg:mt-20'>
-          <CourseUsefulFor type='new' />
-          <PriceList type='new' />
-        </div> */}
 
         <div className="container mt-6">
           <div>

@@ -7,7 +7,6 @@ import { useLangContext } from 'app/langContext'
 
 import { IoIosArrowDown } from "react-icons/io";
 
-
 export const SubHeader = () => {
 
   const {kz, changeLang, qq} = useLangContext()

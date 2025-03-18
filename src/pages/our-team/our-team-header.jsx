@@ -3,7 +3,7 @@ import { Image } from 'shared/ui'
 
 import q from 'shared/assets/images/team/1.png'
 
-export const HealthHeader = ({ headings, images, text }) => {
+export const OurTeamHeader = ({ headings, text }) => {
   return (
     <section className="w-full">
       <div className="container">

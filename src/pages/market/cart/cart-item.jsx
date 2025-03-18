@@ -4,9 +4,11 @@ import { useCartStore } from './cartStore'
 import { formatNumber, getImageUrl } from 'shared/lib'
 import { ActionIcon, Button, CloseButton, Switch, Text } from '@mantine/core'
 import { Link } from 'react-router-dom'
-
+import { useAuth } from 'shared/hooks'
 
 export const CartItem = ({ product, handleUseBonuses, handleBetweenCities }) => {
+
+  const { user } = useAuth()
 
   const total = product?.count * product?.price
 
@@ -26,7 +28,7 @@ export const CartItem = ({ product, handleUseBonuses, handleBetweenCities }) => 
           </Link>
           <div className="flex flex-col p-3 w-full">
             
-            <p className="font-semibold text-lg sm:text-xl line-clamp-2">{product.name}</p>
+            <p className="font-semibold text-lg sm:text-xl line-clamp-1">{product.name}</p>
             <p className="text-sm sm:text-base">Город: {product?.city}</p>
             <div className="flex flex-col sm:flex-row mt-2 gap-2 sm:gap-0 sm:justify-between">
               <div className="flex gap-3">
@@ -125,14 +127,16 @@ export const CartItem = ({ product, handleUseBonuses, handleBetweenCities }) => 
           bg="gray.2"
         />
       </div>
-      <div className="absolute -bottom-7 right-2 sm:bottom-2 sm:right-2">
-        <Switch
-          label="Потратить бонусы"
-          checked={product?.using_bonuses}
-          onChange={() => handleUseBonuses(product)}
-          className="text-sm sm:text-base"
-        />
-      </div>
+      {user?.collectionName === 'agents' && (
+        <div className="absolute -bottom-7 right-2 sm:bottom-2 sm:right-2">
+          <Switch
+            label="Потратить бонусы"
+            checked={product?.using_bonuses}
+            onChange={() => handleUseBonuses(product)}
+            className="text-sm sm:text-base"
+          />
+        </div>
+      )}
     </div>
   )
 }

@@ -1,13 +1,8 @@
 import React from 'react'
 import { GiDiploma } from 'react-icons/gi'
-import { AiOutlineCalendar } from 'react-icons/ai'
-import { AiOutlineUnorderedList } from 'react-icons/ai'
 import { Button } from '@mantine/core'
-import { getImageUrl } from 'shared/lib'
-import { ImgSkeleton } from 'shared/ui/ImgSkeleton'
 import { FiYoutube } from 'react-icons/fi'
-import { Link, useLocation } from 'react-router-dom'
-import { Image } from 'shared/ui'
+import { useLocation } from 'react-router-dom'
 import { useLangContext } from 'app/langContext'
 
 import q from 'shared/assets/images/dual/1.png'
@@ -64,16 +59,7 @@ export const CourseHeader = ({ headings, images, text }) => {
               </Button>
             </div>
           </div>
-          
-          {/* {getImageUrl(course?.images, images?.[1]) ? (
-            <img
-              className="w-3/5"
-              src={getImageUrl(course?.images, images?.[1])}
-              alt="kid"
-            />
-          ) : (
-            <ImgSkeleton width="max-w-3xl" />
-          )} */}
+
         </section>
       </div>
     </div>
@@ -149,16 +135,6 @@ export const CourseHeader = ({ headings, images, text }) => {
             src={q}
             className='w-full max-h-[350px] object-cover lg:block hidden rounded-primary'
           />  
-          
-          {/* {getImageUrl(course?.images, images?.[1]) ? (
-            <img
-              className="w-3/5"
-              src={getImageUrl(course?.images, images?.[1])}
-              alt="kid"
-            />
-          ) : (
-            <ImgSkeleton width="max-w-3xl" />
-          )} */}
         </section>
       </div>
     </div>

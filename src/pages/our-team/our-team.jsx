@@ -1,10 +1,10 @@
 import React from 'react'
 import { useLangContext } from 'app/langContext'
-import { HealthHeader } from 'pages/health/ui/HealthHeader'
 import { pb } from 'shared/api'
 import { usePageData } from 'shared/hooks'
 import { TeamCard } from 'shared/ui/TeamCard'
-
+import { OurTeamHeader } from './our-team-header'
+  
 async function getOurTeam() {
   return await pb.collection('members').getFullList({filter: `kz = false`})
 }
@@ -36,8 +36,7 @@ export const OurTeam = () => {
   return (
     <div className="w-full">
       <div className="container">
-        <HealthHeader
-          images={images}
+        <OurTeamHeader
           headings={headings}
           text={text}
         />

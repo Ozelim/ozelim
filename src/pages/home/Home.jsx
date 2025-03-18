@@ -16,8 +16,6 @@ import q from 'shared/assets/images/home/1.png'
 import w from 'shared/assets/images/home/2.jpg'
 import e from 'shared/assets/images/home/3.jpg'
 
-
-
 async function getServices() {
   return await pb.collection('home_data').getFullList()
 }
@@ -48,7 +46,6 @@ export const Home = () => {
 
   return (
     <>
-      {/* <Franchise /> */}
       <div className="w-full">
         <div className="container">
           <div>
@@ -70,9 +67,6 @@ export const Home = () => {
                 {qq(headings?.main, headings?.main2_kz)}
               </p>
               <p className="mt-5 text-xl lg:text-2xl">{qq(headings?.main2, headings?.main2_kz)}</p>
-              {/* <Button component={RouterLink} to="/resorts" size="md" className='mt-4'>
-                {qq(`Сотрудничество`, `Серiктестiк`)}
-              </Button> */}
             </div>
           </div>
         </div>
@@ -110,20 +104,6 @@ export const Home = () => {
         </div>
       </div>
 
-      {/* <section className='mt-6 text-center container'>
-        <h2 className='font-semibold text-[20px]'>
-          Документы Ассоциации
-        </h2>
-        <p className='underline cursor-pointer text-primary-500' onClick={matches ? open : () => {}}>
-          {matches 
-            ? qq(`Справка о гос.регистрации фонда, Устав фонда`, `Мемлекеттік тіркеу куәлік`)
-            : <a href={'/policynew.pdf'} target='_blank'>
-                {qq(`Справка о гос.регистрации фонда, Устав фонда`, `Мемлекеттік тіркеу куәлік`)}
-              </a>
-          }
-        </p>
-      </section> */}
-
       <section className="mt-8 container">
         <div className=" mt-4 gap-8 flex items-center flex-col">
           <h1 className="text-center text-2xl md:text-3xl font-bold font-head text-teal-500 flex justify-center items-center h-full">
@@ -140,16 +120,6 @@ export const Home = () => {
               className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 rounded-primary max-h-96 object-cover"
             />
           )}
-          {/* {getImageUrl(images, images?.[1]) ? (
-            <img
-              className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0"
-              src={getImageUrl(images, images?.[1])}
-              loading="lazy"
-              alt="travel"
-            />
-          ) : (
-            <div className="lg:max-w-xl w-full m-auto bg-zinc-200" />
-          )} */}
         </div>
         <div className="grid lg:grid-cols-5 gap-6 mt-8">
           <div>
@@ -263,31 +233,6 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* <section className='mt-6 lg:mt-10 container'>
-        <Image
-          className="max-w-2xl w-full rounded-primary max-h-80 object-cover mx-auto"
-          record={images}
-          index={6}
-        />
-        <div className="grid lg:grid-cols-5 gap-6 lg:mt-8">
-          <p className=' border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>
-            {text?.[12]}
-          </p>
-          <p className=' border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>
-            {text?.[13]}
-          </p>
-          <p className=' border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>
-            {text?.[14]}
-          </p>
-          <p className=' border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>
-            {text?.[15]}
-          </p>
-          <p className=' border p-4 shadow-lg rounded-primary bg-white text-slate-500 tracking-wider '>
-            {text?.[16]}
-          </p>
-        </div>
-      </section> */}
-
       <section className="mt-10 container">
         <h1 className="text-3xl lg:text-4xl font-bold mt-1 text-primary-500">{headings?.[4]}</h1>
         <p>{headings?.[5]}</p>
@@ -303,9 +248,6 @@ export const Home = () => {
           </p>
         </div>
         <div className="flex flex-col justify-center items-center mt-8">
-          {/* <Button>
-            Оставить заявку
-          </Button> */}
           <p className="text-2xl text-primary-500">{headings?.[6]}</p>
         </div>
         <div className="grid lg:grid-cols-3 gap-6 mt-4">
@@ -349,10 +291,6 @@ export const Home = () => {
       <section className="mt-10 lg:mt-24">
         <div className="container">
           <div className="text-center">
-            {/* <h1 className="text-4xl font-medium text-primary-500">
-              {headings?.[4]} 
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            </h1> */}
             <div className="grid gap-8 mt-5 max-w-3xl mx-auto">
               <p className="text text-left">{text?.[24]}</p>
             </div>

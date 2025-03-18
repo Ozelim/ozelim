@@ -1,5 +1,5 @@
 import React from 'react'
-import { ActionIcon, Divider, Menu, Indicator, Autocomplete, clsx } from '@mantine/core'
+import { ActionIcon, Divider, Menu, Indicator, Autocomplete, clsx, Button } from '@mantine/core'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import mobileLogo from 'shared/assets/images/logo1.png'
 import { IoIosArrowDown } from 'react-icons/io'
@@ -160,33 +160,64 @@ export const MarketNavbar = () => {
             </>
           )}
 
-          {user?.id  ? (
-            <Link to={'/duken/profile'}>
-              <div className='flex items-center gap-2 md:gap-4'>
-                <div className="hidden md:block">
-                  <p className='text-lg md:text-xl text-right'>{user?.fio}</p>
-                  {!user?.duken && (
-                    <>
+          {user?.id && 
+            <>
+              {user?.collectionName === 'customers' && (
+                <div className='flex items-center gap-2 md:gap-4'>
+                  <div className="hidden md:block">
+                    <p className='text-lg md:text-xl text-right'>{user?.name}</p>
+                  </div>
+                  <Avatar
+                    record={user}
+                    src={user?.avatar}
+                    radius='xl'
+                    size='md'
+                    className="md:size-lg"
+                  />
+                </div>
+              )}
+              {user?.collectionName === 'agents' && (
+                <Link to={'/duken/profile'}>
+                  <div className='flex items-center gap-2 md:gap-4'>
+                    <div className="hidden md:block">
+                      <p className='text-lg md:text-xl text-right'>{user?.fio}</p>
                       <p className='text-base md:text-lg text-right -mt-1'>{formatNumber(user?.balance)} ₸</p>
                       <p className='text-xs text-slate-400 -mt-1.5 text-right'>{formatNumber(user?.bonuses)} бонусов</p>
-                    </>
-                  )} 
-                </div>
-                <Avatar
-                  record={user}
-                  src={user?.avatar}
-                  radius='xl'
-                  size='md'
-                  className="md:size-lg"
-                />
-              </div>
-            </Link>
-          ) : (
-            <Avatar
-              radius='xl'
-              size='md'
-              className="md:size-lg"
-            />
+                    </div>
+                    <Avatar
+                      record={user}
+                      src={user?.avatar}
+                      radius='xl'
+                      size='md'
+                      className="md:size-lg"
+                    />
+                  </div>
+                </Link>
+              )}
+
+              {user?.collectionName === 'merchants' && (
+                <Link to={'/duken/profile'}>
+                  <div className='flex items-center gap-2 md:gap-4'>
+                    <div className="hidden md:block">
+                      <p className='text-lg md:text-xl text-right'>{user?.email}</p>
+                    </div>
+                    <Avatar
+                      record={user}
+                      src={user?.avatar}
+                      radius='xl'
+                      size='md'
+                      className="md:size-lg"
+                    />
+                  </div>
+                </Link>
+              )}
+            </>
+          }
+
+          {!user?.id && (
+            <Button>
+              Войти
+            </Button>
           )}
         </div>
       </div>

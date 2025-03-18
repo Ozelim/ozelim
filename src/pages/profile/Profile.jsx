@@ -1,5 +1,5 @@
 import React from 'react'
-import { UserData } from 'entities/useData'
+import { UserData } from 'entities/userData'
 import dayjs from 'dayjs'
 import { ReferalsList } from 'entities/referalsList'
 import { pb } from 'shared/api'

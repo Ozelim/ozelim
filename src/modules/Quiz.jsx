@@ -1,7 +1,6 @@
 import React from 'react'
 import { Button, Group, Select, Stepper, TextInput } from '@mantine/core'
 import { pb } from 'shared/api'
-import { getRegionsAndDiseas } from 'shared/lib/getRegionsAndDiseases'
 import { useUtils } from 'shared/hooks'
 import { showNotification } from '@mantine/notifications'
 import { useLangContext } from 'app/langContext'

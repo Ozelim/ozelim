@@ -7,6 +7,7 @@ async function getUser (userId, type) {
   if (type === 'users') return await pb.collection(type).getOne(userId, {expand: 'sponsor'})
   if (type === 'agents') return await pb.collection(type).getOne(userId, {expand: `creeps.creeps.creeps, sponsor`})
   if (type === 'merchants') return await pb.collection(type).getOne(userId, {expand: `creeps.creeps.creeps, sponsor`})
+  if (type === 'customers') return await pb.collection(type).getOne(userId)
 }
 
 export const useAuth = () => {

@@ -1,9 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
-import { About, 
-  Bids, 
+import { 
   CharityFund, 
-  Courses, 
-  Health, 
   News,
   OurTeam, 
   Partners, 
@@ -14,7 +11,6 @@ import { About,
   Price,
   NotFound,
   Login,
-  Verification,
   Services,
   Tester,
   Fund,
@@ -34,7 +30,6 @@ import { About,
   Club,
 } from "pages";
 import { baseLayout } from "./layouts/baseLayout";
-import { Test } from "pages/test/Test";
 import { ProfileCourse } from "pages/profile/ProfileCourse";
 import { profileLayout } from "./layouts/profileLayout";
 import { marketLayout } from "./layouts/marketLayout";
@@ -47,8 +42,6 @@ const appRouter = createBrowserRouter([
     {path: '/insurance', element: <CharityFund/>},
     {path: '/profile', element: <Profile/>},
     {path: '/profile-courses', element: <ProfileCourse/>},
-    {path: '/bids', element: <Bids/>},
-    {path: '/health', element: <Health/>},
     {path: '/our-team', element: <OurTeam/>},
     {path: '/news', element: <News/>},
     {path: '/partners', element: <Partners/>},
@@ -56,12 +49,8 @@ const appRouter = createBrowserRouter([
     {path: '/program', element: <Program/>},
     {path: '/resort/:id', element: <Resort/>},
     {path: '/resorts', element: <Resorts/>},
-    {path: '/courses', element: <Courses/>},
-    {path: '/about', element: <About/>},
     {path: '/login', element: <Login/>},
     {path: '*', element: <NotFound/>},
-    {path: '/test', element: <Test/>},
-    {path: '/verification/:id', element: <Verification/>},
     {path: '/services', element: <Services/>},
     {path: '/fund', element: <Fund/>},
     {path: '/health-world', element: <HealthWorld/>},
@@ -81,7 +70,6 @@ const appRouter = createBrowserRouter([
     {path: 'weare', element: <Weare/>},
     {path: 'catalog', element: <Catalog/>},
     {path: 'join-club', element: <Club/>},
-    // {path: 'chat/:id', element: <Chat/>},
     {path: 'product/:id', element: <ProductPage/>},
     {path: '*', element: <NotFound/>},
     {path: 'login', element: <MarketLogin/>},

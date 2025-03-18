@@ -2,7 +2,7 @@ import React from 'react'
 import { Layout } from "shared/ui";
 import { Footer } from "widgets/Footer";
 import { Header } from "widgets/Header";
-import { SubHeader } from "widgets/SubHeader";
+import { SubHeader } from "widgets/sub-header";
 
 import { MantineProvider, createEmotionCache } from '@mantine/core'
 import { ModalsProvider } from '@mantine/modals'

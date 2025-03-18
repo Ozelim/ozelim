@@ -1,13 +1,11 @@
 import React from 'react'
-import { Button, Group, Loader, Modal, PasswordInput, Select, TextInput } from '@mantine/core'
-import { DatePickerInput, DateTimePicker } from '@mantine/dates'
-import { cities, formatNumber } from 'shared/lib'
-import { useLocation, useNavigate, useNavigation } from 'react-router-dom'
+import { Button, Loader, Modal, Select, TextInput } from '@mantine/core'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useAuth, useUtils } from 'shared/hooks'
 import { UserAvatar } from './UserAvatar'
 import { pb } from 'shared/api'
 import { CopyBtn, Capthca, Withdraw } from 'shared/ui'
-import { Controller, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { useDisclosure } from '@mantine/hooks'
 import { openConfirmModal } from '@mantine/modals'
 import { showNotification } from '@mantine/notifications'
@@ -20,13 +18,9 @@ export const UserData = ({count, setCount, balance, bonuses}) => {
 
   const navigate = useNavigate()
 
-  const { pathname } = useLocation()
-
   const { user } = useAuth()
 
   const {regions} = useUtils()
-
-  const referal = `https://oz-elim.kz/login?id=${user?.id}`
 
   const [opened, { open, close }] = useDisclosure(false)
 
@@ -40,8 +34,6 @@ export const UserData = ({count, setCount, balance, bonuses}) => {
   const equal = random1 + random2
 
   const {
-    control,
-    handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({
     values: {
@@ -49,10 +41,6 @@ export const UserData = ({count, setCount, balance, bonuses}) => {
       amount: '',
     },
   })
-
-  const onSubmit = async (data) => {
-    return await pb.collection('transfers').create(data)
-  }
 
   React.useEffect(() => { 
     if (count === 3) {
@@ -209,13 +197,6 @@ export const UserData = ({count, setCount, balance, bonuses}) => {
             readOnly
             rightSection={<CopyBtn value={values?.id} />}
           />
-          {/* <TextInput
-            value={referal}
-            readOnly
-            variant="filled"
-            label={kz ? `Рефералдық сілтеме` : `Реферальная ссылка`}
-            rightSection={<CopyBtn value={referal} />}
-          /> */}
           <div className="grid grid-cols-1 w-full gap-2 mt-5">
             <div className="border p-3  rounded-primary border-primary-500">
               <div className="flex gap-1 items-center ">
@@ -234,7 +215,7 @@ export const UserData = ({count, setCount, balance, bonuses}) => {
                       variant="filled"
                       name="id"
                       value={transfer?.id}
-                      onChange={handleTransferChange}
+                     onChange={handleTransferChange}
                     />
                     <TextInput
                       placeholder="сумма перевода"
@@ -250,13 +231,7 @@ export const UserData = ({count, setCount, balance, bonuses}) => {
                       answer={answer}
                       setAnswer={setAnswer}
                     />
-                    {/* <ConfirmModal
-                      onSubmit={onSubmit}
-                      equal={equal}
-                      answer={answer}
-                    /> */}
                     <Button
-                      // onClick={}
                       disabled={!disabled}
                       onClick={confirm}
                     >
@@ -265,11 +240,6 @@ export const UserData = ({count, setCount, balance, bonuses}) => {
                   </div>
                 </Modal>
 
-                {/* <Group position="center">
-                  <Button fullWidth variant="outline" onClick={open}>
-                    Перевод
-                  </Button>
-                </Group> */}
               </div>
             </div>
             <div 
@@ -327,13 +297,6 @@ export const UserData = ({count, setCount, balance, bonuses}) => {
               name="adress"
               onChange={handleValuesChange}
             />
-            {/* <DatePickerInput
-              label="Дата рождения"
-              variant="filled"
-              value={values?.birthday ?? new Date()}
-              onChange={handleValuesChange}
-              locale="ru"
-            /> */}
           </div>
           <div className="mt-4 flex justify-between items-center">
             <Button compact variant="outline" color="red" onClick={signout}>

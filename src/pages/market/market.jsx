@@ -9,8 +9,6 @@ export const Market = () => {
 
   const {products, getAllProducts, rareProducts, discountProducts, getRareProducts, getDiscountProducts} = useProductsStore()
 
-  console.log(rareProducts, discountProducts)
-
   React.useEffect(() => {
     getAllProducts()
     getRareProducts()

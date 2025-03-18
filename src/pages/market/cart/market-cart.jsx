@@ -2,7 +2,7 @@ import React from 'react'
 import { useCartStore } from './cartStore'
 
 import { CartItem } from './cart-item'
-import { Button, Checkbox, LoadingOverlay, Select, TextInput, Collapse, Modal } from '@mantine/core'
+import { Button, Checkbox, LoadingOverlay, Select, TextInput, Collapse, Modal, PasswordInput } from '@mantine/core'
 import { useAuth } from 'shared/hooks'
 import { useDisclosure } from '@mantine/hooks'
 import axios from 'axios'
@@ -29,7 +29,7 @@ export const MarketCart = () => {
   const [addDelivery, addDelivery_h] = useDisclosure(false)
   const [addDeliveryLoading, addDeliveryLoading_h] = useDisclosure(false)
 
-  const [deliveryTerms, deliveryTems_h] = useDisclosure(false)
+  const [deliveryTerms, deliveryTems_h] = useDisclosure(false)  
 
   const [betweenCitiesModal, setBetweenCitiesModal] = React.useState({
     cities: [],
@@ -46,6 +46,82 @@ export const MarketCart = () => {
     name: user?.name || user?.fio,
     phone: user?.phone,
   })
+
+  const [customerSignup, customerSignup_h] = useDisclosure(false)
+  const [customerSignupLoading, customerSignupLoading_h] = useDisclosure(false)
+  const [customerSignupError, setCustomerSignupError] = React.useState('')
+  const [customerSignupData, setCustomerSignupData] = React.useState({
+    name: '',
+    phone: '',
+    email: '',
+    password: '',
+    passwordConfirm: '',
+  })
+
+  async function handlePayment () {
+    if (!user?.id) {
+      setCustomerSignupError('')
+      setCustomerSignupData({
+        name: '',
+        phone: '',
+        email: '',
+        password: '',
+        passwordConfirm: '',
+      })  
+      customerSignup_h.open()
+    } else {
+      payment_h.open()
+    }
+  }
+
+  async function handleCustomerSignup () {
+    if (customerSignupData?.password !== customerSignupData?.passwordConfirm) {
+      setCustomerSignupError('Пароли не совпадают')
+      return
+    }
+
+    if (customerSignupData?.password.length < 6) {
+      setCustomerSignupError('Пароль должен быть не менее 6 символов')
+      return
+    }
+
+    if (!customerSignupData?.email.includes('@')) {
+      setCustomerSignupError('Неверный email')
+      return
+    }
+
+    if (!customerSignupData?.name || !customerSignupData?.phone || !customerSignupData?.email || !customerSignupData?.password || !customerSignupData?.passwordConfirm) {
+      setCustomerSignupError('Заполните все поля')
+      return
+    }
+
+    customerSignupLoading_h.open()
+    await pb.collection('customers').create({
+      ...customerSignupData,
+      
+    })
+    .then(async () => {
+      await pb.collection('customers').authWithPassword(customerSignupData?.email, customerSignupData?.password)
+      .then(() => {
+        customerSignup_h.close()
+        payment_h.open()
+        showNotification({
+          title: 'Регистрация',
+          message: 'Вы успешно зарегистрировались',
+          color: 'green'
+        })
+      })
+    })
+    .catch((err) => {
+      setCustomerSignupError(err?.message)
+      showNotification({
+        title: 'Регистрация',
+        message: 'Не удалось зарегистрироваться',
+        color: 'red'
+      })
+    })
+    customerSignupLoading_h.close()
+  }
 
   async function buyWithBonuses () {
     openConfirmModal({
@@ -357,13 +433,15 @@ export const MarketCart = () => {
                   </div>
                 ) : (
                   <div className='space-y-3 mt-3'>
-                    <Button
-                      onClick={buyWithBalance}
-                      disabled={finalCost() > user?.balance}
-                      fullWidth
+                    {user?.collectionName === 'agents' && (
+                      <Button
+                        onClick={buyWithBalance}
+                        disabled={finalCost() > user?.balance}
+                        fullWidth
                     >
-                      Оплатить балансом
-                    </Button>
+                        Оплатить балансом
+                      </Button>
+                    )}
                     <Button
                       onClick={buyWithCard}
                       fullWidth
@@ -386,8 +464,12 @@ export const MarketCart = () => {
             </div>
           ) : (
             <div className='border shadow-sm p-3 h-fit bg-white rounded-primary w-full lg:w-auto'>
-              <p>Баланс: {formatNumber(user?.balance)} тг.</p>
-              <p>Бонусы: {formatNumber(user?.bonuses)} тг.</p>
+              {user?.collectionName === 'agents' && (
+                <>
+                  <p>Баланс: {formatNumber(user?.balance)} тг.</p>
+                  <p>Бонусы: {formatNumber(user?.bonuses)} тг.</p>
+                </>
+              )}
               <p>Товары: {totalAmount} шт.</p>
               <div className='flex justify-between gap-4'>
                 <p>Итого</p>
@@ -512,7 +594,7 @@ export const MarketCart = () => {
                 fullWidth
                 className='mt-4'
                 disabled={!terms || !deliveryTerms}
-                onClick={() => payment_h.open()}
+                onClick={handlePayment}
               >
                 Перейти к оплате
               </Button>
@@ -547,6 +629,70 @@ export const MarketCart = () => {
             )
           })}
         </div>
+      </Modal>
+      <Modal
+        centered
+        title='Регистрация'
+        opened={customerSignup}
+        onClose={() => customerSignup_h.close()}
+        aria-hidden={customerSignup}
+      >
+        <p className='text-center'>Для совершения покупок на сайте, вам необходимо зарегистрироваться</p>
+        <div className='space-y-3 mt-4'>
+          <TextInput
+            label='Имя'
+            placeholder='Ваше имя'
+            required
+            variant='filled'
+            value={customerSignupData?.name}
+            onChange={(e) => setCustomerSignupData({...customerSignupData, name: e?.currentTarget?.value})}
+          />
+          <TextInput
+            label='Номер телефона'
+            placeholder='+7 (___) ___-__-__'
+            required
+            variant='filled'
+            value={customerSignupData?.phone}
+            onChange={(e) => setCustomerSignupData({...customerSignupData, phone: e?.currentTarget?.value})}
+          />  
+          <TextInput
+            label='Email'
+            placeholder='Ваш email'
+            required
+            variant='filled'
+            value={customerSignupData?.email}
+            onChange={(e) => setCustomerSignupData({...customerSignupData, email: e?.currentTarget?.value})}
+          />
+          <PasswordInput
+            label='Пароль'
+            placeholder='Ваш пароль'
+            required
+            variant='filled'
+            value={customerSignupData?.password}
+            onChange={(e) => setCustomerSignupData({...customerSignupData, password: e?.currentTarget?.value})}
+          />  
+          <PasswordInput
+            label='Подтвердите пароль'
+            placeholder='Подтвердите пароль'
+            required
+            variant='filled'
+            value={customerSignupData?.passwordConfirm}
+            onChange={(e) => setCustomerSignupData({...customerSignupData, passwordConfirm: e?.currentTarget?.value})}
+          />  
+        </div>
+        {customerSignupError && (
+          <p className='text-red-500 text-center mt-4'>{customerSignupError}</p>
+        )}  
+        <div className='flex justify-center mt-3 mb-2'>
+          <Button
+            fullWidth
+            onClick={handleCustomerSignup}
+            loading={customerSignupLoading}
+          >
+            Зарегистрироваться
+          </Button> 
+        </div>
+        
       </Modal>
     </>
   )

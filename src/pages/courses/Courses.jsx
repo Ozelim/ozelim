@@ -1,20 +1,12 @@
 import React from 'react'
-import { CourseUsefulFor } from './ui/CourseUsefulFor'
 import { CourseHeader } from './ui/CourseHeader'
 import { CourseCards } from './ui/CourseCards'
 import { WhyOurCourse } from './ui/WhyOurCourse'
 import { TeachComfort } from './ui/TeachComfort'
-import { CourseCurrator } from './ui/CourseCurrator'
-import curratorCourse from 'shared/assets/images/curratorCourse.jpg'
-import { HealthLink } from 'shared/ui/HealthLink'
-import { pb } from 'shared/api'
 import { usePageData } from 'shared/hooks'
-import { BsBag, BsFillBagHeartFill } from 'react-icons/bs'
 import { Image } from 'shared/ui'
 import { Button } from '@mantine/core'
-import { Link } from 'react-router-dom'
 import { useLangContext } from 'app/langContext'
-
 
 export const Courses = () => {
 
@@ -71,9 +63,6 @@ export const Courses = () => {
                   </div>
                   <div
                     className="mt-4 grow"
-                    // dangerouslySetInnerHTML={{
-                    //   __html: text?.[`editor${index}`],
-                    // }}
                   />
 
                   <a className='text-center' href="http://wa.me/77470512252" target="_blank" rel="noopener noreferrer">
@@ -81,17 +70,11 @@ export const Courses = () => {
                       {kz ? 'Өтініш қалдыру' : `Оставить заявку`}
                     </Button>
                   </a>
-                  {/* <HealthLink label={'Оставить заявку'} onSubmit={onSubmit} data={text?.[`label${index}`]} /> */}
                 </div>
               )
             })}
         </div>
       </div>
-      {/* <div className='text-center mt-10'>
-        <Link to={'/price'} className='text-blue-500 underline'>
-          {kz ? `Бағалар туралы көбірек біліңіз` : `Узнать подробнее о ценах`}
-        </Link>
-      </div> */}
     </main>
   )
 }
