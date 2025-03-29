@@ -8,8 +8,9 @@ import { OrderHistory } from './user/order-history'
 import { UserOrders } from './user/user-orders'
 import { useNotificationStore } from './user/notificationStore'
 import { readNotification } from 'shared/lib'
-import { SegmentedControl } from '@mantine/core'
+import { SegmentedControl, Button } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
+import { Link } from 'react-router-dom'
 
 export const MarketProfile = () => {
 
@@ -42,9 +43,12 @@ export const MarketProfile = () => {
   }, [])
 
   if (user?.collectionName === 'merchants' && !user?.posted) return (
-    <div className='container-market market'>
-      <div className="flex justify-center items-center w-full h-full">
+    <div className='container-market market h-screen'>
+      <div className="flex justify-center items-center w-full h-full flex-col gap-2">
         Магазин еще не создан
+        <Button component={Link} to='/duken' variant='subtle' color='teal'>
+          На главную
+        </Button>
       </div>
     </div>
   )
@@ -62,6 +66,7 @@ export const MarketProfile = () => {
                 { label: <span>Сообщения {nots?.messages && <div className='bg-primary-500 w-4 h-4 rounded-full absolute right-2 top-2'/>}</span>, value: 'messages' },
                 { label: 'Отзывы', value: 'reviews' },
                 { label: 'История покупок', value: 'history' },
+                { label: 'Профиль', value: 'profile' },
               ]}
               value={params.get('tab') ?? 'orders'}
               onChange={(e) => handletab(e)}
@@ -71,28 +76,14 @@ export const MarketProfile = () => {
               orientation={mediaQuery ? 'vertical' : 'horizontal'}
             />
           </div>
-
-          {/* <div className='flex justify-between items-center gap-4 border shadow-md p-3 mt-4'>
-            <div className='flex items-center gap-4'>
-              <img 
-                src="https://people.com/thmb/NDasPbZOWfpi2vryTpDta_MJwIY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(602x285:604x287)/newjeans-111023-1-c7ed1acdd72e4f2eb527cc38144aa2d4.jpg" 
-                alt="" 
-                className='w-20 object-cover aspect-square'
-              />
-              <div>
-                <p>Lorem, ipsum.</p>
-                <p>Lorem ipsum dolor sit amet.</p>
-              </div>
-            </div>
-            <div>
-              Lorem, ipsum dolor.
-            </div>
-          </div> */}
           <>
             {params.get('tab') === 'messages' && <Chat/>}
             {params.get('tab') === 'reviews' && <UserReviews/>}
             {params.get('tab') === 'history' && <OrderHistory/>}
             {params.get('tab') === 'orders' && <UserOrders/>}
+            {params.get('tab') === 'profile' && <div className='mt-4'>
+              <p>Профиль</p>
+            </div>}
           </>
         </div>
       </div>

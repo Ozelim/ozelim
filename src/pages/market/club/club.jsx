@@ -1,19 +1,17 @@
+import React from 'react'
 import { Button, Checkbox } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
-import React from 'react'
 import { EmailVerification } from './email-verification'
 import { ShopForm } from './shop-form'
 import { useSearchParams } from 'react-router-dom'
 
 export const Club = () => {
 
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
 
   const [checked, checked_h] = useDisclosure(false)
 
   const [emailVer, emailVer_h] = useDisclosure(false)
-
-  const [shopForm, shopForm_h] = useDisclosure(false)
 
   if (searchParams.get('token')) {
     return <ShopForm />

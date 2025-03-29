@@ -17,8 +17,11 @@ import { FaWhatsapp } from "react-icons/fa";
 import { useProductsStore } from 'pages/market/catalog/producsStore'
 import { useDisclosure } from '@mantine/hooks'
 import { useNotificationStore } from 'pages/market/profile/user/notificationStore'
+import { useModals } from 'shared/hooks'
 
 export const MarketNavbar = () => {
+
+  const {openModal} = useModals()
 
   const navigate = useNavigate()
   const {pathname} = useLocation()
@@ -57,7 +60,7 @@ export const MarketNavbar = () => {
   return (
     <div className="w-full border-b bg-white">
       <div className="w-full bg-gray-800 py-3 px-4 md:py-5 md:px-6">
-        <div className="container-market flex flex-col md:flex-row justify-end market gap-4 md:gap-10">
+        <div className="container-market flex flex-col md:flex-row justify-between market gap-4 md:gap-10">
           <div className='flex flex-col md:flex-row items-center gap-2 md:gap-3 justify-center'>
             <p className='text-white text-sm md:text-base whitespace-nowrap'>Поддержка ПН - ПТ (09:00 - 18:00) </p>
             <div className='flex items-center gap-2'>
@@ -136,7 +139,7 @@ export const MarketNavbar = () => {
                 <Indicator 
                   label={user?.favorites?.length} 
                   size={16} 
-                  disabled={user?.favorites?.length === 0}
+                  disabled={user?.favorites?.length === 0 || !user?.favorites}
                 >
                   <ActionIcon className='!border !border-slate-200 !p-2 md:!p-3 !h-10 !w-10 md:!h-12 md:!w-12 !rounded-full'>
                     <FaRegHeart size={'100%'} color='black' />
@@ -163,24 +166,26 @@ export const MarketNavbar = () => {
           {user?.id && 
             <>
               {user?.collectionName === 'customers' && (
-                <div className='flex items-center gap-2 md:gap-4'>
-                  <div className="hidden md:block">
-                    <p className='text-lg md:text-xl text-right'>{user?.name}</p>
+                <Link to={'/duken/profile'}>
+                  <div className='flex items-center gap-2 md:gap-4'>
+                    <div className="hidden md:block">
+                      <p className='text-lg md:text-xl text-right'>{user?.name}</p>
+                    </div>
+                    <Avatar
+                      record={user}
+                      src={user?.avatar}
+                      radius='xl'
+                      size='md'
+                      className="md:size-lg"
+                    />
                   </div>
-                  <Avatar
-                    record={user}
-                    src={user?.avatar}
-                    radius='xl'
-                    size='md'
-                    className="md:size-lg"
-                  />
-                </div>
+                </Link>
               )}
               {user?.collectionName === 'agents' && (
                 <Link to={'/duken/profile'}>
                   <div className='flex items-center gap-2 md:gap-4'>
                     <div className="hidden md:block">
-                      <p className='text-lg md:text-xl text-right'>{user?.fio}</p>
+                      {/* <p className='text-lg md:text-xl text-right'>{user?.fio}</p> */}
                       <p className='text-base md:text-lg text-right -mt-1'>{formatNumber(user?.balance)} ₸</p>
                       <p className='text-xs text-slate-400 -mt-1.5 text-right'>{formatNumber(user?.bonuses)} бонусов</p>
                     </div>
@@ -215,7 +220,7 @@ export const MarketNavbar = () => {
           }
 
           {!user?.id && (
-            <Button>
+            <Button onClick={() => openModal.customerSignup()}>
               Войти
             </Button>
           )}

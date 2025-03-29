@@ -10,12 +10,14 @@ import { ImageModal } from 'shared/ui'
 import { LangProvider } from "app/langContext";
 import { MarketNavbar } from 'widgets/market/navbar';
 import { MarketFooter } from 'widgets/market/footer';
+import { CustomerSignupModal } from 'pages/market/login/customer-signup'
 
 import 'dayjs/locale/ru'
 
 dayjs.locale('ru')
 
 import '../../app/index.css'
+
 
 const cache = createEmotionCache({
   key: 'market',
@@ -36,7 +38,10 @@ export const marketLayout = (
       }}
     >
         <ModalsProvider 
-          modals={{image: ImageModal}}
+          modals={{
+            image: ImageModal,
+            customerSignup: CustomerSignupModal
+          }}
         >
         <NewLayout
           headerSlot={<MarketNavbar/>}

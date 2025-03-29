@@ -12,7 +12,6 @@ import axios from 'axios'
 import { showNotification } from '@mantine/notifications'
 import { FiCheck } from 'react-icons/fi'
 
-
 async function verifyEmail(token) {
   return await pb.collection('merchants').confirmVerification(token)
 }
@@ -107,7 +106,7 @@ export const ShopForm = () => {
             <p className='text-center'>
               Ваша заявка на создание магазина была отправлена. Ожидайте связи с менеджером и активации аккаунта продавца. 
             </p>
-            <Link to={'/market'} className='w-full'>
+            <Link to={'/duken'} className='w-full'>
               <div className="flex justify-center">
                 <Button
                   className='w-full'

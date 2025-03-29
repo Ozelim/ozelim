@@ -3,8 +3,11 @@ import { Button, LoadingOverlay, PasswordInput, TextInput } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { pb } from 'shared/api'
 import { showNotification } from '@mantine/notifications'
+import { useNavigate } from 'react-router-dom'
 
 export const EmailVerification = () => {
+
+  const navigate = useNavigate()
 
   const [data, setData] = React.useState({
     email: '',
@@ -47,12 +50,11 @@ export const EmailVerification = () => {
     }
 
     loading_h.open()
-    const tempPassword = Math.random().toString(36).slice(-8)
 
     await pb.collection('merchants').create({
       email: data?.email,
-      password: tempPassword,
-      passwordConfirm: tempPassword,
+      password: data?.password,
+      passwordConfirm: data?.password,
       emailVisibility: true,
       duken: true,
     })
@@ -65,11 +67,12 @@ export const EmailVerification = () => {
         message: 'Письмо с подтверждением отправлено на вашу почту',
         color: 'teal',
       })
+      navigate('/duken')
     })
     .catch(err => {
       console.log(err?.response)
       if (err?.response?.data?.email?.code == "validation_not_unique") {
-        setError('Почту уже используются')
+        setError('Почта уже используется')
         console.log('email already exists');
         return
       }

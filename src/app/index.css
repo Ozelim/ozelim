@@ -19,6 +19,13 @@
   font-style: normal;
 }
 
+@layer components {
+  .shadow-equal {
+    @apply shadow-[0_0_15px_rgba(0,0,0,0.1)];
+  }
+}
+
+
 /* .market * {
     font-family: 'Sofia Sans Semi Condensed', sans-serif;
     font-weight: 600;

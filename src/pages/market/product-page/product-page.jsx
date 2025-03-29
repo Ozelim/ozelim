@@ -261,7 +261,7 @@ export const ProductPage = ({preview}) => {
         <p className='text-xl my-4'>Детали товара</p>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div className='grid grid-cols-1 md:grid-cols-[15%_auto] gap-4 overflow-hidden md:max-h-[60vh]'>
-            <div className="flex md:flex-col gap-4 w-full overflow-x-auto sm:overflow-y-auto bg-white p-2 rounded-primary border h-fit">
+            <div className="flex md:flex-col gap-4 w-full overflow-x-auto sm:overflow-y-auto bg-white p-2 rounded-primary border h-fit shadow-equal">
               {product?.pics?.map((q, i) => {
                 if (q instanceof File) {
                   return (
@@ -310,7 +310,7 @@ export const ProductPage = ({preview}) => {
             }
 
           </div>
-          <div className='bg-white p-3 rounded-primary border flex flex-col'>
+          <div className='bg-white p-3 rounded-primary border flex flex-col shadow-equal'>
             <div className="flex-1">
               <h1 className='text-2xl sm:text-3xl font-bold'>
                 {product?.name ?? 'Название '}
@@ -468,7 +468,7 @@ export const ProductPage = ({preview}) => {
           </Tabs.List>
           
           <Tabs.Panel value='description' p={16}>
-            <div dangerouslySetInnerHTML={{__html: product?.content}} className='reset max-w-[700px] mx-auto bg-white p-3 rounded-primary border overflow-hidden break-words' />
+            <div dangerouslySetInnerHTML={{__html: product?.content}} className='reset max-w-[700px] mx-auto bg-white p-3 rounded-primary border overflow-hidden break-words shadow-equal' />
           </Tabs.Panel>
 
           <Tabs.Panel 

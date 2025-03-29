@@ -26,7 +26,7 @@ export const NewLayout = ({headerSlot, footerSlot}) => {
   }, [])
 
   return (
-    <div className="grid grid-rows-[auto_1fr_auto] min-h-screen market-scrollbar bg-slate-50">
+    <div className="grid grid-rows-[auto_1fr_auto] min-h-screen market-scrollbar">
       {headerSlot}
       <Outlet/>
       {footerSlot}

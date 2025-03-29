@@ -10,7 +10,14 @@ export const useModals = () => {
       withCloseButton: false,
       centered: true,
       ...props
-    })
+    }),
+    customerSignup: (props) => openContextModal({
+      modal: 'customerSignup',
+      padding: 0,
+      withCloseButton: false,
+      centered: true,
+      ...props
+      })
   }
 
   return {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Product } from '../product'
 import { useProductsStore } from './producsStore'
-import { Breadcrumbs, Button, LoadingOverlay, Menu, Pagination } from '@mantine/core'
+import { Breadcrumbs, Button, Loader, LoadingOverlay, Menu, Pagination } from '@mantine/core'
 import { Sidebar } from '../sidebar/sidebar'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
@@ -32,7 +32,6 @@ export const Catalog = () => {
 
   return (
     <>
-      <LoadingOverlay visible={productsLoading}/>
       <div className='container-market market px-4 mb-4 relative !mt-8'>
         <div className='grid grid-cols-1 md:grid-cols-[15%_auto] gap-4'>
           <div className='block'>
@@ -52,17 +51,23 @@ export const Catalog = () => {
               </Breadcrumbs>
               <Menu>
                 <Menu.Target>
-                  <Button variant='outline' size='sm' className='w-full md:w-auto'>Сортировать по</Button>
+                  <Button variant='outline' size='sm' className='w-full md:w-auto'>Сортировать</Button>
                 </Menu.Target>
                 <Menu.Dropdown>
-                  <Menu.Item>По умолчанию</Menu.Item>
-                  <Menu.Item>По категории</Menu.Item>
-                  <Menu.Item>По подкатегории</Menu.Item>
+                  <Menu.Item>По популярности</Menu.Item>
+                  <Menu.Item>По возрастанию цены</Menu.Item>
+                  <Menu.Item>По убыванию цены</Menu.Item>
+                  <Menu.Item>По рейтингу</Menu.Item>
                 </Menu.Dropdown>
               </Menu>
             </div>
             {searched && (
               <p className='text-gray-500 text-sm mt-2'>Поиск по запросу: {searched}</p>
+            )}
+            {productsLoading && (
+              <div className='flex justify-center items-center h-full'>
+                <Loader/>
+              </div>
             )}
             <div className='grid grid-cols-1 sm:grid-cols-2 min-[1024px]:grid-cols-3 min-[1350px]:grid-cols-4 min-[1640px]:grid-cols-5 gap-4 mt-4'>
               {products?.items?.map((q, i) => {

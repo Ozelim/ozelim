@@ -13,12 +13,14 @@ import { sha512 } from 'js-sha512'
 import { showNotification } from '@mantine/notifications'
 
 import { Link } from 'react-router-dom'
+import { useModals } from 'shared/hooks'
 
 export const MarketCart = () => {
 
   const {user} = useAuth()
 
   const {cartItems, updateCartItems, clearCart} = useCartStore()
+  const {openModal} = useModals()
 
   const totalCost = cartItems.reduce((q, w) => q + (w.count * w.price), 0)
   const totalAmount = cartItems.reduce((q, w) => q + w.count, 0)
@@ -47,80 +49,12 @@ export const MarketCart = () => {
     phone: user?.phone,
   })
 
-  const [customerSignup, customerSignup_h] = useDisclosure(false)
-  const [customerSignupLoading, customerSignupLoading_h] = useDisclosure(false)
-  const [customerSignupError, setCustomerSignupError] = React.useState('')
-  const [customerSignupData, setCustomerSignupData] = React.useState({
-    name: '',
-    phone: '',
-    email: '',
-    password: '',
-    passwordConfirm: '',
-  })
-
   async function handlePayment () {
     if (!user?.id) {
-      setCustomerSignupError('')
-      setCustomerSignupData({
-        name: '',
-        phone: '',
-        email: '',
-        password: '',
-        passwordConfirm: '',
-      })  
-      customerSignup_h.open()
+      openModal.customerSignup()
     } else {
       payment_h.open()
     }
-  }
-
-  async function handleCustomerSignup () {
-    if (customerSignupData?.password !== customerSignupData?.passwordConfirm) {
-      setCustomerSignupError('Пароли не совпадают')
-      return
-    }
-
-    if (customerSignupData?.password.length < 6) {
-      setCustomerSignupError('Пароль должен быть не менее 6 символов')
-      return
-    }
-
-    if (!customerSignupData?.email.includes('@')) {
-      setCustomerSignupError('Неверный email')
-      return
-    }
-
-    if (!customerSignupData?.name || !customerSignupData?.phone || !customerSignupData?.email || !customerSignupData?.password || !customerSignupData?.passwordConfirm) {
-      setCustomerSignupError('Заполните все поля')
-      return
-    }
-
-    customerSignupLoading_h.open()
-    await pb.collection('customers').create({
-      ...customerSignupData,
-      
-    })
-    .then(async () => {
-      await pb.collection('customers').authWithPassword(customerSignupData?.email, customerSignupData?.password)
-      .then(() => {
-        customerSignup_h.close()
-        payment_h.open()
-        showNotification({
-          title: 'Регистрация',
-          message: 'Вы успешно зарегистрировались',
-          color: 'green'
-        })
-      })
-    })
-    .catch((err) => {
-      setCustomerSignupError(err?.message)
-      showNotification({
-        title: 'Регистрация',
-        message: 'Не удалось зарегистрироваться',
-        color: 'red'
-      })
-    })
-    customerSignupLoading_h.close()
   }
 
   async function buyWithBonuses () {
@@ -140,7 +74,7 @@ export const MarketCart = () => {
 
           cartItems.forEach(async (item) => {
             await pb.collection('orders').create({
-              id: getId(),
+              id: getId(15),
               product: {...item},
               total_amount: item?.count,
               total_cost: item?.price * item?.count,
@@ -205,7 +139,7 @@ export const MarketCart = () => {
           cartItems.forEach(async (item) => {
             await pb.collection('orders').create({
               
-              id: getId(),
+              id: getId(15),
               product: {...item},
               total_amount: item?.count,
               total_cost: item?.price * item?.count,
@@ -250,7 +184,7 @@ export const MarketCart = () => {
           cartItems.forEach(async (item) => {
 
             await pb.collection('orders').create({
-              id: getId(),
+              id: getId(15),
               product: {...item},
               total_amount: item?.count,
               total_cost: item?.price * item?.count,
@@ -629,70 +563,6 @@ export const MarketCart = () => {
             )
           })}
         </div>
-      </Modal>
-      <Modal
-        centered
-        title='Регистрация'
-        opened={customerSignup}
-        onClose={() => customerSignup_h.close()}
-        aria-hidden={customerSignup}
-      >
-        <p className='text-center'>Для совершения покупок на сайте, вам необходимо зарегистрироваться</p>
-        <div className='space-y-3 mt-4'>
-          <TextInput
-            label='Имя'
-            placeholder='Ваше имя'
-            required
-            variant='filled'
-            value={customerSignupData?.name}
-            onChange={(e) => setCustomerSignupData({...customerSignupData, name: e?.currentTarget?.value})}
-          />
-          <TextInput
-            label='Номер телефона'
-            placeholder='+7 (___) ___-__-__'
-            required
-            variant='filled'
-            value={customerSignupData?.phone}
-            onChange={(e) => setCustomerSignupData({...customerSignupData, phone: e?.currentTarget?.value})}
-          />  
-          <TextInput
-            label='Email'
-            placeholder='Ваш email'
-            required
-            variant='filled'
-            value={customerSignupData?.email}
-            onChange={(e) => setCustomerSignupData({...customerSignupData, email: e?.currentTarget?.value})}
-          />
-          <PasswordInput
-            label='Пароль'
-            placeholder='Ваш пароль'
-            required
-            variant='filled'
-            value={customerSignupData?.password}
-            onChange={(e) => setCustomerSignupData({...customerSignupData, password: e?.currentTarget?.value})}
-          />  
-          <PasswordInput
-            label='Подтвердите пароль'
-            placeholder='Подтвердите пароль'
-            required
-            variant='filled'
-            value={customerSignupData?.passwordConfirm}
-            onChange={(e) => setCustomerSignupData({...customerSignupData, passwordConfirm: e?.currentTarget?.value})}
-          />  
-        </div>
-        {customerSignupError && (
-          <p className='text-red-500 text-center mt-4'>{customerSignupError}</p>
-        )}  
-        <div className='flex justify-center mt-3 mb-2'>
-          <Button
-            fullWidth
-            onClick={handleCustomerSignup}
-            loading={customerSignupLoading}
-          >
-            Зарегистрироваться
-          </Button> 
-        </div>
-        
       </Modal>
     </>
   )

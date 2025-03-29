@@ -1,8 +1,10 @@
 import React from 'react'
-import { Button, Rating, Text } from '@mantine/core'
+import { ActionIcon, Button, Rating, Text } from '@mantine/core'
 import { Link } from 'react-router-dom'
 import { formatNumber, getImageUrl } from 'shared/lib'
 import { useCartStore } from './cart/cartStore'
+
+import { CiCircleCheck, CiCirclePlus } from "react-icons/ci";
 
 export const Product = ({product, preview, buttons}) => {
 
@@ -14,7 +16,7 @@ export const Product = ({product, preview, buttons}) => {
 
   if (preview) {
     return (
-      <div className='flex flex-col border h-full bg-white shadow-sm max-w-[308px]'>
+      <div className='flex flex-col border h-full bg-white shadow-equal max-w-[308px]'>
         {(product?.pics?.[0] instanceof File || product?.pics?.[0] instanceof Blob) 
           ?
             <img
@@ -32,7 +34,7 @@ export const Product = ({product, preview, buttons}) => {
               className='aspect-square object-cover rounded-primary'
             />
         }
-        <div className="p-3 flex flex-col h-full">
+        <div className="p-4 flex flex-col h-full">
           <Text lineClamp={2}>
             <p className='!market'>
               {product?.name}
@@ -44,7 +46,7 @@ export const Product = ({product, preview, buttons}) => {
             </p>
           </Text>
           <div className="mt-auto">
-            <p className='mt-3.5 font-bold'>{formatNumber(product?.price)} ₸</p>
+            <p className='mt-3.5 font-bold text-primary-500'>{formatNumber(product?.price)} ₸</p>
             <div className='flex gap-2 items-center mt-1'>
               <Rating size='xs' value={productRating} fractions={2}/> <span className='text-xs text-slate-400'>({productRating})</span>
             </div>
@@ -56,7 +58,7 @@ export const Product = ({product, preview, buttons}) => {
   }
 
   return (
-    <div className='flex flex-col border h-full bg-white shadow-sm rounded-primary'>
+    <div className='flex flex-col border h-full bg-white shadow-equal rounded-primary'>
       <Link to={`/duken/product/${product?.id}`}>
         <img 
           src={getImageUrl(product, product?.pics?.[0])}
@@ -65,7 +67,7 @@ export const Product = ({product, preview, buttons}) => {
         />
       </Link>
   
-      <div className="p-3 flex flex-col h-full">
+      <div className="p-4 flex flex-col h-full">
         <Text lineClamp={2}>
           <p className='market'>
             {product?.name}
@@ -77,29 +79,20 @@ export const Product = ({product, preview, buttons}) => {
           </p>
         </Text>
         <div className='mt-auto'>
-          <p className='mt-3.5 font-bold'>{formatNumber(product?.price)} ₸</p>
+          {product?.discount?.status === 'active' && (
+            <div className='mt-3.5 flex items-center gap-2'>
+              <p className='font-bold text-primary-500'>{formatNumber(product?.price - (product?.price * (product?.discount?.percent / 100)))} ₸</p>
+              <p className='text-gray-400 line-through'>{formatNumber(product?.price)} ₸</p>
+              <p className='text-gray-400 text-sm'>-{product?.discount?.percent}%</p>
+            </div>
+          )}
+          {(!product?.discount?.status || !(product?.discount?.status === 'active')) && (
+            <p className='mt-3.5 font-bold text-primary-500'>{formatNumber(product?.price)} ₸</p>
+          )}
           <div className='flex gap-2 items-center mt-1'>
             <Rating size='xs' readOnly value={productRating} fractions={2}/> <span className='text-xs text-slate-400'>({productRating})</span>
           </div>
         </div>
-        {addedToCart ? (
-          <Button
-            fullWidth
-            className='mt-3'
-            component={Link}
-            to={'/duken/cart'}
-          >
-            Перейти в корзину
-          </Button>
-        ) : (
-          <Button
-            fullWidth
-            className='mt-3'
-            onClick={() => addToCart(product)}
-          >
-            В корзину
-          </Button>
-        )}
       </div>
     </div>
   )

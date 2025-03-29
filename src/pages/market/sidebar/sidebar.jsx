@@ -26,17 +26,14 @@ export const Sidebar = () => {
   }
 
   return (
-    <div className='sticky top-0 left-0 h-[60vh] overflow-y-scroll'>
-      {/* <p className='text-lg ml-3 uppercase py-4'>
-        все Категории
-      </p> */}
+    <div className='sticky top-0 left-0 h-[59vh] overflow-y-scroll -z-10'>
       <div className='flex flex-col'>
         {categories?.map((q, i) => {
           return (
             <div className='p-3 ' key={i}>
               <button 
                 onClick={() => handleCategory(q?.label)}
-                className={clsx('text-sm text-left', {
+                className={clsx('text-sm text-left cursor-pointer', {
                   'text-pink-600': params?.get('cat') === q?.label
                 })}
               >
@@ -47,7 +44,7 @@ export const Sidebar = () => {
                   return (
                     <li key={i}>
                       <button 
-                        className={clsx('text-sm !text-left', {  
+                        className={clsx('text-sm !text-left cursor-pointer', {  
                           'text-pink-600': params?.get('sub') === w?.label
                         })} 
                         onClick={() => handleSubCategory(q?.label, w?.label)}

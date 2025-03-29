@@ -16,6 +16,7 @@ import { EditProduct } from './edit-product'
 import { showNotification } from '@mantine/notifications'
 
 export const Products = () => {
+  
   const [params, setParams] = useSearchParams()
 
   const { shop } = useShopStore()

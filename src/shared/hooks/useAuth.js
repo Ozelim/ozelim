@@ -41,6 +41,7 @@ export const useAuth = () => {
 
   return {
     // ...pb.authStore,
+    handleUser,
     user,
     setUser,
     loading
