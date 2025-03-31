@@ -1,5 +1,5 @@
 import React from 'react'
-import { BurgerMenu } from './burger-menu'
+import { BurgerMenu } from './BurgerMenu'
 import { Link } from 'react-router-dom'
 
 import { useLangContext } from 'app/langContext'

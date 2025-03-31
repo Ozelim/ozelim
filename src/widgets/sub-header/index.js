@@ -1,1 +1,1 @@
-export { SubHeader } from './ui/sub-header'
+export { SubHeader } from './ui/SubHeader'
