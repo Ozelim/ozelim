@@ -1,7 +1,7 @@
 // export { Price } from './price/price'
 export { CharityFund } from './charity-fund/charity-fund'
 export { Courses } from './courses/Courses'
-export { News } from './news/news'
+export { News } from './news/News'
 export { OurTeam } from './our-team/our-team'
 export { Partners } from './partners/Partners'
 export { Profile } from './profile/Profile'
