@@ -1,4 +1,4 @@
-export { Price } from './price/price'
+// export { Price } from './price/price'
 export { CharityFund } from './charity-fund/charity-fund'
 export { Courses } from './courses/Courses'
 export { News } from './news/news'
