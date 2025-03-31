@@ -33,7 +33,7 @@ export const Catalog = () => {
   return (
     <>
       <div className='container-market market px-4 mb-4 relative !mt-8'>
-        <div className='grid grid-cols-1 md:grid-cols-[15%_auto] gap-4'>
+        <div className='grid grid-cols-1 md:grid-cols-[13%_auto] gap-4'>
           <div className='block'>
             <p className='py-2 bg-primary-500 text-white px-3 rounded-lg'>Категории</p>
             <Sidebar/>  

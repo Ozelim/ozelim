@@ -3,8 +3,11 @@ import { clsx } from '@mantine/core'
 import { useSearchParams } from 'react-router-dom'
 import { useCategoriesStore } from '../categoriesStore'
 import { useProductsStore } from '../catalog/producsStore'
+import { useNavigate } from 'react-router-dom'
 
 export const Sidebar = () => {
+
+  const navigate = useNavigate()
 
   const [params, setParams] = useSearchParams()
 
@@ -18,6 +21,7 @@ export const Sidebar = () => {
   }
 
   function handleSubCategory (q, w) {
+    navigate('/duken/catalog')
     setParams({
       cat: q,
       sub: w,
@@ -26,7 +30,7 @@ export const Sidebar = () => {
   }
 
   return (
-    <div className='sticky top-0 left-0 h-[59vh] overflow-y-scroll -z-10'>
+    <div className='sticky top-0 left-0 h-[59vh] overflow-y-scroll'>
       <div className='flex flex-col'>
         {categories?.map((q, i) => {
           return (

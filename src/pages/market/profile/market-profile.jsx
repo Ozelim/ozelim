@@ -45,7 +45,7 @@ export const MarketProfile = () => {
   if (user?.collectionName === 'merchants' && !user?.posted) return (
     <div className='container-market market h-screen'>
       <div className="flex justify-center items-center w-full h-full flex-col gap-2">
-        Магазин еще не создан
+        Мы рассматриваем вашу заявку на создание магазина, ожидайте
         <Button component={Link} to='/duken' variant='subtle' color='teal'>
           На главную
         </Button>

@@ -3,7 +3,7 @@ import { ActionIcon, Divider, MantineProvider, clsx, createEmotionCache } from '
 import { Link, useSearchParams } from 'react-router-dom'
 import { useAuth } from 'shared/hooks'
 import { AddProduct } from './add-product'
-import { User } from './user'
+import { ShopData } from './shop-data'
 import { useShopStore } from './shopStore'
 import { Reviews } from './reviews'
 import { Orders } from './orders'
@@ -49,8 +49,8 @@ export const Dashboard = () => {
       icon: <FaChartLine size={25} />
     },
     { 
-      label: 'Профиль',
-      path: 'user',
+      label: 'Магазин',
+      path: 'shop-data',
       icon: <FaUser size={25}/>
     },
     { 
@@ -130,7 +130,7 @@ export const Dashboard = () => {
               <div className='bg-white h-full border-b flex items-center justify-between px-6'>
                 <p className='text-3xl my-auto !font-sans'>
                   {params.get('tab') === 'stats' && <>Общее</>}
-                  {params.get('tab') === 'user' && <>Магазин</>}
+                  {params.get('tab') === 'shop-data' && <>Магазин</>}
                   {params.get('tab') === 'add-product' && <>Добавление товара</>}
                   {params.get('tab') === 'products' && <>Товары</>}
                   {params.get('tab') === 'reviews' && <>Отзывы</>}
@@ -175,7 +175,7 @@ export const Dashboard = () => {
             </div>
             <div className="p-4">
               {params.get('tab') === 'stats' && <></>}
-              {params.get('tab') === 'user' && <User />}
+              {params.get('tab') === 'shop-data' && <ShopData />}
               {params.get('tab') === 'add-product' && <AddProduct />}
               {params.get('tab') === 'products' && <Products />}
               {params.get('tab') === 'reviews' && <Reviews/>}

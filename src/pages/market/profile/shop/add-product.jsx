@@ -164,6 +164,14 @@ export const AddProduct = () => {
           setContent('')
           setPics([])
           setCategory({})
+          setVariants([])
+          takeout_h.close()
+          cityDelivery_h.close()
+          betweenCities_h.close()
+          allDelivery_h.close()
+          setOption({})
+          setTakeoutAddress('')
+          setDeliveryCities([])
           showNotification({
             title: 'Товар создан',
             message: 'Товар успешно создан и отправлен на модерацию',

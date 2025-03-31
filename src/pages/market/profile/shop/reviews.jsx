@@ -1,7 +1,7 @@
 import React from 'react'
 import { useShopStore } from './shopStore'
 import { getImageUrl } from 'shared/lib'
-import { Button, clsx, Collapse, Pagination, Rating, Table, Text, Textarea } from '@mantine/core'
+import { Button, clsx, Collapse, Pagination, Rating, Textarea } from '@mantine/core'
 import { pb } from 'shared/api'
 import dayjs from 'dayjs'
 import { Link } from 'react-router-dom'
@@ -101,6 +101,8 @@ export const Reviews = () => {
   React.useEffect(() => { 
     getReviewsByProduct(prods)
     .then(res => {
+      console.log(res);
+      
       setReviews(res)
     })
   }, [])
