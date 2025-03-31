@@ -8,7 +8,7 @@ import { showNotification } from '@mantine/notifications'
 import ins from 'shared/assets/images/insurance-1.png'
 import { useDisclosure } from '@mantine/hooks'
 import { useLangContext } from 'app/langContext'
-import { TourOperators } from './tour-operators'
+import { TourOperators } from './TourOperators'
 
 async function getRights () {
   return await pb.collection('insurance_data').getFullList()
