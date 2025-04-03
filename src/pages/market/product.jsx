@@ -1,10 +1,8 @@
 import React from 'react'
-import { ActionIcon, Button, Rating, Text } from '@mantine/core'
+import { Rating, Text } from '@mantine/core'
 import { Link } from 'react-router-dom'
 import { formatNumber, getImageUrl } from 'shared/lib'
 import { useCartStore } from './cart/cartStore'
-
-import { CiCircleCheck, CiCirclePlus } from "react-icons/ci";
 
 export const Product = ({product, preview, buttons}) => {
 
@@ -22,7 +20,7 @@ export const Product = ({product, preview, buttons}) => {
             <img
               src={product?.pics?.[0] && URL.createObjectURL(product?.pics?.[0])}
               alt=""
-              className="aspect-square object-cover rounded-primary"
+              className="aspect-square object-cover h-[308px] rounded-primary"
             />
           : 
             !product?.pics?.[0] ? (
@@ -38,11 +36,6 @@ export const Product = ({product, preview, buttons}) => {
           <Text lineClamp={2}>
             <p className='!market'>
               {product?.name}
-            </p>
-          </Text>
-          <Text className='mt-2 !text-[15px]' lineClamp={3}>
-            <p className='!market'>
-              {product?.description}
             </p>
           </Text>
           <div className="mt-auto">
@@ -71,11 +64,6 @@ export const Product = ({product, preview, buttons}) => {
         <Text lineClamp={2}>
           <p className='market'>
             {product?.name}
-          </p>
-        </Text>
-        <Text className='mt-2 !text-[15px] ' lineClamp={3}>
-          <p className='market'>
-            {product?.description}
           </p>
         </Text>
         <div className='mt-auto'>

@@ -24,7 +24,7 @@ export const OrderItem = ({ order, handleCancelOrder }) => {
 
   return (
     <div
-      className="flex flex-col lg:flex-row gap-4 bg-white border shadow-sm rounded-primary overflow-hidden"
+      className="flex flex-col lg:flex-row gap-4 bg-white border shadow-equal rounded-primary overflow-hidden"
     >
       <img
         src={getImageUrl(p, p?.pics?.[0])}

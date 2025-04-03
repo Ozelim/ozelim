@@ -83,6 +83,14 @@ export const ShopForm = () => {
       })
       sent_h.open()
     })
+
+    await pb.collection('chats').create({
+      merchant: user?.id,
+      id: user?.id,
+      type: 'merchant',
+      market: createdMarket?.id,
+    })
+
     // await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/change-password`, )
   }
 

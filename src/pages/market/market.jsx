@@ -9,6 +9,7 @@ import { formatNumber, getImageUrl } from 'shared/lib'
 import { Button, Slider, TextInput } from '@mantine/core'
 import dayjs from 'dayjs'
 import { pb } from 'shared/api'
+import { FiPhone } from 'react-icons/fi'
 
 export const Market = () => {
   const {
@@ -37,12 +38,21 @@ export const Market = () => {
     })  
     getDiscountProducts()
   }
+  
+  const [phone, setPhone] = React.useState('')
+
+  const handleSendRequest = async () => {
+    if (phone.length < 11) {
+      return
+    }
+
+  }
 
   return (
     <div className="w-full">
       <div className="bg-white border-b w-full">
         <div className="grid xl:grid-cols-[350px_auto] mx-auto container-market market">
-          <p className="text-base ml-3 uppercase py-3 md:py-4 border-b md:border-b-0 md:border-r text-center md:text-left whitespace-nowrap bg-primary-500 text-white px-4 rounded-primary">
+          <p className="text-base uppercase py-3 md:py-4 border-b md:border-b-0 md:border-r text-center md:text-left whitespace-nowrap bg-primary-500 text-white px-4 rounded-primary">
             все Категории
           </p>
           <div className="px-3 md:px-6 flex flex-wrap justify-center md:justify-start gap-3 md:gap-4 text-sm py-3 md:py-4 uppercase">
@@ -164,16 +174,28 @@ export const Market = () => {
             <div className="text-xl md:text-2xl text-center md:text-left">
               Стать партнером площадки
             </div>
+            <div className='flex gap-2 items-end'>
+              <TextInput placeholder='Ваш номер телефона' icon={<FiPhone />} />
+              <Button variant='gradient' gradient={{ from: 'teal.6', to: 'teal.4' }}>Отправить заявку</Button>
+            </div>
+
           </div>
         </div>
       </div>
 
       <div className='container-market market !mt-8'>
-        <p className="text-xl border-b-2 pb-2">Товары</p>
+        <div className="flex justify-between items-center border-b-2 pb-2">
+          <p className='text-xl'>
+            Товары
+          </p>
+          <Button variant='subtle' color='teal' component={Link} to={'/duken/catalog'}>
+            Посмотреть все
+          </Button>
+        </div>
         <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-2 md:gap-x-4 gap-y-4 md:gap-y-8 !mt-4 md:!mt-8'>
           {products?.items?.map((q, i) => {
             return <Product key={i} product={q} />
-          })}
+          })?.slice(0, 5)}
         </div>
       </div>
     </div>

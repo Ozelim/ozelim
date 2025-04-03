@@ -30,7 +30,7 @@ export const Sidebar = () => {
   }
 
   return (
-    <div className='sticky top-0 left-0 h-[59vh] overflow-y-scroll'>
+    <div className='sticky top-0 left-0 h-[59vh] overflow-y-scroll shadow-equal rounded-primary'>
       <div className='flex flex-col'>
         {categories?.map((q, i) => {
           return (

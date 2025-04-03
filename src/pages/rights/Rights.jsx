@@ -416,7 +416,7 @@ export const Rights = () => {
 
           <section className='mt-10'>
             <h1 className='font-bold text-4xl text-primary-500 text-center'>
-              {qq('Предлагаемые юридические услуги', 'Ұсынылған заң қызметтері')}
+              {qq('Дополнительные юридические услуги', 'Қосымша заң қызметтері')}
             </h1>
 
             {kz ? 

@@ -15,7 +15,7 @@ export const CartItem = ({ product, handleUseBonuses, handleBetweenCities }) => 
   const { addToCart, removeFromCart, removeItem } = useCartStore()
 
   return (
-    <div className="relative bg-white">
+    <div className="relative bg-white shadow-equal">
       <div className="border flex flex-col sm:flex-row shadow-sm gap-3 rounded-primary overflow-hidden">
 
         <div className="flex flex-col sm:flex-row max-w-full sm:max-w-md w-full max-h-full sm:max-h-[150px] overflow-hidden flex-grow flex-shrink-0">

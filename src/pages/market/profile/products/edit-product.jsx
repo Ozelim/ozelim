@@ -112,7 +112,6 @@ export const EditProduct = ({ product, handlePreviewModal }) => {
         await pb
           .collection('products')
           .update(product?.id, {
-            p_saved: changedProduct,
             ...changedProduct,
             status: 'moderation',
           })

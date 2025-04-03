@@ -8,7 +8,7 @@ export const MarketFooter = () => {
 
   const {user} = useAuth()
 
-  if (pathname.includes('profile') && user?.collectionName === 'merchants') return 
+  if (pathname.includes('profile') && (user?.collectionName === 'merchants')) return 
 
   return (
     <div className='w-full mt-6 border-t pt-6 bg-white'>

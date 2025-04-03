@@ -31,7 +31,7 @@ async function getReviewsByProductId (id, page = 1) {
 
 async function getReviewsByUser (id, userId) {
   return await pb.collection('reviews').getFullList({
-    filter: `product_id = '${id}' && status = 'created' && user = '${userId}'`,
+    filter: `product_id = '${id}' && status = 'created' && (user = '${userId}' || customer = '${userId}')`,
     expand: 'user',
     sort: '-created'
   })
@@ -155,7 +155,7 @@ export const ProductPage = ({preview}) => {
       ...review,
       product_id: product?.id,
       market_id: product?.market_id,
-      ...(user?.id && {user: user?.id}),
+      ...(user?.collectionName === 'agents' ? {user: user?.id} : {customer: user?.id}),
       status: 'created'
     })
     .then(async () => {
@@ -488,7 +488,7 @@ export const ProductPage = ({preview}) => {
                 </p>
                 <div className='mt-4'>
                   <div className='gap-4 items-center'>
-                    <div className='bg-white p-3 rounded-primary border'>
+                    <div className='bg-white p-3 rounded-primary border shadow-equal'>
                       <Textarea
                         label='Комментарий'
                         value={review.comment}
@@ -497,7 +497,7 @@ export const ProductPage = ({preview}) => {
                       />
                     </div>
                     <div className='flex flex-col sm:flex-row justify-between mt-4 gap-4'>
-                      <div className='bg-white p-3 border rounded-primary'>
+                      <div className='bg-white p-3 border rounded-primary shadow-equal'>
                         <p className='text-sm'>Оценка</p>
                         <Rating
                           size='md'
@@ -574,16 +574,13 @@ export const ProductPage = ({preview}) => {
                             <p className='mt-2'>
                               {q?.comment}
                             </p>
-                          </div>
-                            {(i === 1 || i === 3) && (
-                              <Button
-                                size='sm'
-                                variant='subtle'
-                                className='w-full sm:w-auto mt-2 sm:mt-auto'
-                              >
-                                Посмотреть ответ
-                              </Button>
+                            {q?.reply && (
+                              <div className='mt-4 ml-4 pl-4 border-l-2'>
+                                <p className='text-sm text-gray-500'>Ответ:</p>
+                                <p className='mt-1'>{q?.reply}</p>
+                              </div>
                             )}
+                          </div>
                         </div>
                       )
                     })}
@@ -615,7 +612,6 @@ export const ProductPage = ({preview}) => {
             </div>
           </div>
         )}
-
       </div>
       
       <Modal

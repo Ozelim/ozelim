@@ -23,7 +23,8 @@ import { SiWechat } from "react-icons/si";
 import { Avatar } from 'shared/ui'
 import { formatNumber } from 'shared/lib'
 import { Products } from '../products/products'
-
+import { Stats } from './stats'
+import { Chat } from '../user/chat'
 
 const cache = createEmotionCache({
   key: 'mantine',
@@ -174,12 +175,13 @@ export const Dashboard = () => {
               </div>
             </div>
             <div className="p-4">
-              {params.get('tab') === 'stats' && <></>}
+              {params.get('tab') === 'stats' && <Stats />}
               {params.get('tab') === 'shop-data' && <ShopData />}
               {params.get('tab') === 'add-product' && <AddProduct />}
               {params.get('tab') === 'products' && <Products />}
               {params.get('tab') === 'reviews' && <Reviews/>}
               {params.get('tab') === 'orders' && <Orders/>}
+              {params.get('tab') === 'messages' && <Chat />}
             </div>
           </div>
         </div>

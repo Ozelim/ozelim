@@ -4,6 +4,7 @@ import { useDisclosure } from '@mantine/hooks'
 import { pb } from 'shared/api'
 import { showNotification } from '@mantine/notifications'
 import { useNavigate } from 'react-router-dom'
+import { getId } from 'shared/lib'
 
 export const EmailVerification = () => {
 
@@ -57,10 +58,16 @@ export const EmailVerification = () => {
       passwordConfirm: data?.password,
       emailVisibility: true,
       duken: true,
+      id: getId(15)
     })
     .then(async res => {
       await pb.collection('merchants').requestVerification(data?.email)
       await pb.collection('merchants').authWithPassword(data?.email, data?.password)
+      await pb.collection('chats').create({
+        merchant: res?.id,
+        id: res?.id,
+        type: 'merchant',
+      })
 
       showNotification({
         title: 'Подтверждение почты',

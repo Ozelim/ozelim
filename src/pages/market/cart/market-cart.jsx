@@ -2,7 +2,7 @@ import React from 'react'
 import { useCartStore } from './cartStore'
 
 import { CartItem } from './cart-item'
-import { Button, Checkbox, LoadingOverlay, Select, TextInput, Collapse, Modal, PasswordInput } from '@mantine/core'
+import { Button, Checkbox, LoadingOverlay, Select, TextInput, Collapse, Modal } from '@mantine/core'
 import { useAuth } from 'shared/hooks'
 import { useDisclosure } from '@mantine/hooks'
 import axios from 'axios'
@@ -68,9 +68,11 @@ export const MarketCart = () => {
         try {
           paymentLoading_h.open()
           
-          await pb.collection('agents').update(user?.id, {
-            bonuses: user?.bonuses - bonuses(),
-          })
+          if (user?.collectionName === 'agents') {
+            await pb.collection('agents').update(user?.id, {
+              bonuses: user?.bonuses - bonuses(),
+            })
+          }
 
           cartItems.forEach(async (item) => {
             await pb.collection('orders').create({
@@ -86,7 +88,12 @@ export const MarketCart = () => {
               product_id: item?.id,
               bonuses_spent: item?.bonuses_spent,
               pay_type: 'bonuses',
-              takeout_code: generateSixDigitCode()
+              takeout_code: generateSixDigitCode(),
+              market_id: item?.market_id
+            })
+
+            await pb.collection('products').update(item?.id, {
+              'buyed+': item?.count
             })
           })
 
@@ -154,8 +161,14 @@ export const MarketCart = () => {
               product_id: item?.id,
               pay_type: 'card',
               bonuses_spent: item?.bonuses_spent,
-              takeout_code: generateSixDigitCode()
+              takeout_code: generateSixDigitCode(),
+              market_id: item?.market_id
             })
+
+            await pb.collection('products').update(item?.id, {
+              'buyed+': item?.count
+            })
+
           })
             clearCart()
             back()
@@ -196,14 +209,21 @@ export const MarketCart = () => {
               product_id: item?.id,
               pay_type: 'balance',
               bonuses_spent: item?.bonuses_spent,
-              takeout_code: generateSixDigitCode()
+              takeout_code: generateSixDigitCode(),
+              market_id: item?.market_id
+            })
+
+            await pb.collection('products').update(item?.id, {
+              'buyed+': item?.count
             })
           })
 
-          await pb.collection('agents').update(user?.id, {
-            bonuses: user?.bonuses - bonusesSpent,
-            balance: user?.balance - finalCost()
-          })
+          if (user?.collectionName === 'agents') {
+            await pb.collection('agents').update(user?.id, {
+              bonuses: user?.bonuses - bonusesSpent,
+              balance: user?.balance - finalCost()
+            })
+          }
 
           clearCart()
           back()
@@ -339,7 +359,7 @@ export const MarketCart = () => {
             )}
           </div>
           {payment ? (
-            <div className='border shadow-sm p-3 bg-white relative rounded-primary h-fit w-full lg:w-auto'>
+            <div className='border p-3 bg-white relative rounded-primary h-fit w-full lg:w-auto shadow-equal'>
               <p>Товары, {totalAmount} шт.</p>
               <div className='flex justify-between gap-4'>
                 <p>Итого</p>
@@ -397,7 +417,7 @@ export const MarketCart = () => {
               </div>
             </div>
           ) : (
-            <div className='border shadow-sm p-3 h-fit bg-white rounded-primary w-full lg:w-auto'>
+            <div className='border  p-3 h-fit bg-white rounded-primary w-full lg:w-auto shadow-equal'>
               {user?.collectionName === 'agents' && (
                 <>
                   <p>Баланс: {formatNumber(user?.balance)} тг.</p>

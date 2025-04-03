@@ -9,11 +9,13 @@ import { openConfirmModal } from '@mantine/modals'
 
 async function getReviewsByProduct (prods, page = 1) {
 
+  if (prods?.length === 0) return []
+
   const filterQuery = prods?.map(id => `product_id = "${id}" && status = 'posted'`).join(" || ")
 
   return await pb.collection('reviews').getList(page, 20, {
     filter: filterQuery,
-    expand: 'user, product_id'
+    expand: 'user, product_id, customer'
   })
 }
 
