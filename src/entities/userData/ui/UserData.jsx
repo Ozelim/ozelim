@@ -11,6 +11,7 @@ import { openConfirmModal } from '@mantine/modals'
 import { showNotification } from '@mantine/notifications'
 import { useLangContext } from 'app/langContext'
 import coursesImg from 'shared/assets/images/courses-img.svg'
+import { formatNumber } from 'shared/lib'
 
 export const UserData = ({count, setCount, balance, bonuses}) => {
 
