@@ -23,7 +23,7 @@ import { SiWechat } from "react-icons/si";
 import { Avatar } from 'shared/ui'
 import { formatNumber } from 'shared/lib'
 import { Products } from '../products/products'
-import { Stats } from './stats'
+import { Stats } from './Stats'
 import { Chat } from '../user/chat'
 
 const cache = createEmotionCache({
