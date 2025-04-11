@@ -21,7 +21,7 @@ async function signupCompany (data) {
       id: getId(15),
       emailVisibility: true,
       company: true,
-      // sponsor: 111924111111111
+      sponsor: 111924111111111
     })
 
   } catch (err) {
