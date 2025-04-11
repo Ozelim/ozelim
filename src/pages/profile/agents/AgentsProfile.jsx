@@ -1734,7 +1734,7 @@ const Pack = ({ type, description, price, image, people, onClick }) => {
         (type === 'company+' && 'Приобрести пакет для компании +')
       }
       className={clsx(
-        'aspect-[1/1.6] max-w-[333px] rounded-primary shadow-equal overflow-hidden flex flex-col !text-white cursor-pointer hover:scale-105 transition-all duration-200 focus:scale-105',
+        'aspect-[1/1.6] max-w-[333px] rounded-primary shadow-equal overflow-hidden flex flex-col cursor-pointer hover:scale-105 transition-all duration-200 focus:scale-105',
        
       )}
     >
