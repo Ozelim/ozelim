@@ -293,7 +293,7 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
             readOnly
             rightSection={<CopyBtn value={values?.id} />}
           />
-          {!user?.company && !user?.verified && !user?.legit && (
+          {!user?.company && (
             user?.agent ? (
               <div className='text-center my-4'>
                 <Badge
