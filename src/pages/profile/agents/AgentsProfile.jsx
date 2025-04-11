@@ -1735,16 +1735,7 @@ const Pack = ({ type, description, price, image, people, onClick }) => {
       }
       className={clsx(
         'aspect-[1/1.6] max-w-[333px] rounded-primary shadow-equal overflow-hidden flex flex-col !text-white cursor-pointer hover:scale-105 transition-all duration-200 focus:scale-105',
-        {
-          'bg-gradient-to-bl from-orange-200 to-orange-600 hover:shadow-orange-500/50':
-            type === 'family',
-          'bg-gradient-to-br from-primary-200 to-primary-600 hover:shadow-primary-500/50':
-            type === 'agent',
-          'bg-gradient-to-tr from-rose-300 to-rose-600 hover:shadow-rose-500/50':
-            type === 'company',
-          'bg-gradient-to-tl from-blue-300 to-blue-600 hover:shadow-blue-500/50':
-            type === 'company+',
-        }
+       
       )}
     >
       <div className="aspect-video object-cover border-b" />
@@ -1756,16 +1747,7 @@ const Pack = ({ type, description, price, image, people, onClick }) => {
       <div 
         className={clsx(
           "px-6 shrink h-full flex flex-col",
-          {
-            'bg-gradient-to-bl from-orange-200 to-orange-600':
-              type === 'family',
-            'bg-gradient-to-br from-primary-200 to-primary-600':
-              type === 'agent',
-            'bg-gradient-to-tr from-rose-300 to-rose-600':
-              type === 'company',
-            'bg-gradient-to-tl from-blue-300 to-blue-600':
-              type === 'company+',
-          }
+
         )}
       >
         <p className={clsx('text-center my-4 font-medium')}>1 год</p>
