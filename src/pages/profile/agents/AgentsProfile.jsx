@@ -506,7 +506,7 @@ export const AgentsProfile = () => {
     const token = import.meta.env.VITE_APP_SHARED_SECRET
     const string = `${companyBid?.pay?.ORDER};${companyBid?.pay?.MERCHANT}`
     const sign = sha512(token + string).toString()
-    if (companyBid?.pay?.MERCHANT && companyBid?.pay?.ORDER && companyBid?.status === 'created') {
+    if (companyBid?.pay?.MERCHANT && companyBid?.pay?.ORDER && companyBid?.status === 'succ' ) {
       await axios
         .post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/check`, {
           ORDER: companyBid?.pay?.ORDER,
