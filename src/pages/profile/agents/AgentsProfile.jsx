@@ -609,9 +609,11 @@ export const AgentsProfile = () => {
   }
 
   if ((user?.company && !user?.verified) && !companyBid?.id) {
-    return (
-      <div className="container h-full">
-        <div className="flex justify-center items-center h-full flex-col">
+
+    if (user?.email === 'kurama.zxc@mail.ru') {
+      return (
+        <div className="container h-full">
+          <div className="flex justify-center items-center h-full flex-col">
           <div className="flex gap-4 items-end">
           Ваш профиль не верифицирован, ваш ID: {user?.id}
           <Button compact variant="outline" color="red" onClick={signout} className="mt-2">
@@ -624,9 +626,10 @@ export const AgentsProfile = () => {
             ?.map((q) => <Pack key={q.type} {...q} onClick={() => handlePackClick(q.type)} />)
             ?.slice(2, 4)}
           </div>
+          </div>
         </div>
-      </div>
-    )
+      )
+    }
   }
 
   if ((user?.company && !user?.verified) && companyBid?.id && companyBid?.status !== 'payed') {
