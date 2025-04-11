@@ -1,12 +1,9 @@
 import React from 'react'
-import { Badge, Button, Checkbox, Group, Loader, Modal, PasswordInput, Select, Tabs, TextInput } from '@mantine/core'
-import { DatePickerInput, DateTimePicker } from '@mantine/dates'
-import { cities, formatNumber } from 'shared/lib'
-import { useLocation, useNavigate, useNavigation } from 'react-router-dom'
+import { Badge, Button, Checkbox, Loader, Modal, Select, TextInput } from '@mantine/core'
+import { useNavigate } from 'react-router-dom'
 import { useAuth, useUtils } from 'shared/hooks'
 import { pb } from 'shared/api'
-import { CopyBtn, Capthca, Withdraw } from 'shared/ui'
-import { Controller, useForm } from 'react-hook-form'
+import { CopyBtn, Capthca } from 'shared/ui'
 import { useDisclosure } from '@mantine/hooks'
 import { openConfirmModal } from '@mantine/modals'
 import { showNotification } from '@mantine/notifications'
@@ -20,20 +17,32 @@ import { HiDocumentCheck } from 'react-icons/hi2'
 import market from 'shared/assets/images/user-1.pdf'
 import agreement from 'shared/assets/images/agent-agreement.pdf'
 import dayjs from 'dayjs'
+import { formatNumber } from 'shared/lib'
+import { Withdraw } from 'shared/ui/AgentsWithdraw'
 
 
 async function getAgentBid (id) {
   return (await pb.collection('agents_bids').getFullList({filter: `bid_id = '${id}'`}))?.[0]
 }
 
+const banks = [
+  "Народный банк Казахстана",
+  "Kaspi Bank",
+  "Банк ЦентрКредит",
+  "Forte Bank",
+  "Евразийский банк",
+  "First Heartland Jusan Bank",
+  "Bank RBK",
+  "Bereke Bank",
+  "Банк Фридом Финанс Казахстан",
+  "Ситибанк Казахстан",
+  "Home Credit Bank Kazakhstan",
+  "Нурбанк"
+]
+
 export const AgentsData = ({count, setCount, balance, bonuses}) => {
 
-  const [numPages, setNumPages] = React.useState();
-  const [pageNumber, setPageNumber] = React.useState(1);
-
-  function onDocumentLoadSuccess() {
-    setNumPages(numPages);
-  }
+  const navigate = useNavigate()
 
   const {kz} = useLangContext()
 
@@ -55,7 +64,6 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
     } 
   }, [])
 
-  const navigate = useNavigate()
 
   const {regions} = useUtils()
 
@@ -83,44 +91,10 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
     return Math.round(Math.random() * (to - from + 1) + from)
   }
 
-  const [cardNumber, setCardNumber] = React.useState("")
-
-  const handleInputChange = (e) => {
-    let value = e.currentTarget.value.replace(/\D/g, "")
-
-    // Limit to 16 digits
-    if (value.length > 16) {
-      value = value.slice(0, 16)
-    }
-
-    const formattedValue = value.replace(/(\d{4})(?=\d)/g, "$1 ")
-
-    setCardNumber(formattedValue)
-  }
-
-  React.useEffect(() => {
-    setCardNumber(user?.card)
-  }, [user])
-
   const [random1] = React.useState(myRandom(10, 50))
   const [random2] = React.useState(myRandom(1, 9))
   const [answer, setAnswer] = React.useState('?')
   const equal = random1 + random2
-
-  const {
-    control,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm({
-    values: {
-      id: '',
-      amount: '',
-    },
-  })
-
-  const onSubmit = async (data) => {
-    return await pb.collection('transfers').create(data)
-  }
 
   React.useEffect(() => { 
     if (count === 3) {
@@ -302,21 +276,6 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
     navigate('/profile-courses')
   }
 
-  const banks = [
-    "Народный банк Казахстана",
-    "Kaspi Bank",
-    "Банк ЦентрКредит",
-    "Forte Bank",
-    "Евразийский банк",
-    "First Heartland Jusan Bank",
-    "Bank RBK",
-    "Bereke Bank",
-    "Банк Фридом Финанс Казахстан",
-    "Ситибанк Казахстан",
-    "Home Credit Bank Kazakhstan",
-    "Нурбанк"
-  ]
-
   const expireDate =  dayjs(new Date(user?.verified_date).getTime() + 31556926667).format('DD.MM.YYYY')
 
   const showDate = (((new Date(user?.verified_date).getTime() + 31556926667) - 2592000) <= new Date().getTime())
@@ -334,62 +293,63 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
             readOnly
             rightSection={<CopyBtn value={values?.id} />}
           />
+          {!user?.company && !user?.verified && !user?.legit && (
+            user?.agent ? (
+              <div className='text-center my-4'>
+                <Badge
+                  size="xl"
+                  radius='md'
+                  variant="gradient"
+                  gradient={{from: 'teal.7', to: 'green.4'}}
+                  leftSection={<HiDocumentCheck size={20}/>}
+                  fullWidth
+                  aria-hidden={true}
+                  className='!cursor-pointer'
 
-          {user?.agent ? (
-            <div className='text-center my-4'>
-              <Badge
-                size="xl"
-                radius='md'
-                variant="gradient"
-                gradient={{from: 'teal.7', to: 'green.4'}}
-                leftSection={<HiDocumentCheck size={20}/>}
-                fullWidth
-                aria-hidden={true}
-                className='!cursor-pointer'
-
-              >
-                <a href="/user-1.pdf" target='_blank'>
-                  Агент по туризму
-                </a>
-              </Badge>
-            </div>
-          ) : (
-            <>
-              {bid?.status === 'paid' && (
-                <Button
-                  fullWidth
-                  mt={16}
-                  mb={10}
-                  aria-hidden={true}
                 >
-                  Заявка отправлена
-                </Button>
-              )}
-              {bid?.status === 'rejected' && (
-                <Button
-                  fullWidth
-                  mt={16}
-                  mb={10}
-                  onClick={() => rModal_h.open()}
-                  color=''
-                  aria-hidden={true}
-                >
-                  Отказано
-                </Button>
-              )}
-              {bid?.status === 'waiting' && (
-                <Button
-                  fullWidth
-                  mt={16}
-                  mb={10}
-                  onClick={() => handlers.open()}
-                  color={user?.agent ? 'green.6' : 'orange'}
-                  aria-hidden={true}
-                >
-                  Агент по туризму
-                </Button>
-              )}
-            </>
+                  <a href="/user-1.pdf" target='_blank'>
+                    Агент по туризму
+                  </a>
+                </Badge>
+              </div>
+            ) : (
+              <>
+                {bid?.status === 'paid' && (
+                  <Button
+                    fullWidth
+                    mt={16}
+                    mb={10}
+                    aria-hidden={true}
+                  >
+                    Заявка отправлена
+                  </Button>
+                )}
+                {bid?.status === 'rejected' && (
+                  <Button
+                    fullWidth
+                    mt={16}
+                    mb={10}
+                    onClick={() => rModal_h.open()}
+                    color=''
+                    aria-hidden={true}
+                  >
+                    Отказано
+                  </Button>
+                )}
+                {bid?.status === 'waiting' && (
+                  <Button
+                    fullWidth
+                    mt={16}
+                    mb={10}
+                    onClick={() => handlers.open()}
+                    color={user?.agent ? 'green.6' : 'orange'}
+                    aria-hidden={true}
+                  >
+                    Агент по туризму
+                  </Button>
+                )}
+              </>
+            )
           )}
           {showDate && (
             <p className='text-sm text-slate-500'>
@@ -439,7 +399,6 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
               variant="filled"
               defaultValue={values.iin ?? ''}
               name="iin"
-              // onChange={handleValuesChange}
               readOnly
             />
             <TextInput
@@ -447,7 +406,6 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
               variant="filled"
               defaultValue={values.fio ?? ''}
               name="fio"
-              // onChange={handleValuesChange}
               readOnly
             />
             <TextInput
@@ -455,7 +413,6 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
               variant="filled"
               defaultValue={values.phone ?? ''}
               name="phone"
-              // onChange={handleValuesChange}
               readOnly
             />
 
@@ -464,7 +421,6 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
               data={regions}
               variant="filled"
               defaultValue={values.region ?? ''}
-              // onChange={(e) => handleValuesChange(e, 'region')}
               readOnly
             />
             <TextInput
@@ -472,7 +428,6 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
               data={regions}
               variant="filled"
               defaultValue={values.village ?? ''}
-              // onChange={(e) => handleValuesChange(e, 'village')}
               readOnly
             />
             <TextInput
@@ -480,7 +435,6 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
               variant="filled"
               defaultValue={values?.email ?? ''}
               name="email"
-              // onChange={handleValuesChange}
               readOnly
             />
             <TextInput

@@ -40,7 +40,7 @@ export const MarketCarousel = () => {
 
   return (
     <div className="p-4">
-      <Carousel className="w-full h-full"  withIndicators loop>
+      <Carousel className="w-full h-full" withIndicators loop>
         {slides.map((q, i) => {
           return (
             <Carousel.Slide key={i}>
@@ -53,7 +53,12 @@ export const MarketCarousel = () => {
                 {/* <p className="text-3xl font-bold">{q.name}</p> */}
                 {/* <p>{q.description}</p> */}
                 {/* <p className="text-xl">{formatNumber(q.price)} ₸</p> */}
-                <Button size="md" variant='gradient' className="w-fit" gradient={{ from: 'teal', to: 'skyblue' }}>
+                <Button
+                  size="md"
+                  variant="gradient"
+                  className="w-fit"
+                  gradient={{ from: 'teal', to: 'skyblue' }}
+                >
                   Подробнее
                 </Button>
               </div>

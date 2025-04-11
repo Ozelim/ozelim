@@ -1,5 +1,5 @@
-import { Button, clsx } from '@mantine/core'
 import React from 'react'
+import { clsx } from '@mantine/core'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 
 import { CgProfile } from 'react-icons/cg'
@@ -72,9 +72,9 @@ export const Layout = ({ subheaderSlot, headerSlot, footerSlot }) => {
         </div>
         <div className="w-full h-full">{footerSlot}</div>
       </div>
-      <div className="fixed bottom-4 right-4 border border-solid border-gray-300 rounded-full p-4 hover:bg-teal-600 transition-all ">
-        <AiOutlineWhatsApp className="text-3xl flex-shrink-0 text-primary-500 hover:text-white" />
-      </div>
+      {/* <div className="cursor-pointer fixed bottom-4 right-4 border border-solid border-gray-300 rounded-full p-4 hover:bg-teal-600 hover:text-white transition-all group">
+        <AiOutlineWhatsApp className="text-3xl flex-shrink-0 text-primary-500 group-hover:text-white" />
+      </div> */}
     </>
   )
 }

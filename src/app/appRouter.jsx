@@ -28,6 +28,7 @@ import {
   Favorites,
   Weare,
   Club,
+  CompanySignup,
 } from "pages";
 import { baseLayout } from "./layouts/baseLayout";
 import { ProfileCourse } from "pages/profile/ProfileCourse";
@@ -60,6 +61,7 @@ const appRouter = createBrowserRouter([
     {path: '/tourist', element: <Tourist/>},
     // {path: '/home', element: <Home/>},
     {path: '/test-ozelim-2025', element: <Tester/>},
+    {path: '/company-signup', element: <CompanySignup/>},
   ]},
 
   {element: marketLayout, path: '/duken', children: [
