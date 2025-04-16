@@ -81,7 +81,7 @@ export const CompanyForm = ({ type }) => {
             color: 'green',
           })
           setSearchParams({})
-          window.location.reload()
+          window.location.reload() 
         })
         .catch((err) => {
           setError('Произошла ошибка при отправке')
@@ -139,7 +139,8 @@ export const CompanyForm = ({ type }) => {
                 placeholder="Име довер. лица"
                 label="Име довер. лица"
                 error={errors.name?.message}
-                disabled={isSubmitting}
+                disabled={loading}
+                
               />
             )}
           />
@@ -154,7 +155,7 @@ export const CompanyForm = ({ type }) => {
                 placeholder="Номер телефона"
                 label="Номер телефона"
                 error={errors.phone?.message}
-                disabled={isSubmitting}
+                disabled={loading}
               />
             )}
           />
@@ -169,7 +170,7 @@ export const CompanyForm = ({ type }) => {
                 placeholder="Почта"
                 label="Почта"
                 error={errors.email?.message}
-                disabled={isSubmitting}
+                disabled={loading}
               />
             )}
           />
@@ -184,7 +185,7 @@ export const CompanyForm = ({ type }) => {
                 placeholder="WhatsApp"
                 label="WhatsApp"
                 error={errors.whatsapp?.message}
-                disabled={isSubmitting}
+                disabled={loading}
               />
             )}
           />
@@ -216,7 +217,7 @@ export const CompanyForm = ({ type }) => {
             )}
           </div>
           {error && <p className="text-red-500 text-sm">{error}</p>}
-          <Button type="submit" className="mt-3" loading={loading} disabled={isSubmitting}>
+          <Button type="submit" className="mt-3" loading={loading} disabled={loading}>
             Отправить заявку
           </Button>
         </form>

@@ -48,6 +48,8 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
 
   const {user} = useAuth()
 
+  const company = user?.company
+
   const [bid, setBid] = React.useState({
     status: 'waiting'
   })
@@ -293,7 +295,7 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
             readOnly
             rightSection={<CopyBtn value={values?.id} />}
           />
-          {!user?.company && (
+          {!company && (
             user?.agent ? (
               <div className='text-center my-4'>
                 <Badge
@@ -357,7 +359,8 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
             </p>
           )}
           
-          <div>
+
+          {!company && (
             <TextInput
               defaultValue={referal}
               variant="filled"
@@ -372,7 +375,8 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
                 userSelect: !user?.agent ? 'none' : 'auto'
               }}
             />
-          </div>
+          )}
+
           <div className="grid grid-cols-1 w-full gap-2 mt-5">
             <div className="border p-3  rounded-primary border-primary-500">
               <div className="flex gap-1 items-center ">

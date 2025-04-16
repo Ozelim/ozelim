@@ -37,6 +37,9 @@ import market from 'shared/assets/images/agent.png'
 import { openConfirmModal } from '@mantine/modals'
 import { CompanyForm } from './company-form'
 
+import family  from 'shared/assets/images/pack-family.svg'
+import agent from 'shared/assets/images/pack-agent.svg'
+
 const cache = createEmotionCache({
   key: 'profile-mantine',
   prepend: false,
@@ -108,7 +111,7 @@ const array = [
     description:
       'Предназначен для покупки туров и путевок в курортные зоны для всей семьи, идеальный вариант для путешествий с семьей.',
     price: 30000,
-    image: 'https://pbs.twimg.com/media/GV4Rqt2XEAAQotY?format=jpg&name=4096x4096',
+    image: family,
     people: 5,
   },
   {
@@ -116,7 +119,7 @@ const array = [
     description:
       'Можете звать за собой людей и получать за них до 15% бонусов, и иметь все бонусы семейного пакета',
     price: 45000,
-    image: 'https://pbs.twimg.com/media/GV4Rqt2XEAAQotY?format=jpg&name=4096x4096',
+    image: agent,
     people: 5,
   },
   {
@@ -244,7 +247,7 @@ export const AgentsProfile = () => {
   const [paymentLoading, setPaymentLoading] = React.useState(false)
   const [verifyLoading, setVerifyLoading] = React.useState(false)
 
-  async function submit(price) {
+  async function submit(price = 30000) {
     try {
       setPaymentLoading(true)
       const randomNumber = Math.floor(Math.random() * 100000000)
@@ -252,13 +255,13 @@ export const AgentsProfile = () => {
 
       const data = {
         ORDER: randomNumber,
-        AMOUNT: user?.email === `kurama.zxc@mail.ru` ? 5 : price,
+        AMOUNT: user?.email === `kurama.zxc@mail.ru` ? 5 : price ?? 30000,
         // AMOUNT: 30000,
         CURRENCY: 'KZT',
         MERCHANT: '110-R-113431490',
         TERMINAL: '11371491',
         NONCE: randomNumber + 107,
-        DESC: price === 30000 ? 'Оплата верификации 1' : 'Оплата верификации 2',
+        DESC: price === 30000 ? 'Верификация (Пользователь)' : 'Верификация (Агент)',
         CLIENT_ID: user?.id,
         DESC_ORDER: price === 30000 ? 'Верификация (Пользователь)' : 'Верификация (Агент)',
         EMAIL: user?.email,
@@ -648,7 +651,7 @@ export const AgentsProfile = () => {
         {companyBid?.status === 'succ' && (
           <>
             <p className="text-center mt-4 font-bold">Ваша заявка на корпоративный {companyBid?.plus ? '+' : ''} пакет была одобрена</p>
-            <Button className="mt-4" onClick={buyPack}>Перейти к оплате</Button>
+            <Button className="mt-4" onClick={buyPack} color={companyBid?.plus ? 'blue.5' : 'pink.5'}>Перейти к оплате</Button>
           </>
         )}
         </div>
@@ -718,7 +721,7 @@ export const AgentsProfile = () => {
               </div>
             </div>
           </div>
-        )}  
+        )}
       </>
     )
   }
@@ -1231,393 +1234,376 @@ export const AgentsProfile = () => {
     )
   }
 
-  return (
-    <MantineProvider
-      withGlobalStyles
-      withCSSVariables
-      emotionCache={cache}
-      theme={{
-        primaryColor: color,
-        primaryShade: color == 'orange' ? 5 : 6,
-        defaultRadius: 'md',
-      }}
-    >
-      <div className="w-full">
-        <div className="container">
-          <div className="w-full bg-white shadow-md rounded-primary p-4">
-            <div className="grid lg:grid-cols-[25%_auto] gap-6">
-              <div className="mt-1">
-                <AgentsData count={count} setCount={setCount} balance={balance} bonuses={bonuses} />
-              </div>
-              <div className="relative overflow-hidden">
-                {!user?.agent && (
-                  <>
-                    <div className="!inline-block lg:!hidden">
-                      <Button component={'a'} href="/agent.pdf" target="_blank" aria-hidden>
-                        Вознаграждения
-                      </Button>
-                    </div>
-                    <div className="!hidden lg:!inline-block">
-                      <Button onClick={() => setShitModal(true)} aria-hidden>
-                        Вознаграждения
-                      </Button>
-                    </div>
-                  </>
-                )}
-
-                {user?.agent && <AgentsList setCount={setCount} />}
-                <div className="overflow-auto">
-                  {user?.agent && (
-                    <div className="relative mt-20">
-                      <LoadingOverlay visible={agentLoading} />
-                      <div className="grid grid-cols-[10%_auto_10%] items-end">
-                        <Button
-                          onClick={async () => {
-                            setCurrentAgent(user)
-                          }}
-                          variant="light"
-                        >
-                          <MdKeyboardArrowLeft size={30} />
-                        </Button>
-
-                        <div className="flex mt-2 mx-auto w-fit max-[208px]">
-                          <Avatar
-                            src={currentAgent?.avatar}
-                            className="aspect-square !w-16 !h-16 mx-auto"
-                            radius="xl"
-                            record={currentAgent}
-                          />
-                          <div className="flex flex-col justify-center ml-2">
-                            <p className="text-lg font-head">{currentAgent?.fio}</p>
-                            <p className="mt-1 text">
-                              {dayjs(currentAgent?.created).format('DD.MM.YYYY')}
-                            </p>
-                          </div>
+  if (!user?.company && user?.verified) {
+    return (
+      <MantineProvider
+        withGlobalStyles
+        withCSSVariables
+        emotionCache={cache}
+        theme={{
+          primaryColor: color,
+          primaryShade: color == 'orange' ? 5 : 6,
+          defaultRadius: 'md',
+        }}
+      >
+        <div className="w-full">
+          <div className="container">
+            <div className="w-full bg-white shadow-md rounded-primary p-4">
+              <div className="grid lg:grid-cols-[25%_auto] gap-6">
+                <div className="mt-1">
+                  <AgentsData count={count} setCount={setCount} balance={balance} bonuses={bonuses} />
+                </div>
+                <div className="relative overflow-hidden">
+                  {!user?.company && (
+                    !user?.agent && (
+                      <>
+                        <div className="!inline-block lg:!hidden">
+                          <Button component={'a'} href="/agent.pdf" target="_blank" aria-hidden>
+                            Вознаграждения
+                          </Button>
                         </div>
-                        <div></div>
+                        <div className="!hidden lg:!inline-block">
+                          <Button onClick={() => setShitModal(true)} aria-hidden>
+                            Вознаграждения
+                          </Button>
+                        </div>
+                      </>
+                    )
+                  )}
+  
+                  {(!user?.company && user?.agent) && <AgentsList setCount={setCount} />}
+                  <div className="overflow-auto">
+                    {(!user?.company && user?.agent) && (
+                      <div className="relative mt-20">
+                        <LoadingOverlay visible={agentLoading} />
+                        <div className="grid grid-cols-[10%_auto_10%] items-end">
+                          <Button
+                            onClick={async () => {
+                              setCurrentAgent(user)
+                            }}
+                            variant="light"
+                          >
+                            <MdKeyboardArrowLeft size={30} />
+                          </Button>
+  
+                          <div className="flex mt-2 mx-auto w-fit max-[208px]">
+                            <Avatar
+                              src={currentAgent?.avatar}
+                              className="aspect-square !w-16 !h-16 mx-auto"
+                              radius="xl"
+                              record={currentAgent}
+                            />
+                            <div className="flex flex-col justify-center ml-2">
+                              <p className="text-lg font-head">{currentAgent?.fio}</p>
+                              <p className="mt-1 text">
+                                {dayjs(currentAgent?.created).format('DD.MM.YYYY')}
+                              </p>
+                            </div>
+                          </div>
+                          <div></div>
+                        </div>
+  
+                        <p className="mt-4">
+                          Пользователей: {currentAgent?.expand?.creeps?.length ?? 0}
+                        </p>
+  
+                        <div className="flex border p-4 space-x-8 overflow-x-scroll">
+                          {currentAgent?.expand?.creeps?.length == 0 ||
+                          !currentAgent?.expand?.creeps?.length ? (
+                            <p className="text-center">Не найдено пользователей</p>
+                          ) : (
+                            <>
+                              {currentAgent?.expand?.creeps?.map((q) => {
+                                return (
+                                  <div
+                                    className="flex cursor-pointer items-center"
+                                    onClick={async () => {
+                                      handlers.open()
+                                      await pb
+                                        .collection('agents')
+                                        .getOne(q?.id, { expand: 'creeps' })
+                                        .then((res) => {
+                                          setCurrentAgent(res)
+                                        })
+                                        .finally(() => {
+                                          handlers.close()
+                                        })
+                                    }}
+                                    key={q?.id}
+                                  >
+                                    <div className="relative">
+                                      <Avatar
+                                        src={q?.avatar}
+                                        className={'aspect-square !w-14 !h-14 mx-auto z-20'}
+                                        radius="xl"
+                                        record={q}
+                                      />
+                                    </div>
+                                    <div className="flex flex-col justify-center ml-2">
+                                      <p
+                                        className={clsx(
+                                          'text-lg font-head w-fit max-[208px] overflow-hidden',
+                                          {}
+                                        )}
+                                      >
+                                        {q?.fio}
+                                      </p>
+                                      <p className="mt-1 text">
+                                        {dayjs(q?.created).format('DD.MM.YYYY')}
+                                      </p>
+                                    </div>
+                                  </div>
+                                )
+                              })}
+                            </>
+                          )}
+                        </div>
                       </div>
-
-                      <p className="mt-4">
-                        Пользователей: {currentAgent?.expand?.creeps?.length ?? 0}
-                      </p>
-
-                      <div className="flex border p-4 space-x-8 overflow-x-scroll">
-                        {currentAgent?.expand?.creeps?.length == 0 ||
-                        !currentAgent?.expand?.creeps?.length ? (
-                          <p className="text-center">Не найдено пользователей</p>
-                        ) : (
-                          <>
-                            {currentAgent?.expand?.creeps?.map((q) => {
+                    )}
+                    <div className="mt-6">
+                      <Quiz />
+                    </div>
+                    {withdraws?.length !== 0 && (
+                      <div className="mt-12 overflow-scroll">
+                        <h2 className="text-center text-xl font-head">Выводы</h2>
+                        <Table className="border mt-4">
+                          <thead>
+                            <tr>
+                              <th>Дата</th>
+                              <th>Сумма</th>
+                              <th>Карта</th>
+                              <th>Владелец карты</th>
+                              <th>Статус</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {withdraws?.map((withdraw, i) => {
                               return (
-                                <div
-                                  className="flex cursor-pointer items-center"
-                                  onClick={async () => {
-                                    handlers.open()
-                                    await pb
-                                      .collection('agents')
-                                      .getOne(q?.id, { expand: 'creeps' })
-                                      .then((res) => {
-                                        setCurrentAgent(res)
-                                      })
-                                      .finally(() => {
-                                        handlers.close()
-                                      })
-                                  }}
-                                  key={q?.id}
-                                >
-                                  <div className="relative">
-                                    <Avatar
-                                      src={q?.avatar}
-                                      className={'aspect-square !w-14 !h-14 mx-auto z-20'}
-                                      radius="xl"
-                                      record={q}
-                                    />
-                                  </div>
-                                  <div className="flex flex-col justify-center ml-2">
-                                    <p
-                                      className={clsx(
-                                        'text-lg font-head w-fit max-[208px] overflow-hidden',
-                                        {}
-                                      )}
-                                    >
-                                      {q?.fio}
-                                    </p>
-                                    <p className="mt-1 text">
-                                      {dayjs(q?.created).format('DD.MM.YYYY')}
-                                    </p>
-                                  </div>
-                                </div>
+                                <tr key={i} className="text">
+                                  <td className="whitespace-nowrap">
+                                    {dayjs(withdraw?.created).format('YY-MM-DD, HH:mm')}
+                                  </td>
+                                  <td>{formatNumber(withdraw?.sum)}</td>
+                                  <td>{withdraw?.card}</td>
+                                  <td>
+                                    {withdraw?.owner ?? withdraw?.agent
+                                      ? withdraw?.agent
+                                      : withdraw?.user}
+                                  </td>
+                                  <td>
+                                    {withdraw?.status === 'created' && 'В обработке'}
+                                    {withdraw?.status === 'paid' && 'Завершено'}
+                                    {withdraw?.status === 'rejected' && 'Отклонено'}
+                                  </td>
+                                </tr>
                               )
                             })}
-                          </>
-                        )}
+                          </tbody>
+                        </Table>
                       </div>
-                    </div>
-                  )}
-                  <div className="mt-6">
-                    <Quiz />
-                  </div>
-                  {withdraws?.length !== 0 && (
-                    <div className="mt-12 overflow-scroll">
-                      <h2 className="text-center text-xl font-head">Выводы</h2>
-                      <Table className="border mt-4">
-                        <thead>
-                          <tr>
-                            <th>Дата</th>
-                            <th>Сумма</th>
-                            <th>Карта</th>
-                            <th>Владелец карты</th>
-                            <th>Статус</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {withdraws?.map((withdraw, i) => {
-                            return (
-                              <tr key={i} className="text">
-                                <td className="whitespace-nowrap">
-                                  {dayjs(withdraw?.created).format('YY-MM-DD, HH:mm')}
-                                </td>
-                                <td>{formatNumber(withdraw?.sum)}</td>
-                                <td>{withdraw?.card}</td>
-                                <td>
-                                  {withdraw?.owner ?? withdraw?.agent
-                                    ? withdraw?.agent
-                                    : withdraw?.user}
-                                </td>
-                                <td>
-                                  {withdraw?.status === 'created' && 'В обработке'}
-                                  {withdraw?.status === 'paid' && 'Завершено'}
-                                  {withdraw?.status === 'rejected' && 'Отклонено'}
-                                </td>
-                              </tr>
-                            )
-                          })}
-                        </tbody>
-                      </Table>
-                    </div>
-                  )}
-                  {transfers?.length !== 0 && (
-                    <div className="mt-12 overflow-scroll">
-                      <h2 className="text-center text-xl font-head">Переводы</h2>
-                      <Table className="border mt-4">
-                        <thead>
-                          <tr>
-                            <th>Дата</th>
-                            <th>Сумма</th>
-                            <th>Отправитель</th>
-                            <th>Получатель</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {transfers?.map((transfer, i) => {
-                            return (
-                              <tr key={i} className="text">
-                                <td className="whitespace-nowrap">
-                                  {dayjs(transfer?.created).format('YY-MM-DD, HH:mm')}
-                                </td>
-                                <td>{formatNumber(transfer?.sum)}</td>
-                                <td>{transfer?.user}</td>
-                                <td>{transfer?.taker}</td>
-                              </tr>
-                            )
-                          })}
-                        </tbody>
-                      </Table>
-                    </div>
-                  )}
-                  {bids?.length !== 0 && (
-                    <div className="mt-12 overflow-scroll">
-                      <h2 className="text-center text-xl font-head">Услуги</h2>
-                      <Table className="border mt-4">
-                        <thead>
-                          <tr>
-                            <th>ФИО</th>
-                            <th>Стоимость</th>
-                            <th>Услуги</th>
-                            <th>Статус</th>
-                            <th></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {bids?.map((q, i) => {
-                            return (
-                              <tr key={i}>
-                                <td>{q.name}</td>
-                                <td>{q.total_cost} тг</td>
-                                <td>
-                                  <Button
-                                    variant="outline"
-                                    compact
-                                    onClick={() =>
-                                      setViewModal({ modal: true, services: q?.serv1ce })
-                                    }
-                                  >
-                                    Услуги
-                                  </Button>
-                                </td>
-                                <td>
-                                  {(q.status === 'cancelled' || q.status === 'refunded') &&
-                                    `Отменена`}
-                                  {q.status === 'rejected' && `Отклонена`}
-                                  {q.status === 'created' && `Приобретена`}
-                                  {q.status === 'succ' && `Одобрена`}
-                                </td>
-                                <td>
-                                  <div className="cursor-pointer">
-                                    {q?.status === 'created' && !q?.pay && !q?.bonuses && (
-                                      <FaCircleXmark
-                                        color="gray"
-                                        size={20}
-                                        onClick={() => confirmRefundBalance(q)}
-                                      />
-                                    )}
-                                    {q?.status === 'created' && q?.pay && !q?.bonuses && (
-                                      <FaCircleXmark
-                                        color="gray"
-                                        size={20}
-                                        onClick={() => setCancel({ bid: q, modal: true })}
-                                      />
-                                    )}
-                                    {q?.status === 'created' && !q?.pay && q?.bonuses && (
-                                      <FaCircleXmark
-                                        color="gray"
-                                        size={20}
-                                        onClick={() => confirmRefundBonuses(q)}
-                                      />
-                                    )}
-                                    {q?.status === 'waiting' && (
-                                      <FaCircleXmark
-                                        color="gray"
-                                        size={20}
-                                        onClick={() => setCancel({ bid: q, modal: true })}
-                                      />
-                                    )}
-                                  </div>
-                                </td>
-                              </tr>
-                            )
-                          })}
-                        </tbody>
-                      </Table>
-                    </div>
-                  )}
-
-                  <ScrollArea maw={'100%'}>
-                    <div className="mt-12 overflow-scroll">
-                      <h2 className="text-center text-xl font-head">История</h2>
-                      <Table className="border mt-4">
-                        <thead>
-                          <tr>
-                            <th>Дата</th>
-                            <th>Тип</th>
-                            <th>ID</th>
-                            <th>Сумма</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {bonuses?.referals?.map((q, i) => {
-                            return (
-                              <tr key={i} className="text">
-                                <td className="whitespace-nowrap">
-                                  {dayjs(q?.created).format('DD.MM.YYYY, HH:mm')}
-                                </td>
-                                <td className="text-black">Реферал</td>
-                                <td>{q?.referal}</td>
-                                <td className="text-green-500">+ {formatNumber(q?.sum)}</td>
-                              </tr>
-                            )
-                          })}
-                          {bonuses?.bonuses
-                            ?.sort((q, w) => q?.created < w?.created)
-                            ?.map((q, i) => {
+                    )}
+                    {transfers?.length !== 0 && (
+                      <div className="mt-12 overflow-scroll">
+                        <h2 className="text-center text-xl font-head">Переводы</h2>
+                        <Table className="border mt-4">
+                          <thead>
+                            <tr>
+                              <th>Дата</th>
+                              <th>Сумма</th>
+                              <th>Отправитель</th>
+                              <th>Получатель</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {transfers?.map((transfer, i) => {
+                              return (
+                                <tr key={i} className="text">
+                                  <td className="whitespace-nowrap">
+                                    {dayjs(transfer?.created).format('YY-MM-DD, HH:mm')}
+                                  </td>
+                                  <td>{formatNumber(transfer?.sum)}</td>
+                                  <td>{transfer?.user}</td>
+                                  <td>{transfer?.taker}</td>
+                                </tr>
+                              )
+                            })}
+                          </tbody>
+                        </Table>
+                      </div>
+                    )}
+                    {bids?.length !== 0 && (
+                      <div className="mt-12 overflow-scroll">
+                        <h2 className="text-center text-xl font-head">Услуги</h2>
+                        <Table className="border mt-4">
+                          <thead>
+                            <tr>
+                              <th>ФИО</th>
+                              <th>Стоимость</th>
+                              <th>Услуги</th>
+                              <th>Статус</th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {bids?.map((q, i) => {
+                              return (
+                                <tr key={i}>
+                                  <td>{q.name}</td>
+                                  <td>{q.total_cost} тг</td>
+                                  <td>
+                                    <Button
+                                      variant="outline"
+                                      compact
+                                      onClick={() =>
+                                        setViewModal({ modal: true, services: q?.serv1ce })
+                                      }
+                                    >
+                                      Услуги
+                                    </Button>
+                                  </td>
+                                  <td>
+                                    {(q.status === 'cancelled' || q.status === 'refunded') &&
+                                      `Отменена`}
+                                    {q.status === 'rejected' && `Отклонена`}
+                                    {q.status === 'created' && `Приобретена`}
+                                    {q.status === 'succ' && `Одобрена`}
+                                  </td>
+                                  <td>
+                                    <div className="cursor-pointer">
+                                      {q?.status === 'created' && !q?.pay && !q?.bonuses && (
+                                        <FaCircleXmark
+                                          color="gray"
+                                          size={20}
+                                          onClick={() => confirmRefundBalance(q)}
+                                        />
+                                      )}
+                                      {q?.status === 'created' && q?.pay && !q?.bonuses && (
+                                        <FaCircleXmark
+                                          color="gray"
+                                          size={20}
+                                          onClick={() => setCancel({ bid: q, modal: true })}
+                                        />
+                                      )}
+                                      {q?.status === 'created' && !q?.pay && q?.bonuses && (
+                                        <FaCircleXmark
+                                          color="gray"
+                                          size={20}
+                                          onClick={() => confirmRefundBonuses(q)}
+                                        />
+                                      )}
+                                      {q?.status === 'waiting' && (
+                                        <FaCircleXmark
+                                          color="gray"
+                                          size={20}
+                                          onClick={() => setCancel({ bid: q, modal: true })}
+                                        />
+                                      )}
+                                    </div>
+                                  </td>
+                                </tr>
+                              )
+                            })}
+                          </tbody>
+                        </Table>
+                      </div>
+                    )}
+  
+                    <ScrollArea maw={'100%'}>
+                      <div className="mt-12 overflow-scroll">
+                        <h2 className="text-center text-xl font-head">История</h2>
+                        <Table className="border mt-4">
+                          <thead>
+                            <tr>
+                              <th>Дата</th>
+                              <th>Тип</th>
+                              <th>ID</th>
+                              <th>Сумма</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {bonuses?.referals?.map((q, i) => {
                               return (
                                 <tr key={i} className="text">
                                   <td className="whitespace-nowrap">
                                     {dayjs(q?.created).format('DD.MM.YYYY, HH:mm')}
                                   </td>
-                                  <td className="text-black">Бонус</td>
+                                  <td className="text-black">Реферал</td>
+                                  <td>{q?.referal}</td>
+                                  <td className="text-green-500">+ {formatNumber(q?.sum)}</td>
+                                </tr>
+                              )
+                            })}
+                            {bonuses?.bonuses
+                              ?.sort((q, w) => q?.created < w?.created)
+                              ?.map((q, i) => {
+                                return (
+                                  <tr key={i} className="text">
+                                    <td className="whitespace-nowrap">
+                                      {dayjs(q?.created).format('DD.MM.YYYY, HH:mm')}
+                                    </td>
+                                    <td className="text-black">Бонус</td>
+                                    <td>-</td>
+                                    <td className="text-green-500">+ {formatNumber(q?.sum)}</td>
+                                  </tr>
+                                )
+                              })}
+                            {bonuses?.replenish?.map((q, i) => {
+                              return (
+                                <tr key={i} className="text">
+                                  <td className="whitespace-nowrap">
+                                    {dayjs(q?.created).format('DD.MM.YYYY, HH:mm')}
+                                  </td>
+                                  <td className="text-black">Пополнение</td>
                                   <td>-</td>
                                   <td className="text-green-500">+ {formatNumber(q?.sum)}</td>
                                 </tr>
                               )
                             })}
-                          {bonuses?.replenish?.map((q, i) => {
-                            return (
-                              <tr key={i} className="text">
-                                <td className="whitespace-nowrap">
-                                  {dayjs(q?.created).format('DD.MM.YYYY, HH:mm')}
-                                </td>
-                                <td className="text-black">Пополнение</td>
-                                <td>-</td>
-                                <td className="text-green-500">+ {formatNumber(q?.sum)}</td>
-                              </tr>
-                            )
-                          })}
-                          {bonuses?.withdraws?.map((q, i) => {
-                            return (
-                              <tr key={i} className="text">
-                                <td className="whitespace-nowrap">
-                                  {dayjs(q?.created).format('DD.MM.YYYY, HH:mm')}
-                                </td>
-                                <td className="text-black">Вывод</td>
-                                <td>-</td>
-                                <td className="text-red-500">- {formatNumber(q?.sum)}</td>
-                              </tr>
-                            )
-                          })}
-                          {bonuses?.services?.map((q, i) => {
-                            return (
-                              <tr key={i} className="text">
-                                <td className="whitespace-nowrap">
-                                  {dayjs(q?.created).format('DD.MM.YYYY, HH:mm')}
-                                </td>
-                                <td className="text-black">Услуга</td>
-                                <td>-</td>
-                                <td className="text-red-500">- {formatNumber(q?.sum)}</td>
-                              </tr>
-                            )
-                          })}
-                        </tbody>
-                      </Table>
-                    </div>
-                  </ScrollArea>
+                            {bonuses?.withdraws?.map((q, i) => {
+                              return (
+                                <tr key={i} className="text">
+                                  <td className="whitespace-nowrap">
+                                    {dayjs(q?.created).format('DD.MM.YYYY, HH:mm')}
+                                  </td>
+                                  <td className="text-black">Вывод</td>
+                                  <td>-</td>
+                                  <td className="text-red-500">- {formatNumber(q?.sum)}</td>
+                                </tr>
+                              )
+                            })}
+                            {bonuses?.services?.map((q, i) => {
+                              return (
+                                <tr key={i} className="text">
+                                  <td className="whitespace-nowrap">
+                                    {dayjs(q?.created).format('DD.MM.YYYY, HH:mm')}
+                                  </td>
+                                  <td className="text-black">Услуга</td>
+                                  <td>-</td>
+                                  <td className="text-red-500">- {formatNumber(q?.sum)}</td>
+                                </tr>
+                              )
+                            })}
+                          </tbody>
+                        </Table>
+                      </div>
+                    </ScrollArea>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <Modal
-        opened={viewModal.modal}
-        onClose={() => setViewModal({ services: [], modal: false })}
-        centered
-      >
-        {viewModal.services?.map((service, i) => {
-          return (
-            <div key={i} className="justify-between gap-6 border p-4 rounded-lg">
-              <div>
-                <p className="text-lg">{service.title}</p>
-                <p className="text-sm">{service.description}</p>
-              </div>
-              <div className="space-y-2">
-                <p className="font-bold text-2xl">{service.cost} тг</p>
-              </div>
-            </div>
-          )
-        })}
-      </Modal>
-      <Modal
-        opened={cancel.modal}
-        onClose={() => setCancel({ modal: false, bid: {} })}
-        centered
-        title="Отмена услуги"
-      >
-        <div>
-          {cancel?.bid?.serv1ce?.map((service, i) => {
+        <Modal
+          opened={viewModal.modal}
+          onClose={() => setViewModal({ services: [], modal: false })}
+          centered
+        >
+          {viewModal.services?.map((service, i) => {
             return (
-              <div key={i} className="justify-between border p-4 rounded-lg mb-4">
+              <div key={i} className="justify-between gap-6 border p-4 rounded-lg">
                 <div>
                   <p className="text-lg">{service.title}</p>
+                  <p className="text-sm">{service.description}</p>
                 </div>
                 <div className="space-y-2">
                   <p className="font-bold text-2xl">{service.cost} тг</p>
@@ -1625,102 +1611,123 @@ export const AgentsProfile = () => {
               </div>
             )
           })}
-          <p className="text text-sm">При отмене услуги коммисия 5% от стоимости</p>
-          {/* <p>
-             {cancel?.bid?.total_cost}
-          </p> */}
-          <p className="flex gap-2 mt-4 text-lg">
-            <span>Сумма возврата:</span>
-            <span className="font-bold">{cancel?.bid?.total_cost} тг</span>
-          </p>
-          <p className="flex gap-2 mt-1 text-lg">
-            <span>Карта:</span>
-            <span className="font-bold">{cancel?.bid?.costs?.card} тг</span>
-          </p>
-          {cancel?.bid?.pay_bonuses && (
-            <p className="flex gap-2 mt-1 text-lg">
-              <span>Бонусы:</span>
-              <span className="font-bold">{cancel?.bid?.costs?.bonuses} тг</span>
+        </Modal>
+        <Modal
+          opened={cancel.modal}
+          onClose={() => setCancel({ modal: false, bid: {} })}
+          centered
+          title="Отмена услуги"
+        >
+          <div>
+            {cancel?.bid?.serv1ce?.map((service, i) => {
+              return (
+                <div key={i} className="justify-between border p-4 rounded-lg mb-4">
+                  <div>
+                    <p className="text-lg">{service.title}</p>
+                  </div>
+                  <div className="space-y-2">
+                    <p className="font-bold text-2xl">{service.cost} тг</p>
+                  </div>
+                </div>
+              )
+            })}
+            <p className="text text-sm">При отмене услуги коммисия 5% от стоимости</p>
+            {/* <p>
+               {cancel?.bid?.total_cost}
+            </p> */}
+            <p className="flex gap-2 mt-4 text-lg">
+              <span>Сумма возврата:</span>
+              <span className="font-bold">{cancel?.bid?.total_cost} тг</span>
             </p>
-          )}
-          <Radio.Group
-            label="Выберите куда вернуть средства"
-            withAsterisk
-            value={refundType}
-            onChange={(e) => setRefundType(e)}
-            classNames={{
-              label: '!text-base',
-            }}
-            className="mt-4"
-          >
-            <Group mt="xs">
-              <Radio value="balance" label="Баланс" classNames={{ label: `text-base` }} />
-              <Radio value="card" label="Карта" classNames={{ label: `text-base` }} />
-            </Group>
-          </Radio.Group>
-          {refundType === 'card' && (
-            <form className="mt-4">
-              <TextInput
-                value={refund?.fio}
-                placeholder="ФИО"
-                label="Владелец счета"
-                variant="filled"
-                name="fio"
-                onChange={(q) => setRefund({ ...refund, fio: q.currentTarget.value })}
-              />
-              <TextInput
-                inputMode="numeric"
-                value={refund?.iin ?? ''}
-                onChange={(q) => setRefund({ ...refund, iin: q.currentTarget.value })}
-                placeholder="030627129340"
-                label="ИИН"
-                variant="filled"
-                name="iin"
-                maxLength={12}
-              />
-              <TextInput
-                value={refund?.iban}
-                placeholder="KZ123456789123456789"
-                label="Номер счета карты (IBAN)"
-                variant="filled"
-                name="iban"
-                maxLength={20}
-                onChange={(q) => setRefund({ ...refund, iban: q.currentTarget.value })}
-              />
-            </form>
-          )}
-          {refundType === 'balance' && (
-            <div className="flex justify-center mt-4">
-              <Button onClick={() => handleBalanceRefund(cancel?.bid, true, true)}>
-                Подтвердить
-              </Button>
-            </div>
-          )}
-          {refundType === 'card' && (
-            <div className="flex justify-center mt-4">
-              <Button
-                onClick={handleCardRefund}
-                disabled={
-                  !(refund?.iban?.toString()?.length > 10 && refund?.iin?.toString()?.length > 6)
-                }
-              >
-                Подтвердить
-              </Button>
-            </div>
-          )}
-        </div>
-      </Modal>
-      <Modal
-        opened={shitModal}
-        onClose={() => setShitModal(false)}
-        centered
-        size="xl"
-        fullScreen={matches ? false : true}
-      >
-        <img src={market} alt="" className="h-full" />
-      </Modal>
-    </MantineProvider>
-  )
+            <p className="flex gap-2 mt-1 text-lg">
+              <span>Карта:</span>
+              <span className="font-bold">{cancel?.bid?.costs?.card} тг</span>
+            </p>
+            {cancel?.bid?.pay_bonuses && (
+              <p className="flex gap-2 mt-1 text-lg">
+                <span>Бонусы:</span>
+                <span className="font-bold">{cancel?.bid?.costs?.bonuses} тг</span>
+              </p>
+            )}
+            <Radio.Group
+              label="Выберите куда вернуть средства"
+              withAsterisk
+              value={refundType}
+              onChange={(e) => setRefundType(e)}
+              classNames={{
+                label: '!text-base',
+              }}
+              className="mt-4"
+            >
+              <Group mt="xs">
+                <Radio value="balance" label="Баланс" classNames={{ label: `text-base` }} />
+                <Radio value="card" label="Карта" classNames={{ label: `text-base` }} />
+              </Group>
+            </Radio.Group>
+            {refundType === 'card' && (
+              <form className="mt-4">
+                <TextInput
+                  value={refund?.fio}
+                  placeholder="ФИО"
+                  label="Владелец счета"
+                  variant="filled"
+                  name="fio"
+                  onChange={(q) => setRefund({ ...refund, fio: q.currentTarget.value })}
+                />
+                <TextInput
+                  inputMode="numeric"
+                  value={refund?.iin ?? ''}
+                  onChange={(q) => setRefund({ ...refund, iin: q.currentTarget.value })}
+                  placeholder="030627129340"
+                  label="ИИН"
+                  variant="filled"
+                  name="iin"
+                  maxLength={12}
+                />
+                <TextInput
+                  value={refund?.iban}
+                  placeholder="KZ123456789123456789"
+                  label="Номер счета карты (IBAN)"
+                  variant="filled"
+                  name="iban"
+                  maxLength={20}
+                  onChange={(q) => setRefund({ ...refund, iban: q.currentTarget.value })}
+                />
+              </form>
+            )}
+            {refundType === 'balance' && (
+              <div className="flex justify-center mt-4">
+                <Button onClick={() => handleBalanceRefund(cancel?.bid, true, true)}>
+                  Подтвердить
+                </Button>
+              </div>
+            )}
+            {refundType === 'card' && (
+              <div className="flex justify-center mt-4">
+                <Button
+                  onClick={handleCardRefund}
+                  disabled={
+                    !(refund?.iban?.toString()?.length > 10 && refund?.iin?.toString()?.length > 6)
+                  }
+                >
+                  Подтвердить
+                </Button>
+              </div>
+            )}
+          </div>
+        </Modal>
+        <Modal
+          opened={shitModal}
+          onClose={() => setShitModal(false)}
+          centered
+          size="xl"
+          fullScreen={matches ? false : true}
+        >
+          <img src={market} alt="" className="h-full" />
+        </Modal>
+      </MantineProvider>
+    )
+  }
 }
 
 const Pack = ({ type, description, price, image, people, onClick }) => {
@@ -1738,12 +1745,11 @@ const Pack = ({ type, description, price, image, people, onClick }) => {
        
       )}
     >
-      <div className="aspect-video object-cover border-b" />
-      {/* <img
-        src={'https://pbs.twimg.com/media/GV4Rqt2XEAAQotY?format=jpg&name=4096x4096'}
+      <img
+        src={image}
         alt=""
-        className="aspect-video object-cover border-b"
-      /> */}
+        className="aspect-video object-contain border-b-black p-1"
+      />
       <div 
         className={clsx(
           "px-6 shrink h-full flex flex-col",
