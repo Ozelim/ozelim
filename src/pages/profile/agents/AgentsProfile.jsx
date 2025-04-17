@@ -872,9 +872,11 @@ export const AgentsProfile = () => {
                         </div>
                       </div>
                     )}
-                    <div className="mt-6">
-                      <Quiz />
-                    </div>
+                    {!user?.company && (
+                      <div className="mt-6">
+                        <Quiz />
+                      </div>
+                    )}
                     {withdraws?.length !== 0 && (
                       <div className="mt-12 overflow-scroll">
                         <h2 className="text-center text-xl font-head">Выводы</h2>
@@ -1367,9 +1369,11 @@ export const AgentsProfile = () => {
                         </div>
                       </div>
                     )}
-                    <div className="mt-6">
-                      <Quiz />
-                    </div>
+                    {!user?.company && (
+                      <div className="mt-6">
+                        <Quiz />
+                      </div>
+                    )}
                     {withdraws?.length !== 0 && (
                       <div className="mt-12 overflow-scroll">
                         <h2 className="text-center text-xl font-head">Выводы</h2>
