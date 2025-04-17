@@ -528,11 +528,15 @@ export const AgentsProfile = () => {
               status: 'payed',
             })
 
-            await pb.collection('agents').update(user?.id, {
-              verified: true,
-              legit: true,
-              company_date: new Date(),
-              company_pack: companyBid?.plus ? 'company+' : 'company',
+            await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/company-verify`, {
+              id: user?.id
+            })
+            .then(async (res) => {  
+              await pb.collection('agents').update(user?.id, {
+                legit: true,
+                company_date: new Date(),
+                company_pack: companyBid?.plus ? 'company+' : 'company',
+              })
             })
 
             window.location.reload()
