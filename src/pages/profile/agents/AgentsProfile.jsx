@@ -613,7 +613,7 @@ export const AgentsProfile = () => {
 
   if ((user?.company && !user?.verified) && !companyBid?.id) {
 
-    if (user?.email === 'kurama.zxc@mail.ru') {
+    // if (user?.email === 'kurama.zxc@mail.ru') {
       return (
         <div className="container h-full">
           <div className="flex justify-center items-center h-full flex-col">
@@ -632,7 +632,7 @@ export const AgentsProfile = () => {
           </div>
         </div>
       )
-    }
+    // }
   }
 
   if ((user?.company && !user?.verified) && companyBid?.id && companyBid?.status !== 'payed') {
@@ -663,7 +663,7 @@ export const AgentsProfile = () => {
     return (
       <>
         <LoadingOverlay visible={paymentLoading || verifyLoading} />
-        {user?.email === 'kurama.zxc@mail.ru' && (
+        {/* {user?.email === 'kurama.zxc@mail.ru' && ( */}
           <div className="container h-full">
             <div className="flex justify-center items-center h-full flex-col">
               <div className="flex gap-4 items-end">
@@ -680,10 +680,10 @@ export const AgentsProfile = () => {
               </div>
             </div>
           </div>
-        )}
+        {/* // )} */}
 
         
-        {user?.email !== 'kurama.zxc@mail.ru' && (
+        {/* {user?.email !== 'kurama.zxc@mail.ru' && ( */}
           <div className="container h-full">
             <div className='flex justify-center items-center h-full flex-col'>
                 <div className='flex gap-4 items-end'>
@@ -721,7 +721,7 @@ export const AgentsProfile = () => {
               </div>
             </div>
           </div>
-        )}
+        {/* // )} */}
       </>
     )
   }

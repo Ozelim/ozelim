@@ -33,6 +33,7 @@ export const CompanySignup = () => {
       setLoading(true)
       await signupCompany(data)
       .then(async res => {
+        console.log('created succ')
         await pb.collection('agents').authWithPassword(data?.email, data?.password)
         .then(() => {
           navigate('/')
