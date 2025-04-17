@@ -2,12 +2,14 @@ import React from 'react'
 import { Button, PasswordInput, Select, TextInput } from '@mantine/core'
 import { Controller, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams, useNavigate } from 'react-router-dom'
 import { companySchema, signupCompany } from './model'
 import { regions } from 'shared/lib'
 import { pb } from 'shared/api'
 
 export const CompanySignup = () => {
+
+  const navigate = useNavigate()
 
   const [loading, setLoading] = React.useState(false)
 
