@@ -40,6 +40,9 @@ import { CompanyForm } from './company-form'
 import family  from 'shared/assets/images/pack-family.svg'
 import agent from 'shared/assets/images/pack-agent.svg'
 
+import company from 'shared/assets/images/company.svg'
+import companyPlus from 'shared/assets/images/company-plus.svg'
+
 const cache = createEmotionCache({
   key: 'profile-mantine',
   prepend: false,
@@ -127,7 +130,7 @@ const array = [
     description:
       'Предназначен для покупки туров и путевок в курортные зоны для целой орзанизации, экономьте на каждой поездке и получайте лучший сервис.',
     price: 600000,
-    image: 'https://pbs.twimg.com/media/GV4Rqt2XEAAQotY?format=jpg&name=4096x4096',
+    image: company,
     people: 20,
   },
   {
@@ -135,7 +138,7 @@ const array = [
     description:
       'Предназначен для покупки туров и путевок в курортные зоны для целой орзанизации, экономьте на каждой поездке и получайте лучший сервис.',
     price: 1500000,
-    image: 'https://pbs.twimg.com/media/GV4Rqt2XEAAQotY?format=jpg&name=4096x4096',
+    image: companyPlus,
     people: 60,
   },
 ]
