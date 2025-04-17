@@ -20,54 +20,50 @@ import dayjs from 'dayjs'
 import { formatNumber } from 'shared/lib'
 import { Withdraw } from 'shared/ui/AgentsWithdraw'
 
-
-async function getAgentBid (id) {
-  return (await pb.collection('agents_bids').getFullList({filter: `bid_id = '${id}'`}))?.[0]
+async function getAgentBid(id) {
+  return (await pb.collection('agents_bids').getFullList({ filter: `bid_id = '${id}'` }))?.[0]
 }
 
 const banks = [
-  "Народный банк Казахстана",
-  "Kaspi Bank",
-  "Банк ЦентрКредит",
-  "Forte Bank",
-  "Евразийский банк",
-  "First Heartland Jusan Bank",
-  "Bank RBK",
-  "Bereke Bank",
-  "Банк Фридом Финанс Казахстан",
-  "Ситибанк Казахстан",
-  "Home Credit Bank Kazakhstan",
-  "Нурбанк"
+  'Народный банк Казахстана',
+  'Kaspi Bank',
+  'Банк ЦентрКредит',
+  'Forte Bank',
+  'Евразийский банк',
+  'First Heartland Jusan Bank',
+  'Bank RBK',
+  'Bereke Bank',
+  'Банк Фридом Финанс Казахстан',
+  'Ситибанк Казахстан',
+  'Home Credit Bank Kazakhstan',
+  'Нурбанк',
 ]
 
-export const AgentsData = ({count, setCount, balance, bonuses}) => {
-
+export const AgentsData = ({ count, setCount, balance, bonuses }) => {
   const navigate = useNavigate()
 
-  const {kz} = useLangContext()
+  const { kz } = useLangContext()
 
-  const {user} = useAuth()
+  const { user } = useAuth()
 
   const company = user?.company
 
   const [bid, setBid] = React.useState({
-    status: 'waiting'
+    status: 'waiting',
   })
 
   React.useEffect(() => {
     if (user?.bid_id) {
-      getAgentBid(user?.bid_id)
-      .then(res => {
+      getAgentBid(user?.bid_id).then((res) => {
         setBid(res)
-        pb.collection('agents_bids').subscribe(res?.id, ({record}) => {
+        pb.collection('agents_bids').subscribe(res?.id, ({ record }) => {
           setBid(record)
         })
       })
-    } 
+    }
   }, [])
 
-
-  const {regions} = useUtils()
+  const { regions } = useUtils()
 
   const referal = `https://oz-elim.kz/login?signup=true&agent=${user?.id}`
 
@@ -98,7 +94,7 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
   const [answer, setAnswer] = React.useState('?')
   const equal = random1 + random2
 
-  React.useEffect(() => { 
+  React.useEffect(() => {
     if (count === 3) {
       open()
       setCount(0)
@@ -118,61 +114,62 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
     if (user) {
       setValues({
         ...user,
-        birthday: new Date(user.birthday)
+        birthday: new Date(user.birthday),
       })
     }
-    pb.collection('agents').subscribe(user?.id, function({action, record}) {
-      console.log(record, 'record');
+    pb.collection('agents').subscribe(user?.id, function ({ action, record }) {
+      console.log(record, 'record')
       setValues({
         ...record,
-        birthday: new Date(user.birthday)
+        birthday: new Date(user.birthday),
       })
     })
   }, [])
 
-  function handleValuesChange (e, name) {
+  function handleValuesChange(e, name) {
     if (e?.currentTarget) {
       const { name, value } = e?.currentTarget
-      setValues({...values, [name]: value})
+      setValues({ ...values, [name]: value })
       return
     }
-    setValues({...values, [name]: e})
+    setValues({ ...values, [name]: e })
   }
 
   async function saveUser() {
-    await pb.collection('agents').update(user?.id, {
-      ...values, 
-    })
-    .then((res) => {
-      console.log(res, 'res');
-    })
+    await pb
+      .collection('agents')
+      .update(user?.id, {
+        ...values,
+      })
+      .then((res) => {
+        console.log(res, 'res')
+      })
   }
 
   const [transfer, setTransfer] = React.useState({
     id: '',
-    sum: ''
+    sum: '',
   })
 
-  function handleTransferChange (e) {
+  function handleTransferChange(e) {
     const { value, name } = e.currentTarget
     setTransfer({ ...transfer, [name]: value })
   }
 
   const disabled =
     transfer?.id?.length > 10 &&
-    (Number(transfer?.sum) >= 100 &&
-    Number(transfer?.sum) <= user?.balance) &&
-    (answer == (random1 + random2)) && 
+    Number(transfer?.sum) >= 100 &&
+    Number(transfer?.sum) <= user?.balance &&
+    answer == random1 + random2 &&
     user?.id !== transfer?.id
 
   const [loading, setLoading] = React.useState(false)
 
   async function confirmTransfer() {
-
     setLoading(true)
 
     if (isNaN(transfer?.sum)) {
-      console.log('nan');
+      console.log('nan')
       setLoading(false)
       return
     }
@@ -186,66 +183,71 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
             balance: taker?.balance + Number(transfer?.sum),
           })
           .then(async (res) => {
-            await pb.collection('users').update(user?.id, {
-              balance: user?.balance - Number(transfer?.sum),
-            })
-            .then(async res => {
-              await pb
-                .collection('transfers')
-                .create({
-                  user: user?.id,
-                  taker: transfer?.id,
-                  sum: transfer?.sum
-                })
-                .then((res) => {
-                  showNotification({
-                    title: 'Уведомление',
-                    message: 'Перевод успешно совершен',
-                    color: 'green',
+            await pb
+              .collection('users')
+              .update(user?.id, {
+                balance: user?.balance - Number(transfer?.sum),
+              })
+              .then(async (res) => {
+                await pb
+                  .collection('transfers')
+                  .create({
+                    user: user?.id,
+                    taker: transfer?.id,
+                    sum: transfer?.sum,
                   })
-                  setLoading(false)
-                  console.log(res, 'res')
-                })
-            })
+                  .then((res) => {
+                    showNotification({
+                      title: 'Уведомление',
+                      message: 'Перевод успешно совершен',
+                      color: 'green',
+                    })
+                    setLoading(false)
+                    console.log(res, 'res')
+                  })
+              })
           })
         return
-      } 
-    } catch (err) { 
+      }
+    } catch (err) {
       setLoading(false)
-      console.log('invalid taker');
+      console.log('invalid taker')
     }
   }
 
-  async function checkPaymentStatus () {
-    
+  async function checkPaymentStatus() {
     const u = await pb.collection('agents').getOne(user.id)
     const token = import.meta.env.VITE_APP_SHARED_SECRET
     const string = `${u?.agents_pay?.ORDER};${u?.agents_pay?.MERCHANT}`
     const sign = sha512(token + string).toString()
     if (u?.agents_pay?.MERCHANT && u?.agents_pay?.ORDER) {
-      await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/check`, {
-        ORDER: u?.agents_pay?.ORDER,
-        MERCHANT: u?.agents_pay?.MERCHANT,
-        GETSTATUS: 1,
-        P_SIGN: sign,
-      })
-      .then(async res => {
-        console.log(res, 'res');
-        console.log(res?.data?.includes('Обработано успешно'), 'res');
-        if (res?.data?.includes('Обработано успешно')) {
+      await axios
+        .post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/check`, {
+          ORDER: u?.agents_pay?.ORDER,
+          MERCHANT: u?.agents_pay?.MERCHANT,
+          GETSTATUS: 1,
+          P_SIGN: sign,
+        })
+        .then(async (res) => {
+          console.log(res, 'res')
+          console.log(res?.data?.includes('Обработано успешно'), 'res')
+          if (res?.data?.includes('Обработано успешно')) {
+            const bid = (
+              await pb
+                .collection('agents_bids')
+                .getFullList({ filter: `bid_id = '${user?.bid_id}'` })
+            )?.[0]
 
-          const bid = (await pb.collection('agents_bids').getFullList({filter: `bid_id = '${user?.bid_id}'`}))?.[0] 
-
-          if (bid?.status === 'waiting') {
-            await pb.collection('agents_bids').update(bid?.id, {
-              status: 'paid'
-            })
+            if (bid?.status === 'waiting') {
+              await pb.collection('agents_bids').update(bid?.id, {
+                status: 'paid',
+              })
+            }
           }
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      })
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   }
 
@@ -260,16 +262,14 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
       centered: true,
       labels: { confirm: 'Да', cancel: 'Нет' },
       confirmProps: {
-        loading: loading
+        loading: loading,
       },
       onConfirm: () => confirmTransfer(),
-      children: (
-        <>Вы действительно хотите совершить перевод средств?</>
-      )
+      children: <>Вы действительно хотите совершить перевод средств?</>,
     })
   }
 
-  function signout () {
+  function signout() {
     pb.authStore.clear()
     window.location.reload()
   }
@@ -278,15 +278,18 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
     navigate('/profile-courses')
   }
 
-  const expireDate =  dayjs(new Date(user?.verified_date).getTime() + 31556926667).format('DD.MM.YYYY')
+  const expireDate = dayjs(new Date(user?.verified_date).getTime() + 31556926667).format(
+    'DD.MM.YYYY'
+  )
 
-  const showDate = (((new Date(user?.verified_date).getTime() + 31556926667) - 2592000) <= new Date().getTime())
+  const showDate =
+    new Date(user?.verified_date).getTime() + 31556926667 - 2592000 <= new Date().getTime()
 
   return (
     <>
       <div className="w-full">
         <div>
-          <AgentsAvatar/>
+          <AgentsAvatar />
           <TextInput
             label="ID"
             variant="filled"
@@ -295,21 +298,20 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
             readOnly
             rightSection={<CopyBtn value={values?.id} />}
           />
-          {!company && (
-            user?.agent ? (
-              <div className='text-center my-4'>
+          {!company &&
+            (user?.agent ? (
+              <div className="text-center my-4">
                 <Badge
                   size="xl"
-                  radius='md'
+                  radius="md"
                   variant="gradient"
-                  gradient={{from: 'teal.7', to: 'green.4'}}
-                  leftSection={<HiDocumentCheck size={20}/>}
+                  gradient={{ from: 'teal.7', to: 'green.4' }}
+                  leftSection={<HiDocumentCheck size={20} />}
                   fullWidth
                   aria-hidden={true}
-                  className='!cursor-pointer'
-
+                  className="!cursor-pointer"
                 >
-                  <a href="/user-1.pdf" target='_blank'>
+                  <a href="/user-1.pdf" target="_blank">
                     Агент по туризму
                   </a>
                 </Badge>
@@ -317,12 +319,7 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
             ) : (
               <>
                 {bid?.status === 'paid' && (
-                  <Button
-                    fullWidth
-                    mt={16}
-                    mb={10}
-                    aria-hidden={true}
-                  >
+                  <Button fullWidth mt={16} mb={10} aria-hidden={true}>
                     Заявка отправлена
                   </Button>
                 )}
@@ -332,7 +329,7 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
                     mt={16}
                     mb={10}
                     onClick={() => rModal_h.open()}
-                    color=''
+                    color=""
                     aria-hidden={true}
                   >
                     Отказано
@@ -351,14 +348,10 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
                   </Button>
                 )}
               </>
-            )
-          )}
+            ))}
           {showDate && (
-            <p className='text-sm text-slate-500'>
-            Срок активации заканчивается {expireDate}
-            </p>
+            <p className="text-sm text-slate-500">Срок активации заканчивается {expireDate}</p>
           )}
-          
 
           {!company && (
             <TextInput
@@ -372,7 +365,7 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
               }}
               description={!user?.agent ? 'Не активна' : 'Активна'}
               style={{
-                userSelect: !user?.agent ? 'none' : 'auto'
+                userSelect: !user?.agent ? 'none' : 'auto',
               }}
             />
           )}
@@ -386,98 +379,155 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
                 <p>{formatNumber(user?.bonuses)}</p>
               </div>
               <div className="space-y-2 mt-2">
-                <Withdraw balance={balance} bonuses={bonuses}/>
+                <Withdraw balance={balance} bonuses={bonuses} />
               </div>
             </div>
-            <div 
+            <div
               onClick={handleCourseClick}
-              className='rounded-lg cursor-pointer mt-2 border border-primary-500 p-4 flex flex-col justify-center items-center '
+              className="rounded-lg cursor-pointer mt-2 border border-primary-500 p-4 flex flex-col justify-center items-center "
             >
-              <img src={coursesImg} className='max-w-[150px] h-full' alt="" />
-              <p className='mt-2 text-lg font-head'>
-                Онлайн курсы
-              </p>
+              <img src={coursesImg} className="max-w-[150px] h-full" alt="" />
+              <p className="mt-2 text-lg font-head">Онлайн курсы</p>
             </div>
-            <TextInput
-              label={`ИИН`}
-              variant="filled"
-              defaultValue={values.iin ?? ''}
-              name="iin"
-              readOnly
-            />
-            <TextInput
-              label={kz ? `Тегі` : `ФИО`}
-              variant="filled"
-              defaultValue={values.fio ?? ''}
-              name="fio"
-              readOnly
-            />
-            <TextInput
-              label="Телефон"
-              variant="filled"
-              defaultValue={values.phone ?? ''}
-              name="phone"
-              readOnly
-            />
 
-            <TextInput
-              label={kz ? `Облыс` : `Область`}
-              data={regions}
-              variant="filled"
-              defaultValue={values.region ?? ''}
-              readOnly
-            />
-            <TextInput
-              label={`Населенный пункт`}
-              data={regions}
-              variant="filled"
-              defaultValue={values.village ?? ''}
-              readOnly
-            />
-            <TextInput
-              label="Почта"
-              variant="filled"
-              defaultValue={values?.email ?? ''}
-              name="email"
-              readOnly
-            />
-            <TextInput
-              label='IBAN счета'
-              value={values?.iban ?? ''}
-              name='iban'
-              onChange={handleValuesChange}
-              variant='filled'
-              maxLength="19" 
-            />
-            <Select
-              data={banks}
-              label='Название банка'
-              value={values?.bank}
-              onChange={(e) => setValues({...values, bank: e})}
-              variant='filled'
-            />
+            {user?.company && (
+              <>
+                <TextInput
+                  label={`БИН`}
+                  variant="filled"
+                  defaultValue={values.bin ?? ''}
+                  name="bin"
+                  readOnly
+                />
+                <TextInput
+                  label={kz ? `Наименование организации` : `Наименование организации`}
+                  variant="filled"
+                  defaultValue={values.name ?? ''}
+                  name="name"
+                  readOnly
+                />
+                <TextInput
+                  label={kz ? `Телефон` : `Телефон`}
+                  variant="filled"
+                  defaultValue={values.phone ?? ''}
+                  name="phone"
+                  readOnly
+                />
+
+                <TextInput
+                  label={kz ? `Облыс` : `Область`}
+                  data={regions}
+                  variant="filled"
+                  defaultValue={values.region ?? ''}
+                  readOnly
+                />
+                <TextInput
+                  label={`Населенный пункт`}
+                  data={regions}
+                  variant="filled"
+                  defaultValue={values.village ?? ''}
+                  readOnly
+                />
+                <TextInput
+                  label="Почта"
+                  variant="filled"
+                  defaultValue={values?.email ?? ''}
+                  name="email"
+                  readOnly
+                />
+                <TextInput
+                  label="IBAN счета"
+                  value={values?.iban ?? ''}
+                  name="iban"
+                  onChange={handleValuesChange}
+                  variant="filled"
+                  maxLength="19"
+                />
+                <Select
+                  data={banks}
+                  label="Название банка"
+                  value={values?.bank}
+                  onChange={(e) => setValues({ ...values, bank: e })}
+                  variant="filled"
+                />
+              </>
+            )}
+
+            {!user?.company && (
+              <>
+                <TextInput
+                  label={`ИИН`}
+                  variant="filled"
+                  defaultValue={values.iin ?? ''}
+                  name="iin"
+                  readOnly
+                />
+                <TextInput
+                  label={kz ? `Тегі` : `ФИО`}
+                  variant="filled"
+                  defaultValue={values.fio ?? ''}
+                  name="fio"
+                  readOnly
+                />
+                <TextInput
+                  label="Телефон"
+                  variant="filled"
+                  defaultValue={values.phone ?? ''}
+                  name="phone"
+                  readOnly
+                />
+
+                <TextInput
+                  label={kz ? `Облыс` : `Область`}
+                  data={regions}
+                  variant="filled"
+                  defaultValue={values.region ?? ''}
+                  readOnly
+                />
+                <TextInput
+                  label={`Населенный пункт`}
+                  data={regions}
+                  variant="filled"
+                  defaultValue={values.village ?? ''}
+                  readOnly
+                />
+                <TextInput
+                  label="Почта"
+                  variant="filled"
+                  defaultValue={values?.email ?? ''}
+                  name="email"
+                  readOnly
+                />
+                <TextInput
+                  label="IBAN счета"
+                  value={values?.iban ?? ''}
+                  name="iban"
+                  onChange={handleValuesChange}
+                  variant="filled"
+                  maxLength="19"
+                />
+                <Select
+                  data={banks}
+                  label="Название банка"
+                  value={values?.bank}
+                  onChange={(e) => setValues({ ...values, bank: e })}
+                  variant="filled"
+                />
+              </>
+            )}
           </div>
           <div className="mt-4 flex justify-between items-center">
             <Button compact variant="outline" color="red" onClick={signout}>
               {kz ? 'Шығу' : 'Выйти'}
             </Button>
-            <Button onClick={saveUser} >
-              {kz ? 'Сақтау' : 'Сохранить'}
-            </Button>
+            <Button onClick={saveUser}>{kz ? 'Сақтау' : 'Сохранить'}</Button>
           </div>
-
         </div>
       </div>
-      <Modal 
-        opened={loading}   
-        onClose={() => setLoading(false)}
-        centered
-      >
-        <div className='flex flex-col justify-center h-24 items-center'>
-          <Loader size='lg'/>
-          <p className='mt-4'>
-            {kz ? `Сұранысты өңдеуде...`: `Обработка запроса...`}
-          </p>
+      <Modal opened={loading} onClose={() => setLoading(false)} centered>
+        <div className="flex flex-col justify-center h-24 items-center">
+          <Loader size="lg" />
+          <p className="mt-4">{kz ? `Сұранысты өңдеуде...` : `Обработка запроса...`}</p>
         </div>
       </Modal>
       <Modal
@@ -485,132 +535,132 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
         onClose={() => agentM_h.close()}
         withCloseButton={false}
         centered
-        size='50%'
+        size="50%"
       >
-        <iframe src={market} width='100%' height={700} />
+        <iframe src={market} width="100%" height={700} />
       </Modal>
       <Modal
         opened={opened1}
         onClose={() => handlers.close()}
         centered
-        title='Агент по туризму'
-        size='90%'
+        title="Агент по туризму"
+        size="90%"
       >
-        <div className='!hidden lg:!block' >
-          <iframe src={agreement} width='100%' height={700} />
+        <div className="!hidden lg:!block">
+          <iframe src={agreement} width="100%" height={700} />
         </div>
-      <p className='!block lg:!hidden'>Для подачи заявки на становление агентом, пожалуйста ознакомтесь с агентским договором. <a href="/agent-agreement.pdf" className='underline text-primary-400' target='_blank'>Ознакомиться</a></p>
-      
-      <Checkbox
-        label='Ознакомлен(а)'
-        checked={check}
-        onChange={e => setCheck(e.currentTarget.checked)}
-        className='mt-4'
-      />
-      <div className='mt-4 flex justify-center items-center'>
-        <Button 
-          disabled={!check} 
-          onClick={() => {
-            handlers.close()
-            handlers2.open()
-          }}
-        >
-          Далее
-        </Button>
-      </div>
-      </Modal>
-
-      <Modal
-        opened={rModal}
-        centered
-        onClose={() => rModal_h.close()}
-        title='Агент по туризму'
-      >
-        <p className='text-center text-gray-500'>Причина отказа:</p>
-        <p className='text-center'>
-          {bid?.comment}
+        <p className="!block lg:!hidden">
+          Для подачи заявки на становление агентом, пожалуйста ознакомтесь с агентским договором.{' '}
+          <a href="/agent-agreement.pdf" className="underline text-primary-400" target="_blank">
+            Ознакомиться
+          </a>
         </p>
 
+        <Checkbox
+          label="Ознакомлен(а)"
+          checked={check}
+          onChange={(e) => setCheck(e.currentTarget.checked)}
+          className="mt-4"
+        />
+        <div className="mt-4 flex justify-center items-center">
+          <Button
+            disabled={!check}
+            onClick={() => {
+              handlers.close()
+              handlers2.open()
+            }}
+          >
+            Далее
+          </Button>
+        </div>
+      </Modal>
+
+      <Modal opened={rModal} centered onClose={() => rModal_h.close()} title="Агент по туризму">
+        <p className="text-center text-gray-500">Причина отказа:</p>
+        <p className="text-center">{bid?.comment}</p>
+
         <TextInput
-          label='ФИО'
+          label="ФИО"
           value={d?.fio}
-          onChange={e => setD({...d, fio: e?.currentTarget?.value})}
-          variant='filled'
+          onChange={(e) => setD({ ...d, fio: e?.currentTarget?.value })}
+          variant="filled"
         />
         <TextInput
-          label='ИИН'
+          label="ИИН"
           value={d?.iin}
-          onChange={e => setD({...d, iin: e?.currentTarget?.value})}
-          variant='filled'
+          onChange={(e) => setD({ ...d, iin: e?.currentTarget?.value })}
+          variant="filled"
         />
         <TextInput
-          label='Номер телефона'
+          label="Номер телефона"
           value={d?.phone}
-          onChange={e => setD({...d, phone: e?.currentTarget?.value})}
-          variant='filled'
-          description='Укажите ваш номер из БМГ (База мобильных граждан)'
+          onChange={(e) => setD({ ...d, phone: e?.currentTarget?.value })}
+          variant="filled"
+          description="Укажите ваш номер из БМГ (База мобильных граждан)"
         />
 
-        <div className='flex justify-center mt-4'>
+        <div className="flex justify-center mt-4">
           <Button
             loading={rModalLoading}
             onClick={async () => {
               rModalLoading_h.open()
-              await pb.collection('agents_bids').update(bid?.id, {
-                data: d,
-                status: 'paid'
-              })
-              .then(() => {
-                rModalLoading_h.close()
-                rModal_h.close()
-                showNotification({
-                  title: 'Агент по туризму',
-                  message: 'Заявка отправлена',
-                  color: 'green'
+              await pb
+                .collection('agents_bids')
+                .update(bid?.id, {
+                  data: d,
+                  status: 'paid',
                 })
-              })
-              .finally(() => {
-                rModalLoading_h.close()
-              })
+                .then(() => {
+                  rModalLoading_h.close()
+                  rModal_h.close()
+                  showNotification({
+                    title: 'Агент по туризму',
+                    message: 'Заявка отправлена',
+                    color: 'green',
+                  })
+                })
+                .finally(() => {
+                  rModalLoading_h.close()
+                })
             }}
           >
             Отправить заявку
           </Button>
         </div>
       </Modal>
-      
-      <Modal 
+
+      <Modal
         opened={opened2}
         onClose={() => {
           handlers2.close()
           handlers.open()
         }}
         centered
-        title='Агент по туризму'
+        title="Агент по туризму"
       >
         <TextInput
-          label='ФИО'
+          label="ФИО"
           value={d?.fio}
-          onChange={e => setD({...d, fio: e?.currentTarget?.value})}
-          variant='filled'
+          onChange={(e) => setD({ ...d, fio: e?.currentTarget?.value })}
+          variant="filled"
         />
         <TextInput
-          label='ИИН'
+          label="ИИН"
           value={d?.iin}
-          onChange={e => setD({...d, iin: e?.currentTarget?.value})}
-          variant='filled'
+          onChange={(e) => setD({ ...d, iin: e?.currentTarget?.value })}
+          variant="filled"
         />
         <TextInput
-          label='Номер телефона'
+          label="Номер телефона"
           value={d?.phone}
-          onChange={e => setD({...d, phone: e?.currentTarget?.value})}
-          variant='filled'
-          description='Укажите ваш номер из БМГ (База мобильных граждан)'
+          onChange={(e) => setD({ ...d, phone: e?.currentTarget?.value })}
+          variant="filled"
+          description="Укажите ваш номер из БМГ (База мобильных граждан)"
         />
-        <p className='text-sm mt-3 text-gray-500'>
-          Сумма: <span className='text-black'>15 000</span> тг
+        <p className="text-sm mt-3 text-gray-500">
+          Сумма: <span className="text-black">15 000</span> тг
         </p>
-        <div className='flex justify-center mt-4'>
+        <div className="flex justify-center mt-4">
           <Button
             loading={paymentLoading}
             onClick={async (e) => {
@@ -619,13 +669,13 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
                 e.preventDefault()
                 const randomNumber = Math.floor(Math.random() * 100000000)
                 const token = import.meta.env.VITE_APP_SHARED_SECRET
-          
+
                 const data = {
                   ORDER: randomNumber,
                   AMOUNT: user?.email === `spinner_g@mail.ru` ? 5 : 15000,
                   // AMOUNT: 30000,
                   CURRENCY: 'KZT',
-                  MERCHANT:'110-R-113431490',
+                  MERCHANT: '110-R-113431490',
                   TERMINAL: '11371491',
                   NONCE: randomNumber + 107,
                   DESC: 'Агент по туризму',
@@ -636,60 +686,62 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
                   Ucaf_Flag: '',
                   Ucaf_Authentication_Data: '',
                 }
-          
+
                 const dataString = `${data?.ORDER};${data?.AMOUNT};${data?.CURRENCY};${data?.MERCHANT};${data?.TERMINAL};${data?.NONCE};${data?.CLIENT_ID};${data?.DESC};${data?.DESC_ORDER};${data?.EMAIL};${data?.BACKREF};${data?.Ucaf_Flag};${data?.Ucaf_Authentication_Data};`
-                
+
                 const all = token + dataString
                 const sign = sha512(all).toString()
-          
-                await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/pay`, {
-                  ...data,
-                  P_SIGN: sign
-                })
-                .then(async res => {
-                  const searchParams = new URLSearchParams(JSON.parse(res?.config?.data));
 
-                  const bids = await pb.collection('agents_bids').getFullList({fields: `inc`})
-
-                  const num = crypto.randomUUID()
-
-                  await pb.collection('agents_bids').create({
-                    inc: bids?.length + 1,
-                    agent_pay: {
-                      ...JSON.parse(res?.config?.data),
-                      SHARED_KEY: token,
-                    },
-                    status: 'waiting',
-                    agent: user?.id,
-                    ...d,
-                    data: d,
-                    bid_id: num
+                await axios
+                  .post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/pay`, {
+                    ...data,
+                    P_SIGN: sign,
                   })
-                  await pb.collection('agents').update(user?.id, {
-                    agents_pay: {
-                      ...JSON.parse(res?.config?.data),
-                      SHARED_KEY: token,
-                    },
-                    bid_id: num
-                  })
-                  .then(() => {
-                    handlers3.close()
-                    handlers2.close()
-                    showNotification({
-                      title: 'Агент по туризму',
-                      message: 'Переходим к оплате',
-                      color: 'green'
+                  .then(async (res) => {
+                    const searchParams = new URLSearchParams(JSON.parse(res?.config?.data))
+
+                    const bids = await pb.collection('agents_bids').getFullList({ fields: `inc` })
+
+                    const num = crypto.randomUUID()
+
+                    await pb.collection('agents_bids').create({
+                      inc: bids?.length + 1,
+                      agent_pay: {
+                        ...JSON.parse(res?.config?.data),
+                        SHARED_KEY: token,
+                      },
+                      status: 'waiting',
+                      agent: user?.id,
+                      ...d,
+                      data: d,
+                      bid_id: num,
                     })
-                    window.location.href = `https://jpay.jysanbank.kz/ecom/api?${searchParams}`;
+                    await pb
+                      .collection('agents')
+                      .update(user?.id, {
+                        agents_pay: {
+                          ...JSON.parse(res?.config?.data),
+                          SHARED_KEY: token,
+                        },
+                        bid_id: num,
+                      })
+                      .then(() => {
+                        handlers3.close()
+                        handlers2.close()
+                        showNotification({
+                          title: 'Агент по туризму',
+                          message: 'Переходим к оплате',
+                          color: 'green',
+                        })
+                        window.location.href = `https://jpay.jysanbank.kz/ecom/api?${searchParams}`
+                      })
                   })
-                })
-                .finally(() => {
-                  handlers3.close()
-                })
-          
+                  .finally(() => {
+                    handlers3.close()
+                  })
               } catch (err) {
                 handlers3.close()
-                console.log(err, 'err');
+                console.log(err, 'err')
               }
             }}
           >
@@ -715,12 +767,7 @@ export const AgentsData = ({count, setCount, balance, bonuses}) => {
             value={transfer?.sum}
             onChange={handleTransferChange}
           />
-          <Capthca
-            random1={random1}
-            random2={random2}
-            answer={answer}
-            setAnswer={setAnswer}
-          />
+          <Capthca random1={random1} random2={random2} answer={answer} setAnswer={setAnswer} />
           <Button
             // onClick={}
             disabled={!disabled}

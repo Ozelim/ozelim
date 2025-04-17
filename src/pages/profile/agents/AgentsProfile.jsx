@@ -767,342 +767,340 @@ export const AgentsProfile = () => {
                 <div className="mt-1">
                   <AgentsData count={count} setCount={setCount} balance={balance} bonuses={bonuses} />
                 </div>
-                {!user?.company && (
-                  <div className="relative overflow-hidden">
-                    {!user?.agent && (
-                      <>
-                        <div className="!inline-block lg:!hidden">
-                          <Button component={'a'} href="/agent.pdf" target="_blank" aria-hidden>
-                            Вознаграждения
-                          </Button>
-                        </div>
-                        <div className="!hidden lg:!inline-block">
-                          <Button onClick={() => setShitModal(true)} aria-hidden>
-                            Вознаграждения
-                          </Button>
-                        </div>
-                      </>
-                    )}
-    
-                    {user?.agent && <AgentsList setCount={setCount} />}
-                    <div className="overflow-auto">
-                      {user?.agent && (
-                        <div className="relative mt-20">
-                          <LoadingOverlay visible={agentLoading} />
-                          <div className="grid grid-cols-[10%_auto_10%] items-end">
-                            <Button
-                              onClick={async () => {
-                                setCurrentAgent(user)
-                              }}
-                              variant="light"
-                            >
-                              <MdKeyboardArrowLeft size={30} />
-                            </Button>
-    
-                            <div className="flex mt-2 mx-auto w-fit max-[208px]">
-                              <Avatar
-                                src={currentAgent?.avatar}
-                                className="aspect-square !w-16 !h-16 mx-auto"
-                                radius="xl"
-                                record={currentAgent}
-                              />
-                              <div className="flex flex-col justify-center ml-2">
-                                <p className="text-lg font-head">{currentAgent?.fio}</p>
-                                <p className="mt-1 text">
-                                  {dayjs(currentAgent?.created).format('DD.MM.YYYY')}
-                                </p>
-                              </div>
-                            </div>
-                            <div></div>
-                          </div>
-    
-                          <p className="mt-4">
-                            Пользователей: {currentAgent?.expand?.creeps?.length ?? 0}
-                          </p>
-    
-                          <div className="flex border p-4 space-x-8 overflow-x-scroll">
-                            {currentAgent?.expand?.creeps?.length == 0 ||
-                            !currentAgent?.expand?.creeps?.length ? (
-                              <p className="text-center">Не найдено пользователей</p>
-                            ) : (
-                              <>
-                                {currentAgent?.expand?.creeps?.map((q) => {
-                                  return (
-                                    <div
-                                      className="flex cursor-pointer items-center"
-                                      onClick={async () => {
-                                        handlers.open()
-                                        await pb
-                                          .collection('agents')
-                                          .getOne(q?.id, { expand: 'creeps' })
-                                          .then((res) => {
-                                            setCurrentAgent(res)
-                                          })
-                                          .finally(() => {
-                                            handlers.close()
-                                          })
-                                      }}
-                                      key={q?.id}
-                                    >
-                                      <div className="relative">
-                                        <Avatar
-                                          src={q?.avatar}
-                                          className={'aspect-square !w-14 !h-14 mx-auto z-20'}
-                                          radius="xl"
-                                          record={q}
-                                        />
-                                      </div>
-                                      <div className="flex flex-col justify-center ml-2">
-                                        <p
-                                          className={clsx(
-                                            'text-lg font-head w-fit max-[208px] overflow-hidden',
-                                            {}
-                                          )}
-                                        >
-                                          {q?.fio}
-                                        </p>
-                                        <p className="mt-1 text">
-                                          {dayjs(q?.created).format('DD.MM.YYYY')}
-                                        </p>
-                                      </div>
-                                    </div>
-                                  )
-                                })}
-                              </>
-                            )}
-                          </div>
-                        </div>
-                      )}
-                      <div className="mt-6">
-                        <Quiz />
+                <div className="relative overflow-hidden">
+                  {!user?.company && !user?.agent && (
+                    <>
+                      <div className="!inline-block lg:!hidden">
+                        <Button component={'a'} href="/agent.pdf" target="_blank" aria-hidden>
+                          Вознаграждения
+                        </Button>
                       </div>
-                      {withdraws?.length !== 0 && (
-                        <div className="mt-12 overflow-scroll">
-                          <h2 className="text-center text-xl font-head">Выводы</h2>
-                          <Table className="border mt-4">
-                            <thead>
-                              <tr>
-                                <th>Дата</th>
-                                <th>Сумма</th>
-                                <th>Карта</th>
-                                <th>Владелец карты</th>
-                                <th>Статус</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {withdraws?.map((withdraw, i) => {
-                                return (
-                                  <tr key={i} className="text">
-                                    <td className="whitespace-nowrap">
-                                      {dayjs(withdraw?.created).format('YY-MM-DD, HH:mm')}
-                                    </td>
-                                    <td>{formatNumber(withdraw?.sum)}</td>
-                                    <td>{withdraw?.card}</td>
-                                    <td>
-                                      {withdraw?.owner ?? withdraw?.agent
-                                        ? withdraw?.agent
-                                        : withdraw?.user}
-                                    </td>
-                                    <td>
-                                      {withdraw?.status === 'created' && 'В обработке'}
-                                      {withdraw?.status === 'paid' && 'Завершено'}
-                                      {withdraw?.status === 'rejected' && 'Отклонено'}
-                                    </td>
-                                  </tr>
-                                )
-                              })}
-                            </tbody>
-                          </Table>
+                      <div className="!hidden lg:!inline-block">
+                        <Button onClick={() => setShitModal(true)} aria-hidden>
+                          Вознаграждения
+                        </Button>
+                      </div>
+                    </>
+                  )}
+  
+                  {user?.agent && <AgentsList setCount={setCount} />}
+                  <div className="overflow-auto">
+                    {user?.agent && (
+                      <div className="relative mt-20">
+                        <LoadingOverlay visible={agentLoading} />
+                        <div className="grid grid-cols-[10%_auto_10%] items-end">
+                          <Button
+                            onClick={async () => {
+                              setCurrentAgent(user)
+                            }}
+                            variant="light"
+                          >
+                            <MdKeyboardArrowLeft size={30} />
+                          </Button>
+  
+                          <div className="flex mt-2 mx-auto w-fit max-[208px]">
+                            <Avatar
+                              src={currentAgent?.avatar}
+                              className="aspect-square !w-16 !h-16 mx-auto"
+                              radius="xl"
+                              record={currentAgent}
+                            />
+                            <div className="flex flex-col justify-center ml-2">
+                              <p className="text-lg font-head">{currentAgent?.fio}</p>
+                              <p className="mt-1 text">
+                                {dayjs(currentAgent?.created).format('DD.MM.YYYY')}
+                              </p>
+                            </div>
+                          </div>
+                          <div></div>
                         </div>
-                      )}
-                      {transfers?.length !== 0 && (
-                        <div className="mt-12 overflow-scroll">
-                          <h2 className="text-center text-xl font-head">Переводы</h2>
-                          <Table className="border mt-4">
-                            <thead>
-                              <tr>
-                                <th>Дата</th>
-                                <th>Сумма</th>
-                                <th>Отправитель</th>
-                                <th>Получатель</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {transfers?.map((transfer, i) => {
+  
+                        <p className="mt-4">
+                          Пользователей: {currentAgent?.expand?.creeps?.length ?? 0}
+                        </p>
+  
+                        <div className="flex border p-4 space-x-8 overflow-x-scroll">
+                          {currentAgent?.expand?.creeps?.length == 0 ||
+                          !currentAgent?.expand?.creeps?.length ? (
+                            <p className="text-center">Не найдено пользователей</p>
+                          ) : (
+                            <>
+                              {currentAgent?.expand?.creeps?.map((q) => {
                                 return (
-                                  <tr key={i} className="text">
-                                    <td className="whitespace-nowrap">
-                                      {dayjs(transfer?.created).format('YY-MM-DD, HH:mm')}
-                                    </td>
-                                    <td>{formatNumber(transfer?.sum)}</td>
-                                    <td>{transfer?.user}</td>
-                                    <td>{transfer?.taker}</td>
-                                  </tr>
-                                )
-                              })}
-                            </tbody>
-                          </Table>
-                        </div>
-                      )}
-                      {bids?.length !== 0 && (
-                        <div className="mt-12 overflow-scroll">
-                          <h2 className="text-center text-xl font-head">Услуги</h2>
-                          <Table className="border mt-4">
-                            <thead>
-                              <tr>
-                                <th>ФИО</th>
-                                <th>Стоимость</th>
-                                <th>Услуги</th>
-                                <th>Статус</th>
-                                <th></th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {bids?.map((q, i) => {
-                                return (
-                                  <tr key={i}>
-                                    <td>{q.name}</td>
-                                    <td>{q.total_cost} тг</td>
-                                    <td>
-                                      <Button
-                                        variant="outline"
-                                        compact
-                                        onClick={() =>
-                                          setViewModal({ modal: true, services: q?.serv1ce })
-                                        }
+                                  <div
+                                    className="flex cursor-pointer items-center"
+                                    onClick={async () => {
+                                      handlers.open()
+                                      await pb
+                                        .collection('agents')
+                                        .getOne(q?.id, { expand: 'creeps' })
+                                        .then((res) => {
+                                          setCurrentAgent(res)
+                                        })
+                                        .finally(() => {
+                                          handlers.close()
+                                        })
+                                    }}
+                                    key={q?.id}
+                                  >
+                                    <div className="relative">
+                                      <Avatar
+                                        src={q?.avatar}
+                                        className={'aspect-square !w-14 !h-14 mx-auto z-20'}
+                                        radius="xl"
+                                        record={q}
+                                      />
+                                    </div>
+                                    <div className="flex flex-col justify-center ml-2">
+                                      <p
+                                        className={clsx(
+                                          'text-lg font-head w-fit max-[208px] overflow-hidden',
+                                          {}
+                                        )}
                                       >
-                                        Услуги
-                                      </Button>
-                                    </td>
-                                    <td>
-                                      {(q.status === 'cancelled' || q.status === 'refunded') &&
-                                        `Отменена`}
-                                      {q.status === 'rejected' && `Отклонена`}
-                                      {q.status === 'created' && `Приобретена`}
-                                      {q.status === 'succ' && `Одобрена`}
-                                    </td>
-                                    <td>
-                                      <div className="cursor-pointer">
-                                        {q?.status === 'created' && !q?.pay && !q?.bonuses && (
-                                          <FaCircleXmark
-                                            color="gray"
-                                            size={20}
-                                            onClick={() => confirmRefundBalance(q)}
-                                          />
-                                        )}
-                                        {q?.status === 'created' && q?.pay && !q?.bonuses && (
-                                          <FaCircleXmark
-                                            color="gray"
-                                            size={20}
-                                            onClick={() => setCancel({ bid: q, modal: true })}
-                                          />
-                                        )}
-                                        {q?.status === 'created' && !q?.pay && q?.bonuses && (
-                                          <FaCircleXmark
-                                            color="gray"
-                                            size={20}
-                                            onClick={() => confirmRefundBonuses(q)}
-                                          />
-                                        )}
-                                        {q?.status === 'waiting' && (
-                                          <FaCircleXmark
-                                            color="gray"
-                                            size={20}
-                                            onClick={() => setCancel({ bid: q, modal: true })}
-                                          />
-                                        )}
-                                      </div>
-                                    </td>
-                                  </tr>
+                                        {q?.fio}
+                                      </p>
+                                      <p className="mt-1 text">
+                                        {dayjs(q?.created).format('DD.MM.YYYY')}
+                                      </p>
+                                    </div>
+                                  </div>
                                 )
                               })}
-                            </tbody>
-                          </Table>
+                            </>
+                          )}
                         </div>
-                      )}
-    
-                      <ScrollArea maw={'100%'}>
-                        <div className="mt-12 overflow-scroll">
-                          <h2 className="text-center text-xl font-head">История</h2>
-                          <Table className="border mt-4">
-                            <thead>
-                              <tr>
-                                <th>Дата</th>
-                                <th>Тип</th>
-                                <th>ID</th>
-                                <th>Сумма</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {bonuses?.referals?.map((q, i) => {
-                                return (
-                                  <tr key={i} className="text">
-                                    <td className="whitespace-nowrap">
-                                      {dayjs(q?.created).format('DD.MM.YYYY, HH:mm')}
-                                    </td>
-                                    <td className="text-black">Реферал</td>
-                                    <td>{q?.referal}</td>
-                                    <td className="text-green-500">+ {formatNumber(q?.sum)}</td>
-                                  </tr>
-                                )
-                              })}
-                              {bonuses?.bonuses
-                                ?.sort((q, w) => q?.created < w?.created)
-                                ?.map((q, i) => {
-                                  return (
-                                    <tr key={i} className="text">
-                                      <td className="whitespace-nowrap">
-                                        {dayjs(q?.created).format('DD.MM.YYYY, HH:mm')}
-                                      </td>
-                                      <td className="text-black">Бонус</td>
-                                      <td>-</td>
-                                      <td className="text-green-500">+ {formatNumber(q?.sum)}</td>
-                                    </tr>
-                                  )
-                                })}
-                              {bonuses?.replenish?.map((q, i) => {
-                                return (
-                                  <tr key={i} className="text">
-                                    <td className="whitespace-nowrap">
-                                      {dayjs(q?.created).format('DD.MM.YYYY, HH:mm')}
-                                    </td>
-                                    <td className="text-black">Пополнение</td>
-                                    <td>-</td>
-                                    <td className="text-green-500">+ {formatNumber(q?.sum)}</td>
-                                  </tr>
-                                )
-                              })}
-                              {bonuses?.withdraws?.map((q, i) => {
-                                return (
-                                  <tr key={i} className="text">
-                                    <td className="whitespace-nowrap">
-                                      {dayjs(q?.created).format('DD.MM.YYYY, HH:mm')}
-                                    </td>
-                                    <td className="text-black">Вывод</td>
-                                    <td>-</td>
-                                    <td className="text-red-500">- {formatNumber(q?.sum)}</td>
-                                  </tr>
-                                )
-                              })}
-                              {bonuses?.services?.map((q, i) => {
-                                return (
-                                  <tr key={i} className="text">
-                                    <td className="whitespace-nowrap">
-                                      {dayjs(q?.created).format('DD.MM.YYYY, HH:mm')}
-                                    </td>
-                                    <td className="text-black">Услуга</td>
-                                    <td>-</td>
-                                    <td className="text-red-500">- {formatNumber(q?.sum)}</td>
-                                  </tr>
-                                )
-                              })}
-                            </tbody>
-                          </Table>
-                        </div>
-                      </ScrollArea>
+                      </div>
+                    )}
+                    <div className="mt-6">
+                      <Quiz />
                     </div>
+                    {withdraws?.length !== 0 && (
+                      <div className="mt-12 overflow-scroll">
+                        <h2 className="text-center text-xl font-head">Выводы</h2>
+                        <Table className="border mt-4">
+                          <thead>
+                            <tr>
+                              <th>Дата</th>
+                              <th>Сумма</th>
+                              <th>Карта</th>
+                              <th>Владелец карты</th>
+                              <th>Статус</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {withdraws?.map((withdraw, i) => {
+                              return (
+                                <tr key={i} className="text">
+                                  <td className="whitespace-nowrap">
+                                    {dayjs(withdraw?.created).format('YY-MM-DD, HH:mm')}
+                                  </td>
+                                  <td>{formatNumber(withdraw?.sum)}</td>
+                                  <td>{withdraw?.card}</td>
+                                  <td>
+                                    {withdraw?.owner ?? withdraw?.agent
+                                      ? withdraw?.agent
+                                      : withdraw?.user}
+                                  </td>
+                                  <td>
+                                    {withdraw?.status === 'created' && 'В обработке'}
+                                    {withdraw?.status === 'paid' && 'Завершено'}
+                                    {withdraw?.status === 'rejected' && 'Отклонено'}
+                                  </td>
+                                </tr>
+                              )
+                            })}
+                          </tbody>
+                        </Table>
+                      </div>
+                    )}
+                    {transfers?.length !== 0 && (
+                      <div className="mt-12 overflow-scroll">
+                        <h2 className="text-center text-xl font-head">Переводы</h2>
+                        <Table className="border mt-4">
+                          <thead>
+                            <tr>
+                              <th>Дата</th>
+                              <th>Сумма</th>
+                              <th>Отправитель</th>
+                              <th>Получатель</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {transfers?.map((transfer, i) => {
+                              return (
+                                <tr key={i} className="text">
+                                  <td className="whitespace-nowrap">
+                                    {dayjs(transfer?.created).format('YY-MM-DD, HH:mm')}
+                                  </td>
+                                  <td>{formatNumber(transfer?.sum)}</td>
+                                  <td>{transfer?.user}</td>
+                                  <td>{transfer?.taker}</td>
+                                </tr>
+                              )
+                            })}
+                          </tbody>
+                        </Table>
+                      </div>
+                    )}
+                    {bids?.length !== 0 && (
+                      <div className="mt-12 overflow-scroll">
+                        <h2 className="text-center text-xl font-head">Услуги</h2>
+                        <Table className="border mt-4">
+                          <thead>
+                            <tr>
+                              <th>ФИО</th>
+                              <th>Стоимость</th>
+                              <th>Услуги</th>
+                              <th>Статус</th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {bids?.map((q, i) => {
+                              return (
+                                <tr key={i}>
+                                  <td>{q.name}</td>
+                                  <td>{q.total_cost} тг</td>
+                                  <td>
+                                    <Button
+                                      variant="outline"
+                                      compact
+                                      onClick={() =>
+                                        setViewModal({ modal: true, services: q?.serv1ce })
+                                      }
+                                    >
+                                      Услуги
+                                    </Button>
+                                  </td>
+                                  <td>
+                                    {(q.status === 'cancelled' || q.status === 'refunded') &&
+                                      `Отменена`}
+                                    {q.status === 'rejected' && `Отклонена`}
+                                    {q.status === 'created' && `Приобретена`}
+                                    {q.status === 'succ' && `Одобрена`}
+                                  </td>
+                                  <td>
+                                    <div className="cursor-pointer">
+                                      {q?.status === 'created' && !q?.pay && !q?.bonuses && (
+                                        <FaCircleXmark
+                                          color="gray"
+                                          size={20}
+                                          onClick={() => confirmRefundBalance(q)}
+                                        />
+                                      )}
+                                      {q?.status === 'created' && q?.pay && !q?.bonuses && (
+                                        <FaCircleXmark
+                                          color="gray"
+                                          size={20}
+                                          onClick={() => setCancel({ bid: q, modal: true })}
+                                        />
+                                      )}
+                                      {q?.status === 'created' && !q?.pay && q?.bonuses && (
+                                        <FaCircleXmark
+                                          color="gray"
+                                          size={20}
+                                          onClick={() => confirmRefundBonuses(q)}
+                                        />
+                                      )}
+                                      {q?.status === 'waiting' && (
+                                        <FaCircleXmark
+                                          color="gray"
+                                          size={20}
+                                          onClick={() => setCancel({ bid: q, modal: true })}
+                                        />
+                                      )}
+                                    </div>
+                                  </td>
+                                </tr>
+                              )
+                            })}
+                          </tbody>
+                        </Table>
+                      </div>
+                    )}
+  
+                    <ScrollArea maw={'100%'}>
+                      <div className="mt-12 overflow-scroll">
+                        <h2 className="text-center text-xl font-head">История</h2>
+                        <Table className="border mt-4">
+                          <thead>
+                            <tr>
+                              <th>Дата</th>
+                              <th>Тип</th>
+                              <th>ID</th>
+                              <th>Сумма</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {bonuses?.referals?.map((q, i) => {
+                              return (
+                                <tr key={i} className="text">
+                                  <td className="whitespace-nowrap">
+                                    {dayjs(q?.created).format('DD.MM.YYYY, HH:mm')}
+                                  </td>
+                                  <td className="text-black">Реферал</td>
+                                  <td>{q?.referal}</td>
+                                  <td className="text-green-500">+ {formatNumber(q?.sum)}</td>
+                                </tr>
+                              )
+                            })}
+                            {bonuses?.bonuses
+                              ?.sort((q, w) => q?.created < w?.created)
+                              ?.map((q, i) => {
+                                return (
+                                  <tr key={i} className="text">
+                                    <td className="whitespace-nowrap">
+                                      {dayjs(q?.created).format('DD.MM.YYYY, HH:mm')}
+                                    </td>
+                                    <td className="text-black">Бонус</td>
+                                    <td>-</td>
+                                    <td className="text-green-500">+ {formatNumber(q?.sum)}</td>
+                                  </tr>
+                                )
+                              })}
+                            {bonuses?.replenish?.map((q, i) => {
+                              return (
+                                <tr key={i} className="text">
+                                  <td className="whitespace-nowrap">
+                                    {dayjs(q?.created).format('DD.MM.YYYY, HH:mm')}
+                                  </td>
+                                  <td className="text-black">Пополнение</td>
+                                  <td>-</td>
+                                  <td className="text-green-500">+ {formatNumber(q?.sum)}</td>
+                                </tr>
+                              )
+                            })}
+                            {bonuses?.withdraws?.map((q, i) => {
+                              return (
+                                <tr key={i} className="text">
+                                  <td className="whitespace-nowrap">
+                                    {dayjs(q?.created).format('DD.MM.YYYY, HH:mm')}
+                                  </td>
+                                  <td className="text-black">Вывод</td>
+                                  <td>-</td>
+                                  <td className="text-red-500">- {formatNumber(q?.sum)}</td>
+                                </tr>
+                              )
+                            })}
+                            {bonuses?.services?.map((q, i) => {
+                              return (
+                                <tr key={i} className="text">
+                                  <td className="whitespace-nowrap">
+                                    {dayjs(q?.created).format('DD.MM.YYYY, HH:mm')}
+                                  </td>
+                                  <td className="text-black">Услуга</td>
+                                  <td>-</td>
+                                  <td className="text-red-500">- {formatNumber(q?.sum)}</td>
+                                </tr>
+                              )
+                            })}
+                          </tbody>
+                        </Table>
+                      </div>
+                    </ScrollArea>
                   </div>
-                )}
+                </div>
               </div>
             </div>
           </div>
