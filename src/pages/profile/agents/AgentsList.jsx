@@ -151,16 +151,20 @@ export const AgentsList = ({ setCount }) => {
           <div>
             {/* <Button onClick={() => setShitModal(true)}>Вознаграждения</Button> */}
             <div className="flex gap-4">
-              <div className="!inline-block lg:!hidden">
-                <Button component={'a'} href="/agent.pdf" target="_blank" aria-hidden>
-                  Вознаграждения
-                </Button>
-              </div>
-              <div className="!hidden lg:!inline-block">
-                <Button onClick={() => setShitModal(true)} aria-hidden>
-                  Вознаграждения
-                </Button>
-              </div>
+              {!user?.company && (
+                <>
+                  <div className="!inline-block lg:!hidden">
+                    <Button component={'a'} href="/agent.pdf" target="_blank" aria-hidden>
+                      Вознаграждения
+                    </Button>
+                  </div>
+                  <div className="!hidden lg:!inline-block">
+                    <Button onClick={() => setShitModal(true)} aria-hidden>
+                      Вознаграждения
+                    </Button>
+                  </div>
+                </>
+              )}
 
               <Button
                 rightIcon={<BiLogoTelegram size={20} />}
@@ -173,6 +177,7 @@ export const AgentsList = ({ setCount }) => {
               </Button>
             </div>
 
+            
             {user?.expand?.sponsor && (
               <div className="w-fit mt-4">
                 <p className="text-sm ml-2">Агент-наставник:</p>
