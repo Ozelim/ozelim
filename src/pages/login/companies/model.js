@@ -15,6 +15,8 @@ async function signupCompany (data) {
 
   try {
 
+    console.log(data)
+
     return await pb.collection('agents').create({
       ...data, 
       passwordConfirm: data?.password,
