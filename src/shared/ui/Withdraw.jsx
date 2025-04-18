@@ -549,6 +549,8 @@ export const Withdraw = ({bonuses}) => {
   }, [])
  
   async function buyServicesWithBonuses () {
+    console.log(addedServices, 'addedServices');
+    
     setServiceLoading(true)
     await pb.collection('service_bids').create({
       services: [...addedServices.map(q => q.id)],
