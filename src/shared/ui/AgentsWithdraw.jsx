@@ -19,7 +19,9 @@ async function getServices () {
 
 async function getReplenishes (id) {
   if (!id) return
-  return await pb.collection('replenish').getFullList({filter: `user = '${id}' && status = 'created'`})
+  return await pb
+    .collection('replenish')
+    .getFullList({ filter: `(user = '${id}' || agent = '${id}') && status = 'created'` })
 }
 
 async function getWaitingServices (id) {

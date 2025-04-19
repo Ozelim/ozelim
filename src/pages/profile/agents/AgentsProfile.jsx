@@ -237,9 +237,9 @@ export const AgentsProfile = () => {
     getWithdraws(user?.id).then((res) => {
       setWithdraws(res)
     })
-    getTransfers(user?.id).then((res) => {
-      setTransfers(res)
-    })
+    // getTransfers(user?.id).then((res) => {
+    //   setTransfers(res)
+    // })
   }, [])
 
   function signout() {

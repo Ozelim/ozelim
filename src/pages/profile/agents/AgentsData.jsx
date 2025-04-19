@@ -18,7 +18,7 @@ import market from 'shared/assets/images/user-1.pdf'
 import agreement from 'shared/assets/images/agent-agreement.pdf'
 import dayjs from 'dayjs'
 import { formatNumber } from 'shared/lib'
-import { Withdraw } from 'shared/ui/AgentsWithdraw'
+import { Withdraw } from 'shared/ui/Withdraw'
 
 async function getAgentBid(id) {
   return (await pb.collection('agents_bids').getFullList({ filter: `bid_id = '${id}'` }))?.[0]
@@ -382,7 +382,7 @@ export const AgentsData = ({ count, setCount, balance, bonuses }) => {
                 <Withdraw balance={balance} bonuses={bonuses} />
               </div>
             </div>
-            
+
             <div
               onClick={handleCourseClick}
               className="rounded-lg cursor-pointer mt-2 border border-primary-500 p-4 flex flex-col justify-center items-center "

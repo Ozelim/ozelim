@@ -562,7 +562,8 @@ export const Withdraw = ({ bonuses }) => {
   const [bids, setBids] = React.useState([])
 
   React.useEffect(() => {
-    getReplenishes(user?.id).then((res) => {
+    getReplenishes(user?.id)
+    .then((res) => {
       console.log(res, 'replenish res')
       if (res.length === 0) return
       res.map(async (q, i) => {
