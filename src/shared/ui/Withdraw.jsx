@@ -401,6 +401,7 @@ export const Withdraw = ({ bonuses }) => {
                     'balance+': Number(replenish?.pay?.AMOUNT),
                   })
                   .then(async (res) => {
+                    console.log(res, 'balance updated')
                     await pb.collection('user_bonuses').update(user?.id, {
                       replenish: [
                         ...(bonuses?.replenish ?? []),
