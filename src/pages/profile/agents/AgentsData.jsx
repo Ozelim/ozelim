@@ -382,6 +382,7 @@ export const AgentsData = ({ count, setCount, balance, bonuses }) => {
                 <Withdraw balance={balance} bonuses={bonuses} />
               </div>
             </div>
+            
             <div
               onClick={handleCourseClick}
               className="rounded-lg cursor-pointer mt-2 border border-primary-500 p-4 flex flex-col justify-center items-center "
