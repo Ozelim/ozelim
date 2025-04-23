@@ -22,6 +22,7 @@ import axios from 'axios'
 
 import cardImg from 'shared/assets/images/card.png'
 import { useLangContext } from 'app/langContext'
+import { Link } from 'react-router-dom'
 
 async function getServices() {
   return await pb.collection('services').getFullList()
@@ -777,6 +778,9 @@ export const Withdraw = ({ bonuses }) => {
           // onClick={() => setModals({...modals, confirm: true})}
         >
           {kz ? 'Қызметтер' : 'Услуги'}
+        </Button>
+        <Button className='mt-3' component={Link} to='/tours'>
+          Туры с OzElim
         </Button>
       </div>
       <Modal

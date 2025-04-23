@@ -1,10 +1,8 @@
 import React from 'react'
 import { useLangContext } from 'app/langContext'
-import { Accordion, Button, Modal, Select, TextInput } from '@mantine/core'
-import { Link as RouterLink } from 'react-router-dom'
+import { Button, Modal, Select, TextInput } from '@mantine/core'
 
-import Kazmap from 'shared/assets/images/map-kz.png'
-import { usePageData } from 'shared/hooks'
+import { useAuth, usePageData } from 'shared/hooks'
 import { Accord, Image } from 'shared/ui'
 import { HealthCard } from 'entities/healthCard'
 import { Quiz } from 'modules/Quiz'
@@ -33,6 +31,8 @@ async function getRes () {
 }
 
 export const HealthWorld = () => {
+
+  const {user} = useAuth()
 
   const {kz, qq} = useLangContext()
 
@@ -97,6 +97,10 @@ export const HealthWorld = () => {
       <div className='w-full'>
         <div className="container">
           <div className="w-full">
+
+            {user?.company && (
+              <Quiz/>
+            )}
 
             <div className="grid lg:grid-cols-2 mt-6 gap-10">
               <div>
