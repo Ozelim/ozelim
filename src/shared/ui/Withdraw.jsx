@@ -779,7 +779,7 @@ export const Withdraw = ({ bonuses }) => {
         >
           {kz ? 'Қызметтер' : 'Услуги'}
         </Button>
-        <Button className='mt-3' component={Link} to='/tours'>
+        <Button className='mt-3' component={Link} to='/tours' fullWidth>
           Туры с OzElim
         </Button>
       </div>
