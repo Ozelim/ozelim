@@ -492,18 +492,22 @@ export const AgentsProfile = () => {
   async function handlePackClick(type) {
     if (type === 'family') {
       submit(30000)
+      return
     } 
 
     if (type === 'agent') {
       submit(45000)
+      return
     }
 
     if (type === 'company') {
       setSearchParams({ pack: 'company' })
+      return
     }
 
     if (type === 'company+') {
       setSearchParams({ pack: 'company+' })
+      return
     }
   }
 
