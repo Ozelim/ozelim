@@ -623,7 +623,7 @@ export const AgentsProfile = () => {
     // if (user?.email === 'kurama.zxc@mail.ru') {
       return (
         <div className="container h-full">
-          <div className="flex justify-center h-full flex-col">
+          <div className="flex justify-center items-center h-full flex-col">
           <div className="flex gap-4 items-end mt-8">
           Ваш профиль не верифицирован, ваш ID: {user?.id}
           <Button compact variant="outline" color="red" onClick={signout} className="mt-2">
@@ -645,7 +645,7 @@ export const AgentsProfile = () => {
   if ((user?.company && !user?.verified) && companyBid?.id && companyBid?.status !== 'payed') {
     return (
       <div className="container h-full">
-        <div className="flex justify-center h-full flex-col">
+        <div className="flex justify-center items-center h-full flex-col">
           <div className="flex gap-4 items-end mt-8">
           Ваш профиль не верифицирован, ваш ID: {user?.id}
           <Button compact variant="outline" color="red" onClick={signout} className="mt-2">
@@ -672,7 +672,7 @@ export const AgentsProfile = () => {
         <LoadingOverlay visible={paymentLoading || verifyLoading} />
         {/* {user?.email === 'kurama.zxc@mail.ru' && ( */}
           <div className="container h-full">
-            <div className="flex justify-center h-full flex-col">
+            <div className="flex justify-center items-center h-full flex-col">
               <div className="flex gap-4 items-end mt-8">
                 Ваш профиль не верифицирован, ваш ID: {user?.id}
                 <Button compact variant="outline" color="red" onClick={signout} className="mt-2">
