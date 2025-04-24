@@ -691,7 +691,7 @@ export const AgentsProfile = () => {
 
         
         {/* {user?.email !== 'kurama.zxc@mail.ru' && ( */}
-          <div className="container h-full">
+          {/* <div className="container h-full">
             <div className='flex justify-center items-center h-full flex-col'>
                 <div className='flex gap-4 items-end'>
                 Ваш профиль не верифицирован, ваш ID: {user?.id}
@@ -727,7 +727,7 @@ export const AgentsProfile = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         {/* // )} */}
       </>
     )
