@@ -250,7 +250,7 @@ export const AgentsProfile = () => {
   const [paymentLoading, setPaymentLoading] = React.useState(false)
   const [verifyLoading, setVerifyLoading] = React.useState(false)
 
-  async function submit(price = 30000) {
+  async function submit(price = 29999) {
     try {
       setPaymentLoading(true)
       const randomNumber = Math.floor(Math.random() * 10000000)
@@ -258,15 +258,15 @@ export const AgentsProfile = () => {
 
       const data = {
         ORDER: randomNumber,
-        AMOUNT: user?.email === `kurama.zxc@mail.ru` ? 5 : price ?? 30000,
+        AMOUNT: user?.email === `kurama.zxc@mail.ru` ? 5 : price ?? 29999,
         // AMOUNT: 30000,
         CURRENCY: 'KZT',
         MERCHANT: '110-R-113431490',
         TERMINAL: '11371491',
         NONCE: randomNumber + 107,
-        DESC: price === 30000 ? 'Верификация (Пользователь)' : 'Верификация (Агент)',
+        DESC: price === 29999 ? 'Верификация (Пользователь)' : 'Верификация (Агент)',
         CLIENT_ID: user?.id,
-        DESC_ORDER: price === 30000 ? 'Верификация (Пользователь)' : 'Верификация (Агент)',
+        DESC_ORDER: price === 29999 ? 'Верификация (Пользователь)' : 'Верификация (Агент)',
         EMAIL: user?.email,
         BACKREF: `https://oz-elim.kz/aprofile`,
         Ucaf_Flag: '',
@@ -491,7 +491,7 @@ export const AgentsProfile = () => {
 
   async function handlePackClick(type) {
     if (type === 'family') {
-      submit(30000)
+      submit(29999)
       return
     } 
 
