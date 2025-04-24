@@ -250,7 +250,7 @@ export const AgentsProfile = () => {
   const [paymentLoading, setPaymentLoading] = React.useState(false)
   const [verifyLoading, setVerifyLoading] = React.useState(false)
 
-  async function submit(price = 30005) {
+  async function submit(price = 30000) {
     try {
       setPaymentLoading(true)
       const randomNumber = Math.floor(Math.random() * 10000000)
@@ -258,7 +258,7 @@ export const AgentsProfile = () => {
 
       const data = {
         ORDER: randomNumber,
-        AMOUNT: user?.email === `kurama.zxc@mail.ru` ? 5 : price ?? 30005,
+        AMOUNT: user?.email === `kurama.zxc@mail.ru` ? 5 : price ?? 30000,
         // AMOUNT: 30000,
         CURRENCY: 'KZT',
         MERCHANT: '110-R-113431490',
@@ -491,7 +491,7 @@ export const AgentsProfile = () => {
 
   async function handlePackClick(type) {
     if (type === 'family') {
-      submit(30005)
+      submit(30000)
       return
     } 
 
