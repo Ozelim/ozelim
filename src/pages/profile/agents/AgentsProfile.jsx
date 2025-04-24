@@ -267,7 +267,7 @@ export const AgentsProfile = () => {
         DESC: price === 30000 ? 'Верификация (Пользователь)' : 'Верификация (Агент)',
         CLIENT_ID: user?.id,
         DESC_ORDER: price === 30000 ? 'Верификация (Пользователь)' : 'Верификация (Агент)',
-        EMAIL: user?.email,
+        // EMAIL: user?.email,
         BACKREF: `https://oz-elim.kz/aprofile`,
         Ucaf_Flag: '',
         Ucaf_Authentication_Data: '',
