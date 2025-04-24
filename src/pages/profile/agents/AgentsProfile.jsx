@@ -253,7 +253,7 @@ export const AgentsProfile = () => {
   async function submit(price = 30000) {
     try {
       setPaymentLoading(true)
-      const randomNumber = Math.floor(Math.random() * 100000000)
+      const randomNumber = Math.floor(Math.random() * 10000000)
       const token = import.meta.env.VITE_APP_SHARED_SECRET
 
       const data = {
@@ -267,7 +267,7 @@ export const AgentsProfile = () => {
         DESC: price === 30000 ? 'Верификация (Пользователь)' : 'Верификация (Агент)',
         CLIENT_ID: user?.id,
         DESC_ORDER: price === 30000 ? 'Верификация (Пользователь)' : 'Верификация (Агент)',
-        // EMAIL: user?.email,
+        EMAIL: user?.email,
         BACKREF: `https://oz-elim.kz/aprofile`,
         Ucaf_Flag: '',
         Ucaf_Authentication_Data: '',
