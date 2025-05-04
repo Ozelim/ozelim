@@ -37,7 +37,7 @@ import market from 'shared/assets/images/agent.png'
 import { openConfirmModal } from '@mantine/modals'
 import { CompanyForm } from './company-form'
 
-import family  from 'shared/assets/images/pack-family.svg'
+import family from 'shared/assets/images/pack-family.svg'
 import agent from 'shared/assets/images/pack-agent.svg'
 
 import company from 'shared/assets/images/company.svg'
@@ -144,7 +144,6 @@ const array = [
 ]
 
 export const AgentsProfile = () => {
-
   const [searchParams, setSearchParams] = useSearchParams()
 
   const { user, setUser, loading } = useAuth()
@@ -250,7 +249,7 @@ export const AgentsProfile = () => {
   const [paymentLoading, setPaymentLoading] = React.useState(false)
   const [verifyLoading, setVerifyLoading] = React.useState(false)
 
-  async function submit(price = 29999) {
+  async function submit(price = 30000) {
     try {
       setPaymentLoading(true)
       const randomNumber = Math.floor(Math.random() * 10000000)
@@ -258,22 +257,23 @@ export const AgentsProfile = () => {
 
       const data = {
         ORDER: randomNumber,
-        AMOUNT: user?.email === `kurama.zxc@mail.ru` ? 5 : price ?? 29999,
+        AMOUNT: price === 30000 ? Math.floor(Math.random() * (30000 - 29995 + 1)) + 29995 : price,
         // AMOUNT: 30000,
         CURRENCY: 'KZT',
         MERCHANT: '110-R-113431490',
         TERMINAL: '11371491',
         NONCE: randomNumber + 107,
-        DESC: price === 29999 ? 'Верификация (Пользователь)' : 'Верификация (Агент)',
+        DESC: price === 30000 ? 'Верификация (Пользователь)' : 'Верификация (Агент)',
         CLIENT_ID: user?.id,
-        DESC_ORDER: price === 29999 ? 'Верификация (Пользователь)' : 'Верификация (Агент)',
+        DESC_ORDER: price === 30000 ? 'Верификация (Пользователь)' : 'Верификация (Агент)',
         EMAIL: user?.email,
         BACKREF: `https://oz-elim.kz/aprofile`,
         Ucaf_Flag: '',
         Ucaf_Authentication_Data: '',
       }
 
-      const dataString = `${data?.ORDER};${data?.AMOUNT};${data?.CURRENCY};${data?.MERCHANT};${data?.TERMINAL};${data?.NONCE};${data?.CLIENT_ID};${data?.DESC};${data?.DESC_ORDER};${data?.EMAIL};${data?.BACKREF};${data?.Ucaf_Flag};${data?.Ucaf_Authentication_Data};`
+      const dataString = `${data?.ORDER};${data?.AMOUNT};${data?.CURRENCY};${data?.MERCHANT};${data?.TERMINAL};${data?.NONCE};${data?.CLIENT_ID};
+      ${data?.DESC};${data?.DESC_ORDER};${data?.EMAIL};${data?.BACKREF};${data?.Ucaf_Flag};${data?.Ucaf_Authentication_Data};`
 
       const all = token + dataString
       const sign = sha512(all).toString()
@@ -356,7 +356,7 @@ export const AgentsProfile = () => {
   }
 
   React.useEffect(() => {
-    checkPaymentStatus()    
+    checkPaymentStatus()
   }, [])
 
   const [viewModal, setViewModal] = React.useState({
@@ -491,9 +491,9 @@ export const AgentsProfile = () => {
 
   async function handlePackClick(type) {
     if (type === 'family') {
-      submit(29999)
+      submit(30000)
       return
-    } 
+    }
 
     if (type === 'agent') {
       submit(45000)
@@ -512,11 +512,10 @@ export const AgentsProfile = () => {
   }
 
   async function checkCompanyPaymentStatus() {
-
     const token = import.meta.env.VITE_APP_SHARED_SECRET
     const string = `${companyBid?.pay?.ORDER};${companyBid?.pay?.MERCHANT}`
     const sign = sha512(token + string).toString()
-    if (companyBid?.pay?.MERCHANT && companyBid?.pay?.ORDER && companyBid?.status === 'succ' ) {
+    if (companyBid?.pay?.MERCHANT && companyBid?.pay?.ORDER && companyBid?.status === 'succ') {
       await axios
         .post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/check`, {
           ORDER: companyBid?.pay?.ORDER,
@@ -532,16 +531,17 @@ export const AgentsProfile = () => {
               status: 'payed',
             })
 
-            await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/company-verify`, {
-              id: user?.id
-            })
-            .then(async (res) => {  
-              await pb.collection('agents').update(user?.id, {
-                legit: true,
-                company_date: new Date(),
-                company_pack: companyBid?.plus ? 'company+' : 'company',
+            await axios
+              .post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/company-verify`, {
+                id: user?.id,
               })
-            })
+              .then(async (res) => {
+                await pb.collection('agents').update(user?.id, {
+                  legit: true,
+                  company_date: new Date(),
+                  company_pack: companyBid?.plus ? 'company+' : 'company',
+                })
+              })
 
             window.location.reload()
           }
@@ -572,7 +572,9 @@ export const AgentsProfile = () => {
         NONCE: randomNumber + 107,
         DESC: companyBid?.plus ? 'Оплата корпоративного пакета+' : 'Оплата корпоративного пакета',
         CLIENT_ID: user?.id,
-        DESC_ORDER: companyBid?.plus ? 'Оплата корпоративного+ пакет' : 'Оплата корпоративного пакета',
+        DESC_ORDER: companyBid?.plus
+          ? 'Оплата корпоративного+ пакет'
+          : 'Оплата корпоративного пакета',
         EMAIL: user?.email,
         BACKREF: `https://oz-elim.kz/aprofile`,
         Ucaf_Flag: '',
@@ -598,7 +600,7 @@ export const AgentsProfile = () => {
                 ...JSON.parse(res?.config?.data),
                 SHARED_KEY: token,
                 type: companyBid?.plus ? 'company+' : 'company',
-              },  
+              },
             })
             .then(() => {
               setPaymentLoading(false)
@@ -618,53 +620,62 @@ export const AgentsProfile = () => {
     return <></>
   }
 
-  if (searchParams.get('pack') === 'company' || searchParams.get('pack') === 'company+') { 
+  if (searchParams.get('pack') === 'company' || searchParams.get('pack') === 'company+') {
     return <CompanyForm type={searchParams.get('pack')} />
   }
 
-  if ((user?.company && !user?.verified) && !companyBid?.id) {
-
+  if (user?.company && !user?.verified && !companyBid?.id) {
     // if (user?.email === 'kurama.zxc@mail.ru') {
-      return (
-        <div className="container h-full">
-          <div className="flex justify-center items-center h-full flex-col">
-          <div className="flex gap-4 items-end mt-8">
-          Ваш профиль не верифицирован, ваш ID: {user?.id}
-          <Button compact variant="outline" color="red" onClick={signout} className="mt-2">
-            Выйти
-          </Button>
-        </div>
-        <p className="text-center mt-4 font-bold">Выберите пакет</p>
-        <div className="grid md:grid-cols-2 gap-6 mx-auto mt-4">
-          {array
-            ?.map((q) => <Pack key={q.type} {...q} onClick={() => handlePackClick(q.type)} />)
-            ?.slice(2, 4)}
-          </div>
-          </div>
-        </div>
-      )
-    // }
-  }
-
-  if ((user?.company && !user?.verified) && companyBid?.id && companyBid?.status !== 'payed') {
     return (
       <div className="container h-full">
         <div className="flex justify-center items-center h-full flex-col">
           <div className="flex gap-4 items-end mt-8">
-          Ваш профиль не верифицирован, ваш ID: {user?.id}
-          <Button compact variant="outline" color="red" onClick={signout} className="mt-2">
-            Выйти
-          </Button>
+            Ваш профиль не верифицирован, ваш ID: {user?.id}
+            <Button compact variant="outline" color="red" onClick={signout} className="mt-2">
+              Выйти
+            </Button>
+          </div>
+          <p className="text-center mt-4 font-bold">Выберите пакет</p>
+          <div className="grid md:grid-cols-2 gap-6 mx-auto mt-4">
+            {array
+              ?.map((q) => <Pack key={q.type} {...q} onClick={() => handlePackClick(q.type)} />)
+              ?.slice(2, 4)}
+          </div>
         </div>
-        {companyBid?.status === 'created' && (
-          <p className="text-center mt-4 font-bold">Ваша заявка на корпоративный {companyBid?.plus ? '+' : ''} пакет была отправлена</p>
-        )}
-        {companyBid?.status === 'succ' && (
-          <>
-            <p className="text-center mt-4 font-bold">Ваша заявка на корпоративный {companyBid?.plus ? '+' : ''} пакет была одобрена</p>
-            <Button className="mt-4" onClick={buyPack} color={companyBid?.plus ? 'blue.5' : 'pink.5'}>Перейти к оплате</Button>
-          </>
-        )}
+      </div>
+    )
+    // }
+  }
+
+  if (user?.company && !user?.verified && companyBid?.id && companyBid?.status !== 'payed') {
+    return (
+      <div className="container h-full">
+        <div className="flex justify-center items-center h-full flex-col">
+          <div className="flex gap-4 items-end mt-8">
+            Ваш профиль не верифицирован, ваш ID: {user?.id}
+            <Button compact variant="outline" color="red" onClick={signout} className="mt-2">
+              Выйти
+            </Button>
+          </div>
+          {companyBid?.status === 'created' && (
+            <p className="text-center mt-4 font-bold">
+              Ваша заявка на корпоративный {companyBid?.plus ? '+' : ''} пакет была отправлена
+            </p>
+          )}
+          {companyBid?.status === 'succ' && (
+            <>
+              <p className="text-center mt-4 font-bold">
+                Ваша заявка на корпоративный {companyBid?.plus ? '+' : ''} пакет была одобрена
+              </p>
+              <Button
+                className="mt-4"
+                onClick={buyPack}
+                color={companyBid?.plus ? 'blue.5' : 'pink.5'}
+              >
+                Перейти к оплате
+              </Button>
+            </>
+          )}
         </div>
       </div>
     )
@@ -675,27 +686,26 @@ export const AgentsProfile = () => {
       <>
         <LoadingOverlay visible={paymentLoading || verifyLoading} />
         {/* {user?.email === 'kurama.zxc@mail.ru' && ( */}
-          <div className="container h-full">
-            <div className="flex justify-center items-center h-full flex-col">
-              <div className="flex gap-4 items-end mt-8">
-                Ваш профиль не верифицирован, ваш ID: {user?.id}
-                <Button compact variant="outline" color="red" onClick={signout} className="mt-2">
-                  Выйти
-                </Button>
-              </div>
-              <p className="text-center mt-4 font-bold">Выберите пакет</p>
-              <div className="grid md:grid-cols-2 gap-6 mx-auto mt-4">
-                {array
-                  ?.map((q) => <Pack key={q.type} {...q} onClick={() => handlePackClick(q.type)} />)
-                  ?.slice(0, 2)}
-              </div>
+        <div className="container h-full">
+          <div className="flex justify-center items-center h-full flex-col">
+            <div className="flex gap-4 items-end mt-8">
+              Ваш профиль не верифицирован, ваш ID: {user?.id}
+              <Button compact variant="outline" color="red" onClick={signout} className="mt-2">
+                Выйти
+              </Button>
+            </div>
+            <p className="text-center mt-4 font-bold">Выберите пакет</p>
+            <div className="grid md:grid-cols-2 gap-6 mx-auto mt-4">
+              {array
+                ?.map((q) => <Pack key={q.type} {...q} onClick={() => handlePackClick(q.type)} />)
+                ?.slice(0, 2)}
             </div>
           </div>
+        </div>
         {/* // )} */}
 
-        
         {/* {user?.email !== 'kurama.zxc@mail.ru' && ( */}
-          {/* <div className="container h-full">
+        {/* <div className="container h-full">
             <div className='flex justify-center items-center h-full flex-col'>
                 <div className='flex gap-4 items-end'>
                 Ваш профиль не верифицирован, ваш ID: {user?.id}
@@ -737,7 +747,6 @@ export const AgentsProfile = () => {
     )
   }
 
-
   if (user?.company && user?.verified && user?.company_date && user?.legit) {
     return (
       <MantineProvider
@@ -748,20 +757,20 @@ export const AgentsProfile = () => {
           primaryColor: user?.company_pack === 'company+' ? 'blue' : 'rose',
           primaryShade: user?.company_pack === 'company+' ? 6 : 5,
           defaultRadius: 'md',
-        colors: {
-          rose: [
-            '#fff1f2',
-            '#ffe4e6',
-            '#fecdd3',
-            '#fda4af',
-            '#fb7185',
-            '#f43f5e',
-            '#e11d48',
-            '#be123c',
-            '#9f1239',
-            '#881337',
-          ],
-        }
+          colors: {
+            rose: [
+              '#fff1f2',
+              '#ffe4e6',
+              '#fecdd3',
+              '#fda4af',
+              '#fb7185',
+              '#f43f5e',
+              '#e11d48',
+              '#be123c',
+              '#9f1239',
+              '#881337',
+            ],
+          },
         }}
       >
         <div className="w-full">
@@ -769,7 +778,12 @@ export const AgentsProfile = () => {
             <div className="w-full bg-white shadow-md rounded-primary p-4">
               <div className="grid lg:grid-cols-[25%_auto] gap-6">
                 <div className="mt-1">
-                  <AgentsData count={count} setCount={setCount} balance={balance} bonuses={bonuses} />
+                  <AgentsData
+                    count={count}
+                    setCount={setCount}
+                    balance={balance}
+                    bonuses={bonuses}
+                  />
                 </div>
                 <div className="relative overflow-hidden">
                   {!user?.company && !user?.agent && (
@@ -786,7 +800,7 @@ export const AgentsProfile = () => {
                       </div>
                     </>
                   )}
-  
+
                   {user?.agent && <AgentsList setCount={setCount} />}
                   <div className="overflow-auto">
                     {user?.agent && (
@@ -801,7 +815,7 @@ export const AgentsProfile = () => {
                           >
                             <MdKeyboardArrowLeft size={30} />
                           </Button>
-  
+
                           <div className="flex mt-2 mx-auto w-fit max-[208px]">
                             <Avatar
                               src={currentAgent?.avatar}
@@ -818,11 +832,11 @@ export const AgentsProfile = () => {
                           </div>
                           <div></div>
                         </div>
-  
+
                         <p className="mt-4">
                           Пользователей: {currentAgent?.expand?.creeps?.length ?? 0}
                         </p>
-  
+
                         <div className="flex border p-4 space-x-8 overflow-x-scroll">
                           {currentAgent?.expand?.creeps?.length == 0 ||
                           !currentAgent?.expand?.creeps?.length ? (
@@ -1025,7 +1039,7 @@ export const AgentsProfile = () => {
                         </Table>
                       </div>
                     )}
-  
+
                     <ScrollArea maw={'100%'}>
                       <div className="mt-12 overflow-scroll">
                         <h2 className="text-center text-xl font-head">История</h2>
@@ -1264,29 +1278,32 @@ export const AgentsProfile = () => {
             <div className="w-full bg-white shadow-md rounded-primary p-4">
               <div className="grid lg:grid-cols-[25%_auto] gap-6">
                 <div className="mt-1">
-                  <AgentsData count={count} setCount={setCount} balance={balance} bonuses={bonuses} />
+                  <AgentsData
+                    count={count}
+                    setCount={setCount}
+                    balance={balance}
+                    bonuses={bonuses}
+                  />
                 </div>
                 <div className="relative overflow-hidden">
-                  {!user?.company && (
-                    !user?.agent && (
-                      <>
-                        <div className="!inline-block lg:!hidden">
-                          <Button component={'a'} href="/agent.pdf" target="_blank" aria-hidden>
-                            Вознаграждения
-                          </Button>
-                        </div>
-                        <div className="!hidden lg:!inline-block">
-                          <Button onClick={() => setShitModal(true)} aria-hidden>
-                            Вознаграждения
-                          </Button>
-                        </div>
-                      </>
-                    )
+                  {!user?.company && !user?.agent && (
+                    <>
+                      <div className="!inline-block lg:!hidden">
+                        <Button component={'a'} href="/agent.pdf" target="_blank" aria-hidden>
+                          Вознаграждения
+                        </Button>
+                      </div>
+                      <div className="!hidden lg:!inline-block">
+                        <Button onClick={() => setShitModal(true)} aria-hidden>
+                          Вознаграждения
+                        </Button>
+                      </div>
+                    </>
                   )}
-  
-                  {(!user?.company && user?.agent) && <AgentsList setCount={setCount} />}
+
+                  {!user?.company && user?.agent && <AgentsList setCount={setCount} />}
                   <div className="overflow-auto">
-                    {(!user?.company && user?.agent) && (
+                    {!user?.company && user?.agent && (
                       <div className="relative mt-20">
                         <LoadingOverlay visible={agentLoading} />
                         <div className="grid grid-cols-[10%_auto_10%] items-end">
@@ -1298,7 +1315,7 @@ export const AgentsProfile = () => {
                           >
                             <MdKeyboardArrowLeft size={30} />
                           </Button>
-  
+
                           <div className="flex mt-2 mx-auto w-fit max-[208px]">
                             <Avatar
                               src={currentAgent?.avatar}
@@ -1315,11 +1332,11 @@ export const AgentsProfile = () => {
                           </div>
                           <div></div>
                         </div>
-  
+
                         <p className="mt-4">
                           Пользователей: {currentAgent?.expand?.creeps?.length ?? 0}
                         </p>
-  
+
                         <div className="flex border p-4 space-x-8 overflow-x-scroll">
                           {currentAgent?.expand?.creeps?.length == 0 ||
                           !currentAgent?.expand?.creeps?.length ? (
@@ -1522,7 +1539,7 @@ export const AgentsProfile = () => {
                         </Table>
                       </div>
                     )}
-  
+
                     <ScrollArea maw={'100%'}>
                       <div className="mt-12 overflow-scroll">
                         <h2 className="text-center text-xl font-head">История</h2>
@@ -1756,21 +1773,11 @@ const Pack = ({ type, description, price, image, people, onClick }) => {
         (type === 'company+' && 'Приобрести пакет для компании +')
       }
       className={clsx(
-        'aspect-[1/1.6] max-w-[333px] rounded-primary shadow-equal overflow-hidden flex flex-col cursor-pointer hover:scale-105 transition-all duration-200 focus:scale-105',
-       
+        'aspect-[1/1.6] max-w-[333px] rounded-primary shadow-equal overflow-hidden flex flex-col cursor-pointer hover:scale-105 transition-all duration-200 focus:scale-105'
       )}
     >
-      <img
-        src={image}
-        alt=""
-        className="aspect-video object-contain border-b-black p-1"
-      />
-      <div 
-        className={clsx(
-          "px-6 shrink h-full flex flex-col",
-
-        )}
-      >
+      <img src={image} alt="" className="aspect-video object-contain border-b-black p-1" />
+      <div className={clsx('px-6 shrink h-full flex flex-col')}>
         <p className={clsx('text-center my-4 font-medium')}>1 год</p>
         <p className="text-2xl text-center leading-4 font-bold">
           {type === 'family' && 'Семейный'}
@@ -1786,14 +1793,10 @@ const Pack = ({ type, description, price, image, people, onClick }) => {
         className={clsx(
           'grid grid-cols-3 items-center justify-center text-white mt-6 font-semibold text-sm border-t',
           {
-            'bg-gradient-to-l from-orange-400 to-orange-600':
-              type === 'family',
-            'bg-gradient-to-r from-primary-400 to-primary-600':
-              type === 'agent',
-            'bg-gradient-to-r from-rose-400 to-rose-600':
-              type === 'company',
-            'bg-gradient-to-l from-blue-400 to-blue-600':
-              type === 'company+',
+            'bg-gradient-to-l from-orange-400 to-orange-600': type === 'family',
+            'bg-gradient-to-r from-primary-400 to-primary-600': type === 'agent',
+            'bg-gradient-to-r from-rose-400 to-rose-600': type === 'company',
+            'bg-gradient-to-l from-blue-400 to-blue-600': type === 'company+',
           }
         )}
       >

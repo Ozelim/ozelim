@@ -34,7 +34,7 @@ export const Footer = () => {
     }, 100)
   }
 
-  if (pathname.includes('chat') || params.get('chatId') || pathname.includes('market')) return null
+  if (pathname.includes('chat') || params.get('chatId') || pathname.includes('duken')) return null
 
   return (
     <>

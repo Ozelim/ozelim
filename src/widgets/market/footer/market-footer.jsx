@@ -11,7 +11,7 @@ export const MarketFooter = () => {
   if (pathname.includes('profile') && (user?.collectionName === 'merchants')) return 
 
   return (
-    <div className='w-full mt-6 border-t pt-6 bg-white'>
+    <div className='w-full mt-6 border-t pt-6 bg-white fixed bottom-0 left-0 right-0 z-10'>
       <div className="container-market market px-4 md:px-0">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-4 px-4">
           <div className="text-center sm:text-left">

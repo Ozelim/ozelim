@@ -19,7 +19,7 @@ export const NewLayout = ({headerSlot, footerSlot}) => {
   React.useEffect(() => {
     getCategories()
 
-    if (user?.collectionName === 'agents') {
+    if (user?.collectionName === 'agents' || user?.collectionName === 'customers') {
       getNotifications(user?.id)
       subsribeToNotifications(user?.id)
     }
@@ -28,7 +28,9 @@ export const NewLayout = ({headerSlot, footerSlot}) => {
   return (
     <div className="grid grid-rows-[auto_1fr_auto] min-h-screen market-scrollbar">
       {headerSlot}
-      <Outlet/>
+      <div className='w-full relative mb-80 bg-white z-20'> 
+        <Outlet/>
+      </div>
       {footerSlot}
     </div>
   )

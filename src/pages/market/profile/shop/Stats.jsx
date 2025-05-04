@@ -1,7 +1,9 @@
 import React from 'react'
 import { AreaChart, Area, ResponsiveContainer } from 'recharts';
 import { useShopStore } from './shopStore';
-import { CiGrid41 } from 'react-icons/ci';
+import { CiGrid41, CiMoneyBill } from 'react-icons/ci';
+import { pb } from 'shared/api';
+import { formatNumber } from 'shared/lib';
 
 const color = 'oklch(45.9% 0.187 3.815)'
 
@@ -53,7 +55,7 @@ const data = [
 async function getOrders(id) {
   const orders = await pb.collection('orders').getFullList({
     filter: `market_id = '${id}'`,
-    fields: 'id'
+    fields: 'id, total_cost, created'
   })
   return orders
 }
@@ -70,6 +72,8 @@ export const Stats = () => {
       setOrders(res)
     })
   }, [shop])
+
+  const revenue = orders.map(order => order.total_cost)
 
   const ordersData = Array(30).fill(0).map((_, i) => {
     return {

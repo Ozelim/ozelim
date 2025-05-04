@@ -45,7 +45,6 @@ export const Market = () => {
     if (phone.length < 11) {
       return
     }
-
   }
 
   return (

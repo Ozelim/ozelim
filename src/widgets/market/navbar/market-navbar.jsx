@@ -19,6 +19,8 @@ import { useDisclosure } from '@mantine/hooks'
 import { useNotificationStore } from 'pages/market/profile/user/notificationStore'
 import { useModals } from 'shared/hooks'
 
+import duken from 'shared/assets/images/duken.png'
+
 export const MarketNavbar = () => {
 
   const {openModal} = useModals()
@@ -93,7 +95,7 @@ export const MarketNavbar = () => {
         <Link to={'/duken'} className="w-full md:w-auto flex justify-center md:justify-start">
           <div className='flex gap-3 items-center'>
             <img className="max-w-[50px] md:max-w-[70px] w-full" src={mobileLogo} />
-            <b className='text-xl md:text-2xl !font-extrabold'>DUKEN</b>
+            <img className="max-w-[70px] md:max-w-[90px] w-full" src={duken} />
           </div>
         </Link>
 
