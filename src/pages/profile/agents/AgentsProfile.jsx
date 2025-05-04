@@ -297,7 +297,6 @@ export const AgentsProfile = () => {
             .then(() => {
               setPaymentLoading(false)
               window.location.replace(`https://jpay.jysanbank.kz/ecom/api?${searchParams}`)
-              window.postMessage('', '*')
             })
         })
         .finally(() => {
