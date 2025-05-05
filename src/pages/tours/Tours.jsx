@@ -294,7 +294,7 @@ export const Tours = () => {
 
 
         <div className="container mt-8">
-          <div className="w-full lg:text-left text-center texxt-center">
+          <div className="w-full lg:text-left text-center text-center">
             <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
               {headings?.pack1}
             </h1>
