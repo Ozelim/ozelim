@@ -292,11 +292,31 @@ export const Tours = () => {
           </div>
         </div>
 
-          {/* <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6 mx-auto mt-4">
-            {array?.map((q) => <Pack key={q.type} {...q} />)}
-          </div> */}
+
+        <div className="container mt-8">
+          <div className="w-full -mt-24 sm:mt-0 lg:text-left text-center">
+            <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
+              {headings?.pack1}
+            </h1>
+
+            <h2 className="mt-3 text-lg font-medium text-[#5a5959] ">
+              {text?.pack2}
+            </h2>
+            <p className='mt-3 font-medium text-[#5a5959] '>
+              {text?.pack3}
+            </p>
+          </div>
+        </div>
+
+        <div className="px-4 max-w-[1350px] mx-auto mt-4 lg:mt-8 h-full">   
+          <div className="grid min-[1350px]:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-6 mx-auto">
+            {array?.map((q) => <div className='h-full mx-auto'>
+              <Pack key={q.type} {...q} />
+            </div>)}
+          </div>
+        </div>
         
-        <section className="w-full mt-20">
+        {/* <section className="w-full mt-20">
           <div className="container">
             <div className="">
               <h1 className="text-4xl text-primary-500 font-bold text-center">
@@ -393,7 +413,7 @@ export const Tours = () => {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         <section className='container mt-8'>
           <h1 className='font-bold text-4xl text-primary-500 text-center'>
@@ -518,7 +538,7 @@ const Pack = ({ type, description, price, image, people, onClick }) => {
         (type === 'company+' && 'Приобрести пакет для компании +')
       }
       className={clsx(
-        'aspect-[1/1.6] max-w-[333px] rounded-primary shadow-equal overflow-hidden flex flex-col cursor-pointer hover:scale-105 transition-all duration-200 focus:scale-105'
+        'aspect-[1/1.6] rounded-primary shadow-equal overflow-hidden flex flex-col w-full h-full cursor-pointer hover:scale-105 transition-all duration-200 focus:scale-105'
       )}
     >
       <img src={image} alt="" className="aspect-video object-contain border-b-black p-1" />
@@ -530,7 +550,7 @@ const Pack = ({ type, description, price, image, people, onClick }) => {
           {type === 'company' && 'Корпоративный'}
           {type === 'company+' && 'Корпоративный +'}
         </p>
-        <p className="text-center tracking-wide font-medium flex flex-col justify-center h-full">
+        <p className="text-center tracking-wide font-medium flex flex-col justify-center mt-4">
           {description}
         </p>
       </div>
@@ -553,7 +573,7 @@ const Pack = ({ type, description, price, image, people, onClick }) => {
         <div className="grid place-items-center p-4 text-center border-r whitespace-nowrap h-full">
           {formatNumber(price)} ₸
         </div>
-        <div className="grid place-items-center p-4 text-center">Скидки до 40%</div>
+        <div className="grid place-items-center p-4 text-center">Скидки на путевки до 40%</div>
       </div>
     </UnstyledButton>
   )
