@@ -1,5 +1,5 @@
 import React from 'react'
-import { Accordion, Button, Collapse, Modal, NumberInput, Select, Text, TextInput } from '@mantine/core'
+import { Accordion, Button, clsx, Collapse, Modal, NumberInput, Select, Text, TextInput, UnstyledButton } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { pb } from 'shared/api'
 import { usePageData } from 'shared/hooks'
@@ -7,7 +7,7 @@ import { Accord, Image } from 'shared/ui'
 import { DatePicker } from '@mantine/dates'
 import 'dayjs/locale/ru';
 import { FaMinus, FaPlus } from 'react-icons/fa'
-import { getImageUrl } from 'shared/lib'
+import { formatNumber, getImageUrl } from 'shared/lib'
 import { useLangContext } from 'app/langContext'
 import Autoplay from 'embla-carousel-autoplay'
 import { Carousel, useAnimationOffsetEffect } from '@mantine/carousel'
@@ -22,6 +22,41 @@ async function getResots () {
 async function getTours () {
   return await pb.collection('tours_data').getFullList()
 }
+
+const array = [
+  {
+    type: 'family',
+    description:
+      'Предназначен для покупки туров и путевок в курортные зоны для всей семьи, идеальный вариант для путешествий с семьей.',
+    price: 30000,
+    image: family,
+    people: 5,
+  },
+  {
+    type: 'agent',
+    description:
+      'Можете звать за собой людей и получать за них до 15% бонусов, и иметь все бонусы семейного пакета',
+    price: 45000,
+    image: agent,
+    people: 5,
+  },
+  {
+    type: 'company',
+    description:
+      'Предназначен для покупки туров и путевок в курортные зоны для целой орзанизации, экономьте на каждой поездке и получайте лучший сервис.',
+    price: 600000,
+    image: company,
+    people: 20,
+  },
+  {
+    type: 'company+',
+    description:
+      'Предназначен для покупки туров и путевок в курортные зоны для целой орзанизации, экономьте на каждой поездке и получайте лучший сервис.',
+    price: 1500000,
+    image: companyPlus,
+    people: 60,
+  },
+]
 
 export const Tours = () => {
 
@@ -212,18 +247,57 @@ export const Tours = () => {
             </div>
           </div>
         </div>
-        <section className="w-full mt-20">
+        <div className="container mt-10">
+          <div className="w-full">
+            {/* <h1 className="text-center head text-primary-500">
+              {kz ? `Санаторийлер` : `Санатории`}
+            </h1> */}
+            <div className="mt-4">
+              <div className="max-w-xs lg:max-w-full lg:mx-0 mx-auto">
+                <Carousel
+                  slideSize={'25%'}
+                  align={'start'}
+                  height={'100%'}
+                  loop
+                  withControls={false}
+                  getEmblaApi={setEmbla}
+                  plugins={[autoplay.current]}
+                  onMouseEnter={autoplay.current.stop}
+                  onMouseLeave={autoplay.current.reset}
+                >
+                  {resorts
+                    .map((resort, i) => {
+                      return (
+                        <div className='py-2 px-2 shrink-0 max-w-[315px] relative' key={i} >
+                          <img src={getImageUrl(resort, resort?.image)} alt="" className='object-cover aspect-square' />
+                          <div className='pl-2 mt-3 font-bold'>
+                            <Text lineClamp={1} className='!text-lg'>{resort?.name}</Text>
+                          </div>
+                          <Text lineClamp={7} className='mt-1 pl-2 !text-[15px] tracking-wide'>
+                            {resort?.description}
+                          </Text>
+                        </div>
+                      )
+                    })
+                  }
+                </Carousel>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6 mx-auto mt-4">
+          {array?.map((q) => <Pack key={q.type} {...q} />)}
+          </div>
+        
+        {/* <section className="w-full mt-20">
           <div className="container">
             <div className="">
               <h1 className="text-4xl text-primary-500 font-bold text-center">
                 {headings?.heading3}
               </h1>
               <div className='flex flex-col md:flex-row gap-8 mt-6'>
-                {/* <Image
-                  className="max-w-2xl w-full rounded-primary max-h-[448px] object-cover"
-                  record={images}
-                  index={2}
-                /> */}
+ 
                 <div className='space-y-4 mx-auto border gap-4 rounded-primary overflow-hidden min-w-[300px]'>
                   <div className='flex flex-col w-full p-3'>
                     <div className='flex flex-col gap-2 bg-white p-3 w-full'>
@@ -313,7 +387,7 @@ export const Tours = () => {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         <section className='container mt-8'>
           <h1 className='font-bold text-4xl text-primary-500 text-center'>
@@ -424,5 +498,57 @@ export const Tours = () => {
         </section>
       </Modal>
     </>
+  )
+}
+
+const Pack = ({ type, description, price, image, people, onClick }) => {
+  return (
+    <UnstyledButton
+      onClick={onClick}
+      title={
+        (type === 'family' && 'Приобрести пакет для семьи') ||
+        (type === 'agent' && 'Приобрести пакет для агента') ||
+        (type === 'company' && 'Приобрести пакет для компании') ||
+        (type === 'company+' && 'Приобрести пакет для компании +')
+      }
+      className={clsx(
+        'aspect-[1/1.6] max-w-[333px] rounded-primary shadow-equal overflow-hidden flex flex-col cursor-pointer hover:scale-105 transition-all duration-200 focus:scale-105'
+      )}
+    >
+      <img src={image} alt="" className="aspect-video object-contain border-b-black p-1" />
+      <div className={clsx('px-6 shrink h-full flex flex-col')}>
+        <p className={clsx('text-center my-4 font-medium')}>1 год</p>
+        <p className="text-2xl text-center leading-4 font-bold">
+          {type === 'family' && 'Семейный'}
+          {type === 'agent' && 'Агентский'}
+          {type === 'company' && 'Корпоративный'}
+          {type === 'company+' && 'Корпоративный +'}
+        </p>
+        <p className="text-center tracking-wide font-medium flex flex-col justify-center h-full">
+          {description}
+        </p>
+      </div>
+      <div
+        className={clsx(
+          'grid grid-cols-3 items-center justify-center text-white mt-6 font-semibold text-sm border-t',
+          {
+            'bg-gradient-to-l from-orange-400 to-orange-600': type === 'family',
+            'bg-gradient-to-r from-primary-400 to-primary-600': type === 'agent',
+            'bg-gradient-to-r from-rose-400 to-rose-600': type === 'company',
+            'bg-gradient-to-l from-blue-400 to-blue-600': type === 'company+',
+          }
+        )}
+      >
+        <div className="grid place-items-center p-4 text-center border-r h-full">
+          На {people}
+          <br />
+          человек
+        </div>
+        <div className="grid place-items-center p-4 text-center border-r whitespace-nowrap h-full">
+          {formatNumber(price)} ₸
+        </div>
+        <div className="grid place-items-center p-4 text-center">Скидки до 40%</div>
+      </div>
+    </UnstyledButton>
   )
 }
