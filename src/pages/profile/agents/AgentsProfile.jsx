@@ -257,8 +257,8 @@ export const AgentsProfile = () => {
 
       const data = {
         ORDER: randomNumber,
-        // AMOUNT: price === 30000 ? Math.floor(Math.random() * (30000 - 29995 + 1)) + 29995 : price,
-        AMOUNT: price,
+        AMOUNT: price === 30000 ? Math.floor(Math.random() * (30000 - 29995 + 1)) + 29995 : price,
+        // AMOUNT: price,
         CURRENCY: 'KZT',
         MERCHANT: '110-R-113431490',
         TERMINAL: '11371491',
