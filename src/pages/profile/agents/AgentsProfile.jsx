@@ -249,7 +249,7 @@ export const AgentsProfile = () => {
   const [paymentLoading, setPaymentLoading] = React.useState(false)
   const [verifyLoading, setVerifyLoading] = React.useState(false)
 
-  async function submit(price = 30000) {
+  async function submit(price = 29999) {
     try {
       setPaymentLoading(true)
       const randomNumber = Math.floor(Math.random() * 10000000)
@@ -490,7 +490,7 @@ export const AgentsProfile = () => {
 
   async function handlePackClick(type) {
     if (type === 'family') {
-      submit(30000)
+      submit(29999)
       return
     }
 
