@@ -292,11 +292,11 @@ export const Tours = () => {
           </div>
         </div>
 
-        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6 mx-auto mt-4">
-          {array?.map((q) => <Pack key={q.type} {...q} />)}
-          </div>
+          {/* <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6 mx-auto mt-4">
+            {array?.map((q) => <Pack key={q.type} {...q} />)}
+          </div> */}
         
-        {/* <section className="w-full mt-20">
+        <section className="w-full mt-20">
           <div className="container">
             <div className="">
               <h1 className="text-4xl text-primary-500 font-bold text-center">
@@ -393,7 +393,7 @@ export const Tours = () => {
               </div>
             </div>
           </div>
-        </section> */}
+        </section>
 
         <section className='container mt-8'>
           <h1 className='font-bold text-4xl text-primary-500 text-center'>
