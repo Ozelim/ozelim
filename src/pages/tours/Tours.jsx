@@ -15,6 +15,12 @@ import { showNotification } from '@mantine/notifications'
 
 import q from 'shared/assets/images/tours/1.jpg'
 
+import family from 'shared/assets/images/pack-family.svg'
+import agent from 'shared/assets/images/pack-agent.svg'
+
+import company from 'shared/assets/images/company.svg'
+import companyPlus from 'shared/assets/images/company-plus.svg'
+
 async function getResots () {
   return await pb.collection('resorts_data').getFullList()
 }
