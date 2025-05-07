@@ -548,7 +548,7 @@ const Pack = ({ type, description, price, image, people, children, discount, onC
       )}
     >
       <img src={image} alt="" className="aspect-video object-contain border-b-black p-1" />
-      <div className={clsx('px-6 shrink h-full flex flex-col mt-4')}>
+      <div className={clsx('px-6 h-full flex flex-col mt-6')}>
         {/* <p className={clsx('text-center my-4 font-medium')}>1 год</p> */}
         <p className="text-2xl text-center leading-4 font-bold">
           {type === 'family' && 'Семейный'}
@@ -560,8 +560,8 @@ const Pack = ({ type, description, price, image, people, children, discount, onC
           {description}
         </p>
 
-        <p className="text-center font-medium my-4">Годовая подписка</p>
       </div>
+      <p className="text-center font-medium my-4">Годовая подписка</p>
       <div
         className={clsx(
           'grid grid-cols-3 items-center justify-center text-white font-semibold text-sm border-t',

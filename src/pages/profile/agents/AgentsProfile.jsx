@@ -136,6 +136,7 @@ const array = [
     price: 600000,
     image: company,
     people: 20,
+    discount: 30
   },
   {
     type: 'company+',
@@ -144,6 +145,7 @@ const array = [
     price: 1500000,
     image: companyPlus,
     people: 60,
+    discount: 30
   },
 ]
 
@@ -1777,24 +1779,24 @@ const Pack = ({ type, description, price, image, people, children, discount, onC
         (type === 'company+' && 'Приобрести пакет для компании +')
       }
       className={clsx(
-        'aspect-[1/1.6] max-w-[333px] h-full rounded-primary shadow-equal overflow-hidden flex flex-col cursor-pointer hover:scale-105 transition-all duration-200 focus:scale-105'
+        'aspect-[1/1.7] max-w-[333px] h-full rounded-primary shadow-equal overflow-hidden flex flex-col cursor-pointer hover:scale-105 transition-all duration-200 focus:scale-105'
       )}
     >
       <img src={image} alt="" className="aspect-video object-contain border-b-black p-1" />
-      <div className={clsx('px-6 shrink h-full flex flex-col')}>
+      <div className={clsx('px-6 h-full flex flex-col mt-6')}>
         {/* <p className={clsx('text-center my-4 font-medium')}>1 год</p> */}
-        <p className="text-2xl text-center leading-4 font-bold mt-6">
+        <p className="text-2xl text-center leading-4 font-bold">
           {type === 'family' && 'Семейный'}
           {type === 'agent' && 'Агентский'}
           {type === 'company' && 'Корпоративный'}
           {type === 'company+' && 'Корпоративный +'}
         </p>
-        <p className="text-center tracking-wide font-medium flex flex-col justify-center h-full mt-4">
+        <p className="text-center tracking-wide font-medium flex flex-col justify-center mt-4">
           {description}
         </p>
 
-        <p className="text-center font-medium my-4">Годовая подписка</p>
       </div>
+      <p className="text-center font-medium my-4">Годовая подписка</p>
       <div
         className={clsx(
           'grid grid-cols-3 items-center justify-center text-white font-semibold text-sm border-t',
@@ -1822,7 +1824,7 @@ const Pack = ({ type, description, price, image, people, children, discount, onC
         <div className="grid place-items-center p-4 text-center border-r whitespace-nowrap h-full">
           {formatNumber(price)} ₸
         </div>
-        <div className="grid place-items-center p-4 text-center">Скидки на туры до {discount ?? 40}%</div>
+        <div className="grid place-items-center p-4 text-center">Скидки на туры до {discount}%</div>
       </div>
     </UnstyledButton>
   )
