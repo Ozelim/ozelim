@@ -794,12 +794,16 @@ export const AgentsProfile = () => {
                 </Button>
               </div>
             )}
-            <p className="text-center mt-4 font-bold">Выберите пакет</p>
-            <div className="grid md:grid-cols-2 gap-6 mx-auto mt-4">
-                {array
-                  ?.map((q) => <Pack key={q.type} {...q} onClick={() => handlePackClick(q.type)} />)
-                  ?.slice(0, 2)}
-              </div>
+            {agentBid?.id && (
+              <>
+                <p className="text-center mt-4 font-bold">Выберите пакет</p>
+                <div className="grid md:grid-cols-2 gap-6 mx-auto mt-4">
+                  {array
+                    ?.map((q) => <Pack key={q.type} {...q} onClick={() => handlePackClick(q.type)} />)
+                    ?.slice(0, 2)}
+                </div>
+              </>
+            )}
 
               <Modal opened={rModal} centered onClose={() => rModal_h.close()} title="Агент по туризму">
                 <p className="text-center text-gray-500">Причина отказа:</p>
