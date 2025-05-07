@@ -37,7 +37,8 @@ const array = [
     price: 30000,
     image: family,
     people: 2,
-    children: 3
+    children: 3,
+    discount: 30,
   },
   {
     type: 'agent',
@@ -47,6 +48,7 @@ const array = [
     image: agent,
     people: 2,
     children: 3,
+    discount: 30,
   },
   {
     type: 'company',
@@ -54,7 +56,8 @@ const array = [
       'Предназначен для покупки туров и путевок в курортные зоны для целой орзанизации, экономьте на каждой поездке и получайте лучший сервис.',
     price: 600000,
     image: company,
-    people: 20,
+    people: 20, 
+    discount: 30,
   },
   {
     type: 'company+',
@@ -63,6 +66,7 @@ const array = [
     price: 1500000,
     image: companyPlus,
     people: 60,
+    discount: 30,
   },
 ]
 
@@ -585,7 +589,7 @@ const Pack = ({ type, description, price, image, people, children, discount, onC
         <div className="grid place-items-center p-4 text-center border-r whitespace-nowrap h-full">
           {formatNumber(price)} ₸
         </div>
-        <div className="grid place-items-center p-4 text-center">Скидки на туры до {discount ?? 40}%</div>
+        <div className="grid place-items-center p-4 text-center">Скидки на туры до {discount}%</div>
       </div>
     </UnstyledButton>
   )
