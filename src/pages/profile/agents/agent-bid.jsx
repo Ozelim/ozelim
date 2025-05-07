@@ -7,6 +7,7 @@ import { pb } from 'shared/api'
 import axios from 'axios'
 import { sha512 } from 'js-sha512'
 import { useSearchParams } from 'react-router-dom'
+import { showNotification } from '@mantine/notifications'
 
 export const AgentBid = () => {
 
