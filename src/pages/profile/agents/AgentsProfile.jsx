@@ -863,7 +863,7 @@ export const AgentsProfile = () => {
               </Button>
             </div>
             {agentBid?.status === 'waiting' && (
-              <p className="text-center mt-4 font-bold">Заявка отправлена</p>
+              <p className="text-center mt-4 font-bold">Заявка отправлена asd</p>
             )}
             {agentBid?.status === 'rejected' && (
               <div className="flex justify-center items-center">
