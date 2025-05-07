@@ -561,7 +561,7 @@ const Pack = ({ type, description, price, image, people, children, discount, onC
         </p>
 
       </div>
-      <p className="text-center font-medium my-4">Годовая подписка</p>
+      <p className="text-center font-medium my-4 text-slate-400">Годовая подписка</p>
       <div
         className={clsx(
           'grid grid-cols-3 items-center justify-center text-white font-semibold text-sm border-t',
