@@ -42,6 +42,8 @@ import agent from 'shared/assets/images/pack-agent.svg'
 
 import company from 'shared/assets/images/company.svg'
 import companyPlus from 'shared/assets/images/company-plus.svg'
+import { AgentBid } from './agent-bid'
+import { showNotification } from '@mantine/notifications'
 
 const cache = createEmotionCache({
   key: 'profile-mantine',
@@ -108,6 +110,10 @@ async function getCompanyBids(id) {
   return await pb.collection('company_bids').getFirstListItem(`company = '${id}'`)
 }
 
+async function getAgentBid(id) {
+  return (await pb.collection('agents_bids').getFullList({ filter: `bid_id = '${id}'` }))?.[0]
+}
+
 const array = [
   {
     type: 'family',
@@ -117,17 +123,16 @@ const array = [
     image: family,
     people: 2,
     children: 3,
-    discount: 30
+    discount: 30,
   },
   {
     type: 'agent',
-    description:
-      'Приглашай всех желающих на увлекательные туры и получай бонусы + Семейный пакет',
+    description: 'Приглашай всех желающих на увлекательные туры и получай бонусы + Семейный пакет',
     price: 45000,
     image: agent,
     people: 2,
     children: 3,
-    discount: 30
+    discount: 30,
   },
   {
     type: 'company',
@@ -136,7 +141,7 @@ const array = [
     price: 600000,
     image: company,
     people: 20,
-    discount: 30
+    discount: 30,
   },
   {
     type: 'company+',
@@ -145,12 +150,11 @@ const array = [
     price: 1500000,
     image: companyPlus,
     people: 60,
-    discount: 30
+    discount: 30,
   },
 ]
 
 export const AgentsProfile = () => {
-
   const [searchParams, setSearchParams] = useSearchParams()
 
   const { user, setUser, loading } = useAuth()
@@ -164,6 +168,59 @@ export const AgentsProfile = () => {
   const [balance, setBalance] = React.useState(0)
 
   const [color, setColor] = React.useState('orange')
+
+  const [agentBid, setAgentBid] = React.useState(null)
+
+  React.useEffect(() => {
+    if (user?.bid_id) {
+      getAgentBid(user?.bid_id).then((res) => {
+        setAgentBid(res)
+        pb.collection('agents_bids').subscribe(res?.id, ({ record }) => {
+          setAgentBid(record)
+        })
+      })
+    }
+  }, [])
+
+  async function checkAgentBidPaymentStatus() {
+    const u = await pb.collection('agents').getOne(user.id)
+    const token = import.meta.env.VITE_APP_SHARED_SECRET
+    const string = `${u?.agents_pay?.ORDER};${u?.agents_pay?.MERCHANT}`
+    const sign = sha512(token + string).toString()
+    if (u?.agents_pay?.MERCHANT && u?.agents_pay?.ORDER) {
+      await axios
+        .post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/check`, {
+          ORDER: u?.agents_pay?.ORDER,
+          MERCHANT: u?.agents_pay?.MERCHANT,
+          GETSTATUS: 1,
+          P_SIGN: sign,
+        })
+        .then(async (res) => {
+          console.log(res, 'res')
+          console.log(res?.data?.includes('Обработано успешно'), 'res')
+          if (res?.data?.includes('Обработано успешно')) {
+            const bid = (
+              await pb
+                .collection('agents_bids')
+                .getFullList({ filter: `bid_id = '${user?.bid_id}'` })
+            )?.[0]
+
+            if (bid?.status === 'waiting') {
+              await pb.collection('agents_bids').update(bid?.id, {
+                status: 'paid',
+              })
+            }
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+  }
+
+  React.useEffect(() => {
+    checkAgentBidPaymentStatus()
+  }, [])
 
   React.useEffect(() => {
     if (user?.agent) setColor('green')
@@ -291,19 +348,23 @@ export const AgentsProfile = () => {
         })
         .then(async (res) => {
           const searchParams = new URLSearchParams(JSON.parse(res?.config?.data))
-          await pb
-            .collection('agents')
-            .update(user?.id, {
-              pay: {
-                ...JSON.parse(res?.config?.data),
-                SHARED_KEY: token,
-                type: price === 30000 ? 'family' : 'agent',
-              },
-            })
-            .then(() => {
-              setPaymentLoading(false)
-              window.location.replace(`https://jpay.jysanbank.kz/ecom/api?${searchParams}`)
-            })
+          if (price === 30000) {
+            await pb
+              .collection('agents')
+              .update(user?.id, {
+                pay: {
+                  ...JSON.parse(res?.config?.data),
+                  SHARED_KEY: token,
+                  type: price === 30000 ? 'family' : 'agent',
+                },
+              })
+              .then(() => {
+                setPaymentLoading(false)
+                window.location.replace(`https://jpay.jysanbank.kz/ecom/api?${searchParams}`)
+              })
+
+            return
+          }
         })
         .finally(() => {
           setPaymentLoading(false)
@@ -502,7 +563,7 @@ export const AgentsProfile = () => {
     }
 
     if (type === 'agent') {
-      submit(45000)
+      setSearchParams({ pack: 'agent' })
       return
     }
 
@@ -622,8 +683,108 @@ export const AgentsProfile = () => {
     }
   }
 
+  const [d, setD] = React.useState({
+    fio: agentBid?.data?.fio ?? user?.fio ?? '',
+    iin: agentBid?.data?.iin ?? user?.iin ?? '',
+    phone: agentBid?.data?.phone ?? user?.phone ?? '',
+  })
+
+  const [rModal, rModal_h] = useDisclosure(false)
+  const [rModalLoading, rModalLoading_h] = useDisclosure(false)
+
   if (loading) {
     return <></>
+  }
+
+  if (agentBid?.status === 'waiting') {
+    return (
+      <div className="container h-full">
+        <div className="flex justify-center items-center h-full flex-col">
+          <Button fullWidth mt={16} mb={10} aria-hidden={true}>
+            Заявка отправлена
+          </Button>
+        </div>
+      </div>
+    )
+  }
+
+  if (agentBid?.status === 'rejected') {
+    return (
+      <div className="container h-full">
+        <div className="flex justify-center items-center h-full flex-col">
+          <Button
+            fullWidth
+            mt={16}
+            mb={10}
+            // onClick={() => rModal_h.open()}
+            color=""
+            aria-hidden={true}
+          >
+            Отказано
+          </Button>
+        </div>
+
+
+
+        <Modal opened={rModal} centered onClose={() => rModal_h.close()} title="Агент по туризму">
+          <p className="text-center text-gray-500">Причина отказа:</p>
+          <p className="text-center">{bid?.comment}</p>
+
+          <TextInput
+            label="ФИО"
+            value={d?.fio}
+            onChange={(e) => setD({ ...d, fio: e?.currentTarget?.value })}
+            variant="filled"
+          />
+          <TextInput
+            label="ИИН"
+            value={d?.iin}
+            onChange={(e) => setD({ ...d, iin: e?.currentTarget?.value })}
+            variant="filled"
+          />
+          <TextInput
+            label="Номер телефона"
+            value={d?.phone}
+            onChange={(e) => setD({ ...d, phone: e?.currentTarget?.value })}
+            variant="filled"
+            description="Укажите ваш номер из БМГ (База мобильных граждан)"
+          />
+
+          <div className="flex justify-center mt-4">
+            <Button
+              loading={rModalLoading}
+              onClick={async () => {
+                rModalLoading_h.open()
+                await pb
+                  .collection('agents_bids')
+                  .update(agentBid?.id, {
+                    data: d,
+                    status: 'paid',
+                  })
+                  .then(() => {
+                    rModalLoading_h.close()
+                    rModal_h.close()
+                    showNotification({
+                      title: 'Агент по туризму',
+                      message: 'Заявка отправлена',
+                      color: 'green',
+                    })
+                  })
+                  .finally(() => {
+                    rModalLoading_h.close()
+                  })
+              }}
+            >
+              Отправить заявку
+            </Button>
+          </div>
+        </Modal>
+      </div>
+    )
+  }
+
+  if (searchParams.get('pack') === 'agent') {
+    return <AgentBid />
   }
 
   if (searchParams.get('pack') === 'company' || searchParams.get('pack') === 'company+') {
@@ -693,6 +854,7 @@ export const AgentsProfile = () => {
         <LoadingOverlay visible={paymentLoading || verifyLoading} />
         {/* {user?.email === 'kurama.zxc@mail.ru' && ( */}
         <div className="container h-full">
+
           <div className="flex justify-center items-center h-full flex-col">
             <div className="flex gap-4 items-end mt-8">
               Ваш профиль не верифицирован, ваш ID: {user?.id}
@@ -700,13 +862,84 @@ export const AgentsProfile = () => {
                 Выйти
               </Button>
             </div>
+            {agentBid?.status === 'waiting' && (
+              <p className="text-center mt-4 font-bold">Заявка отправлена</p>
+            )}
+            {agentBid?.status === 'rejected' && (
+              <div className="flex justify-center items-center">
+                <Button
+                mt={16}
+                mb={10}
+                onClick={() => rModal_h.open()}
+                color=""
+                aria-hidden={true}
+              >
+                  Отказано в заявке на агентский пакет  
+                </Button>
+              </div>
+            )}
             <p className="text-center mt-4 font-bold">Выберите пакет</p>
             <div className="grid md:grid-cols-2 gap-6 mx-auto mt-4">
-              {array
-                ?.map((q) => <Pack key={q.type} {...q} onClick={() => handlePackClick(q.type)} />)
-                ?.slice(0, 2)}
-            </div>
+                {array
+                  ?.map((q) => <Pack key={q.type} {...q} onClick={() => handlePackClick(q.type)} />)
+                  ?.slice(0, 2)}
+              </div>
+
+              <Modal opened={rModal} centered onClose={() => rModal_h.close()} title="Агент по туризму">
+                <p className="text-center text-gray-500">Причина отказа:</p>
+                <p className="text-center">{agentBid?.comment}</p>
+
+                <TextInput
+                  label="ФИО"
+                  value={d?.fio}
+                  onChange={(e) => setD({ ...d, fio: e?.currentTarget?.value })}
+                  variant="filled"
+                />
+                <TextInput
+                  label="ИИН"
+                  value={d?.iin}
+                  onChange={(e) => setD({ ...d, iin: e?.currentTarget?.value })}
+                  variant="filled"
+                />
+                <TextInput
+                  label="Номер телефона"
+                  value={d?.phone}
+                  onChange={(e) => setD({ ...d, phone: e?.currentTarget?.value })}
+                  variant="filled"
+                  description="Укажите ваш номер из БМГ (База мобильных граждан)"
+                />
+
+                <div className="flex justify-center mt-4">
+                  <Button
+                    loading={rModalLoading}
+                    onClick={async () => {
+                      rModalLoading_h.open()
+                      await pb
+                        .collection('agents_bids')
+                        .update(agentBid?.id, {
+                          data: d,
+                          status: 'paid',
+                        })
+                        .then(() => {
+                          rModalLoading_h.close()
+                          rModal_h.close()
+                          showNotification({
+                            title: 'Агент по туризму',
+                            message: 'Заявка отправлена',
+                            color: 'green',
+                          })
+                        })
+                        .finally(() => {
+                          rModalLoading_h.close()
+                        })
+                    }}
+                  >
+                    Отправить заявку
+                  </Button>
+                </div>
+              </Modal>
           </div>
+
         </div>
         {/* // )} */}
 
@@ -1794,7 +2027,6 @@ const Pack = ({ type, description, price, image, people, children, discount, onC
         <p className="text-center tracking-wide font-medium flex flex-col justify-center mt-4">
           {description}
         </p>
-
       </div>
       <p className="text-center font-medium my-4 text-slate-400">Годовая подписка</p>
       <div
@@ -1809,17 +2041,14 @@ const Pack = ({ type, description, price, image, people, children, discount, onC
         )}
       >
         <div className="grid place-items-center p-4 text-center border-r h-full">
-          {children ? 
-            <p className='whitespace-nowrap'>
+          {children ? (
+            <p className="whitespace-nowrap">
               {people} взрослых
-              <br />
-              + {children} детей
+              <br />+ {children} детей
             </p>
-            : 
-            <>
-              До {people} человек
-            </>
-          }
+          ) : (
+            <>До {people} человек</>
+          )}
         </div>
         <div className="grid place-items-center p-4 text-center border-r whitespace-nowrap h-full">
           {formatNumber(price)} ₸

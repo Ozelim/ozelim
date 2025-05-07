@@ -5,13 +5,13 @@ import { pb } from 'shared/api'
 import { usePageData } from 'shared/hooks'
 import { Accord, Image } from 'shared/ui'
 import { DatePicker } from '@mantine/dates'
-import 'dayjs/locale/ru';
 import { FaMinus, FaPlus } from 'react-icons/fa'
 import { formatNumber, getImageUrl } from 'shared/lib'
 import { useLangContext } from 'app/langContext'
 import Autoplay from 'embla-carousel-autoplay'
 import { Carousel, useAnimationOffsetEffect } from '@mantine/carousel'
 import { showNotification } from '@mantine/notifications'
+import 'dayjs/locale/ru';
 
 import q from 'shared/assets/images/tours/1.jpg'
 
