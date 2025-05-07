@@ -115,15 +115,19 @@ const array = [
       'Предназначен для покупки туров и путевок в курортные зоны для всей семьи, идеальный вариант для путешествий с семьей.',
     price: 30000,
     image: family,
-    people: 5,
+    people: 2,
+    children: 3,
+    discount: 30
   },
   {
     type: 'agent',
     description:
-      'Можете звать за собой людей и получать за них до 15% бонусов, и иметь все бонусы семейного пакета',
+      'Приглашай всех желающих на увлекательные туры и получай бонусы + Семейный пакет',
     price: 45000,
     image: agent,
-    people: 5,
+    people: 2,
+    children: 3,
+    discount: 30
   },
   {
     type: 'company',
@@ -144,6 +148,7 @@ const array = [
 ]
 
 export const AgentsProfile = () => {
+
   const [searchParams, setSearchParams] = useSearchParams()
 
   const { user, setUser, loading } = useAuth()
@@ -1761,7 +1766,7 @@ export const AgentsProfile = () => {
   }
 }
 
-const Pack = ({ type, description, price, image, people, onClick }) => {
+const Pack = ({ type, description, price, image, people, children, discount, onClick }) => {
   return (
     <UnstyledButton
       onClick={onClick}
@@ -1772,25 +1777,27 @@ const Pack = ({ type, description, price, image, people, onClick }) => {
         (type === 'company+' && 'Приобрести пакет для компании +')
       }
       className={clsx(
-        'aspect-[1/1.6] max-w-[333px] rounded-primary shadow-equal overflow-hidden flex flex-col cursor-pointer hover:scale-105 transition-all duration-200 focus:scale-105'
+        'aspect-[1/1.6] max-w-[333px] h-full rounded-primary shadow-equal overflow-hidden flex flex-col cursor-pointer hover:scale-105 transition-all duration-200 focus:scale-105'
       )}
     >
       <img src={image} alt="" className="aspect-video object-contain border-b-black p-1" />
       <div className={clsx('px-6 shrink h-full flex flex-col')}>
-        <p className={clsx('text-center my-4 font-medium')}>1 год</p>
-        <p className="text-2xl text-center leading-4 font-bold">
+        {/* <p className={clsx('text-center my-4 font-medium')}>1 год</p> */}
+        <p className="text-2xl text-center leading-4 font-bold mt-6">
           {type === 'family' && 'Семейный'}
           {type === 'agent' && 'Агентский'}
           {type === 'company' && 'Корпоративный'}
           {type === 'company+' && 'Корпоративный +'}
         </p>
-        <p className="text-center tracking-wide font-medium flex flex-col justify-center h-full">
+        <p className="text-center tracking-wide font-medium flex flex-col justify-center h-full mt-4">
           {description}
         </p>
+
+        <p className="text-center font-medium my-4">Годовая подписка</p>
       </div>
       <div
         className={clsx(
-          'grid grid-cols-3 items-center justify-center text-white mt-6 font-semibold text-sm border-t',
+          'grid grid-cols-3 items-center justify-center text-white font-semibold text-sm border-t',
           {
             'bg-gradient-to-l from-orange-400 to-orange-600': type === 'family',
             'bg-gradient-to-r from-primary-400 to-primary-600': type === 'agent',
@@ -1800,14 +1807,22 @@ const Pack = ({ type, description, price, image, people, onClick }) => {
         )}
       >
         <div className="grid place-items-center p-4 text-center border-r h-full">
-          На {people}
-          <br />
-          человек
+          {children ? 
+            <p className='whitespace-nowrap'>
+              {people} взрослых
+              <br />
+              + {children} детей
+            </p>
+            : 
+            <>
+              До {people} человек
+            </>
+          }
         </div>
         <div className="grid place-items-center p-4 text-center border-r whitespace-nowrap h-full">
           {formatNumber(price)} ₸
         </div>
-        <div className="grid place-items-center p-4 text-center">Скидки до 40%</div>
+        <div className="grid place-items-center p-4 text-center">Скидки на туры до {discount ?? 40}%</div>
       </div>
     </UnstyledButton>
   )
