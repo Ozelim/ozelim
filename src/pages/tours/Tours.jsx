@@ -573,14 +573,14 @@ const Pack = ({ type, description, price, image, people, children, discount, ben
         </p>
 
         {type === 'agent' && (
-          <div className="flex flex-col justify-center mt-4">
+          <ul className="flex flex-col justify-center mt-4 list-disc">
             {benefits?.map((benefit, i) => (
-              <p key={i} className="tracking-wide font-medium flex flex-col justify-center">
+              <li key={i} className="tracking-wide font-medium flex flex-col justify-center ">
                 {benefit}
-              </p>
+              </li>
             ))}
             
-          </div>
+          </ul>
         )}
 
         {type !== 'agent' && (
