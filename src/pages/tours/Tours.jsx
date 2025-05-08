@@ -664,11 +664,11 @@ const Pack = ({ type, description, price, image, people, children, discount, ben
           </>
         )}
 
-        {(type !== 'agent' && type !== 'family') && (
+        {/* {(type !== 'agent' && type !== 'family') && (
           <p className="text-center tracking-wide font-medium flex flex-col justify-center mt-4">
             {description}
           </p>
-        )}
+        )} */}
       </div>
       <p className="text-center font-medium my-4 text-slate-400">Годовая подписка</p>
       <div
