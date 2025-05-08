@@ -761,6 +761,8 @@ export const AgentsProfile = () => {
     )
   }
 
+  console.log(agentBid, 'agentBid')
+
   if (!user?.verified && !companyBid?.id) {
     return (
       <>
