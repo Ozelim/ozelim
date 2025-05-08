@@ -133,6 +133,15 @@ const array = [
     people: 2,
     children: 3,
     discount: 30,
+    benefits: [
+      "Семейный пакет “все включено”",
+      "Агентский договор",
+      "Реферальная ссылка",
+      "Доп.доход",
+      "Бонусы",
+      "Инфотуры по РК",
+      "Рейтинги"
+    ]
   },
   {
     type: 'company',
@@ -1923,7 +1932,7 @@ export const AgentsProfile = () => {
   }
 }
 
-const Pack = ({ type, description, price, image, people, children, discount, onClick }) => {
+const Pack = ({ type, description, price, image, people, children, discount, benefits, onClick }) => {
   return (
     <UnstyledButton
       onClick={onClick}
@@ -1940,15 +1949,34 @@ const Pack = ({ type, description, price, image, people, children, discount, onC
       <img src={image} alt="" className="aspect-video object-contain border-b-black p-1" />
       <div className={clsx('px-6 h-full flex flex-col mt-6')}>
         {/* <p className={clsx('text-center my-4 font-medium')}>1 год</p> */}
-        <p className="text-2xl text-center leading-4 font-bold">
+        <p className={clsx("text-2xl text-center leading-4 font-bold", {
+          'text-primary-500': type === 'agent',
+          'text-orange-500': type === 'family',
+          'text-rose-500': type === 'company',
+          'text-blue-500': type === 'company+',
+        })}>
           {type === 'family' && 'Семейный'}
           {type === 'agent' && 'Агентский'}
           {type === 'company' && 'Корпоративный'}
           {type === 'company+' && 'Корпоративный +'}
         </p>
-        <p className="text-center tracking-wide font-medium flex flex-col justify-center mt-4">
-          {description}
-        </p>
+
+        {type === 'agent' && (
+          <div className="flex flex-col justify-center mt-4">
+            {benefits?.map((benefit, i) => (
+              <p key={i} className="tracking-wide font-medium flex flex-col justify-center">
+                {benefit}
+              </p>
+            ))}
+            
+          </div>
+        )}
+
+        {type !== 'agent' && (
+          <p className="text-center tracking-wide font-medium flex flex-col justify-center mt-4">
+            {description}
+          </p>
+        )}
       </div>
       <p className="text-center font-medium my-4 text-slate-400">Годовая подписка</p>
       <div
