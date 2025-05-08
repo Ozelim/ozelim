@@ -124,6 +124,15 @@ const array = [
     people: 2,
     children: 3,
     discount: 30,
+
+    benefits:[
+      "трансфер",
+      "проживание и питание",
+      "страхование",
+      "экскурсия",
+      "входные билеты в национальные парки и музеи",
+      "информационная поддержка"
+    ]
   },
   {
     type: 'agent',
@@ -1943,7 +1952,7 @@ const Pack = ({ type, description, price, image, people, children, discount, ben
         (type === 'company+' && 'Приобрести пакет для компании +')
       }
       className={clsx(
-        'aspect-[1/1.7] max-w-[333px] h-full rounded-primary shadow-equal overflow-hidden flex flex-col cursor-pointer hover:scale-105 transition-all duration-200 focus:scale-105'
+        'aspect-[1/1.8] max-w-[333px] h-full rounded-primary shadow-equal overflow-hidden flex flex-col cursor-pointer hover:scale-105 transition-all duration-200 focus:scale-105'
       )}
     >
       <img src={image} alt="" className="aspect-video object-contain border-b-black p-1" />
@@ -1961,18 +1970,43 @@ const Pack = ({ type, description, price, image, people, children, discount, ben
           {type === 'company+' && 'Корпоративный +'}
         </p>
 
-        {type === 'agent' && (
-          <div className="flex flex-col justify-center mt-4">
-            {benefits?.map((benefit, i) => (
-              <p key={i} className="tracking-wide font-medium flex flex-col justify-center">
-                {benefit}
-              </p>
-            ))}
-            
-          </div>
+        {type === 'family' && (
+          <>
+            <p className="text-center tracking-wide font-medium flex flex-col justify-center mt-4">
+              Все включено
+            </p>
+            <ul className="flex flex-col justify-center mt-1">
+              {benefits?.map((benefit, i) => (
+                <li 
+                  key={i} 
+                  className="tracking-wide font-medium flex flex-col justify-center"
+                >
+                • {benefit}
+                </li>
+              ))}
+            </ul>
+          </>
         )}
 
-        {type !== 'agent' && (
+        {type === 'agent' && (
+          <>
+            <p className="text-center tracking-wide font-medium flex flex-col justify-center mt-4">
+              Все включено
+            </p>
+            <ul className="flex flex-col justify-center mt-1">
+              {benefits?.map((benefit, i) => (
+                <li 
+                  key={i} 
+                  className="tracking-wide font-medium flex flex-col justify-center"
+                >
+                • {benefit}
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+
+        {(type !== 'agent' && type !== 'family') && (
           <p className="text-center tracking-wide font-medium flex flex-col justify-center mt-4">
             {description}
           </p>

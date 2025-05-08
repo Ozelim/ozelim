@@ -25,6 +25,9 @@
   }
 }
 
+.disc {
+  list-style-type: disc !important;
+}
 
 /* .market * {
     font-family: 'Sofia Sans Semi Condensed', sans-serif;

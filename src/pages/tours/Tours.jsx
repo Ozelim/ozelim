@@ -39,6 +39,14 @@ const array = [
     people: 2,
     children: 3,
     discount: 30,
+    benefits:[
+      "трансфер",
+      "проживание и питание",
+      "страхование",
+      "экскурсия",
+      "входные билеты в национальные парки и музеи",
+      "информационная поддержка"
+    ]
   },
   {
     type: 'agent',
@@ -324,7 +332,7 @@ export const Tours = () => {
         </div>
 
         <div className="px-4 max-w-[1350px] mx-auto mt-4 lg:mt-8 h-full">   
-          <div className="grid min-[1350px]:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-6 mx-auto">
+          <div className="grid min-[1350px]:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-3 mx-auto">
             {array?.map((q) => <div className='h-full mx-auto'>
               <Pack key={q.type} {...q} />
             </div>)}
@@ -542,7 +550,6 @@ export const Tours = () => {
   )
 }
 
-
 const Pack = ({ type, description, price, image, people, children, discount, benefits, onClick }) => {
   return (
     <UnstyledButton
@@ -572,17 +579,43 @@ const Pack = ({ type, description, price, image, people, children, discount, ben
           {type === 'company+' && 'Корпоративный +'}
         </p>
 
-        {type === 'agent' && (
-          <ul className="flex flex-col justify-center mt-4">
-            {benefits?.map((benefit, i) => (
-              <li key={i} className="tracking-wide font-medium flex flex-col justify-center">
-                {benefit}
-              </li>
-            ))}
-          </ul>
+        {type === 'family' && (
+          <>
+            <p className="text-center tracking-wide font-medium flex flex-col justify-center mt-4">
+              Все включено
+            </p>
+            <ul className="flex flex-col justify-center mt-1">
+              {benefits?.map((benefit, i) => (
+                <li 
+                  key={i} 
+                  className="tracking-wide font-medium flex flex-col justify-center"
+                >
+                • {benefit}
+                </li>
+              ))}
+            </ul>
+          </>
         )}
 
-        {type !== 'agent' && (
+        {type === 'agent' && (
+          <>
+            <p className="text-center tracking-wide font-medium flex flex-col justify-center mt-4">
+              Все включено
+            </p>
+            <ul className="flex flex-col justify-center mt-1">
+              {benefits?.map((benefit, i) => (
+                <li 
+                  key={i} 
+                  className="tracking-wide font-medium flex flex-col justify-center"
+                >
+                • {benefit}
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+
+        {(type !== 'agent' && type !== 'family') && (
           <p className="text-center tracking-wide font-medium flex flex-col justify-center mt-4">
             {description}
           </p>
