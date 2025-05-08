@@ -554,7 +554,7 @@ const Pack = ({ type, description, price, image, people, children, discount, ben
         (type === 'company+' && 'Приобрести пакет для компании +')
       }
       className={clsx(
-        'aspect-[1/1.7] max-w-[333px] h-full rounded-primary shadow-equal overflow-hidden flex flex-col cursor-pointer hover:scale-105 transition-all duration-200 focus:scale-105'
+        'aspect-[1/1.8] max-w-[333px] h-full rounded-primary shadow-equal overflow-hidden flex flex-col cursor-pointer hover:scale-105 transition-all duration-200 focus:scale-105'
       )}
     >
       <img src={image} alt="" className="aspect-video object-contain border-b-black p-1" />
