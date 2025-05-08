@@ -2042,7 +2042,7 @@ const Pack = ({ type, description, price, image, people, children, discount, ben
 
         {type === 'agent' && (
           <>
-            <ul className="flex flex-col justify-center mt-1">
+            <ul className="flex flex-col justify-center mt-4">
               {benefits?.map((benefit, i) => (
                 <li 
                   key={i} 
