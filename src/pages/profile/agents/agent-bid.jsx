@@ -58,7 +58,7 @@ export const AgentBid = () => {
             <Button variant="outline" color="red" onClick={() => {
               setSearchParams({})
             }}>
-              Нахад
+              Назад
             </Button>
             <Button
               loading={paymentLoading}
@@ -171,7 +171,7 @@ export const AgentBid = () => {
         <Button variant="outline" color="red" onClick={() => {
           setSearchParams({})
         }}>
-          Нахад
+          Назад
         </Button>
         <Button
           disabled={!check}
