@@ -796,7 +796,7 @@ export const AgentsProfile = () => {
                 </Button>
               </div>
             )}
-            {(!agentBid?.id && (agentBid?.status === 'waiting' || agentBid?.status === 'rejected')) && (
+            {(!agentBid?.id || (agentBid?.status === 'waiting' || agentBid?.status === 'rejected')) && (
               <>
                 <p className="text-center mt-4 font-bold">Выберите пакет</p>
                 <div className="grid md:grid-cols-2 gap-6 mx-auto mt-4">
