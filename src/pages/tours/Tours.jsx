@@ -75,6 +75,14 @@ const array = [
     image: company,
     people: 20, 
     discount: 30,
+    benefits: [
+      "трансфер",
+      "проживание и питание",
+      "страхование",
+      "экскурсия",
+      "входные билеты в национальные парки и музеи",
+      "информационная поддержка"
+    ]
   },
   {
     type: 'company+',
@@ -84,6 +92,14 @@ const array = [
     image: companyPlus,
     people: 60,
     discount: 30,
+    benefits: [
+      "трансфер",
+      "проживание и питание",
+      "страхование",
+      "экскурсия",
+      "входные билеты в национальные парки и музеи",
+      "информационная поддержка"
+    ]
   },
 ]
 
@@ -579,10 +595,46 @@ const Pack = ({ type, description, price, image, people, children, discount, ben
           {type === 'company+' && 'Корпоративный +'}
         </p>
 
+        {type === 'company' && (
+          <>
+            <p className="text-center tracking-wide font-medium flex flex-col justify-center mt-4">
+              "Все включено"
+            </p>
+            <ul className="flex flex-col justify-center mt-1">
+              {benefits?.map((benefit, i) => (
+                <li 
+                  key={i} 
+                  className="tracking-wide font-medium flex flex-col justify-center"
+                >
+                • {benefit}
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+
+        {type === 'company+' && (
+          <>
+            <p className="text-center tracking-wide font-medium flex flex-col justify-center mt-4">
+              "Все включено"
+            </p>
+            <ul className="flex flex-col justify-center mt-1">
+              {benefits?.map((benefit, i) => (
+                <li 
+                  key={i} 
+                  className="tracking-wide font-medium flex flex-col justify-center"
+                >
+                • {benefit}
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+
         {type === 'family' && (
           <>
             <p className="text-center tracking-wide font-medium flex flex-col justify-center mt-4">
-              Все включено
+              "Все включено"
             </p>
             <ul className="flex flex-col justify-center mt-1">
               {benefits?.map((benefit, i) => (
@@ -599,9 +651,6 @@ const Pack = ({ type, description, price, image, people, children, discount, ben
 
         {type === 'agent' && (
           <>
-            <p className="text-center tracking-wide font-medium flex flex-col justify-center mt-4">
-              Все включено
-            </p>
             <ul className="flex flex-col justify-center mt-1">
               {benefits?.map((benefit, i) => (
                 <li 
