@@ -90,7 +90,7 @@ const array = [
       'Предназначен для покупки туров и путевок в курортные зоны для целой орзанизации, экономьте на каждой поездке и получайте лучший сервис.',
     price: 1500000,
     image: companyPlus,
-    people: 60,
+    people: 50,
     discount: 30,
     benefits: [
       "трансфер",
@@ -348,7 +348,7 @@ export const Tours = () => {
         </div>
 
         <div className="px-4 max-w-[1350px] mx-auto mt-4 lg:mt-8 h-full">   
-          <div className="grid min-[1350px]:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-3 mx-auto">
+          <div className="grid min-[1350px]:grid-cols-4 min-[1024px]:grid-cols-3 sm:grid-cols-2 gap-3 mx-auto gap-y-6">
             {array?.map((q) => <div className='h-full mx-auto'>
               <Pack key={q.type} {...q} />
             </div>)}
@@ -566,7 +566,7 @@ export const Tours = () => {
   )
 }
 
-const Pack = ({ type, description, price, image, people, children, discount, benefits, onClick }) => {
+const Pack = ({ type, price, image, people, children, discount, benefits, onClick }) => {
   return (
     <UnstyledButton
       onClick={onClick}
