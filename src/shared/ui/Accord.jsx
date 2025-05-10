@@ -3,7 +3,6 @@ import React from 'react'
 
 export const Accord = ({data}) => {
 
-  console.log(data, 'data');
   return (
     <Accordion
       variant='separated'
