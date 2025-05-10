@@ -136,8 +136,8 @@ export const CompanyForm = ({ type }) => {
                 {...field}
                 required
                 variant="filled"
-                placeholder="Име довер. лица"
-                label="Име довер. лица"
+                placeholder="ФИО довер. лица"
+                label="ФИО довер. лица"
                 error={errors.name?.message}
                 disabled={loading}
                 
