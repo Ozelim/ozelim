@@ -43,7 +43,8 @@ const array = [
       "трансфер",
       "проживание и питание",
       "страхование",
-      "экскурсия",
+      "экскурсии",
+      "услуги гида-экскурсовода",
       "входные билеты в национальные парки и музеи",
       "информационная поддержка"
     ]
@@ -335,7 +336,7 @@ export const Tours = () => {
 
 
         <div className="container mt-8">
-          <div className="w-full lg:text-left text-center">
+          <div className="w-full text-center">
             <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
               {headings?.pack1}
             </h1>
@@ -579,7 +580,7 @@ const Pack = ({ type, price, image, people, children, discount, benefits, onClic
         (type === 'company+' && 'Приобрести пакет для компании +')
       }
       className={clsx(
-        'aspect-[1/1.8] max-w-[333px] h-full rounded-primary shadow-equal overflow-hidden flex flex-col cursor-pointer hover:scale-105 transition-all duration-200 focus:scale-105'
+        'max-w-[333px] h-full rounded-primary shadow-equal overflow-hidden flex flex-col cursor-pointer hover:scale-105 transition-all duration-200 focus:scale-105'
       )}
     >
       <img src={image} alt="" className="aspect-video object-contain border-b-black p-1" />
