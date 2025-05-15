@@ -192,6 +192,7 @@ const array = [
 ]
 
 export const AgentsProfile = () => {
+  
   const [searchParams, setSearchParams] = useSearchParams()
 
   const { user, setUser, loading } = useAuth()

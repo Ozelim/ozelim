@@ -20,6 +20,7 @@ import agent from 'shared/assets/images/pack-agent.svg'
 
 import company from 'shared/assets/images/company.svg'
 import companyPlus from 'shared/assets/images/company-plus.svg'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 async function getResots () {
   return await pb.collection('resorts_data').getFullList()
@@ -107,6 +108,10 @@ const array = [
 ]
 
 export const Tours = () => {
+
+  const navigate = useNavigate()
+
+  const [_, setSearchParams] = useSearchParams()
 
   const {kz, qq} = useLangContext()
 
@@ -295,45 +300,6 @@ export const Tours = () => {
             </div>
           </div>
         </div>
-        <div className="container mt-10">
-          <div className="w-full">
-            {/* <h1 className="text-center head text-primary-500">
-              {kz ? `Санаторийлер` : `Санатории`}
-            </h1> */}
-            <div className="mt-4">
-              <div className="max-w-xs lg:max-w-full lg:mx-0 mx-auto">
-                <Carousel
-                  slideSize={'25%'}
-                  align={'start'}
-                  height={'100%'}
-                  loop
-                  withControls={false}
-                  getEmblaApi={setEmbla}
-                  plugins={[autoplay.current]}
-                  onMouseEnter={autoplay.current.stop}
-                  onMouseLeave={autoplay.current.reset}
-                >
-                  {resorts
-                    .map((resort, i) => {
-                      return (
-                        <div className='py-2 px-2 shrink-0 max-w-[315px] relative' key={i} >
-                          <img src={getImageUrl(resort, resort?.image)} alt="" className='object-cover aspect-square' />
-                          <div className='pl-2 mt-3 font-bold'>
-                            <Text lineClamp={1} className='!text-lg'>{resort?.name}</Text>
-                          </div>
-                          <Text lineClamp={7} className='mt-1 pl-2 !text-[15px] tracking-wide'>
-                            {resort?.description}
-                          </Text>
-                        </div>
-                      )
-                    })
-                  }
-                </Carousel>
-              </div>
-            </div>
-          </div>
-        </div>
-
 
         <div className="container mt-8">
           <div className="w-full text-center">
@@ -353,7 +319,21 @@ export const Tours = () => {
         <div className="px-4 max-w-[1350px] mx-auto mt-4 lg:mt-8 h-full">   
           <div className="grid min-[1350px]:grid-cols-4 min-[1024px]:grid-cols-3 sm:grid-cols-2 gap-3 mx-auto gap-y-6">
             {array?.map((q) => <div className='h-full mx-auto'>
-              <Pack key={q.type} {...q} />
+              <Pack key={q.type} {...q} onClick={() => {
+                  if (q.type === 'family' || q.type === 'agent') {
+                    navigate('/login')
+                    setSearchParams({
+                      signup: true,
+                      agent: 111924111111111
+                    })
+                    return
+                  }
+
+                  if (q.type === 'company' || q.type === 'company+') {
+                    navigate('/company-signup')
+                  }
+                }} 
+              />
             </div>)}
           </div>
         </div>
