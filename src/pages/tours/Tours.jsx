@@ -310,7 +310,13 @@ export const Tours = () => {
             <h2 className="mt-3 text-lg font-medium text-[#5a5959] ">
               {text?.pack2}
             </h2>
-            <p className='mt-3 font-medium text-[#5a5959]' dangerouslySetInnerHTML={{__html: text?.desc}}/>
+
+            
+            {kz ? (
+              <p className='mt-3 font-medium text-[#5a5959]' dangerouslySetInnerHTML={{__html: text?.desc_kz}}/>
+            ) : (
+              <p className='mt-3 font-medium text-[#5a5959]' dangerouslySetInnerHTML={{__html: text?.desc}}/>
+            )}
           </div>
         </div>
 
