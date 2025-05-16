@@ -311,7 +311,7 @@ export const Tours = () => {
               {text?.pack2}
             </h2>
             <p className='mt-3 font-medium text-[#5a5959] '>
-              {text?.pack3}
+              {text?.desc}
             </p>
           </div>
         </div>
