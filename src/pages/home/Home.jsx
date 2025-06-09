@@ -301,7 +301,7 @@ export const Home = () => {
         </div>
         <div className="bg-white rounded-2xl shadow p-4 flex items-center justify-center h-24">
           <a href={'/mem-otd.pdf'} target="_blank">
-          <h2 className="text-xl font-semibold text-primary-500">Меморандум с Отделом туризма при Управлении физкультуры и спорта Павлодарской области</h2>
+          <h2 className="text-l font-semibold text-primary-500">Меморандум с Отделом туризма при Управлении физкультуры и спорта Павлодарской области</h2>
           </a>
         </div>
       </div>
