@@ -287,23 +287,21 @@ export const Home = () => {
           <h1 className="text-3xl lg:text-4xl font-bold mt-1 text-primary-500">{headings?.[7]}</h1>
           <p className="text-[#888888] text">{text?.[23]}</p>
         </div>
+        
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8 max-w-4xl mx-auto text-center">
-        <div className="bg-white rounded-2xl shadow p-4">            
+        <div className="bg-white rounded-2xl shadow p-4 flex items-center justify-center h-24">            
             <a href={'/mem-str.pdf'} target="_blank">
             <h2 className="text-xl font-semibold text-primary-500">Меморандум со страховой компанией Халық-Life</h2>
-            {/* <p className="text-[#666]">Описание высоты или что тебе надо</p> */}
             </a>
         </div>
-        <div className="bg-white rounded-2xl shadow p-4">
+        <div className="bg-white rounded-2xl shadow p-4 flex items-center justify-center h-24">
           <a href={'/mem-sov.pdf'} target="_blank">
           <h2 className="text-xl font-semibold text-primary-500">Меморандум с Советом деловых женщин Павлодарской области</h2>
-          {/* <p className="text-[#666]">Описание ширины или чего пожелаешь</p> */}
           </a>
         </div>
-        <div className="bg-white rounded-2xl shadow p-4">
+        <div className="bg-white rounded-2xl shadow p-4 flex items-center justify-center h-24">
           <a href={'/mem-otd.pdf'} target="_blank">
           <h2 className="text-xl font-semibold text-primary-500">Меморандум с Отделом туризма при Управлении физкультуры и спорта Павлодарской области</h2>
-          {/* <p className="text-[#666]">Описание глубины или других параметров</p> */}
           </a>
         </div>
       </div>
