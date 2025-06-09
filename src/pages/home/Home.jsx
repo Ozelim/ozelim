@@ -221,13 +221,13 @@ export const Home = () => {
                   </Button>
                 </a>
               </div>
-              <div className='mt-4'>
+              {/* <div className='mt-4'>
                 <a href={'/services-asosiation.pdf'} target='_blank'>
                   <Button>
                     {qq('Услуги членам Ассоциации', 'Қауымдастық мүшелеріне ұсынылатын қызметтер тізім')}
                   </Button>
                 </a>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
