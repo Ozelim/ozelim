@@ -289,7 +289,7 @@ export const Home = () => {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8 max-w-4xl mx-auto text-center">
         <div className="bg-white rounded-2xl shadow p-4">            
-            <a href={'/mem-sov.pdf'} target="_blank">
+            <a href={'/mem-str.pdf'} target="_blank">
             <h2 className="text-xl font-semibold text-primary-500">Меморандум со страховой компанией Халық-Life</h2>
             {/* <p className="text-[#666]">Описание высоты или что тебе надо</p> */}
             </a>
