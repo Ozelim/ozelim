@@ -209,7 +209,7 @@ export const Home = () => {
                 <li>{text?.x1}</li>
               </ul>
               <Button className="mt-4">
-                <a href={'/home-1.pdf'} target="_blank">
+                <a href={'/home-1.1.pdf'} target="_blank">
                   {qq(`Справка о Гос. Регистрации`, `Мемлекеттік тіркеу куәлігі`)}
                 </a>
               </Button>
