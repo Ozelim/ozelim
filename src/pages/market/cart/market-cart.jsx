@@ -172,7 +172,7 @@ export const MarketCart = () => {
           })
             clearCart()
             back()
-            window.location.href = `https://jpay.jysanbank.kz/ecom/api?${searchParams}`;
+            window.location.href = `https://jpay.alataucitybank.kz/ecom/api?${searchParams}`;
           })
         .finally(() => {
           paymentLoading_h.close()

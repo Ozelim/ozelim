@@ -92,7 +92,7 @@ export const Packs = () => {
               })
               .then(() => {
                 loading_h.close()
-                window.location.href = `https://jpay.jysanbank.kz/ecom/api?${searchParams}`
+                window.location.href = `https://jpay.alataucitybank.kz/ecom/api?${searchParams}`
               })
           })
           .finally(() => {
@@ -151,7 +151,7 @@ export const Packs = () => {
               })
               .then(() => {
                 loading_h.close()
-                window.location.href = `https://jpay.jysanbank.kz/ecom/api?${searchParams}`
+                window.location.href = `https://jpay.alataucitybank.kz/ecom/api?${searchParams}`
               })
           })
           .finally(() => {

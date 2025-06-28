@@ -734,7 +734,7 @@ export const AgentsData = ({ count, setCount, balance, bonuses }) => {
                           message: 'Переходим к оплате',
                           color: 'green',
                         })
-                        window.location.href = `https://jpay.jysanbank.kz/ecom/api?${searchParams}`
+                        window.location.href = `https://jpay.alataucitybank.kz/ecom/api?${searchParams}`
                       })
                   })
                   .finally(() => {

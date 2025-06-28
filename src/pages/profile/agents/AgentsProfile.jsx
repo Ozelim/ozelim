@@ -398,7 +398,7 @@ export const AgentsProfile = () => {
               })
               .then(() => {
                 setPaymentLoading(false)
-                window.location.replace(`https://jpay.jysanbank.kz/ecom/api?${searchParams}`)
+                window.location.replace(`https://jpay.alataucitybank.kz/ecom/api?${searchParams}`)
               })
 
             return
@@ -709,7 +709,7 @@ export const AgentsProfile = () => {
             })
             .then(() => {
               setPaymentLoading(false)
-              window.location.href = `https://jpay.jysanbank.kz/ecom/api?${searchParams}`
+              window.location.href = `https://jpay.alataucitybank.kz/ecom/api?${searchParams}`
             })
         })
         .finally(() => {

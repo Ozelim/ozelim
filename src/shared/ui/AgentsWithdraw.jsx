@@ -256,7 +256,7 @@ export const Withdraw = ({bonuses}) => {
       })
       .then(() => {
         setServiceLoading(false)
-        window.location.href = `https://jpay.jysanbank.kz/ecom/api?${searchParams}`;
+        window.location.href = `https://jpay.alataucitybank.kz/ecom/api?${searchParams}`;
       })
       .catch(() => {
         setServiceLoading(false)
@@ -367,12 +367,12 @@ export const Withdraw = ({bonuses}) => {
         pay: {
           ...data,
           P_SIGN: sign,
-          pay_url: `https://jpay.jysanbank.kz/ecom/api?${searchParams}`,
+          pay_url: `https://jpay.alataucitybank.kz/ecom/api?${searchParams}`,
         }
       })
       .then(() => {
         setServiceLoading(false)
-        window.location.href = `https://jpay.jysanbank.kz/ecom/api?${searchParams}`;
+        window.location.href = `https://jpay.alataucitybank.kz/ecom/api?${searchParams}`;
       })
       .catch(() => {
         setServiceLoading(false)
