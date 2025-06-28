@@ -165,7 +165,7 @@ export const AgentBid = () => {
         label="Ознакомлен(а)"
         checked={check}
         onChange={(e) => setCheck(e.currentTarget.checked)}
-        className="mt-4"
+        className="mt-4 flex justify-center items-center"
       />
       <div className="mt-4 flex justify-center items-center gap-4">
         <Button variant="outline" color="red" onClick={() => {
