@@ -360,7 +360,7 @@ export const Withdraw = ({ bonuses }) => {
           })
           .then(() => {
             setServiceLoading(false)
-            window.location.href = `https://jpay.jysanbank.kz/ecom/api?${searchParams}`
+            window.location.href = `https://jpay.alataucitybank.kz/ecom/api?${searchParams}`
           })
           .catch(() => {
             setServiceLoading(false)
@@ -968,7 +968,7 @@ export const Withdraw = ({ bonuses }) => {
           inputMode="numeric"
           pattern="[0-9]"
           onChange={(e) => setFill({ ...fill, sum: e.currentTarget.value })}
-          label="Введите сумму пополнение"
+          label="Введите сумму пополнения"
           description="от 500 T до 1 000 000 T"
           placeholder="500"
           className="mt-4"
