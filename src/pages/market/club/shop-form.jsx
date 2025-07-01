@@ -91,7 +91,6 @@ export const ShopForm = () => {
       market: createdMarket?.id,
     })
 
-    // await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/change-password`, )
   }
 
   function handleChange (name, val) {
