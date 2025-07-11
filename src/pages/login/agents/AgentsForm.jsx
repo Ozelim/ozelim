@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, PasswordInput, Select, TextInput } from '@mantine/core'
+import { Button, PasswordInput, Checkbox, Group, Select, TextInput } from '@mantine/core'
 import { Controller, useForm } from 'react-hook-form'
 // import { loginSchema } from '../model/loginSchema'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -10,9 +10,11 @@ import { regions } from 'shared/lib'
 
 export const AgentsForm = ({onComplete}) => {
 
-  const [loading, setLoading] = React.useState(false)
-
   const [params] = useSearchParams()
+
+  const [acceptedTerms, setAcceptedTerms] = React.useState(false);
+
+  const [loading, setLoading] = React.useState(false);
 
   const { control, handleSubmit, formState: {errors, isSubmitting} } = useForm({
     values: {
@@ -178,11 +180,29 @@ export const AgentsForm = ({onComplete}) => {
           <p className='text-red-500 text-sm mt-4'>{error}</p>
         )}
         {/* <Link to={'https://oz-elim.kz/login?reset=true'} className='underline text-gray-500 text-sm mt-4'>Восстановить пароль</Link> */}
+        <Checkbox
+          label={
+            <>
+              Я принимаю{' '}
+              <a href="/agent-agreement.pdf" target='_blank' className='underline text-primary-500'>
+                агентский договор
+              </a>{' '}
+              и{' '}
+              <a href="/pub_offer.pdf" target='_blank' className='underline text-primary-500'>
+                договор публичной оферты
+              </a>
+            </>
+          }
+          checked={acceptedTerms}
+          onChange={(event) => setAcceptedTerms(event.currentTarget.checked)}
+          mt="md"
+        />
         <Button 
           className='mt-4' 
           type='submit'
           fullWidth
           loading={loading}
+          disabled={!acceptedTerms}
         >
           Зарегистрироваться
         </Button> 
