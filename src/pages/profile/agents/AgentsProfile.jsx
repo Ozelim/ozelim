@@ -416,39 +416,49 @@ export const AgentsProfile = () => {
 
   async function checkServiceBidPaymentStatus() {
   try {
-    // Получаем первую "ожидающую" заявку пользователя
-    const bid = await pb.collection("service_bids").getFirstListItem(
-      `user="${user.id}" && status="waiting"`
-    );
+    // Получаем все заявки со статусом "waiting" у текущего юзера
+    const bids = await pb.collection("service_bids").getFullList({
+      filter: `user="${user.id}" && status="waiting"`,
+    });
 
-    // Проверка: есть ли заявка и нужные поля для проверки
-    if (!bid || !bid.pay || !bid.pay.ORDER || !bid.pay.MERCHANT) {
-      console.log("Нет подходящей заявки или отсутствуют данные оплаты");
+    if (!bids.length) {
+      console.log("У пользователя нет заявок со статусом waiting");
       return;
     }
 
-    const { ORDER, MERCHANT } = bid.pay;
-    const token = import.meta.env.VITE_APP_SHARED_SECRET;
-    const sign = sha512(token + `${ORDER};${MERCHANT}`).toString();
+    for (const bid of bids) {
+      const { ORDER, MERCHANT } = bid?.pay || {};
 
-    // Отправляем запрос на Netlify-сервер
-    const response = await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/check`, {
-      ORDER,
-      MERCHANT,
-      GETSTATUS: 1,
-      P_SIGN: sign,
-    });
+      if (!ORDER || !MERCHANT) {
+        console.log(`Заявка ${bid.id} не содержит ORDER или MERCHANT`);
+        continue;
+      }
 
-    const isSuccess = response?.data?.includes("Обработано успешно");
+      const token = import.meta.env.VITE_APP_SHARED_SECRET;
+      const sign = sha512(token + `${ORDER};${MERCHANT}`).toString();
 
-    if (isSuccess) {
-      await pb.collection("service_bids").update(bid.id, { status: "created" });
-      console.log("✅ Статус заявки обновлён на 'created'");
-    } else {
-      console.log("⏳ Оплата ещё не прошла или не подтверждена банком");
+      try {
+        const res = await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/check`, {
+          ORDER,
+          MERCHANT,
+          GETSTATUS: 1,
+          P_SIGN: sign,
+        });
+
+        const isSuccess = res?.data?.includes("Обработано успешно");
+
+        if (isSuccess) {
+          await pb.collection("service_bids").update(bid.id, { status: "created" });
+          console.log(`✅ Заявка ${bid.id} успешно обновлена на created`);
+        } else {
+          console.log(`🕐 Заявка ${bid.id} ещё не оплачена`);
+        }
+      } catch (err) {
+        console.error(`❌ Ошибка при проверке заявки ${bid.id}:`, err);
+      }
     }
-  } catch (error) {
-    console.error("💥 Ошибка при проверке заявки:", error);
+  } catch (err) {
+    console.error("💥 Ошибка при получении заявок:", err);
   }
 }
 
