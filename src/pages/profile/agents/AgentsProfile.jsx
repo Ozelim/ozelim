@@ -414,78 +414,61 @@ export const AgentsProfile = () => {
   }
 
 
-const checkAllWaitingBids = async () => {
-  console.log("🟡 checkAllWaitingBids вызван");
+async function checkBidPaymentStatus() {
+  console.log('Проверка заявок агента...');
+ const agentId = user.id;
 
-  if (!user) {
-    console.log("⛔ Нет user");
-    return;
-  }
+  const bids = await pb.collection('service_bids').getFullList({
+    filter: `agent = '${agentId}' && status = 'waiting'`,
+    sort: '-created',
+  });
 
-  try {
-    const bids = await pb.collection("service_bids").getFullList({
-      filter: `status="waiting" && user="${user.id}"`,
-    });
+  console.log(`Найдено заявок со статусом 'waiting': ${bids.length}`);
 
-    console.log(`🔍 Найдено заявок со статусом 'waiting': ${bids.length}`);
+  if (bids.length === 0) return;
 
-    for (const bid of bids) {
-      const pay = bid?.pay;
-      if (!pay) {
-        console.log(`⚠️ У заявки ${bid.id} нет поля 'pay'`);
-        continue;
-      }
+  for (const bid of bids) {
+    const pay = bid?.pay;
 
-      const ORDER = pay.ORDER;
-      const MERCHANT = pay.MERCHANT;
-
-      if (!ORDER || !MERCHANT) {
-        console.log(`❌ У заявки ${bid.id} не хватает ORDER или MERCHANT`);
-        continue;
-      }
-
-      console.log(`📤 Проверяем заявку ${bid.id}, ORDER=${ORDER}, MERCHANT=${MERCHANT}`);
-
-      const sign = createVerifySign({
-        ORDER,
-        MERCHANT,
-      });
+    if (pay?.ORDER && pay?.MERCHANT) {
+      const token = import.meta.env.VITE_APP_SHARED_SECRET;
+      const string = `${pay.ORDER};${pay.MERCHANT}`;
+      const sign = sha512(token + string).toString();
 
       try {
         const res = await axios.post(
-          `${verifyUrl}/check`,
+          `${import.meta.env.VITE_APP_PAYMENT_DEV}/api/check`,
           {
-            ORDER,
-            MERCHANT,
+            ORDER: pay.ORDER,
+            MERCHANT: pay.MERCHANT,
+            GETSTATUS: 1,
             P_SIGN: sign,
-          },
-          {
-            headers: { "Content-Type": "application/json" },
           }
         );
 
-        console.log(`📥 Ответ от банка для ${bid.id}:`, res.data);
+        const isSuccess = res?.data?.includes('Обработано успешно');
 
-        if (res.data.includes("Обработано успешно")) {
-          console.log(`✅ Заявка ${bid.id} успешно оплачена! Меняю статус...`);
-          await pb.collection("service_bids").update(bid.id, {
-            status: "created",
+        console.log(`Заявка ${bid.id}: статус оплаты — ${isSuccess ? 'УСПЕШНО' : 'НЕ ОПЛАЧЕНО'}`);
+
+        if (isSuccess) {
+          await pb.collection('service_bids').update(bid.id, {
+            status: 'created',
           });
-        } else {
-          console.log(`🔁 Заявка ${bid.id} — не оплачена.`);
+          console.log(`✅ Статус заявки ${bid.id} обновлён на 'created'`);
         }
-      } catch (err) {
-        console.error(`🚨 Ошибка при проверке заявки ${bid.id}:`, err?.response?.data || err.message);
+      } catch (error) {
+        console.error(`Ошибка при проверке заявки ${bid.id}:`, error);
       }
+    } else {
+      console.warn(`⚠️ У заявки ${bid.id} отсутствуют данные оплаты`);
     }
-  } catch (error) {
-    console.error("🔥 Ошибка получения заявок:", error);
   }
-};
+}
+
 
 React.useEffect(() => {
    console.log("⏳ useEffect запущен");
-  checkAllWaitingBids()
+  checkBidPaymentStatus()
 }, []);
 
   async function verifyUser(u) {
