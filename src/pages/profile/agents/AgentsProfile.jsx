@@ -413,6 +413,49 @@ export const AgentsProfile = () => {
     }
   }
 
+
+  async function checkServiceBidPaymentStatus() {
+  try {
+    // Получаем первую "ожидающую" заявку пользователя
+    const bid = await pb.collection("service_bids").getFirstListItem(
+      `user="${user.id}" && status="waiting"`
+    );
+
+    // Проверка: есть ли заявка и нужные поля для проверки
+    if (!bid || !bid.pay || !bid.pay.ORDER || !bid.pay.MERCHANT) {
+      console.log("Нет подходящей заявки или отсутствуют данные оплаты");
+      return;
+    }
+
+    const { ORDER, MERCHANT } = bid.pay;
+    const token = import.meta.env.VITE_APP_SHARED_SECRET;
+    const sign = sha512(token + `${ORDER};${MERCHANT}`).toString();
+
+    // Отправляем запрос на Netlify-сервер
+    const response = await axios.post(`${import.meta.env.VITE_APP_PAYMENT_DEV}/api/check`, {
+      ORDER,
+      MERCHANT,
+      GETSTATUS: 1,
+      P_SIGN: sign,
+    });
+
+    const isSuccess = response?.data?.includes("Обработано успешно");
+
+    if (isSuccess) {
+      await pb.collection("service_bids").update(bid.id, { status: "created" });
+      console.log("✅ Статус заявки обновлён на 'created'");
+    } else {
+      console.log("⏳ Оплата ещё не прошла или не подтверждена банком");
+    }
+  } catch (error) {
+    console.error("💥 Ошибка при проверке заявки:", error);
+  }
+}
+
+React.useEffect(() => {
+  checkServiceBidPaymentStatus();
+}, []);
+
   async function verifyUser(u) {
     setVerifyLoading(true)
     await axios
