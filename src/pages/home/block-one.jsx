@@ -1,0 +1,134 @@
+import React from 'react'
+import { SiSitepoint } from 'react-icons/si'
+
+export const BlockOne = () => {
+  return (
+    <div
+      className="relative flex min-h-screen w-full flex-col bg-background-light group/design-root"
+      style={{ fontFamily: '"Work Sans", "Noto Sans", sans-serif' }}
+    >
+      <div className="container flex h-full grow flex-col mt-8">
+        <div className="flex flex-1 justify-center">
+          <div className="flex flex-col flex-1">
+            <div className="flex gap-6 shadow-lg border rounded-lg overflow-hidden bg-white">
+              <div>
+                <div className="flex flex-col gap-3 p-4">
+                  <h1 className="text-primary text-4xl font-black leading-tight tracking-[-0.033em] md:text-5xl">
+                    Lorem, ipsum dolor.
+                  </h1>
+                  <h3 className="text-gray-800 text-lg font-medium leading-normal md:text-xl">
+                    Lorem ipsum dolor sit.
+                  </h3>
+                </div>
+                <p className="text-gray-600 text-base font-normal leading-relaxed pb-6 pt-1 px-4">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam, commodi est. Odit,
+                  deleniti quasi? Et quisquam accusantium saepe in! Autem.
+                </p>
+              </div>
+              <div>
+                <h2 className="text-gray-900 text-3xl font-bold leading-tight tracking-[-0.015em] px-4 pb-4 pt-5">
+                  Lorem, ipsum dolor.
+                </h2>
+                <div className="flex flex-col">
+                  <div className="flex items-start gap-4 p-4 min-h-[72px]">
+                    <div className="text-primary flex items-center justify-center rounded-full bg-primary/20 shrink-0 size-8 mt-1">
+                      <SiSitepoint size={24} />
+                    </div>
+                    <div className="flex flex-col justify-center">
+                      <p className="text-gray-600 text-sm font-normal leading-normal">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam, commodi est.
+                        Odit, deleniti quasi? Et quisquam accusantium saepe in! Autem.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4 p-4 min-h-[72px]">
+                    <div className="text-primary flex items-center justify-center rounded-full bg-primary/20 shrink-0 size-8 mt-1">
+                      <SiSitepoint size={24} />
+                    </div>
+                    <div className="flex flex-col justify-center">
+                      <p className="text-gray-600 text-sm font-normal leading-normal">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam, commodi est.
+                        Odit, deleniti quasi? Et quisquam accusantium saepe in! Autem.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4 p-4 min-h-[72px]">
+                    <div className="text-primary flex items-center justify-center rounded-full bg-primary/20 shrink-0 size-8 mt-1">
+                      <SiSitepoint size={24} />
+                    </div>
+                    <div className="flex flex-col justify-center">
+                      <p className="text-gray-600 text-sm font-normal leading-normal">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam, commodi est.
+                        Odit, deleniti quasi? Et quisquam accusantium saepe in! Autem.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4 p-4 min-h-[72px]">
+                    <div className="text-primary flex items-center justify-center rounded-full bg-primary/20 shrink-0 size-8 mt-1">
+                      <SiSitepoint size={24} />
+                    </div>
+                    <div className="flex flex-col justify-center">
+                      <p className="text-gray-600 text-sm font-normal leading-normal">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam, commodi est.
+                        Odit, deleniti quasi? Et quisquam accusantium saepe in! Autem.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4 p-4 min-h-[72px]">
+                    <div className="text-primary flex items-center justify-center rounded-full bg-primary/20 shrink-0 size-8 mt-1">
+                      <SiSitepoint size={24} />
+                    </div>
+                    <div className="flex flex-col justify-center">
+                      <p className="text-gray-600 text-sm font-normal leading-normal">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam, commodi est.
+                        Odit, deleniti quasi? Et quisquam accusantium saepe in! Autem.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* <hr className="border-gray-200 mx-4 my-4" /> */}
+
+            <div class="mt-8 relative flex w-full flex-col font-display group/design-root overflow-x-hidden bg-white border shadow-lg rounded-lg overflow-hidden p-4">
+              <div class="flex h-full grow flex-col">
+                <div class="flex items-center justify-center">
+                  <div class="layout-content-container flex flex-col w-full flex-1">
+                    <div class="@container">
+                      <div class="flex flex-col-reverse items-start gap-8 lg:grid lg:grid-cols-12 lg:gap-12 xl:gap-16">
+                        <div class="flex flex-col gap-6 text-left lg:col-span-7 lg:gap-8">
+                          <div class="flex flex-col gap-3">
+                            <h1 class="text-[#1A202C] text-3xl font-black leading-tight tracking-[-0.03em] md:text-4xl">
+                              Lorem ipsum dolor sit.
+                            </h1>
+                            <p class="text-[#1A202C]/80 text-base font-normal leading-relaxed md:text-lg">
+                              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Amet omnis
+                              veritatis cumque placeat minima molestias numquam ipsa repellat culpa,
+                              iusto et eius, repellendus, rerum maxime quo corporis id harum
+                              corrupti excepturi. Nam modi sunt odio corrupti excepturi aut dolores
+                              explicabo?
+                            </p>
+                          </div>
+                        </div>
+                        <div class="w-full lg:col-span-5">
+                          <div
+                            class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl"
+                            data-alt="Vibrant abstract gradient with blue and purple tones"
+                            style={{
+                              backgroundImage:
+                                'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBiFE9Sdd0jymYHWXqGTBSe8hqI1mFxOdSTcf9Xpjp641j0h8wXFp55P0myU-RJXutrxou7HGmmxi1rRSPBOwNYXSBcQcvsoVQmopbGkpnZ6EkRAcFceTH44e3uBXA62FOLgcEpzrsrrlgfB9g8aVMWT8Y09kQdIHjQmVaH8zUSJpnHKAzstI76IoIrfkZUORMKCd80BKEW6BEiVbunfVAOSgpqXxWvMGGaFY4bOIs-eAbhYosR38VK7G0-BYuBJG2U8igBzgIcXjBq")',
+                            }}
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}

@@ -8,6 +8,8 @@ import { Button, Modal, Select, TextInput } from '@mantine/core'
 import { AiOutlineInstagram, AiOutlineYoutube } from 'react-icons/ai'
 import { RiTiktokFill } from 'react-icons/ri'
 import Kazmap from 'shared/assets/images/hero.jpg'
+import { LinksGrid } from './links-grid'
+import { BlockOne } from './block-one'
 
 import home2kz from 'shared/assets/images/home/home2kz.jpg'
 import home1kz from 'shared/assets/images/home/home1kz.jpeg'
@@ -15,19 +17,46 @@ import home1kz from 'shared/assets/images/home/home1kz.jpeg'
 import q from 'shared/assets/images/home/1.png'
 import w from 'shared/assets/images/home/2.jpg'
 import e from 'shared/assets/images/home/3.jpg'
+import TeamCard2, { TeamCard } from 'shared/ui/TeamCard'
+import BlockTwo from './block-two'
+import OurTeamHeader2, { OurTeamHeader } from 'pages/our-team/our-team-header'
+
+import heroimg from 'shared/assets/images/hero-image.jpg'
 
 async function getServices() {
   return await pb.collection('home_data').getFullList()
 }
 
+async function getOurTeam() {
+  return await pb.collection('members').getFullList({ filter: `kz = false` })
+}
+
+async function getOurTeamKz() {
+  return await pb.collection('members').getFullList({ filter: `kz = true` })
+}
+
 export const Home = () => {
   const { kz, qq } = useLangContext()
+  const [ourTeam, setOurTeam] = React.useState([])
 
   const { headings, images, text } = usePageData('home')
+  const { images: teamImages, text: teamText, headings: teamHeadings } = usePageData('team')
 
   const matches = useMediaQuery(`(min-width: 767px)`)
 
   const [services, setServices] = React.useState({})
+
+  React.useEffect(() => {
+    if (kz) {
+      getOurTeamKz().then((res) => {
+        setOurTeam(res)
+      })
+    } else {
+      getOurTeam().then((res) => {
+        setOurTeam(res)
+      })
+    }
+  }, [kz])
 
   React.useEffect(() => {
     getServices().then((res) => {
@@ -46,7 +75,44 @@ export const Home = () => {
 
   return (
     <>
-      <div className="w-full">
+      <LinksGrid />
+      <BlockOne />
+      <BlockTwo />
+
+      <div className="container">
+        <div class="flex flex-wrap justify-between gap-3 p-4">
+          <div class="flex min-w-72 flex-col gap-4">
+            <h1 class="text-gray-900 text-5xl font-black leading-tight tracking-tighter">
+              Наша команда
+            </h1>
+          </div>
+        </div>
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-6">
+          {ourTeam?.map((team) => (
+            <TeamCard2 team={team} key={team.id} />
+            // <TeamCard team={team} key={team.id} />
+          ))}
+        </div>
+      </div>
+      <OurTeamHeader
+        headings={teamHeadings}
+        text={teamText}
+      />
+      {/* <div className={`space-y-4 container mx-auto text-center mt-10`}>
+        <div className="space-y-2">
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground leading-tight">
+            Lorem, ipsum.
+          </h1>
+          <h2 className="text-xl md:text-2xl font-medium text-muted-foreground">
+            Lorem ipsum dolor sit.
+          </h2>
+        </div>
+        <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia error veniam delectus saepe neque magnam aut repellendus tempora reprehenderit perspiciatis non, enim, dolorem ad, nostrum suscipit quisquam dolor recusandae illo.
+        </p>
+      </div> */}
+
+      {/* <div className="w-full">
         <div className="container">
           <div>
             {kz ? (  
@@ -70,9 +136,9 @@ export const Home = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <div className="container mt-8">
+      {/* <div className="container mt-8">
         <h1 className="heading text-primary-500 ">{headings?.[1]}</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 ">
@@ -94,9 +160,9 @@ export const Home = () => {
             <p className="mt-2 md:mt-4 text text-xl">{text?.[2]}</p>
           </div>
           <div>
-            <img 
-              src={q} 
-              alt="" 
+            <img
+              src={q}
+              alt=""
               className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 rounded-primary max-h-96 object-cover"
             />
             <p className="mt-2 md:mt-4 text text-xl">{text?.[3]}</p>
@@ -158,13 +224,9 @@ export const Home = () => {
       <section className="w-full mt-6 lg:mt-10 container">
         <h1 className="text-4xl text-primary-500 font-bold">
           {headings?.[3]}
-          {/* Руководитель Ассоциации туристов Казахстана */}
         </h1>
         <div className="flex flex-col md:flex-row gap-8 mt-5">
-          <img
-            className="max-w-2xl w-full rounded-primary max-h-80 object-cover"
-            src={e}
-          />
+          <img className="max-w-2xl w-full rounded-primary max-h-80 object-cover" src={e} />
           <div>
             <ul className="mt-3 text-lg font-medium text-[#5a5959] space-y-3">
               <li>• {text?.[9]}</li>
@@ -177,34 +239,19 @@ export const Home = () => {
 
       <section className="w-full mt-8">
         <div className="container">
-          {/* <h1 className="text-3xl max-w-3xl m-auto font-bold text-center font-head">
-            <span className="text-primary-500">{headings?.heading}</span>
-          </h1> */}
+  
           <div className="flex flex-col lg:flex-row mt-4 gap-8">
             <Image
               record={images}
               index={9}
               className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 rounded-primary max-h-96 object-cover"
             />
-            {/* {getImageUrl(images, images?.[1]) ? (
-              <img
-                className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0"
-                src={getImageUrl(images, images?.[1])}
-                loading="lazy"
-                alt="travel"
-              />
-            ) : (
-              <div className="lg:max-w-xl w-full m-auto bg-zinc-200" />
-            )} */}
+
             <div className="w-full lg:text-left text-center">
               <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
                 {headings?.x1}
               </h1>
-              {/* <img
-                className="max-w-2xl w-full block lg:hidden mt-4"
-                src={FitnessIcon}
-                alt="fitness"
-              /> */}
+   
               <ul className="mt-3 text-lg font-medium text-[#5a5959] ">
                 <li>{text?.x1}</li>
               </ul>
@@ -216,18 +263,13 @@ export const Home = () => {
               <div>
                 <a href={'/ustav.pdf'} target="_blank">
                   <Button className="mt-4">
-                    {qq(`Устав Ассоциации туристов Казахстана "Oz Elim"`, `Қазақстан туристер Қауымдастығының Жарғысы "Oz Elim"`)}
-                    {/* Устав Ассоциации туристов Казахстана "Oz Elim" */}
+                    {qq(
+                      `Устав Ассоциации туристов Казахстана "Oz Elim"`,
+                      `Қазақстан туристер Қауымдастығының Жарғысы "Oz Elim"`
+                    )}
                   </Button>
                 </a>
               </div>
-              {/* <div className='mt-4'>
-                <a href={'/services-asosiation.pdf'} target='_blank'>
-                  <Button>
-                    {qq('Услуги членам Ассоциации', 'Қауымдастық мүшелеріне ұсынылатын қызметтер тізім')}
-                  </Button>
-                </a>
-              </div> */}
             </div>
           </div>
         </div>
@@ -279,32 +321,37 @@ export const Home = () => {
           </p>
         </div>
         <div className="flex flex-col justify-center items-center mt-8">
-          <Button onClick={() => handlers.open()}>
-            {qq('Оставить заявку', 'Өтініш қалдыру')}
-          </Button>
+          <Button onClick={() => handlers.open()}>{qq('Оставить заявку', 'Өтініш қалдыру')}</Button>
         </div>
         <div className="text-center mt-8">
           <h1 className="text-3xl lg:text-4xl font-bold mt-1 text-primary-500">{headings?.[7]}</h1>
           <p className="text-[#888888] text">{text?.[23]}</p>
         </div>
-        
+
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8 max-w-4xl mx-auto text-center">
-        <div className="bg-white rounded-2xl shadow p-4 flex items-center justify-center h-24">            
+          <div className="bg-white rounded-2xl shadow p-4 flex items-center justify-center h-24">
             <a href={'/mem-str.pdf'} target="_blank">
-            <h2 className="text-xl font-semibold text-primary-500">Меморандум со страховой компанией Халық-Life</h2>
+              <h2 className="text-xl font-semibold text-primary-500">
+                Меморандум со страховой компанией Халық-Life
+              </h2>
             </a>
+          </div>
+          <div className="bg-white rounded-2xl shadow p-4 flex items-center justify-center h-24">
+            <a href={'/mem-sov.pdf'} target="_blank">
+              <h2 className="text-xl font-semibold text-primary-500">
+                Меморандум с Советом деловых женщин Павлодарской области
+              </h2>
+            </a>
+          </div>
+          <div className="bg-white rounded-2xl shadow p-4 flex items-center justify-center h-24">
+            <a href={'/mem-otd.pdf'} target="_blank">
+              <h2 className="text-l font-semibold text-primary-500">
+                Меморандум с Отделом туризма при Управлении физкультуры и спорта Павлодарской
+                области
+              </h2>
+            </a>
+          </div>
         </div>
-        <div className="bg-white rounded-2xl shadow p-4 flex items-center justify-center h-24">
-          <a href={'/mem-sov.pdf'} target="_blank">
-          <h2 className="text-xl font-semibold text-primary-500">Меморандум с Советом деловых женщин Павлодарской области</h2>
-          </a>
-        </div>
-        <div className="bg-white rounded-2xl shadow p-4 flex items-center justify-center h-24">
-          <a href={'/mem-otd.pdf'} target="_blank">
-          <h2 className="text-l font-semibold text-primary-500">Меморандум с Отделом туризма при Управлении физкультуры и спорта Павлодарской области</h2>
-          </a>
-        </div>
-      </div>
       </section>
       <section className="mt-10 lg:mt-24">
         <div className="container">
@@ -398,7 +445,7 @@ export const Home = () => {
             </Button>
           </div>
         </div>
-      </Modal>
+      </Modal> */}
     </>
   )
 }

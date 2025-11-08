@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout } from "shared/ui";
 import { Footer } from "widgets/Footer";
-import { Header } from "widgets/Header";
+import { Header2 } from "widgets/Header";
 import { SubHeader } from "widgets/sub-header";
 
 import { MantineProvider, createEmotionCache } from '@mantine/core'
@@ -38,7 +38,7 @@ export const baseLayout = (
       >
         <Layout
           subheaderSlot={<SubHeader/>}
-          headerSlot={<Header/>}
+          headerSlot={<Header2/>}
           footerSlot={<Footer/>}
         />
         <Notifications position='top-right'/>

@@ -1,0 +1,163 @@
+import React from 'react'
+
+export default function BlockTwo() {
+  return (
+    <>
+      <div>
+        <div className="relative flex h-auto w-full flex-col group/design-root overflow-x-hidden mt-8">
+          <div className="container flex h-full grow flex-col">
+            <div className="flex flex-1 justify-center">
+              <div className=" flex flex-col flex-1 pb-8">
+                <main className='border rounded-lg overflow-hidden bg-white shadow-lg'>
+                  <div className="flex flex-wrap justify-between gap-3 p-4">
+                    <div className="flex min-w-72 flex-col gap-4">
+                      <h1 className="text-gray-900 text-5xl font-black leading-tight tracking-tighter">
+                        Наши партнеры
+                      </h1>
+                    </div>
+                  </div>
+                  <div className="space-y-6 mt-4">
+                    <p className="text-gray-800 text-base font-normal leading-loose pb-3 pt-1 px-4">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit nihil
+                      veritatis nemo consectetur consequatur! Ducimus perferendis culpa sed, dolorum
+                      impedit minima. Repellendus, vero perferendis quis autem perspiciatis fugit
+                      pariatur optio vitae dignissimos odit! Quo beatae vel animi vitae. Nisi ut
+                      iste ad explicabo voluptatibus quaerat eum. Deserunt quis praesentium totam
+                      excepturi quas iste velit odio animi sunt accusantium distinctio molestiae ad
+                      esse nisi ab hic inventore magni similique quo, eos quisquam porro voluptatum!
+                      Saepe unde hic consectetur architecto tenetur suscipit blanditiis libero natus
+                      cum! Minus iure, facilis tempora pariatur dolorem dolorum animi aliquid porro
+                      natus? Ducimus eligendi eos officia suscipit.
+                    </p>
+                    <p className="text-gray-800 text-base font-normal leading-loose pb-3 pt-1 px-4">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque eum nemo
+                      soluta ipsum veritatis sint rerum quis vel earum molestias laudantium,
+                      reiciendis rem tenetur enim ratione atque iure. Voluptas dicta dolores
+                      incidunt blanditiis eveniet praesentium expedita ullam voluptatibus, labore ea
+                      maxime laborum odit amet aut delectus aspernatur tenetur eum adipisci corrupti
+                      molestias inventore repellendus. Maxime, excepturi. Atque explicabo totam
+                      perferendis doloribus veritatis, tenetur, consectetur sunt possimus repellat
+                      quaerat labore consequatur soluta! Unde nostrum ad iure minus officiis, amet
+                      odit. Numquam.
+                    </p>
+                    <p className="text-gray-800 text-base font-normal leading-loose pb-3 pt-1 px-4">
+                      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Natus, nostrum
+                      molestias consectetur dignissimos soluta possimus odio. Non cum aliquam, ipsam
+                      ratione neque laboriosam sint dolores ipsa! Non, nesciunt cum animi adipisci
+                      explicabo, nostrum blanditiis ab, consequatur dolor error eius distinctio est
+                      vel nemo sequi dignissimos repellendus accusamus unde similique. Eaque
+                      deleniti nobis eius rerum necessitatibus facilis a, soluta atque quidem magnam
+                      tempore, ad tenetur aliquid error aspernatur iste labore ea!
+                    </p>
+                  </div>
+                </main>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="relative flex h-auto w-full flex-col group/design-root overflow-x-hidden">
+          <div className="container flex h-full grow flex-col">
+            <div className="flex flex-1 justify-center pb-8">
+              <div className="flex flex-col flex-1">
+                <main className='border shadow-lg rounded-lg overflow-hidden bg-white'>
+                  <div className="flex flex-wrap justify-between gap-3 p-4">
+                    <div className="flex min-w-72 flex-col gap-4">
+                      <h1 className="text-gray-900 text-5xl font-black leading-tight tracking-tighter">
+                        Меморандумы
+                      </h1>
+                    </div>
+                  </div>
+                  <div className="space-y-6 mt-4">
+                    <p className="text-gray-800 text-base font-normal leading-loose pb-3 pt-1 px-4">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit nihil
+                      veritatis nemo consectetur consequatur! Ducimus perferendis culpa sed, dolorum
+                      impedit minima. Repellendus, vero perferendis quis autem perspiciatis fugit
+                      pariatur optio vitae dignissimos odit! Quo beatae vel animi vitae. Nisi ut
+                      iste ad explicabo voluptatibus quaerat eum. Deserunt quis praesentium totam
+                      excepturi quas iste velit odio animi sunt accusantium distinctio molestiae ad
+                      esse nisi ab hic inventore magni similique quo, eos quisquam porro voluptatum!
+                      Saepe unde hic consectetur architecto tenetur suscipit blanditiis libero natus
+                      cum! Minus iure, facilis tempora pariatur dolorem dolorum animi aliquid porro
+                      natus? Ducimus eligendi eos officia suscipit.
+                    </p>
+                    <p className="text-gray-800 text-base font-normal leading-loose pb-3 pt-1 px-4">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque eum nemo
+                      soluta ipsum veritatis sint rerum quis vel earum molestias laudantium,
+                      reiciendis rem tenetur enim ratione atque iure. Voluptas dicta dolores
+                      incidunt blanditiis eveniet praesentium expedita ullam voluptatibus, labore ea
+                      maxime laborum odit amet aut delectus aspernatur tenetur eum adipisci corrupti
+                      molestias inventore repellendus. Maxime, excepturi. Atque explicabo totam
+                      perferendis doloribus veritatis, tenetur, consectetur sunt possimus repellat
+                      quaerat labore consequatur soluta! Unde nostrum ad iure minus officiis, amet
+                      odit. Numquam.
+                    </p>
+                    <p className="text-gray-800 text-base font-normal leading-loose pb-3 pt-1 px-4">
+                      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Natus, nostrum
+                      molestias consectetur dignissimos soluta possimus odio. Non cum aliquam, ipsam
+                      ratione neque laboriosam sint dolores ipsa! Non, nesciunt cum animi adipisci
+                      explicabo, nostrum blanditiis ab, consequatur dolor error eius distinctio est
+                      vel nemo sequi dignissimos repellendus accusamus unde similique. Eaque
+                      deleniti nobis eius rerum necessitatibus facilis a, soluta atque quidem magnam
+                      tempore, ad tenetur aliquid error aspernatur iste labore ea!
+                    </p>
+                  </div>
+                </main>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="relative flex h-auto w-full flex-col group/design-root overflow-x-hidden">
+          <div className="container flex h-full grow flex-col">
+            <div className="flex flex-1 justify-center pb-8">
+              <div className="flex flex-col flex-1">
+                <main className='border shadow-lg rounded-lg overflow-hidden bg-white'>
+                  <div className="flex flex-wrap justify-between gap-3 p-4">
+                    <div className="flex min-w-72 flex-col gap-4">
+                      <h1 className="text-gray-900 text-5xl font-black leading-tight tracking-tighter">
+                        Наши реквизиты
+                      </h1>
+                    </div>
+                  </div>
+                  <div className="space-y-6 mt-4">
+                    <p className="text-gray-800 text-base font-normal leading-loose pb-3 pt-1 px-4">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit nihil
+                      veritatis nemo consectetur consequatur! Ducimus perferendis culpa sed, dolorum
+                      impedit minima. Repellendus, vero perferendis quis autem perspiciatis fugit
+                      pariatur optio vitae dignissimos odit! Quo beatae vel animi vitae. Nisi ut
+                      iste ad explicabo voluptatibus quaerat eum. Deserunt quis praesentium totam
+                      excepturi quas iste velit odio animi sunt accusantium distinctio molestiae ad
+                      esse nisi ab hic inventore magni similique quo, eos quisquam porro voluptatum!
+                      Saepe unde hic consectetur architecto tenetur suscipit blanditiis libero natus
+                      cum! Minus iure, facilis tempora pariatur dolorem dolorum animi aliquid porro
+                      natus? Ducimus eligendi eos officia suscipit.
+                    </p>
+                    <p className="text-gray-800 text-base font-normal leading-loose pb-3 pt-1 px-4">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque eum nemo
+                      soluta ipsum veritatis sint rerum quis vel earum molestias laudantium,
+                      reiciendis rem tenetur enim ratione atque iure. Voluptas dicta dolores
+                      incidunt blanditiis eveniet praesentium expedita ullam voluptatibus, labore ea
+                      maxime laborum odit amet aut delectus aspernatur tenetur eum adipisci corrupti
+                      molestias inventore repellendus. Maxime, excepturi. Atque explicabo totam
+                      perferendis doloribus veritatis, tenetur, consectetur sunt possimus repellat
+                      quaerat labore consequatur soluta! Unde nostrum ad iure minus officiis, amet
+                      odit. Numquam.
+                    </p>
+                    <p className="text-gray-800 text-base font-normal leading-loose pb-3 pt-1 px-4">
+                      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Natus, nostrum
+                      molestias consectetur dignissimos soluta possimus odio. Non cum aliquam, ipsam
+                      ratione neque laboriosam sint dolores ipsa! Non, nesciunt cum animi adipisci
+                      explicabo, nostrum blanditiis ab, consequatur dolor error eius distinctio est
+                      vel nemo sequi dignissimos repellendus accusamus unde similique. Eaque
+                      deleniti nobis eius rerum necessitatibus facilis a, soluta atque quidem magnam
+                      tempore, ad tenetur aliquid error aspernatur iste labore ea!
+                    </p>
+                  </div>
+                </main>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
