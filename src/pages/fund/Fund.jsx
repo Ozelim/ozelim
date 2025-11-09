@@ -89,8 +89,8 @@ export const Fund = () => {
             <div class=" flex flex-col flex-1">
               <main class="py-4">
                 <div class="flex flex-wrap justify-between gap-3 p-4">
-                  <div class="flex min-w-72 flex-col gap-4">
-                    <h1 class="text-gray-900 text-5xl font-black leading-tight tracking-tighter">
+                  <div class="flex min-w-72 flex-col gap-4 mx-auto">
+                    <h1 class="text-gray-900 text-3xl md:text-4xl font-black leading-tight tracking-tighter">
                       Lorem ipsum dolor sit.
                     </h1>
                   </div>
@@ -121,8 +121,8 @@ export const Fund = () => {
             <div class=" flex flex-col flex-1">
               <main class="py-4">
                 <div class="flex flex-wrap justify-between gap-3 p-4">
-                  <div class="flex min-w-72 flex-col gap-4">
-                    <h1 class="text-gray-900 text-5xl font-black leading-tight tracking-tighter">
+                  <div class="flex min-w-72 flex-col gap-4 mx-auto">
+                    <h1 class="text-gray-900 text-3xl md:text-4xl font-black leading-tight tracking-tighter">
                       Lorem ipsum dolor sit.
                     </h1>
                   </div>
@@ -150,7 +150,7 @@ export const Fund = () => {
       <div className="relative grid grid-cols-2 w-full items-center justify-center font-display group/design-root gap-6 container mt-8">
         <div className="flex flex-col w-full max-w-2xl overflow-hidden rounded-xl border border-black/10 bg-white shadow-lg transition-shadow duration-300 hover:shadow-2xl">
           <div className="flex flex-col gap-6 p-6">
-            <h2 className="text-3xl font-bold text-slate-800 mb-0">Миссия фонда</h2>
+            <h2 className="text-3xl font-bold text-slate-800 mb-0 mx-auto">Миссия фонда</h2>
             <p className="text-slate-500">
               Обеспечение устойчивых источников финансирования для поддержки
             </p>
@@ -242,7 +242,7 @@ export const Fund = () => {
         </div>
         <div className="flex flex-col w-full max-w-2xl h-full overflow-hidden rounded-xl border border-black/10 bg-white shadow-lg transition-shadow duration-300 hover:shadow-2xl">
           <div className="flex flex-col gap-6 p-6">
-            <h2 className="text-3xl font-bold text-slate-800 mb-0">Преимущества и прозрачность</h2>
+            <h2 className="text-3xl font-bold text-slate-800 mb-0 text-center">Преимущества и прозрачность</h2>
             <div className="content-area">
               <ul className="flex flex-col gap-4 text-slate-600">
                 <li className="flex items-start gap-3">
@@ -319,7 +319,7 @@ export const Fund = () => {
       <div className="relative container flex w-full flex-col items-center justify-center bg-background-light mt-6">
         <div className="w-full rounded-xl border border-gray-200/80 bg-white shadow-lg">
           <div className="flex flex-col p-8">
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900 md:text-4xl text-center">
               Принцип работы
             </h1>
             <p className="mt-4 text-base leading-relaxed text-gray-600">

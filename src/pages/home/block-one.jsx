@@ -13,7 +13,7 @@ export const BlockOne = () => {
             <div className="flex gap-6 shadow-lg border rounded-lg overflow-hidden bg-white">
               <div>
                 <div className="flex flex-col gap-3 p-4">
-                  <h1 className="text-primary text-4xl font-black leading-tight tracking-[-0.033em] md:text-5xl">
+                  <h1 className="text-primary text-3xl font-black leading-tight tracking-[-0.033em] md:text-4xl">
                     Lorem, ipsum dolor.
                   </h1>
                   <h3 className="text-gray-800 text-lg font-medium leading-normal md:text-xl">
@@ -26,7 +26,7 @@ export const BlockOne = () => {
                 </p>
               </div>
               <div>
-                <h2 className="text-gray-900 text-3xl font-bold leading-tight tracking-[-0.015em] px-4 pb-4 pt-5">
+                <h2 className="text-gray-900 text-2xl font-bold leading-tight tracking-[-0.015em] px-4 pb-4 pt-5">
                   Lorem, ipsum dolor.
                 </h2>
                 <div className="flex flex-col">
@@ -98,7 +98,7 @@ export const BlockOne = () => {
                       <div class="flex flex-col-reverse items-start gap-8 lg:grid lg:grid-cols-12 lg:gap-12 xl:gap-16">
                         <div class="flex flex-col gap-6 text-left lg:col-span-7 lg:gap-8">
                           <div class="flex flex-col gap-3">
-                            <h1 class="text-[#1A202C] text-3xl font-black leading-tight tracking-[-0.03em] md:text-4xl">
+                            <h1 class="text-[#1A202C] text-2xl font-black leading-tight tracking-[-0.03em] md:text-3xl">
                               Lorem ipsum dolor sit.
                             </h1>
                             <p class="text-[#1A202C]/80 text-base font-normal leading-relaxed md:text-lg">

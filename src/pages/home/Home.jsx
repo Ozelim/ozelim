@@ -81,8 +81,8 @@ export const Home = () => {
 
       <div className="container">
         <div class="flex flex-wrap justify-between gap-3 p-4">
-          <div class="flex min-w-72 flex-col gap-4">
-            <h1 class="text-gray-900 text-5xl font-black leading-tight tracking-tighter">
+          <div class="flex min-w-72 flex-col gap-4 mx-auto">
+            <h1 class="text-gray-900 text-3xl md:text-4xl font-black leading-tight tracking-tighter">
               Наша команда
             </h1>
           </div>

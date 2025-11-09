@@ -16,12 +16,12 @@ export const LinksGrid = () => {
       <main className="container">
         <div class="flex flex-wrap justify-between gap-3 p-4">
           <div class="flex min-w-72 mx-auto flex-col gap-4">
-            <h1 class="text-white text-5xl font-black leading-tight tracking-tighter z-10">
+            <h1 class="text-white text-4xl font-black leading-tight tracking-tighter z-10">
               Экосистема OzElim
             </h1>
           </div>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 max-w-6xl mx-auto">
           <a
             className="group relative overflow-hidden rounded-full aspect-square block shadow-md"
             href="#"

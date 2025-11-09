@@ -10,8 +10,8 @@ export default function BlockTwo() {
               <div className=" flex flex-col flex-1 pb-8">
                 <main className='border rounded-lg overflow-hidden bg-white shadow-lg'>
                   <div className="flex flex-wrap justify-between gap-3 p-4">
-                    <div className="flex min-w-72 flex-col gap-4">
-                      <h1 className="text-gray-900 text-5xl font-black leading-tight tracking-tighter">
+                    <div className="flex min-w-72 flex-col gap-4 mx-auto">
+                      <h1 className="text-gray-900 text-3xl md:text-4xl font-black leading-tight tracking-tighter">
                         Наши партнеры
                       </h1>
                     </div>
@@ -61,8 +61,8 @@ export default function BlockTwo() {
               <div className="flex flex-col flex-1">
                 <main className='border shadow-lg rounded-lg overflow-hidden bg-white'>
                   <div className="flex flex-wrap justify-between gap-3 p-4">
-                    <div className="flex min-w-72 flex-col gap-4">
-                      <h1 className="text-gray-900 text-5xl font-black leading-tight tracking-tighter">
+                    <div className="flex min-w-72 flex-col gap-4 mx-auto">
+                      <h1 className="text-gray-900 text-3xl md:text-4xl font-black leading-tight tracking-tighter">
                         Меморандумы
                       </h1>
                     </div>
@@ -112,8 +112,8 @@ export default function BlockTwo() {
               <div className="flex flex-col flex-1">
                 <main className='border shadow-lg rounded-lg overflow-hidden bg-white'>
                   <div className="flex flex-wrap justify-between gap-3 p-4">
-                    <div className="flex min-w-72 flex-col gap-4">
-                      <h1 className="text-gray-900 text-5xl font-black leading-tight tracking-tighter">
+                    <div className="flex min-w-72 flex-col gap-4 mx-auto">
+                      <h1 className="text-gray-900 text-3xl md:text-4xl font-black leading-tight tracking-tighter">
                         Наши реквизиты
                       </h1>
                     </div>
