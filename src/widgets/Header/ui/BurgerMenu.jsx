@@ -6,18 +6,18 @@ import { useLangContext } from 'app/langContext'
 
 const array1 = [
   { labelkz: 'Қор', labelru: 'Фонд', link: '/fund'},
-  { labelkz: '⁠Денсаулық әлемі', labelru: 'Мир здоровье', link: '/health-world'},
-  { labelkz: 'Дуальді оқыту', labelru: 'Дуальное обучение', link: '/dual'},
+  // { labelkz: '⁠Денсаулық әлемі', labelru: 'Мир здоровье', link: '/health-world'},
+  // { labelkz: 'Дуальді оқыту', labelru: 'Дуальное обучение', link: '/dual'},
   { labelkz: '⁠OzElim турлары', labelru: 'Туры с Ozelim', link: '/tours'},
   { labelkz: '⁠Сақтандыру', labelkz: `Сақтандыру`, labelru: 'Страхование', link: '/insurance'},
   { labelkz: '⁠Құқықтық көмек', labelru: 'Правовая защита', link: '/rights'},
 ]
 
 const array = [
-  { labelkz: `Жаңалықтар`, labelru: 'Новости', link: '/news' },
-  { labelkz: `Біздің туристер`, labelru: 'Наши туристы', link: '/partners', disabled: true },
-  { labelkz: `Агенттік бағдарлама`, labelru: 'Агентская программа', link: '/tourist' },
-  { labelkz: `Біздің команда`, labelru: 'Наша команда', link: '/our-team', },
+  // { labelkz: `Жаңалықтар`, labelru: 'Новости', link: '/news' },
+  // { labelkz: `Біздің туристер`, labelru: 'Наши туристы', link: '/partners', disabled: true },
+  // { labelkz: `Агенттік бағдарлама`, labelru: 'Агентская программа', link: '/tourist' },
+  // { labelkz: `Біздің команда`, labelru: 'Наша команда', link: '/our-team', },
 ]
  
 export const BurgerMenu = () => {

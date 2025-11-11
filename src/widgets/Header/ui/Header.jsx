@@ -57,14 +57,16 @@ export const Header2 = () => {
   return (
     <header className="border-b bg-white">
       <div className="container mx-auto flex items-center justify-between px-6 py-2">
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-4 md:gap-6">
           <div className="relative">
             <Link to={'/'}>
-              <img className="max-w-[80px] ml-2 lg:ml-6 w-full min-w-[70px]" src={mobileLogo} />
+              <img className="max-w-[80px] lg:ml-6 w-full min-w-[70px]" src={mobileLogo} />
             </Link>
           </div>
 
-          <nav className="flex items-center gap-8">
+          
+
+          <nav className="hidden md:flex items-center gap-8">
             {array2.map((val, i) => {
               return (
                 <Link
@@ -77,25 +79,29 @@ export const Header2 = () => {
               )
             })}
           </nav>
+
+          <div className='block md:hidden'>
+            <BurgerMenu/>
+          </div>
         </div>
 
         {/* Right side: Search, Globe, Avatar */}
         <div className="flex items-center gap-4">
-          <div className='flex gap-2'>
+          <div className='flex md:gap-2 items-center'>
      
             <BsWhatsapp className="text-xl flex-shrink-0" color="green" />
             <div className='flex flex-col'>
-              <span className="ml-2 hover:text-yellow-400 text-md hidden md:block">
+              <span className="ml-2 hover:text-yellow-400 text-md hidden md:block whitespace-nowrap">
                 +7 747 051 2252
               </span>
-              <span className='text-sm text-gray-400 -mt-1'>
+              <span className='hidden md:inline-block text-sm text-gray-400 -mt-1'>
                 Служба поддержки
               </span>
             </div>
           </div>
           {/* Globe Icon */}
 
-          <Menu className="ml-3">
+          <Menu className="md:ml-3">
             <Menu.Target>
               <p className="text-sm md:text-base cursor-pointer flex gap-2 items-center">
                 {kz ? 'каз' : 'рус'}

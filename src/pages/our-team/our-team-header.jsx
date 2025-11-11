@@ -34,26 +34,26 @@ export const OurTeamHeader = ({ headings, text }) => {
             </ul> */}
 
             <div className="flex flex-col gap-6">
-              <div className="flex items-start gap-4">
-                <SiSitepoint size={20} color='text-bg' className="mt-1.5 flex-shrink-0 rounded-full text-green-600"/>
+              <div className="flex items-center md:items-start gap-4">
+                <SiSitepoint size={20} color='text-bg' className="mt-1.5 flex-shrink-0 rounded-full"/>
                 <div className="flex flex-col gap-1">
                   <p className="text-base text-[#4c669a]">{text?.text1}</p>
                 </div>
               </div>
-              <div className="flex items-start gap-4">
-                <SiSitepoint size={20} color='text-bg' className="mt-1.5 flex-shrink-0 rounded-full text-green-600"/>
+              <div className="flex items-center md:items-start gap-4">
+                <SiSitepoint size={20} color='text-bg' className="mt-1.5 flex-shrink-0 rounded-full"/>
                 <div className="flex flex-col gap-1">
                   <p className="text-base text-[#4c669a]">{text?.text2}</p>
                 </div>
               </div>
-              <div className="flex items-start gap-4">
-                <SiSitepoint size={20} color='text-bg' className="mt-1.5 flex-shrink-0 rounded-full text-green-600"/>
+              <div className="flex items-center md:items-start gap-4">
+                <SiSitepoint size={20} color='text-bg' className="mt-1.5 flex-shrink-0 rounded-full"/>
                 <div className="flex flex-col gap-1">
                   <p className="text-base text-[#4c669a]">{text?.text3}</p>
                 </div>
               </div>
-              <div className="flex items-start gap-4">
-                <SiSitepoint size={20} color='text-bg' className="mt-1.5 flex-shrink-0 rounded-full text-green-600"/>
+              <div className="flex items-center md:items-start gap-4">
+                <SiSitepoint size={20} color='text-bg' className="mt-1.5 flex-shrink-0 rounded-full"/>
                 <div className="flex flex-col gap-1">
                   <p className="text-base text-[#4c669a]">{text?.text4}</p>
                 </div>

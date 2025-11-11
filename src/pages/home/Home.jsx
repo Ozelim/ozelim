@@ -94,10 +94,9 @@ export const Home = () => {
           ))}
         </div>
       </div>
-      <OurTeamHeader
-        headings={teamHeadings}
-        text={teamText}
-      />
+      <div className='mt-8'>
+        <OurTeamHeader headings={teamHeadings} text={teamText} />
+      </div>
       {/* <div className={`space-y-4 container mx-auto text-center mt-10`}>
         <div className="space-y-2">
           <h1 className="text-4xl md:text-5xl font-bold text-foreground leading-tight">

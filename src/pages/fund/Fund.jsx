@@ -17,6 +17,7 @@ import {
   MdOutlineFlag,
 } from 'react-icons/md'
 import { FiPhone } from 'react-icons/fi'
+import { Carousel } from '@mantine/carousel'
 
 async function getFundData() {
   return await pb.collection('fund_data').getFullList()
@@ -52,7 +53,7 @@ export const Fund = () => {
           <div class="flex items-center justify-center">
             <div class="layout-content-container flex flex-col w-full flex-1">
               <div class="@container">
-                <div class="flex flex-col-reverse items-start gap-8 lg:grid lg:grid-cols-12 lg:gap-12 xl:gap-16">
+                <div class="flex flex-col-reverse items-start gap-4 md:gap-8 lg:grid lg:grid-cols-12 lg:gap-12 xl:gap-16">
                   <div class="flex flex-col gap-6 text-left lg:col-span-7 lg:gap-8">
                     <div class="flex flex-col gap-3">
                       <h1 class="text-[#1A202C] text-3xl font-black leading-tight tracking-[-0.03em] md:text-4xl">
@@ -83,11 +84,11 @@ export const Fund = () => {
         </div>
       </div>
 
-      <div class="relative flex h-auto w-full flex-col group/design-root overflow-x-hidden">
+      <div class="relative flex h-auto w-full flex-col group/design-root overflow-x-hidden mt-4 md:mt-8">
         <div class="container flex h-full grow flex-col">
-          <div class="flex flex-1 justify-center py-5">
+          <div class="flex flex-1 justify-center">
             <div class=" flex flex-col flex-1">
-              <main class="py-4">
+              <main>
                 <div class="flex flex-wrap justify-between gap-3 p-4">
                   <div class="flex min-w-72 flex-col gap-4 mx-auto">
                     <h1 class="text-gray-900 text-3xl md:text-4xl font-black leading-tight tracking-tighter">
@@ -95,8 +96,8 @@ export const Fund = () => {
                     </h1>
                   </div>
                 </div>
-                <div class="space-y-6 mt-8">
-                  <p class="text-gray-800 text-base font-normal leading-loose pb-3 pt-1 px-4">
+                <div class="space-y-6">
+                  <p class="text-gray-800 text-base font-normal leading-loose">
                     Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi pariatur
                     repellendus animi ratione quidem eos, nobis alias, laborum omnis commodi sed
                     vero voluptatum molestiae eaque aliquam! Quo, obcaecati voluptates. Perspiciatis
@@ -117,9 +118,9 @@ export const Fund = () => {
 
       <div class="relative flex h-auto w-full flex-col group/design-root overflow-x-hidden">
         <div class="container flex h-full grow flex-col">
-          <div class="flex flex-1 justify-center py-5">
+          <div class="flex flex-1 justify-center">
             <div class=" flex flex-col flex-1">
-              <main class="py-4">
+              <main>
                 <div class="flex flex-wrap justify-between gap-3 p-4">
                   <div class="flex min-w-72 flex-col gap-4 mx-auto">
                     <h1 class="text-gray-900 text-3xl md:text-4xl font-black leading-tight tracking-tighter">
@@ -127,8 +128,8 @@ export const Fund = () => {
                     </h1>
                   </div>
                 </div>
-                <div class="space-y-6 mt-8">
-                  <p class="text-gray-800 text-base font-normal leading-loose pb-3 pt-1 px-4">
+                <div class="space-y-6">
+                  <p class="text-gray-800 text-base font-normal leading-loose pt-1">
                     Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptate iste
                     corrupti debitis sunt voluptas perspiciatis qui, maiores iure rem adipisci
                     assumenda rerum ad similique, libero doloribus dolorem sit necessitatibus
@@ -147,9 +148,9 @@ export const Fund = () => {
         </div>
       </div>
 
-      <div className="relative grid grid-cols-2 w-full items-center justify-center font-display group/design-root gap-6 container mt-8">
+      <div className="relative grid md:grid-cols-2 w-full items-center justify-center font-display group/design-root gap-6 container mt-8">
         <div className="flex flex-col w-full max-w-2xl overflow-hidden rounded-xl border border-black/10 bg-white shadow-lg transition-shadow duration-300 hover:shadow-2xl">
-          <div className="flex flex-col gap-6 p-6">
+          <div className="flex flex-col gap-6 p-4 md:p-6">
             <h2 className="text-3xl font-bold text-slate-800 mb-0 mx-auto">Миссия фонда</h2>
             <p className="text-slate-500">
               Обеспечение устойчивых источников финансирования для поддержки
@@ -158,7 +159,6 @@ export const Fund = () => {
               <ul className="flex flex-col gap-4 text-slate-600">
                 <li className="flex items-start gap-3">
                   <span className="mt-1 text-primary text-xl">
-                    {/* React-icons check icon */}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="text-primary"
@@ -174,7 +174,6 @@ export const Fund = () => {
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="mt-1 text-primary text-xl">
-                    {/* React-icons check icon */}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="text-primary"
@@ -190,7 +189,6 @@ export const Fund = () => {
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="mt-1 text-primary text-xl">
-                    {/* React-icons check icon */}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="text-primary"
@@ -206,7 +204,6 @@ export const Fund = () => {
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="mt-1 text-primary text-xl">
-                    {/* React-icons check icon */}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="text-primary"
@@ -222,7 +219,6 @@ export const Fund = () => {
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="mt-1 text-primary text-xl">
-                    {/* React-icons check icon */}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="text-primary"
@@ -241,13 +237,14 @@ export const Fund = () => {
           </div>
         </div>
         <div className="flex flex-col w-full max-w-2xl h-full overflow-hidden rounded-xl border border-black/10 bg-white shadow-lg transition-shadow duration-300 hover:shadow-2xl">
-          <div className="flex flex-col gap-6 p-6">
-            <h2 className="text-3xl font-bold text-slate-800 mb-0 text-center">Преимущества и прозрачность</h2>
+          <div className="flex flex-col gap-6 p-4 md:p-6">
+            <h2 className="text-3xl font-bold text-slate-800 mb-0 text-center">
+              Преимущества и прозрачность
+            </h2>
             <div className="content-area">
               <ul className="flex flex-col gap-4 text-slate-600">
                 <li className="flex items-start gap-3">
                   <span className="mt-1 text-primary text-xl">
-                    {/* React-icons check icon */}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="text-primary"
@@ -263,7 +260,6 @@ export const Fund = () => {
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="mt-1 text-primary text-xl">
-                    {/* React-icons check icon */}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="text-primary"
@@ -279,7 +275,6 @@ export const Fund = () => {
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="mt-1 text-primary text-xl">
-                    {/* React-icons check icon */}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="text-primary"
@@ -295,7 +290,6 @@ export const Fund = () => {
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="mt-1 text-primary text-xl">
-                    {/* React-icons check icon */}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="text-primary"
@@ -318,7 +312,7 @@ export const Fund = () => {
       {/* new */}
       <div className="relative container flex w-full flex-col items-center justify-center bg-background-light mt-6">
         <div className="w-full rounded-xl border border-gray-200/80 bg-white shadow-lg">
-          <div className="flex flex-col p-8">
+          <div className="flex flex-col p-4 md:p-8">
             <h1 className="text-3xl font-bold tracking-tight text-gray-900 md:text-4xl text-center">
               Принцип работы
             </h1>
@@ -361,7 +355,7 @@ export const Fund = () => {
 
       <div className="relative flex container w-full flex-col items-center justify-center mt-6">
         <div className="w-full rounded-xl bg-white shadow-lg">
-          <div className="flex flex-col gap-6 p-6">
+          <div className="flex flex-col p-4 gap-6 md:p-6">
             <div className="text-center">
               <h1 className="text-[#0d121b] tracking-tight text-2xl sm:text-3xl font-bold leading-tight">
                 Приглашаем поддержать целевой сбор на Проекты
@@ -373,102 +367,48 @@ export const Fund = () => {
                 доступнее, глубже и полезнее.
               </p>
             </div>
-            <div className="flex overflow-y-auto [-ms-scrollbar-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden py-4 -mx-6 sm:-mx-8 lg:-mx-12">
-              <div className="flex items-stretch gap-4 px-6 sm:px-8 lg:px-12">
-                <div className="flex flex-col gap-4 rounded-xl bg-background-light shadow-sm min-w-[280px] sm:min-w-[300px] overflow-hidden">
-                  <div
-                    className="w-full bg-center bg-no-repeat aspect-video bg-cover flex flex-col"
-                    data-alt="A breathtaking mountain landscape in Kazakhstan with a turquoise lake."
-                    style={{
-                      backgroundImage:
-                        'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBhHh74y3ctjWhwTCJNgxbgkXEaWu-fl6Ix4cPo-zrzDG8x6RbtuAW6tldAYzkjt64G9zsRudrKLQx_rusd8VHspRgOjGRMghcVqY7R-Lok0uoCzwXA4xYkuwMMgjmd0o9uIauVhrff8tIot8xZNkB6YLJjQKzA8QEkMBvkOloPd8rP84J1pUK4w2ecJj08ttsdaGGo7ozaTc5UDmheMxlLHOoQ9Mkxx-TaH58t7ibVd1ksY0M_q4EoKwlOH4CYfpLh9BFIanyIeu3s")',
-                    }}
-                  />
-                  <div className="flex flex-col flex-1 justify-between p-4 pt-0 gap-4">
-                    <div>
-                      <p className="text-[#0d121b] text-base font-medium leading-normal">
-                        Исследуйте Пейзажи
-                      </p>
-                      <p className="text-[#4c669a] text-sm font-normal leading-normal">
-                        Поддержите сохранение природных чудес.
-                      </p>
-                    </div>
-                    <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
-                      <span className="truncate">Поддержать</span>
-                    </button>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-4 rounded-xl bg-background-light shadow-sm min-w-[280px] sm:min-w-[300px] overflow-hidden">
-                  <div
-                    className="w-full bg-center bg-no-repeat aspect-video bg-cover flex flex-col"
-                    data-alt="People working together on an eco-trail building project in a forest."
-                    style={{
-                      backgroundImage:
-                        'url("https://lh3.googleusercontent.com/aida-public/AB6AXuC7Ib2B7K0K4cauzO6o82CDJ5f-xDWrwOUO3p0K0vOOqDhXyLAOGwdbGWqugDMOgp_IaMCIb8eYgXWnOtoaTJ39DKvyvVvV4IFL_TLA9JHLvTwB2Uw96FXdz7vdjPkwzkJvRlP4VXqa1SttoaXLPCqFFDEek8rR-Wms6oTbHeSmeHaJxXFI6EdERRf3iEe_FVMSw8t5H0Kaeq11SwePvBmMsoiVOI0YPcsP6B153xgX6wVAelokvE7fG8T6_MRKYm21jw2cihEuxA4i")',
-                    }}
-                  />
-                  <div className="flex flex-col flex-1 justify-between p-4 pt-0 gap-4">
-                    <div>
-                      <p className="text-[#0d121b] text-base font-medium leading-normal">
-                        Стройте Будущее
-                      </p>
-                      <p className="text-[#4c669a] text-sm font-normal leading-normal">
-                        Внесите вклад в значимые проекты для общества.
-                      </p>
-                    </div>
-                    <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
-                      <span className="truncate">Поддержать</span>
-                    </button>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-4 rounded-xl bg-background-light shadow-sm min-w-[280px] sm:min-w-[300px] overflow-hidden">
-                  <div
-                    className="w-full bg-center bg-no-repeat aspect-video bg-cover flex flex-col"
-                    data-alt="A close-up of a traditional Kazakh yurt with intricate patterns."
-                    style={{
-                      backgroundImage:
-                        'url("https://lh3.googleusercontent.com/aida-public/AB6AXuABcPhduDjil3xCSaovhWRnzLI0pWq8RDiT2zKAyg4l7Bf_cNEbRf44UuJ55Z4sp1Sjz7nS80vaXgyjAUNNlYTKPYpXYBnzQ0ERNjBUZk1mlcuDF_yXZlIEYT5s8fRRXrn2BoMiHNm1A3ruRXm89FZg-Xq0Ql-l-5UqZfiDlnGWBQlCdq9YZQ_sK6Z6zHBH7e2yF2kle6qsIFcLsF3jhKTnc1Pg9lfhxhG1NE8JAALaO2qQ_q4MW8EwhRMSwn8m0zNPLZ3N0Zr-Mmrs")',
-                    }}
-                  />
-                  <div className="flex flex-col flex-1 justify-between p-4 pt-0 gap-4">
-                    <div>
-                      <p className="text-[#0d121b] text-base font-medium leading-normal">
-                        Откройте Культуру
-                      </p>
-                      <p className="text-[#4c669a] text-sm font-normal leading-normal">
-                        Помогите нам поделиться наследием Казахстана.
-                      </p>
-                    </div>
-                    <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
-                      <span className="truncate">Поддержать</span>
-                    </button>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-4 rounded-xl bg-background-light shadow-sm min-w-[280px] sm:min-w-[300px] overflow-hidden">
-                  <div
-                    className="w-full bg-center bg-no-repeat aspect-video bg-cover flex flex-col"
-                    data-alt="A diverse group of happy volunteers smiling together outdoors."
-                    style={{
-                      backgroundImage:
-                        'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBugIHagoTgxcrdBhW4z4hJ5onnqQk2BtxKDSePRmE_YvIIpu2KalisfZjAtcZNW8LBAbureORp7zEPy2t0blP3PUa2blivfthwUPLePEZ0PDW43yNDC8h4uZIrLz7zg9RS-Ofy5vZYlmDEHUzuSUjDE-4VlyfBn-XPisuDguVGQ92bBS0YfxdNkt3JI_wfdlXYFHBKNYe51IZgyvMfA7Y8TKhnKiYtms5n-K9gbAzWzw4uDfQ6LUQzDL4XQQcffTDyVWHmRbJTCVUK")',
-                    }}
-                  />
-                  <div className="flex flex-col flex-1 justify-between p-4 pt-0 gap-4">
-                    <div>
-                      <p className="text-[#0d121b] text-base font-medium leading-normal">
-                        Присоединяйтесь
-                      </p>
-                      <p className="text-[#4c669a] text-sm font-normal leading-normal">
-                        Станьте частью чего-то большего.
-                      </p>
-                    </div>
-                    <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
-                      <span className="truncate">Поддержать</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+
+            <Carousel
+              slideSize="25%"
+              withControls={false}
+              slideGap={16}
+              align="start"
+              loop
+              breakpoints={[
+                { maxWidth: 'md', slideSize: '50%' },
+                { maxWidth: 'sm', slideSize: '100%', slideGap: 0 },
+              ]}
+              className='max-w-xs sm:max-w-sm md:max-w-full mx-auto'
+            >
+              {Array(8)
+                .fill(1)
+                .map((_, i) => {
+                  return (
+                    <Carousel.Slide key={i}>
+                      <div className="flex flex-col gap-4 rounded-xl bg-background-light shadow-sm overflow-hidden">
+                        <Image
+                          className="md:max-w-full aspect-video "
+                          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhHh74y3ctjWhwTCJNgxbgkXEaWu-fl6Ix4cPo-zrzDG8x6RbtuAW6tldAYzkjt64G9zsRudrKLQx_rusd8VHspRgOjGRMghcVqY7R-Lok0uoCzwXA4xYkuwMMgjmd0o9uIauVhrff8tIot8xZNkB6YLJjQKzA8QEkMBvkOloPd8rP84J1pUK4w2ecJj08ttsdaGGo7ozaTc5UDmheMxlLHOoQ9Mkxx-TaH58t7ibVd1ksY0M_q4EoKwlOH4CYfpLh9BFIanyIeu3s"
+                        />
+                        {/* <img
+                        alt=""
+                        data-alt="A breathtaking mountain landscape in Kazakhstan with a turquoise lake."
+                      /> */}
+                        <div className="flex flex-col flex-1 justify-between p-4 pt-0 gap-4">
+                          <div>
+                            <p className="text-[#0d121b] text-base font-medium leading-normal">
+                              Исследуйте Пейзажи
+                            </p>
+                            <p className="text-[#4c669a] text-sm font-normal leading-normal">
+                              Поддержите сохранение природных чудес.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </Carousel.Slide>
+                  )
+                })}
+            </Carousel>
           </div>
         </div>
       </div>
@@ -482,8 +422,8 @@ export const Fund = () => {
               Ключевые проблемы санаторно-курортной отрасли Казахстана
             </h1>
           </div>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-8">
-            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-6 shadow-lg">
+          <div className="grid grid-cols-1 gap-4 md:gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-8">
+            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-4 md:p-6 shadow-lg">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                 {/* Database icon */}
                 <span className="text-2xl">
@@ -499,7 +439,7 @@ export const Fund = () => {
                 </p>
               </div>
             </div>
-            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-6 shadow-lg">
+            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-4 md:p-6 shadow-lg">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                 {/* Psychology icon */}
                 <span className="text-2xl">
@@ -516,7 +456,7 @@ export const Fund = () => {
                 </p>
               </div>
             </div>
-            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-6 shadow-lg">
+            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-4 md:p-6 shadow-lg">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                 {/* FlightTakeoff/Flying icon */}
                 <span className="text-2xl">
@@ -533,7 +473,7 @@ export const Fund = () => {
                 </p>
               </div>
             </div>
-            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-6 shadow-lg">
+            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-4 md:p-6 shadow-lg">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                 {/* Trending Down icon */}
                 <span className="text-2xl">
@@ -550,7 +490,7 @@ export const Fund = () => {
                 </p>
               </div>
             </div>
-            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-6 shadow-lg">
+            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-4 md:p-6 shadow-lg">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                 {/* Help Center icon */}
                 <span className="text-2xl">
@@ -567,7 +507,7 @@ export const Fund = () => {
                 </p>
               </div>
             </div>
-            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-6 shadow-lg">
+            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-4 md:p-6 shadow-lg">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                 {/* Sick icon */}
                 <span className="text-2xl">
@@ -594,9 +534,9 @@ export const Fund = () => {
 
       {/* new4 */}
 
-      <div className="relative flex w-full flex-col items-center justify-center bg-background-light p-4 group/design-root overflow-x-hidden">
+      <div className="relative flex w-full flex-col items-center justify-center bg-background-light group/design-root overflow-x-hidden">
         <div className="container flex h-full grow flex-col items-center justify-center">
-          <div className="shadow-lg relative w-full max-w-2xl overflow-hidden rounded-xl border border-slate-200/50 bg-white p-8">
+          <div className="shadow-lg relative w-full max-w-2xl overflow-hidden rounded-xl border border-slate-200/50 bg-white p-4 md:p-8">
             <div
               className="absolute -top-1/4 -left-1/4 h-1/2 w-1/2 rounded-full bg-primary/10 blur-3xl"
               data-alt="Faint blue gradient blob for decoration"
@@ -627,7 +567,7 @@ export const Fund = () => {
         }}
       >
         <div className="w-full max-w-2xl shadow-lg">
-          <div className="flex flex-col gap-8 rounded-xl bg-white shadow-lg p-6 sm:p-10">
+          <div className="flex flex-col gap-8 rounded-xl bg-white shadow-lg p-4 md:p-6 sm:p-10">
             <div className="flex flex-col gap-2 text-center">
               <p className="font-normal leading-normal">
                 Оставьте заявку на участие, и наша команда свяжется с вами
@@ -761,10 +701,6 @@ export const Fund = () => {
           </div>
         </div>
       </section>
-
-
-
-
 
       {/* <div className="w-full">
         <div className="container">

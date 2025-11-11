@@ -22,8 +22,8 @@ export const TeamCard = ({ team }) => {
 
 export default function TeamCard2({ team }) {
   return (
-    <div className="relative flex w-full flex-col items-center justify-center p-4">
-      <div className="w-full max-w-sm rounded-xl bg-white p-8 shadow-lg transition-transform duration-300 ease-in-out hover:scale-[1.02] hover:shadow-2xl">
+    <div className="relative flex w-full flex-col items-center justify-center">
+      <div className="w-full max-w-sm rounded-xl bg-white p-4 md:p-8 shadow-lg transition-transform duration-300 ease-in-out hover:scale-[1.02] hover:shadow-2xl">
         <div className="flex flex-col items-center">
           <div className="relative mb-6">
             <img

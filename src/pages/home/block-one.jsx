@@ -10,27 +10,27 @@ export const BlockOne = () => {
       <div className="container flex h-full grow flex-col mt-8">
         <div className="flex flex-1 justify-center">
           <div className="flex flex-col flex-1">
-            <div className="flex gap-6 shadow-lg border rounded-lg overflow-hidden bg-white">
-              <div>
+            <div className="flex flex-col md:flex-row gap-6 shadow-lg border rounded-lg overflow-hidden bg-white">
+              <div className='flex flex-col w-full'>
                 <div className="flex flex-col gap-3 p-4">
                   <h1 className="text-primary text-3xl font-black leading-tight tracking-[-0.033em] md:text-4xl">
                     Lorem, ipsum dolor.
                   </h1>
-                  <h3 className="text-gray-800 text-lg font-medium leading-normal md:text-xl">
+                  <h3 className="text-gray-800 text-lg font-medium leading-normal md:text-xl mb-0">
                     Lorem ipsum dolor sit.
                   </h3>
                 </div>
-                <p className="text-gray-600 text-base font-normal leading-relaxed pb-6 pt-1 px-4">
+                <p className="text-gray-600 text-base font-normal leading-relaxed px-4">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam, commodi est. Odit,
                   deleniti quasi? Et quisquam accusantium saepe in! Autem.
                 </p>
               </div>
               <div>
-                <h2 className="text-gray-900 text-2xl font-bold leading-tight tracking-[-0.015em] px-4 pb-4 pt-5">
+                <h2 className="text-gray-900 text-2xl font-bold leading-tight tracking-[-0.015em] p-4 mb-0">
                   Lorem, ipsum dolor.
                 </h2>
                 <div className="flex flex-col">
-                  <div className="flex items-start gap-4 p-4 min-h-[72px]">
+                  <div className="flex gap-4 p-4 min-h-[72px]">
                     <div className="text-primary flex items-center justify-center rounded-full bg-primary/20 shrink-0 size-8 mt-1">
                       <SiSitepoint size={24} />
                     </div>
@@ -41,7 +41,7 @@ export const BlockOne = () => {
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-4 p-4 min-h-[72px]">
+                  <div className="flex gap-4 p-4 min-h-[72px]">
                     <div className="text-primary flex items-center justify-center rounded-full bg-primary/20 shrink-0 size-8 mt-1">
                       <SiSitepoint size={24} />
                     </div>
@@ -52,7 +52,7 @@ export const BlockOne = () => {
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-4 p-4 min-h-[72px]">
+                  <div className="flex gap-4 p-4 min-h-[72px]">
                     <div className="text-primary flex items-center justify-center rounded-full bg-primary/20 shrink-0 size-8 mt-1">
                       <SiSitepoint size={24} />
                     </div>
@@ -63,7 +63,7 @@ export const BlockOne = () => {
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-4 p-4 min-h-[72px]">
+                  <div className="flex gap-4 p-4 min-h-[72px]">
                     <div className="text-primary flex items-center justify-center rounded-full bg-primary/20 shrink-0 size-8 mt-1">
                       <SiSitepoint size={24} />
                     </div>
@@ -74,7 +74,7 @@ export const BlockOne = () => {
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-4 p-4 min-h-[72px]">
+                  <div className="flex gap-4 p-4 min-h-[72px]">
                     <div className="text-primary flex items-center justify-center rounded-full bg-primary/20 shrink-0 size-8 mt-1">
                       <SiSitepoint size={24} />
                     </div>
