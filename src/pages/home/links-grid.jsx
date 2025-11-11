@@ -16,8 +16,8 @@ export const LinksGrid = () => {
       <main className="container">
         <div class="flex flex-wrap justify-between gap-3 p-4">
           <div class="flex min-w-72 mx-auto flex-col gap-4">
-            <h1 class="text-white text-3xl md:text-4xl font-black leading-tight tracking-tighter z-10">
-              Экосистема OzElim
+            <h1 class="text-white text-3xl md:text-4xl font-bold md:font-black leading-tight tracking-tighter z-10 text-center">
+              Открой Казахстан вместе с OzElim!
             </h1>
           </div>
         </div>
@@ -37,7 +37,7 @@ export const LinksGrid = () => {
             <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-all duration-300 rounded-full"></div>
             <div className="absolute inset-0 flex items-center justify-center p-4">
               <p className="text-white md:text-lg font-bold text-center leading-tight">
-                Правовая защита
+                Туры
               </p>
             </div>
           </a>
@@ -53,7 +53,7 @@ export const LinksGrid = () => {
             <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-all duration-300 rounded-full"></div>
             <div className="absolute inset-0 flex items-center justify-center p-4">
               <p className="text-white md:text-lg font-bold text-center leading-tight">
-                АВИА, ЖД Билеты
+                Визы
               </p>
             </div>
           </a>
@@ -68,7 +68,9 @@ export const LinksGrid = () => {
             ></div>
             <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-all duration-300 rounded-full"></div>
             <div className="absolute inset-0 flex items-center justify-center p-4">
-              <p className="text-white md:text-lg font-bold text-center leading-tight">Страхование</p>
+              <p className="text-white md:text-lg font-bold text-center leading-tight">
+                Страхование
+              </p>
             </div>
           </a>
           <a className="group relative overflow-hidden rounded-full aspect-square block" href="#">
@@ -82,7 +84,7 @@ export const LinksGrid = () => {
             ></div>
             <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-all duration-300 rounded-full"></div>
             <div className="absolute inset-0 flex items-center justify-center p-4">
-              <p className="text-white md:text-lg font-bold text-center leading-tight">Виза</p>
+              <p className="text-white md:text-lg font-bold text-center leading-tight">Фонд</p>
             </div>
           </a>
           <a className="group relative overflow-hidden rounded-full aspect-square block" href="#">
@@ -96,7 +98,8 @@ export const LinksGrid = () => {
             ></div>
             <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-all duration-300 rounded-full"></div>
             <div className="absolute inset-0 flex items-center justify-center p-4">
-              <p className="text-white md:text-lg font-bold text-center leading-tight">Туры</p>
+              <p className="text-white md:text-lg font-bold text-center leading-tight">Ассоциация туристов Казахстана
+              </p>
             </div>
           </a>
           <a className="group relative overflow-hidden rounded-full aspect-square block" href="#">
@@ -110,7 +113,8 @@ export const LinksGrid = () => {
             ></div>
             <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-all duration-300 rounded-full"></div>
             <div className="absolute inset-0 flex items-center justify-center p-4">
-              <p className="text-white md:text-lg font-bold text-center leading-tight">Санатории</p>
+              <p className="text-white md:text-lg font-bold text-center leading-tight">⁠Правовая защита
+              </p>
             </div>
           </a>
           <a className="group relative overflow-hidden rounded-full aspect-square block" href="#">
@@ -124,7 +128,7 @@ export const LinksGrid = () => {
             ></div>
             <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-all duration-300 rounded-full"></div>
             <div className="absolute inset-0 flex items-center justify-center p-4">
-              <p className="text-white md:text-lg font-bold text-center leading-tight">Фонд</p>
+              <p className="text-white md:text-lg font-bold text-center leading-tight">Санаторий</p>
             </div>
           </a>
           <a className="group relative overflow-hidden rounded-full aspect-square block" href="#">
@@ -139,7 +143,7 @@ export const LinksGrid = () => {
             <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-all duration-300 rounded-full"></div>
             <div className="absolute inset-0 flex items-center justify-center p-4">
               <p className="text-white md:text-lg font-bold text-center leading-tight">
-                Ассоциация Туристов Казахстана
+                АВИА, ЖД билеты
               </p>
             </div>
           </a>
