@@ -1,5 +1,7 @@
 import React from 'react'
 
+import insurance from 'shared/assets/images/insurance.jpeg'
+
 export const LinksGrid = () => {
   return (
     <div className="overflow-hidden">
@@ -27,8 +29,8 @@ export const LinksGrid = () => {
             <div className="absolute inset-0 group-hover:bg-black/20 transition-all duration-300 rounded-full grid grid-rows-[70%_auto]">
               <div />
               <div className="bg-black/50 relative">
-                <div className="absolute inset-0 flex items-center justify-center p-4">
-                  <p className="text-white md:text-2xl font-bold text-center leading-tight">Туры</p>
+                <div className="absolute inset-0 flex items-center justify-center p-4 md:mb-4">
+                  <p className="text-white md:text-3xl font-bold text-center leading-tight">Туры</p>
                 </div>
               </div>
             </div>
@@ -40,14 +42,14 @@ export const LinksGrid = () => {
               style={{
                 backgroundImage:
                   'url("https://piligrimos.com/wp-content/uploads/2023/06/zaglavnaya-1.jpg")',
-                backgroundPosition: 'right'
+                backgroundPosition: 'right',
               }}
             ></div>
             <div className="absolute inset-0 group-hover:bg-black/20 transition-all duration-300 rounded-full grid grid-rows-[70%_auto]">
               <div />
               <div className="bg-black/50 relative">
-                <div className="absolute inset-0 flex items-center justify-center p-4">
-                  <p className="text-white md:text-2xl font-bold text-center leading-tight">Визы</p>
+                <div className="absolute inset-0 flex items-center justify-center p-4 md:mb-4">
+                  <p className="text-white md:text-3xl font-bold text-center leading-tight">Визы</p>
                 </div>
               </div>
             </div>
@@ -57,15 +59,14 @@ export const LinksGrid = () => {
               className="absolute inset-0 bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-110"
               data-alt="Vibrant orange and yellow flowing lines"
               style={{
-                backgroundImage:
-                  'url("https://www.renlife.ru/upload/medialibrary/c7a/renlife.ru_for_clients_articles_expert_opinion_chto-takoe-polis-strahovaniya-zhizni.jpg")',
+                backgroundImage: `url(${insurance})`,
               }}
             ></div>
             <div className="absolute inset-0 group-hover:bg-black/20 transition-all duration-300 rounded-full grid grid-rows-[70%_auto]">
               <div />
               <div className="bg-black/50 relative">
-                <div className="absolute inset-0 flex items-center justify-center p-4">
-                  <p className="text-white md:text-2xl font-bold text-center leading-tight">
+                <div className="absolute inset-0 flex items-center justify-center p-4 md:mb-4">
+                  <p className="text-white md:text-3xl font-bold text-center leading-tight">
                     Страхование
                   </p>
                 </div>
@@ -77,16 +78,15 @@ export const LinksGrid = () => {
               className="absolute inset-0 bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-110"
               data-alt="Blue and pink paint swirls"
               style={{
-                backgroundImage:
-                  'url("https://inbusiness.kz/uploads/2022-2/uqTdKDhe.webp")',
-                  backgroundSize: ''
+                backgroundImage: 'url("https://inbusiness.kz/uploads/2022-2/uqTdKDhe.webp")',
+                backgroundSize: '',
               }}
             ></div>
             <div className="absolute inset-0 group-hover:bg-black/20 transition-all duration-300 rounded-full grid grid-rows-[70%_auto]">
               <div />
               <div className="bg-black/50 relative">
-                <div className="absolute inset-0 flex items-center justify-center p-4">
-                  <p className="text-white md:text-2xl font-bold text-center leading-tight">Фонд</p>
+                <div className="absolute inset-0 flex items-center justify-center p-4 md:mb-4">
+                  <p className="text-white md:text-3xl font-bold text-center leading-tight">Фонд</p>
                 </div>
               </div>
             </div>
@@ -103,8 +103,8 @@ export const LinksGrid = () => {
             <div className="absolute inset-0 group-hover:bg-black/20 transition-all duration-300 rounded-full grid grid-rows-[70%_auto]">
               <div />
               <div className="bg-black/50 relative">
-                <div className="absolute inset-0 flex items-center justify-center p-4">
-                  <p className="text-white md:text-lg font-bold text-center leading-tight">
+                <div className="absolute inset-0 flex items-center justify-center p-4 md:mb-4">
+                  <p className="text-white md:text-xl font-bold text-center leading-tight">
                     Ассоциация туристов Казахстана
                   </p>
                 </div>
@@ -116,15 +116,14 @@ export const LinksGrid = () => {
               className="absolute inset-0 bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-110"
               data-alt="Minimalist architectural lines"
               style={{
-                backgroundImage:
-                  'url("https://kosoblduma.ru/image/8158/31873/1/image.jpg")',
+                backgroundImage: 'url("https://kosoblduma.ru/image/8158/31873/1/image.jpg")',
               }}
             ></div>
             <div className="absolute inset-0 group-hover:bg-black/20 transition-all duration-300 rounded-full grid grid-rows-[70%_auto]">
               <div />
               <div className="bg-black/50 relative">
-                <div className="absolute inset-0 flex items-center justify-center p-4">
-                  <p className="text-white md:text-xl font-bold text-center leading-tight">
+                <div className="absolute inset-0 flex items-center justify-center p-4 md:mb-4">
+                  <p className="text-white md:text-2xl font-bold text-center leading-tight">
                     Правовая защита
                   </p>
                 </div>
@@ -143,8 +142,8 @@ export const LinksGrid = () => {
             <div className="absolute inset-0 group-hover:bg-black/20 transition-all duration-300 rounded-full grid grid-rows-[70%_auto]">
               <div />
               <div className="bg-black/50 relative">
-                <div className="absolute inset-0 flex items-center justify-center p-4">
-                  <p className="text-white md:text-2xl font-bold text-center leading-tight">
+                <div className="absolute inset-0 flex items-center justify-center p-4 md:mb-4">
+                  <p className="text-white md:text-3xl font-bold text-center leading-tight">
                     Санаторий
                   </p>
                 </div>
@@ -163,7 +162,7 @@ export const LinksGrid = () => {
             <div className="absolute inset-0 group-hover:bg-black/20 transition-all duration-300 rounded-full grid grid-rows-[70%_auto]">
               <div />
               <div className="bg-black/50 relative">
-                <div className="absolute inset-0 flex items-center justify-center p-4">
+                <div className="absolute inset-0 flex items-center justify-center p-4 md:mb-4">
                   <p className="text-white md:text-xl font-bold text-center leading-tight">
                     АВИА, ЖД билеты
                   </p>
