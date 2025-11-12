@@ -19,7 +19,7 @@ export const OurTeamHeader = ({ headings, text }) => {
               {headings?.main}
             </h1> */}
 
-            <h1 className="text-2xl font-black leading-tight tracking-tight text-[#0d121b] md:text-3xl lg:text-4xl">
+            <h1 className="text-2xl font-black leading-tight tracking-tight text-primary md:text-3xl lg:text-4xl">
               {headings?.main}
             </h1>
 

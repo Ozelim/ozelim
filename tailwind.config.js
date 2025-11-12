@@ -12,7 +12,7 @@ export default {
         body: ['Roboto', 'sans-serif'],
         market: ['Sofia Sans Semi Condensed', 'sans-serif']
       },
-      container: {
+    container: {
         center: true,
         padding: '0.75rem',
         screens: {
@@ -20,8 +20,9 @@ export default {
         },
       },
       colors: {
-        primary: colors.teal,
-        secondary: colors.yellow,
+        primary: '#015057',
+        // secondary: '#e3ae27',
+        secondary: '#ffd469',
         accent: colors.lime,
         heading: '#27272D',
       },

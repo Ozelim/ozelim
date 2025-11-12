@@ -28,7 +28,10 @@ export const baseLayout = (
       withCSSVariables
       emotionCache={cache}
       theme={{
-        primaryColor: 'teal',
+        colors: {
+          brand: ['#015057','#015057','#015057','#015057','#015057','#015057','#015057','#015057','#015057','#015057','#015057',],
+        },
+        primaryColor: 'brand',
         primaryShade: 5,
         defaultRadius: 'md',
       }}

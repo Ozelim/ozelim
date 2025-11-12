@@ -56,7 +56,7 @@ export const Fund = () => {
                 <div class="flex flex-col-reverse items-start gap-4 md:gap-8 lg:grid lg:grid-cols-12 lg:gap-12 xl:gap-16">
                   <div class="flex flex-col gap-6 text-left lg:col-span-7 lg:gap-8">
                     <div class="flex flex-col gap-3">
-                      <h1 class="text-[#1A202C] text-3xl font-black leading-tight tracking-[-0.03em] md:text-4xl">
+                      <h1 class="text-primary text-3xl font-black leading-tight tracking-[-0.03em] md:text-4xl">
                         Эндаумент фонд при Ассоциации туристов Казахстана «OzElim» - финансовая
                         опора и долгосрочная инвестиция в развитие туризма!
                       </h1>
@@ -91,7 +91,7 @@ export const Fund = () => {
               <main>
                 <div class="flex flex-wrap justify-between gap-3 p-4">
                   <div class="flex min-w-72 flex-col gap-4 mx-auto">
-                    <h1 class="text-gray-900 text-3xl md:text-4xl font-black leading-tight tracking-tighter">
+                    <h1 class="text-primary text-3xl md:text-4xl font-black leading-tight tracking-tighter">
                       Lorem ipsum dolor sit.
                     </h1>
                   </div>
@@ -123,7 +123,7 @@ export const Fund = () => {
               <main>
                 <div class="flex flex-wrap justify-between gap-3 p-4">
                   <div class="flex min-w-72 flex-col gap-4 mx-auto">
-                    <h1 class="text-gray-900 text-3xl md:text-4xl font-black leading-tight tracking-tighter">
+                    <h1 class="text-primary text-3xl md:text-4xl font-black leading-tight tracking-tighter">
                       Lorem ipsum dolor sit.
                     </h1>
                   </div>
@@ -151,7 +151,7 @@ export const Fund = () => {
       <div className="relative grid md:grid-cols-2 w-full items-center justify-center font-display group/design-root gap-6 container mt-8">
         <div className="flex flex-col w-full max-w-2xl overflow-hidden rounded-xl border border-black/10 bg-white shadow-lg transition-shadow duration-300 hover:shadow-2xl">
           <div className="flex flex-col gap-6 p-4 md:p-6">
-            <h2 className="text-3xl font-bold text-slate-800 mb-0 mx-auto">Миссия фонда</h2>
+            <h2 className="text-3xl font-bold text-primary mb-0 mx-auto">Миссия фонда</h2>
             <p className="text-slate-500">
               Обеспечение устойчивых источников финансирования для поддержки
             </p>
@@ -238,7 +238,7 @@ export const Fund = () => {
         </div>
         <div className="flex flex-col w-full max-w-2xl h-full overflow-hidden rounded-xl border border-black/10 bg-white shadow-lg transition-shadow duration-300 hover:shadow-2xl">
           <div className="flex flex-col gap-6 p-4 md:p-6">
-            <h2 className="text-3xl font-bold text-slate-800 mb-0 text-center">
+            <h2 className="text-3xl font-bold text-primary mb-0 text-center">
               Преимущества и прозрачность
             </h2>
             <div className="content-area">
@@ -313,7 +313,7 @@ export const Fund = () => {
       <div className="relative container flex w-full flex-col items-center justify-center bg-background-light mt-6">
         <div className="w-full rounded-xl border border-gray-200/80 bg-white shadow-lg">
           <div className="flex flex-col p-4 md:p-8">
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900 md:text-4xl text-center">
+            <h1 className="text-3xl font-bold tracking-tight text-primary md:text-4xl text-center">
               Принцип работы
             </h1>
             <p className="mt-4 text-base leading-relaxed text-gray-600">
@@ -357,7 +357,7 @@ export const Fund = () => {
         <div className="w-full rounded-xl bg-white shadow-lg">
           <div className="flex flex-col p-4 gap-6 md:p-6">
             <div className="text-center">
-              <h1 className="text-[#0d121b] tracking-tight text-2xl sm:text-3xl font-bold leading-tight">
+              <h1 className="text-primary tracking-tight text-2xl sm:text-3xl font-bold leading-tight">
                 Приглашаем поддержать целевой сбор на Проекты
               </h1>
             </div>
@@ -396,7 +396,7 @@ export const Fund = () => {
                       /> */}
                         <div className="flex flex-col flex-1 justify-between p-4 pt-0 gap-4">
                           <div>
-                            <p className="text-[#0d121b] text-base font-medium leading-normal">
+                            <p className="text-primary text-base font-medium leading-normal">
                               Исследуйте Пейзажи
                             </p>
                             <p className="text-[#4c669a] text-sm font-normal leading-normal">
@@ -418,107 +418,107 @@ export const Fund = () => {
       <div className="relative flex container w-full flex-col items-center justify-center overflow-x-hidden mt-12">
         <div className="w-full">
           <div className="mb-8 text-center">
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl md:text-4xl">
+            <h1 className="text-2xl font-bold tracking-tight text-primary sm:text-3xl md:text-4xl">
               Ключевые проблемы санаторно-курортной отрасли Казахстана
             </h1>
           </div>
           <div className="grid grid-cols-1 gap-4 md:gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-8">
-            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-4 md:p-6 shadow-lg">
+            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-primary p-4 md:p-6 shadow-lg">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                 {/* Database icon */}
                 <span className="text-2xl">
-                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+                  <svg viewBox="0 0 24 24" fill="white" className="w-8 h-8">
                     <path d="M12 2C6.48 2 2 3.79 2 6v12c0 2.21 4.48 4 10 4s10-1.79 10-4V6c0-2.21-4.48-4-10-4zm0 2c5.06 0 8 .98 8 2s-2.94 2-8 2-8-.98-8-2 2.94-2 8-2zm8 14c0 1.03-3.38 3-8 3s-8-1.97-8-3v-2.06c1.92 1.09 5.22 1.56 8 1.56s6.08-.47 8-1.56V18zm0-4c0 1.03-3.38 3-8 3s-8-1.97-8-3v-2.06c1.92 1.09 5.22 1.56 8 1.56s6.08-.47 8-1.56V14zm0-4c0 1.03-3.38 3-8 3s-8-1.97-8-3V7.94c1.92 1.09 5.22 1.56 8 1.56s6.08-.47 8-1.56V10z" />
                   </svg>
                 </span>
               </div>
               <div className="flex flex-col gap-1">
-                <h2 className="text-lg font-bold text-gray-900">Отсутствие единой базы данных</h2>
-                <p className="text-sm leading-relaxed text-gray-600">
+                <h2 className="text-lg font-bold text-secondary">Отсутствие единой базы данных</h2>
+                <p className="text-sm leading-relaxed text-white">
                   Отсутствие единой базы данных санаториев Казахстана.
                 </p>
               </div>
             </div>
-            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-4 md:p-6 shadow-lg">
+            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-primary p-4 md:p-6 shadow-lg">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                 {/* Psychology icon */}
                 <span className="text-2xl">
-                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+                  <svg viewBox="0 0 24 24" fill="white" className="w-8 h-8">
                     <path d="M13 11h2c.55 0 1-.45 1-1V7.83A3 3 0 0020 11v5a3 3 0 01-3 3h-3v2a1 1 0 01-2 0v-2H6a3 3 0 01-3-3v-5a3 3 0 012.97-3V10c0 .55.45 1 1 1h2v2h2v-2zm-2 0V6c0-.55.45-1 1-1s1 .45 1 1v5h-2z" />
                   </svg>
                 </span>
               </div>
               <div className="flex flex-col gap-1">
-                <h2 className="text-lg font-bold text-gray-900">Нет автоматизированного подбора</h2>
-                <p className="text-sm leading-relaxed text-gray-600">
+                <h2 className="text-lg font-bold text-secondary">Нет автоматизированного подбора</h2>
+                <p className="text-sm leading-relaxed text-white">
                   Отсутствие централизованной автоматизированной системы подбора санаториев по
                   медицинским показаниям.
                 </p>
               </div>
             </div>
-            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-4 md:p-6 shadow-lg">
+            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-primary p-4 md:p-6 shadow-lg">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                 {/* FlightTakeoff/Flying icon */}
                 <span className="text-2xl">
-                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+                  <svg viewBox="0 0 24 24" fill="white" className="w-8 h-8">
                     <path d="M2.5 19.59l19.19-7.19a1.003 1.003 0 00-.72-1.88l-5.3 1.99-7.23-7.23A1.003 1.003 0 007.1 4.98l5.69 5.69-2.07.78L4.34 6.4a1.003 1.003 0 00-1.42 1.42l7.46 4.38-2.07.78-5.73-2.15A1.003 1.003 0 002.5 19.59zm18.29 1.68c.44 0 .8-.36.8-.8s-.36-.8-.8-.8-.8.35-.8.8.36.8.8.8z" />
                   </svg>
                 </span>
               </div>
               <div className="flex flex-col gap-1">
-                <h2 className="text-lg font-bold text-gray-900">Утечка клиентов за рубеж</h2>
-                <p className="text-sm leading-relaxed text-gray-600">
-                  До <span className="font-bold text-primary">40%</span> пациентов выбирают
+                <h2 className="text-lg font-bold text-secondary">Утечка клиентов за рубеж</h2>
+                <p className="text-sm leading-relaxed text-gray-200">
+                  До <span className="font-bold">40%</span> пациентов выбирают
                   санатории России, Узбекистана, Турции и других стран.
                 </p>
               </div>
             </div>
-            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-4 md:p-6 shadow-lg">
+            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-primary p-4 md:p-6 shadow-lg">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                 {/* Trending Down icon */}
                 <span className="text-2xl">
-                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+                  <svg viewBox="0 0 24 24" fill="white" className="w-8 h-8">
                     <path d="M16.53 11.06a.75.75 0 00-1.06 0l-3.04 3.04-4.24-4.24a.75.75 0 00-1.06 1.06l4.77 4.77a.75.75 0 001.06 0l3.57-3.58a.75.75 0 000-1.06zM5.28 19.72a.75.75 0 01-.53-1.28l13-13a.75.75 0 111.06 1.06l-13 13a.75.75 0 01-.53.22zm13.44 0a.75.75 0 01-.53-.22l-3.22-3.22a.75.75 0 111.06-1.06l3.22 3.22a.75.75 0 01-.53 1.28z" />
                   </svg>
                 </span>
               </div>
               <div className="flex flex-col gap-1">
-                <h2 className="text-lg font-bold text-gray-900">Нераскрытый потенциал</h2>
-                <p className="text-sm leading-relaxed text-gray-600">
-                  Более <span className="font-bold text-primary">60%</span> ресурсов отечественных
+                <h2 className="text-lg font-bold text-secondary">Нераскрытый потенциал</h2>
+                <p className="text-sm leading-relaxed text-gray-200">
+                  Более <span className="font-bold">60%</span> ресурсов отечественных
                   санаториев недозагружены.
                 </p>
               </div>
             </div>
-            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-4 md:p-6 shadow-lg">
+            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-primary p-4 md:p-6 shadow-lg">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                 {/* Help Center icon */}
                 <span className="text-2xl">
-                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+                  <svg viewBox="0 0 24 24" fill="white" className="w-8 h-8">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 18h-2v-2h2v2zm2.07-7.75c-.9.92-1.07 1.24-1.07 2.25h-2v-.5c0-1.1.45-1.99 1.36-2.91.78-.78 1.16-1.53 1.16-2.34 0-1.23-1.01-2.25-2.25-2.25S9 8.77 9 10H7c0-2.21 1.79-4 4-4s4 1.79 4 4c0 1.19-.64 2.03-1.93 3.25z" />
                   </svg>
                 </span>
               </div>
               <div className="flex flex-col gap-1">
-                <h2 className="text-lg font-bold text-gray-900">Сложность выбора</h2>
-                <p className="text-sm leading-relaxed text-gray-600">
-                  <span className="font-bold text-primary">70%</span> населения не знают, какой
+                <h2 className="text-lg font-bold text-secondary">Сложность выбора</h2>
+                <p className="text-sm leading-relaxed text-gray-200">
+                  <span className="font-bold">70%</span> населения не знают, какой
                   санаторий подходит под их диагноз.
                 </p>
               </div>
             </div>
-            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-4 md:p-6 shadow-lg">
+            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-primary p-4 md:p-6 shadow-lg">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                 {/* Sick icon */}
                 <span className="text-2xl">
-                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+                  <svg viewBox="0 0 24 24" fill="white" className="w-8 h-8">
                     <path d="M18 14c-1.1 0-2 .9-2 2h-2.58c-.22-1.16-.94-2.19-1.9-2.89.7-.51 1.51-.82 2.48-.99.24-.04.41-.28.37-.52-.05-.24-.24-.4-.49-.36-1.38.25-2.3.67-2.78 1.21-.18.19-.22.46-.11.69.11.23.37.32.6.21.3-.16.77-.34 1.49-.52.43-.11.77.22.53.64C10.1 15.18 9 16.02 9 17h6c0-1.1-.9-2-2-2zM12 4c-4.41 0-8 3.59-8 8s3.59 8 8 8 8-3.59 8-8-3.59-8-8-8z" />
                   </svg>
                 </span>
               </div>
               <div className="flex flex-col gap-1">
-                <h2 className="text-lg font-bold text-gray-900">Рост спроса и неэффективность</h2>
-                <p className="text-sm leading-relaxed text-gray-600">
+                <h2 className="text-lg font-bold text-secondary">Рост спроса и неэффективность</h2>
+                <p className="text-sm leading-relaxed text-gray-200">
                   Всё больше людей нуждаются в восстановлении, но не знают, куда обращаться.
                 </p>
               </div>

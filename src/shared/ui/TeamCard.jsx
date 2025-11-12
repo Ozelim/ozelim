@@ -23,7 +23,7 @@ export const TeamCard = ({ team }) => {
 export default function TeamCard2({ team }) {
   return (
     <div className="relative flex w-full flex-col items-center justify-center">
-      <div className="w-full max-w-sm rounded-xl bg-white p-4 md:p-8 shadow-lg transition-transform duration-300 ease-in-out hover:scale-[1.02] hover:shadow-2xl">
+      <div className="w-full max-w-sm rounded-xl p-4 md:p-8 shadow-lg bg-white transition-transform duration-300 ease-in-out hover:scale-[1.02] hover:shadow-2xl">
         <div className="flex flex-col items-center">
           <div className="relative mb-6">
             <img
@@ -32,7 +32,7 @@ export default function TeamCard2({ team }) {
               className="h-32 w-32 rounded-full object-cover shadow-lg ring-4 ring-white/20"
             />
           </div>
-          <h1 className="text-2xl font-bold text-slate-800 text-center">{team?.name}</h1>
+          <h1 className="text-2xl font-bold text-primary text-center">{team?.name}</h1>
           <p className="mt-2 text-center text-gray-500 line-clamp-5 grow">
             {team?.description}
           </p>

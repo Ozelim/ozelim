@@ -22,6 +22,7 @@ import BlockTwo from './block-two'
 import OurTeamHeader2, { OurTeamHeader } from 'pages/our-team/our-team-header'
 
 import heroimg from 'shared/assets/images/hero-image.jpg'
+import beach from 'shared/assets/images/beach.jpg'
 
 async function getServices() {
   return await pb.collection('home_data').getFullList()
@@ -75,28 +76,41 @@ export const Home = () => {
 
   return (
     <>
-      <LinksGrid />
+      <div className="relative -mt-8">
+        <div
+          className="fixed h-screen w-[99.1vw] inset-0"
+          style={{
+            backgroundImage: `url(${beach})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            filter: 'blur(4px) brightness(0.85)',
+          }}
+        />
+        <LinksGrid />
+      </div>
       <BlockOne />
       <BlockTwo />
-
-      <div className="container">
-        <div class="flex flex-wrap justify-between gap-3 p-4">
-          <div class="flex min-w-72 flex-col gap-4 mx-auto">
-            <h1 class="text-gray-900 text-3xl md:text-4xl font-black leading-tight tracking-tighter">
-              Наша команда
-            </h1>
+      <div className="bg-zinc-100 w-full relative -mb-8 pb-8">
+        <div className="container">
+          <div class="flex flex-wrap justify-between gap-3 p-4">
+            <div class="flex min-w-72 flex-col gap-4 mx-auto">
+              <h1 class="text-primary text-3xl md:text-4xl font-black leading-tight tracking-tighter">
+                Наша команда
+              </h1>
+            </div>
+          </div>
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-6">
+            {ourTeam?.map((team) => (
+              <TeamCard2 team={team} key={team.id} />
+              // <TeamCard team={team} key={team.id} />
+            ))}
           </div>
         </div>
-        <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-6">
-          {ourTeam?.map((team) => (
-            <TeamCard2 team={team} key={team.id} />
-            // <TeamCard team={team} key={team.id} />
-          ))}
+        <div className="pt-8 relative">
+          <OurTeamHeader headings={teamHeadings} text={teamText} />
         </div>
       </div>
-      <div className='mt-8'>
-        <OurTeamHeader headings={teamHeadings} text={teamText} />
-      </div>
+
       {/* <div className={`space-y-4 container mx-auto text-center mt-10`}>
         <div className="space-y-2">
           <h1 className="text-4xl md:text-5xl font-bold text-foreground leading-tight">

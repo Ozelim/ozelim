@@ -4,7 +4,7 @@ import { SiSitepoint } from 'react-icons/si'
 export const BlockOne = () => {
   return (
     <div
-      className="relative flex min-h-screen w-full flex-col bg-background-light group/design-root"
+      className="relative flex min-h-screen w-full flex-col bg-background-light group/design-root bg-zinc-100"
       style={{ fontFamily: '"Work Sans", "Noto Sans", sans-serif' }}
     >
       <div className="container flex h-full grow flex-col mt-8">
@@ -26,7 +26,7 @@ export const BlockOne = () => {
                 </p>
               </div>
               <div>
-                <h2 className="text-gray-900 text-2xl font-bold leading-tight tracking-[-0.015em] p-4 mb-0">
+                <h2 className="text-primary text-2xl font-bold leading-tight tracking-[-0.015em] p-4 mb-0">
                   Lorem, ipsum dolor.
                 </h2>
                 <div className="flex flex-col">
@@ -98,7 +98,7 @@ export const BlockOne = () => {
                       <div class="flex flex-col-reverse items-start gap-8 lg:grid lg:grid-cols-12 lg:gap-12 xl:gap-16">
                         <div class="flex flex-col gap-6 text-left lg:col-span-7 lg:gap-8">
                           <div class="flex flex-col gap-3">
-                            <h1 class="text-[#1A202C] text-2xl font-black leading-tight tracking-[-0.03em] md:text-3xl">
+                            <h1 class="text-primary text-2xl font-black leading-tight tracking-[-0.03em] md:text-3xl">
                               Lorem ipsum dolor sit.
                             </h1>
                             <p class="text-[#1A202C]/80 text-base font-normal leading-relaxed md:text-lg">
