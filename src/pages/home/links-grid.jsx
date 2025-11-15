@@ -1,18 +1,19 @@
 import React from 'react'
 
 import insurance from 'shared/assets/images/insurance.jpeg'
+import ozelim from 'shared/assets/images/ozelim.jpg'
 
 export const LinksGrid = () => {
   return (
     <div className="overflow-hidden">
       <main className="container">
-        <div class="flex flex-wrap justify-between gap-3 p-4">
+        {/* <div class="flex flex-wrap justify-between gap-3 p-4">
           <div class="flex min-w-72 mx-auto flex-col gap-4">
             <h1 class="text-white text-3xl md:text-4xl font-bold md:font-black leading-tight tracking-tighter z-10 text-center">
               Открой Казахстан вместе с OzElim!
             </h1>
           </div>
-        </div>
+        </div> */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 max-w-6xl mx-auto">
           <a
             className="group relative overflow-hidden rounded-full aspect-square block shadow-md"
@@ -30,7 +31,7 @@ export const LinksGrid = () => {
               <div />
               <div className="bg-black/50 relative">
                 <div className="absolute inset-0 flex items-center justify-center p-4 md:mb-4">
-                  <p className="text-white md:text-3xl font-bold text-center leading-tight">Туры</p>
+                  <p className="text-white md:text-5xl font-bold text-center leading-tight">Туры</p>
                 </div>
               </div>
             </div>
@@ -49,14 +50,14 @@ export const LinksGrid = () => {
               <div />
               <div className="bg-black/50 relative">
                 <div className="absolute inset-0 flex items-center justify-center p-4 md:mb-4">
-                  <p className="text-white md:text-3xl font-bold text-center leading-tight">Визы</p>
+                  <p className="text-white md:text-5xl font-bold text-center leading-tight">Визы</p>
                 </div>
               </div>
             </div>
           </a>
           <a className="group relative overflow-hidden rounded-full aspect-square block" href="#">
             <div
-              className="absolute inset-0 bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-110"
+              className="absolute inset-0 bg-cover bg-start transition-transform duration-300 ease-in-out group-hover:scale-110"
               data-alt="Vibrant orange and yellow flowing lines"
               style={{
                 backgroundImage: `url(${insurance})`,
@@ -86,7 +87,7 @@ export const LinksGrid = () => {
               <div />
               <div className="bg-black/50 relative">
                 <div className="absolute inset-0 flex items-center justify-center p-4 md:mb-4">
-                  <p className="text-white md:text-3xl font-bold text-center leading-tight">Фонд</p>
+                  <p className="text-white md:text-5xl font-bold text-center leading-tight">Фонд</p>
                 </div>
               </div>
             </div>
@@ -96,8 +97,7 @@ export const LinksGrid = () => {
               className="absolute inset-0 bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-110"
               data-alt="Holographic metallic texture"
               style={{
-                backgroundImage:
-                  'url("https://static.vecteezy.com/system/resources/thumbnails/002/371/177/small/group-of-ten-people-logo-in-a-circle-persons-teamwork-holding-free-vector.jpg")',
+                backgroundImage: `url(${ozelim})`,
               }}
             ></div>
             <div className="absolute inset-0 group-hover:bg-black/20 transition-all duration-300 rounded-full grid grid-rows-[70%_auto]">
@@ -143,7 +143,7 @@ export const LinksGrid = () => {
               <div />
               <div className="bg-black/50 relative">
                 <div className="absolute inset-0 flex items-center justify-center p-4 md:mb-4">
-                  <p className="text-white md:text-3xl font-bold text-center leading-tight">
+                  <p className="text-white md:text-4xl font-bold text-center leading-tight">
                     Санаторий
                   </p>
                 </div>

@@ -11,23 +11,23 @@ export const BlockOne = () => {
         <div className="flex flex-1 justify-center">
           <div className="flex flex-col flex-1">
             <div className="flex flex-col md:flex-row gap-6 shadow-lg border rounded-lg overflow-hidden bg-white">
-              <div className='flex flex-col w-full'>
+              <div className="flex flex-col w-full">
                 <div className="flex flex-col gap-3 p-4">
                   <h1 className="text-primary text-3xl font-black leading-tight tracking-[-0.033em] md:text-4xl">
-                    Lorem, ipsum dolor.
+                    Открой Казахстан вместе с OzElim!
                   </h1>
-                  <h3 className="text-gray-800 text-lg font-medium leading-normal md:text-xl mb-0">
+                  {/* <h3 className="text-gray-800 text-lg font-medium leading-normal md:text-xl mb-0">
                     Lorem ipsum dolor sit.
-                  </h3>
+                  </h3> */}
                 </div>
                 <p className="text-gray-600 text-base font-normal leading-relaxed px-4">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam, commodi est. Odit,
-                  deleniti quasi? Et quisquam accusantium saepe in! Autem.
+                  Мы объединяем людей, сервисы, знания и технологии, чтобы сделать путешествия по
+                  Казахстану доступными, комфортными и полезными.
                 </p>
               </div>
               <div>
                 <h2 className="text-primary text-2xl font-bold leading-tight tracking-[-0.015em] p-4 mb-0">
-                  Lorem, ipsum dolor.
+                  OzElim - это:
                 </h2>
                 <div className="flex flex-col">
                   <div className="flex gap-4 p-4 min-h-[72px]">
@@ -36,8 +36,7 @@ export const BlockOne = () => {
                     </div>
                     <div className="flex flex-col justify-center">
                       <p className="text-gray-600 text-sm font-normal leading-normal">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam, commodi est.
-                        Odit, deleniti quasi? Et quisquam accusantium saepe in! Autem.
+                        Цифровой ассистент по подбору санаториев по заболеваниям и патологиям
                       </p>
                     </div>
                   </div>
@@ -47,8 +46,7 @@ export const BlockOne = () => {
                     </div>
                     <div className="flex flex-col justify-center">
                       <p className="text-gray-600 text-sm font-normal leading-normal">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam, commodi est.
-                        Odit, deleniti quasi? Et quisquam accusantium saepe in! Autem.
+                        Авторские туры и культурно-познавательные маршруты
                       </p>
                     </div>
                   </div>
@@ -58,8 +56,7 @@ export const BlockOne = () => {
                     </div>
                     <div className="flex flex-col justify-center">
                       <p className="text-gray-600 text-sm font-normal leading-normal">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam, commodi est.
-                        Odit, deleniti quasi? Et quisquam accusantium saepe in! Autem.
+                      Миграционно-визовая, правовая и страховая поддержка  
                       </p>
                     </div>
                   </div>
@@ -69,8 +66,7 @@ export const BlockOne = () => {
                     </div>
                     <div className="flex flex-col justify-center">
                       <p className="text-gray-600 text-sm font-normal leading-normal">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam, commodi est.
-                        Odit, deleniti quasi? Et quisquam accusantium saepe in! Autem.
+                      Административная поддержка Ассоциации туристов Казахстана  
                       </p>
                     </div>
                   </div>
@@ -80,8 +76,7 @@ export const BlockOne = () => {
                     </div>
                     <div className="flex flex-col justify-center">
                       <p className="text-gray-600 text-sm font-normal leading-normal">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam, commodi est.
-                        Odit, deleniti quasi? Et quisquam accusantium saepe in! Autem.
+                      Эндаумент фонд на базе МФЦА для поддержки туристических проектов
                       </p>
                     </div>
                   </div>
