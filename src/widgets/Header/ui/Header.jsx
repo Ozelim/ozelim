@@ -56,15 +56,13 @@ export const Header2 = () => {
 
   return (
     <header className="border-b bg-white z-10">
-      <div className="container mx-auto flex items-center justify-between px-6 py-2">
+      <div className="container mx-auto flex items-center justify-between py-1">
         <div className="flex items-center gap-4 md:gap-6">
           <div className="relative">
             <Link to={'/'}>
               <img className="max-w-[80px] lg:ml-6 w-full min-w-[70px]" src={mobileLogo} />
             </Link>
           </div>
-
-          
 
           <nav className="hidden md:flex items-center gap-8">
             {array2.map((val, i) => {

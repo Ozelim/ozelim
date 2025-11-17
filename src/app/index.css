@@ -467,3 +467,7 @@ h4 {
     margin-top: 5px;
     padding-left: 16px;
 }
+
+.clean-block {
+  @apply bg-white p-4 md:p-8 rounded-xl shadow-lg overflow-hidden border
+}

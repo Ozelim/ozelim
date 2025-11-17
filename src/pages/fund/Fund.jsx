@@ -48,109 +48,88 @@ export const Fund = () => {
 
   return (
     <>
-      <div class="relative flex w-full flex-col font-display group/design-root overflow-x-hidden">
-        <div class="container flex h-full grow flex-col">
-          <div class="flex items-center justify-center">
-            <div class="layout-content-container flex flex-col w-full flex-1">
-              <div class="@container">
-                <div class="flex flex-col-reverse items-start gap-4 md:gap-8 lg:grid lg:grid-cols-12 lg:gap-12 xl:gap-16">
-                  <div class="flex flex-col gap-6 text-left lg:col-span-7 lg:gap-8">
-                    <div class="flex flex-col gap-3">
-                      <h1 class="text-primary text-3xl font-black leading-tight tracking-[-0.03em] md:text-4xl">
-                        Эндаумент фонд при Ассоциации туристов Казахстана «OzElim» - финансовая
-                        опора и долгосрочная инвестиция в развитие туризма!
-                      </h1>
-                      <p class="text-[#1A202C]/80 text-base font-normal leading-relaxed md:text-lg">
-                        2-4 short paragraphs explaining the concept, feature, or story introduced by
-                        the heading. The language should be clear and direct, guiding the user
-                        through the main value proposition in an easily digestible format.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="w-full lg:col-span-5">
-                    <div
-                      class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl"
-                      data-alt="Vibrant abstract gradient with blue and purple tones"
-                      style={{
-                        backgroundImage:
-                          'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBiFE9Sdd0jymYHWXqGTBSe8hqI1mFxOdSTcf9Xpjp641j0h8wXFp55P0myU-RJXutrxou7HGmmxi1rRSPBOwNYXSBcQcvsoVQmopbGkpnZ6EkRAcFceTH44e3uBXA62FOLgcEpzrsrrlgfB9g8aVMWT8Y09kQdIHjQmVaH8zUSJpnHKAzstI76IoIrfkZUORMKCd80BKEW6BEiVbunfVAOSgpqXxWvMGGaFY4bOIs-eAbhYosR38VK7G0-BYuBJG2U8igBzgIcXjBq")',
-                      }}
-                    ></div>
-                  </div>
-                </div>
-              </div>
+      <div class="container relative flex w-full flex-col">
+        <div class="flex flex-col-reverse items-start gap-4 md:gap-8 lg:grid lg:grid-cols-12 lg:gap-12 xl:gap-16 clean-block">
+          <div class="flex flex-col gap-6 text-left lg:col-span-7 lg:gap-8">
+            <div class="flex flex-col gap-3">
+              <h1 class="text-primary text-3xl font-black leading-tight tracking-[-0.03em] md:text-4xl">
+                Эндаумент фонд при Ассоциации туристов Казахстана «OzElim» - финансовая опора и
+                долгосрочная инвестиция в развитие туризма!
+              </h1>
+              <p class="text-[#1A202C]/80 text-base font-normal leading-relaxed md:text-lg">
+                2-4 short paragraphs explaining the concept, feature, or story introduced by the
+                heading. The language should be clear and direct, guiding the user through the main
+                value proposition in an easily digestible format.
+              </p>
             </div>
+          </div>
+          <div class="w-full lg:col-span-5">
+            <div
+              class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl"
+              data-alt="Vibrant abstract gradient with blue and purple tones"
+              style={{
+                backgroundImage:
+                  'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBiFE9Sdd0jymYHWXqGTBSe8hqI1mFxOdSTcf9Xpjp641j0h8wXFp55P0myU-RJXutrxou7HGmmxi1rRSPBOwNYXSBcQcvsoVQmopbGkpnZ6EkRAcFceTH44e3uBXA62FOLgcEpzrsrrlgfB9g8aVMWT8Y09kQdIHjQmVaH8zUSJpnHKAzstI76IoIrfkZUORMKCd80BKEW6BEiVbunfVAOSgpqXxWvMGGaFY4bOIs-eAbhYosR38VK7G0-BYuBJG2U8igBzgIcXjBq")',
+              }}
+            ></div>
           </div>
         </div>
       </div>
 
-      <div class="relative flex h-auto w-full flex-col group/design-root overflow-x-hidden mt-4 md:mt-8">
-        <div class="container flex h-full grow flex-col">
-          <div class="flex flex-1 justify-center">
-            <div class=" flex flex-col flex-1">
-              <main>
-                <div class="flex flex-wrap justify-between gap-3 p-4">
-                  <div class="flex min-w-72 flex-col gap-4 mx-auto">
-                    <h1 class="text-primary text-3xl md:text-4xl font-black leading-tight tracking-tighter">
-                      Lorem ipsum dolor sit.
-                    </h1>
-                  </div>
-                </div>
-                <div class="space-y-6">
-                  <p class="text-gray-800 text-base font-normal leading-loose">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi pariatur
-                    repellendus animi ratione quidem eos, nobis alias, laborum omnis commodi sed
-                    vero voluptatum molestiae eaque aliquam! Quo, obcaecati voluptates. Perspiciatis
-                    iste itaque quod pariatur assumenda recusandae ad repellendus corrupti voluptate
-                    fugiat ut, a error fuga laudantium quisquam! Consequuntur eum consectetur amet
-                    harum, incidunt ipsam quisquam beatae quo, corporis doloribus ad dolorum tempore
-                    dolores autem eius debitis error illum? Culpa itaque ab recusandae eius ea,
-                    suscipit hic. Velit possimus suscipit error? Rem voluptatibus saepe error ipsum
-                    repellendus repellat quod, explicabo exercitationem est porro cumque aliquid
-                    commodi necessitatibus asperiores quisquam eum in.
-                  </p>
-                </div>
-              </main>
+      <div class="relative flex h-auto w-full flex-col mt-4 md:mt-8 container">
+        <main className="clean-block">
+          <div class="flex flex-wrap justify-between gap-3 p-4">
+            <div class="flex min-w-72 flex-col gap-4 mx-auto">
+              <h1 class="text-primary text-3xl md:text-4xl font-black leading-tight tracking-tighter">
+                Lorem ipsum dolor sit.
+              </h1>
             </div>
           </div>
-        </div>
+          <div class="space-y-6">
+            <p class="text-gray-800 text-base font-normal leading-loose">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi pariatur
+              repellendus animi ratione quidem eos, nobis alias, laborum omnis commodi sed vero
+              voluptatum molestiae eaque aliquam! Quo, obcaecati voluptates. Perspiciatis iste
+              itaque quod pariatur assumenda recusandae ad repellendus corrupti voluptate fugiat ut,
+              a error fuga laudantium quisquam! Consequuntur eum consectetur amet harum, incidunt
+              ipsam quisquam beatae quo, corporis doloribus ad dolorum tempore dolores autem eius
+              debitis error illum? Culpa itaque ab recusandae eius ea, suscipit hic. Velit possimus
+              suscipit error? Rem voluptatibus saepe error ipsum repellendus repellat quod,
+              explicabo exercitationem est porro cumque aliquid commodi necessitatibus asperiores
+              quisquam eum in.
+            </p>
+          </div>
+        </main>
       </div>
 
-      <div class="relative flex h-auto w-full flex-col group/design-root overflow-x-hidden">
-        <div class="container flex h-full grow flex-col">
-          <div class="flex flex-1 justify-center">
-            <div class=" flex flex-col flex-1">
-              <main>
-                <div class="flex flex-wrap justify-between gap-3 p-4">
-                  <div class="flex min-w-72 flex-col gap-4 mx-auto">
-                    <h1 class="text-primary text-3xl md:text-4xl font-black leading-tight tracking-tighter">
-                      Lorem ipsum dolor sit.
-                    </h1>
-                  </div>
-                </div>
-                <div class="space-y-6">
-                  <p class="text-gray-800 text-base font-normal leading-loose pt-1">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptate iste
-                    corrupti debitis sunt voluptas perspiciatis qui, maiores iure rem adipisci
-                    assumenda rerum ad similique, libero doloribus dolorem sit necessitatibus
-                    cupiditate cum in nemo sequi cumque vitae reiciendis. Atque, temporibus facilis
-                    mollitia, praesentium nisi modi, pariatur ex at eveniet iure earum eos ipsum
-                    repudiandae quae explicabo labore vero minima quam assumenda culpa optio soluta?
-                    Atque accusamus maiores, sint ea, nulla commodi fugit sequi soluta at cum amet
-                    fuga laudantium ab voluptatum perferendis sit repellendus? Possimus ipsam
-                    labore, distinctio nesciunt voluptate consequuntur ea sed voluptatem
-                    necessitatibus eaque facere rem cumque, incidunt nihil?
-                  </p>
-                </div>
-              </main>
+      <div class="container relative flex h-auto w-full flex-col mt-4 md:mt-8">
+        <main className='clean-block'>
+          <div class="flex flex-wrap justify-between gap-3 p-4">
+            <div class="flex min-w-72 flex-col gap-4 mx-auto">
+              <h1 class="text-primary text-3xl md:text-4xl font-black leading-tight tracking-tighter">
+                Lorem ipsum dolor sit.
+              </h1>
             </div>
           </div>
-        </div>
+          <div class="space-y-6">
+            <p class="text-gray-800 text-base font-normal leading-loose pt-1">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptate iste corrupti
+              debitis sunt voluptas perspiciatis qui, maiores iure rem adipisci assumenda rerum ad
+              similique, libero doloribus dolorem sit necessitatibus cupiditate cum in nemo sequi
+              cumque vitae reiciendis. Atque, temporibus facilis mollitia, praesentium nisi modi,
+              pariatur ex at eveniet iure earum eos ipsum repudiandae quae explicabo labore vero
+              minima quam assumenda culpa optio soluta? Atque accusamus maiores, sint ea, nulla
+              commodi fugit sequi soluta at cum amet fuga laudantium ab voluptatum perferendis sit
+              repellendus? Possimus ipsam labore, distinctio nesciunt voluptate consequuntur ea sed
+              voluptatem necessitatibus eaque facere rem cumque, incidunt nihil?
+            </p>
+          </div>
+        </main>
       </div>
 
-      <div className="relative grid md:grid-cols-2 w-full items-center justify-center font-display group/design-root gap-6 container mt-8">
+      <div className="relative grid md:grid-cols-2 w-full items-center justify-center gap-6 container mt-8">
         <div className="flex flex-col w-full max-w-2xl overflow-hidden rounded-xl border border-black/10 bg-white shadow-lg transition-shadow duration-300 hover:shadow-2xl">
-          <div className="flex flex-col gap-6 p-4 md:p-6">
+          <div className="flex flex-col gap-6 p-4 md:p-8">
             <h2 className="text-3xl font-bold text-primary mb-0 mx-auto">Миссия фонда</h2>
             <p className="text-slate-500">
               Обеспечение устойчивых источников финансирования для поддержки
@@ -237,7 +216,7 @@ export const Fund = () => {
           </div>
         </div>
         <div className="flex flex-col w-full max-w-2xl h-full overflow-hidden rounded-xl border border-black/10 bg-white shadow-lg transition-shadow duration-300 hover:shadow-2xl">
-          <div className="flex flex-col gap-6 p-4 md:p-6">
+          <div className="flex flex-col gap-6 p-4 md:p-8">
             <h2 className="text-3xl font-bold text-primary mb-0 text-center">
               Преимущества и прозрачность
             </h2>
@@ -355,7 +334,7 @@ export const Fund = () => {
 
       <div className="relative flex container w-full flex-col items-center justify-center mt-6">
         <div className="w-full rounded-xl bg-white shadow-lg">
-          <div className="flex flex-col p-4 gap-6 md:p-6">
+          <div className="flex flex-col p-4 gap-6 md:p-8">
             <div className="text-center">
               <h1 className="text-primary tracking-tight text-2xl sm:text-3xl font-bold leading-tight">
                 Приглашаем поддержать целевой сбор на Проекты
@@ -378,7 +357,7 @@ export const Fund = () => {
                 { maxWidth: 'md', slideSize: '50%' },
                 { maxWidth: 'sm', slideSize: '100%', slideGap: 0 },
               ]}
-              className='max-w-xs sm:max-w-sm md:max-w-full mx-auto'
+              className="max-w-xs sm:max-w-sm md:max-w-full mx-auto"
             >
               {Array(8)
                 .fill(1)
@@ -423,7 +402,7 @@ export const Fund = () => {
             </h1>
           </div>
           <div className="grid grid-cols-1 gap-4 md:gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-8">
-            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-primary p-4 md:p-6 shadow-lg">
+            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-primary p-4 md:p-8 shadow-lg">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                 {/* Database icon */}
                 <span className="text-2xl">
@@ -439,7 +418,7 @@ export const Fund = () => {
                 </p>
               </div>
             </div>
-            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-primary p-4 md:p-6 shadow-lg">
+            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-primary p-4 md:p-8 shadow-lg">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                 {/* Psychology icon */}
                 <span className="text-2xl">
@@ -449,14 +428,16 @@ export const Fund = () => {
                 </span>
               </div>
               <div className="flex flex-col gap-1">
-                <h2 className="text-lg font-bold text-secondary">Нет автоматизированного подбора</h2>
+                <h2 className="text-lg font-bold text-secondary">
+                  Нет автоматизированного подбора
+                </h2>
                 <p className="text-sm leading-relaxed text-white">
                   Отсутствие централизованной автоматизированной системы подбора санаториев по
                   медицинским показаниям.
                 </p>
               </div>
             </div>
-            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-primary p-4 md:p-6 shadow-lg">
+            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-primary p-4 md:p-8 shadow-lg">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                 {/* FlightTakeoff/Flying icon */}
                 <span className="text-2xl">
@@ -468,12 +449,12 @@ export const Fund = () => {
               <div className="flex flex-col gap-1">
                 <h2 className="text-lg font-bold text-secondary">Утечка клиентов за рубеж</h2>
                 <p className="text-sm leading-relaxed text-gray-200">
-                  До <span className="font-bold">40%</span> пациентов выбирают
-                  санатории России, Узбекистана, Турции и других стран.
+                  До <span className="font-bold">40%</span> пациентов выбирают санатории России,
+                  Узбекистана, Турции и других стран.
                 </p>
               </div>
             </div>
-            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-primary p-4 md:p-6 shadow-lg">
+            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-primary p-4 md:p-8 shadow-lg">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                 {/* Trending Down icon */}
                 <span className="text-2xl">
@@ -485,12 +466,12 @@ export const Fund = () => {
               <div className="flex flex-col gap-1">
                 <h2 className="text-lg font-bold text-secondary">Нераскрытый потенциал</h2>
                 <p className="text-sm leading-relaxed text-gray-200">
-                  Более <span className="font-bold">60%</span> ресурсов отечественных
-                  санаториев недозагружены.
+                  Более <span className="font-bold">60%</span> ресурсов отечественных санаториев
+                  недозагружены.
                 </p>
               </div>
             </div>
-            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-primary p-4 md:p-6 shadow-lg">
+            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-primary p-4 md:p-8 shadow-lg">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                 {/* Help Center icon */}
                 <span className="text-2xl">
@@ -502,12 +483,12 @@ export const Fund = () => {
               <div className="flex flex-col gap-1">
                 <h2 className="text-lg font-bold text-secondary">Сложность выбора</h2>
                 <p className="text-sm leading-relaxed text-gray-200">
-                  <span className="font-bold">70%</span> населения не знают, какой
-                  санаторий подходит под их диагноз.
+                  <span className="font-bold">70%</span> населения не знают, какой санаторий
+                  подходит под их диагноз.
                 </p>
               </div>
             </div>
-            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-primary p-4 md:p-6 shadow-lg">
+            <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-primary p-4 md:p-8 shadow-lg">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                 {/* Sick icon */}
                 <span className="text-2xl">
@@ -567,7 +548,7 @@ export const Fund = () => {
         }}
       >
         <div className="w-full max-w-2xl shadow-lg">
-          <div className="flex flex-col gap-8 rounded-xl bg-white shadow-lg p-4 md:p-6 sm:p-10">
+          <div className="flex flex-col gap-8 rounded-xl bg-white shadow-lg p-4 sm:p-8">
             <div className="flex flex-col gap-2 text-center">
               <p className="font-normal leading-normal">
                 Оставьте заявку на участие, и наша команда свяжется с вами

@@ -24,7 +24,7 @@ export const LinksGrid = () => {
               data-alt="Abstract gradient from purple to blue"
               style={{
                 backgroundImage:
-                  'url("https://static.tildacdn.com/tild6663-3165-4363-b235-636266326536/_.jpg")',
+                  'url("https://akyldy.kz/wp-content/uploads/2025/04/bayanawyl-ulttyq-sayabaghy-twraly-qyzyqty-maelimetter-1024x683.jpg")',
               }}
             ></div>
             <div className="absolute inset-0 group-hover:bg-black/20 transition-all duration-300 rounded-full grid grid-rows-[70%_auto]">

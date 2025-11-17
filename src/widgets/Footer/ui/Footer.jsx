@@ -50,7 +50,7 @@ export const Footer = () => {
                 />
               </a>
             </div>
-            <div className='text text-gray-400 text-left mb-4 md:mb-0'>
+            <div className='text text-white text-left mb-4 md:mb-0'>
               <p>
                 ТОО «OzElim»
               </p>
@@ -86,7 +86,7 @@ export const Footer = () => {
             </div>
             <div className="grid grid-cols-2 gap-2 sm:gap-2 sm:grid-cols-3">
               <div>
-                <ul className="text-gray-600 dark:text-gray-400 font-medium">
+                <ul className="text-white font-medium">
                   <li className="sm:mb-4">
                     <a
                       href="https://oz-elim.kz/about"
@@ -106,7 +106,7 @@ export const Footer = () => {
                 </ul>
               </div>
               <div>
-                <ul className="text-gray-600 dark:text-gray-400 font-medium">
+                <ul className="text-white font-medium">
                   <li className="sm:mb-4">
                     {/* <Link to="jopa"> */}
                       <span
@@ -136,7 +136,7 @@ export const Footer = () => {
                 </ul>
               </div>
               <div>
-                <ul className="text-gray-600 dark:text-gray-400 font-medium">
+                <ul className="text-white font-medium">
                   <li className="sm:mb-4">
                     <a
                       href="https://oz-elim.kz/courses"

@@ -10,9 +10,9 @@ export const BlockOne = () => {
       <div className="container flex h-full grow flex-col mt-8">
         <div className="flex flex-1 justify-center">
           <div className="flex flex-col flex-1">
-            <div className="flex flex-col md:flex-row gap-6 shadow-lg border rounded-lg overflow-hidden bg-white">
+            <div className="flex flex-col md:flex-row gap-6 shadow-lg border rounded-lg overflow-hidden bg-white p-4 md:p-8">
               <div className="flex flex-col w-full">
-                <div className="flex flex-col gap-3 p-4">
+                <div className="flex flex-col gap-3 mb-4">
                   <h1 className="text-primary text-3xl font-black leading-tight tracking-[-0.033em] md:text-4xl">
                     Открой Казахстан вместе с OzElim!
                   </h1>
@@ -20,13 +20,13 @@ export const BlockOne = () => {
                     Lorem ipsum dolor sit.
                   </h3> */}
                 </div>
-                <p className="text-gray-600 text-base font-normal leading-relaxed px-4">
+                <p className="text-gray-600 text-base font-normal leading-relaxed">
                   Мы объединяем людей, сервисы, знания и технологии, чтобы сделать путешествия по
                   Казахстану доступными, комфортными и полезными.
                 </p>
               </div>
               <div>
-                <h2 className="text-primary text-2xl font-bold leading-tight tracking-[-0.015em] p-4 mb-0">
+                <h2 className="text-primary text-2xl font-bold leading-tight tracking-[-0.015em] mb-0">
                   OzElim - это:
                 </h2>
                 <div className="flex flex-col">
@@ -85,7 +85,7 @@ export const BlockOne = () => {
             </div>
             {/* <hr className="border-gray-200 mx-4 my-4" /> */}
 
-            <div class="mt-8 relative flex w-full flex-col font-display group/design-root overflow-x-hidden bg-white border shadow-lg rounded-lg overflow-hidden p-4">
+            <div class="mt-8 relative flex w-full flex-col font-display group/design-root overflow-x-hidden bg-white border shadow-lg rounded-lg overflow-hidden md:p-8">
               <div class="flex h-full grow flex-col">
                 <div class="flex items-center justify-center">
                   <div class="layout-content-container flex flex-col w-full flex-1">
