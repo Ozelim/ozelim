@@ -85,7 +85,7 @@ export const BlockOne = () => {
             </div>
             {/* <hr className="border-gray-200 mx-4 my-4" /> */}
 
-            <div class="mt-8 relative flex w-full flex-col font-display group/design-root overflow-x-hidden bg-white border shadow-lg rounded-lg overflow-hidden md:p-8">
+            <div class="mt-8 relative flex w-full flex-col font-display group/design-root overflow-x-hidden bg-white border shadow-lg rounded-lg overflow-hidden p-4 md:p-8">
               <div class="flex h-full grow flex-col">
                 <div class="flex items-center justify-center">
                   <div class="layout-content-container flex flex-col w-full flex-1">
