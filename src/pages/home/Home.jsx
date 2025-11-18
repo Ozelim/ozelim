@@ -89,8 +89,37 @@ export const Home = () => {
         <LinksGrid />
       </div>
       <BlockOne />
+
+      <div className="relative bg-zinc-100 -mt-4 pb-4">
+        <OurTeamHeader headings={teamHeadings} text={teamText} />
+      </div>
       <BlockTwo />
+
       <div className="bg-zinc-100 w-full relative -mb-8 pb-8">
+        <div class="container relative flex h-auto w-full flex-col">
+          <main className="clean-block">
+            <div class="flex flex-wrap justify-between gap-3 p-4">
+              <div class="flex min-w-72 flex-col gap-4 mx-auto">
+                <h1 class="text-primary text-3xl md:text-4xl font-black leading-tight tracking-tighter">
+                  Lorem ipsum dolor sit.
+                </h1>
+              </div>
+            </div>
+            <div class="space-y-6">
+              <p class="text-gray-800 text-base font-normal leading-loose pt-1">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptate iste corrupti
+                debitis sunt voluptas perspiciatis qui, maiores iure rem adipisci assumenda rerum ad
+                similique, libero doloribus dolorem sit necessitatibus cupiditate cum in nemo sequi
+                cumque vitae reiciendis. Atque, temporibus facilis mollitia, praesentium nisi modi,
+                pariatur ex at eveniet iure earum eos ipsum repudiandae quae explicabo labore vero
+                minima quam assumenda culpa optio soluta? Atque accusamus maiores, sint ea, nulla
+                commodi fugit sequi soluta at cum amet fuga laudantium ab voluptatum perferendis sit
+                repellendus? Possimus ipsam labore, distinctio nesciunt voluptate consequuntur ea
+                sed voluptatem necessitatibus eaque facere rem cumque, incidunt nihil?
+              </p>
+            </div>
+          </main>
+        </div>
         <div className="container">
           <div class="flex flex-wrap justify-between gap-3 p-4">
             <div class="flex min-w-72 flex-col gap-4 mx-auto">

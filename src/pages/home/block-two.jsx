@@ -28,7 +28,7 @@ const mem = [doc3, doc32, doc4, doc42, doc5, doc52, doc53, doc54, doc55, doc56]
 export default function BlockTwo() {
   return (
     <>
-      <div className="relative flex h-auto w-full flex-col group/design-root overflow-x-hidden pt-8 bg-zinc-100">
+      <div className="relative flex h-auto w-full flex-col group/design-root overflow-x-hidden pt-4 bg-zinc-100">
         <div className="container flex h-full grow flex-col">
           <div className="flex flex-1 justify-center">
             <div className=" flex flex-col flex-1 pb-8">

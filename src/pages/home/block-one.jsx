@@ -4,7 +4,7 @@ import { SiSitepoint } from 'react-icons/si'
 export const BlockOne = () => {
   return (
     <div
-      className="relative flex min-h-screen w-full flex-col bg-background-light group/design-root bg-zinc-100"
+      className="relative flex w-full flex-col bg-zinc-100 pb-8"
       style={{ fontFamily: '"Work Sans", "Noto Sans", sans-serif' }}
     >
       <div className="container flex h-full grow flex-col mt-8">
@@ -85,7 +85,9 @@ export const BlockOne = () => {
             </div>
             {/* <hr className="border-gray-200 mx-4 my-4" /> */}
 
-            <div class="mt-8 relative flex w-full flex-col font-display group/design-root overflow-x-hidden bg-white border shadow-lg rounded-lg overflow-hidden p-4 md:p-8">
+            
+
+            {/* <div class="mt-8 relative flex w-full flex-col font-display group/design-root overflow-x-hidden bg-white border shadow-lg rounded-lg overflow-hidden p-4 md:p-8">
               <div class="flex h-full grow flex-col">
                 <div class="flex items-center justify-center">
                   <div class="layout-content-container flex flex-col w-full flex-1">
@@ -120,7 +122,7 @@ export const BlockOne = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
