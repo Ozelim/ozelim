@@ -135,9 +135,9 @@ export const Home = () => {
             ))}
           </div>
         </div>
-        <div className="pt-8 relative">
+        {/* <div className="pt-8 relative">
           <OurTeamHeader headings={teamHeadings} text={teamText} />
-        </div>
+        </div> */}
       </div>
 
       {/* <div className={`space-y-4 container mx-auto text-center mt-10`}>
