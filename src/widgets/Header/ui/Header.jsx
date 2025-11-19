@@ -78,21 +78,20 @@ export const Header2 = () => {
             })}
           </nav>
 
-          <div className='block md:hidden'>
+          {/* <div className='block md:hidden'>
             <BurgerMenu/>
-          </div>
+          </div> */}
         </div>
 
         {/* Right side: Search, Globe, Avatar */}
         <div className="flex items-center gap-4">
-          <div className='flex md:gap-2 items-center'>
-     
+          <div className="flex md:gap-2 items-center">
             <BsWhatsapp className="text-xl flex-shrink-0" color="green" />
-            <div className='flex flex-col'>
+            <div className="flex flex-col">
               <span className="ml-2 hover:text-yellow-400 text-md hidden md:block whitespace-nowrap">
                 +7 747 051 2252
               </span>
-              <span className='hidden md:inline-block text-sm text-gray-400 -mt-1'>
+              <span className="hidden md:inline-block text-sm text-gray-400 -mt-1">
                 Служба поддержки
               </span>
             </div>
@@ -155,6 +154,19 @@ export const Header2 = () => {
           </Avatar> */}
         </div>
       </div>
+      <nav className="grid grid-cols-2 md:hidden gap-4 container pb-2">
+        {array2.map((val, i) => {
+          return (
+            <Link
+              key={i}
+              className="text-sm text-foreground hover:text-primary transition-colors tracking-wider"
+              to={val.link}
+            >
+              {lang === 'kz' ? val?.labelkz ?? val.labelru : val.labelru}
+            </Link>
+          )
+        })}
+      </nav>
     </header>
   )
 }

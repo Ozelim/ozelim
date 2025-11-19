@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import insurance from 'shared/assets/images/insurance.jpeg'
 import ozelim from 'shared/assets/images/ozelim.jpg'
@@ -55,7 +56,7 @@ export const LinksGrid = () => {
               </div>
             </div>
           </a>
-          <a className="group relative overflow-hidden rounded-full aspect-square block" href="#">
+          <Link className="group relative overflow-hidden rounded-full aspect-square block" to="/insurance">
             <div
               className="absolute inset-0 bg-cover bg-start transition-transform duration-300 ease-in-out group-hover:scale-110"
               data-alt="Vibrant orange and yellow flowing lines"
@@ -73,8 +74,8 @@ export const LinksGrid = () => {
                 </div>
               </div>
             </div>
-          </a>
-          <a className="group relative overflow-hidden rounded-full aspect-square block" href="#">
+          </Link>
+          <Link className="group relative overflow-hidden rounded-full aspect-square block" to="/fund">
             <div
               className="absolute inset-0 bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-110"
               data-alt="Blue and pink paint swirls"
@@ -91,7 +92,7 @@ export const LinksGrid = () => {
                 </div>
               </div>
             </div>
-          </a>
+          </Link>
           <a className="group relative overflow-hidden rounded-full aspect-square block" href="#">
             <div
               className="absolute inset-0 bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-110"
@@ -111,7 +112,7 @@ export const LinksGrid = () => {
               </div>
             </div>
           </a>
-          <a className="group relative overflow-hidden rounded-full aspect-square block" href="#">
+          <Link className="group relative overflow-hidden rounded-full aspect-square block" to="/rights">
             <div
               className="absolute inset-0 bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-110"
               data-alt="Minimalist architectural lines"
@@ -129,7 +130,7 @@ export const LinksGrid = () => {
                 </div>
               </div>
             </div>
-          </a>
+          </Link>
           <a className="group relative overflow-hidden rounded-full aspect-square block" href="#">
             <div
               className="absolute inset-0 bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-110"
