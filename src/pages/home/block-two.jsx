@@ -85,7 +85,7 @@ export default function BlockTwo() {
                                   className="flex-shrink-0 rounded-full"
                                 />
 
-                                <p class="flex-1 truncate text-base font-medium">{q}</p>
+                                <p class="flex-1 text-base font-medium">{q}</p>
                               </li>
                             )
                           })}

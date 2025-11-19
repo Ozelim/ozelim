@@ -9,22 +9,23 @@ export const OurTeamHeader = ({ headings, text }) => {
     <section className="w-full">
       <div className="container">
         <div className="flex flex-col lg:flex-row mt-4 gap-8 shadow-lg overflow-hidden rounded-lg bg-white p-4">
-          <img
-            src={q}
-            className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 rounded-primary max-h-96 object-cover"
-          />
+          <div className="w-full">
+            <h1 className="text-2xl font-black leading-tight tracking-tight text-primary md:text-2xl lg:text-3xl">
+              {headings?.main}
+            </h1>
+            <h3 className="text-lg md:text-xl mt-3">{headings?.submain}</h3>
+            <img
+              src={q}
+              className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 rounded-primary max-h-96 object-cover"
+            />
+          </div>
 
           <div className="w-full lg:text-left text-center">
             {/* <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
               {headings?.main}
             </h1> */}
 
-            <h1 className="text-2xl font-black leading-tight tracking-tight text-primary md:text-3xl lg:text-4xl">
-              {headings?.main}
-            </h1>
-
             {/* <p className="text-xl font-medium mt-3 text-[#1e1e1e]">{headings?.submain}</p> */}
-            <h3 className="text-lg md:text-xl mt-4">{headings?.submain}</h3>
 
             {/* <ul className="mt-3 text-lg font-medium text-[#5a5959] ">
               <li>• {text?.text1}</li>
@@ -35,13 +36,21 @@ export const OurTeamHeader = ({ headings, text }) => {
 
             <div className="flex flex-col gap-6">
               <div className="flex items-center md:items-start gap-4">
-                <SiSitepoint size={20} color='text-bg' className="mt-1.5 flex-shrink-0 rounded-full"/>
+                <SiSitepoint
+                  size={20}
+                  color="text-bg"
+                  className="mt-1.5 flex-shrink-0 rounded-full"
+                />
                 <div className="flex flex-col gap-1">
                   <p className="text-base text-[#4c669a]">{text?.text1}</p>
                 </div>
               </div>
               <div className="flex items-center md:items-start gap-4">
-                <SiSitepoint size={20} color='text-bg' className="mt-1.5 flex-shrink-0 rounded-full"/>
+                <SiSitepoint
+                  size={20}
+                  color="text-bg"
+                  className="mt-1.5 flex-shrink-0 rounded-full"
+                />
                 <div className="flex flex-col gap-1">
                   <p className="text-base text-[#4c669a]">{text?.text2}</p>
                 </div>
@@ -53,9 +62,36 @@ export const OurTeamHeader = ({ headings, text }) => {
                 </div>
               </div> */}
               <div className="flex items-center md:items-start gap-4">
-                <SiSitepoint size={20} color='text-bg' className="mt-1.5 flex-shrink-0 rounded-full"/>
+                <SiSitepoint
+                  size={20}
+                  color="text-bg"
+                  className="mt-1.5 flex-shrink-0 rounded-full"
+                />
                 <div className="flex flex-col gap-1">
-                  <p className="text-base text-[#4c669a]">{text?.text4}</p>
+                  <p className="text-base text-[#4c669a]">
+                    {/* {text?.text4} */}
+                    Дорогой друг! Если у тебя есть навыки, энергия и стремление развиваться — ты
+                    именно тот, кого мы ищем. Присоединяйся к нашей команде и реализуй свой
+                    потенциал в деле, которое вдохновляет. Зарабатывай, раскрывай себя и расти
+                    вместе с нами!
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center md:items-start gap-4">
+                <SiSitepoint
+                  size={20}
+                  color="text-bg"
+                  className="mt-1.5 flex-shrink-0 rounded-full"
+                />
+                <div className="flex flex-col gap-1">
+                  <p className="text-base text-[#4c669a]">
+                    Приглашаем к сотрудничеству курортные комплексы, санатории, дома отдыха и
+                    гидов-экскурсоводов! Давайте вместе развивать внутренний туризм и формировать
+                    образ Казахстана как страны, где можно не только вдохновиться природой, узнать
+                    культуру, но и получить качественный отдых и оздоровление. Объединяя усилия — мы
+                    создаём ценность для гостей и усиливаем интерес к регионам нашей страны!
+                  </p>
                 </div>
               </div>
             </div>

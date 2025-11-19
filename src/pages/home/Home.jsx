@@ -92,6 +92,26 @@ export const Home = () => {
 
       <div className="relative bg-zinc-100 -mt-4 pb-4">
         <OurTeamHeader headings={teamHeadings} text={teamText} />
+        {/* <div class="container relative flex h-auto w-full flex-col mt-4 md:mt-8">
+          <main className="clean-block">
+            <div class="flex flex-wrap justify-between gap-3">
+              <div class="flex min-w-72 flex-col gap-4 mx-auto">
+                <h1 class="text-primary text-2xl md:text-[34px] font-black leading-tight tracking-tighter text-center">
+                  Приглашаем к сотрудничеству курортные комплексы, санатории, дома отдыха и
+                  гидов-экскурсоводов
+                </h1>
+              </div>
+            </div>
+            <div class="space-y-6">
+              <p class="text-gray-800 text-lg font-normal leading-loose pt-1">
+                Давайте вместе развивать внутренний туризм и формировать образ Казахстана как
+                страны, где можно не только вдохновиться природой, узнать культуру, но и получить
+                качественный отдых и оздоровление. Объединяя усилия — мы создаём ценность для гостей
+                и усиливаем интерес к регионам нашей страны!
+              </p>
+            </div>
+          </main>
+        </div> */}
       </div>
       <BlockTwo />
 
