@@ -96,12 +96,12 @@ export const Home = () => {
       <BlockTwo />
 
       <div className="bg-zinc-100 w-full relative -mb-8 pb-8">
-        <div class="container relative flex h-auto w-full flex-col">
+        {/* <div class="container relative flex h-auto w-full flex-col">
           <main className="clean-block">
-            <div class="flex flex-wrap justify-between gap-3 p-4">
-              <div class="flex min-w-72 flex-col gap-4 mx-auto">
+            <div class="flex flex-wrap justify-between gap-3">
+              <div class="flex min-w-72 flex-col gap-4">
                 <h1 class="text-primary text-3xl md:text-4xl font-black leading-tight tracking-tighter">
-                  Lorem ipsum dolor sit.
+                  Реквизиты
                 </h1>
               </div>
             </div>
@@ -119,7 +119,7 @@ export const Home = () => {
               </p>
             </div>
           </main>
-        </div>
+        </div> */}
         <div className="container">
           <div class="flex flex-wrap justify-between gap-3 p-4">
             <div class="flex min-w-72 flex-col gap-4 mx-auto">

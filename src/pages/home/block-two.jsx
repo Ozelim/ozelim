@@ -167,7 +167,7 @@ export default function BlockTwo() {
                     </h1>
                   </div>
                 </div>
-                <div className="p-4">
+                <div className='mt-4'>
                   <Carousel
                     slideSize="25%"
                     slideGap={16}
@@ -247,7 +247,7 @@ export default function BlockTwo() {
                     </h1>
                   </div>
                 </div>
-                <div className="space-y-6 mt-4 p-4">
+                <div className="space-y-6 mt-4">
                   <Carousel
                     slideSize="25%"
                     slideGap={16}
@@ -275,6 +275,18 @@ export default function BlockTwo() {
                       )
                     })}
                   </Carousel>
+                </div>
+                <div className='mt-4'>
+                  <h3 className='mb-1 md:mb-2 text-xl md:text-3xl'>Реквизиты</h3>
+                  <div className='flex flex-col'>
+                    <div className='md:text-2xl font-bold'>ТОО "OZELIM"</div>
+                    <div className='md:text-2xl'>Адрес: <span className='font-bold'>Павлодар</span></div>
+                    <div className='md:text-2xl'>Бин: <span className="font-bold">221140000992</span></div>
+                    <div className='md:text-2xl'>Банк: <span className="font-bold">АО "Kaspi Bank"</span></div>
+                    <div className='md:text-2xl'>КБе: <span className="font-bold">17</span></div>
+                    <div className='md:text-2xl'>БИК: <span className="font-bold">CASPKZKA</span></div>
+                    <div className='md:text-2xl'>Номер счета: <span className="font-bold">KZ32722S000029456226</span></div>
+                  </div>
                 </div>
               </main>
             </div>
