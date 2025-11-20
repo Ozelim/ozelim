@@ -2,10 +2,9 @@ import React from 'react'
 import { useDisclosure, useMediaQuery } from '@mantine/hooks'
 import { useLangContext } from 'app/langContext'
 import { usePageData } from 'shared/hooks'
-import { Image } from 'shared/ui'
 import fund1 from 'shared/assets/images/fund-01.png'
 import fund2 from 'shared/assets/images/fund-37.png'
-import { Button, Modal, Select, TextInput } from '@mantine/core'
+import { Button, Modal, Select, TextInput, Image } from '@mantine/core'
 import { pb } from 'shared/api'
 import { showNotification } from '@mantine/notifications'
 import { SiSitepoint } from 'react-icons/si'
@@ -18,6 +17,88 @@ import {
 } from 'react-icons/md'
 import { FiPhone } from 'react-icons/fi'
 import { Carousel } from '@mantine/carousel'
+
+import hero from 'shared/assets/images/fund/hero.jpg'
+import gos1 from 'shared/assets/images/fund/fund1.jpg'
+import gos2 from 'shared/assets/images/fund/fund12.jpg'
+
+import human from 'shared/assets/images/fund/rights.jpg'
+
+import right1 from 'shared/assets/images/fund/fund-3-37_page-0001.jpg'
+import right2 from 'shared/assets/images/fund/fund-3-37_page-0002.jpg'
+import right3 from 'shared/assets/images/fund/fund-3-37_page-0003.jpg'
+import right4 from 'shared/assets/images/fund/fund-3-37_page-0004.jpg'
+import right5 from 'shared/assets/images/fund/fund-3-37_page-0005.jpg'
+import right6 from 'shared/assets/images/fund/fund-3-37_page-0006.jpg'
+import right7 from 'shared/assets/images/fund/fund-3-37_page-0007.jpg'
+import right8 from 'shared/assets/images/fund/fund-3-37_page-0008.jpg'
+import right9 from 'shared/assets/images/fund/fund-3-37_page-0009.jpg'
+import right10 from 'shared/assets/images/fund/fund-3-37_page-0010.jpg'
+import right11 from 'shared/assets/images/fund/fund-3-37_page-0011.jpg'
+import right12 from 'shared/assets/images/fund/fund-3-37_page-0012.jpg'
+import right13 from 'shared/assets/images/fund/fund-3-37_page-0013.jpg'
+import right14 from 'shared/assets/images/fund/fund-3-37_page-0014.jpg'
+import right15 from 'shared/assets/images/fund/fund-3-37_page-0015.jpg'
+import right16 from 'shared/assets/images/fund/fund-3-37_page-0016.jpg'
+import right17 from 'shared/assets/images/fund/fund-3-37_page-0017.jpg'
+import right18 from 'shared/assets/images/fund/fund-3-37_page-0018.jpg'
+import right19 from 'shared/assets/images/fund/fund-3-37_page-0019.jpg'
+import right20 from 'shared/assets/images/fund/fund-3-37_page-0020.jpg'
+import right21 from 'shared/assets/images/fund/fund-3-37_page-0021.jpg'
+import right22 from 'shared/assets/images/fund/fund-3-37_page-0022.jpg'
+import right23 from 'shared/assets/images/fund/fund-3-37_page-0023.jpg'
+import right24 from 'shared/assets/images/fund/fund-3-37_page-0024.jpg'
+import right25 from 'shared/assets/images/fund/fund-3-37_page-0025.jpg'
+import right26 from 'shared/assets/images/fund/fund-3-37_page-0026.jpg'
+import right27 from 'shared/assets/images/fund/fund-3-37_page-0027.jpg'
+import right28 from 'shared/assets/images/fund/fund-3-37_page-0028.jpg'
+import right29 from 'shared/assets/images/fund/fund-3-37_page-0029.jpg'
+import right30 from 'shared/assets/images/fund/fund-3-37_page-0030.jpg'
+import right31 from 'shared/assets/images/fund/fund-3-37_page-0031.jpg'
+import right32 from 'shared/assets/images/fund/fund-3-37_page-0032.jpg'
+import right33 from 'shared/assets/images/fund/fund-3-37_page-0033.jpg'
+import right34 from 'shared/assets/images/fund/fund-3-37_page-0034.jpg'
+import right35 from 'shared/assets/images/fund/fund-3-37_page-0035.jpg'
+
+const gos = [gos1, gos2]
+
+const rights = [
+  right1,
+  right2,
+  right3,
+  right4,
+  right5,
+  right6,
+  right7,
+  right8,
+  right9,
+  right10,
+  right11,
+  right12,
+  right13,
+  right14,
+  right15,
+  right16,
+  right17,
+  right18,
+  right19,
+  right20,
+  right21,
+  right22,
+  right23,
+  right24,
+  right25,
+  right26,
+  right27,
+  right28,
+  right29,
+  right30,
+  right31,
+  right32,
+  right33,
+  right34,
+  right35,
+]
 
 async function getFundData() {
   return await pb.collection('fund_data').getFullList()
@@ -53,13 +134,19 @@ export const Fund = () => {
           <div class="flex flex-col gap-6 text-left lg:col-span-7 lg:gap-8">
             <div class="flex flex-col gap-3">
               <h1 class="text-primary text-3xl font-black leading-tight tracking-[-0.03em] md:text-4xl">
+                Эндаумент фонд
+              </h1>
+              <h1 class="text-3xl font-medium leading-tight tracking-[-0.03em] md:text-2xl">
                 Эндаумент фонд при Ассоциации туристов Казахстана «OzElim» - финансовая опора и
                 долгосрочная инвестиция в развитие туризма!
               </h1>
               <p class="text-[#1A202C]/80 text-base font-normal leading-relaxed md:text-lg">
-                2-4 short paragraphs explaining the concept, feature, or story introduced by the
-                heading. The language should be clear and direct, guiding the user through the main
-                value proposition in an easily digestible format.
+                Эндаумент фонд Ассоциации туристов Казахстана "OzElim" — это целевой фонд, созданный
+                для долгосрочного финансирования туристических программ. Основным ом Фонда является
+                то, что его капитал не расходуется, а инвестируется. Доходы от этих инвестиций
+                направляются на поддержку деятельности Ассоциации и конкретным программам. Фонд
+                позволит Ассоциации планировать своё будущее, минимизировать финансовые риски и
+                обеспечить стабильное развитие независимо от текущих экономических условий.
               </p>
             </div>
           </div>
@@ -68,15 +155,72 @@ export const Fund = () => {
               class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl"
               data-alt="Vibrant abstract gradient with blue and purple tones"
               style={{
-                backgroundImage:
-                  'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBiFE9Sdd0jymYHWXqGTBSe8hqI1mFxOdSTcf9Xpjp641j0h8wXFp55P0myU-RJXutrxou7HGmmxi1rRSPBOwNYXSBcQcvsoVQmopbGkpnZ6EkRAcFceTH44e3uBXA62FOLgcEpzrsrrlgfB9g8aVMWT8Y09kQdIHjQmVaH8zUSJpnHKAzstI76IoIrfkZUORMKCd80BKEW6BEiVbunfVAOSgpqXxWvMGGaFY4bOIs-eAbhYosR38VK7G0-BYuBJG2U8igBzgIcXjBq")',
+                backgroundImage: `url(${hero})`,
               }}
             ></div>
           </div>
         </div>
       </div>
 
-      <div class="relative flex h-auto w-full flex-col mt-4 md:mt-8 container">
+      <div className="relative container flex w-full flex-col items-center justify-center bg-background-light mt-6">
+        <div className="w-full rounded-xl border border-gray-200/80 bg-white shadow-lg">
+          <div className="flex flex-col p-4 md:p-8">
+            <div className="grid md:grid-cols-2 gap-y-4 ">
+              <div className="flex flex-col">
+                <div className="flex items-center gap-3">
+                  <h2 className="text-lg font-semibold text-gray-800 mb-0">Форма:</h2>
+                </div>
+                <p className="text-sm leading-6 text-gray-700">Некоммерческая организация</p>
+              </div>
+              <div className="flex flex-col">
+                <div className="flex items-center gap-3">
+                  <h2 className="text-lg font-semibold text-gray-800 mb-0">Юрисдикция:</h2>
+                </div>
+                <p className="text-sm leading-6 text-gray-700">
+                  Официальный фонд, зарегистрированный на платформе МФЦА (Международный финансовый
+                  центр «Астана»).
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="relative flex h-auto w-full flex-col overflow-x-hidden mt-8">
+        <div className="container flex h-full grow flex-col">
+          <div className="flex flex-1 justify-center pb-8">
+            <div className="flex flex-col flex-1">
+              <main className="border shadow-lg rounded-lg overflow-hidden bg-white p-4 md:p-8">
+                <Carousel
+                  slideSize="50%"
+                  slideGap={16}
+                  align="start"
+                  loop
+                  breakpoints={[
+                    { maxWidth: 'md', slideSize: '50%' },
+                    { maxWidth: 'sm', slideSize: '100%', slideGap: 0 },
+                  ]}
+                  className="max-w-xs sm:max-w-sm md:max-w-full mx-auto"
+                >
+                  {gos.map((q, i) => {
+                    return (
+                      <Carousel.Slide key={i}>
+                        <div className="flex flex-col gap-4 rounded-xl bg-background-light shadow-sm overflow-hidden">
+                          <a href={q} target="_blank" className="border shadow-lg rounded-xl">
+                            <Image className="md:max-w-full aspect-auto" src={q} />
+                          </a>
+                        </div>
+                      </Carousel.Slide>
+                    )
+                  })}
+                </Carousel>
+              </main>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* <div class="relative flex h-auto w-full flex-col mt-8 container">
         <main className="clean-block">
           <div class="flex flex-wrap justify-between gap-3 p-4">
             <div class="flex min-w-72 flex-col gap-4 mx-auto">
@@ -103,7 +247,7 @@ export const Fund = () => {
       </div>
 
       <div class="container relative flex h-auto w-full flex-col mt-4 md:mt-8">
-        <main className='clean-block'>
+        <main className="clean-block">
           <div class="flex flex-wrap justify-between gap-3 p-4">
             <div class="flex min-w-72 flex-col gap-4 mx-auto">
               <h1 class="text-primary text-3xl md:text-4xl font-black leading-tight tracking-tighter">
@@ -125,9 +269,9 @@ export const Fund = () => {
             </p>
           </div>
         </main>
-      </div>
+      </div> */}
 
-      <div className="relative grid md:grid-cols-2 w-full items-center justify-center gap-6 container mt-8">
+      <div className="relative grid md:grid-cols-2 w-full items-center justify-center gap-6 container">
         <div className="flex flex-col w-full max-w-2xl overflow-hidden rounded-xl border border-black/10 bg-white shadow-lg transition-shadow duration-300 hover:shadow-2xl">
           <div className="flex flex-col gap-6 p-4 md:p-8">
             <h2 className="text-3xl font-bold text-primary mb-0 mx-auto">Миссия фонда</h2>
@@ -137,7 +281,7 @@ export const Fund = () => {
             <div className="content-area">
               <ul className="flex flex-col gap-4 text-slate-600">
                 <li className="flex items-start gap-3">
-                  <span className="mt-1 text-primary text-xl">
+                  <span className=" text-primary text-xl">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="text-primary"
@@ -152,7 +296,7 @@ export const Fund = () => {
                   <p>Работы Ассоциации туристов Казахстана</p>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="mt-1 text-primary text-xl">
+                  <span className=" text-primary text-xl">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="text-primary"
@@ -167,7 +311,7 @@ export const Fund = () => {
                   <p>Внутренних туристических инициатив</p>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="mt-1 text-primary text-xl">
+                  <span className=" text-primary text-xl">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="text-primary"
@@ -182,7 +326,7 @@ export const Fund = () => {
                   <p>Цифровых и социальных проектов</p>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="mt-1 text-primary text-xl">
+                  <span className=" text-primary text-xl">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="text-primary"
@@ -197,7 +341,7 @@ export const Fund = () => {
                   <p>Образовательных программ и инфотуров</p>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="mt-1 text-primary text-xl">
+                  <span className=" text-primary text-xl">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="text-primary"
@@ -220,10 +364,14 @@ export const Fund = () => {
             <h2 className="text-3xl font-bold text-primary mb-0 text-center">
               Преимущества и прозрачность
             </h2>
+            <p className="text-slate-500">
+              Эндаумент фонд — это финансовый фундамент устойчивого развития проекта, который
+              обеспечивает долгосрочную стабильность без риска и прямых финансовых потерь.
+            </p>
             <div className="content-area">
               <ul className="flex flex-col gap-4 text-slate-600">
                 <li className="flex items-start gap-3">
-                  <span className="mt-1 text-primary text-xl">
+                  <span className=" text-primary text-xl">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="text-primary"
@@ -238,7 +386,7 @@ export const Fund = () => {
                   <p>Средства сохраняются и приумножаются</p>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="mt-1 text-primary text-xl">
+                  <span className=" text-primary text-xl">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="text-primary"
@@ -253,7 +401,7 @@ export const Fund = () => {
                   <p>Пожертвования не расходуются — работает только доход от них</p>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="mt-1 text-primary text-xl">
+                  <span className=" text-primary text-xl">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="text-primary"
@@ -268,7 +416,7 @@ export const Fund = () => {
                   <p>Поддержка только одобренных проектов с социальным эффектом</p>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="mt-1 text-primary text-xl">
+                  <span className=" text-primary text-xl">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="text-primary"
@@ -332,7 +480,7 @@ export const Fund = () => {
 
       {/* new2 */}
 
-      <div className="relative flex container w-full flex-col items-center justify-center mt-6">
+      {/* <div className="relative flex container w-full flex-col items-center justify-center mt-6">
         <div className="w-full rounded-xl bg-white shadow-lg">
           <div className="flex flex-col p-4 gap-6 md:p-8">
             <div className="text-center">
@@ -369,10 +517,7 @@ export const Fund = () => {
                           className="md:max-w-full aspect-video "
                           src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhHh74y3ctjWhwTCJNgxbgkXEaWu-fl6Ix4cPo-zrzDG8x6RbtuAW6tldAYzkjt64G9zsRudrKLQx_rusd8VHspRgOjGRMghcVqY7R-Lok0uoCzwXA4xYkuwMMgjmd0o9uIauVhrff8tIot8xZNkB6YLJjQKzA8QEkMBvkOloPd8rP84J1pUK4w2ecJj08ttsdaGGo7ozaTc5UDmheMxlLHOoQ9Mkxx-TaH58t7ibVd1ksY0M_q4EoKwlOH4CYfpLh9BFIanyIeu3s"
                         />
-                        {/* <img
-                        alt=""
-                        data-alt="A breathtaking mountain landscape in Kazakhstan with a turquoise lake."
-                      /> */}
+
                         <div className="flex flex-col flex-1 justify-between p-4 pt-0 gap-4">
                           <div>
                             <p className="text-primary text-base font-medium leading-normal">
@@ -390,7 +535,7 @@ export const Fund = () => {
             </Carousel>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* new3 */}
 
@@ -515,7 +660,7 @@ export const Fund = () => {
 
       {/* new4 */}
 
-      <div className="relative flex w-full flex-col items-center justify-center bg-background-light group/design-root overflow-x-hidden">
+      <div className="relative flex w-full flex-col items-center justify-center bg-background-light group/design-root overflow-x-hidden pb-4">
         <div className="container flex h-full grow flex-col items-center justify-center">
           <div className="shadow-lg relative w-full max-w-2xl overflow-hidden rounded-xl border border-slate-200/50 bg-white p-4 md:p-8">
             <div
@@ -682,6 +827,72 @@ export const Fund = () => {
           </div>
         </div>
       </section>
+
+      <div class="container relative flex w-full flex-col mt-8">
+        <div class="flex flex-col-reverse items-start gap-4 md:gap-8 lg:grid lg:grid-cols-12 lg:gap-12 xl:gap-16 clean-block">
+          <div class="flex flex-col gap-6 text-left lg:col-span-7 lg:gap-8">
+            <div class="flex flex-col gap-3">
+              <h1 class="text-primary text-3xl font-black leading-tight tracking-[-0.03em] md:text-4xl">
+                Авторское право
+              </h1>
+              <p class="text-[#1A202C]/80 text-base font-normal leading-relaxed md:text-lg">
+                Султанов Искандер Серикович - директор юридической компании “GRT COMPANY”, автор
+                эксклюзивной системы создания и управления Эндаумент фондами в Казахстане, автор
+                инновационной методики управления человеческими ресурсами. Международный "complaints
+                officer", юрист Ассоциации туристов Казахстана "OzElim".
+              </p>
+            </div>
+          </div>
+          <div class="w-full lg:col-span-5">
+            <div
+              class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl max-h-96"
+              data-alt="Vibrant abstract gradient with blue and purple tones"
+              style={{
+                backgroundImage: `url(${human})`,
+              }}
+            ></div>
+          </div>
+        </div>
+      </div>
+
+      <div className="relative flex h-auto w-full flex-col overflow-x-hidden mt-8">
+        <div className="container flex h-full grow flex-col">
+          <div className="flex flex-1 justify-center pb-4">
+            <div className="flex flex-col flex-1">
+              <main className="border shadow-lg rounded-lg overflow-hidden bg-white p-4 md:p-8">
+                <div className="flex min-w-72 flex-col gap-4 mx-auto">
+                  <h1 className="text-primary text-3xl md:text-4xl font-black leading-tight tracking-tighter text-center">
+                    Свидетельство о гос. регистрации авторского права
+                  </h1>
+                </div>
+                <Carousel
+                  slideSize="25%"
+                  slideGap={16}
+                  align="start"
+                  loop
+                  breakpoints={[
+                    { maxWidth: 'md', slideSize: '50%' },
+                    { maxWidth: 'sm', slideSize: '100%', slideGap: 0 },
+                  ]}
+                  className="max-w-xs sm:max-w-sm md:max-w-full mx-auto mt-4"
+                >
+                  {rights.map((q, i) => {
+                    return (
+                      <Carousel.Slide key={i}>
+                        <div className="flex flex-col gap-4 rounded-xl bg-background-light shadow-sm overflow-hidden">
+                          <a href={q} target="_blank" className="border shadow-lg rounded-xl">
+                            <Image className="md:max-w-full aspect-auto" src={q} />
+                          </a>
+                        </div>
+                      </Carousel.Slide>
+                    )
+                  })}
+                </Carousel>
+              </main>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* <div className="w-full">
         <div className="container">
