@@ -477,7 +477,7 @@ export const Fund = () => {
           </div>
         </div>
       </div>
-
+ 
       {/* new2 */}
 
       {/* <div className="relative flex container w-full flex-col items-center justify-center mt-6">
