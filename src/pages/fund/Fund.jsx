@@ -21,6 +21,7 @@ import gos1 from 'shared/assets/images/fund/fund1.jpg'
 import gos2 from 'shared/assets/images/fund/fund12.jpg'
 
 import human from 'shared/assets/images/fund/rights.jpg'
+import handshake from 'shared/assets/images/fund/handshake.jpg'
 
 import right1 from 'shared/assets/images/fund/fund-3-37_page-0001.jpg'
 import right2 from 'shared/assets/images/fund/fund-3-37_page-0002.jpg'
@@ -475,7 +476,7 @@ export const Fund = () => {
           </div>
         </div>
       </div>
- 
+
       {/* new2 */}
 
       {/* <div className="relative flex container w-full flex-col items-center justify-center mt-6">
@@ -806,17 +807,17 @@ export const Fund = () => {
         </ul>
       </div>
 
-      <section className="mt-8 container">
-        <h1 className="text-4xlfont-bold text-center">{headings?.heading10}</h1>
-        <div className="flex flex-col md:flex-row gap-8 mt-6">
+      <section className="mt-8 container pb-4">
+        <div className="flex flex-col md:flex-row gap-8 h-96">
           <Image
-            className="max-w-2xl w-full rounded-primary max-h-80 object-cover"
-            record={images}
-            index={6}
+            className="max-w-2xl w-full rounded-primary h-96 object-cover object-bottom rouned-xl overflow-hidden"
+            src={handshake}
           />
           <div>
-            <h2 className="font-semibold text-[20px]">{headings?.heading11}</h2>
-            <ul className="mt-3 text-lg font-medium text-[#5a5959] space-y-3">{text?.text12}</ul>
+            <h2 className="font-semibold text-[20px]">Ждём ваших заявок на консультацию!</h2>
+            <ul className="mt-3 text-lg font-medium text-[#5a5959] space-y-3">
+              Будем рады сотрудничеству и развитию ваших бизнесов без риска и финансовых потерь.
+            </ul>
             <div className="flex mt-4">
               <Button onClick={() => handlers1.open()}>
                 {kz ? 'Өтініш қалдыру' : `Получить консультацию`}
