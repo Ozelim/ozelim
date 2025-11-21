@@ -59,7 +59,13 @@ import right33 from 'shared/assets/images/fund/fund-3-37_page-0033.jpg'
 import right34 from 'shared/assets/images/fund/fund-3-37_page-0034.jpg'
 import right35 from 'shared/assets/images/fund/fund-3-37_page-0035.jpg'
 
+
+import certificate1 from 'shared/assets/images/fund/Certificate (2)_page-0001.jpg'
+import certificate2 from 'shared/assets/images/fund/Certificate (2)_page-0002.jpg'
+
 const gos = [gos1, gos2]
+
+const certificates = [certificate1, certificate2]
 
 const rights = [
   right1,
@@ -199,9 +205,9 @@ export const Fund = () => {
                     { maxWidth: 'md', slideSize: '50%' },
                     { maxWidth: 'sm', slideSize: '100%', slideGap: 0 },
                   ]}
-                  className="max-w-xs sm:max-w-sm md:max-w-full mx-auto"
+                  className="max-w-xs sm:max-w-sm md:max-w-3xl mx-auto"
                 >
-                  {gos.map((q, i) => {
+                  {certificates.map((q, i) => {
                     return (
                       <Carousel.Slide key={i}>
                         <div className="flex flex-col gap-4 rounded-xl bg-background-light shadow-sm overflow-hidden">
@@ -440,14 +446,24 @@ export const Fund = () => {
         <div className="w-full rounded-xl border border-gray-200/80 bg-white shadow-lg">
           <div className="flex flex-col p-4 md:p-8">
             <h1 className="text-3xl font-bold tracking-tight text-primary md:text-4xl text-center">
-              Принцип работы
+              Инновация и социальная миссия
             </h1>
-            <p className="mt-4 text-base leading-relaxed text-gray-600">
+            {/* <p className="mt-4 text-base leading-relaxed text-gray-600">
               Средства фонда формируются за счет пожертвований и инвестируются. Доход от этих
               инвестиций используется исключительно на уставные цели.
+            </p> */}
+            <p className="mt-4 text-base leading-relaxed text-gray-600">
+              Использование Эндаумент модели в сфере туризма — редкость в Казахстане и делает проект
+              пионером в сочетании технологий, сервиса и социального вклада. Часть его
+              инвестиционных доходов в будущем позволят предоставлять скидки на туры и санаторные
+              путёвки для подписчиков платформы, включая социально уязвимые категории: пенсионеров,
+              многодетные семьи и людей с ограниченными возможностями здоровья.
             </p>
             <div className="my-8 h-px w-full bg-gray-200" />
-            <div className="grid grid-cols-1 gap-y-8 md:grid-cols-2 md:gap-x-12">
+            <h1 className="text-xl font-bold tracking-tight text-primary md:text-2xl text-center">
+              Окрыт сбор на социально значимый проект «Цифровой ассистент Elim-AI»
+            </h1>
+            <div className="grid grid-cols-1 gap-y-8 md:grid-cols-2 md:gap-x-12 mt-8">
               <div className="flex flex-col">
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
@@ -540,11 +556,11 @@ export const Fund = () => {
 
       <div className="relative flex container w-full flex-col items-center justify-center overflow-x-hidden mt-12">
         <div className="w-full">
-          <div className="mb-8 text-center">
+          {/* <div className="mb-8 text-center">
             <h1 className="text-2xl font-bold tracking-tight text-primary sm:text-3xl md:text-4xl">
               Ключевые проблемы санаторно-курортной отрасли Казахстана
             </h1>
-          </div>
+          </div> */}
           <div className="grid grid-cols-1 gap-4 md:gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-8">
             <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-primary p-4 md:p-8 shadow-lg">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
@@ -676,8 +692,7 @@ export const Fund = () => {
               </p>
               <div className="my-4 h-px w-16 bg-slate-200" />
               <h1 className="text-3xl font-bold leading-tight tracking-tight text-slate-900">
-                ХОТИТЕ ПОДДЕРЖАТЬ ФОНД И ПРИНЯТЬ УЧАСТИЕ В РЕАЛИЗАЦИИ СОЦИАЛЬНЫХ ИНИЦИАТИВ В
-                ТУРИЗМЕ?
+                Поддержите идею создания полезного сервиса для всех!
               </h1>
             </div>
           </div>
@@ -854,7 +869,7 @@ export const Fund = () => {
         </div>
       </div>
 
-      <div className="relative flex h-auto w-full flex-col overflow-x-hidden mt-8">
+      {/* <div className="relative flex h-auto w-full flex-col overflow-x-hidden mt-8">
         <div className="container flex h-full grow flex-col">
           <div className="flex flex-1 justify-center pb-4">
             <div className="flex flex-col flex-1">
@@ -876,6 +891,45 @@ export const Fund = () => {
                   className="max-w-xs sm:max-w-sm md:max-w-full mx-auto mt-4"
                 >
                   {rights.map((q, i) => {
+                    return (
+                      <Carousel.Slide key={i}>
+                        <div className="flex flex-col gap-4 rounded-xl bg-background-light shadow-sm overflow-hidden">
+                          <a href={q} target="_blank" className="border shadow-lg rounded-xl">
+                            <Image className="md:max-w-full aspect-auto" src={q} />
+                          </a>
+                        </div>
+                      </Carousel.Slide>
+                    )
+                  })}
+                </Carousel>
+              </main>
+            </div>
+          </div>
+        </div>
+      </div> */}
+
+      <div className="relative flex h-auto w-full flex-col overflow-x-hidden mt-8">
+        <div className="container flex h-full grow flex-col">
+          <div className="flex flex-1 justify-center pb-8">
+            <div className="flex flex-col flex-1">
+              <main className="border shadow-lg rounded-lg overflow-hidden bg-white p-4 md:p-8">
+              <div className="flex min-w-72 flex-col gap-4 mx-auto">
+                  <h1 className="text-primary text-3xl md:text-4xl font-black leading-tight tracking-tighter text-center">
+                    Свидетельство о гос. регистрации авторского права
+                  </h1>
+                </div>
+                <Carousel
+                  slideSize="50%"
+                  slideGap={16}
+                  align="start"
+                  loop
+                  breakpoints={[
+                    { maxWidth: 'md', slideSize: '50%' },
+                    { maxWidth: 'sm', slideSize: '100%', slideGap: 0 },
+                  ]}
+                  className="max-w-xs sm:max-w-sm md:max-w-3xl mx-auto mt-4"
+                >
+                  {gos.map((q, i) => {
                     return (
                       <Carousel.Slide key={i}>
                         <div className="flex flex-col gap-4 rounded-xl bg-background-light shadow-sm overflow-hidden">
