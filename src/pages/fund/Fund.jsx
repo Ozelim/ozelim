@@ -22,6 +22,7 @@ import gos2 from 'shared/assets/images/fund/fund12.jpg'
 
 import human from 'shared/assets/images/fund/rights.jpg'
 import handshake from 'shared/assets/images/fund/handshake.jpg'
+import receipt from 'shared/assets/images/fund/gos1.jpg'
 
 import right1 from 'shared/assets/images/fund/fund-3-37_page-0001.jpg'
 import right2 from 'shared/assets/images/fund/fund-3-37_page-0002.jpg'
@@ -65,7 +66,7 @@ import certificate2 from 'shared/assets/images/fund/Certificate (2)_page-0002.jp
 
 const gos = [gos1, gos2]
 
-const certificates = [certificate1, certificate2]
+const certificates = [receipt, certificate1, certificate2]
 
 const rights = [
   right1,
@@ -731,7 +732,7 @@ export const Fund = () => {
                   <div className="flex w-full flex-1 items-stretch">
                     <input
                       className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-l-lg border border-r-0 border-[#cfd7e7] bg-background-light text-[#0d121b] h-12 placeholder:text-[#4c669a] px-4 py-2 pr-2 text-base font-normal leading-normal"
-                      placeholder="+7 (777) 123-4567"
+                      placeholder="+7 (000) 000-0000"
                       type="tel"
                       value=""
                     />
