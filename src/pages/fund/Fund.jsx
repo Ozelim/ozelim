@@ -824,9 +824,9 @@ export const Fund = () => {
       </div>
 
       <section className="mt-8 container pb-4">
-        <div className="flex flex-col md:flex-row gap-8 h-96">
+        <div className="flex flex-col md:flex-row gap-8 md:h-96">
           <Image
-            className="max-w-2xl w-full rounded-primary h-96 object-cover object-bottom rouned-xl overflow-hidden"
+            className="md:max-w-2xl w-full rounded-primary h-full md:h-96 object-cover object-bottom rouned-xl overflow-hidden"
             src={handshake}
           />
           <div>
