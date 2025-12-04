@@ -1,19 +1,24 @@
 import React from 'react'
 import { Image } from 'shared/ui'
+import { useLangContext } from 'app/langContext'
 
 import q from 'shared/assets/images/team/1.png'
 import { SiSitepoint } from 'react-icons/si'
 
 export const OurTeamHeader = ({ headings, text }) => {
+  const { qq } = useLangContext()
+
   return (
     <section className="w-full">
       <div className="container">
         <div className="flex flex-col lg:flex-row mt-4 gap-8 shadow-lg overflow-hidden rounded-lg bg-white p-4">
           <div className="w-full">
             <h1 className="text-2xl font-black leading-tight tracking-tight text-primary md:text-2xl lg:text-3xl">
-              {headings?.main}
+              {qq(headings?.main ?? '', headings?.main_kk ?? '')}
             </h1>
-            <h3 className="text-lg md:text-xl mt-3">{headings?.submain}</h3>
+            <h3 className="text-lg md:text-xl mt-3">
+              {qq(headings?.submain ?? '', headings?.submain_kk ?? '')}
+            </h3>
             <img
               src={q}
               className="w-full lg:max-w-xl max-w-lg mx-auto lg:mx-0 rounded-primary max-h-96 object-cover"
@@ -21,19 +26,6 @@ export const OurTeamHeader = ({ headings, text }) => {
           </div>
 
           <div className="w-full lg:text-left text-center">
-            {/* <h1 className="text-2xl md:text-3xl font-bold font-head text-teal-500">
-              {headings?.main}
-            </h1> */}
-
-            {/* <p className="text-xl font-medium mt-3 text-[#1e1e1e]">{headings?.submain}</p> */}
-
-            {/* <ul className="mt-3 text-lg font-medium text-[#5a5959] ">
-              <li>• {text?.text1}</li>
-              <li>• {text?.text2}</li>
-              <li>• {text?.text3}</li>
-              <li>• {text?.text4}</li>
-            </ul> */}
-
             <div className="flex flex-col gap-6">
               <div className="flex items-center md:items-start gap-4">
                 <SiSitepoint
@@ -42,42 +34,14 @@ export const OurTeamHeader = ({ headings, text }) => {
                   className="mt-1.5 flex-shrink-0 rounded-full"
                 />
                 <div className="flex flex-col gap-1">
-                  <p className="text-base text-[#4c669a]">{text?.text1}</p>
-                </div>
-              </div>
-              <div className="flex items-center md:items-start gap-4">
-                <SiSitepoint
-                  size={20}
-                  color="text-bg"
-                  className="mt-1.5 flex-shrink-0 rounded-full"
-                />
-                <div className="flex flex-col gap-1">
-                  <p className="text-base text-[#4c669a]">{text?.text2}</p>
-                </div>
-              </div>
-              {/* <div className="flex items-center md:items-start gap-4">
-                <SiSitepoint size={20} color='text-bg' className="mt-1.5 flex-shrink-0 rounded-full"/>
-                <div className="flex flex-col gap-1">
-                  <p className="text-base text-[#4c669a]">{text?.text3}</p>
-                </div>
-              </div> */}
-              <div className="flex items-center md:items-start gap-4">
-                <SiSitepoint
-                  size={20}
-                  color="text-bg"
-                  className="mt-1.5 flex-shrink-0 rounded-full"
-                />
-                <div className="flex flex-col gap-1">
                   <p className="text-base text-[#4c669a]">
-                    {/* {text?.text4} */}
-                    Дорогой друг! Если у тебя есть навыки, энергия и стремление развиваться — ты
-                    именно тот, кого мы ищем. Присоединяйся к нашей команде и реализуй свой
-                    потенциал в деле, которое вдохновляет. Зарабатывай, раскрывай себя и расти
-                    вместе с нами!
+                    {qq(
+                      text?.text1 ?? '',
+                      text?.text1_kk ?? ''
+                    )}
                   </p>
                 </div>
               </div>
-
               <div className="flex items-center md:items-start gap-4">
                 <SiSitepoint
                   size={20}
@@ -86,11 +50,40 @@ export const OurTeamHeader = ({ headings, text }) => {
                 />
                 <div className="flex flex-col gap-1">
                   <p className="text-base text-[#4c669a]">
-                    Приглашаем к сотрудничеству курортные комплексы, санатории, дома отдыха и
-                    гидов-экскурсоводов! Давайте вместе развивать внутренний туризм и формировать
-                    образ Казахстана как страны, где можно не только вдохновиться природой, узнать
-                    культуру, но и получить качественный отдых и оздоровление. Объединяя усилия — мы
-                    создаём ценность для гостей и усиливаем интерес к регионам нашей страны!
+                    {qq(
+                      text?.text2 ?? '',
+                      text?.text2_kk ?? ''
+                    )}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center md:items-start gap-4">
+                <SiSitepoint
+                  size={20}
+                  color="text-bg"
+                  className="mt-1.5 flex-shrink-0 rounded-full"
+                />
+                <div className="flex flex-col gap-1">
+                  <p className="text-base text-[#4c669a]">
+                    {qq(
+                      "Дорогой друг! Если у тебя есть навыки, энергия и стремление развиваться — ты именно тот, кого мы ищем. Присоединяйся к нашей команде и реализуй свой потенциал в деле, которое вдохновляет. Зарабатывай, раскрывай себя и расти вместе с нами!",
+                      "Құрметті дос! Егер сенде дағдылар, энергия және дамуға ұмтылыс болса — сен біз іздеген адамсың. Біздің командаға қосылып, шабыттандыратын істе өз әлеуетіңді жүзеге асыр. Табысты бол, өз мүмкіндігіңді аш және бізбен бірге өс!"
+                    )}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center md:items-start gap-4">
+                <SiSitepoint
+                  size={20}
+                  color="text-bg"
+                  className="mt-1.5 flex-shrink-0 rounded-full"
+                />
+                <div className="flex flex-col gap-1">
+                  <p className="text-base text-[#4c669a]">
+                    {qq(
+                      "Приглашаем к сотрудничеству курортные комплексы, санатории, дома отдыха и гидов-экскурсоводов! Давайте вместе развивать внутренний туризм и формировать образ Казахстана как страны, где можно не только вдохновиться природой, узнать культуру, но и получить качественный отдых и оздоровление. Объединяя усилия — мы создаём ценность для гостей и усиливаем интерес к регионам нашей страны!",
+                      "Ынтымақтастыққа курорттық кешендерді, санаторийлерді, демалыс үйлерін және гид-экскурсоводтарды шақырамыз! Ішкі туризмді бірге дамытып, Қазақстанды тек табиғатымен тәнті болып, мәдениетін танып қана қоймай, сапалы демалыс және сауықтыру алуға болатын ел ретінде бірге қалыптастырайық. Күш біріктіріп — қонақтар үшін құндылық жасаймыз, еліміздің өңірлеріне қызығушылықты арттырамыз!"
+                    )}
                   </p>
                 </div>
               </div>

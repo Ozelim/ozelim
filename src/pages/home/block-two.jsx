@@ -24,6 +24,8 @@ import doc54 from 'shared/assets/images/home/home54.jpg'
 import doc55 from 'shared/assets/images/home/home55.jpg'
 import doc56 from 'shared/assets/images/home/home56.jpg'
 import { SiSitepoint } from 'react-icons/si'
+import { useLangContext } from 'app/langContext'
+
 
 const credentials = [doc1, doc12, doc2, doc22]
 const mem = [doc3, doc32, doc4, doc42, doc5, doc52, doc53, doc54, doc55, doc56]
@@ -53,6 +55,8 @@ const partners = [
 
 export default function BlockTwo() {
   const autoplay = React.useRef(Autoplay({ delay: 2000 }))
+  
+  const {qq} = useLangContext()
 
   return (
     <>
@@ -64,20 +68,20 @@ export default function BlockTwo() {
                 <div className="flex flex-wrap justify-between gap-3">
                   <div className="flex min-w-72 flex-col gap-4 mx-auto">
                     <h1 className="text-primary text-3xl md:text-4xl font-black leading-tight tracking-tighter">
-                      Наши партнеры
+                      {qq('Наши партнеры', 'Біздің серіктестеріміз')}
                     </h1>
                   </div>
                 </div>
                 <div className="space-y-6 mt-4">
                   <div class="flex h-full grow flex-col items-center justify-center">
-                    <main class="w-full rounded-xl bg-white shadow-sm">
+                    <main class="w-full">
                       <div>
                         <ul class="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-4">
                           {partners.map((q, i) => {
                             return (
                               <li
                                 key={i}
-                                class="flex items-center gap-4 rounded-lg px-4 py-3 transition-colors"
+                                class="flex items-center gap-4 rounded-lg py-3 transition-colors"
                               >
                                 <SiSitepoint
                                   size={20}
@@ -93,7 +97,6 @@ export default function BlockTwo() {
                       </div>
                     </main>
                   </div>
-
                   {/* <Carousel
                     slideSize="25%"
                     slideGap={16}
@@ -122,12 +125,12 @@ export default function BlockTwo() {
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit nihil
                     veritatis nemo consectetur consequatur! Ducimus perferendis culpa sed, dolorum
                     impedit minima. Repellendus, vero perferendis quis autem perspiciatis fugit
-                    pariatur optio vitae dignissimos odit! Quo beatae vel animi vitae. Nisi ut iste
+                    pariatur optio vitae dignissimos оdit! Quo beatae vel animi vitae. Nisi ut iste
                     ad explicabo voluptatibus quaerat eum. Deserunt quis praesentium totam excepturi
                     quas iste velit odio animi sunt accusantium distinctio molestiae ad esse nisi ab
-                    hic inventore magni similique quo, eos quisquam porro voluptatum! Saepe unde hic
+                    hic inventore magni similique quo, eos quisquam porро voluptatum! Saepe unde hic
                     consectetur architecto tenetur suscipit blanditiis libero natus cum! Minus iure,
-                    facilis tempora pariatur dolorem dolorum animi aliquid porro natus? Ducimus
+                    facilis tempora pariatur dolorem dolorum animi aliquid porро natus? Ducimus
                     eligendi eos officia suscipit.
                   </p>
                   <p className="text-gray-800 text-base font-normal leading-loose pt-1">
@@ -163,7 +166,7 @@ export default function BlockTwo() {
                 <div className="flex flex-wrap justify-between gap-3">
                   <div className="flex min-w-72 flex-col gap-4 mx-auto">
                     <h1 className="text-primary text-3xl md:text-4xl font-black leading-tight tracking-tighter">
-                      Меморандумы
+                      {qq('Меморандумы', 'Меморандумдар')}
                     </h1>
                   </div>
                 </div>
@@ -201,12 +204,12 @@ export default function BlockTwo() {
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit nihil
                     veritatis nemo consectetur consequatur! Ducimus perferendis culpa sed, dolorum
                     impedit minima. Repellendus, vero perferendis quis autem perspiciatis fugit
-                    pariatur optio vitae dignissimos odit! Quo beatae vel animi vitae. Nisi ut
+                    pariatur optio vitae dignissimos оdit! Quo beatae vel animi vitae. Nisi ut
                     iste ad explicabo voluptatibus quaerat eum. Deserunt quis praesentium totam
                     excepturi quas iste velit odio animi sunt accusantium distinctio molestiae ad
-                    esse nisi ab hic inventore magni similique quo, eos quisquam porro voluptatum!
+                    esse nisi ab hic inventore magni similique quo, eos quisquam порро voluptatum!
                     Saepe unde hic consectetur architecto tenetur suscipit blanditiis libero natus
-                    cum! Minus iure, facilis tempora pariatur dolorem dolorum animi aliquid porro
+                    cum! Minus iure, facilis tempora pariatur dolorem dolorum animi aliquid порро
                     natus? Ducimus eligendi eos officia suscipit.
                   </p>
                   <p className="text-gray-800 text-base font-normal leading-loose pb-3 pt-1 px-4">
@@ -222,12 +225,12 @@ export default function BlockTwo() {
                   </p>
                   <p className="text-gray-800 text-base font-normal leading-loose pb-3 pt-1 px-4">
                     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Natus, nostrum
-                    molestias consectetur dignissimos soluta possimus odio. Non cum aliquam, ipsam
+                    molestias consectetur dignissimos soluta possimus odio. Non cum aliquam, ipsам
                     ratione neque laboriosam sint dolores ipsa! Non, nesciunt cum animi adipisci
                     explicabo, nostrum blanditiis ab, consequatur dolor error eius distinctio est
                     vel nemo sequi dignissimos repellendus accusamus unde similique. Eaque
-                    deleniti nobis eius rerum necessitatibus facilis a, soluta atque quidem magnam
-                    tempore, ad tenetur aliquid error aspernatur iste labore ea!
+                    delenити nobis eius rerum necessitatibus facilis а, soluta atque quidem magnam
+                    tempore, ad tenetur alіқас error aspernatur iste labore ea!
                   </p>
                 </div> */}
               </main>
@@ -243,7 +246,7 @@ export default function BlockTwo() {
                 <div className="flex flex-wrap justify-between gap-3">
                   <div className="flex min-w-72 flex-col gap-4 mx-auto">
                     <h1 className="text-primary text-3xl md:text-4xl font-black leading-tight tracking-tighter">
-                      Наши реквизиты
+                      {qq('Наши реквизиты', 'Біздің реквизиттеріміз')}
                     </h1>
                   </div>
                 </div>
@@ -277,15 +280,15 @@ export default function BlockTwo() {
                   </Carousel>
                 </div>
                 <div className='mt-4'>
-                  <h3 className='mb-1 md:mb-2 text-xl md:text-3xl'>Реквизиты</h3>
+                  <h3 className='mb-1 md:mb-2 text-xl md:text-3xl'>{qq('Реквизиты', 'Реквизиттер')}</h3>
                   <div className='flex flex-col'>
                     <div className='md:text-2xl font-bold'>ТОО "OZELIM"</div>
-                    <div className='md:text-2xl'>Адрес: <span className='font-bold'>Павлодар</span></div>
-                    <div className='md:text-2xl'>Бин: <span className="font-bold">221140000992</span></div>
-                    <div className='md:text-2xl'>Банк: <span className="font-bold">АО "Kaspi Bank"</span></div>
-                    <div className='md:text-2xl'>КБе: <span className="font-bold">17</span></div>
-                    <div className='md:text-2xl'>БИК: <span className="font-bold">CASPKZKA</span></div>
-                    <div className='md:text-2xl'>Номер счета: <span className="font-bold">KZ32722S000029456226</span></div>
+                    <div className='md:text-2xl'>{qq('Адрес:', 'Мекенжайы:')} <span className='font-bold'>{qq('Павлодар', 'Павлодар')}</span></div>
+                    <div className='md:text-2xl'>{qq('Бин:', 'БСН:')} <span className="font-bold">221140000992</span></div>
+                    <div className='md:text-2xl'>{qq('Банк:', 'Банк:')} <span className="font-bold">АО "Kaspi Bank"</span></div>
+                    <div className='md:text-2xl'>{qq('КБе:', 'КБе:')} <span className="font-bold">17</span></div>
+                    <div className='md:text-2xl'>{qq('БИК:', 'БИК:')} <span className="font-bold">CASPKZKA</span></div>
+                    <div className='md:text-2xl'>{qq('Номер счета:', 'Шот нөмірі:')} <span className="font-bold">KZ32722S000029456226</span></div>
                   </div>
                 </div>
               </main>

@@ -1,3 +1,4 @@
+import { useLangContext } from 'app/langContext'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
@@ -5,13 +6,16 @@ import insurance from 'shared/assets/images/insurance.jpeg'
 import ozelim from 'shared/assets/images/ozelim.jpg'
 
 export const LinksGrid = () => {
+
+  const {kz, qq} = useLangContext()
+
   return (
     <div className="overflow-hidden">
       <main className="container">
         {/* <div class="flex flex-wrap justify-between gap-3 p-4">
           <div class="flex min-w-72 mx-auto flex-col gap-4">
             <h1 class="text-white text-3xl md:text-4xl font-bold md:font-black leading-tight tracking-tighter z-10 text-center">
-              Открой Казахстан вместе с OzElim!
+              {qq("Открой Казахстан вместе с OzElim!", "OzElim-пен бірге Қазақстанды ашыңыз!")}
             </h1>
           </div>
         </div> */}
@@ -32,7 +36,9 @@ export const LinksGrid = () => {
               <div />
               <div className="bg-black/50 relative">
                 <div className="absolute inset-0 flex items-center justify-center p-4 md:mb-4">
-                  <p className="text-white md:text-5xl font-bold text-center leading-tight">Туры</p>
+                  <p className="text-white md:text-5xl font-bold text-center leading-tight">
+                    {qq("Туры", "Турлар")}
+                  </p>
                 </div>
               </div>
             </div>
@@ -51,7 +57,9 @@ export const LinksGrid = () => {
               <div />
               <div className="bg-black/50 relative">
                 <div className="absolute inset-0 flex items-center justify-center p-4 md:mb-4">
-                  <p className="text-white md:text-5xl font-bold text-center leading-tight">Визы</p>
+                  <p className="text-white md:text-5xl font-bold text-center leading-tight">
+                    {qq("Визы", "Визалар")}
+                  </p>
                 </div>
               </div>
             </div>
@@ -69,7 +77,7 @@ export const LinksGrid = () => {
               <div className="bg-black/50 relative">
                 <div className="absolute inset-0 flex items-center justify-center p-4 md:mb-4">
                   <p className="text-white md:text-3xl font-bold text-center leading-tight">
-                    Страхование
+                    {qq("Страхование", "Сақтандыру")}
                   </p>
                 </div>
               </div>
@@ -88,7 +96,9 @@ export const LinksGrid = () => {
               <div />
               <div className="bg-black/50 relative">
                 <div className="absolute inset-0 flex items-center justify-center p-4 md:mb-4">
-                  <p className="text-white md:text-5xl font-bold text-center leading-tight">Фонд</p>
+                  <p className="text-white md:text-5xl font-bold text-center leading-tight">
+                    {qq("Фонд", "Қор")}
+                  </p>
                 </div>
               </div>
             </div>
@@ -106,7 +116,7 @@ export const LinksGrid = () => {
               <div className="bg-black/50 relative">
                 <div className="absolute inset-0 flex items-center justify-center p-4 md:mb-4">
                   <p className="text-white md:text-xl font-bold text-center leading-tight">
-                    Ассоциация туристов Казахстана
+                    {qq("Ассоциация туристов Казахстана", "Қазақстан туристер қауымдастығы")}
                   </p>
                 </div>
               </div>
@@ -125,13 +135,13 @@ export const LinksGrid = () => {
               <div className="bg-black/50 relative">
                 <div className="absolute inset-0 flex items-center justify-center p-4 md:mb-4">
                   <p className="text-white md:text-2xl font-bold text-center leading-tight">
-                    Правовая защита
+                    {qq("Правовая защита", "Құқықтық қорғау")}
                   </p>
                 </div>
               </div>
             </div>
           </Link>
-          <a className="group relative overflow-hidden rounded-full aspect-square block" href="#">
+          <Link className="group relative overflow-hidden rounded-full aspect-square block" to="/resorts">
             <div
               className="absolute inset-0 bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-110"
               data-alt="Soft focus pastel clouds"
@@ -145,12 +155,12 @@ export const LinksGrid = () => {
               <div className="bg-black/50 relative">
                 <div className="absolute inset-0 flex items-center justify-center p-4 md:mb-4">
                   <p className="text-white md:text-4xl font-bold text-center leading-tight">
-                    Санаторий
+                    {qq("Санаторий", "Санаторий")}
                   </p>
                 </div>
               </div>
             </div>
-          </a>
+          </Link>
           <a className="group relative overflow-hidden rounded-full aspect-square block" href="#">
             <div
               className="absolute inset-0 bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-110"
@@ -165,7 +175,7 @@ export const LinksGrid = () => {
               <div className="bg-black/50 relative">
                 <div className="absolute inset-0 flex items-center justify-center p-4 md:mb-4">
                   <p className="text-white md:text-xl font-bold text-center leading-tight">
-                    АВИА, ЖД билеты
+                    {qq("АВИА, ЖД билеты", "ӘУЕ, ТЕМІРЖОЛ билеттері")}
                   </p>
                 </div>
               </div>

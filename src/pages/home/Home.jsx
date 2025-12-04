@@ -144,7 +144,7 @@ export const Home = () => {
           <div class="flex flex-wrap justify-between gap-3 p-4">
             <div class="flex min-w-72 flex-col gap-4 mx-auto">
               <h1 class="text-primary text-3xl md:text-4xl font-black leading-tight tracking-tighter">
-                Наша команда
+                {qq('Наша команда', 'Біздің команда')}
               </h1>
             </div>
           </div>
