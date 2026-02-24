@@ -87,7 +87,7 @@ export const Login = () => {
         </>
       ) : (
         <>
-          <LoginForm onComplete={onComplete} auth />
+          <LoginForm onComplete={onComplete} />
           <div className='mt-4 text-center text-sm'>Еще нет аккаунта? <span onClick={goToSignup} className='text-primary-500 cursor-pointer'>Зарегистрироваться</span> </div>
         </>
       )}
