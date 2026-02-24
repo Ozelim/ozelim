@@ -20,9 +20,9 @@ export const LinksGrid = () => {
           </div>
         </div> */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 max-w-6xl mx-auto">
-          <a
+          <Link
             className="group relative overflow-hidden rounded-full aspect-square block shadow-md"
-            href="#"
+            to={'/tours'}
           >
             <div
               className="absolute inset-0 bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-110"
@@ -42,7 +42,7 @@ export const LinksGrid = () => {
                 </div>
               </div>
             </div>
-          </a>
+          </Link>
           <a className="group relative overflow-hidden rounded-full aspect-square block" href="#">
             <div
               className="absolute inset-0 bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-110"

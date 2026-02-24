@@ -158,8 +158,23 @@ export default function BlockTwo() {
           </div>
         </div>
       </div>
+
       <div className="relative flex h-auto w-full flex-col group/design-root overflow-x-hidden bg-zinc-100">
-        <div className="container flex h-full grow flex-col">
+      <div className="container">
+        <div className="flex h-full grow flex-col border shadow-lg rounded-lg overflow-hidden bg-white p-4">
+            <h3 className='mb-1 md:mb-2 text-xl md:text-3xl'>{qq('Реквизиты', 'Реквизиттер')}</h3>
+            <div className='grid grid-cols-2'>
+              <div className='md:text-xl'>ТОО "OZELIM"</div>
+              <div className='md:text-xl'>{qq('Адрес:', 'Мекенжайы:')} <span>{qq('Павлодар', 'Павлодар')}</span></div>
+              <div className='md:text-xl'>{qq('Бин:', 'БСН:')} <span>221140000992</span></div>
+              <div className='md:text-xl'>{qq('Банк:', 'Банк:')} <span>АО "Kaspi Bank"</span></div>
+              <div className='md:text-xl'>{qq('КБе:', 'КБе:')} <span>17</span></div>
+              <div className='md:text-xl'>{qq('БИК:', 'БИК:')} <span>CASPKZKA</span></div>
+              <div className='md:text-xl'>{qq('Номер счета:', 'Шот нөмірі:')} <span>KZ32722S000029456226</span></div>
+            </div>
+        </div>
+      </div>
+        <div className="container flex h-full grow flex-col mt-8">
           <div className="flex flex-1 justify-center pb-8">
             <div className="flex flex-col flex-1">
               <main className="border shadow-lg rounded-lg overflow-hidden bg-white p-4 md:p-8">
@@ -175,7 +190,6 @@ export default function BlockTwo() {
                     slideSize="25%"
                     slideGap={16}
                     align="start"
-                    loop
                     breakpoints={[
                       { maxWidth: 'md', slideSize: '50%' },
                       { maxWidth: 'sm', slideSize: '100%', slideGap: 0 },
@@ -238,6 +252,9 @@ export default function BlockTwo() {
           </div>
         </div>
       </div>
+
+
+
       <div className="relative flex h-auto w-full flex-col group/design-root overflow-x-hidden bg-zinc-100">
         <div className="container flex h-full grow flex-col">
           <div className="flex flex-1 justify-center pb-8">
@@ -255,12 +272,12 @@ export default function BlockTwo() {
                     slideSize="25%"
                     slideGap={16}
                     align="start"
-                    loop
                     breakpoints={[
                       { maxWidth: 'md', slideSize: '50%' },
                       { maxWidth: 'sm', slideSize: '100%', slideGap: 0 },
                     ]}
                     className="max-w-xs sm:max-w-sm md:max-w-full mx-auto"
+                    withControls={false}
                   >
                     {credentials.map((q, i) => {
                       return (
@@ -279,18 +296,7 @@ export default function BlockTwo() {
                     })}
                   </Carousel>
                 </div>
-                <div className='mt-4'>
-                  <h3 className='mb-1 md:mb-2 text-xl md:text-3xl'>{qq('Реквизиты', 'Реквизиттер')}</h3>
-                  <div className='flex flex-col'>
-                    <div className='md:text-2xl font-bold'>ТОО "OZELIM"</div>
-                    <div className='md:text-2xl'>{qq('Адрес:', 'Мекенжайы:')} <span className='font-bold'>{qq('Павлодар', 'Павлодар')}</span></div>
-                    <div className='md:text-2xl'>{qq('Бин:', 'БСН:')} <span className="font-bold">221140000992</span></div>
-                    <div className='md:text-2xl'>{qq('Банк:', 'Банк:')} <span className="font-bold">АО "Kaspi Bank"</span></div>
-                    <div className='md:text-2xl'>{qq('КБе:', 'КБе:')} <span className="font-bold">17</span></div>
-                    <div className='md:text-2xl'>{qq('БИК:', 'БИК:')} <span className="font-bold">CASPKZKA</span></div>
-                    <div className='md:text-2xl'>{qq('Номер счета:', 'Шот нөмірі:')} <span className="font-bold">KZ32722S000029456226</span></div>
-                  </div>
-                </div>
+
               </main>
             </div>
           </div>

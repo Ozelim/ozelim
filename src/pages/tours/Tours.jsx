@@ -20,6 +20,7 @@ import agent from 'shared/assets/images/pack-agent.svg'
 
 import company from 'shared/assets/images/company.svg'
 import companyPlus from 'shared/assets/images/company-plus.svg'
+
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
 async function getResots () {

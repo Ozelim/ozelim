@@ -14,6 +14,7 @@ import { IoIosArrowDown } from 'react-icons/io'
 import { BsWhatsapp } from 'react-icons/bs'
 
 const array2 = [
+  { labelkz: 'Басты бет', labelru: 'Главная', link: '/' },
   { labelkz: 'Қор', labelru: 'Фонд', link: '/fund' },
   // { labelkz: '⁠Денсаулық әлемі', labelru: 'Мир здоровья', link: '/health-world' },
   // { labelkz: 'Дуальді оқыту', labelru: 'Дуальное обучение', link: '/dual' },

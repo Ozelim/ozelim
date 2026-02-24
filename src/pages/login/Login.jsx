@@ -86,24 +86,12 @@ export const Login = () => {
           <div className='mt-4 text-center text-sm'>Уже есть аккаунт? <span onClick={goToLogin} className='text-primary-500 cursor-pointer'>Войти</span> </div>
         </>
       ) : (
-        <Tabs
-          variant='outline'
-          defaultValue='user'
-        >
-          <Tabs.List grow>
-            <Tabs.Tab value='user'>Пользователь</Tabs.Tab>
-            <Tabs.Tab value='partner'>Партнер</Tabs.Tab>
-          </Tabs.List>
-          <Tabs.Panel value='partner' pt={16}>
-            <LoginForm onComplete={onComplete} />
-            <div className='mt-4 text-center text-sm'>Еще нет аккаунта? <span onClick={goToSignup} className='text-primary-500 cursor-pointer'>Зарегистрироваться</span> </div>
-          </Tabs.Panel>
-          <Tabs.Panel value='user' pt={16}>
-            <LoginForm onComplete={onComplete} auth={auth} fail={err} />
-            <div className='mt-4 text-center text-sm'>Еще нет аккаунта? <span onClick={goToSignup} className='text-primary-500 cursor-pointer'>Зарегистрироваться</span> </div>
-          </Tabs.Panel>
-        </Tabs>
+        <>
+          <LoginForm onComplete={onComplete} />
+          <div className='mt-4 text-center text-sm'>Еще нет аккаунта? <span onClick={goToSignup} className='text-primary-500 cursor-pointer'>Зарегистрироваться</span> </div>
+        </>
       )}
     </div>
   )
 }
+

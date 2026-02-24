@@ -1,99 +1,140 @@
 import React from 'react'
-import { Button, PasswordInput, TextInput } from '@mantine/core'
+import { Button, TextInput, Divider } from '@mantine/core'
 import { Controller, useForm } from 'react-hook-form'
 import { loginSchema } from '../model/loginSchema'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { loginWithEmail } from '../model/login'
-import { Link, useSearchParams } from 'react-router-dom'
-import { pb } from 'shared/api'
+import { useSearchParams } from 'react-router-dom'
+import { IconMail, IconLock, IconEyeOff, IconEye } from '@tabler/icons-react'
 
-export const LoginForm = ({auth, onComplete, fail}) => {
+// Import PasswordInput directly from the correct path
+import { PasswordInput as MantinePasswordInput } from '@mantine/core'
 
+export const LoginForm = ({ auth, onComplete, fail }) => {
   const [loading, setLoading] = React.useState(false)
-
   const [params, setParams] = useSearchParams()
+  const [error, setError] = React.useState('')
+  const [showPassword, setShowPassword] = React.useState(false)
 
-  const { control, handleSubmit, formState: {errors, isSubmitting, isLoading} } = useForm({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitting }
+  } = useForm({
     values: {
       email: '',
       password: ''
     },
-    resolver: yupResolver(loginSchema) 
+    resolver: yupResolver(loginSchema)
   })
-
-  const [error, setError] = React.useState('')
 
   const onSubmit = data => {
     setLoading(true)
     loginWithEmail(data)
-    .then(res => {
-      onComplete(res)
-      console.log(res);
-    })
-    .catch(err => {
-      setError('Неверные данные')
-      console.log(err, 'asd');
-    })
-    .finally(() => {
-      setLoading(false)
-    })
+      .then(res => {
+        onComplete(res)
+        console.log(res);
+      })
+      .catch(err => {
+        setError('Неверные данные')
+        console.log(err, 'asd');
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   }
 
-  function goToForgotPassword () {
+  function goToForgotPassword() {
     params.set(auth ? 'agent' : 'user', true)
     params.set('reset', true)
     setParams(params)
   }
 
   return (
-    <div className='bg-white p-4 shadow-md rounded-primary'> 
-      <h1 className='text-center font-head text-lg'>Вход</h1>
-      <form 
-        className='grid grid-cols-1 gap-2'
+    <div className="p-8 border bg-white shadow-md rounded-2xl max-w-[420px] mx-auto">
+      <h1 className="text-center font-black text-2xl text-blue-900 tracking-wide mb-2 select-none">
+        Вход в аккаунт
+      </h1>
+      <Divider my="md" color="blue.3" />
+      <form
+        className="flex flex-col gap-4"
         onSubmit={handleSubmit(auth ? auth : onSubmit)}
+        autoComplete="off"
       >
         <Controller
-          name='email'
+          name="email"
           control={control}
-          render={({field}) => (
+          render={({ field }) => (
             <TextInput
               {...field}
-              type='email'
-              placeholder='Ваша почта'
-              label='Почта'
+              type="email"
+              icon={<IconMail size={18} stroke={1.7} />}
+              placeholder="Ваша почта"
+              label="Почта"
               error={errors.email?.message}
-              variant='filled'
+              size="md"
+              radius="lg"
+              classNames={{
+                input: 'bg-blue-50/75 font-medium text-[1rem]'
+              }}
               disabled={isSubmitting}
+              required
+              autoFocus
+              autoComplete="email"
             />
           )}
         />
         <Controller
-          name='password'
+          name="password"
           control={control}
-          render={({field}) => (
-            <PasswordInput
+          render={({ field }) => (
+            <MantinePasswordInput
               {...field}
-              placeholder='Ваш пароль'
-              label='Пароль'
+              placeholder="Ваш пароль"
+              label="Пароль"
               error={errors.password?.message}
-              variant='filled'
+              size="md"
+              radius="lg"
+              classNames={{
+                input: 'bg-blue-50/75 font-medium text-[1rem]'
+              }}
+              icon={<IconLock size={18} stroke={1.7} />}
               disabled={isSubmitting}
+              required
+              autoComplete="current-password"
+              
+              visibilityToggleIcon={() => {
+                showPassword ? <IconEyeOff /> : <IconEye />
+              }}
+              visible={showPassword}
+              onVisibilityChange={setShowPassword}
             />
           )}
         />
-        {fail && (
-          <p className='text-red-500 text-sm mt-4'>{fail}</p>
+        {(fail || error) && (
+          <div className="transition-all mt-1 text-center text-red-600 bg-red-50 border-l-4 border-red-400 rounded-md px-2 py-1 text-sm font-medium shadow-sm">
+            {fail || error}
+          </div>
         )}
-        {error && (
-          <p className='text-red-500 text-sm mt-4'>{error}</p>
-        )}
-        <p onClick={goToForgotPassword} className='underline text-gray-500 text-sm mt-4'>Восстановить пароль</p>
-        <Button 
-          className='mt-4' 
-          type='submit'
+        <div className="flex items-center justify-between px-1 mt-1">
+          <button
+            type="button"
+            onClick={goToForgotPassword}
+            className="text-blue-600 hover:text-blue-800 text-xs font-semibold underline underline-offset-2 transition duration-100"
+            tabIndex={0}
+          >
+            Забыли пароль?
+          </button>
+        </div>
+        <Button
+          className="mt-2 rounded-full !bg-gradient-to-r from-blue-600 to-cyan-400 hover:from-blue-700 hover:to-cyan-500 font-bold tracking-wide text-lg shadow-lg"
+          type="submit"
           fullWidth
           loading={loading}
-          color={auth ? 'orange' : 'teal'}
+          color={auth ? 'orange' : 'blue'}
+          size="md"
+          radius="xl"
+          style={{ letterSpacing: '0.02em' }}
         >
           Войти
         </Button>
