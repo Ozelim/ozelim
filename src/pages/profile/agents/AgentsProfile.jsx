@@ -210,14 +210,14 @@ export const AgentsProfile = () => {
   const [agentBid, setAgentBid] = React.useState(null)
 
   React.useEffect(() => {
-    if (user?.bid_id) {
-      getAgentBid(user?.bid_id).then((res) => {
-        setAgentBid(res)
-        pb.collection('agents_bids').subscribe(res?.id, ({ record }) => {
-          setAgentBid(record)
-        })
-      })
-    }
+    // if (user?.bid_id) {
+    //   getAgentBid(user?.bid_id).then((res) => {
+    //     setAgentBid(res)
+    //     pb.collection('agents_bids').subscribe(res?.id, ({ record }) => {
+    //       setAgentBid(record)
+    //     })
+    //   })
+    // }
   }, [])
 
   async function checkAgentBidPaymentStatus() {
