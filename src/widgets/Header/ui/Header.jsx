@@ -55,8 +55,6 @@ export const Header2 = () => {
 
   const { user } = useAuth()
 
-  console.log(user, 'user');
-  
   return (
     <header className="border-b bg-white z-10">
       <div className="container mx-auto flex items-center justify-between py-1">
