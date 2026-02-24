@@ -2,7 +2,7 @@ import { pb } from "shared/api";
 
 async function loginWithEmail (data) {
   try {
-    await pb.collection('users').authWithPassword(
+    await pb.collection('agents').authWithPassword(
       data.email,
       data.password)
     .then((res) => {
